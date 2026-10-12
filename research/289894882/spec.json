@@ -1,0 +1,611 @@
+{
+  "features": [
+    {
+      "name": "Looping sound catalog",
+      "description": "A bundled library of seamlessly looping ambient sounds grouped by theme: rain, water, nature, household appliances, transport, and color noises (white, pink, brown, blue, violet). Each sound has a thumbnail and plays as a gapless loop.",
+      "priority": "core",
+      "reason": "This is the heart of the app. Color noises can be generated procedurally. Nature and appliance sounds must be original or royalty-free recordings bundled in the app, never the original app's files."
+    },
+    {
+      "name": "Now-playing player",
+      "description": "A full-screen player showing the current sound's image and name, with favorite, previous, play/pause, next and info buttons, a volume slider, and an AirPlay route picker. Swiping left or right moves through the catalog.",
+      "priority": "core",
+      "reason": "This is the primary interaction surface."
+    },
+    {
+      "name": "Background audio and remote controls",
+      "description": "Playback continues when the app is backgrounded or the screen is locked. Lock screen, Control Center, Bluetooth and headphone controls are supported through MPNowPlayingInfoCenter and MPRemoteCommandCenter.",
+      "priority": "core",
+      "reason": "It is essential for overnight use and needs no network."
+    },
+    {
+      "name": "Favorites",
+      "description": "Heart any sound or mix to pin it to a Favorites list for quick access.",
+      "priority": "core",
+      "reason": "It is simple, local, and expected by users."
+    },
+    {
+      "name": "Sleep timer with fade-out",
+      "description": "A countdown, either as a duration or a clock time, that gradually fades the volume over a chosen period and then stops playback.",
+      "priority": "core",
+      "reason": "It is the main bedtime use case and can be built with AVAudioEngine volume ramps."
+    },
+    {
+      "name": "Fade-in alarm",
+      "description": "An alarm set by duration or clock time, with a repeat schedule, a choice of alarm sound, and a fade-in length (for example 30 seconds) so the user wakes gently. It also offers snooze with a custom snooze length.",
+      "priority": "core",
+      "reason": "It is a headline feature of the paid app. Reliability depends on the app staying alive while it plays sleep audio, so use a local notification as a fallback, or AlarmKit where it is available."
+    },
+    {
+      "name": "Mix Pad",
+      "description": "A 2D canvas with a listener icon in the center. Each sound in the mix is a draggable circle. Left/right position sets stereo pan and distance from the center sets loudness. Each layer also has controls for pitch, volume and random variance (gentle volume drift), and layers can be added or removed. Mixes are saved as their own entries in the catalog.",
+      "priority": "core",
+      "reason": "It is a key differentiator and maps well to AVAudioEngine with one player node per layer."
+    },
+    {
+      "name": "Record and loop your own sound",
+      "description": "Record from the microphone with a large tap-to-start/stop button and a circular progress ring. The app trims the recording and crossfades its ends so it loops without a click, then saves it into the catalog.",
+      "priority": "core",
+      "reason": "The listing promotes it prominently. It needs only microphone permission and stays fully on-device."
+    },
+    {
+      "name": "Playlists",
+      "description": "An ordered list of sounds or mixes, each with its own play duration (for example 10 minutes or 1 hour). Supports a shuffle option, reordering, editing, adding items, and looping the whole playlist.",
+      "priority": "core",
+      "reason": "It is shown in the screenshots and is purely local."
+    },
+    {
+      "name": "Nightstand clock",
+      "description": "A full-screen dim digital clock showing the time, the date and the next alarm. The digit color and brightness are adjustable, and the screen is kept awake while it is open.",
+      "priority": "core",
+      "reason": "It is a common bedside use and simple to build."
+    },
+    {
+      "name": "Sound generator",
+      "description": "Procedurally generate custom color noise using a spectral tilt slider, binaural beats from two tone frequencies, and pure tones, then save the results as catalog entries.",
+      "priority": "nice",
+      "reason": "It is a paid add-on in the original and easy to build with AVAudioSourceNode. Offering it free is a strong differentiator."
+    },
+    {
+      "name": "Music library as alarm or mix-in",
+      "description": "Use a song from the user's local music library as an alarm sound that fades in, or play music alongside the noise.",
+      "priority": "nice",
+      "reason": "It works locally with MPMediaPickerController, but adds a permission prompt and only covers non-DRM local items."
+    },
+    {
+      "name": "Advanced playback settings",
+      "description": "Global balance, pitch, and a toggle to allow mixing with audio from other apps.",
+      "priority": "nice",
+      "reason": "It is a low-cost polish item."
+    },
+    {
+      "name": "Export and share a mix or recording",
+      "description": "Export a mix definition or a rendered audio file through the system share sheet, and import mix files from Files.",
+      "priority": "nice",
+      "reason": "It works file-based with no server. It replaces the original's online sharing."
+    },
+    {
+      "name": "Online sound market (download and upload)",
+      "description": "Browse, download and upload community sounds and mixes from a web marketplace.",
+      "priority": "skip",
+      "reason": "It needs a server, network access and likely an account."
+    },
+    {
+      "name": "Apple TV and Apple Watch apps",
+      "description": "Companion apps for other platforms.",
+      "priority": "skip",
+      "reason": "It is outside the single-utility iPhone scope. A Watch remote would also need syncing."
+    },
+    {
+      "name": "Ads and rating or market prompts",
+      "description": "Advertising and nag prompts present in the free tier of the original.",
+      "priority": "skip",
+      "reason": "Sbu apps have no ads and no nags."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Player",
+      "purpose": "Play the selected sound or mix full-screen and move through the catalog.",
+      "elements": [
+        "Background image for the current sound",
+        "Sound name label",
+        "Favorite heart toggle",
+        "Previous / play-pause / next buttons",
+        "Info button showing sound details",
+        "Volume slider",
+        "AirPlay route picker",
+        "Menu button to open the catalog",
+        "Share/export button",
+        "Bottom tab bar: Create, Library, Manage, Timers, Sleep clock"
+      ]
+    },
+    {
+      "name": "Catalog / Manage",
+      "purpose": "Browse, search, favorite, reorder and delete sounds, mixes, recordings and playlists.",
+      "elements": [
+        "Segmented filter: All, Favorites, Mixes, Recordings, Playlists",
+        "Grid or list of thumbnails with names",
+        "Search field",
+        "Edit mode for reordering and deleting",
+        "Tap a row to play it"
+      ]
+    },
+    {
+      "name": "Create menu",
+      "purpose": "Entry point for making new content.",
+      "elements": [
+        "New Mix",
+        "Record Sound",
+        "New Playlist",
+        "Generate Noise/Tone"
+      ]
+    },
+    {
+      "name": "Mix Pad",
+      "purpose": "Compose a soundscape by placing sound layers around the listener.",
+      "elements": [
+        "Dark grid canvas with a listener/headphones icon at the center and L/R labels",
+        "Draggable circular layer tokens showing each sound's thumbnail, with a radius halo",
+        "Add (+) button to pick a sound layer",
+        "Per-layer sheet with volume, pitch, variance and an optional slow movement mode, plus remove",
+        "Name field and Done/Save button",
+        "Reset mix action"
+      ]
+    },
+    {
+      "name": "Recording",
+      "purpose": "Capture a microphone sound and turn it into a loop.",
+      "elements": [
+        "Back and Reset buttons",
+        "Large circular record/stop button with a progress ring",
+        "Hint text below the button",
+        "Preview playback of the looped result",
+        "Name field and Save"
+      ]
+    },
+    {
+      "name": "Playlist editor",
+      "purpose": "Build a timed sequence of sounds.",
+      "elements": [
+        "Back, Edit and Add (+) buttons",
+        "Shuffle row",
+        "Rows showing thumbnail, name and duration",
+        "Per-row adjust icon that opens a duration picker",
+        "Drag to reorder and swipe to delete",
+        "Loop-playlist toggle"
+      ]
+    },
+    {
+      "name": "Timers list",
+      "purpose": "View and toggle sleep timers and alarms.",
+      "elements": [
+        "Rows showing event type, time or duration, repeat days and an enable switch",
+        "Add button",
+        "Swipe to delete"
+      ]
+    },
+    {
+      "name": "Add/Edit Timer",
+      "purpose": "Configure a sleep stop or a wake alarm.",
+      "elements": [
+        "Cancel and Save buttons",
+        "Event picker: stop sound or sound alarm",
+        "Fade length picker",
+        "Repeat picker: never or a set of weekdays",
+        "Alarm sound picker",
+        "Snooze length",
+        "Duration/Clock segmented control",
+        "Hours and minutes wheel or time picker"
+      ]
+    },
+    {
+      "name": "Nightstand Clock",
+      "purpose": "Bedside display while audio plays.",
+      "elements": [
+        "Large thin digital time with an AM/PM label",
+        "Date line",
+        "Next alarm indicator",
+        "Tap to show or hide controls",
+        "Color swatches and a brightness slider",
+        "Exit/share button"
+      ]
+    },
+    {
+      "name": "Generator",
+      "purpose": "Create procedural noise, binaural beats and tones.",
+      "elements": [
+        "Mode picker: Noise, Binaural, Tone",
+        "Noise color tilt slider with a live preview",
+        "Binaural carrier and beat frequency sliders",
+        "Tone frequency and waveform controls",
+        "Save to catalog"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Global preferences.",
+      "elements": [
+        "Mix with other apps toggle",
+        "Balance and pitch",
+        "Default fade lengths",
+        "Default snooze length",
+        "Clock color and brightness defaults",
+        "Auto-lock prevention while the clock is shown",
+        "About and privacy statement"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Fall asleep to a sound",
+      "steps": [
+        "Open the app; the player shows the last sound",
+        "Swipe or use next to pick a sound, for example rain",
+        "Tap play; audio loops gaplessly",
+        "Open Timers, add a timer set to stop sound after 1 hour with a 30-second fade, and save",
+        "Lock the phone; audio keeps playing, then fades and stops on schedule"
+      ]
+    },
+    {
+      "name": "Set a gentle wake alarm",
+      "steps": [
+        "Open Timers and tap Add",
+        "Choose the sound alarm event, set Clock mode and pick 7:00",
+        "Pick an alarm sound and a fade-in length, and set repeat to weekdays",
+        "Save; the alarm appears in the list and on the nightstand clock",
+        "At alarm time the sleep audio crossfades into the alarm sound, rising slowly",
+        "The user taps Snooze or Stop"
+      ]
+    },
+    {
+      "name": "Create a mix",
+      "steps": [
+        "Tap Create, then New Mix",
+        "Tap + and choose a sound, for example a campfire; a token appears on the canvas",
+        "Add more layers such as thunder, waves and jungle",
+        "Drag tokens left or right for pan and closer or farther for volume",
+        "Tap a token to adjust its pitch and variance",
+        "Tap Done, name the mix and save it; it appears in the catalog and starts playing"
+      ]
+    },
+    {
+      "name": "Record a custom loop",
+      "steps": [
+        "Tap Create, then Record Sound, and grant microphone permission on first use",
+        "Tap the big button to start; the ring shows the elapsed time",
+        "Tap again to stop",
+        "The app trims and crossfades the ends and plays a looping preview",
+        "Name the sound and save it to the catalog, or tap Reset to retry"
+      ]
+    },
+    {
+      "name": "Build a playlist",
+      "steps": [
+        "Tap Create, then New Playlist",
+        "Tap + to add sounds or mixes",
+        "Tap the adjust icon on each row to set its duration",
+        "Reorder rows in Edit mode and toggle shuffle or loop",
+        "Play; items advance automatically with a short crossfade"
+      ]
+    },
+    {
+      "name": "Nightstand mode",
+      "steps": [
+        "Tap the Sleep tab",
+        "The full-screen clock appears and the screen stays awake",
+        "Tap to reveal controls and adjust color and brightness",
+        "Audio and alarms keep running underneath"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Sound",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "Primary key"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "Display name"
+          },
+          {
+            "name": "kind",
+            "type": "enum(bundled, recorded, generated)",
+            "note": "Source of the audio"
+          },
+          {
+            "name": "category",
+            "type": "String",
+            "note": "For example rain, nature, appliance or noise"
+          },
+          {
+            "name": "audioFile",
+            "type": "String?",
+            "note": "Relative path to a bundled or recorded loop file"
+          },
+          {
+            "name": "generatorParams",
+            "type": "Data?",
+            "note": "Encoded parameters for procedural sounds"
+          },
+          {
+            "name": "imageName",
+            "type": "String?",
+            "note": "Bundled image or a generated gradient"
+          },
+          {
+            "name": "isFavorite",
+            "type": "Bool",
+            "note": "Shown in Favorites"
+          },
+          {
+            "name": "sortIndex",
+            "type": "Int",
+            "note": "Manual ordering"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Mix",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "isFavorite",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "layers",
+            "type": "[MixLayer]",
+            "note": "Cascade delete"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "MixLayer",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "soundID",
+            "type": "UUID",
+            "note": "References Sound"
+          },
+          {
+            "name": "x",
+            "type": "Double",
+            "note": "-1 to 1, stereo pan"
+          },
+          {
+            "name": "y",
+            "type": "Double",
+            "note": "-1 to 1; distance from the center maps to gain"
+          },
+          {
+            "name": "volume",
+            "type": "Double",
+            "note": "0 to 1"
+          },
+          {
+            "name": "pitch",
+            "type": "Double",
+            "note": "Semitones or cents offset"
+          },
+          {
+            "name": "variance",
+            "type": "Double",
+            "note": "0 to 1, random volume drift amount"
+          },
+          {
+            "name": "oscillation",
+            "type": "enum(none, slow, fast)",
+            "note": "Optional automatic panning motion"
+          }
+        ]
+      },
+      {
+        "name": "Playlist",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "shuffle",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "loop",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "items",
+            "type": "[PlaylistItem]",
+            "note": "Ordered"
+          }
+        ]
+      },
+      {
+        "name": "PlaylistItem",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "targetID",
+            "type": "UUID",
+            "note": "A Sound or a Mix"
+          },
+          {
+            "name": "targetType",
+            "type": "enum(sound, mix)",
+            "note": ""
+          },
+          {
+            "name": "durationSeconds",
+            "type": "Int",
+            "note": "How long the item plays"
+          },
+          {
+            "name": "order",
+            "type": "Int",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "TimerEvent",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "event",
+            "type": "enum(stopSound, soundAlarm, startSound)",
+            "note": ""
+          },
+          {
+            "name": "mode",
+            "type": "enum(duration, clock)",
+            "note": ""
+          },
+          {
+            "name": "durationSeconds",
+            "type": "Int?",
+            "note": "Used in duration mode"
+          },
+          {
+            "name": "clockTime",
+            "type": "DateComponents?",
+            "note": "Hour and minute in clock mode"
+          },
+          {
+            "name": "repeatDays",
+            "type": "Set<Int>",
+            "note": "Empty means never"
+          },
+          {
+            "name": "fadeSeconds",
+            "type": "Int",
+            "note": "Fade in or out length"
+          },
+          {
+            "name": "alarmSoundID",
+            "type": "UUID?",
+            "note": "Sound, mix or music item"
+          },
+          {
+            "name": "musicPersistentID",
+            "type": "UInt64?",
+            "note": "Optional local music item"
+          },
+          {
+            "name": "snoozeMinutes",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "isEnabled",
+            "type": "Bool",
+            "note": "Must persist across app restarts"
+          },
+          {
+            "name": "nextFireDate",
+            "type": "Date?",
+            "note": "Computed and cached"
+          }
+        ]
+      },
+      {
+        "name": "Settings",
+        "fields": [
+          {
+            "name": "mixWithOthers",
+            "type": "Bool",
+            "note": "AVAudioSession option"
+          },
+          {
+            "name": "balance",
+            "type": "Double",
+            "note": ""
+          },
+          {
+            "name": "globalPitch",
+            "type": "Double",
+            "note": ""
+          },
+          {
+            "name": "clockColor",
+            "type": "String",
+            "note": "Hex value"
+          },
+          {
+            "name": "clockBrightness",
+            "type": "Double",
+            "note": ""
+          },
+          {
+            "name": "lastPlayedID",
+            "type": "UUID?",
+            "note": "Restored on launch"
+          }
+        ]
+      }
+    ],
+    "storage": "SwiftData for metadata (sounds, mixes, playlists, timers). Recorded and generated audio files go in Application Support, and Settings in UserDefaults. Bundled loops ship in the app as original or royalty-free CAF/M4A files. Everything stays on device, with no network entitlement needed."
+  },
+  "monetization": {
+    "model": "Free, with no ads, in-app purchases, subscription or account",
+    "price": "0",
+    "paywalled_features": [],
+    "notes": "The original costs a one-off 0,99 € and sells the noise/tone generator as an extra in-app purchase. Its free tier has ads and market prompts. The Sbu version includes the full catalog, mixing, recording, playlists, alarms and the generator for free, and drops the online market and the companion TV/Watch apps."
+  },
+  "user_pains": [],
+  "source": {
+    "app_id": "289894882",
+    "name": "White Noise",
+    "url": "https://apps.apple.com/it/app/white-noise/id289894882?uo=4",
+    "model": "claude-opus-5-5",
+    "reviews": 0
+  }
+}

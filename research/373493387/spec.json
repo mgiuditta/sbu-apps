@@ -1,0 +1,928 @@
+{
+  "features": [
+    {
+      "name": "Decks and subdecks",
+      "description": "Create, rename, delete and nest decks (parent::child). The deck list shows new, learning and due counts for each deck, and parent decks roll up their children's counts.",
+      "priority": "core",
+      "reason": "Decks are the main organising unit. Every study and stats action is scoped to one."
+    },
+    {
+      "name": "Note editor with fields and tags",
+      "description": "Add or edit a note with Front and Back fields plus free-form tags shown as removable chips. A formatting bar offers bold, italic, underline, clear formatting, a preview toggle and an HTML source toggle. Up and down arrows move between fields.",
+      "priority": "core",
+      "reason": "Creating cards on the device is shown in the screenshots. It is essential for a standalone app with no desktop companion."
+    },
+    {
+      "name": "Note types: Basic, Basic+Reverse, Cloze",
+      "description": "Built-in note types generate one or more cards per note. Basic makes Front to Back. Reverse also makes Back to Front. Cloze makes one card per {{c1::...}} deletion and hides that span on the question side.",
+      "priority": "core",
+      "reason": "Cloze deletions are highlighted in the listing as a headline capability."
+    },
+    {
+      "name": "Sticky fields",
+      "description": "A per-field pin toggle in Add mode that keeps a field's content after saving, so the next note starts with it prefilled.",
+      "priority": "core",
+      "reason": "Its absence is called out in a 1-star review, and it is cheap to build."
+    },
+    {
+      "name": "Media: camera, photo library and voice recording",
+      "description": "Insert images from the camera or photo library and record audio clips with the mic into a field. Media is stored in the app container, and audio plays automatically or by tapping during review.",
+      "priority": "core",
+      "reason": "Shown in the editor toolbar. Works fully offline with on-device storage."
+    },
+    {
+      "name": "Math rendering (MathJax/LaTeX)",
+      "description": "Render inline and display math written as \\( \\) and \\[ \\] in card HTML, using a MathJax bundle that ships inside the app and renders in a WKWebView.",
+      "priority": "nice",
+      "reason": "Important for STEM users. It works offline only if the renderer is bundled, which adds some complexity."
+    },
+    {
+      "name": "Spaced repetition scheduler (SM-2)",
+      "description": "Cards move through New, Learning, Review and Relearning states. Learning steps are configurable (for example 1m, 10m). Each rating updates the card's ease factor and interval, and every answer button shows the next interval it would set (for example 1m Again, 10m Good, 4d Easy). Daily new and review limits apply per deck, and the day rolls over at a configurable hour.",
+      "priority": "core",
+      "reason": "This is the heart of the product: review cards just before you would forget them."
+    },
+    {
+      "name": "FSRS scheduler option",
+      "description": "An alternative scheduler that models memory stability and difficulty per card, with a desired-retention setting. Its parameters are optimised on the device from the user's review history.",
+      "priority": "nice",
+      "reason": "The listing mentions it. It is advanced, and SM-2 is enough for a first version."
+    },
+    {
+      "name": "Review screen with answer buttons",
+      "description": "Shows the question, then reveals the answer on tap. Buttons below rate the recall as Again, Hard, Good or Easy. The bottom bar shows the remaining New, Learning and Review counts in blue, red and green.",
+      "priority": "core",
+      "reason": "This is the primary daily interaction."
+    },
+    {
+      "name": "Configurable tap zones and swipes",
+      "description": "The user maps screen regions (top, middle, bottom, left, right) and swipe directions to actions such as show answer, rate, undo, replay audio or open tools.",
+      "priority": "nice",
+      "reason": "The listing calls this out for efficient one-handed study. A sensible default mapping is enough at launch."
+    },
+    {
+      "name": "Tools overlay",
+      "description": "A bottom sheet of frequent actions: Undo, Study Options, Custom Study, Deck Statistics, Card Info, Filter/Cram, Scratchpad, Night Mode, Top Bar, Flag, Bury Note and Suspend Card. It also has a text size stepper, for example 1.1x.",
+      "priority": "core",
+      "reason": "This is how card management actions are reached during a review."
+    },
+    {
+      "name": "Undo",
+      "description": "Reverts the last answer or the last bury, suspend or flag action, including its scheduling changes.",
+      "priority": "core",
+      "reason": "Mis-taps are common on mobile."
+    },
+    {
+      "name": "Bury, suspend and flag",
+      "description": "Bury hides a card or note until tomorrow. Suspend removes a card from review until it is unsuspended. Flags offer seven colours that can be searched.",
+      "priority": "core",
+      "reason": "These are standard card management tools exposed in the overlay."
+    },
+    {
+      "name": "Scratchpad",
+      "description": "A transparent drawing layer over the card for working out answers with a finger or Apple Pencil. It has clear and undo, and a setting to turn off pressure sensitivity.",
+      "priority": "nice",
+      "reason": "Shown in the overlay, and one review explicitly asks for the pressure toggle."
+    },
+    {
+      "name": "Study timer display",
+      "description": "An optional on-screen timer showing time spent on the current card and on the session.",
+      "priority": "nice",
+      "reason": "A review complains that it is missing. It is trivial to add."
+    },
+    {
+      "name": "Card scroll position setting",
+      "description": "When a long card appears, it opens scrolled to the top. An option jumps to the answer separator instead.",
+      "priority": "nice",
+      "reason": "A review reports that automatic scrolling to the middle broke an existing workflow."
+    },
+    {
+      "name": "Night mode and text scaling",
+      "description": "A dark theme for cards and the interface that follows the system or can be overridden, plus an adjustable card zoom.",
+      "priority": "core",
+      "reason": "Shown in the screenshots. It costs almost nothing with SwiftUI."
+    },
+    {
+      "name": "Search / browser",
+      "description": "Find notes and cards with a query syntax: words, tag:, deck:, is:due/new/suspended, flag:N, rated:N, added:N and negation with -. Results appear in a list where cards can be edited, deleted, moved to another deck, retagged, suspended or rescheduled.",
+      "priority": "core",
+      "reason": "The listing highlights powerful search, and editing existing cards depends on it."
+    },
+    {
+      "name": "Filtered / custom study decks",
+      "description": "Build a temporary deck from a search query with a limit and an order, for example to cram or to review cards forgotten today. Cards return to their home deck when it is emptied.",
+      "priority": "nice",
+      "reason": "A powerful feature, but it is built on top of search and the scheduler."
+    },
+    {
+      "name": "Statistics",
+      "description": "Card counts by state (New, Young, Mature, Suspended, Buried) shown as a bar with percentages. A yearly calendar heatmap shows reviews per day. A Future Due chart shows forecast reviews over 1 month, 3 months, 1 year or all, with a cumulative line. Each view can be scoped to the deck or the whole collection, and to the last 12 months or all history.",
+      "priority": "core",
+      "reason": "Shown in the screenshots. Everything is computed locally from the review log."
+    },
+    {
+      "name": "Deck options presets",
+      "description": "Per-deck settings for new cards per day, maximum reviews per day, learning steps, relearning steps, graduating interval, easy interval, starting ease, maximum interval, bury siblings and new card order.",
+      "priority": "core",
+      "reason": "Needed for the scheduler to be useful. Keep it to a short, clearly labelled list to avoid the reported confusion."
+    },
+    {
+      "name": "Import/export files",
+      "description": "Import CSV and Anki-compatible .apkg packages from the Files app or AirDrop. Export a deck, with optional scheduling data, to a file through the share sheet. This also covers sending a deck to a friend.",
+      "priority": "nice",
+      "reason": "Reviews ask for deck sharing and say importing is confusing. File-based import and export stays entirely on the device."
+    },
+    {
+      "name": "Local study reminders",
+      "description": "An optional daily local notification at a user-chosen time when cards are due.",
+      "priority": "nice",
+      "reason": "Common in flashcard apps and needs no server."
+    },
+    {
+      "name": "Home screen widget",
+      "description": "A WidgetKit widget showing today's due count and a small review heatmap, reading from a shared app group container.",
+      "priority": "nice",
+      "reason": "Explicitly requested in a review. It runs entirely on the device."
+    },
+    {
+      "name": "Image occlusion editor",
+      "description": "Draw rectangles over an image to create one card per hidden region.",
+      "priority": "nice",
+      "reason": "A review requests it on mobile. It is complex but needs no network."
+    },
+    {
+      "name": "Localization (including Italian)",
+      "description": "Fully localized interface strings with an in-app language that follows the system setting.",
+      "priority": "nice",
+      "reason": "Many reviews request Italian, and one reports getting stuck in the wrong language."
+    },
+    {
+      "name": "Cloud sync with a server account",
+      "description": "Synchronize the collection across devices and desktop through an online account.",
+      "priority": "skip",
+      "reason": "Requires an account and a server."
+    },
+    {
+      "name": "Download shared decks",
+      "description": "Browse and download community decks from an online catalogue.",
+      "priority": "skip",
+      "reason": "Requires network access and a server."
+    },
+    {
+      "name": "AI card generation",
+      "description": "Generate flashcards automatically from text using an AI service.",
+      "priority": "skip",
+      "reason": "Requires network access to a third-party service."
+    },
+    {
+      "name": "Add-ons / plugins",
+      "description": "Third-party code extensions to the app.",
+      "priority": "skip",
+      "reason": "Not feasible on iOS, and the paid app does not support them either."
+    },
+    {
+      "name": "Custom note type and template editing",
+      "description": "Create note types with custom fields and HTML/CSS card templates.",
+      "priority": "nice",
+      "reason": "Power-user feature. The built-in types cover most needs at launch."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Deck List",
+      "purpose": "Home screen listing all decks with today's counts and entry points to everything else.",
+      "elements": [
+        "Hierarchical deck rows with new, learning and due counts",
+        "Add deck button",
+        "Add note button",
+        "Find/browse button",
+        "Swipe actions: rename, options, delete, export",
+        "Import button",
+        "Settings gear",
+        "Collection-wide stats button"
+      ]
+    },
+    {
+      "name": "Study / Review",
+      "purpose": "Show one card at a time and collect a recall rating.",
+      "elements": [
+        "Top bar with Decks, Add, Edit and Find",
+        "Card content in a web view (HTML, images, audio, math)",
+        "Tap-to-reveal answer area",
+        "Answer buttons Again, Hard, Good, Easy with next-interval labels",
+        "Remaining counts New, Learning and Review in colour",
+        "Optional timer",
+        "Gear button opening the tools overlay",
+        "Tap zones and swipe gestures"
+      ]
+    },
+    {
+      "name": "Tools Overlay",
+      "purpose": "Quick access to study actions and display settings without leaving the review.",
+      "elements": [
+        "Decks shortcut",
+        "Text size stepper (smaller, value, larger)",
+        "Frequent actions grid: Undo, Study Options, Custom Study, Deck Statistics, Card Info, Filter/Cram, Scratchpad, Night Mode, Top Bar, Flag, Bury Note, Suspend Card",
+        "All Actions section"
+      ]
+    },
+    {
+      "name": "Note Editor",
+      "purpose": "Add a new note or edit an existing one.",
+      "elements": [
+        "Cancel and Save/Add buttons",
+        "Note type picker",
+        "Deck picker",
+        "Formatting toolbar: bold, italic, underline, clear formatting, record audio, camera/photo, preview, HTML source",
+        "Field text areas (Front, Back or Text, Extra)",
+        "Sticky pin per field",
+        "Cloze insert button",
+        "Tag chips input with autocomplete",
+        "Field navigation arrows above the keyboard"
+      ]
+    },
+    {
+      "name": "Browse / Find",
+      "purpose": "Search and manage existing notes and cards.",
+      "elements": [
+        "Search field with query syntax",
+        "Toggle between cards and notes",
+        "Result list with sort field, deck and due date",
+        "Multi-select",
+        "Bulk actions: move deck, add or remove tags, suspend, flag, delete, reschedule",
+        "Create filtered deck from search"
+      ]
+    },
+    {
+      "name": "Statistics",
+      "purpose": "Visualize progress and the upcoming workload.",
+      "elements": [
+        "Scope toggle: deck or collection, with a search box",
+        "Range toggle: last 12 months or all history",
+        "Card Counts stacked bar and table",
+        "Calendar heatmap with year navigation",
+        "Future Due bar chart with cumulative line and range options",
+        "Reviews per day and answer button breakdown",
+        "Total reviews label"
+      ]
+    },
+    {
+      "name": "Deck Options",
+      "purpose": "Configure scheduling for a deck or preset.",
+      "elements": [
+        "Preset picker",
+        "New cards per day",
+        "Maximum reviews per day",
+        "Learning and relearning steps",
+        "Graduating and easy intervals",
+        "Starting ease and maximum interval",
+        "Bury siblings toggles",
+        "New card order",
+        "Scheduler choice SM-2/FSRS with desired retention"
+      ]
+    },
+    {
+      "name": "Custom Study / Filtered Deck",
+      "purpose": "Create a temporary study session from a query.",
+      "elements": [
+        "Preset options: review forgotten, study ahead, more new cards, by tag",
+        "Search query field",
+        "Limit stepper",
+        "Order picker",
+        "Reschedule-based-on-answers toggle",
+        "Build and Empty buttons"
+      ]
+    },
+    {
+      "name": "Card Info",
+      "purpose": "Show scheduling details for the current card.",
+      "elements": [
+        "Added date",
+        "Due date",
+        "Interval",
+        "Ease",
+        "Review count and lapses",
+        "Review history table"
+      ]
+    },
+    {
+      "name": "Scratchpad",
+      "purpose": "Freehand drawing over the card.",
+      "elements": [
+        "Transparent PencilKit canvas",
+        "Clear button",
+        "Undo button",
+        "Close button",
+        "Pressure sensitivity setting"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "App-wide preferences.",
+      "elements": [
+        "Appearance (system, light, dark)",
+        "Tap zone and swipe mapping",
+        "Next-day start hour",
+        "Show timer toggle",
+        "Scroll-to-top on new card toggle",
+        "Daily reminder time",
+        "Language info",
+        "Backup/export collection"
+      ]
+    },
+    {
+      "name": "Import / Export",
+      "purpose": "Move decks in and out of the app via files.",
+      "elements": [
+        "File picker for .apkg and .csv",
+        "CSV field mapping and deck/tag selection",
+        "Import summary",
+        "Export scope picker",
+        "Include scheduling and media toggles",
+        "Share sheet"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First launch",
+      "steps": [
+        "App opens on the Deck List with a Default deck and an optional sample deck",
+        "An empty state offers Add note or Import file",
+        "No sign-in prompt is shown"
+      ]
+    },
+    {
+      "name": "Add a basic card",
+      "steps": [
+        "Tap Add from the Deck List or review top bar",
+        "Choose note type Basic and a deck",
+        "Type Front and Back, optionally pin a field as sticky",
+        "Add tags as chips",
+        "Tap Add; the fields clear except sticky ones and a confirmation toast appears"
+      ]
+    },
+    {
+      "name": "Add a cloze card",
+      "steps": [
+        "Pick the Cloze note type",
+        "Type a sentence, select a span and tap the cloze button to wrap it as c1 (or c2 for the next one)",
+        "Optionally fill Extra",
+        "Save; one card is generated per cloze number"
+      ]
+    },
+    {
+      "name": "Add media to a card",
+      "steps": [
+        "In the editor, tap the camera icon and choose Take Photo or Photo Library",
+        "Or tap the mic icon, record, then stop and save",
+        "The media file is copied into the app container and its reference is inserted into the field",
+        "Tap the preview icon to check rendering"
+      ]
+    },
+    {
+      "name": "Daily study session",
+      "steps": [
+        "Tap a deck with due cards",
+        "The question is shown",
+        "Tap to show the answer",
+        "Rate Again, Hard, Good or Easy using a button or tap zone",
+        "The scheduler updates the card and writes a review log",
+        "Repeat until the counts reach zero, then show a congratulations screen with the next due time"
+      ]
+    },
+    {
+      "name": "Manage a card during review",
+      "steps": [
+        "Tap the gear to open the tools overlay",
+        "Choose Bury, Suspend, Flag, Card Info or Edit",
+        "Choose Undo to revert the last action if needed"
+      ]
+    },
+    {
+      "name": "Search and cram",
+      "steps": [
+        "Open Find",
+        "Enter a query such as tag:priority rated:10 -word",
+        "Review and bulk-edit the results",
+        "Tap Create Filtered Deck, set a limit and order",
+        "Study the filtered deck; empty it to return cards to their home decks"
+      ]
+    },
+    {
+      "name": "View statistics",
+      "steps": [
+        "Open Deck Statistics from the overlay or the deck menu",
+        "Toggle between deck and collection, and between 12 months and all history",
+        "Browse the calendar by year and switch the Future Due range"
+      ]
+    },
+    {
+      "name": "Import a deck",
+      "steps": [
+        "Tap Import or open a .apkg or .csv file from Files or AirDrop",
+        "For CSV, map columns to fields and choose a deck and tags",
+        "Confirm, then show a summary of notes added and duplicates skipped"
+      ]
+    },
+    {
+      "name": "Share a deck with a friend",
+      "steps": [
+        "Swipe a deck and tap Export",
+        "Choose whether to include scheduling and media",
+        "The app creates the package file",
+        "The share sheet opens for AirDrop, Messages or Files"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Deck",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "primary key"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "full path using :: for nesting"
+          },
+          {
+            "name": "parentId",
+            "type": "UUID?",
+            "note": "parent deck"
+          },
+          {
+            "name": "configId",
+            "type": "UUID",
+            "note": "DeckConfig preset"
+          },
+          {
+            "name": "isFiltered",
+            "type": "Bool",
+            "note": "filtered/custom study deck"
+          },
+          {
+            "name": "filterQuery",
+            "type": "String?",
+            "note": "search used to build a filtered deck"
+          },
+          {
+            "name": "filterLimit",
+            "type": "Int?",
+            "note": "maximum cards pulled in"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "DeckConfig",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "preset name"
+          },
+          {
+            "name": "newPerDay",
+            "type": "Int",
+            "note": "default 20"
+          },
+          {
+            "name": "reviewsPerDay",
+            "type": "Int",
+            "note": "default 200"
+          },
+          {
+            "name": "learningSteps",
+            "type": "[Int]",
+            "note": "minutes, e.g. [1,10]"
+          },
+          {
+            "name": "relearningSteps",
+            "type": "[Int]",
+            "note": "minutes"
+          },
+          {
+            "name": "graduatingInterval",
+            "type": "Int",
+            "note": "days"
+          },
+          {
+            "name": "easyInterval",
+            "type": "Int",
+            "note": "days"
+          },
+          {
+            "name": "startingEase",
+            "type": "Double",
+            "note": "e.g. 2.5"
+          },
+          {
+            "name": "maxInterval",
+            "type": "Int",
+            "note": "days"
+          },
+          {
+            "name": "buryNewSiblings",
+            "type": "Bool",
+            "note": "also used for review siblings"
+          },
+          {
+            "name": "scheduler",
+            "type": "String",
+            "note": "sm2 or fsrs"
+          },
+          {
+            "name": "desiredRetention",
+            "type": "Double",
+            "note": "FSRS only"
+          },
+          {
+            "name": "fsrsParams",
+            "type": "[Double]",
+            "note": "optimised on the device"
+          }
+        ]
+      },
+      {
+        "name": "NoteType",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "Basic, Basic+Reverse, Cloze"
+          },
+          {
+            "name": "kind",
+            "type": "String",
+            "note": "standard or cloze"
+          },
+          {
+            "name": "fieldNames",
+            "type": "[String]",
+            "note": "ordered"
+          },
+          {
+            "name": "stickyFields",
+            "type": "[Bool]",
+            "note": "per field, remembered in Add mode"
+          },
+          {
+            "name": "templates",
+            "type": "[CardTemplate]",
+            "note": "front/back HTML with {{Field}} placeholders"
+          },
+          {
+            "name": "css",
+            "type": "String",
+            "note": "card styling"
+          }
+        ]
+      },
+      {
+        "name": "Note",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "noteTypeId",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "fields",
+            "type": "[String]",
+            "note": "HTML content per field"
+          },
+          {
+            "name": "tags",
+            "type": "[String]",
+            "note": ""
+          },
+          {
+            "name": "sortField",
+            "type": "String",
+            "note": "stripped text used for search and sorting"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "modifiedAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Card",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "noteId",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "deckId",
+            "type": "UUID",
+            "note": "current deck"
+          },
+          {
+            "name": "originalDeckId",
+            "type": "UUID?",
+            "note": "set while the card sits in a filtered deck"
+          },
+          {
+            "name": "ordinal",
+            "type": "Int",
+            "note": "template index or cloze number"
+          },
+          {
+            "name": "state",
+            "type": "String",
+            "note": "new, learning, review, relearning"
+          },
+          {
+            "name": "queue",
+            "type": "String",
+            "note": "normal, suspended, buried"
+          },
+          {
+            "name": "due",
+            "type": "Date",
+            "note": "next due time"
+          },
+          {
+            "name": "interval",
+            "type": "Int",
+            "note": "days"
+          },
+          {
+            "name": "ease",
+            "type": "Double",
+            "note": "SM-2 factor"
+          },
+          {
+            "name": "stability",
+            "type": "Double?",
+            "note": "FSRS"
+          },
+          {
+            "name": "difficulty",
+            "type": "Double?",
+            "note": "FSRS"
+          },
+          {
+            "name": "reps",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "lapses",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "stepIndex",
+            "type": "Int",
+            "note": "position in learning steps"
+          },
+          {
+            "name": "flag",
+            "type": "Int",
+            "note": "0-7"
+          },
+          {
+            "name": "newPosition",
+            "type": "Int",
+            "note": "order for new cards"
+          }
+        ]
+      },
+      {
+        "name": "ReviewLog",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "cardId",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "reviewedAt",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "rating",
+            "type": "Int",
+            "note": "1 Again to 4 Easy"
+          },
+          {
+            "name": "interval",
+            "type": "Int",
+            "note": "new interval"
+          },
+          {
+            "name": "lastInterval",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "ease",
+            "type": "Double",
+            "note": ""
+          },
+          {
+            "name": "timeTakenMs",
+            "type": "Int",
+            "note": "for stats and the timer"
+          },
+          {
+            "name": "kind",
+            "type": "String",
+            "note": "learn, review, relearn, filtered"
+          }
+        ]
+      },
+      {
+        "name": "MediaFile",
+        "fields": [
+          {
+            "name": "filename",
+            "type": "String",
+            "note": "unique name referenced from field HTML"
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "note": "image or audio"
+          },
+          {
+            "name": "checksum",
+            "type": "String",
+            "note": "used to deduplicate"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "AppSettings",
+        "fields": [
+          {
+            "name": "dayRolloverHour",
+            "type": "Int",
+            "note": "default 4"
+          },
+          {
+            "name": "appearance",
+            "type": "String",
+            "note": "system, light, dark"
+          },
+          {
+            "name": "cardZoom",
+            "type": "Double",
+            "note": "e.g. 1.1"
+          },
+          {
+            "name": "tapZoneMap",
+            "type": "[String:String]",
+            "note": "region or swipe mapped to an action"
+          },
+          {
+            "name": "showTimer",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "scrollToTopOnShow",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "scratchpadPressure",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "reminderTime",
+            "type": "Date?",
+            "note": "local notification"
+          }
+        ]
+      }
+    ],
+    "storage": "SwiftData (or SQLite via GRDB for 100k+ card performance) in the app container. Media files go in Application Support/media and are rendered in WKWebView through a local file base URL. MathJax is bundled in the app. An app group container holds widget data. Nothing leaves the device except files the user exports through the share sheet."
+  },
+  "monetization": {
+    "model": "Free: no ads, no in-app purchases, no subscription, no account",
+    "price": "0",
+    "paywalled_features": [],
+    "notes": "The original is a one-time 29.99 € purchase that funds its desktop sibling. Many low-star reviews object to that price for an app that lags other platforms and is not localized. The free remake should ship the full feature set with no limits, keep everything offline, and replace cloud sync and shared-deck download with file import and export."
+  },
+  "user_pains": [
+    {
+      "pain": "Price feels too high for what the iOS app offers",
+      "evidence": "Reviews call it costly or a scam, say 20–29 € is too much for an incomplete app, and argue it is pricey without deck sharing.",
+      "mentions": 8
+    },
+    {
+      "pain": "Missing features available on other platforms (sticky fields, image occlusion creation, add-ons, study timer)",
+      "evidence": "Reviewers say the iPhone version is behind Android, that sticky fields are missing, that image occlusion needs a desktop extension, that plugins are absent, and that the timer is not visible.",
+      "mentions": 5
+    },
+    {
+      "pain": "No Italian localization",
+      "evidence": "Several reviews ask for an Italian interface and note it is the only language missing.",
+      "mentions": 4
+    },
+    {
+      "pain": "Confusing interface and too many unclear settings",
+      "evidence": "Reviewers describe the app as messy and hard to use, with too many settings that are unclear or poorly translated.",
+      "mentions": 3
+    },
+    {
+      "pain": "Hard to import or share decks without a computer",
+      "evidence": "Reviewers cannot work out how to import, want to send a deck to a friend, and complain that shared decks must go through desktop and sync first.",
+      "mentions": 3
+    },
+    {
+      "pain": "Weak iPad experience and no widget",
+      "evidence": "A reviewer says the app does too little on an iPad with a keyboard and asks for a widget with the study calendar.",
+      "mentions": 1
+    },
+    {
+      "pain": "No pressure-sensitivity toggle in the scratchpad",
+      "evidence": "A reviewer asks to disable Apple Pencil pressure when drawing.",
+      "mentions": 1
+    },
+    {
+      "pain": "Long cards auto-scroll to the middle",
+      "evidence": "A reviewer says new cards open mid-card instead of at the top, with no setting to change it.",
+      "mentions": 1
+    },
+    {
+      "pain": "Interface language changed unexpectedly",
+      "evidence": "A reviewer reports the app switched to Russian and could not be changed back.",
+      "mentions": 1
+    },
+    {
+      "pain": "Web page opening during study",
+      "evidence": "An old review complains a website opened every couple of cards.",
+      "mentions": 1
+    },
+    {
+      "pain": "Lack of customer support",
+      "evidence": "A reviewer says the missing customer support makes the app less appealing.",
+      "mentions": 1
+    },
+    {
+      "pain": "No built-in AI card creation",
+      "evidence": "A reviewer wants AI generation instead of using a separate chatbot.",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "373493387",
+    "name": "AnkiMobile Flashcards",
+    "url": "https://apps.apple.com/it/app/ankimobile-flashcards/id373493387?uo=4",
+    "model": "claude-opus-5-5",
+    "reviews": 20
+  }
+}

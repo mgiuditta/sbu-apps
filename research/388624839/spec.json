@@ -1,0 +1,719 @@
+{
+  "features": [
+    {
+      "name": "Document camera scan with auto edge detection",
+      "description": "Live camera view that finds the page edges, shows a highlighted quad overlay, and captures a perspective-corrected page. Can use VisionKit's VNDocumentCameraViewController or a custom AVFoundation camera with Vision rectangle detection.",
+      "priority": "core",
+      "reason": "This is the main job of the app. It runs fully on-device."
+    },
+    {
+      "name": "Batch multi-page capture",
+      "description": "Capture several pages in one session. They are appended to the same document in order, with thumbnails visible before saving.",
+      "priority": "core",
+      "reason": "The listing calls out batch mode. Multi-page documents such as contracts and receipts depend on it."
+    },
+    {
+      "name": "Manual crop and perspective adjust",
+      "description": "After capture, the user can drag four corner handles with a magnifier loupe to fix the detected edges. Pages can be re-cropped later from the page viewer.",
+      "priority": "core",
+      "reason": "Auto-detection fails on cluttered backgrounds. Users need a reliable fallback."
+    },
+    {
+      "name": "Enhancement filters",
+      "description": "A horizontal strip of filter previews applied with Core Image: Original, Lighten, Magic Color (boosted contrast and saturation with a white background), No Shadow, Grayscale, and Black & White. The first screenshot shows a filter strip with a slider on the selected option to set strength.",
+      "priority": "core",
+      "reason": "Clean, readable output is the core value of a scanner."
+    },
+    {
+      "name": "Rotate and reorder pages",
+      "description": "Rotate a page in 90° steps. Reorder, duplicate or delete pages within a document by dragging in a grid.",
+      "priority": "core",
+      "reason": "The rotate button is in the main page toolbar. Page order matters for exported PDFs."
+    },
+    {
+      "name": "On-device OCR with Image/Text toggle",
+      "description": "Run Vision text recognition on a page. A segmented control switches between the scanned image and the recognized text. In text mode the text can be selected, copied and edited, and the user can re-run recognition.",
+      "priority": "core",
+      "reason": "Shown in several screenshots. The paid app paywalls it, but Vision provides it for free on-device."
+    },
+    {
+      "name": "Full-text search",
+      "description": "Search the library by document title and by stored OCR text. Matching pages are highlighted.",
+      "priority": "core",
+      "reason": "The listing promotes finding files by their contents. Indexing the stored OCR text is cheap."
+    },
+    {
+      "name": "Export as PDF without watermark",
+      "description": "Generate a multi-page PDF with PDFKit. The output never carries a watermark.",
+      "priority": "core",
+      "reason": "The paid app watermarks PDFs and some reviews say it even blocks saving PDFs without a subscription."
+    },
+    {
+      "name": "Export as JPG and TXT",
+      "description": "Export page images as JPEG files (one per page or zipped). Export OCR text as a plain .txt file.",
+      "priority": "core",
+      "reason": "These formats are advertised and are trivial to produce locally."
+    },
+    {
+      "name": "Export as Word or Excel",
+      "description": "Produce a simple .docx (or RTF) from OCR paragraphs. Detected tables can be exported as CSV or simple .xlsx.",
+      "priority": "nice",
+      "reason": "Advertised, but faithful layout and table reconstruction is hard. A simple text-flow document is an honest approximation."
+    },
+    {
+      "name": "PDF export settings",
+      "description": "Before export, choose page size (A3, A4, A5, Letter, Legal, Executive, or a custom size), orientation (auto, portrait, landscape), page-number position (none, bottom-left, bottom-center, bottom-right), and an optional password set via PDFKit document write options.",
+      "priority": "core",
+      "reason": "Shown in screenshots. Encryption and page numbers are paywalled in the original but cost nothing locally."
+    },
+    {
+      "name": "Share via system share sheet",
+      "description": "Share as PDF (showing file size), as images, as a long stitched image, or as text through UIActivityViewController. Mail, messaging apps and Files all come from the system. Sharing should take as few taps as possible.",
+      "priority": "core",
+      "reason": "Sharing is a primary outcome. Reviews complain that sharing has more and more steps and about a broken email layout."
+    },
+    {
+      "name": "Share as long image",
+      "description": "Stitch all pages of a document vertically into one tall image for messaging apps.",
+      "priority": "nice",
+      "reason": "Shown in the share sheet. It is easy with UIGraphicsImageRenderer."
+    },
+    {
+      "name": "Print",
+      "description": "Print through UIPrintInteractionController at the document's real page size, with no unexpected scaling.",
+      "priority": "core",
+      "reason": "A review says printed scans shrink and cannot be adjusted."
+    },
+    {
+      "name": "Signature",
+      "description": "Draw a signature with PencilKit and save it for reuse. Place it on a page, then move, resize and recolor it before flattening it into the export.",
+      "priority": "core",
+      "reason": "Promoted in a screenshot and paywalled in the original. Signing is a frequent reason people scan."
+    },
+    {
+      "name": "Markup tools",
+      "description": "Highlighter, pen annotations, an eraser, a text box, and an image or watermark overlay on a page. Annotations are stored separately so they stay editable.",
+      "priority": "nice",
+      "reason": "Shown in the markup menu. Useful, but secondary to scanning."
+    },
+    {
+      "name": "ID card and passport mode",
+      "description": "A guided mode that captures the front then the back of an ID card and lays both sides onto one A4 page at real card size. A passport mode captures the photo page.",
+      "priority": "core",
+      "reason": "Shown in a screenshot. A review complains ID scanning stays locked even after paying."
+    },
+    {
+      "name": "Book mode",
+      "description": "Capture an open book spread and split it into two pages along the spine.",
+      "priority": "nice",
+      "reason": "Visible as a capture mode tab. Narrower use case."
+    },
+    {
+      "name": "Import from Photos, Files and share extension",
+      "description": "Create documents from existing photos, PDFs or screenshots, using PhotosPicker, the document picker, and an action/share extension.",
+      "priority": "core",
+      "reason": "A review reports importing a screenshot through the share sheet is broken."
+    },
+    {
+      "name": "Library organization",
+      "description": "Folders, tags, sorting by date or name, list or grid view with thumbnails, and renaming documents.",
+      "priority": "core",
+      "reason": "Described in the listing as document management."
+    },
+    {
+      "name": "Document lock",
+      "description": "Lock individual documents or the whole app behind Face ID or Touch ID or the device passcode, using LocalAuthentication.",
+      "priority": "nice",
+      "reason": "The listing mentions password-protecting files. This is a local implementation."
+    },
+    {
+      "name": "Flash and torch control",
+      "description": "Off, auto, on and torch modes for the capture camera, with flash correctly synchronized to the captured frame.",
+      "priority": "nice",
+      "reason": "A review reports flash timing leaves shadows on scans."
+    },
+    {
+      "name": "Translate recognized text",
+      "description": "Translate OCR text using Apple's on-device Translation framework where available.",
+      "priority": "nice",
+      "reason": "Paywalled in the original. Only acceptable if done with the system framework and no network calls from the app."
+    },
+    {
+      "name": "Account, cloud sync and backup",
+      "description": "Sign-up with phone or email, server backup, and cross-device sync.",
+      "priority": "skip",
+      "reason": "Requires an account and a server. Reviews show forced sign-in caused lost access to documents."
+    },
+    {
+      "name": "Cloud storage upload integrations",
+      "description": "Direct upload to Google Drive, Dropbox or Box.",
+      "priority": "skip",
+      "reason": "Needs network and third-party accounts. The system share sheet and Files already cover this."
+    },
+    {
+      "name": "Fax sending",
+      "description": "Send scans by fax using purchased credits.",
+      "priority": "skip",
+      "reason": "Needs a server and paid credits. It is also the source of several complaints."
+    },
+    {
+      "name": "Send to PC / edit on computer / Wi-Fi transfer",
+      "description": "Push files to a desktop web client or transfer over a local web server.",
+      "priority": "skip",
+      "reason": "Requires a server or network service."
+    },
+    {
+      "name": "Watermark, ads and premium tiers",
+      "description": "Branded watermark on exports, ads, storage quotas and subscriptions.",
+      "priority": "skip",
+      "reason": "Contrary to the Sbu model."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Library",
+      "purpose": "Home screen listing all documents and folders.",
+      "elements": [
+        "Search field covering titles and OCR text",
+        "Grid/list toggle",
+        "Sort menu (date, name)",
+        "Folder rows and document cards with first-page thumbnail, page count and date",
+        "Tag filter chips",
+        "Large scan button",
+        "Import menu (Photos, Files)",
+        "Settings button"
+      ]
+    },
+    {
+      "name": "Capture",
+      "purpose": "Camera for scanning pages.",
+      "elements": [
+        "Live preview with detected-edge overlay",
+        "Mode tabs (Document, ID Card, Book)",
+        "Shutter button",
+        "Auto/manual capture toggle",
+        "Flash/torch control",
+        "Batch thumbnail stack with count",
+        "Done button",
+        "Cancel button"
+      ]
+    },
+    {
+      "name": "Crop & Adjust",
+      "purpose": "Fix page boundaries after capture.",
+      "elements": [
+        "Page image with four draggable corner handles",
+        "Magnifier loupe",
+        "Auto-detect / full-image buttons",
+        "Rotate button",
+        "Next/previous page arrows",
+        "Confirm button"
+      ]
+    },
+    {
+      "name": "Filter Picker",
+      "purpose": "Choose image enhancement.",
+      "elements": [
+        "Large page preview",
+        "Horizontal strip of filter thumbnails (Original, Lighten, Magic Color, No Shadow, Grayscale, B&W)",
+        "Strength slider on the selected filter",
+        "Apply to all pages toggle"
+      ]
+    },
+    {
+      "name": "Document Detail",
+      "purpose": "View and manage pages of one document.",
+      "elements": [
+        "Editable title",
+        "Page grid with drag reorder",
+        "Add pages button",
+        "Select mode for delete/duplicate/move",
+        "Share button",
+        "Export button",
+        "Print button",
+        "Lock toggle",
+        "Tags editor"
+      ]
+    },
+    {
+      "name": "Page Viewer",
+      "purpose": "Inspect a single page.",
+      "elements": [
+        "Page title field",
+        "Image/Text segmented control",
+        "Zoomable page image",
+        "Recognized text view with select/copy/edit",
+        "Re-recognize button",
+        "Bottom toolbar: Rotate, Markup, Share, Sign, More (crop, filter, translate, delete)"
+      ]
+    },
+    {
+      "name": "Markup Editor",
+      "purpose": "Annotate a page.",
+      "elements": [
+        "Canvas over the page",
+        "Tools: highlighter, pen, eraser, text box, image/watermark",
+        "Color and width pickers",
+        "Undo/redo",
+        "Done button"
+      ]
+    },
+    {
+      "name": "Signature Pad",
+      "purpose": "Create and manage reusable signatures.",
+      "elements": [
+        "PencilKit drawing area",
+        "Ink color choices",
+        "Clear button",
+        "Save button",
+        "List of saved signatures",
+        "Placement view with move/resize handles"
+      ]
+    },
+    {
+      "name": "Export & Share Sheet",
+      "purpose": "Choose format and share.",
+      "elements": [
+        "Page selection thumbnails with checkmarks",
+        "Format rows: PDF (with file size), Images, Long image, Text, Word",
+        "PDF settings button",
+        "System share sheet trigger",
+        "Save to Files button"
+      ]
+    },
+    {
+      "name": "PDF Settings",
+      "purpose": "Configure PDF output.",
+      "elements": [
+        "Password protect toggle with password entry",
+        "Page number position options",
+        "Orientation options (auto, portrait, landscape)",
+        "Page size grid (A3, A4, A5, Letter, Legal, Executive)",
+        "Add custom size",
+        "Margin option",
+        "Done button"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "App preferences.",
+      "elements": [
+        "Default filter",
+        "Default page size",
+        "OCR languages",
+        "Auto-capture default",
+        "App lock with Face ID",
+        "Storage used",
+        "About/privacy statement"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Scan a multi-page document",
+      "steps": [
+        "Tap the scan button in Library",
+        "Point the camera at the page; edges are detected and captured automatically or with the shutter",
+        "Repeat for more pages; the thumbnail count increases",
+        "Tap Done",
+        "Adjust corners on each page if needed",
+        "Pick a filter, optionally applying it to all pages",
+        "Save; the document appears in Library with a date-based title",
+        "OCR runs in the background and is stored for search"
+      ]
+    },
+    {
+      "name": "Extract and copy text",
+      "steps": [
+        "Open a document and tap a page",
+        "Switch the Image/Text control to Text",
+        "Select a range or use Copy all",
+        "Optionally edit the text and save it",
+        "Export as TXT or share the text"
+      ]
+    },
+    {
+      "name": "Sign a document",
+      "steps": [
+        "Open the page to sign",
+        "Tap Sign",
+        "Choose a saved signature or draw a new one",
+        "Drag and resize the signature on the page",
+        "Tap Done; the signature is stored as an annotation",
+        "Export as PDF with the signature flattened"
+      ]
+    },
+    {
+      "name": "Scan an ID card",
+      "steps": [
+        "Open Capture and select the ID Card tab",
+        "Align the card front in the card-shaped guide and capture",
+        "Flip the card and capture the back",
+        "The app crops both sides and lays them on one A4 page at real size",
+        "Save and export as PDF or image"
+      ]
+    },
+    {
+      "name": "Export a password-protected PDF",
+      "steps": [
+        "In Document Detail, tap Export",
+        "Choose PDF",
+        "Open PDF Settings",
+        "Set page size, orientation and page numbers",
+        "Enable password and enter it twice",
+        "Tap Done, then share or save to Files"
+      ]
+    },
+    {
+      "name": "Import a screenshot or photo",
+      "steps": [
+        "From another app or Photos, use the share sheet action, or use Import in Library",
+        "Selected images open in Crop & Adjust",
+        "Apply a filter",
+        "Save as a new document or add to an existing one"
+      ]
+    },
+    {
+      "name": "Find a document by its content",
+      "steps": [
+        "Type in the Library search field",
+        "Results match titles and OCR text",
+        "Open a result; the matching page is shown with the term highlighted"
+      ]
+    },
+    {
+      "name": "Print a scan",
+      "steps": [
+        "Open a document",
+        "Tap Print",
+        "The system print dialog opens at the document's page size with 100% scaling",
+        "Print"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Document",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "Primary key"
+          },
+          {
+            "name": "title",
+            "type": "String",
+            "note": "Defaults to date and time"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "updatedAt",
+            "type": "Date",
+            "note": "Used for sorting"
+          },
+          {
+            "name": "folder",
+            "type": "Folder?",
+            "note": "Optional parent"
+          },
+          {
+            "name": "tags",
+            "type": "[Tag]",
+            "note": "Many-to-many"
+          },
+          {
+            "name": "pages",
+            "type": "[Page]",
+            "note": "Ordered by Page.index"
+          },
+          {
+            "name": "isLocked",
+            "type": "Bool",
+            "note": "Requires biometrics to open"
+          },
+          {
+            "name": "kind",
+            "type": "String",
+            "note": "document, idCard, book"
+          },
+          {
+            "name": "exportSettings",
+            "type": "ExportSettings?",
+            "note": "Last used PDF settings"
+          }
+        ]
+      },
+      {
+        "name": "Page",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "index",
+            "type": "Int",
+            "note": "Order within the document"
+          },
+          {
+            "name": "originalImageFile",
+            "type": "String",
+            "note": "Relative path to the unprocessed capture, kept for re-cropping"
+          },
+          {
+            "name": "processedImageFile",
+            "type": "String",
+            "note": "Relative path to the cropped and filtered JPEG/HEIC"
+          },
+          {
+            "name": "cropQuad",
+            "type": "[CGPoint]",
+            "note": "Four normalized corners"
+          },
+          {
+            "name": "rotation",
+            "type": "Int",
+            "note": "0, 90, 180 or 270"
+          },
+          {
+            "name": "filter",
+            "type": "String",
+            "note": "Filter identifier"
+          },
+          {
+            "name": "filterStrength",
+            "type": "Double",
+            "note": "0 to 1"
+          },
+          {
+            "name": "ocrText",
+            "type": "String?",
+            "note": "Recognized or edited text, indexed for search"
+          },
+          {
+            "name": "ocrEdited",
+            "type": "Bool",
+            "note": "Prevents overwriting user edits on re-run"
+          },
+          {
+            "name": "annotations",
+            "type": "[Annotation]",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Annotation",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "note": "ink, highlight, text, signature, image"
+          },
+          {
+            "name": "frame",
+            "type": "CGRect",
+            "note": "Normalized to page size"
+          },
+          {
+            "name": "drawingData",
+            "type": "Data?",
+            "note": "PKDrawing data for ink"
+          },
+          {
+            "name": "text",
+            "type": "String?",
+            "note": "For text boxes"
+          },
+          {
+            "name": "color",
+            "type": "String",
+            "note": "Hex value"
+          },
+          {
+            "name": "signature",
+            "type": "Signature?",
+            "note": "Reference to a saved signature"
+          }
+        ]
+      },
+      {
+        "name": "Signature",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "drawingData",
+            "type": "Data",
+            "note": "PKDrawing data"
+          },
+          {
+            "name": "color",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Folder",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "parent",
+            "type": "Folder?",
+            "note": "Allows nesting"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Tag",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "Unique"
+          }
+        ]
+      },
+      {
+        "name": "ExportSettings",
+        "fields": [
+          {
+            "name": "pageSize",
+            "type": "String",
+            "note": "A3, A4, A5, Letter, Legal, Executive, or custom"
+          },
+          {
+            "name": "customSizeMM",
+            "type": "CGSize?",
+            "note": "Width and height in mm"
+          },
+          {
+            "name": "orientation",
+            "type": "String",
+            "note": "auto, portrait, landscape"
+          },
+          {
+            "name": "pageNumberPosition",
+            "type": "String",
+            "note": "none, bottomLeft, bottomCenter, bottomRight"
+          },
+          {
+            "name": "marginMM",
+            "type": "Double",
+            "note": ""
+          },
+          {
+            "name": "password",
+            "type": "String?",
+            "note": "Never persisted; entered at export time only"
+          }
+        ]
+      }
+    ],
+    "storage": "SwiftData for metadata and OCR text. Page images are stored as files in Application Support/Documents/<docID>/ and included in the normal device backup. No account, no server and no network access. Store data carefully across app updates (versioned SwiftData schema migrations) so scans are never lost or locked behind a sign-in."
+  },
+  "monetization": {
+    "model": "Free",
+    "price": "0",
+    "paywalled_features": [],
+    "notes": "Everything the original paywalls is free: OCR, PDF export without watermark, signatures, ID scan, PDF password and page numbers, unlimited storage and no ads. Cloud sync, fax and send-to-PC are left out because they need servers. Documents are never gated: export and share always work."
+  },
+  "user_pains": [
+    {
+      "pain": "Paid for the app up front but still hit a subscription paywall for basic features such as saving PDFs, ID scanning, or even reaching the app",
+      "evidence": "Several reviewers say they bought the app and were still asked for a monthly or yearly fee. They say scans could not be saved, ID scan stayed locked, and they could not get past the premium screen.",
+      "mentions": 8
+    },
+    {
+      "pain": "Documents lost or held hostage after updates, device changes or subscription changes",
+      "evidence": "Data vanished after an update, files disappeared a day after moving to a new phone, and one user says existing documents became inaccessible without paying yearly.",
+      "mentions": 3
+    },
+    {
+      "pain": "Forced account sign-in or verification",
+      "evidence": "Users are asked for a phone number or email code. The verification email never arrived, and a new-phone setup demanded an account as if the user were new.",
+      "mentions": 3
+    },
+    {
+      "pain": "Fax feature broken or confusing",
+      "evidence": "Users could not top up fax funds, could not send even after paying, and saw available pages but no way to send.",
+      "mentions": 3
+    },
+    {
+      "pain": "Instability and crashes",
+      "evidence": "The app became glitchy and slow after an iOS update and crashes on an older iPhone.",
+      "mentions": 2
+    },
+    {
+      "pain": "Sharing is cumbersome or broken",
+      "evidence": "Sending through Outlook leaves the send button hidden behind the status bar, and sharing a PDF keeps gaining extra steps.",
+      "mentions": 2
+    },
+    {
+      "pain": "Watermark on exports despite paying",
+      "evidence": "A reviewer who paid for the app still got a watermark and a premium upsell.",
+      "mentions": 1
+    },
+    {
+      "pain": "Importing from the share sheet broken",
+      "evidence": "Importing a screenshot through the iOS share sheet stopped working after an iOS update.",
+      "mentions": 1
+    },
+    {
+      "pain": "Printed scans shrink",
+      "evidence": "Printing a scanned document shrinks it and the size cannot be adjusted.",
+      "mentions": 1
+    },
+    {
+      "pain": "Flash not synced with capture, leaving shadows",
+      "evidence": "The flash fires but the captured scan still shows shadows, while the system camera works fine.",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "388624839",
+    "name": "CamScanner +",
+    "url": "https://apps.apple.com/it/app/camscanner/id388624839?uo=4",
+    "model": "claude-opus-5-5",
+    "reviews": 21
+  }
+}

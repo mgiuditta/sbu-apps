@@ -1,0 +1,347 @@
+{
+  "features": [
+    {
+      "name": "Safari content blocker with bundled rules",
+      "description": "One or more Safari Content Blocker extensions load JSON rules that block ad, tracker and crypto-mining requests and hide ad elements with CSS selectors. Rules ship inside the app bundle and are split across several extensions to stay under Safari's per-extension rule limit.",
+      "priority": "core",
+      "reason": "This is the whole product. It runs entirely on-device through Safari's declarative content blocking API, with no network access needed."
+    },
+    {
+      "name": "Blocking category toggles",
+      "description": "Separate on/off switches for Ads, Trackers, Cookie & consent banners, Annoyances (newsletter, notification-permission and 'open in app' prompts, sign-in nags, anti-adblock walls, floating video players) and Crypto mining. Changing a switch rebuilds the rule files in the App Group container and calls SFContentBlockerManager.reloadContentBlocker.",
+      "priority": "core",
+      "reason": "Reviewers asked to configure what gets blocked. The most common case is turning off cookie-banner hiding, because hidden consent banners leave some sites unusable."
+    },
+    {
+      "name": "Allowed sites list",
+      "description": "The user can add domains where blocking is turned off. These are compiled into an ignore-previous-rules entry with if-domain, and the list can be edited and swiped to delete.",
+      "priority": "core",
+      "reason": "Gives users a quick way to fix a site that breaks under blocking, without turning everything off. Fully local."
+    },
+    {
+      "name": "Status and setup check",
+      "description": "The home screen shows whether each extension is enabled in Safari Settings (via getStateOfContentBlocker), how many rules are active, and when they were last compiled. A Refresh button recompiles the bundled rules and reloads the extensions.",
+      "priority": "core",
+      "reason": "Users can't tell if the blocker is working, and many 'it doesn't block anything' reviews likely come from extensions that aren't enabled. In the remake, refresh means recompiling locally, not downloading."
+    },
+    {
+      "name": "Guided setup",
+      "description": "Step-by-step screens show how to enable each extension in Settings > Apps > Safari > Extensions. They point to Safari's built-in Block Pop-ups setting and suggest a restart of Safari after changes.",
+      "priority": "core",
+      "reason": "Setup is the main source of perceived failure. Everything is static, on-device content."
+    },
+    {
+      "name": "Regional language lists",
+      "description": "Optional bundled rule sets for non-English sites, chosen per language (e.g. Italian, German, French, Japanese). They are compiled into the rule files only when enabled.",
+      "priority": "nice",
+      "reason": "Improves blocking of regional ads. The lists are bundled and update with app releases, so no network is needed."
+    },
+    {
+      "name": "Custom element-hiding rules",
+      "description": "Advanced users can add their own rules as domain plus CSS selector to hide extra elements. Each rule is checked for basic syntax before compiling.",
+      "priority": "nice",
+      "reason": "Lets users fix leftover ads themselves while waiting for app updates. Local only."
+    },
+    {
+      "name": "Scriptlet web extension for stubborn sites",
+      "description": "An optional Safari Web Extension that injects bundled scripts on specific sites. Examples: neutralising click-triggered window.open popups and redirects, and skipping in-video ads. It also offers a toolbar button to allow the current site.",
+      "priority": "nice",
+      "reason": "Declarative rules cannot stop popups, new tabs or video ads, which are the top complaints. This needs website-access permission and ongoing maintenance, so it should ship as an opt-in with honest expectations."
+    },
+    {
+      "name": "Universal app and accessibility",
+      "description": "The same app runs on iPhone, iPad and Mac (Catalyst or native) with full VoiceOver, Dynamic Type and Voice Control labels. Alternate dark and tinted icons are included.",
+      "priority": "nice",
+      "reason": "Matches the paid app's platform reach at no extra cost."
+    },
+    {
+      "name": "Automatic twice-weekly blocklist downloads",
+      "description": "The paid app fetches updated filter lists from a server in the background.",
+      "priority": "skip",
+      "reason": "Requires network access and a server. In the remake, rules are refreshed through regular App Store updates instead."
+    },
+    {
+      "name": "System-wide network-level blocking add-on",
+      "description": "A separate add-on that filters ad and tracker domains in all apps at the network level.",
+      "priority": "skip",
+      "reason": "Needs a network extension (DNS or tunnel) and network-level traffic handling, which is outside Sbu's no-network, one-thing scope."
+    },
+    {
+      "name": "Tip jar",
+      "description": "In-app purchase tips for the developer.",
+      "priority": "skip",
+      "reason": "Sbu apps have no in-app purchases."
+    },
+    {
+      "name": "About developer / social links",
+      "description": "A page linking to the developer's Mastodon, Bluesky, website and blog.",
+      "priority": "skip",
+      "reason": "Branding and external network links, which don't belong in a no-network remake."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Home / Status",
+      "purpose": "Show at a glance whether blocking is active and up to date",
+      "elements": [
+        "Calm full-screen background with a large status line (e.g. 'Blocking is active' / 'Enable in Settings')",
+        "Per-extension enabled indicators",
+        "Active rule count and last compiled date",
+        "Refresh button that recompiles and reloads the extensions",
+        "More button that opens the menu sheet"
+      ]
+    },
+    {
+      "name": "Setup Guide",
+      "purpose": "Walk the user through enabling the Safari extensions",
+      "elements": [
+        "Numbered steps with SF Symbols",
+        "Open Settings button",
+        "Live checkmarks as each extension becomes enabled",
+        "Tip about Safari's built-in Block Pop-ups setting"
+      ]
+    },
+    {
+      "name": "Blocking Options",
+      "purpose": "Choose which kinds of things to block",
+      "elements": [
+        "Toggle list: Ads, Trackers, Cookie & consent banners, Annoyances, Crypto mining",
+        "Explanatory footer per toggle (e.g. note that hiding cookie banners can break some sites)",
+        "Regional languages section with a multi-select list",
+        "Rebuilding progress indicator"
+      ]
+    },
+    {
+      "name": "Allowed Sites",
+      "purpose": "Turn off blocking on specific domains",
+      "elements": [
+        "List of domains with swipe-to-delete",
+        "Add field that normalises pasted URLs to a domain",
+        "Empty state explaining when to use this"
+      ]
+    },
+    {
+      "name": "Custom Rules",
+      "purpose": "Advanced element hiding",
+      "elements": [
+        "List of domain + CSS selector rules",
+        "Add/edit form with validation",
+        "Enable/disable switch per rule"
+      ]
+    },
+    {
+      "name": "More / Help",
+      "purpose": "Menu sheet with help and app info",
+      "elements": [
+        "Close button",
+        "Help / FAQ (why ads may still appear, YouTube limits, how to report)",
+        "Privacy statement: no data leaves the device",
+        "Version and rules bundle date"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First launch setup",
+      "steps": [
+        "Open the app; status shows 'Not enabled'",
+        "Tap Set Up and follow the guide",
+        "Tap Open Settings and enable the extensions under Safari > Extensions",
+        "Return to the app; status re-checks on foreground and shows active with the rule count"
+      ]
+    },
+    {
+      "name": "Fix a site broken by a hidden cookie banner",
+      "steps": [
+        "Open More > Blocking Options",
+        "Turn off Cookie & consent banners, or go to Allowed Sites",
+        "Add the broken site's domain",
+        "App rebuilds the rules and reloads the extensions",
+        "Reload the page in Safari; the banner appears and can be accepted"
+      ]
+    },
+    {
+      "name": "Add a regional language list",
+      "steps": [
+        "Open Blocking Options",
+        "Select a language under Regional lists",
+        "Rules are merged and compiled into the App Group container",
+        "Extensions reload and the status rule count updates"
+      ]
+    },
+    {
+      "name": "Manual refresh",
+      "steps": [
+        "Tap Refresh on Home",
+        "App recompiles all enabled sets from bundled sources plus user settings",
+        "Each content blocker is reloaded and any compile errors are surfaced",
+        "Status shows the updated timestamp"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "BlockingSettings",
+        "fields": [
+          {
+            "name": "adsEnabled",
+            "type": "Bool",
+            "note": "default true"
+          },
+          {
+            "name": "trackersEnabled",
+            "type": "Bool",
+            "note": "default true"
+          },
+          {
+            "name": "cookieBannersEnabled",
+            "type": "Bool",
+            "note": "default true; users often switch this off"
+          },
+          {
+            "name": "annoyancesEnabled",
+            "type": "Bool",
+            "note": "default true"
+          },
+          {
+            "name": "cryptoMiningEnabled",
+            "type": "Bool",
+            "note": "default true"
+          },
+          {
+            "name": "regionalLanguages",
+            "type": "[String]",
+            "note": "language codes of bundled regional lists to include"
+          }
+        ]
+      },
+      {
+        "name": "AllowedSite",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "domain",
+            "type": "String",
+            "note": "normalised host, compiled into an ignore-previous-rules entry"
+          },
+          {
+            "name": "addedAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "CustomRule",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "domain",
+            "type": "String",
+            "note": "empty means all sites"
+          },
+          {
+            "name": "selector",
+            "type": "String",
+            "note": "CSS selector for css-display-none"
+          },
+          {
+            "name": "isEnabled",
+            "type": "Bool",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "CompileState",
+        "fields": [
+          {
+            "name": "lastCompiledAt",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "ruleCountPerExtension",
+            "type": "[String: Int]",
+            "note": "keyed by extension bundle id"
+          },
+          {
+            "name": "bundledRulesVersion",
+            "type": "String",
+            "note": "date of the shipped filter snapshot"
+          },
+          {
+            "name": "lastError",
+            "type": "String?",
+            "note": "compile/reload failure message"
+          }
+        ]
+      }
+    ],
+    "storage": "Settings, allowed sites and custom rules live in App Group UserDefaults or a small JSON/SwiftData store shared with the extensions. Compiled rule JSON files are written to the App Group container and read by each content blocker's NSExtensionRequestHandling. Source filter lists are bundled in the app. No network calls, no analytics."
+  },
+  "monetization": {
+    "model": "Free",
+    "price": "0",
+    "paywalled_features": [],
+    "notes": "No in-app purchases, tips, ads, account or tracking. The paid app charges again for version 2, which reviewers resented; the remake should keep all features free and update its bundled rules through regular app releases."
+  },
+  "user_pains": [
+    {
+      "pain": "Ads still show up / blocks little or nothing",
+      "evidence": "Reviews say there's no noticeable difference, it doesn't block anything, and not all ads are blocked.",
+      "mentions": 6
+    },
+    {
+      "pain": "Paid again for version 2 / too expensive compared with free blockers",
+      "evidence": "Reviewers resent re-buying after owning v1, find the price high, and say free extensions work as well.",
+      "mentions": 5
+    },
+    {
+      "pain": "Popups, new tabs and redirects not blocked",
+      "evidence": "Starting a video opens a popup that redirects elsewhere; pop-ups and tabs keep appearing.",
+      "mentions": 3
+    },
+    {
+      "pain": "YouTube ads not blocked or YouTube playback glitches",
+      "evidence": "Ads keep appearing on YouTube; the page must be refreshed before a video will play.",
+      "mentions": 3
+    },
+    {
+      "pain": "Hidden cookie banners make some sites unusable",
+      "evidence": "Sites won't respond until consent is given, but the banner is hidden, including in private browsing.",
+      "mentions": 3
+    },
+    {
+      "pain": "No way to configure what gets blocked",
+      "evidence": "Users ask for an option to choose what to block, especially to re-enable cookie pop-ups.",
+      "mentions": 2
+    },
+    {
+      "pain": "Stopped working after a while",
+      "evidence": "Worked for the first couple of days and then seemed no better; v1 stopped working on YouTube.",
+      "mentions": 2
+    },
+    {
+      "pain": "Cookie windows still appear",
+      "evidence": "One reviewer says cookie windows always appear despite the blocker.",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "1662217862",
+    "name": "Wipr 2",
+    "url": "https://apps.apple.com/it/app/wipr-2/id1662217862?uo=4",
+    "model": "claude-opus-5-5",
+    "reviews": 10
+  }
+}

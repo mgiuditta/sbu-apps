@@ -1,0 +1,396 @@
+{
+  "features": [
+    {
+      "name": "Clinometer mode (edge measurement)",
+      "description": "When the device is held upright, show a large circular dial with a needle and a digital readout of the tilt angle measured along whichever edge rests on the surface. Show whole degrees large and tenths smaller. Shade a wedge between 0° and the current angle, and show an inner percent-grade scale. Detect all four edges automatically from the gravity vector.",
+      "priority": "core",
+      "reason": "This is the main purpose of the app. CoreMotion gravity data provides it on-device with no network."
+    },
+    {
+      "name": "Bubble level mode (flat)",
+      "description": "When the device lies flat, cross-fade to a circular bubble level. A sphere moves from the center in proportion to the X and Y tilt. Show two large axis readouts, one per axis, and a smaller combined-tilt value with direction arrows.",
+      "priority": "core",
+      "reason": "Second primary mode. It switches automatically when the device is laid flat and uses on-device sensors only."
+    },
+    {
+      "name": "Automatic mode switching",
+      "description": "Switch between clinometer and bubble modes based on device orientation, using a smooth fade and some hysteresis so the view does not flicker near the threshold.",
+      "priority": "core",
+      "reason": "Users do not need to pick a mode manually, which is central to how the app feels."
+    },
+    {
+      "name": "Camera sighting mode",
+      "description": "Manually toggled mode. Show the live rear camera feed inside the circular frame with crosshair and horizon lines. Show the pitch angle of the camera's line of sight so the user can measure the elevation of distant objects such as roofs or trees.",
+      "priority": "core",
+      "reason": "A headline feature. AVFoundation needs only camera permission, processes frames locally and never records or uploads them."
+    },
+    {
+      "name": "Unit modes",
+      "description": "Display the reading in one of five units: degrees rounded, degrees with tenths, percent grade, rise over run in x:12 (roofing), or 1V:H (engineering ratio).",
+      "priority": "core",
+      "reason": "The listing names this as a key feature for different trades. The conversions are simple trigonometry."
+    },
+    {
+      "name": "Two-step calibration per side",
+      "description": "Calibrate each of the four edges and the flat bubble mode separately. Step 1: hold the device steady on a surface and capture a reading. Step 2: rotate the device 180° in place and capture again. The offset is half the sum of the two readings, so calibration works even on a surface that is not level. Store one offset per side, with a reset option.",
+      "priority": "core",
+      "reason": "Accuracy depends on calibration, and the listing stresses it. Only a few local values need to be stored."
+    },
+    {
+      "name": "Relative angle (zero/reference)",
+      "description": "A top-bar button sets the current angle as the reference. Later readings show the difference from that position, and tapping again clears it. This works in every mode.",
+      "priority": "core",
+      "reason": "Needed to measure the angle between two surfaces. It is simple local state."
+    },
+    {
+      "name": "Hold / lock reading",
+      "description": "A lock button freezes the displayed value so the user can take the device away and read it. A lock icon shows the frozen state.",
+      "priority": "core",
+      "reason": "Basic usability when the screen faces away during a measurement."
+    },
+    {
+      "name": "Motion-sensitive lock",
+      "description": "Optional setting. After the lock is triggered, wait until the reading has stayed within a user-set tolerance for about 2 seconds, then freeze the stable average. The tolerance slider runs from ±0.1° to ±3°. Optionally beep when the lock completes.",
+      "priority": "core",
+      "reason": "This differentiates the app from a basic level and is easy to build with a rolling window of samples."
+    },
+    {
+      "name": "Beep on measure",
+      "description": "Play a short system sound when a lock or measurement is captured.",
+      "priority": "nice",
+      "reason": "Small feedback feature that works fully offline."
+    },
+    {
+      "name": "Speech readout",
+      "description": "Optionally speak the current reading aloud at intervals, or when the value changes and settles, so the user can align an object without looking at the screen.",
+      "priority": "nice",
+      "reason": "AVSpeechSynthesizer runs on-device. Useful, but not essential."
+    },
+    {
+      "name": "Volume button trigger",
+      "description": "Optionally let a hardware volume button press trigger the lock.",
+      "priority": "nice",
+      "reason": "Convenient, but it relies on observing the audio session volume, which is hacky on iOS and may be fragile."
+    },
+    {
+      "name": "Dial rotation",
+      "description": "Let the user drag to rotate the background dial, choosing which device side reads 0° and which reads 90°. Persist the chosen rotation.",
+      "priority": "nice",
+      "reason": "Power-user option. The standard orientation covers most uses."
+    },
+    {
+      "name": "Calculation method setting",
+      "description": "Choose between a fast approximation (single-axis arcsine) and a precise calculation (atan2 using all gravity components).",
+      "priority": "nice",
+      "reason": "A free version could always use the precise method and drop this setting."
+    },
+    {
+      "name": "Color schemes",
+      "description": "An S/C button cycles color presets. Clinometer and bubble modes can have different colors. Include day presets, a white-on-black night preset and a red night preset. Settings also offer a frame theme and frame color.",
+      "priority": "nice",
+      "reason": "Night readability matters, but this is cosmetic beyond one or two presets."
+    },
+    {
+      "name": "Fullscreen / input-lock mode",
+      "description": "Tap the center of the screen to hide the bars and controls, so the user cannot press buttons by accident while measuring. Tap again to restore them.",
+      "priority": "nice",
+      "reason": "Prevents accidental input. Simple to build."
+    },
+    {
+      "name": "Keep screen awake",
+      "description": "A setting that disables auto-lock while the app is open.",
+      "priority": "core",
+      "reason": "Trivial to build (isIdleTimerDisabled) and important during long alignment jobs."
+    },
+    {
+      "name": "Info screen",
+      "description": "A tab explaining the modes, how to calibrate, unit meanings and the accuracy disclaimer.",
+      "priority": "nice",
+      "reason": "Helps users calibrate correctly. Static content."
+    },
+    {
+      "name": "Peer mode (two-device)",
+      "description": "One device is attached to the object and measures; a second device shows the reading.",
+      "priority": "skip",
+      "reason": "Requires device-to-device networking and local network permissions."
+    },
+    {
+      "name": "Support dev & extra features purchase",
+      "description": "In-app purchase entry in settings that unlocks extras.",
+      "priority": "skip",
+      "reason": "Sbu apps have no in-app purchases. Everything is included."
+    },
+    {
+      "name": "Support link / feedback",
+      "description": "Links out to developer support.",
+      "priority": "skip",
+      "reason": "Needs network access. Not part of the core utility."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Measure (main)",
+      "purpose": "Show the live angle in clinometer, bubble or camera mode inside a large circular dial.",
+      "elements": [
+        "Top bar: settings gear, fullscreen toggle, Calibrate button, S/C color-cycle button, relative-zero button showing the current reference",
+        "Circular dial with degree scale and inner percent scale",
+        "Needle with shaded wedge from 0° to the current angle (clinometer)",
+        "Central capsule readout with large integer, small tenths and unit symbol",
+        "Small side vials with tick marks and a red indicator line",
+        "Bubble sphere with two axis readouts and combined-tilt arrows (bubble mode)",
+        "Live camera feed with crosshair and horizon lines (camera mode)",
+        "Camera mode toggle icon (top-left of dial, bubble mode)",
+        "Bottom-left dial rotation / mode icon",
+        "Bottom-right lock/unlock icon",
+        "Bottom tab bar: Clinometer, Info"
+      ]
+    },
+    {
+      "name": "Calibration overlay",
+      "purpose": "Guide the user through two-step calibration for the current side or the flat mode.",
+      "elements": [
+        "Translucent card over the dial",
+        "Label naming the side or mode being calibrated",
+        "Step instruction text (step 1: hold steady; step 2: rotate 180° and hold steady)",
+        "Calibrate/capture button",
+        "Cancel button",
+        "Stability indicator while capturing",
+        "Option to reset calibration for this side"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Configure units, calculation, audio feedback, lock behaviour and appearance.",
+      "elements": [
+        "Done button",
+        "Measurement section: Unit Mode picker, Calculation picker, Speech toggle, Beep on Measure toggle",
+        "Lock section: Motion Sensitive Lock toggle, tolerance slider ±0.1° to ±3° with value label, Use Volume Button toggle",
+        "Interface section: Theme picker, Frame Color picker, Bubble Level Color picker, Clinometer Color picker",
+        "Keep screen awake toggle",
+        "Reset all calibrations button"
+      ]
+    },
+    {
+      "name": "Info",
+      "purpose": "Explain how to use and calibrate the tool.",
+      "elements": [
+        "Mode descriptions",
+        "Calibration instructions",
+        "Unit explanations (percent, x:12, 1V:H)",
+        "Accuracy disclaimer",
+        "App version"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Measure an angle with an edge",
+      "steps": [
+        "Open the app; it starts in clinometer mode when held upright",
+        "Place any device edge against the surface",
+        "The app detects the active edge and shows the angle on the needle and readout",
+        "Tap the lock icon to freeze the reading, or wait for the motion-sensitive lock to settle",
+        "Read the frozen value, then tap again to unlock"
+      ]
+    },
+    {
+      "name": "Level a flat surface",
+      "steps": [
+        "Lay the device flat on the surface",
+        "The view fades into the bubble level",
+        "Adjust the surface until the bubble centers and both axis readouts reach 0",
+        "Optionally enable speech so the reading is announced while adjusting"
+      ]
+    },
+    {
+      "name": "Measure elevation with the camera",
+      "steps": [
+        "Tap the camera icon",
+        "Grant camera permission on first use",
+        "Aim the crosshair at the top of the target",
+        "Read the elevation angle, or lock it",
+        "Tap the camera icon again to leave camera mode"
+      ]
+    },
+    {
+      "name": "Two-step calibration",
+      "steps": [
+        "Place the device on the edge or face to calibrate",
+        "Tap Calibrate; the overlay names the detected side",
+        "Hold steady and tap Calibrate to capture the first reading",
+        "Rotate the device 180° in place on the same spot",
+        "Hold steady and capture the second reading",
+        "The app computes and saves the offset for that side, then confirms",
+        "Repeat for the other sides if needed"
+      ]
+    },
+    {
+      "name": "Relative angle measurement",
+      "steps": [
+        "Place the device on the first surface",
+        "Tap the reference button to zero",
+        "Move the device to the second surface",
+        "The readout shows the angle between the two positions",
+        "Tap the reference button again to return to absolute angles"
+      ]
+    },
+    {
+      "name": "Change units or colors",
+      "steps": [
+        "Tap the S/C button to cycle color presets instantly",
+        "Open settings with the gear icon",
+        "Pick a unit mode such as x:12 for roof pitch",
+        "Tap Done; the readout updates immediately"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Settings",
+        "fields": [
+          {
+            "name": "unitMode",
+            "type": "enum",
+            "note": "degreesRounded, degreesTenths, percent, risePer12, oneVtoH"
+          },
+          {
+            "name": "calculationMode",
+            "type": "enum",
+            "note": "fast or precise; may default to precise"
+          },
+          {
+            "name": "speechEnabled",
+            "type": "Bool",
+            "note": "speak readings via AVSpeechSynthesizer"
+          },
+          {
+            "name": "beepOnMeasure",
+            "type": "Bool",
+            "note": "system sound when a lock completes"
+          },
+          {
+            "name": "motionLockEnabled",
+            "type": "Bool",
+            "note": "wait for stability before freezing"
+          },
+          {
+            "name": "motionLockTolerance",
+            "type": "Double",
+            "note": "degrees, 0.1 to 3.0"
+          },
+          {
+            "name": "volumeButtonTrigger",
+            "type": "Bool",
+            "note": "optional"
+          },
+          {
+            "name": "keepAwake",
+            "type": "Bool",
+            "note": "disables idle timer"
+          },
+          {
+            "name": "clinometerColorPreset",
+            "type": "String",
+            "note": "preset identifier"
+          },
+          {
+            "name": "bubbleColorPreset",
+            "type": "String",
+            "note": "preset identifier"
+          },
+          {
+            "name": "frameTheme",
+            "type": "String",
+            "note": "frame style"
+          },
+          {
+            "name": "frameColor",
+            "type": "String",
+            "note": "frame color preset"
+          },
+          {
+            "name": "dialRotation",
+            "type": "Double",
+            "note": "degrees; which side reads 0°"
+          }
+        ]
+      },
+      {
+        "name": "CalibrationOffset",
+        "fields": [
+          {
+            "name": "side",
+            "type": "enum",
+            "note": "top, bottom, left, right, flatX, flatY, camera"
+          },
+          {
+            "name": "offset",
+            "type": "Double",
+            "note": "degrees; computed as (reading1 + reading2) / 2"
+          },
+          {
+            "name": "calibratedAt",
+            "type": "Date",
+            "note": "optional, shown in settings"
+          }
+        ]
+      },
+      {
+        "name": "MeasurementState (in-memory)",
+        "fields": [
+          {
+            "name": "mode",
+            "type": "enum",
+            "note": "clinometer, bubble, camera"
+          },
+          {
+            "name": "activeSide",
+            "type": "enum",
+            "note": "detected from gravity"
+          },
+          {
+            "name": "rawAngle",
+            "type": "Double",
+            "note": "filtered sensor angle"
+          },
+          {
+            "name": "referenceAngle",
+            "type": "Double?",
+            "note": "set by relative-zero"
+          },
+          {
+            "name": "isLocked",
+            "type": "Bool",
+            "note": "reading frozen"
+          },
+          {
+            "name": "lockedValue",
+            "type": "Double?",
+            "note": "frozen value"
+          },
+          {
+            "name": "sampleWindow",
+            "type": "[Double]",
+            "note": "about 2 s of samples for the stability check"
+          }
+        ]
+      }
+    ],
+    "storage": "UserDefaults/@AppStorage for settings and calibration offsets (a small Codable dictionary keyed by side). Measurement state stays in memory. Sensor data comes from CoreMotion; camera frames are displayed live and never saved. No network, no account."
+  },
+  "monetization": {
+    "model": "Paid upfront at 1,99 € with an additional in-app purchase ('support dev & extra features'). The Sbu remake is completely free, with no IAP, ads or subscription.",
+    "price": "Free",
+    "paywalled_features": [],
+    "notes": "The original charges up front and also sells an extras unlock in settings. The Sbu version includes every on-device feature for free. Peer mode is left out because it needs device-to-device networking."
+  },
+  "user_pains": [],
+  "source": {
+    "app_id": "286215117",
+    "name": "Clinometer + bubble level",
+    "url": "https://apps.apple.com/it/app/clinometer-bubble-level/id286215117?uo=4",
+    "model": "claude-opus-5-5",
+    "reviews": 0
+  }
+}

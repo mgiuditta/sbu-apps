@@ -84,7 +84,8 @@ def low_star_reviews(app_id: str, cc: str, pages: int = 3) -> list[dict]:
                 })
         if not entries:
             break
-    cache.write_text(json.dumps(reviews, ensure_ascii=False, indent=2) + "\n")
+    if reviews:  # the feed is flaky and often empty: cache only real results
+        cache.write_text(json.dumps(reviews, ensure_ascii=False, indent=2) + "\n")
     return reviews
 
 
@@ -103,7 +104,7 @@ def screenshot_blocks(app_id: str) -> list[dict]:
 
 def make_spec(client: anthropic.Anthropic, app_id: str) -> dict:
     meta = json.loads((RESEARCH / app_id / "meta.json").read_text())
-    reviews = low_star_reviews(app_id, meta["store_country"])
+    reviews = low_star_reviews(app_id, meta["store_country"]) or low_star_reviews(app_id, "us")
     listing = {k: meta[k] for k in ("name", "genre", "formatted_price", "description", "release_notes", "rating", "rating_count")}
     content = screenshot_blocks(app_id) + [{
         "type": "text",

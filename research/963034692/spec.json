@@ -1,0 +1,511 @@
+{
+  "features": [
+    {
+      "name": "Paged habit grid",
+      "description": "Home screen shows habits as large circular icon buttons in a 2x3 grid per page, with swipeable pages (dot indicator) for up to 24 habits. Each circle has a progress ring, current streak number inside, and title below.",
+      "priority": "core",
+      "reason": "This is the app's central interaction and identity."
+    },
+    {
+      "name": "Tap-and-hold to complete",
+      "description": "Pressing and holding a habit fills the ring and marks it done for today. The circle turns solid white when complete. A hold or menu can undo a completion.",
+      "priority": "core",
+      "reason": "A deliberate hold prevents accidental check-offs and is the main daily action."
+    },
+    {
+      "name": "Streak counting",
+      "description": "Count consecutive scheduled periods in which the habit was completed. Days the habit is not scheduled are skipped and do not break the streak. Show current and best streak.",
+      "priority": "core",
+      "reason": "Building streaks is the stated purpose of the app."
+    },
+    {
+      "name": "Multiple completions per day",
+      "description": "A habit can require N completions per day, for example brushing teeth 3 times. The ring is split into N segments and each hold fills one segment. The habit is done when all segments are filled.",
+      "priority": "core",
+      "reason": "Shown on the home screen. Common for repeated daily habits."
+    },
+    {
+      "name": "Negative habits",
+      "description": "A habit to avoid, such as not smoking. It counts as successful by default for the day. The user records a slip, which breaks the streak. It is marked with a 'no' symbol before the title.",
+      "priority": "core",
+      "reason": "The listing promotes breaking bad habits, and it is one of the add-task categories."
+    },
+    {
+      "name": "Timed habits",
+      "description": "A habit with a duration, for example 3:00. A play button starts a countdown timer, and the habit completes automatically when the timer ends. The timer can be paused or cancelled.",
+      "priority": "core",
+      "reason": "Shown on the home screen and as a category in the add flow. Works fully offline."
+    },
+    {
+      "name": "Flexible scheduling",
+      "description": "Choose every day, specific weekdays, or N times per week or month. You can also mark a habit as a one-day task. Unscheduled days do not affect the streak.",
+      "priority": "core",
+      "reason": "A days selector appears in the task configuration screen."
+    },
+    {
+      "name": "Icon picker",
+      "description": "Choose from hundreds of icons, which can be built on SF Symbols, organised by category with search. Titles are limited to 20 characters, and an automatic title is generated from the template.",
+      "priority": "core",
+      "reason": "Every habit is identified by its icon. The listing highlights hundreds of icons."
+    },
+    {
+      "name": "Task templates and categories",
+      "description": "The add screen has tabs for general check tasks, health tasks, eating tasks, timed tasks and negative tasks. Each tab offers preset templates plus a custom option, with search.",
+      "priority": "core",
+      "reason": "This is how habits are created quickly."
+    },
+    {
+      "name": "Reminder notifications",
+      "description": "For each habit, choose no reminder, automatic times or custom times. Options include a time-sensitive toggle, a choice of sound, and an optional notification when the habit is completed. All are scheduled as local notifications.",
+      "priority": "core",
+      "reason": "Shown in the screenshots. Works with local notifications only and needs no server."
+    },
+    {
+      "name": "Statistics dashboard",
+      "description": "For all habits or one habit, show best streak, completion rate since start, and total completions. Charts include completion rate over time with a date range, completions by weekday, and completions by time of day. The range can be switched, for example from the beginning.",
+      "priority": "core",
+      "reason": "The listing highlights viewing statistics, and a screenshot shows the full stats screen."
+    },
+    {
+      "name": "Daily notes per habit",
+      "description": "Write a free-text note for any day of a habit. Navigate between days with arrows or a calendar picker.",
+      "priority": "nice",
+      "reason": "Shown in a screenshot. Simple to build locally."
+    },
+    {
+      "name": "Apple Health linked habits",
+      "description": "Habits that complete automatically from HealthKit data, all read on the device: steps, walking or running distance, heart rate zone minutes, stand minutes, cycling, swimming, time in daylight, mindful minutes, flights climbed, medications and activity rings. The user sets a goal, such as 5000 steps.",
+      "priority": "nice",
+      "reason": "Valuable, but adds HealthKit entitlement complexity. It uses only on-device data and no network."
+    },
+    {
+      "name": "Home screen widgets",
+      "description": "Widgets show a multi-habit grid, a single habit ring with its streak, a completion-rate line chart, weekday bars, the streak number, or a calendar dot grid. Interactive widgets can complete a habit.",
+      "priority": "nice",
+      "reason": "Shown in a screenshot. WidgetKit with an App Group is feasible offline."
+    },
+    {
+      "name": "App color themes",
+      "description": "Choose the app's background gradient and accent colour from a set of palettes.",
+      "priority": "nice",
+      "reason": "Listed as a feature. Cosmetic, but cheap to add."
+    },
+    {
+      "name": "Share statistics image",
+      "description": "Render the stats view to an image and open the system share sheet.",
+      "priority": "nice",
+      "reason": "A share button is visible on the stats screen. Works locally through the share sheet."
+    },
+    {
+      "name": "Apple Watch app",
+      "description": "A companion app to view habits and complete them from the wrist.",
+      "priority": "nice",
+      "reason": "Mentioned in the listing, but it is a separate target and can be added later."
+    },
+    {
+      "name": "Shared habits",
+      "description": "Share a habit with another person so they can see its progress and statistics, and assign an emoji avatar to the owner.",
+      "priority": "skip",
+      "reason": "Requires syncing between users through a server or cloud sharing."
+    },
+    {
+      "name": "Seasonal themes",
+      "description": "Holiday themes such as Halloween that are delivered through updates.",
+      "priority": "skip",
+      "reason": "Non-essential content tied to release marketing."
+    },
+    {
+      "name": "Cloud sync across devices",
+      "description": "Keep habit data in sync between a user's devices.",
+      "priority": "skip",
+      "reason": "Needs network or cloud services. Sbu apps keep data on the device."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Home grid",
+      "purpose": "View today's habits and complete them.",
+      "elements": [
+        "2x3 grid of circular habit buttons with progress rings",
+        "Streak number inside each circle",
+        "Habit title below, with a heart marker for Health habits and a 'no' marker for negative habits",
+        "Duration label and play button for timed habits",
+        "'Add task' circle in the first empty slot",
+        "Page dots for swiping between pages",
+        "Settings button at bottom left",
+        "Statistics button at bottom right"
+      ]
+    },
+    {
+      "name": "Add task",
+      "purpose": "Choose a template or create a custom habit.",
+      "elements": [
+        "Close button",
+        "Search button",
+        "Category tabs: check, health, eating, timed, negative",
+        "Short explanation of the selected category",
+        "List of templates, each with an icon, title and chevron"
+      ]
+    },
+    {
+      "name": "Task configuration",
+      "purpose": "Set up and save a habit.",
+      "elements": [
+        "Back button",
+        "Large icon preview with a button to change the icon",
+        "Title preview",
+        "Info banner, for example to request Health access",
+        "Title text field with automatic placeholder and 0/20 counter",
+        "Task type row, e.g. one-day task",
+        "Goal row, e.g. 5000 steps, times per day or duration",
+        "Days row for the schedule",
+        "Notifications row",
+        "Save button"
+      ]
+    },
+    {
+      "name": "Notifications settings",
+      "purpose": "Configure reminders for one habit.",
+      "elements": [
+        "Habit icon and title",
+        "Reminder choice: none, automatic times or custom times",
+        "List of custom times",
+        "Time-sensitive toggle",
+        "Sound picker",
+        "On-completion choice: none or notification"
+      ]
+    },
+    {
+      "name": "Statistics",
+      "purpose": "Review progress for all habits or a single habit.",
+      "elements": [
+        "Range selector button, e.g. since start",
+        "Row of habit icons to filter",
+        "Best streak value",
+        "Completion rate value",
+        "Total completions value",
+        "Line chart of completion rate with start date, number of days, and today",
+        "Weekday bar chart",
+        "Time-of-day completion curve",
+        "Share button",
+        "Close button",
+        "Page indicator for overall view versus each habit"
+      ]
+    },
+    {
+      "name": "Daily note editor",
+      "purpose": "Write a note about a habit for a given day.",
+      "elements": [
+        "Calendar date picker",
+        "Habit icon",
+        "Help button",
+        "Date title with previous and next arrows",
+        "Multiline text editor",
+        "Done button"
+      ]
+    },
+    {
+      "name": "Timer",
+      "purpose": "Run the countdown for a timed habit.",
+      "elements": [
+        "Large ring filling as time passes",
+        "Remaining time",
+        "Pause and resume button",
+        "Cancel button",
+        "Haptic and sound feedback on finish"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "App-wide preferences.",
+      "elements": [
+        "Color theme picker",
+        "Start of week",
+        "Day rollover time",
+        "Health permissions status",
+        "Export and import of data as JSON",
+        "Reorder or archive habits"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Create a habit",
+      "steps": [
+        "On the home screen, tap the 'Add task' circle.",
+        "Pick a category tab or search the templates.",
+        "Select a template.",
+        "Adjust the title, icon, goal and days.",
+        "Optionally set up reminders.",
+        "Tap Save. The habit appears in the next free grid slot."
+      ]
+    },
+    {
+      "name": "Complete a habit",
+      "steps": [
+        "Press and hold the habit circle.",
+        "The ring fills during the hold, with a haptic at the end.",
+        "The circle turns solid and the streak number increments.",
+        "For habits with several completions, each hold fills one segment."
+      ]
+    },
+    {
+      "name": "Run a timed habit",
+      "steps": [
+        "Tap the play button on the timed habit.",
+        "The timer screen counts down.",
+        "When it reaches zero, the habit is marked complete and a notification fires if the app is in the background."
+      ]
+    },
+    {
+      "name": "Record a slip on a negative habit",
+      "steps": [
+        "Press and hold the negative habit.",
+        "Confirm the slip.",
+        "The day is recorded as failed and the current streak resets."
+      ]
+    },
+    {
+      "name": "Health auto-complete",
+      "steps": [
+        "Create a Health template habit, such as walking 5000 steps.",
+        "Grant HealthKit read permission.",
+        "The app queries HealthKit on launch and through background delivery.",
+        "When the goal is reached, the habit is marked complete automatically."
+      ]
+    },
+    {
+      "name": "Review statistics",
+      "steps": [
+        "Tap the star button on the home screen.",
+        "See the overall statistics.",
+        "Swipe, or tap a habit icon, to see that habit's statistics.",
+        "Change the range.",
+        "Optionally share the stats as an image."
+      ]
+    },
+    {
+      "name": "Add a daily note",
+      "steps": [
+        "From the habit's menu, open Note.",
+        "Pick a date with the arrows or the calendar.",
+        "Type the note.",
+        "Tap Done to save."
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Habit",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "Primary key"
+          },
+          {
+            "name": "title",
+            "type": "String",
+            "note": "Maximum 20 characters. Empty means an automatic title."
+          },
+          {
+            "name": "iconName",
+            "type": "String",
+            "note": "SF Symbol name"
+          },
+          {
+            "name": "kind",
+            "type": "enum",
+            "note": "check, negative, timed or health"
+          },
+          {
+            "name": "timesPerDay",
+            "type": "Int",
+            "note": "Number of ring segments. Defaults to 1."
+          },
+          {
+            "name": "durationSeconds",
+            "type": "Int?",
+            "note": "For timed habits"
+          },
+          {
+            "name": "healthMetric",
+            "type": "String?",
+            "note": "e.g. steps, distance, flights or mindfulMinutes"
+          },
+          {
+            "name": "healthGoal",
+            "type": "Double?",
+            "note": "Target value for Health habits"
+          },
+          {
+            "name": "scheduleType",
+            "type": "enum",
+            "note": "everyDay, weekdays, timesPerWeek, timesPerMonth or oneDay"
+          },
+          {
+            "name": "weekdays",
+            "type": "[Int]",
+            "note": "Used when scheduleType is weekdays"
+          },
+          {
+            "name": "timesPerPeriod",
+            "type": "Int?",
+            "note": "Used for N times per week or month"
+          },
+          {
+            "name": "sortIndex",
+            "type": "Int",
+            "note": "Position in the grid. 24 habits maximum."
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": "Start of the statistics range"
+          },
+          {
+            "name": "archived",
+            "type": "Bool",
+            "note": "Hides the habit without deleting history"
+          }
+        ]
+      },
+      {
+        "name": "Completion",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "Primary key"
+          },
+          {
+            "name": "habitId",
+            "type": "UUID",
+            "note": "References Habit"
+          },
+          {
+            "name": "timestamp",
+            "type": "Date",
+            "note": "Used for the time-of-day chart"
+          },
+          {
+            "name": "dayKey",
+            "type": "String",
+            "note": "yyyy-MM-dd in local time, adjusted for the rollover setting"
+          },
+          {
+            "name": "isSlip",
+            "type": "Bool",
+            "note": "True for a negative-habit failure"
+          },
+          {
+            "name": "source",
+            "type": "enum",
+            "note": "manual, timer or health"
+          }
+        ]
+      },
+      {
+        "name": "Reminder",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "Primary key"
+          },
+          {
+            "name": "habitId",
+            "type": "UUID",
+            "note": "References Habit"
+          },
+          {
+            "name": "mode",
+            "type": "enum",
+            "note": "none, automatic or custom"
+          },
+          {
+            "name": "times",
+            "type": "[DateComponents]",
+            "note": "Custom reminder times"
+          },
+          {
+            "name": "timeSensitive",
+            "type": "Bool",
+            "note": "Interruption level for the notification"
+          },
+          {
+            "name": "sound",
+            "type": "String",
+            "note": "Bundled sound file name"
+          },
+          {
+            "name": "notifyOnComplete",
+            "type": "Bool",
+            "note": "Local notification when the habit is completed"
+          }
+        ]
+      },
+      {
+        "name": "Note",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "Primary key"
+          },
+          {
+            "name": "habitId",
+            "type": "UUID",
+            "note": "References Habit"
+          },
+          {
+            "name": "dayKey",
+            "type": "String",
+            "note": "One note per habit per day"
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "note": "Free text"
+          }
+        ]
+      },
+      {
+        "name": "Settings",
+        "fields": [
+          {
+            "name": "themeId",
+            "type": "String",
+            "note": "Selected colour palette"
+          },
+          {
+            "name": "weekStart",
+            "type": "Int",
+            "note": "First day of the week"
+          },
+          {
+            "name": "dayRolloverHour",
+            "type": "Int",
+            "note": "When the habit day resets"
+          }
+        ]
+      }
+    ],
+    "storage": "SwiftData stored locally in an App Group container so widgets can read it. No network access and no cloud sync. Optional JSON export and import through the share sheet and the Files app."
+  },
+  "monetization": {
+    "model": "Free",
+    "price": "0",
+    "paywalled_features": [],
+    "notes": "The Sbu version is completely free, with no account, ads, in-app purchases or tracking. The original costs a one-time 6.99 €."
+  },
+  "user_pains": [],
+  "source": {
+    "app_id": "963034692",
+    "name": "Streaks",
+    "url": "https://apps.apple.com/it/app/streaks/id963034692?uo=4",
+    "model": "claude-opus-5-5",
+    "reviews": 0
+  }
+}

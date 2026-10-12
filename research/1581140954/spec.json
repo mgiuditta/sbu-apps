@@ -1,0 +1,378 @@
+{
+  "features": [
+    {
+      "name": "Safari web extension that darkens pages",
+      "description": "A Safari Web Extension with a content script injected on all sites at document start. It reads each page's computed colors (backgrounds, text, borders, links, inline SVG fills) and generates an override stylesheet. Light backgrounds become dark and dark text becomes light, while hue is preserved so brand colors and highlights still stand out. It watches DOM mutations so dynamically added content is also darkened. Injecting early avoids a white flash on load.",
+      "priority": "core",
+      "reason": "This is the product's whole purpose. Safari Web Extensions run locally with no network access."
+    },
+    {
+      "name": "Global mode: Auto / On / Off",
+      "description": "A segmented control for the default behaviour on every site. Auto darkens only when the device is in Dark Mode (the extension checks the prefers-color-scheme media query and reacts live when it changes). On always darkens. Off never darkens unless a site override says otherwise.",
+      "priority": "core",
+      "reason": "Shown in the screenshots as the primary setting, and the listing says it is linked to system Dark Mode by default."
+    },
+    {
+      "name": "Per-website settings",
+      "description": "Each host (for example wikipedia.org) can override three things: whether darkening is enabled (Default, Auto, On or Off), which theme to use, and whether to ignore the site's built-in dark mode. Each picker has a 'Default' option that inherits the global value. Sites appear in a list on the main screen and can be removed.",
+      "priority": "core",
+      "reason": "Highlighted in the screenshots and listing as a key capability: enable on only a few sites, or disable on some."
+    },
+    {
+      "name": "Detect and respect native dark mode",
+      "description": "Before darkening, the content script checks whether the page already has a dark appearance, for example a low-luminance computed body or html background, or a color-scheme dark declaration. If it does, darkening is skipped to avoid double inversion. A per-site option forces darkening even when a built-in dark mode is detected.",
+      "priority": "core",
+      "reason": "Shown on the per-site screen. Without it, sites that are already dark would be ruined."
+    },
+    {
+      "name": "Built-in themes",
+      "description": "A set of preset color schemes such as Dark (dark gray), Black (true black for OLED), Dim, a navy variant and a sepia-dark variant. Each defines background, text, link and image treatment. The listing mentions 20+; a free version can ship a smaller curated set.",
+      "priority": "core",
+      "reason": "Theme selection appears in both the default and per-site settings."
+    },
+    {
+      "name": "Custom theme editor",
+      "description": "Create, duplicate, rename and delete themes. Editable values are background color, text color, link color and image adjustments (dim or brightness for images). A live preview card shows a mock article with a headline, body text and a photo using the chosen colors. Uses the SwiftUI ColorPicker.",
+      "priority": "nice",
+      "reason": "Shown in a screenshot. It adds polish, but the app is usable with presets alone."
+    },
+    {
+      "name": "Theme export/import via file",
+      "description": "Export a theme as a small JSON file through the share sheet, and import it with a document picker or by opening the file in the app.",
+      "priority": "nice",
+      "reason": "A share button appears in the editor. A local file transfer needs no server."
+    },
+    {
+      "name": "Extension toolbar popup",
+      "description": "A popup opened from Safari's extension (puzzle) menu. It shows the current host with a quick Default/On/Off toggle and a theme picker for that site, and saves those choices as a per-site setting.",
+      "priority": "core",
+      "reason": "This is the natural way to add per-site overrides while browsing, and the puzzle icon is visible in the screenshot's address bar."
+    },
+    {
+      "name": "Advanced settings",
+      "description": "Global fine-tuning options such as image dimming level, contrast strength and whether to darken images/videos/iframes. Exact contents are not shown in the listing and are inferred.",
+      "priority": "nice",
+      "reason": "A row for it is visible, but the details are unknown, so keep it minimal."
+    },
+    {
+      "name": "Setup guide",
+      "description": "Step-by-step instructions for enabling the extension: Settings > Apps > Safari > Extensions, turn it on, and allow it on All Websites. Shows whether the extension appears to be active, based on the last time the extension pinged the shared container.",
+      "priority": "core",
+      "reason": "Safari extensions cannot be enabled programmatically, so users need guidance."
+    },
+    {
+      "name": "Shortcuts actions",
+      "description": "App Intents to set the global mode (Auto/On/Off), toggle darkening, and set the mode for a given site. Results are written to shared App Group storage.",
+      "priority": "nice",
+      "reason": "Mentioned in the listing and works fully on-device."
+    },
+    {
+      "name": "Control Center control and widget",
+      "description": "An iOS 18 ControlWidget toggle and a Home Screen widget that show and switch the global mode.",
+      "priority": "nice",
+      "reason": "Mentioned in the listing; local only, but secondary."
+    },
+    {
+      "name": "Focus Filter",
+      "description": "A SetFocusFilterIntent so a Focus (for example Sleep) can force the global mode to On or Off.",
+      "priority": "nice",
+      "reason": "Mentioned in the listing; on-device, but niche."
+    },
+    {
+      "name": "iCloud settings sync",
+      "description": "Syncs settings and themes across devices through the user's iCloud account.",
+      "priority": "skip",
+      "reason": "Requires an account and a remote server, so it conflicts with the no-account, on-device rule."
+    },
+    {
+      "name": "Report a broken website",
+      "description": "Sends the URL of a badly darkened site to the developer.",
+      "priority": "skip",
+      "reason": "Requires network access and a server. Users can disable darkening per site instead."
+    },
+    {
+      "name": "Curated per-site fix updates",
+      "description": "Developer-maintained CSS fixes for specific sites, delivered through updates.",
+      "priority": "skip",
+      "reason": "Depends on a reporting backend and ongoing curation. A free app can bundle a small static fix list instead, without any remote fetching."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Settings (home tab)",
+      "purpose": "Control the default behaviour and list per-site overrides",
+      "elements": [
+        "Large title with app name",
+        "'Default Settings' section with explanatory caption",
+        "Auto / On / Off segmented control with a dynamic caption explaining the current mode",
+        "Theme picker row showing the current theme name",
+        "Advanced Settings navigation row",
+        "'Website Settings' section listing hosts with a letter/favicon placeholder and chevron",
+        "Swipe to delete a site override",
+        "Add Website button (manual host entry)",
+        "Bottom tab bar: Settings, Themes, More"
+      ]
+    },
+    {
+      "name": "Website Detail",
+      "purpose": "Edit overrides for a single host",
+      "elements": [
+        "Host name as title",
+        "Back button and overflow menu (reset to defaults, delete)",
+        "Enabled picker: Default / Auto / On / Off, with a caption describing the effect",
+        "Theme picker: Default or any theme, with a caption",
+        "Ignore built-in dark mode picker: Default / On / Off, with a caption",
+        "Gray dot indicator when a value inherits the default; tinted dot when overridden"
+      ]
+    },
+    {
+      "name": "Advanced Settings",
+      "purpose": "Global fine-tuning of the darkening engine",
+      "elements": [
+        "Image dimming slider",
+        "Contrast slider",
+        "Toggle: darken embedded frames",
+        "Toggle: dim videos",
+        "Reset to defaults button"
+      ]
+    },
+    {
+      "name": "Themes",
+      "purpose": "Browse built-in and custom themes",
+      "elements": [
+        "Built-in themes section with color swatches and names",
+        "My Themes section",
+        "New Theme button",
+        "Context menu: duplicate, export, delete",
+        "Import Theme button"
+      ]
+    },
+    {
+      "name": "Edit Theme",
+      "purpose": "Create or modify a custom theme",
+      "elements": [
+        "Live preview card: mock newspaper header, headline, body text and image rendered in the theme's colors",
+        "Name text field",
+        "Colors section: background, text, link (ColorPicker)",
+        "Images section: dim/brightness slider",
+        "Share/export button",
+        "Overflow menu: duplicate, delete"
+      ]
+    },
+    {
+      "name": "More",
+      "purpose": "Setup help and app info",
+      "elements": [
+        "Setup guide row",
+        "Extension status indicator",
+        "Shortcuts info row",
+        "About / privacy statement (no data collected, no network)",
+        "Open source / acknowledgements"
+      ]
+    },
+    {
+      "name": "Setup Guide",
+      "purpose": "Walk the user through enabling the Safari extension",
+      "elements": [
+        "Numbered steps with SF Symbols",
+        "Button to open the Settings app",
+        "Explanation of the 'All Websites' permission and why it is needed",
+        "Done button"
+      ]
+    },
+    {
+      "name": "Extension Popup (in Safari)",
+      "purpose": "Quick per-site control while browsing",
+      "elements": [
+        "Current host label",
+        "Default / On / Off segmented control for this site",
+        "Theme picker for this site",
+        "Global mode indicator",
+        "Link to open the containing app"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First launch and enabling the extension",
+      "steps": [
+        "User opens the app and the setup guide appears",
+        "User follows the steps to Settings > Safari > Extensions and enables the extension",
+        "User grants permission on All Websites",
+        "On the next page load the extension writes a heartbeat to shared storage",
+        "When the app returns to the foreground it shows the extension as active and dismisses the guide"
+      ]
+    },
+    {
+      "name": "Browsing with automatic darkening",
+      "steps": [
+        "User loads a page in Safari",
+        "The content script runs at document start and reads settings (global and host override) through native messaging or cached extension storage",
+        "It resolves the effective mode; in Auto it checks prefers-color-scheme",
+        "If the page is already dark and ignore-built-in is not forced, it skips",
+        "Otherwise it analyzes computed colors, builds the override CSS from the effective theme and injects it",
+        "A MutationObserver handles new nodes; a media query listener toggles darkening when system appearance changes"
+      ]
+    },
+    {
+      "name": "Disabling darkening on one site",
+      "steps": [
+        "On a site that looks wrong, user taps the puzzle icon and opens the extension popup",
+        "User selects Off for this site",
+        "The popup saves a SiteSetting for the host to shared storage",
+        "The content script removes the injected styles immediately",
+        "The site now appears in the app's Website Settings list"
+      ]
+    },
+    {
+      "name": "Creating a custom theme",
+      "steps": [
+        "User opens the Themes tab and taps New Theme (or duplicates a built-in one)",
+        "User names it and picks background, text and link colors and image dimming",
+        "The preview card updates live",
+        "User goes back and the theme is saved",
+        "User assigns it as the default theme or to a specific site"
+      ]
+    },
+    {
+      "name": "Sharing a theme",
+      "steps": [
+        "In Edit Theme, user taps the share button",
+        "The app writes a JSON theme file and opens the share sheet",
+        "The recipient opens the file and the app imports it into My Themes after confirmation"
+      ]
+    },
+    {
+      "name": "Toggling via Shortcuts or Control Center",
+      "steps": [
+        "User runs the 'Set Dark Mode' intent or taps the Control Center control",
+        "The intent writes the new global mode to the App Group",
+        "The extension picks up the change on the next page load or storage change event"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "GlobalSettings",
+        "fields": [
+          {
+            "name": "mode",
+            "type": "enum(auto,on,off)",
+            "note": "Defaults to auto, which follows the system appearance"
+          },
+          {
+            "name": "defaultThemeId",
+            "type": "UUID",
+            "note": "References a Theme; defaults to the built-in 'Dark'"
+          },
+          {
+            "name": "imageDimming",
+            "type": "Double",
+            "note": "0–1; advanced setting"
+          },
+          {
+            "name": "contrast",
+            "type": "Double",
+            "note": "Advanced setting"
+          },
+          {
+            "name": "darkenFrames",
+            "type": "Bool",
+            "note": "Advanced setting"
+          },
+          {
+            "name": "lastExtensionPing",
+            "type": "Date?",
+            "note": "Written by the extension and used for the setup status display"
+          }
+        ]
+      },
+      {
+        "name": "SiteSetting",
+        "fields": [
+          {
+            "name": "host",
+            "type": "String",
+            "note": "Normalized registrable domain, e.g. wikipedia.org; unique key"
+          },
+          {
+            "name": "enabled",
+            "type": "enum(default,auto,on,off)",
+            "note": "default inherits GlobalSettings.mode"
+          },
+          {
+            "name": "themeId",
+            "type": "UUID?",
+            "note": "nil inherits defaultThemeId"
+          },
+          {
+            "name": "ignoreBuiltInDarkMode",
+            "type": "enum(default,on,off)",
+            "note": "When on, darken even if the site is already dark"
+          },
+          {
+            "name": "updatedAt",
+            "type": "Date",
+            "note": "Used to sort the list"
+          }
+        ]
+      },
+      {
+        "name": "Theme",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "Stable ID; built-in themes use fixed IDs"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "User-editable for custom themes"
+          },
+          {
+            "name": "isBuiltIn",
+            "type": "Bool",
+            "note": "Built-in themes are read-only and can be duplicated"
+          },
+          {
+            "name": "backgroundColor",
+            "type": "String (hex)",
+            "note": "Base dark background"
+          },
+          {
+            "name": "textColor",
+            "type": "String (hex)",
+            "note": "Base text color"
+          },
+          {
+            "name": "linkColor",
+            "type": "String (hex)",
+            "note": "Optional; if absent, the original hue is preserved with adjusted lightness"
+          },
+          {
+            "name": "imageBrightness",
+            "type": "Double",
+            "note": "Brightness applied to images, 0.5–1"
+          }
+        ]
+      }
+    ],
+    "storage": "Codable JSON (or UserDefaults) in a shared App Group container so the app, extension handler, widgets and intents read the same data. The Safari extension gets settings through SafariWebExtensionHandler native messaging (local IPC, no network) and caches them in browser.storage.local for synchronous-ish access at document start. No iCloud, no network requests."
+  },
+  "monetization": {
+    "model": "Free, no in-app purchases, no ads, no subscription",
+    "price": "0",
+    "paywalled_features": [],
+    "notes": "The original is a 3,99 € one-time purchase with no subscription. The Sbu version gives every feature away free. iCloud sync and website reporting are dropped because they need an account or network access."
+  },
+  "user_pains": [],
+  "source": {
+    "app_id": "1581140954",
+    "name": "Noir - Dark Mode for Safari",
+    "url": "https://apps.apple.com/it/app/noir-dark-mode-for-safari/id1581140954?uo=4",
+    "model": "claude-opus-5-5",
+    "reviews": 0
+  }
+}

@@ -9,9 +9,11 @@ struct SingleHabitWidgetView: View {
     var body: some View {
         Group {
             if let habit = entry.habit, let progress = entry.progress {
+                let face = HabitRingFace(habit: habit, progress: progress)
+                let streakText = habit.schedule.isWeekly ? Text("\(entry.streak) settimane") : Text("\(entry.streak) giorni")
                 Button(intent: MarkHabitIntent(habitID: habit.id)) {
                     VStack(spacing: SbuTheme.space1) {
-                        HabitRing(symbol: progress.isComplete ? "checkmark" : habit.symbol, segments: max(progress.goal, 1), filled: Double(progress.done))
+                        HabitRing(face: face)
                             .aspectRatio(1, contentMode: .fit)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -20,15 +22,16 @@ struct SingleHabitWidgetView: View {
                             .foregroundStyle(SbuTheme.ink)
                             .lineLimit(1)
 
-                        Text(habit.schedule.isWeekly ? "\(entry.streak) settimane" : "\(entry.streak) giorni")
+                        streakText
                             .font(SbuTheme.caption)
                             .monospacedDigit()
                             .foregroundStyle(SbuTheme.inkMuted)
                     }
                 }
                 .buttonStyle(.plain)
+                // The same as the app's cell: kind, count and Limite, then the Serie.
                 .accessibilityLabel(habit.title)
-                .accessibilityValue(progress.isComplete ? Text("Fatta") : Text("\(progress.done) di \(progress.goal)"))
+                .accessibilityValue(face.progressText + Text(verbatim: ", ") + streakText)
             } else {
                 Text("Aggiungi un'abitudine nell'app")
                     .font(SbuTheme.footnote)
@@ -47,4 +50,5 @@ struct SingleHabitWidgetView: View {
     SingleHabitWidget()
 } timeline: {
     SingleHabitEntry.sample
+    SingleHabitEntry.overLimitSample
 }

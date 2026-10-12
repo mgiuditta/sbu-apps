@@ -8,6 +8,6 @@ nonisolated struct HabitEntityQuery: EntityQuery {
     }
 
     func suggestedEntities() async throws -> [HabitEntity] {
-        WidgetChoice.toDo(try HabitsStore.shared.load().habits).map(HabitEntity.init)
+        try HabitsStore.shared.load().habits.map(HabitEntity.init)
     }
 }

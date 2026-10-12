@@ -17,6 +17,10 @@ nonisolated struct HabitProgress: Equatable, Sendable {
 
     var isOverLimit: Bool { limit != nil && done > goal }
 
+    /// Still asks for something today: a habit to do not yet done. An Abitudine da evitare never
+    /// does, within the Limite or over it.
+    var isStillToDo: Bool { limit == nil && isComplete == false }
+
     /// Times still allowed today before going over the Limite.
     var margin: Int { max(goal - done, 0) }
 

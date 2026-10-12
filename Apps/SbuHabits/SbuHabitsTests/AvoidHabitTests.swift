@@ -141,10 +141,4 @@ struct AvoidHabitTests {
 
         #expect(decoded == file)
     }
-
-    @Test func theWidgetLeavesAvoidedHabitsOut() {
-        let reading = Habit(title: "Leggere", symbol: "book", createdOn: today)
-
-        #expect(WidgetChoice.grid([coffee(given: [:]), reading], chosen: [], today: today, firstWeekday: 2) == [reading])
-    }
 }

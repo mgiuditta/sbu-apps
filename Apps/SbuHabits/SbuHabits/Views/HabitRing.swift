@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// A habit's symbol inside a ring that fills in the accent, one segment per time of the day.
+/// A habit's symbol inside a ring that fills in the accent, one segment per time of the day;
+/// over the Limite of an Abitudine da evitare, in `danger`, with the cross.
 struct HabitRing: View {
     /// Space between segments, as a fraction of the whole ring.
     private static let gap = 0.02
@@ -11,6 +12,19 @@ struct HabitRing: View {
     let segments: Int
     /// How many segments are filled; the fraction of the last one animates while holding.
     let filled: Double
+    /// Draws the fill in `danger`: only ever with the cross, never color alone.
+    let isOverLimit: Bool
+
+    init(symbol: String, segments: Int, filled: Double, isOverLimit: Bool = false) {
+        self.symbol = symbol
+        self.segments = segments
+        self.filled = filled
+        self.isOverLimit = isOverLimit
+    }
+
+    init(face: HabitRingFace, isHolding: Bool = false) {
+        self.init(symbol: face.symbol, segments: face.segments, filled: face.filled(isHolding: isHolding), isOverLimit: face.isOverLimit)
+    }
 
     private var lineCap: CGLineCap {
         segments > 1 ? .butt : .round
@@ -31,6 +45,7 @@ struct HabitRing: View {
                     .stroke(.tint, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
             }
             .rotationEffect(.degrees(-90))
+            .tint(isOverLimit ? SbuTheme.danger : nil)
 
             Image(systemName: symbol)
                 .font(SbuTheme.title2)
@@ -65,6 +80,7 @@ private struct HabitRingPreview: View {
             HabitRing(symbol: "book", segments: 1, filled: 0)
             HabitRing(symbol: "checkmark", segments: 1, filled: 1)
             HabitRing(symbol: "drop", segments: 8, filled: 3.5)
+            HabitRing(symbol: "xmark", segments: 2, filled: 2, isOverLimit: true)
         }
         .frame(height: SbuTheme.space12 * 2)
         .padding(SbuTheme.space4)

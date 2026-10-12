@@ -61,10 +61,14 @@ private struct WidgetHabitButton: View {
     let progress: HabitProgress
     let showsTitle: Bool
 
+    private var face: HabitRingFace {
+        HabitRingFace(habit: habit, progress: progress)
+    }
+
     var body: some View {
         Button(intent: MarkHabitIntent(habitID: habit.id)) {
             VStack(spacing: SbuTheme.space1) {
-                HabitRing(symbol: progress.isComplete ? "checkmark" : habit.symbol, segments: max(progress.goal, 1), filled: Double(progress.done))
+                HabitRing(face: face)
                     .aspectRatio(1, contentMode: .fit)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -76,10 +80,11 @@ private struct WidgetHabitButton: View {
                 }
             }
         }
-        // Not disabled, which would dim a done habit: marking it again changes nothing.
+        // Not disabled, which would dim a done habit: marking it again changes nothing. An
+        // Abitudine da evitare counts one more time given in on every tap.
         .buttonStyle(.plain)
         .accessibilityLabel(habit.title)
-        .accessibilityValue(progress.isComplete ? Text("Fatta") : Text("\(progress.done) di \(progress.goal)"))
+        .accessibilityValue(face.progressText)
     }
 }
 
@@ -121,14 +126,23 @@ private struct WidgetMoreCell: View {
 }
 
 private struct HabitsWidgetGridPreview: View {
+    private let today = LogicalDay(.now)
+
+    /// An Abitudine da evitare given in `times` times today.
+    private func avoided(_ title: String, symbol: String, limit: Int, times: Int) -> Habit {
+        var habit = Habit(title: title, symbol: symbol, limit: limit, createdOn: today)
+        habit.log[today] = times
+        return habit
+    }
+
     var body: some View {
-        let today = LogicalDay(.now)
-        let habits = (0..<10).map { Habit(title: "Abitudine \($0 + 1)", symbol: "book", createdOn: today) }
+        let habits = [avoided("Caffè", symbol: "cup.and.saucer", limit: 2, times: 1), avoided("Non fumare", symbol: "lungs", limit: 0, times: 1)]
+            + (0..<8).map { Habit(title: "Abitudine \($0 + 1)", symbol: "book", createdOn: today) }
         let progress = Dictionary(uniqueKeysWithValues: habits.map { ($0.id, HabitProgress(of: $0, today: today, firstWeekday: 2)) })
         HabitsWidgetGrid(slots: WidgetSlots(habits, progress: progress, capacity: 8), progress: progress, columns: 4, rows: 2, showsTitles: true)
             .frame(width: 338, height: 158)
             .padding(SbuTheme.space4)
             .background(SbuTheme.surface)
-                .tint(SbuTheme.accentHabits)
+            .tint(SbuTheme.accentHabits)
     }
 }

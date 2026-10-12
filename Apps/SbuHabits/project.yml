@@ -55,6 +55,7 @@ targets:
       - SbuHabits/Reminders
       - SbuHabits/Intents
       - SbuHabits/Views/HabitRing.swift
+      - SbuHabits/Views/HabitRingFace.swift
       - SbuHabits/Views/HabitsWidgetGrid.swift
       - SbuHabits/Localizable.xcstrings
     dependencies:

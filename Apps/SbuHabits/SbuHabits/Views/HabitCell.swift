@@ -26,48 +26,13 @@ struct HabitCell: View {
 
     @ScaledMetric(relativeTo: .title2) private var ringSize = SbuTheme.space12 * 2
 
-    /// Filled segments, moving one segment forward while holding, or back when the hold undoes
-    /// or uses up the margin.
-    private var filled: Double {
-        if progress.limit != nil {
-            if progress.isOverLimit { return Double(max(progress.goal, 1)) }
-            return Double(isHolding ? max(progress.margin - 1, 0) : progress.margin)
-        }
-        guard isHolding else { return Double(progress.done) }
-        return Double(progress.holdUndoes ? progress.done - 1 : progress.done + 1)
-    }
-
-    /// The symbol in the ring: a checkmark when done, a skip mark when skipped, so state never rests on color.
-    private var symbol: String {
-        if progress.isSkippedToday && habit.schedule.isWeekly == false {
-            "forward"
-        } else if progress.isOverLimit {
-            "xmark"
-        } else if progress.limit != nil {
-            habit.symbol
-        } else if progress.isComplete {
-            "checkmark"
-        } else {
-            habit.symbol
-        }
+    /// The ring's symbol, fill and VoiceOver state, the same the widgets draw.
+    private var face: HabitRingFace {
+        HabitRingFace(habit: habit, progress: progress)
     }
 
     private var skipTitle: LocalizedStringKey {
         progress.isSkippedToday ? "Non saltare oggi" : "Salta oggi"
-    }
-
-    private var progressText: Text {
-        if progress.isSkippedToday {
-            Text("Saltata oggi")
-        } else if progress.isOverLimit {
-            Text("Da evitare, limite superato, \(progress.done) su \(progress.goal)")
-        } else if progress.limit != nil {
-            Text("Da evitare, \(progress.done) su \(progress.goal)")
-        } else if progress.goal > 1 {
-            Text("\(progress.done) di \(progress.goal)")
-        } else {
-            Text(progress.isComplete ? "Fatta" : "Da fare")
-        }
     }
 
     private var streakText: Text {
@@ -76,9 +41,7 @@ struct HabitCell: View {
 
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
-            HabitRing(symbol: symbol, segments: max(progress.goal, 1), filled: filled)
-                // Over the Limite, with the cross: never color alone.
-                .tint(progress.isOverLimit ? SbuTheme.danger : nil)
+            HabitRing(face: face, isHolding: isHolding)
                 // Up to its scaled size, never wider than the column.
                 .frame(maxWidth: ringSize, maxHeight: ringSize)
                 .aspectRatio(1, contentMode: .fit)
@@ -119,7 +82,7 @@ struct HabitCell: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(habit.title)
-        .accessibilityValue(progressText + Text(verbatim: ", ") + streakText)
+        .accessibilityValue(face.progressText + Text(verbatim: ", ") + streakText)
         .accessibilityActions {
             if progress.limit != nil {
                 Button("Ho ceduto", action: markDone)

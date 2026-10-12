@@ -2,8 +2,9 @@ import AppIntents
 import Foundation
 import WidgetKit
 
-/// Marks a habit done once today, from the widget. It only adds: taking a mark back stays in the
-/// app, where a slip of the finger is easy to see.
+/// Marks a habit done once today, from the widget; for an Abitudine da evitare, one more time
+/// given in, past the Limite too. It only adds: taking a mark back stays in the app, where a slip
+/// of the finger is easy to see.
 struct MarkHabitIntent: AppIntent {
     static let title: LocalizedStringResource = "Segna come fatta"
     // Backs the widget's buttons only; it does not belong in the Shortcuts library.

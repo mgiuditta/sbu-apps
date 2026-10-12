@@ -1,0 +1,24 @@
+{
+  "sourceLanguage": "it",
+  "strings": {
+    "NSLocationWhenInUseUsageDescription": {
+      "comment": "The location permission prompt. When in use only, nothing leaves the device.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Speed uses your location only while it is open, to read your speed. Your location stays on this iPhone."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Speed usa la posizione solo mentre è aperta, per leggere la tua velocità. La posizione resta su questo iPhone."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

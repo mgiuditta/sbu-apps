@@ -31,6 +31,7 @@ targets:
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "Sbu Speed usa la posizione solo mentre è aperta, per leggere la tua velocità. La posizione resta su questo iPhone."
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.
         TARGETED_DEVICE_FAMILY: "1"
@@ -66,7 +67,10 @@ schemes:
       targets:
         SbuSpeed: all
     test:
-      targets: [SbuSpeedTests]
+      targets:
+        - SbuSpeedTests
+        - name: SbuSpeedUITests
+          skippedTests: [SnapshotTests]
   SbuSpeedSnapshots:
     build:
       targets:

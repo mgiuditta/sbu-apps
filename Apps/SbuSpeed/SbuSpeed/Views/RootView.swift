@@ -3,11 +3,13 @@ import SwiftUI
 
 /// The app inside the standard Sbu shell.
 struct RootView: View {
+    @State private var model = SpeedModel()
+
     var body: some View {
         SbuAppShell("Sbu Speed", slug: "speed", accent: SbuTheme.accentSpeed, appIcon: Image(.appIconArtwork)) {
-            MainView()
+            MainView(model: model)
         } settings: {
-            EmptyView()
+            UnitSection(model: model)
         }
     }
 }

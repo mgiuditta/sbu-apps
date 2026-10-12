@@ -5,6 +5,14 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Apri l'app e leggi la tua velocità in grande, dal GPS dell'iPhone. In bici, di corsa, in barca o in auto: un numero solo, leggibile da lontano.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Velocità attuale in km/h o mph, una cifra grande e intera
+- Velocità massima, velocità media e distanza del viaggio
+- La media conta solo il tempo in movimento: le soste non la abbassano
+- Azzera il viaggio con una conferma
+- Lo schermo resta acceso mentre guardi la velocità
+- La posizione si usa solo con l'app aperta e resta sull'iPhone
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: ti dice quanto vai veloce.

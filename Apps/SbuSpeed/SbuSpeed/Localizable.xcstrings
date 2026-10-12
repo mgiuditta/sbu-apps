@@ -1,16 +1,156 @@
 {
-  "sourceLanguage" : "it",
-  "strings" : {
-    "Sbu Speed" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Speed" } }
+  "sourceLanguage": "it",
+  "strings": {
+    "Apri Impostazioni": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Settings"
+          }
+        }
       }
     },
-    "Valore" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+    "Azzera viaggio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset trip"
+          }
+        }
+      }
+    },
+    "Cerco il segnale GPS": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Looking for GPS signal"
+          }
+        }
+      }
+    },
+    "Consenti la posizione": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow location access"
+          }
+        }
+      }
+    },
+    "Distanza": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Distance"
+          }
+        }
+      }
+    },
+    "Fermo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Still"
+          }
+        }
+      }
+    },
+    "In movimento": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moving"
+          }
+        }
+      }
+    },
+    "La distanza segue la velocità: chilometri con km/h, miglia con mph.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Distance follows speed: kilometres with km/h, miles with mph."
+          }
+        }
+      }
+    },
+    "Massima": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top"
+          }
+        }
+      }
+    },
+    "Media": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average"
+          }
+        }
+      }
+    },
+    "Posizione non consentita": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Location not allowed"
+          }
+        }
+      }
+    },
+    "Sbu Speed": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Speed"
+          }
+        }
+      }
+    },
+    "Serve la posizione esatta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precise location needed"
+          }
+        }
+      }
+    },
+    "Unità": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Units"
+          }
+        }
+      }
+    },
+    "Velocità": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Speed"
+          }
+        }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

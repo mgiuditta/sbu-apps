@@ -5,6 +5,14 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Open the app and read your speed in large digits, from your iPhone's GPS. On a bike, on a run, on a boat or in a car: one number, readable from a distance.
 
-Sbu does one thing: __ONE_THING_EN__
+- Current speed in km/h or mph, one large whole number
+- Top speed, average speed and distance of the trip
+- The average counts only time spent moving: stops do not lower it
+- Reset the trip with a confirmation
+- The screen stays on while you watch your speed
+- Location is used only while the app is open and stays on your iPhone
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it tells you how fast you are going.

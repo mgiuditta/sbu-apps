@@ -1,0 +1,69 @@
+import Foundation
+import Testing
+@testable import SbuSpeed
+
+struct SpeedUnitTests {
+    @Test(arguments: [
+        ("it_IT", SpeedUnit.kilometersPerHour),
+        ("de_DE", .kilometersPerHour),
+        ("en_US", .milesPerHour),
+        ("en_GB", .milesPerHour),
+    ])
+    func defaultUnitFollowsTheRegion(identifier: String, expected: SpeedUnit) {
+        #expect(SpeedUnit.preferred(for: Locale(identifier: identifier)) == expected)
+    }
+
+    @Test(arguments: [
+        (SpeedUnit.kilometersPerHour, 10.0, 36.0),
+        (.milesPerHour, 10.0, 22.369),
+    ])
+    func convertsFromMetersPerSecond(unit: SpeedUnit, metersPerSecond: Double, expected: Double) {
+        #expect(abs(unit.value(ofMetersPerSecond: metersPerSecond) - expected) < 0.001)
+    }
+
+    @Test(arguments: [
+        (SpeedUnit.kilometersPerHour, "it_IT", "87 km/h"),
+        (.kilometersPerHour, "en_US", "87 km/h"),
+        (.milesPerHour, "en_US", "54 mph"),
+    ])
+    func speedIsAWholeNumberWithItsUnit(unit: SpeedUnit, identifier: String, expected: String) {
+        // 87 km/h, 54 mph.
+        let text = unit.speedText(metersPerSecond: 24.1667, locale: Locale(identifier: identifier))
+
+        #expect(text.withPlainSpaces == expected)
+    }
+
+    @Test(arguments: [
+        (SpeedUnit.kilometersPerHour, "it_IT", "12,4 km"),
+        (.kilometersPerHour, "en_US", "12.4 km"),
+        (.milesPerHour, "en_US", "7.7 mi"),
+    ])
+    func distanceHasOneDecimalInTheMatchingUnit(unit: SpeedUnit, identifier: String, expected: String) {
+        let text = unit.distanceText(meters: 12_400, locale: Locale(identifier: identifier))
+
+        #expect(text.withPlainSpaces == expected)
+    }
+
+    @Test(arguments: [
+        (SpeedUnit.kilometersPerHour, 14.44, "52"),
+        (.milesPerHour, 14.44, "32"),
+        (.kilometersPerHour, 0, "0"),
+        (.kilometersPerHour, 50, "180"),
+    ])
+    func figureIsTheWholeNumberAlone(unit: SpeedUnit, metersPerSecond: Double, expected: String) {
+        let style = SpeedFigureStyle(unit: unit).locale(Locale(identifier: "it_IT"))
+
+        #expect(style.format(metersPerSecond) == expected)
+    }
+
+    @Test func figureIsADashWithoutASpeed() {
+        #expect(SpeedFigureStyle(unit: .kilometersPerHour).format(nil) == SpeedFigureStyle.noSpeed)
+    }
+
+    @Test func thousandsAreGroupedForTheLocale() {
+        let style = SpeedFigureStyle(unit: .kilometersPerHour)
+
+        // 300 m/s is 1080 km/h, grouped as the locale does.
+        #expect(style.locale(Locale(identifier: "en_US")).format(300) == "1,080")
+    }
+}

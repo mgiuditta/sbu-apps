@@ -36,3 +36,9 @@ jobs:
           brew install xcodegen
           xcodegen generate
           xcodebuild test -project SbuLevel.xcodeproj -scheme SbuLevel -destination "$DESTINATION"
+
+      - name: SbuHabits
+        working-directory: Apps/SbuHabits
+        run: |
+          xcodegen generate
+          xcodebuild test -project SbuHabits.xcodeproj -scheme SbuHabits -destination "$DESTINATION"

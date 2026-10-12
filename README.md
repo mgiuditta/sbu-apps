@@ -53,3 +53,4 @@ Specs come only from public App Store data. Nothing here decompiles or extracts 
 | App | Accent | Remakes |
 |---|---|---|
 | [Sbu Level](Apps/SbuLevel) | `accent-level` | Clinometer + bubble level |
+| [Sbu Habits](Apps/SbuHabits) | `accent-habits` | Streaks |

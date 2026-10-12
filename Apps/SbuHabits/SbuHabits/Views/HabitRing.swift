@@ -1,21 +1,36 @@
 import SbuKit
 import SwiftUI
 
-/// A habit's symbol inside a ring that fills in the accent as it gets done.
+/// A habit's symbol inside a ring that fills in the accent, one segment per time of the day.
 struct HabitRing: View {
+    /// Space between segments, as a fraction of the whole ring.
+    private static let gap = 0.02
+
     let symbol: String
-    /// From 0 (to do) to 1 (done).
-    let progress: Double
+    /// How many segments: the habit's times per day.
+    let segments: Int
+    /// How many segments are filled; the fraction of the last one animates while holding.
+    let filled: Double
+
+    private var lineCap: CGLineCap {
+        segments > 1 ? .butt : .round
+    }
 
     var body: some View {
         ZStack {
-            Circle()
-                .stroke(SbuTheme.fieldControlActive, lineWidth: SbuTheme.space2)
+            ForEach(0..<segments, id: \.self) { index in
+                let range = segmentRange(index)
+                let fill = min(max(filled - Double(index), 0), 1)
 
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(.tint, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: .round))
-                .rotationEffect(.degrees(-90))
+                Circle()
+                    .trim(from: range.lowerBound, to: range.upperBound)
+                    .stroke(SbuTheme.fieldControlActive, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
+
+                Circle()
+                    .trim(from: range.lowerBound, to: range.lowerBound + (range.upperBound - range.lowerBound) * fill)
+                    .stroke(.tint, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
+            }
+            .rotationEffect(.degrees(-90))
 
             Image(systemName: symbol)
                 .font(.title)
@@ -25,6 +40,13 @@ struct HabitRing: View {
         }
         .padding(SbuTheme.space1)
         .accessibilityHidden(true)
+    }
+
+    /// The part of the ring a segment covers; a single segment is the whole ring, without a gap.
+    private func segmentRange(_ index: Int) -> ClosedRange<Double> {
+        guard segments > 1 else { return 0...1 }
+        let size = 1 / Double(segments)
+        return (Double(index) * size + Self.gap / 2)...(Double(index + 1) * size - Self.gap / 2)
     }
 }
 
@@ -40,8 +62,9 @@ struct HabitRing: View {
 private struct HabitRingPreview: View {
     var body: some View {
         HStack(spacing: SbuTheme.space4) {
-            HabitRing(symbol: "drop", progress: 0)
-            HabitRing(symbol: "book", progress: 1)
+            HabitRing(symbol: "book", segments: 1, filled: 0)
+            HabitRing(symbol: "checkmark", segments: 1, filled: 1)
+            HabitRing(symbol: "drop", segments: 8, filled: 3.5)
         }
         .frame(height: SbuTheme.space12 * 2)
         .padding(SbuTheme.space4)

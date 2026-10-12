@@ -28,4 +28,15 @@ struct HabitsStoreTests {
         #expect(throws: HabitsStore.Failure.unknownVersion(99)) { try store.save(HabitsFile()) }
         #expect(try Data(contentsOf: store.url) == newer)
     }
+
+    @Test func habitsSavedBeforeTimesPerDayLoadAsYesNo() throws {
+        let old = Data(#"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {"20001": 1}}]}"#.utf8)
+        try FileManager.default.createDirectory(at: store.url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try old.write(to: store.url)
+
+        let habit = try #require(try store.load().habits.first)
+
+        #expect(habit.timesPerDay == 1)
+        #expect(habit.isDone(on: LogicalDay(ordinal: 20_001)))
+    }
 }

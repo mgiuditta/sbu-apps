@@ -1,24 +1,42 @@
 import SbuKit
 import SwiftUI
 
-/// One habit on the field: symbol in a ring, title, Serie. Hold it to mark it done, hold it again to undo.
+/// One habit on the field: symbol in a ring, title, Serie.
+///
+/// Hold it to add one time, hold it again once done to take one back. A short tap opens its menu.
 struct HabitCell: View {
     /// How long to hold before the habit counts as done.
     private static let holdDuration = 0.5
 
     let habit: Habit
+    /// Times done today.
+    let count: Int
     let streak: Int
-    let isDone: Bool
     let markDone: () -> Void
     let undoLast: () -> Void
 
     @State private var isHolding = false
+    @State private var isShowingMenu = false
 
     @ScaledMetric(relativeTo: .title2) private var ringSize = SbuTheme.space12 * 2
 
+    private var isDone: Bool {
+        count >= habit.timesPerDay
+    }
+
+    /// Filled segments, moving one segment forward while holding, or back once done.
+    private var filled: Double {
+        guard isHolding else { return Double(count) }
+        return Double(isDone ? count - 1 : count + 1)
+    }
+
+    private var progress: Text {
+        habit.timesPerDay > 1 ? Text("\(count) di \(habit.timesPerDay)") : Text(isDone ? "Fatta" : "Da fare")
+    }
+
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
-            HabitRing(symbol: isDone ? "checkmark" : habit.symbol, progress: isDone != isHolding ? 1 : 0)
+            HabitRing(symbol: isDone ? "checkmark" : habit.symbol, segments: habit.timesPerDay, filled: filled)
                 .frame(width: ringSize, height: ringSize)
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
 
@@ -37,17 +55,25 @@ struct HabitCell: View {
         }
         .frame(maxWidth: .infinity)
         .contentShape(.rect)
-        // No context menu: it would take the same long press.
+        // A dialog on tap, not a context menu: a context menu would take the long press.
+        .onTapGesture(perform: showMenu)
         .onLongPressGesture(minimumDuration: Self.holdDuration, perform: toggle, onPressingChanged: setHolding)
-        .sensoryFeedback(trigger: isDone) { _, isDone in isDone ? .success : .impact(weight: .light) }
+        .sensoryFeedback(trigger: count) { old, new in
+            new >= habit.timesPerDay ? .success : .impact(weight: new > old ? .medium : .light)
+        }
+        .confirmationDialog(habit.title, isPresented: $isShowingMenu, titleVisibility: .visible) {
+            Button("Annulla ultima", action: undoLast)
+                .disabled(count == 0)
+        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(habit.title)
-        .accessibilityValue(Text(isDone ? "Fatta" : "Da fare") + Text(verbatim: ", ") + Text("\(streak) giorni"))
+        .accessibilityValue(progress + Text(verbatim: ", ") + Text("\(streak) giorni"))
         .accessibilityActions {
-            if isDone {
-                Button("Annulla ultima", action: undoLast)
-            } else {
+            if isDone == false {
                 Button("Segna come fatta", action: markDone)
+            }
+            if count > 0 {
+                Button("Annulla ultima", action: undoLast)
             }
         }
     }
@@ -56,6 +82,10 @@ struct HabitCell: View {
         // The finger may still be down: stop counting it as a hold, or the ring would flip back.
         isHolding = false
         isDone ? undoLast() : markDone()
+    }
+
+    private func showMenu() {
+        isShowingMenu = true
     }
 
     private func setHolding(_ isPressing: Bool) {
@@ -75,8 +105,8 @@ struct HabitCell: View {
 private struct HabitCellPreview: View {
     var body: some View {
         HStack(spacing: SbuTheme.space3) {
-            HabitCell(habit: Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(.now)), streak: 12, isDone: true, markDone: {}, undoLast: {})
-            HabitCell(habit: Habit(title: "Camminare", symbol: "figure.walk", createdOn: LogicalDay(.now)), streak: 1, isDone: false, markDone: {}, undoLast: {})
+            HabitCell(habit: Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(.now)), count: 1, streak: 12, markDone: {}, undoLast: {})
+            HabitCell(habit: Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: LogicalDay(.now)), count: 3, streak: 1, markDone: {}, undoLast: {})
         }
         .padding(SbuTheme.space4)
         .background(SbuTheme.fieldHabits)

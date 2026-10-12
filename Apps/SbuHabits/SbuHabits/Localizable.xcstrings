@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%lld di %lld" : {
+      "comment" : "VoiceOver progress of a habit done several times a day: 3 of 8.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld of %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld di %2$lld"
+          }
+        }
+      }
+    },
     "%lld giorni" : {
       "localizations" : {
         "it" : {
@@ -589,6 +606,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vegetables"
+          }
+        }
+      }
+    },
+    "Volte al giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Times a day"
           }
         }
       }

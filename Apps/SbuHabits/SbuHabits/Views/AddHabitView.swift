@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The form that creates a habit: a title and a symbol.
+/// The form that creates a habit: a title, how many times a day, and a symbol.
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -9,6 +9,7 @@ struct AddHabitView: View {
 
     @State private var title = ""
     @State private var symbol = HabitSymbol.all[0].id
+    @State private var timesPerDay = 1
 
     private var canAdd: Bool {
         title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
@@ -20,6 +21,10 @@ struct AddHabitView: View {
                 Section {
                     TextField("Titolo", text: $title)
                         .onChange(of: title, limitTitle)
+
+                    Stepper(value: $timesPerDay, in: Habit.timesPerDayRange) {
+                        LabeledContent("Volte al giorno", value: timesPerDay, format: .number)
+                    }
                 }
 
                 Section("Simbolo") {
@@ -51,7 +56,7 @@ struct AddHabitView: View {
     }
 
     private func add() {
-        model.add(title: title, symbol: symbol)
+        model.add(title: title, symbol: symbol, timesPerDay: timesPerDay)
         dismiss()
     }
 }

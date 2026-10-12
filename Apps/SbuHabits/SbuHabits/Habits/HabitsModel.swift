@@ -33,14 +33,15 @@ final class HabitsModel {
         habits = (try? store.load().habits) ?? []
     }
 
-    func add(title: String, symbol: String) {
+    func add(title: String, symbol: String, timesPerDay: Int = 1) {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Habit.maxTitleLength))
         guard title.isEmpty == false else { return }
-        habits.append(Habit(title: title, symbol: symbol, createdOn: today))
+        let range = Habit.timesPerDayRange
+        habits.append(Habit(title: title, symbol: symbol, timesPerDay: min(max(timesPerDay, range.lowerBound), range.upperBound), createdOn: today))
         save()
     }
 
-    /// Marks today done; a habit already done today stays as it is.
+    /// Adds one time today; a habit already done today stays as it is.
     func markDone(_ habit: Habit) {
         update(habit) {
             guard $0.isDone(on: today) == false else { return }

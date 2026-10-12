@@ -25,6 +25,16 @@ struct StreakTests {
         #expect(Streak.current(of: habit(doneDaysAgo: doneDaysAgo), today: today) == expected)
     }
 
+    @Test(arguments: [(3, true), (2, false), (0, false)])
+    func aDayCountsOnlyWhenEveryTimeIsDone(timesYesterday: Int, counts: Bool) {
+        var habit = Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 3, createdOn: today - 30)
+        habit.log[today - 1] = timesYesterday
+        habit.log[today - 2] = 3
+
+        #expect(Streak.current(of: habit, today: today) == (counts ? 2 : 0))
+        #expect(Streak.full(of: [habit], today: today) == (counts ? 2 : 0))
+    }
+
     @Test func nothingBeforeCreationCounts() {
         // Marks before the creation day, like a bad clock, never enter the streak.
         let habit = habit(age: 1, doneDaysAgo: [0, 1, 2, 3])

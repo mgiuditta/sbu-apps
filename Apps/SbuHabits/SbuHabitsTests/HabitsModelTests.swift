@@ -39,6 +39,40 @@ struct HabitsModelTests {
         #expect(model.habits[0].log[model.today] == 1)
     }
 
+    @Test func eachMarkAddsOneTimeUpToTheGoal() {
+        let model = HabitsModel(store: store)
+        model.add(title: "Bere acqua", symbol: "drop", timesPerDay: 3)
+
+        for _ in 1...5 {
+            model.markDone(model.habits[0])
+        }
+
+        #expect(model.habits[0].count(on: model.today) == 3)
+        #expect(model.fullStreak == 1)
+    }
+
+    @Test func undoTakesBackOneTime() {
+        let model = HabitsModel(store: store)
+        model.add(title: "Bere acqua", symbol: "drop", timesPerDay: 3)
+        for _ in 1...3 {
+            model.markDone(model.habits[0])
+        }
+
+        model.undoLast(model.habits[0])
+
+        #expect(model.habits[0].count(on: model.today) == 2)
+        #expect(model.fullStreak == 0)
+    }
+
+    @Test(arguments: [(0, 1), (8, 8), (99, 20)])
+    func timesPerDayStayInRange(requested: Int, saved: Int) {
+        let model = HabitsModel(store: store)
+
+        model.add(title: "Bere acqua", symbol: "drop", timesPerDay: requested)
+
+        #expect(model.habits[0].timesPerDay == saved)
+    }
+
     @Test func habitsAreSavedBetweenLaunches() {
         let first = HabitsModel(store: store)
         first.add(title: "Leggere", symbol: "book")

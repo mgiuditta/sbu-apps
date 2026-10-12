@@ -70,7 +70,7 @@ _Avoid_: secondo Originale, alternativa
 ## Relationships
 
 - Un **Candidato** ha al più uno **Spec**, scritto prima di decidere
-- Un **Candidato** diventa **Originale** quando si decide di costruirne l'**App Sbu**, altrimenti è **Scartato** (serve un server o un account, è già coperto, oppure è un **Concorrente** di un **Originale** esistente)
+- Un **Candidato** diventa **Originale** quando si decide di costruirne l'**App Sbu**, altrimenti è **Scartato** (serve un server o un account, è già rifatto da un'altra **App Sbu**, oppure è un **Concorrente** di un **Originale** esistente); una funzione già presente in iOS non basta a scartarlo
 - Il PRD si scrive per un'**App Sbu**, mai per un **Candidato**
 - Un'**App Sbu** rifà esattamente un **Originale**
 - Un'**App Sbu** ha esattamente una **Cosa sola** e zero o una **Cifra** (Sbu Scanner non ne ha)
@@ -87,3 +87,4 @@ _Avoid_: secondo Originale, alternativa
 - "app" indicava sia l'**App Sbu** sia l'**Originale** (README del design system, `spec.py`, cartelle `research/<app-id>/`) — risolto: sono concetti distinti; "app" da sola significa sempre **App Sbu**.
 - Il design system scriveva "nessun tracking invasivo" e "dati salvati solo su questo dispositivo" nel blocco della descrizione, e quattro frasi diverse nel **FreeBadge** — risolto: le **Promesse** sono sei, senza "invasivo"; "dati solo su questo iPhone" nel badge è la stessa promessa di "dati solo sul dispositivo".
 - Il design system diceva che il **Glifo** è "l'oggetto dell'app, non una metafora", ma Sbu Dark (luna) e Sbu Block (scudo) usano metafore — risolto: sono ammessi i simboli che iOS usa già per quel concetto; restano vietate le metafore creative (lampadine, razzi).
+- "già coperto" come motivo di **Scartato** poteva voler dire coperto da iOS o da un'altra **App Sbu** — risolto: solo un'altra **App Sbu**; scanner di Note e Suoni di sottofondo di iOS non scartano CamScanner+ e White Noise.

@@ -60,7 +60,12 @@ struct SbuSettingsView<Settings: View>: View {
                 }
             }
         }
-        .presentationCornerRadius(SbuTheme.radiusXl)
+        .presentationCornerRadius(cornerRadius)
+    }
+
+    /// `radiusXl` up to iOS 18; from iOS 26 the system radius that matches Liquid Glass.
+    private var cornerRadius: CGFloat? {
+        if #available(iOS 26, *) { nil } else { SbuTheme.radiusXl }
     }
 
     private func close() {

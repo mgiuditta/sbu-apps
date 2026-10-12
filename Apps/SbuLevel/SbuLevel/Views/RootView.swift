@@ -6,7 +6,7 @@ struct RootView: View {
     @State private var model = LevelModel()
 
     var body: some View {
-        SbuAppShell("Sbu Level", accent: SbuTheme.accentLevel, onAccent: SbuTheme.onAccentLevel, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Level", accent: SbuTheme.accentLevel, onAccent: SbuTheme.onAccentLevel, field: SbuTheme.fieldLevel, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
             CalibrationSection(model: model)

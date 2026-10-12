@@ -4,7 +4,7 @@ import SwiftUI
 /// The app inside the standard Sbu shell.
 struct RootView: View {
     var body: some View {
-        SbuAppShell("Sbu __NAME__", accent: SbuTheme.__ACCENT__, onAccent: SbuTheme.__ONACCENT__, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu __NAME__", accent: SbuTheme.__ACCENT__, onAccent: SbuTheme.__ONACCENT__, field: SbuTheme.__FIELD__, appIcon: Image(.appIconArtwork)) {
             MainView()
         } settings: {
             EmptyView()

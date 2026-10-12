@@ -32,11 +32,14 @@ import json, sys
 colors = {t["name"]: t["value"]["light"] for t in json.load(open(sys.argv[1]))["color"]["tokens"]}
 if not sys.argv[2].startswith("accent-") or sys.argv[2] not in colors:
     sys.exit("unknown accent token: " + sys.argv[2])
+if sys.argv[2].replace("accent-", "field-", 1) not in colors:
+    sys.exit("no field token for " + sys.argv[2])
 print(colors[sys.argv[2]], colors["surface"])
 PY
 )
 accent_swift=$(python3 -c 'import sys; h, *t = sys.argv[1].split("-"); print(h + "".join(p.title() for p in t))' "$accent")
 # accent-level is the one accent that takes ink instead of white.
+field_swift="field${accent_swift#accent}"
 on_accent=$([[ $accent == accent-level ]] && echo onAccentLevel || echo onAccent)
 
 mkdir -p "$root/Apps"
@@ -47,7 +50,7 @@ find "$dest" -depth -name '*__NAME__*' | while read -r path; do
 done
 find "$dest" -type f \( -name '*.swift' -o -name '*.yml' -o -name '*.json' -o -name '*.xcstrings' -o -name '*.txt' -o -name '*.strings' -o -name 'Fastfile' -o -name 'Appfile' -o -name 'Snapfile' \) -print0 |
   xargs -0 sed -i '' -e "s/__NAME__/$name/g" -e "s/__LOWER__/$lower/g" -e "s/__ACCENT__/$accent_swift/g" \
-    -e "s/__ONACCENT__/$on_accent/g" -e "s/__ACCENT_HEX__/$accent_hex/g"
+    -e "s/__ONACCENT__/$on_accent/g" -e "s/__FIELD__/$field_swift/g" -e "s/__ACCENT_HEX__/$accent_hex/g"
 
 # Icon: design-system SVG, AppIcon.appiconset PNG, and the same SVG for SbuAppIconView.
 assets="$dest/Sbu$name/Assets.xcassets"

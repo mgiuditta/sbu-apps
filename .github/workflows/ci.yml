@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)" && xcodebuild -version
+
+      - name: Pick a simulator
+        run: |
+          id=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          devices = [d for runtime, ds in json.load(sys.stdin)["devices"].items() if "iOS" in runtime for d in ds]
+          print(next(d["udid"] for d in reversed(devices) if d["name"].startswith("iPhone")))')
+          echo "DESTINATION=id=$id" >> "$GITHUB_ENV"
+
+      - name: Tokens match Design/tokens.json
+        run: python3 Tools/sync_tokens.py && git diff --exit-code
+
+      - name: SbuKit
+        working-directory: Packages/SbuKit
+        run: xcodebuild test -scheme SbuKit -destination "$DESTINATION"
+
+      - name: SbuLevel
+        working-directory: Apps/SbuLevel
+        run: |
+          brew install xcodegen
+          xcodegen generate
+          xcodebuild test -project SbuLevel.xcodeproj -scheme SbuLevel -destination "$DESTINATION"

@@ -1,7 +1,10 @@
 ---
-// The home is one screen: the title closed by the full stop, the apps as words below it.
+// The home is one screen: the title closed by the full stop, the apps as engraved icons below it.
+// The colour comes from the icons: each one closes with its own full stop, the page keeps only its own.
 // Without JavaScript it is a page of links. With it, the full stop becomes a dot you can drag:
 // drop it on an app (or click the name) and the page turns into that app for a moment.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import PromiseChips from '../components/PromiseChips.astro';
 import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
@@ -73,6 +76,9 @@ const listed = apps.map((app) => {
     cta: app.storeUrl ? { href: app.storeUrl, label: copy.download(listing.name) } : { href: localePath(locale, `apps/${app.slug}`), label: t.backToApp(listing.name) },
   };
 });
+// The engravings are 1024px PNGs; the grid gets small WebP copies, the plate scene the original.
+const engravings = import.meta.glob<ImageMetadata>('../../../Design/icons/*.png', { import: 'default', eager: true });
+const engraving = (slug: string) => engravings[`../../../Design/icons/sbu-${slug}.png`];
 const level = listed.find((entry) => entry.app.slug === 'level');
 const habits = listed.find((entry) => entry.app.slug === 'habits');
 const words = copy.hero.split(' ');
@@ -116,7 +122,12 @@ const jsonLd = [
                 data-cta-label={entry.cta.label}
                 data-soon={entry.app.status !== 'live' ? '' : undefined}
                 style={`--c: var(--sbu-${entry.app.accent})`}
-              ><span class="sr-only">Sbu </span>{short(entry.name)}</a>
+              >
+                <Image class="punto-icon" src={engraving(entry.app.slug)} alt="" width={72} densities={[1, 2]} format="webp" loading="eager" />
+                <span class="punto-name"><span class="sr-only">Sbu </span>{short(entry.name)}</span>
+                <span class="punto-line">{entry.line}</span>
+                {entry.app.status !== 'live' && <span class="punto-soon">{t.comingSoon}</span>}
+              </a>
             </li>
           ))}
           {upcoming.map((app) => (
@@ -131,7 +142,12 @@ const jsonLd = [
                 data-plate={app.icon}
                 data-soon=""
                 style={`--c: var(--sbu-${app.accent})`}
-              ><span class="sr-only">Sbu </span>{short(app.name)}<span class="sr-only">, {t.comingSoon.toLowerCase()}</span></span>
+              >
+                <Image class="punto-icon" src={engraving(app.slug)} alt="" width={72} densities={[1, 2]} format="webp" loading="eager" />
+                <span class="punto-name"><span class="sr-only">Sbu </span>{short(app.name)}</span>
+                <span class="punto-line">{app.teaser[locale]}</span>
+                <span class="punto-soon">{t.comingSoon}</span>
+              </span>
             </li>
           ))}
         </ul>
@@ -233,7 +249,8 @@ const jsonLd = [
   .punto-scene[data-scene="level"] { touch-action: none; }
 
   /* Home */
-  .punto-home { display: grid; justify-items: center; }
+  /* Full width, or the centring grid sizes it to the app grid's widest row and it overflows a phone. */
+  .punto-home { display: grid; justify-items: center; width: 100%; }
   .punto-title {
     margin: 0;
     max-width: 11ch;
@@ -257,42 +274,58 @@ const jsonLd = [
   /* With the script on, the dot is the full stop and the slot only holds its place. */
   .punto-on .punto-slot { background: transparent; }
 
+  /* The apps: engraved icons in a grid, two columns on a phone, three from a tablet up. */
   .punto-apps {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-1) var(--spacing-5);
-    max-width: calc(var(--spacing-12) * 16);
-    margin-top: clamp(var(--spacing-8), 5vh, var(--spacing-12));
-    font-family: var(--font-display);
-    font-weight: var(--text-display-title--font-weight);
-    font-size: clamp(var(--text-title-2), 2.4vw, var(--text-display-title));
-    line-height: 1.2;
-    letter-spacing: -.02em;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-6) var(--spacing-5);
+    width: 100%;
+    max-width: calc(var(--spacing-12) * 14);
+    margin-top: clamp(var(--spacing-8), 6vh, var(--spacing-12));
     transition: opacity .6s ease .1s;
   }
-  .punto-app {
-    position: relative;
-    display: inline-block;
-    padding: var(--spacing-1) 2px;
-    color: var(--sbu-ink);
-    text-decoration: none;
-    transition: color .25s;
+  @media (min-width: 40rem) {
+    .punto-apps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
-  .punto-app.is-soon { color: var(--sbu-ink-muted); }
-  button.punto-app { font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; }
-  .punto-app::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: calc(var(--sbu-hairline) * 3);
-    background: var(--c);
-    transform: scaleX(0);
-    transform-origin: left;
+  .punto-app {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: var(--spacing-1);
+    width: 100%;
+    height: 100%;
+    padding: var(--spacing-2);
+    color: var(--sbu-ink);
+    text-align: center;
+    text-decoration: none;
+  }
+  button.punto-app { font: inherit; background: none; border: 0; cursor: pointer; }
+  .punto-icon {
+    width: calc(var(--spacing-12) * 1.5);
+    height: auto;
+    margin-bottom: var(--spacing-2);
+    border-radius: var(--radius-icon);
+    outline: var(--sbu-hairline) solid var(--sbu-line);
     transition: transform .3s var(--ease);
   }
-  a.punto-app:hover::after, button.punto-app:hover::after, .punto-app:focus-visible::after, .punto-app.is-hot::after { transform: scaleX(1); }
-  .punto-app.is-hot { color: var(--c); }
+  .punto-name {
+    font-family: var(--font-display);
+    font-size: var(--text-headline);
+    font-weight: var(--text-display-title--font-weight);
+    letter-spacing: -.01em;
+    text-decoration: underline transparent calc(var(--sbu-hairline) * 3);
+    text-underline-offset: .25em;
+    transition: color .25s, text-decoration-color .25s;
+  }
+  .punto-line { max-width: 22ch; font-size: var(--text-footnote); line-height: var(--text-footnote--line-height); color: var(--sbu-ink-muted); }
+  .punto-soon { font-size: var(--text-caption); color: var(--sbu-ink-muted); }
+  a.punto-app:hover .punto-name, button.punto-app:hover .punto-name, .punto-app:focus-visible .punto-name, .punto-app.is-hot .punto-name { text-decoration-color: var(--c); }
+  a.punto-app:hover .punto-icon, button.punto-app:hover .punto-icon, .punto-app.is-hot .punto-icon { transform: translateY(-2px); }
+  .punto-app.is-hot .punto-name { color: var(--c); }
+  /* Engravings are ink on paper: inverted onto the dark surface, like the plate. */
+  @media (prefers-color-scheme: dark) {
+    .punto-icon { filter: invert(1) hue-rotate(180deg) brightness(.94); }
+  }
 
   .punto-hint {
     position: absolute;
@@ -460,7 +493,7 @@ const jsonLd = [
   .punto-on body { overflow-x: clip; }
 
   @media (prefers-reduced-motion: reduce) {
-    .punto-apps, .punto-hint, .punto-app, .punto-app::after, .punto-ring-fill { transition: none; }
+    .punto-apps, .punto-hint, .punto-name, .punto-icon, .punto-ring-fill { transition: none; }
     .punto-dot { transition: none; }
     .punto-dot.is-calling { animation: none; }
   }

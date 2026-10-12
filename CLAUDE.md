@@ -12,7 +12,7 @@ Before writing or reviewing any Swift, load the skills in `.claude/skills/` that
 - `ios-accessibility`, `swiftui-accessibility-auditor`: every new view.
 - `swift-api-design-guidelines-skill`: public SbuKit API.
 
-Load the others when the task touches them: SwiftData (`swiftdata-pro`, `swiftdata-expert-skill`, `swiftdata-testing`), Core Data, widgets, App Intents, background execution, security/Keychain, App Store (`appstore-review`, `app-store-aso`, `asc-*`, `app-store-changelog`), simulator automation, performance audits.
+Load the others when the task touches them: SwiftData (`swiftdata-pro`, `swiftdata-expert-skill`, `swiftdata-testing`), Core Data, widgets, App Intents, background execution, security/Keychain, App Store (`appstore-review`, `app-store-aso`, `asc-*`, `app-store-changelog`; before every submit `release-review`, `privacy-manifests`, `privacy-policy`, `originality-check`, and `rejection-handler` after a rejection), simulator automation, performance audits.
 
 Where a skill and these rules disagree, these rules win: iOS 17 deployment target (not 26), `CGFloat` theme metrics, design-system radii (not the 10pt card radius in `swiftui-design-principles`).
 

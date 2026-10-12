@@ -42,3 +42,9 @@ jobs:
         run: |
           xcodegen generate
           xcodebuild test -project SbuHabits.xcodeproj -scheme SbuHabits -destination "$DESTINATION"
+
+      - name: SbuMoon
+        working-directory: Apps/SbuMoon
+        run: |
+          xcodegen generate
+          xcodebuild test -project SbuMoon.xcodeproj -scheme SbuMoon -destination "$DESTINATION"

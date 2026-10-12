@@ -239,6 +239,16 @@
         }
       }
     },
+    "Giorni della settimana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days of the week"
+          }
+        }
+      }
+    },
     "giorno" : {
       "comment" : "Unit after the Serie piena figure.",
       "localizations" : {
@@ -340,6 +350,16 @@
         }
       }
     },
+    "Niente previsto oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing due today"
+          }
+        }
+      }
+    },
     "Niente telefono" : {
       "localizations" : {
         "en" : {
@@ -366,6 +386,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New habit"
+          }
+        }
+      }
+    },
+    "Ogni giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every day"
           }
         }
       }
@@ -426,6 +456,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mail"
+          }
+        }
+      }
+    },
+    "Programmazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
           }
         }
       }

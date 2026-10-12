@@ -14,6 +14,9 @@ final class HabitsModel {
 
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
+    /// The habits expected today, in the grid's order.
+    var todayHabits: [Habit] { TodayGrid.habits(habits, on: today) }
+
     init(store: HabitsStore = .shared, now: @escaping () -> Date = Date.init, calendar: Calendar = .current) {
         self.store = store
         self.now = now
@@ -33,11 +36,13 @@ final class HabitsModel {
         habits = (try? store.load().habits) ?? []
     }
 
-    func add(title: String, symbol: String, timesPerDay: Int = 1) {
+    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay) {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Habit.maxTitleLength))
         guard title.isEmpty == false else { return }
+        if case .weekdays(let weekdays) = schedule, weekdays.isEmpty { return }
         let range = Habit.timesPerDayRange
-        habits.append(Habit(title: title, symbol: symbol, timesPerDay: min(max(timesPerDay, range.lowerBound), range.upperBound), createdOn: today))
+        let times = min(max(timesPerDay, range.lowerBound), range.upperBound)
+        habits.append(Habit(title: title, symbol: symbol, timesPerDay: times, schedule: schedule, createdOn: today))
         save()
     }
 

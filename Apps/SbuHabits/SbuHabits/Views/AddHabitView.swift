@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The form that creates a habit: a title, how many times a day, and a symbol.
+/// The form that creates a habit: a title, how many times a day, which days, and a symbol.
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -10,9 +10,11 @@ struct AddHabitView: View {
     @State private var title = ""
     @State private var symbol = HabitSymbol.all[0].id
     @State private var timesPerDay = 1
+    @State private var isEveryDay = true
+    @State private var weekdays: Set<Int> = Set(1...7)
 
     private var canAdd: Bool {
-        title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false
+        title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false && (isEveryDay || weekdays.isEmpty == false)
     }
 
     var body: some View {
@@ -24,6 +26,19 @@ struct AddHabitView: View {
 
                     Stepper(value: $timesPerDay, in: Habit.timesPerDayRange) {
                         LabeledContent("Volte al giorno", value: timesPerDay, format: .number)
+                    }
+                }
+
+                Section("Programmazione") {
+                    Picker("Programmazione", selection: $isEveryDay) {
+                        Text("Ogni giorno").tag(true)
+                        Text("Giorni della settimana").tag(false)
+                    }
+                    .pickerStyle(.inline)
+                    .labelsHidden()
+
+                    if isEveryDay == false {
+                        WeekdayPicker(selection: $weekdays)
                     }
                 }
 
@@ -56,7 +71,7 @@ struct AddHabitView: View {
     }
 
     private func add() {
-        model.add(title: title, symbol: symbol, timesPerDay: timesPerDay)
+        model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: isEveryDay ? .everyDay : .weekdays(weekdays))
         dismiss()
     }
 }

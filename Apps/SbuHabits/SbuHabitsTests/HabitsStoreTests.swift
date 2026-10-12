@@ -12,6 +12,7 @@ struct HabitsStoreTests {
     @Test func savedHabitsLoadBack() throws {
         var habit = Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(ordinal: 20_000))
         habit.log[LogicalDay(ordinal: 20_001)] = 1
+        habit.schedule = .weekdays([2, 4])
         let file = HabitsFile(habits: [habit])
 
         try store.save(file)
@@ -29,7 +30,7 @@ struct HabitsStoreTests {
         #expect(try Data(contentsOf: store.url) == newer)
     }
 
-    @Test func habitsSavedBeforeTimesPerDayLoadAsYesNo() throws {
+    @Test func habitsSavedBeforeTimesPerDayAndSchedulesLoadAsDailyYesNo() throws {
         let old = Data(#"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {"20001": 1}}]}"#.utf8)
         try FileManager.default.createDirectory(at: store.url.deletingLastPathComponent(), withIntermediateDirectories: true)
         try old.write(to: store.url)
@@ -37,6 +38,7 @@ struct HabitsStoreTests {
         let habit = try #require(try store.load().habits.first)
 
         #expect(habit.timesPerDay == 1)
+        #expect(habit.schedule == .everyDay)
         #expect(habit.isDone(on: LogicalDay(ordinal: 20_001)))
     }
 }

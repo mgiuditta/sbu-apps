@@ -30,6 +30,11 @@ nonisolated struct LogicalDay: Hashable, Comparable, Codable, CodingKeyRepresent
         ordinal = (parts.hour ?? 0) < startHour ? calendarDay - 1 : calendarDay
     }
 
+    /// Gregorian weekday, 1 for Sunday through 7 for Saturday; day 0, 1 January 1970, was a Thursday.
+    var weekday: Int {
+        ((ordinal + 4) % 7 + 7) % 7 + 1
+    }
+
     static func < (lhs: LogicalDay, rhs: LogicalDay) -> Bool {
         lhs.ordinal < rhs.ordinal
     }

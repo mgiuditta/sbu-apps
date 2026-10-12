@@ -1,6 +1,6 @@
 import Foundation
 
-/// Something the user wants to do every day, once or several times, with its log of the days it was done.
+/// Something the user wants to do on some days, once or several times, with its log of the days it was done.
 nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// Longest title the form accepts, so it fits a grid cell.
     static let maxTitleLength = 30
@@ -13,26 +13,29 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     var symbol: String
     /// How many times a day it must be done: 1 for a yes/no habit, 8 for eight glasses of water.
     var timesPerDay: Int
+    var schedule: Schedule
     /// The first day the habit counts: no day before it enters a Serie.
     let createdOn: LogicalDay
     /// How many times it was done on each logical day; missing days are zero.
     var log: [LogicalDay: Int] = [:]
 
-    init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, createdOn: LogicalDay) {
+    init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, createdOn: LogicalDay) {
         self.id = id
         self.title = title
         self.symbol = symbol
         self.timesPerDay = timesPerDay
+        self.schedule = schedule
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day existed have no `timesPerDay`: those habits are yes/no.
+    // Files saved before times per day and schedules existed: those habits are yes/no, every day.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
         symbol = try container.decode(String.self, forKey: .symbol)
         timesPerDay = try container.decodeIfPresent(Int.self, forKey: .timesPerDay) ?? 1
+        schedule = try container.decodeIfPresent(Schedule.self, forKey: .schedule) ?? .everyDay
         createdOn = try container.decode(LogicalDay.self, forKey: .createdOn)
         log = try container.decode([LogicalDay: Int].self, forKey: .log)
     }

@@ -24,7 +24,7 @@ struct HabitGrid: View {
 
     private var grid: some View {
         LazyVGrid(columns: columns, spacing: SbuTheme.space6) {
-            ForEach(model.habits) { habit in
+            ForEach(model.todayHabits) { habit in
                 HabitCell(
                     habit: habit,
                     count: habit.count(on: model.today),

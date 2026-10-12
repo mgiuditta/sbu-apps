@@ -3,7 +3,7 @@ import Testing
 @testable import SbuHabits
 
 struct StreakTests {
-    private let today = LogicalDay(ordinal: 1_000)
+    private let today = LogicalDay(ordinal: 1_004) // a Sunday
 
     /// A habit created `age` days ago and done on the given days ago (0 is today).
     private func habit(age: Int = 30, doneDaysAgo: [Int]) -> Habit {
@@ -64,5 +64,50 @@ struct StreakTests {
 
     @Test func noHabitsMeansNoFullStreak() {
         #expect(Streak.full(of: [], today: today) == 0)
+    }
+
+    // today is a Sunday, weekday 1; weekday 2 is Monday.
+
+    @Test func daysNotExpectedNeitherBreakNorCount() {
+        // Every Monday, Wednesday and Friday, done on the last three of them.
+        var habit = Habit(title: "Palestra", symbol: "dumbbell", schedule: .weekdays([2, 4, 6]), createdOn: today - 30)
+        for daysAgo in [2, 4, 6] { // Friday, Wednesday, Monday
+            habit.log[today - daysAgo] = 1
+        }
+
+        #expect(Streak.current(of: habit, today: today) == 3)
+    }
+
+    @Test func aMissedExpectedDayBreaksTheSerie() {
+        var habit = Habit(title: "Palestra", symbol: "dumbbell", schedule: .weekdays([2, 4, 6]), createdOn: today - 30)
+        habit.log[today - 2] = 1 // Friday done, Wednesday missed
+
+        #expect(Streak.current(of: habit, today: today) == 1)
+    }
+
+    @Test func fullStreakConsidersOnlyHabitsExpectedThatDay() {
+        let daily = habit(doneDaysAgo: Array(0...6))
+        let weekend = Habit(title: "Gita", symbol: "leaf", schedule: .weekdays([1, 7]), createdOn: today - 30)
+
+        // The weekend habit is expected today and yesterday and was never done: today does not
+        // break, yesterday (Saturday) does.
+        #expect(Streak.full(of: [daily, weekend], today: today) == 0)
+        #expect(Streak.full(of: [daily, weekend], today: today - 2) == 5)
+    }
+
+    @Test func aDayWithNothingExpectedIsNeutral() {
+        var mondays = Habit(title: "Piante", symbol: "leaf", schedule: .weekdays([2]), createdOn: today - 30)
+        mondays.log[today - 6] = 1
+        mondays.log[today - 13] = 1
+
+        #expect(Streak.full(of: [mondays], today: today) == 2)
+    }
+
+    @Test func theGridShowsOnlyHabitsExpectedToday() {
+        let daily = habit(doneDaysAgo: [])
+        let sundays = Habit(title: "Chiamare casa", symbol: "phone", schedule: .weekdays([1]), createdOn: today)
+        let mondays = Habit(title: "Piante", symbol: "leaf", schedule: .weekdays([2]), createdOn: today)
+
+        #expect(TodayGrid.habits([daily, sundays, mondays], on: today).map(\.title) == ["Leggere", "Chiamare casa"])
     }
 }

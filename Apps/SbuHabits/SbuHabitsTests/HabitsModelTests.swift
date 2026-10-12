@@ -73,6 +73,14 @@ struct HabitsModelTests {
         #expect(model.habits[0].timesPerDay == saved)
     }
 
+    @Test func aScheduleWithoutDaysAddsNothing() {
+        let model = HabitsModel(store: store)
+
+        model.add(title: "Palestra", symbol: "dumbbell", schedule: .weekdays([]))
+
+        #expect(model.habits.isEmpty)
+    }
+
     @Test func habitsAreSavedBetweenLaunches() {
         let first = HabitsModel(store: store)
         first.add(title: "Leggere", symbol: "book")

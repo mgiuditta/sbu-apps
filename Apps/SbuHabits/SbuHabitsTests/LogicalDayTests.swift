@@ -48,4 +48,17 @@ struct LogicalDayTests {
         #expect(String(decoding: data, as: UTF8.self) == #"{"20373":2}"#)
         #expect(try JSONDecoder().decode([LogicalDay: Int].self, from: data) == log)
     }
+
+    @Test(arguments: [
+        (2026, 10, 12, 2), // Monday
+        (2026, 10, 18, 1), // Sunday
+        (2026, 10, 17, 7), // Saturday
+        (1969, 12, 31, 4), // Wednesday, before day 0
+    ])
+    func weekdayMatchesTheCalendar(year: Int, month: Int, day: Int, weekday: Int) {
+        let logical = LogicalDay(date(year, month, day, 12), calendar: calendar)
+
+        #expect(logical.weekday == weekday)
+        #expect(calendar.component(.weekday, from: date(year, month, day, 12)) == weekday)
+    }
 }

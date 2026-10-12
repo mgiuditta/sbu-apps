@@ -115,6 +115,24 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testAHabitNotExpectedTodayStaysOutOfTheGrid() {
+        let app = launch()
+        add("Leggere", in: app)
+        app.buttons["Aggiungi"].firstMatch.tap()
+        app.textFields["Titolo"].tap()
+        app.textFields["Titolo"].typeText("Palestra")
+        app.buttons["Giorni della settimana"].tap()
+        var italian = Calendar(identifier: .gregorian)
+        italian.locale = Locale(identifier: "it_IT")
+        let today = italian.standaloneWeekdaySymbols[italian.component(.weekday, from: .now) - 1]
+        app.buttons[today].tap()
+        app.navigationBars.buttons["Aggiungi"].tap()
+
+        XCTAssertTrue(habit("Leggere", in: app).exists)
+        XCTAssertFalse(app.descendants(matching: .any)["Palestra"].exists)
+    }
+
+    @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)

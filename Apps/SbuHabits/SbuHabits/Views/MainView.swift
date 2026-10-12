@@ -14,13 +14,23 @@ struct MainView: View {
         " " + (model.fullStreak == 1 ? String(localized: "giorno") : String(localized: "giorni"))
     }
 
+    private var context: LocalizedStringKey? {
+        if model.habits.isEmpty {
+            "Aggiungi la prima abitudine"
+        } else if model.todayHabits.isEmpty {
+            "Niente previsto oggi"
+        } else {
+            nil
+        }
+    }
+
     var body: some View {
         SbuToolField(
             "Serie piena",
             value: model.fullStreak,
             format: .number,
             unit: unit,
-            context: model.habits.isEmpty ? "Aggiungi la prima abitudine" : nil
+            context: context
         ) {
             HabitGrid(model: model)
         } pills: {

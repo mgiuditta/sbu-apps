@@ -44,39 +44,51 @@ const jsonLd = [
   image={app.icon}
   jsonLd={jsonLd}
 >
-  <article class="flex flex-col gap-8 py-8">
-    <header class="flex flex-col gap-4">
-      <img src={app.icon} alt="" width="96" height="96" class="rounded-icon size-[calc(var(--spacing-12)*2)]" />
-      <PageTitle text={listing.name} accent={app.accent} />
-      <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
-      {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
-      {app.storeUrl ? (
-        <p><a href={app.storeUrl} class="inline-block rounded-lg bg-ink px-6 py-3 text-headline text-surface no-underline">{t.appStore}</a></p>
-      ) : (
-        <p class="text-caption uppercase text-ink-muted">{t.comingSoon}</p>
-      )}
-      <p class="text-footnote text-ink-muted">{t.requires}</p>
-      <FreeBadge locale={locale} />
+  <article class="app flex flex-col gap-12 py-8" style={`--c: var(--sbu-${app.accent})`}>
+    <header class="hero">
+      {/* The instrument behind the app, engraved in `ink` on the page's paper. */}
+      {app.engraving && <div class="engraving" style={`--engraving: url(${app.engraving})`} aria-hidden="true"></div>}
+      <div class="flex flex-col gap-4">
+        <PageTitle text={listing.name} accent={app.accent} size="hero" />
+        <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
+        {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
+        <p class="flex flex-wrap items-center gap-3">
+          {app.storeUrl ? (
+            <a href={app.storeUrl} class="cta">{t.appStore}</a>
+          ) : (
+            <span class="rounded-pill border border-line px-3 py-1 text-subheadline text-ink-muted">{t.comingSoon}</span>
+          )}
+          <span class="text-footnote text-ink-muted">{t.requires}</span>
+        </p>
+        <FreeBadge locale={locale} />
+      </div>
     </header>
 
-    <ToolFieldShot app={app} locale={locale} />
+    <div class="reveal"><ToolFieldShot app={app} locale={locale} /></div>
 
     <section aria-labelledby="features" class="flex flex-col gap-4">
       <h2 id="features" class="text-title-2">{t.features}</h2>
-      <ul class="divide-y divide-line rounded-lg bg-surface-raised">
-        {listing.features.map((feature) => <li class="px-4 py-3">{feature}</li>)}
-      </ul>
+      <ol class="features">
+        {listing.features.map((feature, index) => (
+          <li class="reveal">
+            <span aria-hidden="true" class="font-display tabular-nums text-ink-muted">{String(index + 1).padStart(2, '0')}</span>
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ol>
     </section>
 
     {faq.length > 0 && (
       <section aria-labelledby="faq" class="flex flex-col gap-4">
         <h2 id="faq" class="text-title-2">{t.faq}</h2>
-        {faq.map((item) => (
-          <div class="flex flex-col gap-1">
-            <h3 class="text-headline">{item.q}</h3>
-            <p class="text-ink-muted">{item.a}</p>
-          </div>
-        ))}
+        <div class="border-t border-line">
+          {faq.map((item) => (
+            <details class="faq border-b border-line">
+              <summary class="text-headline">{item.q}</summary>
+              <p class="pb-4 text-ink-muted">{item.a}</p>
+            </details>
+          ))}
+        </div>
       </section>
     )}
 
@@ -86,3 +98,71 @@ const jsonLd = [
     </ul>
   </article>
 </Base>
+
+<style>
+  /* Two columns from a tablet up: the words, then the engraving. On a phone the engraving comes first. */
+  .hero { display: grid; gap: var(--spacing-8); align-items: center; }
+  @media (min-width: 40rem) {
+    .hero { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+    .hero > :last-child { order: -1; }
+  }
+  .hero :global(h1) {
+    font-size: clamp(var(--text-display-title), 9vw, var(--text-display-hero));
+    line-height: 1;
+    letter-spacing: var(--text-display-hero--letter-spacing);
+  }
+
+  /* The ink mask is white on black: luminance keeps the strokes, the paper shows through the rest. */
+  .engraving {
+    width: min(100%, calc(var(--spacing-12) * 6));
+    aspect-ratio: 1;
+    margin-inline: auto;
+    background: var(--sbu-ink);
+    mask: var(--engraving) center / contain no-repeat luminance;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: var(--spacing-3) var(--spacing-6);
+    border-radius: var(--radius-lg);
+    background: var(--c);
+    color: var(--sbu-on-accent);
+    font-size: var(--text-headline);
+    font-weight: var(--text-headline--font-weight);
+    text-decoration: none;
+  }
+
+  .features { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
+  .features li {
+    display: grid;
+    grid-template-columns: calc(var(--spacing-12) * 1.5) minmax(0, 1fr);
+    align-items: baseline;
+    padding-block: var(--spacing-4);
+    border-bottom: var(--sbu-hairline) solid var(--sbu-line);
+  }
+  .features li > :first-child { font-size: var(--text-title-2); line-height: 1; }
+
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+    padding-block: var(--spacing-4);
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--sbu-ink-muted); transition: rotate .2s; }
+  .faq[open] summary::after { rotate: 45deg; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* The engraving is printed top to bottom, once, when the page opens. */
+    .engraving { animation: print 1.2s cubic-bezier(.4, 0, .2, 1) both; }
+    @keyframes print { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+
+    /* Where the browser has scroll timelines, each block rises in as it enters the screen. */
+    @supports (animation-timeline: view()) {
+      .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 80%; }
+      @keyframes rise { from { opacity: 0; translate: 0 var(--spacing-6); } }
+    }
+  }
+</style>

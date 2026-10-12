@@ -7,6 +7,7 @@ interface Props {
 const { value, label } = Astro.props;
 ---
 <p class="flex flex-col gap-1">
-  <span class="font-display text-stat-hero tabular-nums text-ink">{value}</span>
+  {/* stat-hero at its smallest, up to 2.4 times that on a wide screen, like the home's figures. */}
+  <span class="font-display text-stat-hero tabular-nums text-ink text-[clamp(var(--text-stat-hero),18vw,calc(var(--text-stat-hero)*2.4))] leading-none">{value}</span>
   <span class="text-subheadline text-ink-muted">{label}</span>
 </p>

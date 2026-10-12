@@ -2,6 +2,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n';
 
 const icons = import.meta.glob<string>('../../../Design/icons/*.png', { query: '?url', import: 'default', eager: true });
+// The engraving alone, as an ink mask (white = ink): the app page draws it in `ink`, so it follows the theme.
+const engravings = import.meta.glob<string>('../../../Design/icons/source/*.png', { query: '?url', import: 'default', eager: true });
 
 function icon(slug: string): string | undefined {
   return icons[`../../../Design/icons/sbu-${slug}.png`];
@@ -25,6 +27,7 @@ export async function getApps() {
         ...app.data,
         listing: listing.data,
         icon: png,
+        engraving: engravings[`../../../Design/icons/source/sbu-${app.id}.png`],
         storeUrl: app.data.status === 'live' && app.data.appStoreId ? `https://apps.apple.com/app/id${app.data.appStoreId}` : undefined,
       };
     }),

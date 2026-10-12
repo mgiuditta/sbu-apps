@@ -1,5 +1,5 @@
 ---
-// A still of the Schermata strumento, like SbuToolField: the Cifra on `surface`, no colored field.
+// A still of the Schermata strumento, like SbuToolField: the Cifra on `surface`, no colored field, no card.
 import Stat from './Stat.astro';
 import { ui, type Locale } from '../i18n';
 import { text, type App } from '../lib/apps';
@@ -12,10 +12,8 @@ const { app, locale } = Astro.props;
 const figure = app.figure?.[locale];
 ---
 {figure && (
-  <figure class="flex flex-col gap-2">
-    <div class="rounded-xl border border-line bg-surface px-6 py-12">
-      <Stat value={figure.value} label={figure.label} />
-    </div>
+  <figure class="flex flex-col gap-4 border-y border-line py-12">
+    <Stat value={figure.value} label={figure.label} />
     <figcaption class="text-footnote text-ink-muted">{ui[locale].shotCaption(text(app, locale).name)}</figcaption>
   </figure>
 )}

@@ -1,0 +1,16 @@
+No account needed. All data stays on the device. No network calls.
+
+Sbu Habits counts the days in a row you keep your habits. The app opens on a single screen with an empty grid.
+
+1. Add a habit: tap "Add", enter a title, choose how many times a day, the schedule (every day, chosen weekdays or N times a week) and a symbol, then tap "Add" in the top right corner.
+2. Mark a habit as done: touch and hold its ring on the main screen for half a second. The ring fills and the "Full streak" figure at the top updates. Hold again on a habit already done today to take the last mark back.
+3. Tap a habit once (no hold) to open its menu: Undo last, Skip today (keeps the streak when you are ill), Edit.
+4. "Statistics" lists each habit's streak; tap a habit there to see its best streak and history.
+
+Reminders: in the habit form, "Add reminder" adds a reminder time. iOS asks for notification permission only then, when the first reminder is added, never at launch. Reminders fire only on due days and only if the habit is not done yet.
+
+Interactive widget: add the "Today's habits" (small, medium, large) or "One habit" (small) widget from the Home Screen. Tapping a habit in the widget marks it done without opening the app.
+
+Start of the day: the gear in the top right corner opens Settings, where "Start of the day" sets the hour the day begins, for people who work night shifts. What you do before that hour counts for the day before. Settings also link to the privacy policy on sbu.dev.
+
+VoiceOver users mark a habit with the "Mark as done" action instead of the hold.

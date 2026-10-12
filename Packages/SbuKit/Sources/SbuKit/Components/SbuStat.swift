@@ -51,7 +51,7 @@ public struct SbuStat: View {
 
                 if let unit {
                     Text(unit)
-                        .font(SbuTheme.numberFont(size: unitSize))
+                        .font(SbuTheme.smallNumberFont(size: unitSize))
                         .foregroundStyle(SbuTheme.inkMuted)
                 }
             }

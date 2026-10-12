@@ -3,8 +3,8 @@ import SwiftUI
 /// The layout of the tool screen: caption, the figure in `statHero`, a context line, the
 /// indicator, and a row of pills at the bottom.
 ///
-/// `SbuAppShell` paints the field and sets the dark color scheme; this view only places the
-/// content on it. The figure is optional, because not every app has one. Use one per app.
+/// It sits on `surface`, like every screen: the figure in `ink`, captions in `inkMuted`, the
+/// indicator in the accent. The figure is optional, because not every app has one. Use one per app.
 public struct SbuToolField<Indicator: View, Pills: View>: View {
     private let caption: LocalizedStringKey
     /// The figure already formatted for the current locale, or `nil` when the app has none.
@@ -25,7 +25,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
     ///   - unit: Short unit attached to the figure, such as "°" or "dB".
     ///   - context: One line under the figure, such as "In bolla".
     ///   - indicator: The drawing of the one thing, under the figure, in the accent.
-    ///   - pills: The controls at the bottom of the field.
+    ///   - pills: The controls at the bottom of the screen.
     public init<Format: FormatStyle>(
         _ caption: LocalizedStringKey,
         value: Format.FormatInput,
@@ -48,7 +48,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
     ///   - caption: Uppercase label above the indicator.
     ///   - context: One line under the caption.
     ///   - indicator: The drawing of the one thing, in the accent.
-    ///   - pills: The controls at the bottom of the field.
+    ///   - pills: The controls at the bottom of the screen.
     public init(
         _ caption: LocalizedStringKey,
         context: LocalizedStringKey? = nil,
@@ -70,20 +70,20 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
                     .font(SbuTheme.caption)
                     .textCase(.uppercase)
                     .tracking(SbuTheme.captionTracking)
-                    .foregroundStyle(SbuTheme.onFieldMuted)
+                    .foregroundStyle(SbuTheme.inkMuted)
 
                 if let formattedValue {
                     HStack(alignment: .firstTextBaseline, spacing: 0) {
                         Text(formattedValue)
                             .font(SbuTheme.numberFont(size: valueSize))
                             .tracking(SbuTheme.statHeroTracking)
-                            .foregroundStyle(SbuTheme.onField)
+                            .foregroundStyle(SbuTheme.ink)
                             .contentTransition(.numericText())
 
                         if let unit {
                             Text(unit)
-                                .font(SbuTheme.numberFont(size: unitSize))
-                                .foregroundStyle(SbuTheme.onFieldMuted)
+                                .font(SbuTheme.smallNumberFont(size: unitSize))
+                                .foregroundStyle(SbuTheme.inkMuted)
                         }
                     }
                 }
@@ -91,7 +91,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
                 if let context {
                     Text(context)
                         .font(SbuTheme.footnote)
-                        .foregroundStyle(SbuTheme.onFieldMuted)
+                        .foregroundStyle(SbuTheme.inkMuted)
                 }
             }
             .multilineTextAlignment(.center)
@@ -122,7 +122,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
 }
 
 #Preview("Senza cifra") {
-    SbuAppShell("Sbu Noise", accent: SbuTheme.accentNoise, field: SbuTheme.fieldNoise, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
+    SbuAppShell("Sbu Noise", accent: SbuTheme.accentNoise, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
         SbuToolField("Rumore rosa", context: "In riproduzione") {
             Image(systemName: "waveform")
                 .font(.largeTitle)
@@ -138,10 +138,10 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
 
 private struct SbuToolFieldPreview: View {
     var body: some View {
-        SbuAppShell("Sbu Level", accent: SbuTheme.accentLevel, onAccent: SbuTheme.onAccentLevel, field: SbuTheme.fieldLevel, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
+        SbuAppShell("Sbu Level", accent: SbuTheme.accentLevel, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
             SbuToolField("Inclinazione", value: 2.4, format: .number.precision(.fractionLength(1)), unit: "°", context: "In piano") {
                 Circle()
-                    .stroke(SbuTheme.onFieldMuted, lineWidth: SbuTheme.hairline)
+                    .stroke(SbuTheme.line, lineWidth: SbuTheme.hairline)
                     .frame(maxWidth: 240)
                     .accessibilityHidden(true)
             } pills: {

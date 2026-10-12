@@ -1,10 +1,12 @@
 import SwiftUI
 
-/// Draws a pill on the tool screen: `subheadline` in `onField` on `fieldControl`, `radiusPill`.
+/// Draws a pill on the tool screen: `subheadline` in `ink` on `surfaceRaised`, a `line`
+/// hairline, `radiusPill`.
 ///
-/// A selected pill takes `fieldControlActive` and weight 600, so its state reads without color.
-/// Put up to five pills in the pills slot of `SbuToolField`; with more, use a system segmented
-/// picker.
+/// A selected or pressed pill sinks into `surfaceSunken`; a selected one also takes weight 600,
+/// so its state reads without color. A disabled pill keeps its shape and dims its text to
+/// `inkMuted`. Put up to five pills in the pills slot of `SbuToolField`; with more, use a system
+/// segmented picker.
 public struct SbuFieldPillStyle: ButtonStyle {
     /// Minimum tap target from the Human Interface Guidelines.
     private static let minHeight: CGFloat = 44
@@ -20,17 +22,21 @@ public struct SbuFieldPillStyle: ButtonStyle {
     }
 
     public func makeBody(configuration: Configuration) -> some View {
+        let shape = RoundedRectangle(cornerRadius: SbuTheme.radiusPill)
         configuration.label
             .font(SbuTheme.subheadline.weight(isSelected ? .semibold : .regular))
-            .foregroundStyle(isEnabled ? SbuTheme.onField : SbuTheme.onFieldMuted)
+            .foregroundStyle(isEnabled ? SbuTheme.ink : SbuTheme.inkMuted)
             .padding(.vertical, SbuTheme.space2)
             .padding(.horizontal, SbuTheme.space4)
             .frame(minHeight: Self.minHeight)
             .background(
-                isSelected || configuration.isPressed ? SbuTheme.fieldControlActive : SbuTheme.fieldControl,
-                in: .rect(cornerRadius: SbuTheme.radiusPill)
+                isSelected || configuration.isPressed ? SbuTheme.surfaceSunken : SbuTheme.surfaceRaised,
+                in: shape
             )
-            .contentShape(.rect(cornerRadius: SbuTheme.radiusPill))
+            .overlay {
+                shape.strokeBorder(SbuTheme.line, lineWidth: SbuTheme.hairline)
+            }
+            .contentShape(shape)
             .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
@@ -62,7 +68,6 @@ private struct SbuFieldPillStylePreview: View {
                 .disabled(true)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.fieldLevel)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
     }
 }

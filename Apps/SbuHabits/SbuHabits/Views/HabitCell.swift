@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// One habit on the field: symbol in a ring, title, Serie. Hold it to mark it done.
+/// One habit on the field: symbol in a ring, title, Serie. Hold it to mark it done, hold it again to undo.
 struct HabitCell: View {
     /// How long to hold before the habit counts as done.
     private static let holdDuration = 0.5
@@ -18,7 +18,7 @@ struct HabitCell: View {
 
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
-            HabitRing(symbol: isDone ? "checkmark" : habit.symbol, progress: isDone || isHolding ? 1 : 0)
+            HabitRing(symbol: isDone ? "checkmark" : habit.symbol, progress: isDone != isHolding ? 1 : 0)
                 .frame(width: ringSize, height: ringSize)
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
 
@@ -37,12 +37,9 @@ struct HabitCell: View {
         }
         .frame(maxWidth: .infinity)
         .contentShape(.rect)
-        .onLongPressGesture(minimumDuration: Self.holdDuration, perform: markDone, onPressingChanged: setHolding)
-        .sensoryFeedback(.success, trigger: isDone) { wasDone, isDone in !wasDone && isDone }
-        .contextMenu {
-            Button("Annulla ultima", systemImage: "arrow.uturn.backward", action: undoLast)
-                .disabled(isDone == false)
-        }
+        // No context menu: it would take the same long press.
+        .onLongPressGesture(minimumDuration: Self.holdDuration, perform: toggle, onPressingChanged: setHolding)
+        .sensoryFeedback(trigger: isDone) { _, isDone in isDone ? .success : .impact(weight: .light) }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(habit.title)
         .accessibilityValue(Text(isDone ? "Fatta" : "Da fare") + Text(verbatim: ", ") + Text("\(streak) giorni"))
@@ -53,6 +50,12 @@ struct HabitCell: View {
                 Button("Segna come fatta", action: markDone)
             }
         }
+    }
+
+    private func toggle() {
+        // The finger may still be down: stop counting it as a hold, or the ring would flip back.
+        isHolding = false
+        isDone ? undoLast() : markDone()
     }
 
     private func setHolding(_ isPressing: Bool) {

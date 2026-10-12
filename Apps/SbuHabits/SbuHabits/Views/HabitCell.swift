@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// One habit on the field: symbol in a ring, title, Serie.
+/// One habit on the tool screen: symbol in a ring, title, Serie.
 ///
 /// Hold it to add one time, hold it again once done today to take one back. A short tap opens
 /// its menu. A weekly habit's ring shows the week: one segment per day done.
@@ -69,7 +69,7 @@ struct HabitCell: View {
 
             Text(habit.title)
                 .font(SbuTheme.subheadline)
-                .foregroundStyle(SbuTheme.onField)
+                .foregroundStyle(SbuTheme.ink)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
 
@@ -77,7 +77,7 @@ struct HabitCell: View {
             Text(streak, format: .number)
                 .font(SbuTheme.footnote)
                 .monospacedDigit()
-                .foregroundStyle(SbuTheme.onFieldMuted)
+                .foregroundStyle(SbuTheme.inkMuted)
                 .contentTransition(.numericText(value: Double(streak)))
                 .opacity(streak > 0 ? 1 : 0)
                 .animation(reduceMotion ? nil : .snappy, value: streak)
@@ -143,8 +143,7 @@ private struct HabitCellPreview: View {
             HabitCellPreviewItem(habit: Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: LogicalDay(.now)), marks: 3, streak: 1)
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.fieldHabits)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
     }
 }

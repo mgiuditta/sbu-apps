@@ -41,15 +41,13 @@ struct MainView: View {
 
 #Preview("Light") {
     MainView(model: LevelModel())
-        .background(SbuTheme.fieldLevel)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentLevel)
 }
 
 #Preview("Dark") {
     MainView(model: LevelModel())
-        .background(SbuTheme.fieldLevel)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentLevel)
         .preferredColorScheme(.dark)
 }

@@ -2,7 +2,7 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// Today's habits as rings on the Habits field; tapping a ring marks it once.
+/// Today's habits as rings on paper; tapping a ring marks it once.
 struct HabitsWidgetView: View {
     @Environment(\.widgetFamily) private var family
 
@@ -22,7 +22,7 @@ struct HabitsWidgetView: View {
             if entry.habits.isEmpty {
                 Text("Aggiungi un'abitudine nell'app")
                     .font(SbuTheme.footnote)
-                    .foregroundStyle(SbuTheme.onFieldMuted)
+                    .foregroundStyle(SbuTheme.inkMuted)
                     .multilineTextAlignment(.center)
             } else {
                 HabitsWidgetGrid(
@@ -34,10 +34,9 @@ struct HabitsWidgetView: View {
                 )
             }
         }
-        .environment(\.colorScheme, .dark)
         .tint(SbuTheme.accentHabits)
         .containerBackground(for: .widget) {
-            SbuTheme.fieldHabits
+            SbuTheme.surface
         }
     }
 }

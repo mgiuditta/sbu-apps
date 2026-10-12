@@ -24,7 +24,7 @@ struct HabitRing: View {
 
                 Circle()
                     .trim(from: range.lowerBound, to: range.upperBound)
-                    .stroke(SbuTheme.fieldControlActive, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
+                    .stroke(SbuTheme.line, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
 
                 Circle()
                     .trim(from: range.lowerBound, to: range.lowerBound + (range.upperBound - range.lowerBound) * fill)
@@ -36,7 +36,7 @@ struct HabitRing: View {
                 .font(SbuTheme.title2)
                 .fontWeight(.medium)
                 .imageScale(.medium)
-                .foregroundStyle(SbuTheme.onField)
+                .foregroundStyle(SbuTheme.ink)
         }
         .padding(SbuTheme.space1)
         .accessibilityHidden(true)
@@ -68,7 +68,7 @@ private struct HabitRingPreview: View {
         }
         .frame(height: SbuTheme.space12 * 2)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.fieldHabits)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
     }
 }

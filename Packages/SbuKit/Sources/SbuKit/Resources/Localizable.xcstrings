@@ -52,6 +52,11 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Part of sbu.dev" } }
       }
     },
+    "Privacy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy" } }
+      }
+    },
     "Versione %@" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Version %@" } }

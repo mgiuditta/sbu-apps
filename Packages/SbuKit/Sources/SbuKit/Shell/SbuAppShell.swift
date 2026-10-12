@@ -10,6 +10,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     private static var settingsTitle: String { String(localized: "Impostazioni", bundle: SbuTheme.bundle) }
 
     private let title: LocalizedStringKey
+    private let slug: String
     private let accent: Color
     private let appIcon: Image
     private let content: Content
@@ -20,18 +21,21 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     /// Creates the shell.
     /// - Parameters:
     ///   - title: App name, shown as the inline navigation title.
+    ///   - slug: The app's sbu.dev slug, such as `habits`: settings link to its privacy page.
     ///   - accent: The app's `accent*` token. Text on it is always `onAccent`.
     ///   - appIcon: The icon artwork shown at the top of settings.
     ///   - content: The app's tool screen.
     ///   - settings: App-specific settings sections, placed above the sbu.dev footer.
     public init(
         _ title: LocalizedStringKey,
+        slug: String,
         accent: Color,
         appIcon: Image,
         @ViewBuilder content: () -> Content,
         @ViewBuilder settings: () -> Settings
     ) {
         self.title = title
+        self.slug = slug
         self.accent = accent
         self.appIcon = appIcon
         self.content = content()
@@ -54,7 +58,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
                 }
         }
         .sheet(isPresented: $isShowingSettings) {
-            SbuSettingsView(appName: title, appIcon: appIcon) {
+            SbuSettingsView(appName: title, appIcon: appIcon, slug: slug) {
                 settings
             }
         }
@@ -77,7 +81,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
 
 private struct SbuAppShellPreview: View {
     var body: some View {
-        SbuAppShell("Sbu Subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
+        SbuAppShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
             VStack(spacing: SbuTheme.space6) {
                 SbuStat("Spesa mensile", value: Decimal(string: "128.90") ?? 0, format: .currency(code: "EUR"))
                 Spacer()

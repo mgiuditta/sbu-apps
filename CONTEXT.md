@@ -67,6 +67,16 @@ _Avoid_: badge gratuito, banner
 Un'altra app a pagamento della stessa nicchia di un **Originale**, studiata ma non rifatta.
 _Avoid_: secondo Originale, alternativa
 
+### Sbu Habits
+
+**Serie** (_Streak_):
+I giorni previsti di fila in cui un'abitudine è stata fatta; i giorni non previsti non la interrompono.
+_Avoid_: streak, catena
+
+**Serie piena** (_Full streak_):
+I giorni di fila in cui tutte le abitudini previste quel giorno sono state fatte; le abitudini settimanali non vi entrano. È la **Cifra** di Sbu Habits.
+_Avoid_: serie totale, giornata perfetta
+
 ## Relationships
 
 - Un **Candidato** ha al più uno **Spec**, scritto prima di decidere

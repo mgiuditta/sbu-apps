@@ -44,8 +44,12 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
 
     /// A speed in metres per second, rounded to the unit: "87 km/h".
     func speedText(metersPerSecond: Double, locale: Locale = .autoupdatingCurrent) -> String {
-        Measurement(value: metersPerSecond, unit: UnitSpeed.metersPerSecond)
-            .converted(to: speed)
+        speedText(value: value(ofMetersPerSecond: metersPerSecond), locale: locale)
+    }
+
+    /// A speed already in this unit, rounded: "50 km/h".
+    func speedText(value: Double, locale: Locale = .autoupdatingCurrent) -> String {
+        Measurement(value: value, unit: speed)
             .formatted(.measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0))).locale(locale))
     }
 

@@ -1,32 +1,53 @@
 import Foundation
 import Observation
 
-/// Live speedometer state: the latest speed, plus the current trip and the unit saved on this iPhone.
+/// Live speedometer state: the latest speed, plus the current trip, the unit and the speed limit saved on this iPhone.
 @Observable
 final class SpeedModel {
     private static let unitKey = "unit"
     private static let tripKey = "trip"
+    private static let limitKey = "speedLimit"
 
     private(set) var access = LocationAccess.notDetermined
     /// Metres per second; `nil` until a fix carries a valid speed.
     private(set) var speed: Double?
     private(set) var trip = Trip()
+    /// Goes up by one at each crossing above the limit that should alert: the screen vibrates and sounds on each change.
+    private(set) var limitAlerts = 0
 
     var unit: SpeedUnit {
-        didSet { defaults.set(unit.rawValue, forKey: Self.unitKey) }
+        didSet {
+            defaults.set(unit.rawValue, forKey: Self.unitKey)
+            if let speedLimit, speedLimit.unit != unit {
+                self.speedLimit = speedLimit.converted(to: unit)
+            }
+        }
+    }
+
+    /// Off by default. Always in the current unit.
+    var speedLimit: SpeedLimit? {
+        didSet { save(speedLimit, forKey: Self.limitKey) }
     }
 
     @ObservationIgnored private let source: any SpeedSource
     @ObservationIgnored private let defaults: UserDefaults
+    @ObservationIgnored private var alarm = SpeedLimitAlarm()
 
     var status: SpeedStatus { SpeedStatus(access: access, speed: speed) }
+
+    /// The speed on screen is above the limit.
+    var isOverLimit: Bool {
+        guard let speed, let speedLimit else { return false }
+        return speedLimit.isExceeded(byMetersPerSecond: speed)
+    }
 
     /// - Parameter locale: Picks km/h or mph until the person chooses a unit.
     init(source: any SpeedSource = LocationSpeedSource(), defaults: UserDefaults = .standard, locale: Locale = .current) {
         self.source = source
         self.defaults = defaults
         unit = defaults.string(forKey: Self.unitKey).flatMap(SpeedUnit.init(rawValue:)) ?? .preferred(for: locale)
-        trip = defaults.data(forKey: Self.tripKey).flatMap { try? JSONDecoder().decode(Trip.self, from: $0) } ?? Trip()
+        trip = Self.load(Trip.self, forKey: Self.tripKey, from: defaults) ?? Trip()
+        speedLimit = Self.load(SpeedLimit.self, forKey: Self.limitKey, from: defaults)?.converted(to: unit)
     }
 
     /// Reads the source until the calling task is cancelled.
@@ -52,19 +73,28 @@ final class SpeedModel {
         case .sample(let sample):
             speed = sample.hasValidSpeed ? sample.speed : nil
             trip.record(sample)
-            saveTrip()
+            save(trip, forKey: Self.tripKey)
+            if alarm.shouldAlert(speed: speed, limit: speedLimit) {
+                limitAlerts += 1
+            }
         }
     }
 
     func resetTrip() {
         trip = Trip()
-        saveTrip()
+        save(trip, forKey: Self.tripKey)
     }
 
-    private func saveTrip() {
-        if let data = try? JSONEncoder().encode(trip) {
-            defaults.set(data, forKey: Self.tripKey)
+    private func save(_ value: (some Encodable)?, forKey key: String) {
+        if let value, let data = try? JSONEncoder().encode(value) {
+            defaults.set(data, forKey: key)
+        } else {
+            defaults.removeObject(forKey: key)
         }
+    }
+
+    private static func load<Value: Decodable>(_ type: Value.Type, forKey key: String, from defaults: UserDefaults) -> Value? {
+        defaults.data(forKey: key).flatMap { try? JSONDecoder().decode(type, from: $0) }
     }
 
     private func showSnapshotDrive() {

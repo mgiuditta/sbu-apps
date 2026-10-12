@@ -81,6 +81,26 @@
         }
       }
     },
+    "Limite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limit"
+          }
+        }
+      }
+    },
+    "Limite di velocità": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Speed limit"
+          }
+        }
+      }
+    },
     "Massima": {
       "localizations": {
         "en": {
@@ -101,12 +121,42 @@
         }
       }
     },
+    "Nessuno": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "None"
+          }
+        }
+      }
+    },
+    "Oltre il limite di %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Over the %@ limit"
+          }
+        }
+      }
+    },
     "Posizione non consentita": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Location not allowed"
+          }
+        }
+      }
+    },
+    "Quando lo superi, l'iPhone vibra e suona una volta.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When you go over it, your iPhone vibrates and plays a sound once."
           }
         }
       }

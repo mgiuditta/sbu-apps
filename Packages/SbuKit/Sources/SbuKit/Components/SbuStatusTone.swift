@@ -8,12 +8,15 @@ public enum SbuStatusTone: Sendable {
     case warning
     /// Done or successful, in `success`.
     case success
+    /// Something is wrong right now, in `danger`.
+    case danger
 
     var color: Color {
         switch self {
         case .neutral: SbuTheme.inkMuted
         case .warning: SbuTheme.warning
         case .success: SbuTheme.success
+        case .danger: SbuTheme.danger
         }
     }
 }

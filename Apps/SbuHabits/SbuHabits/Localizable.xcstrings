@@ -309,6 +309,17 @@
         }
       }
     },
+    "Caffè" : {
+      "comment" : "A demo Abitudine da evitare in the App Store screenshots.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coffee"
+          }
+        }
+      }
+    },
     "Camminare" : {
       "localizations" : {
         "en" : {

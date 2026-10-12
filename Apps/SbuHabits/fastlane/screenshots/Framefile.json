@@ -8,6 +8,7 @@
   },
   "data": [
     { "filter": "01-main", "keyword": { "text": "" } },
-    { "filter": "02-privacy", "keyword": { "text": "" } }
+    { "filter": "02-privacy", "keyword": { "text": "" } },
+    { "filter": "03-health", "keyword": { "text": "" } }
   ]
 }

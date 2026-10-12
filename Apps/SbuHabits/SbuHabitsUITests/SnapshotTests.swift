@@ -1,7 +1,8 @@
 import XCTest
 
-/// Drives the App Store screenshots for `fastlane snapshot`.
-/// First the tool screen with three demo habits, then the privacy promise in settings.
+/// Drives the App Store screenshots for `fastlane snapshot`, in Italian and English.
+/// First the tool screen with the demo habits, then the privacy promise in settings,
+/// then the walking habit's link to Salute.
 final class SnapshotTests: XCTestCase {
     @MainActor
     func testScreenshots() {
@@ -9,10 +10,38 @@ final class SnapshotTests: XCTestCase {
         setupSnapshot(app)
         app.launch()
 
-        XCTAssertTrue(app.descendants(matching: .any)["Leggere"].firstMatch.waitForExistence(timeout: 10) || app.descendants(matching: .any)["Read"].firstMatch.exists)
+        XCTAssertTrue(element("Leggere", "Read", in: app).exists)
         snapshot("01-main")
 
         app.navigationBars.buttons.element(boundBy: 0).tap()
         snapshot("02-privacy")
+        button("Fine", "Done", in: app).tap()
+
+        // The settings sheet is still sliding away: wait until the habit can take the tap.
+        let walking = element("Camminare", "Walk", in: app)
+        let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: walking)
+        XCTAssertEqual(XCTWaiter.wait(for: [hittable], timeout: 5), .completed)
+        walking.tap()
+        button("Modifica", "Edit", in: app).tap()
+        XCTAssertTrue(element("Collega a Salute", "Link to Health", in: app).exists)
+        snapshot("03-health")
+    }
+
+    /// The Italian element, or the English one when the run is in English, once either shows up.
+    @MainActor
+    private func element(_ italian: String, _ english: String, in app: XCUIApplication) -> XCUIElement {
+        find(app.descendants(matching: .any)[italian].firstMatch, app.descendants(matching: .any)[english].firstMatch)
+    }
+
+    @MainActor
+    private func button(_ italian: String, _ english: String, in app: XCUIApplication) -> XCUIElement {
+        find(app.buttons[italian].firstMatch, app.buttons[english].firstMatch)
+    }
+
+    @MainActor
+    private func find(_ italian: XCUIElement, _ english: XCUIElement) -> XCUIElement {
+        let either = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in italian.exists || english.exists }, object: nil)
+        _ = XCTWaiter.wait(for: [either], timeout: 10)
+        return italian.exists ? italian : english
     }
 }

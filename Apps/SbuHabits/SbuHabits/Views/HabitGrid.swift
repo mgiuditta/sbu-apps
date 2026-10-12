@@ -8,20 +8,28 @@ struct HabitGrid: View {
     let model: HabitsModel
 
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: Self.columns, spacing: SbuTheme.space3) {
-                ForEach(model.habits) { habit in
-                    HabitCell(
-                        habit: habit,
-                        streak: model.streak(of: habit),
-                        isDone: habit.isDone(on: model.today),
-                        markDone: { model.markDone(habit) },
-                        undoLast: { model.undoLast(habit) }
-                    )
-                }
+        // Centered in the free space while it fits, scrolling once it does not.
+        ViewThatFits(in: .vertical) {
+            grid
+            ScrollView {
+                grid
             }
         }
-        .scrollBounceBehavior(.basedOnSize)
+        .frame(maxHeight: .infinity)
+    }
+
+    private var grid: some View {
+        LazyVGrid(columns: Self.columns, spacing: SbuTheme.space6) {
+            ForEach(model.habits) { habit in
+                HabitCell(
+                    habit: habit,
+                    streak: model.streak(of: habit),
+                    isDone: habit.isDone(on: model.today),
+                    markDone: { model.markDone(habit) },
+                    undoLast: { model.undoLast(habit) }
+                )
+            }
+        }
     }
 }
 

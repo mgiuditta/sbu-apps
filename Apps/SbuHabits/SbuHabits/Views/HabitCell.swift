@@ -14,36 +14,29 @@ struct HabitCell: View {
 
     @State private var isHolding = false
 
-    @ScaledMetric(relativeTo: .title2) private var ringSize = SbuTheme.space12
+    @ScaledMetric(relativeTo: .title2) private var ringSize = SbuTheme.space12 * 2
 
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
-            HabitRing(symbol: habit.symbol, progress: isDone || isHolding ? 1 : 0)
+            HabitRing(symbol: isDone ? "checkmark" : habit.symbol, progress: isDone || isHolding ? 1 : 0)
                 .frame(width: ringSize, height: ringSize)
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
 
             Text(habit.title)
-                .font(SbuTheme.headline)
+                .font(SbuTheme.subheadline)
                 .foregroundStyle(SbuTheme.onField)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
 
-            HStack(spacing: SbuTheme.space1) {
-                if isDone {
-                    Image(systemName: "checkmark")
-                        .fontWeight(.medium)
-                        .imageScale(.medium)
-                }
-                Text("\(streak) giorni")
-                    .monospacedDigit()
-            }
-            .font(SbuTheme.subheadline)
-            .foregroundStyle(SbuTheme.onFieldMuted)
+            // The Serie alone, no unit: the word "giorni" belongs to the figure. Hidden at zero, kept for even rows.
+            Text(streak, format: .number)
+                .font(SbuTheme.footnote)
+                .monospacedDigit()
+                .foregroundStyle(SbuTheme.onFieldMuted)
+                .opacity(streak > 0 ? 1 : 0)
         }
         .frame(maxWidth: .infinity)
-        .padding(SbuTheme.space4)
-        .background(SbuTheme.fieldControl, in: .rect(cornerRadius: SbuTheme.radiusLg))
-        .contentShape(.rect(cornerRadius: SbuTheme.radiusLg))
+        .contentShape(.rect)
         .onLongPressGesture(minimumDuration: Self.holdDuration, perform: markDone, onPressingChanged: setHolding)
         .sensoryFeedback(.success, trigger: isDone) { wasDone, isDone in !wasDone && isDone }
         .contextMenu {

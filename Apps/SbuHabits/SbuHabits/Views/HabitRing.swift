@@ -10,20 +10,20 @@ struct HabitRing: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(SbuTheme.fieldControlActive, lineWidth: SbuTheme.space1)
+                .stroke(SbuTheme.fieldControlActive, lineWidth: SbuTheme.space2)
 
             Circle()
                 .trim(from: 0, to: progress)
-                .stroke(.tint, style: StrokeStyle(lineWidth: SbuTheme.space1, lineCap: .round))
+                .stroke(.tint, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: .round))
                 .rotationEffect(.degrees(-90))
 
             Image(systemName: symbol)
-                .font(.title3)
+                .font(.title)
                 .fontWeight(.medium)
                 .imageScale(.medium)
                 .foregroundStyle(SbuTheme.onField)
         }
-        .padding(SbuTheme.space1 / 2)
+        .padding(SbuTheme.space1)
         .accessibilityHidden(true)
     }
 }
@@ -43,7 +43,7 @@ private struct HabitRingPreview: View {
             HabitRing(symbol: "drop", progress: 0)
             HabitRing(symbol: "book", progress: 1)
         }
-        .frame(height: SbuTheme.space12)
+        .frame(height: SbuTheme.space12 * 2)
         .padding(SbuTheme.space4)
         .background(SbuTheme.fieldHabits)
         .tint(SbuTheme.accentHabits)

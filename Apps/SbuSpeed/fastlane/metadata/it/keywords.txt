@@ -1,0 +1,1 @@
+tachimetro,velocità,gps,kmh,contachilometri,bici,corsa,auto,moto,barca,distanza,media

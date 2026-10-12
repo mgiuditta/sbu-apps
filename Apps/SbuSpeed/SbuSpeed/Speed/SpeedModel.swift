@@ -35,6 +35,16 @@ final class SpeedModel {
 
     var status: SpeedStatus { SpeedStatus(access: access, speed: speed) }
 
+    /// The top of the dial in the current unit: the smallest scale that holds the speed, the trip's top speed and the limit.
+    var dialFullScale: Double {
+        let highest = max(
+            unit.value(ofMetersPerSecond: speed ?? 0),
+            unit.value(ofMetersPerSecond: trip.maxSpeed),
+            Double(speedLimit?.value ?? 0)
+        )
+        return unit.fullScale(containing: highest)
+    }
+
     /// The speed on screen is above the limit.
     var isOverLimit: Bool {
         guard let speed, let speedLimit else { return false }

@@ -28,7 +28,7 @@ struct MainView: View {
 
     private var gaugeFraction: Double {
         guard let speed = model.speed else { return 0 }
-        return model.unit.value(ofMetersPerSecond: speed) / model.unit.fullScale
+        return model.unit.value(ofMetersPerSecond: speed) / model.dialFullScale
     }
 
     var body: some View {

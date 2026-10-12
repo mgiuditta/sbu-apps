@@ -91,6 +91,37 @@ struct SpeedModelTests {
         #expect(model().trip.isEmpty)
     }
 
+    @Test func dialStartsAtTheSmallestScale() {
+        #expect(model(locale: "it_IT").dialFullScale == 60)
+    }
+
+    @Test func dialHoldsTheTripTopSpeedAfterSlowingDown() async {
+        // 25 m/s is 90 km/h, then 5 m/s is 18 km/h.
+        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 25)), .sample(.fix(at: 1, speed: 5))])
+
+        await model.run()
+
+        #expect(model.dialFullScale == 120)
+    }
+
+    @Test func dialHoldsTheLimit() {
+        let model = model(locale: "it_IT")
+
+        model.speedLimit = SpeedLimit(value: 130, unit: .kilometersPerHour)
+
+        #expect(model.dialFullScale == 200)
+    }
+
+    @Test func dialFollowsTheUnit() async {
+        // 25 m/s is 90 km/h or 56 mph.
+        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 25))])
+        await model.run()
+
+        model.unit = .milesPerHour
+
+        #expect(model.dialFullScale == 80)
+    }
+
     @Test func speedLimitIsOffByDefault() {
         #expect(model().speedLimit == nil)
     }

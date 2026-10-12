@@ -55,6 +55,14 @@ Build and upload to TestFlight
 
 Build and upload to the App Store with metadata and framed screenshots, without submitting
 
+### ios metadata
+
+```sh
+[bundle exec] fastlane ios metadata
+```
+
+Upload only metadata and framed screenshots to the App Store listing, without a build or submitting
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

@@ -29,7 +29,8 @@ struct HabitsTimelineProvider: TimelineProvider {
     private static func entry(for file: HabitsFile, now: Date) -> HabitsWidgetEntry {
         let calendar = Calendar.current
         let today = LogicalDay(now, startHour: file.startHour, calendar: calendar)
-        let habits = Array(TodayGrid.habits(file.habits, on: today, firstWeekday: calendar.firstWeekday).prefix(8))
+        // All of today's habits: the view picks what fits its size.
+        let habits = TodayGrid.habits(file.habits, on: today, firstWeekday: calendar.firstWeekday)
         return HabitsWidgetEntry(
             date: now,
             habits: habits,

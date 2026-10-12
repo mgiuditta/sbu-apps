@@ -11,6 +11,6 @@ struct HabitsWidget: Widget {
         }
         .configurationDisplayName("Abitudini di oggi")
         .description("Segna le abitudini con un tocco.")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

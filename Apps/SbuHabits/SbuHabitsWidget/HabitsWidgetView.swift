@@ -8,12 +8,13 @@ struct HabitsWidgetView: View {
 
     let entry: HabitsWidgetEntry
 
-    private var limit: Int {
-        family == .systemSmall ? 4 : 8
-    }
-
-    private var columns: [GridItem] {
-        Array(repeating: GridItem(.flexible(), spacing: SbuTheme.space2), count: family == .systemSmall ? 2 : 4)
+    /// Columns and rows per size: 2×2 small, 4×2 medium, 4×4 large.
+    private var layout: (columns: Int, rows: Int) {
+        switch family {
+        case .systemSmall: (2, 2)
+        case .systemLarge: (4, 4)
+        default: (4, 2)
+        }
     }
 
     var body: some View {
@@ -24,13 +25,13 @@ struct HabitsWidgetView: View {
                     .foregroundStyle(SbuTheme.onFieldMuted)
                     .multilineTextAlignment(.center)
             } else {
-                LazyVGrid(columns: columns, spacing: SbuTheme.space2) {
-                    ForEach(entry.habits.prefix(limit)) { habit in
-                        if let progress = entry.progress[habit.id] {
-                            WidgetHabitButton(habit: habit, progress: progress, showsTitle: family != .systemSmall)
-                        }
-                    }
-                }
+                HabitsWidgetGrid(
+                    slots: WidgetSlots(entry.habits, progress: entry.progress, capacity: layout.columns * layout.rows),
+                    progress: entry.progress,
+                    columns: layout.columns,
+                    rows: layout.rows,
+                    showsTitles: family != .systemSmall
+                )
             }
         }
         .environment(\.colorScheme, .dark)
@@ -41,32 +42,6 @@ struct HabitsWidgetView: View {
     }
 }
 
-private struct WidgetHabitButton: View {
-    let habit: Habit
-    let progress: HabitProgress
-    let showsTitle: Bool
-
-    var body: some View {
-        Button(intent: MarkHabitIntent(habitID: habit.id)) {
-            VStack(spacing: SbuTheme.space1) {
-                HabitRing(symbol: progress.isComplete ? "checkmark" : habit.symbol, segments: max(progress.goal, 1), filled: Double(progress.done))
-                    .widgetAccentable()
-
-                if showsTitle {
-                    Text(habit.title)
-                        .font(SbuTheme.caption)
-                        .foregroundStyle(SbuTheme.onField)
-                        .lineLimit(1)
-                }
-            }
-        }
-        .buttonStyle(.plain)
-        .disabled(progress.holdUndoes)
-        .accessibilityLabel(habit.title)
-        .accessibilityValue(progress.isComplete ? Text("Fatta") : Text("\(progress.done) di \(progress.goal)"))
-    }
-}
-
 #Preview("Small", as: .systemSmall) {
     HabitsWidget()
 } timeline: {
@@ -74,6 +49,12 @@ private struct WidgetHabitButton: View {
 }
 
 #Preview("Medium", as: .systemMedium) {
+    HabitsWidget()
+} timeline: {
+    HabitsWidgetEntry.sample
+}
+
+#Preview("Large", as: .systemLarge) {
     HabitsWidget()
 } timeline: {
     HabitsWidgetEntry.sample

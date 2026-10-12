@@ -8,9 +8,10 @@ Dati solo sul dispositivo.
 Apri l'app e sai com'è la luna adesso: quanta parte è illuminata, se cresce o cala, quando arriva la prossima luna piena.
 
 - Percentuale illuminata, una cifra grande e leggibile
-- Nome della fase e il suo simbolo
-- Giorno e ora della prossima luna piena e della prossima luna nuova
-- Qualsiasi giorno dal 1900 al 2100, da un calendario
+- La luna disegnata com'è, con la parte illuminata e il nome della fase
+- Giorno e ora delle prossime quattro fasi: luna nuova, primo quarto, luna piena, ultimo quarto
+- Età della luna e distanza dalla Terra
+- Qualsiasi giorno dal 1900 al 2100: scorri per il giorno prima o dopo, o sceglilo da un calendario
 - Calcolata sull'iPhone: niente posizione, niente rete, nessun permesso
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 

@@ -30,6 +30,7 @@ struct TokenTests {
         let spacing: MetricGroup
         let radius: MetricGroup
         let stroke: MetricGroup
+        let mark: MetricGroup
     }
 
     private let tokens: Tokens
@@ -55,7 +56,7 @@ struct TokenTests {
     }
 
     @Test func metricsMatchTokenValues() {
-        for token in tokens.spacing.tokens + tokens.radius.tokens + tokens.stroke.tokens {
+        for token in tokens.spacing.tokens + tokens.radius.tokens + tokens.stroke.tokens + tokens.mark.tokens {
             let expected = token.value.hasSuffix("%")
                 ? (Double(token.value.dropLast()) ?? .nan) / 100
                 : Double(token.value.replacing("px", with: "")) ?? .nan
@@ -73,11 +74,6 @@ struct TokenTests {
         let style = try #require(tokens.type.groups.flatMap(\.styles).first { $0.name == name })
         #expect(Double(style.fontSize.replacing("px", with: "")) == Double(size))
         #expect(Double(style.letterSpacing?.replacing("px", with: "") ?? "0") == Double(tracking))
-    }
-
-    @Test func onAccentLevelIsLightInk() throws {
-        let ink = try #require(tokens.color.tokens.first { $0.name == "ink" }?.value["light"])
-        #expect(hex(UIColor(SbuTheme.onAccentLevel)) == ink)
     }
 
     private func hex(_ color: UIColor) -> String {

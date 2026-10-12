@@ -22,7 +22,7 @@ public struct SbuListRow: View {
     ///   - subtitle: Second line in `subheadline`, `inkMuted`.
     ///   - systemImage: SF Symbol drawn in the 40pt icon tile.
     ///   - iconBackground: Fill of the icon tile, usually an `accent*` token.
-    ///   - iconForeground: Glyph color; `onAccent`, or `onAccentLevel` on `accentLevel`.
+    ///   - iconForeground: Glyph color, usually `onAccent`.
     ///   - amount: Figure already formatted for the locale, shown in `statSmall`.
     ///   - status: One word under the figure, such as "tra 2 giorni".
     ///   - statusTone: Color of the status word.
@@ -51,7 +51,7 @@ public struct SbuListRow: View {
             VStack(alignment: .trailing, spacing: 0) {
                 if let amount {
                     Text(amount)
-                        .font(SbuTheme.numberFont(size: amountSize))
+                        .font(SbuTheme.smallNumberFont(size: amountSize))
                         .foregroundStyle(SbuTheme.ink)
                 }
 
@@ -106,7 +106,7 @@ private struct SbuListRowPreview: View {
                 SbuListRow("Netflix Premium", subtitle: "Intrattenimento · mensile", systemImage: "play.rectangle", iconBackground: SbuTheme.accentCards, amount: "17,99", status: "tra 2 giorni", statusTone: .warning)
                 SbuListRow("iCloud+ 200 GB", subtitle: "Cloud · mensile", systemImage: "icloud", iconBackground: SbuTheme.accentDocs, amount: "2,99", status: "14 nov")
                 SbuListRow("Spotify", subtitle: "Musica · annuale", systemImage: "music.note", iconBackground: SbuTheme.accentHabits, amount: "119,88", status: "pagato", statusTone: .success)
-                SbuListRow("Livella", subtitle: "Accento chiaro", systemImage: "level", iconBackground: SbuTheme.accentLevel, iconForeground: SbuTheme.onAccentLevel)
+                SbuListRow("Livella", subtitle: "Accento ocra", systemImage: "level", iconBackground: SbuTheme.accentLevel)
             }
         }
         .listStyle(.insetGrouped)

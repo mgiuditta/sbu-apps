@@ -17,13 +17,13 @@ struct SingleHabitWidgetView: View {
 
                         Text(habit.title)
                             .font(SbuTheme.caption)
-                            .foregroundStyle(SbuTheme.onField)
+                            .foregroundStyle(SbuTheme.ink)
                             .lineLimit(1)
 
                         Text(habit.schedule.isWeekly ? "\(entry.streak) settimane" : "\(entry.streak) giorni")
                             .font(SbuTheme.caption)
                             .monospacedDigit()
-                            .foregroundStyle(SbuTheme.onFieldMuted)
+                            .foregroundStyle(SbuTheme.inkMuted)
                     }
                 }
                 .buttonStyle(.plain)
@@ -32,14 +32,13 @@ struct SingleHabitWidgetView: View {
             } else {
                 Text("Aggiungi un'abitudine nell'app")
                     .font(SbuTheme.footnote)
-                    .foregroundStyle(SbuTheme.onFieldMuted)
+                    .foregroundStyle(SbuTheme.inkMuted)
                     .multilineTextAlignment(.center)
             }
         }
-        .environment(\.colorScheme, .dark)
         .tint(SbuTheme.accentHabits)
         .containerBackground(for: .widget) {
-            SbuTheme.fieldHabits
+            SbuTheme.surface
         }
     }
 }

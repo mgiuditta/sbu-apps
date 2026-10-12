@@ -71,7 +71,7 @@ private struct WidgetHabitButton: View {
                 if showsTitle {
                     Text(habit.title)
                         .font(SbuTheme.caption)
-                        .foregroundStyle(SbuTheme.onField)
+                        .foregroundStyle(SbuTheme.ink)
                         .lineLimit(1)
                 }
             }
@@ -90,12 +90,12 @@ private struct WidgetMoreCell: View {
     var body: some View {
         VStack(spacing: SbuTheme.space1) {
             Circle()
-                .strokeBorder(SbuTheme.fieldControlActive, lineWidth: SbuTheme.space1)
+                .strokeBorder(SbuTheme.line, lineWidth: SbuTheme.space1)
                 .overlay {
                     Text(verbatim: "+\(count)")
                         .font(SbuTheme.headline)
                         .monospacedDigit()
-                        .foregroundStyle(SbuTheme.onField)
+                        .foregroundStyle(SbuTheme.ink)
                 }
                 .aspectRatio(1, contentMode: .fit)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -128,8 +128,7 @@ private struct HabitsWidgetGridPreview: View {
         HabitsWidgetGrid(slots: WidgetSlots(habits, progress: progress, capacity: 8), progress: progress, columns: 4, rows: 2, showsTitles: true)
             .frame(width: 338, height: 158)
             .padding(SbuTheme.space4)
-            .background(SbuTheme.fieldHabits)
-            .environment(\.colorScheme, .dark)
-            .tint(SbuTheme.accentHabits)
+            .background(SbuTheme.surface)
+                .tint(SbuTheme.accentHabits)
     }
 }

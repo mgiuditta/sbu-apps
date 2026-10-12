@@ -56,4 +56,17 @@
     font-weight: var(--text-title-2--font-weight);
   }
   .prose ul { list-style: disc; padding-left: var(--spacing-6); }
+
+  /* The full stop (see PageTitle.astro): sized from the title's own em, sitting on its baseline. */
+  .full-stop {
+    display: inline-block;
+    width: var(--sbu-mark-size);
+    height: var(--sbu-mark-size);
+    margin-inline-start: var(--sbu-mark-gap);
+    background: currentColor;
+    vertical-align: baseline;
+  }
+  @media (forced-colors: active) {
+    .full-stop { forced-color-adjust: none; background: CanvasText; }
+  }
 }

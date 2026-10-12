@@ -5,6 +5,7 @@ import HealthKit
 /// nothing it reads leaves the iPhone or is kept, only the done marks it leads to.
 final class HealthKitReader: HealthReading {
     private let store = HKHealthStore()
+    private var queries: [HKObserverQuery] = []
 
     var isAvailable: Bool {
         HKHealthStore.isHealthDataAvailable()
@@ -13,7 +14,7 @@ final class HealthKitReader: HealthReading {
     func requestAccess(toRead measures: Set<HealthMeasure>) async {
         guard isAvailable, measures.isEmpty == false else { return }
         // ponytail: a failed request leaves the habit marked by hand, as a denial does.
-        try? await store.requestAuthorization(toShare: [], read: Set(measures.map(Self.sampleType)))
+        try? await store.requestAuthorization(toShare: [], read: Set<HKObjectType>(measures.map(Self.sampleType)))
     }
 
     func total(of measure: HealthMeasure, in interval: DateInterval) async throws -> Double {
@@ -35,7 +36,53 @@ final class HealthKitReader: HealthReading {
         }
     }
 
-    private static func sampleType(of measure: HealthMeasure) -> HKObjectType {
+    func observe(_ measures: Set<HealthMeasure>, onChange: @escaping @MainActor @Sendable () async -> Void) {
+        queries.forEach(store.stop)
+        queries = []
+        guard isAvailable else { return }
+        let followed = measures.map(Self.sampleType)
+        // With no linked habit, nothing wakes the app.
+        Self.deliverInBackground(followed, stopping: HealthMeasure.allCases.filter { measures.contains($0) == false }.map(Self.sampleType), in: store)
+        for type in followed {
+            let query = Self.observerQuery(for: type, onChange: onChange)
+            store.execute(query)
+            queries.append(query)
+        }
+    }
+
+    /// Outside the main actor, so HealthKit can call the empty completions on its own queue.
+    private nonisolated static func deliverInBackground(_ types: [HKSampleType], stopping others: [HKSampleType], in store: HKHealthStore) {
+        guard types.isEmpty == false else {
+            store.disableAllBackgroundDelivery { _, _ in }
+            return
+        }
+        for type in others {
+            store.disableBackgroundDelivery(for: type) { _, _ in }
+        }
+        for type in types {
+            // Hourly is the most HealthKit grants for steps; enough to mark a habit and spare the battery.
+            store.enableBackgroundDelivery(for: type, frequency: .hourly) { _, _ in }
+        }
+    }
+
+    /// Built outside the main actor: HealthKit calls the handler on its own queue.
+    private nonisolated static func observerQuery(for type: HKSampleType, onChange: @escaping @MainActor @Sendable () async -> Void) -> HKObserverQuery {
+        HKObserverQuery(sampleType: type, predicate: nil) { _, completionHandler, error in
+            guard error == nil else {
+                completionHandler()
+                return
+            }
+            // HealthKit's handler is not marked Sendable but may be called from any thread.
+            nonisolated(unsafe) let done = completionHandler
+            Task { @MainActor in
+                await onChange()
+                // Tells HealthKit the update is handled, so it keeps waking the app.
+                done()
+            }
+        }
+    }
+
+    private static func sampleType(of measure: HealthMeasure) -> HKSampleType {
         quantityType(of: measure) ?? HKCategoryType(.mindfulSession)
     }
 

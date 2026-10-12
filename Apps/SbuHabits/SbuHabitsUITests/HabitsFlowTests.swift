@@ -268,6 +268,36 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testALinkedHabitWithoutAccessIsMarkedByHand() {
+        let app = launch()
+        app.buttons["Aggiungi"].firstMatch.tap()
+        let titleField = app.textFields["Titolo"]
+        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
+        titleField.tap()
+        titleField.typeText("Camminare")
+        app.collectionViews.firstMatch.swipeUp()
+        app.switches["Collega a Salute"].switches.firstMatch.tap()
+        app.navigationBars.buttons["Aggiungi"].tap()
+
+        // iOS asks only the first time on this simulator, in the system's language; deny it, as a
+        // person may.
+        let deny = app.buttons["UIA.Health.DoNotAllow.Button"]
+        if deny.waitForExistence(timeout: 5) {
+            deny.tap()
+            // iOS then explains where to turn access on later.
+            let explained = app.alerts.firstMatch.buttons.firstMatch
+            if explained.waitForExistence(timeout: 5) {
+                explained.tap()
+            }
+        }
+
+        let camminare = habit("Camminare", in: app)
+        expectValue(camminare, "Da fare, 0 giorni")
+        camminare.press(forDuration: 1)
+        expectValue(camminare, "Fatta, 1 giorno")
+    }
+
+    @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)

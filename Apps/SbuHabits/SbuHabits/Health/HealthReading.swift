@@ -12,4 +12,8 @@ protocol HealthReading: AnyObject {
 
     /// The total of `measure` within `interval`, in the measure's unit.
     func total(of measure: HealthMeasure, in interval: DateInterval) async throws -> Double
+
+    /// Follows `measures`, in the background too, and calls `onChange` when Salute has new data;
+    /// replaces what was followed before. With no measures it stops all background work.
+    func observe(_ measures: Set<HealthMeasure>, onChange: @escaping @MainActor @Sendable () async -> Void)
 }

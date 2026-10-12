@@ -18,6 +18,8 @@ final class HabitsModel {
     @ObservationIgnored private let calendar: Calendar
     @ObservationIgnored private let scheduleReminders: @MainActor ([PlannedReminder]) -> Void
     @ObservationIgnored private let health: any HealthReading
+    /// The measures Salute is followed for, `nil` until `observeHealth()`.
+    @ObservationIgnored private var observedMeasures: Set<HealthMeasure>?
 
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
@@ -111,6 +113,17 @@ final class HabitsModel {
         await refreshFromHealth()
     }
 
+    /// Follows the linked measures in Salute, in the background too, and marks habits whenever
+    /// new data comes; with no habit linked, nothing runs in the background. Called at launch, the
+    /// background ones included, then again whenever the linked measures change.
+    func observeHealth() {
+        let measures = linkedMeasures
+        observedMeasures = measures
+        health.observe(measures) { [weak self] in
+            await self?.refreshFromHealth()
+        }
+    }
+
     /// Reads the file again, then today's totals from Salute, and marks the linked habits whose
     /// goal is reached. Today is the logical day: with a start at 4, steps at 02:00 count for the
     /// day before.
@@ -180,6 +193,9 @@ final class HabitsModel {
         try? store.save(HabitsFile(habits: habits, startHour: startHour))
         WidgetCenter.shared.reloadAllTimelines()
         planReminders()
+        if let observedMeasures, observedMeasures != linkedMeasures {
+            observeHealth()
+        }
     }
 
     /// Plans every reminder again: marking a habit done drops today's.

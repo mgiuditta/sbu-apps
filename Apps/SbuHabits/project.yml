@@ -31,6 +31,8 @@ targets:
         # Read only, for habits linked to Salute; no clinical records.
         com.apple.developer.healthkit: true
         com.apple.developer.healthkit.access: []
+        # Wakes the app to mark linked habits; only while a habit is linked.
+        com.apple.developer.healthkit.background-delivery: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits

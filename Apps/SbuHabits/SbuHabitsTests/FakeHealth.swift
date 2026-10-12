@@ -15,6 +15,9 @@ final class FakeHealth: HealthReading {
     var denied: Set<HealthMeasure> = []
     private(set) var requested: [Set<HealthMeasure>] = []
     private(set) var intervals: [DateInterval] = []
+    /// Every set of measures followed, in order; the last one is followed now.
+    private(set) var observed: [Set<HealthMeasure>] = []
+    private var onChange: (@MainActor () async -> Void)?
 
     func requestAccess(toRead measures: Set<HealthMeasure>) async {
         requested.append(measures)
@@ -26,5 +29,16 @@ final class FakeHealth: HealthReading {
         return samples
             .filter { $0.measure == measure && $0.date >= interval.start && $0.date < interval.end }
             .reduce(0) { $0 + $1.amount }
+    }
+
+    func observe(_ measures: Set<HealthMeasure>, onChange: @escaping @MainActor @Sendable () async -> Void) {
+        observed.append(measures)
+        self.onChange = measures.isEmpty ? nil : onChange
+    }
+
+    /// New data in Salute, as background delivery brings it.
+    func deliver(_ sample: Sample) async {
+        samples.append(sample)
+        await onChange?()
     }
 }

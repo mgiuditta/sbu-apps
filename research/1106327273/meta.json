@@ -1,0 +1,38 @@
+{
+  "id": "1106327273",
+  "name": "Veicolo+: info targa (no ads)",
+  "developer": "RS1 Project",
+  "bundle_id": "com.talimac.veicoloplus",
+  "store_country": "it",
+  "ranks": {
+    "it": 7
+  },
+  "price": 2.99,
+  "formatted_price": "2,99 €",
+  "currency": "EUR",
+  "genre": "Utilities",
+  "genres": [
+    "Utility",
+    "Produttività"
+  ],
+  "description": "Veicolo+ è l'app numero #1 in Italia per cercare informazioni di auto e moto.\nCon la nuova versione completamente ridisegnata di Veicolo+ avrai a disposizione tutte le informazioni di cui hai bisogno.\nPotrai controllare le caratteristiche tecniche di un veicolo, verificarne la copertura RCA, controllare il furto, calcolarne il bollo o verificare la revisione conoscendone semplicemente la targa.\nIn più potrai controllare i punti della tua patente ed essere avvisato per tempo prima della scadenza.\n\nL'app ti permette di ottenere informazioni tecniche come:\n• Marca, modello e allestimento.\n• Dati di immatricolazione (1ª immatricolazione, data di acquisto, luogo di immatricolazione).\n• Dati del motore (alimentazione, cilindrata, kilowatt, cavalli).\n• Dati assicurativi (stato assicurativo, scadenza della polizza).\n• Guidabilità per neopatentati e patente necessaria.\n• Dati del furto (stato del furto, data del furto, luogo del furto).\n• Dati del bollo (costo del bollo, eventuale costo del superbollo).\n• Dati della revisione (ultima revisione, km registrati, scadenza della revisione).\n• Altre informazioni (HP fiscali, classe ambientale, posti, codice di omologazione).\n\nPuoi scegliere se ottenere tutte le informazioni in una volta sola, o dedicarti più rapidamente alle informazioni specifiche che ti interessano.\nAl momento dell'inserimento della targa potrai scegliere se si tratta di un'auto, di una moto o di uno scooter.\nHai ovviamente la possibilità di condividere i risultati della tua ricerca con chi vuoi.\n\nPuoi salvare i tuoi veicoli all'interno del tuo Garage, così da avere tutti i dati sempre a portata di mano ed essere avvisato per ogni scadenza.\nPuoi anche correggere manualmente i dati o aggiungerne quando mancano.\nCrea un utente per mantenere sincronizzati il tuo Garage e tutte le tue informazioni tra i tuoi dispositivi.\n\n** Tutti i dati riportati all'interno dell'app sono a titolo puramente informativo, senza alcuna valenza legale. **",
+  "release_notes": "Ecco l’aggiornamento che stavi aspettando con tante nuove funzionalità:\n• connetti il tuo account e tieni sincronizzati i tuoi dispositivi ed i tuoi acquisti;\n• correggi manualmente i dati forniti dall’app, o aggiungili quando mancano;\n• migliorata la grafica generale per fornirti un’esperienza sempre al top;\n• aggiornato il servizio di supporto dell’app;\n• decine di altre funzionalità e miglioramenti per rendere il tuo utilizzo quotidiano dell’app più semplice e veloce.\n\nNon vediamo l'ora che tu possa provarla per dirci che ne pensi nelle recensioni, e se qualcosa non va oppure hai altri suggerimenti scrivici dal nuovo centro di supporto.\nGrazie ancora per aver scelto Veicolo+, l'app numero #1 in Italia per cercare informazioni di auto e moto.",
+  "version": "9.0.0",
+  "current_version_release_date": "2021-04-01T11:31:10Z",
+  "rating": 3.94752,
+  "rating_count": 2058,
+  "minimum_os": "11.0",
+  "url": "https://apps.apple.com/it/app/veicolo-info-targa-no-ads/id1106327273?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/72/36/83/72368344-72b7-2ee9-328d-78b7159ba5ae/c9090eef-b4e1-4419-9729-223a788ad81f_01-PLUS.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/e7/e0/d9/e7e0d980-b47c-08f5-fddf-b18e2b9eb696/3a27fd5f-087f-43f5-9bcf-70ae37696e76_02.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/a1/40/b0/a140b098-5f3f-6254-3e34-b560c50990c0/a9b2f383-8c21-43cd-9212-e4f6102a05e7_03.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/db/bf/33/dbbf336a-2d45-481b-033d-3c9a06defaf9/67c0fd14-f714-43db-98c0-ef40f6811a28_04.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/15/dd/50/15dd50f8-83fb-e3a3-2203-bba4eb8e5dfc/8f3bddca-52cc-4f47-a0d1-554d9ab63762_05.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/51/03/f8/5103f896-1bdf-a945-4364-288043494c87/afe357fc-baf1-42a9-8ccc-aea751fff836_06.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/2a/2c/29/2a2c29e8-b853-00ee-018b-a068c9ca57f1/9f756b43-76a1-44df-94a5-c309c37901a2_07.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/b0/72/82/b072828a-f50d-36e5-d5a2-f327ea9b9380/f41abdbe-d3d6-4d23-ac06-4d6ab8aac498_08.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/d9/ad/6f/d9ad6f67-3b84-5eed-7194-72fe41bfbdeb/54f7480a-483d-47eb-921e-d00e3bb071fc_09.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/f8/fb/f7/f8fbf727-36d1-b1ab-da83-b9e5c7475050/db9936f9-ffd9-4de2-bd8c-d512372bd966_10.png/392x696bb.png"
+  ]
+}

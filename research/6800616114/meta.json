@@ -1,0 +1,33 @@
+{
+  "id": "6800616114",
+  "name": "play_music_theory",
+  "developer": "TALA RAE SCHLOSSBERG",
+  "bundle_id": "com.talaschlossberg.InkSynth",
+  "store_country": "us",
+  "ranks": {
+    "us": 8
+  },
+  "price": 1.99,
+  "formatted_price": "$1.99",
+  "currency": "USD",
+  "genre": "Music",
+  "genres": [
+    "Music",
+    "Entertainment"
+  ],
+  "description": "Listen to your drawings! play_music_theory is a visual instrument designed to help us explore the relationship between sound and shape.\n\nCreated by artist Tala Rae Schlossberg.\n\nShare what you make @play_music_theory",
+  "release_notes": "The instrument plays every scale: major and minor pentatonic, major, minor, harmonic minor, Dorian, Phrygian, Lydian, Mixolydian and blues. Hold the mood button to choose one. The tool row fits small phones again.",
+  "version": "1.2",
+  "current_version_release_date": "2026-09-26T17:00:41Z",
+  "rating": 4.41667,
+  "rating_count": 60,
+  "minimum_os": "17.0",
+  "url": "https://apps.apple.com/us/app/play-music-theory/id6800616114?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f6/2f/55/f62f5544-ee14-be92-b1ec-fedd2869545c/store-3-grid.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/bd/73/d1/bd73d1b2-9284-0537-fd74-15abedcac673/store-2-sky.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/80/79/70/8079704e-ff84-a2fa-3320-98915f81ddfc/store-1-ink.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c0/75/64/c0756438-21ad-6c63-5b9a-b06318441dab/store-5-spiral.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7d/70/93/7d7093c7-a913-e933-38a3-a1477d27ed46/image-1787518354939.png/320x480bb.jpg"
+  ]
+}

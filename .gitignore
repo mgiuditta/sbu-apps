@@ -12,3 +12,4 @@ fastlane/screenshots/
 *.ipa
 *.dSYM.zip
 research/*/screenshots/
+.venv/

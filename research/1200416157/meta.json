@@ -1,0 +1,38 @@
+{
+  "id": "1200416157",
+  "name": "e-Connect",
+  "developer": "EL.MO. SPA",
+  "bundle_id": "com.econnect.ios",
+  "store_country": "it",
+  "ranks": {
+    "it": 3
+  },
+  "price": 4.99,
+  "formatted_price": "4,99 €",
+  "currency": "EUR",
+  "genre": "Productivity",
+  "genres": [
+    "Produttività",
+    "Utility"
+  ],
+  "description": "e-Connect è il servizio di centralizzazione, gestione e supervisione che integra in un’unica piattaforma cloud gli impianti antintrusione, antincendio e di home management EL.MO. e gli impianti di videosorveglianza e-Vision®. Con e-Connect è possibile visualizzare lo stato dei sistemi antintrusione e antincendio (casa, ufficio, casa vacanze…), ricevere notifiche, gestire i sistemi tramite mappe grafiche, abilitare/disabilitare dispositivi quali sensori, visualizzare le immagini di un sistema di videosorveglianza o gestire i sistemi domotici come irrigazione e illuminazione.\nScopri e-Connect su http://e-connect.elmospa.com\nPer fruire del servizio è necessario rivolgersi ad installatori di sistemi di sicurezza autorizzati e qualificati EL.MO. per la creazione di un account di sistema, ossia un profilo utente capace di gestire centrali antintrusione EL.MO. compatibili e/o DVR/NVR della linea PRO di e-Vision. Alcune funzioni sono disponibili solo per account creati da installatori che aderiscono alla piattaforma con struttura multilivello.\n\nCosa posso gestire?\n- I sistemi EL.MO. basati su centrali Villeggio, PREGIO, HERCOLA, ETR G2, TITANIA, NET e TACÓRA.\n- DVR/NVR/telecamere IP della linea PRO di e-Vision.\n- Sistemi domotici abbinati alle centrali EL.MO.\nÈ possibile gestire contemporaneamente più sistemi con un solo account: casa, casa vacanze o ufficio.\n\nCosa posso fare?\nDa smartphone o tablet è possibile visualizzare lo stato dei sistemi, ricevere notifiche (anche legate alla videoverifica InstaVision per un monitoraggio video immediato su evento), abilitare/disabilitare dispositivi antintrusione, vedere le immagini (live sia in versione monocanale che multicanale e playback) di un sistema TVCC o gestire sistemi domotici. Per quanto riguarda il cronotermostato è possibile programmare la temperatura da remoto e verificarne l’andamento. \n \nVideoverifica InstaVision\nInstaVision è la nuova funzione di e-Connect per la videoverifica che massimizza la sinergia tra sistemi di sicurezza EL.MO. e sistemi TVCC e-Vision® PRO V1.2.6 e superiori. Consente di ricevere notifiche real time relative ad uno dei suoi sistemi e di verificare subito la situazione. Se si verifica un evento (ad esempio un tentativo di intrusione) è possibile vedere le immagini live, le immagini registrate al momento esatto dell’evento e le immagini registrate alcuni secondi prima dell’evento direttamente dall’app e-Connect. Il tutto per verificare se si tratti di un falso allarme o di un vero pericolo e intervenire tempestivamente. La registrazione delle immagini non avviene su server di terze parti, bensì sui dispositivi DVR e NVR dell’utente. In questo modo si ottiene un duplice vantaggio: azzerare i rischi di furti di dati personali e abbattere i tempi di risposta del sistema.\n \nCome si presenta?\ne-Connect è dotato di un pannello di controllo molto semplice ma completo. Le icone principali offrono una veloce panoramica sullo stato del sistema, mentre un menu laterale permette di navigare tra le funzioni. Mappe grafiche interattive dei vari sistemi permettono di gestire i dispositivi e di richiamare la visione delle telecamere.\n\nCome vengono coniugate potenza e sicurezza?\ne-Connect è caratterizzato da una struttura Cloud Server che di ingloba tutte le centrali connesse in rete. L’uso di protocolli di comunicazione SSL, abbinati ai certificati emessi da Certification Autority di rilievo internazionale, garantiscono elevati profili di sicurezza.\n \nSemplicità di configurazione e P2P\nConfigurare l’app e-Connect e associarla a dispositivi di sicurezza quali centrali e NVR/DVR è davvero semplice, anche grazie alla connessione di tipo P2P su server proprietario di EL.MO. \n\nPer fruire del servizio in versione web-browser collegati al sito: http://connect.elmospa.com\n\nL’applicazione esegue una verifica periodica automatica della validità della licenza di acquisto; in caso di errori si prega di scaricare la versione più recente dell'applicazione disponibile su App Store.",
+  "release_notes": "- Miglioramento delle prestazioni;",
+  "version": "2.34.7",
+  "current_version_release_date": "2026-05-26T06:32:27Z",
+  "rating": 4.36491,
+  "rating_count": 1984,
+  "minimum_os": "13.0",
+  "url": "https://apps.apple.com/it/app/e-connect/id1200416157?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/35/02/b6/3502b6e2-7390-a264-767d-c32f40d804ed/mzl.nihdqioa.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/59/25/88/592588eb-3026-5746-5c9e-d4468c8dde55/mzl.ixnfaowv.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/57/6d/de/576dde24-bc7b-9710-4850-b802692f5383/mzl.tjsaqawv.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/11/4e/c3/114ec3d1-e66e-333f-62ba-f3b72019ac13/mzl.gsxxevta.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/44/52/2f/44522fd2-ea05-2513-d6fd-6ab7e6a4cc2b/mzl.lezflgvu.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/4b/b2/c6/4bb2c6f9-1d81-43ba-c0e1-adbf671bfb98/pr_source.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/a2/c0/c2/a2c0c246-1a21-c44f-ecbc-541635cabef1/mzl.ttgrhxbq.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/32/d9/25/32d9252b-6034-3228-e4c9-5c6dc629b197/mzl.ccvzpbbz.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/2b/70/4e/2b704e28-a9b9-ed45-4858-f7889d179452/mzl.unijqyuv.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/4b/ff/20/4bff205c-2b86-a8d6-5039-025c6f827b2d/pr_source.jpg/392x696bb.jpg"
+  ]
+}

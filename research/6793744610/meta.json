@@ -1,0 +1,32 @@
+{
+  "id": "6793744610",
+  "name": "2AM CAM",
+  "developer": "Aiden Magarian",
+  "bundle_id": "com.amagarian.twoam",
+  "store_country": "us",
+  "ranks": {
+    "us": 7
+  },
+  "price": 0.99,
+  "formatted_price": "$0.99",
+  "currency": "USD",
+  "genre": "Photo & Video",
+  "genres": [
+    "Photo & Video"
+  ],
+  "description": "2AM is a point-and-shoot instant camera for after dark. touch the screen and you've got the shot. no long bright autofocus cycle that blinds everyone, no settings, no fiddling, just the flash and the night.\n\n- direct flash that figures itself out: focus and exposure follow how far away your subject is\n- every shot developed like film, from the RAW\n- 2PM for daylight, and 2AM switches on its own\n- open it straight from the camera button or the lock screen\n- shared albums: one QR code, everyone's photos in everyone's roll, end-to-end encrypted, sharing until sunrise\n- edit exposure, contrast and white balance from the original RAW anytime\n\n2AM cloud (optional)\nencrypted backups for your RAW photos, plus the option to keep older originals in the cloud and free up space on your phone. plans from 64 GB, with a 7-day free trial. subscriptions renew automatically until cancelled in your Apple Account settings at least 24 hours before the period ends.\n\nTerms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
+  "release_notes": "2AM cloud is ready: encrypted backups for your RAWs and more room on your phone. 7 days free to try.",
+  "version": "2.4.1",
+  "current_version_release_date": "2026-10-11T15:01:27Z",
+  "rating": 4.96296,
+  "rating_count": 27,
+  "minimum_os": "18.0",
+  "url": "https://apps.apple.com/us/app/2am-cam/id6793744610?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b3/10/5d/b3105d3d-bb37-d264-7806-686e5fde1843/_01_v2.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/58/8f/65/588f65d6-d6db-c0e5-b6c0-710706ec738c/_02_v2.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/38/d6/6a/38d66a0a-9e4e-6769-2766-3681b8ed1a1d/_03.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/39/70/e4/3970e4ec-9ae1-7519-6215-d87a62704b73/_04_v2.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fc/3d/e3/fc3de3a6-15ec-b587-8dbb-3d899d38ff5e/_05.png/320x480bb.jpg"
+  ]
+}

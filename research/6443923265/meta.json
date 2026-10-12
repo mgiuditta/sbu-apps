@@ -1,0 +1,34 @@
+{
+  "id": "6443923265",
+  "name": "GSE SMART IPTV PRO",
+  "developer": "droidvision",
+  "bundle_id": "com.gsetech.gseiptv2",
+  "store_country": "it",
+  "ranks": {
+    "it": 9
+  },
+  "price": 2.99,
+  "formatted_price": "2,99 €",
+  "currency": "EUR",
+  "genre": "Entertainment",
+  "genres": [
+    "Intrattenimento",
+    "Foto e video"
+  ],
+  "description": "Support : Record live tv\nSupport : CHROMECAST\nSupport : XTREAM-CODES API\nSupport : Web interface playlist management\n- Web interface includes adding and exporting playlists, favorites, etc.\nSupport : EPG TIMELINE\nSupport : AIRPLAY full screen EXTERNAL DISPLAY\n- Airplay support subtitle\nSupport : Parental control\nSupport : Automatic live stream re-connection\nSupport : Dynamic  language switching\nSupport : Multiple theme\n\n\n     GSE SMART IPTV is a complete user defined Advanced IPTV solutions for live and non-live TV/stream.\n\n    With built-in powerful player that supports most formats including RTMP all options. Faster intelligence M3U playlist parser\n    \n    Support  M3U playlist formats , JSON formats , Database playlist formats etc.\n\n       If you ever want to play M3U , JSON live streams , if you need player supporting these live(non- live) streams, this IPTV is a solution for these requirements.\n\n      We have provided sample M3U , JSON etc. and ready to start. We recommend to read full instructions on menu tab.\n\n     - Built-in powerful player, No need to look for third party player to support these formats\n\n     - Support : Local M3U Playlists (user can upload via FTP and HTTP)\n     - Support : Remote Playlists (User can add their http remote playlists)\n     - Support : Secure Playlist (No need to type full url , just register http url with username , please note no need to provide user email)\n\n    - Support : Playlist Manager (User can add their local playlists to database , then edit , add , delete ... )\n\n    - Support : Export database playlist to M3U format (export file can be found  on and download via FTP , can be use even as M3U beautifier)\n\n    - Support : EPG in XMLTV format (xml , zip , gz formats allowed)\nEPG xmltv formats can be import from local or also support remote epg source.\nRemote epg source can be updated regularly.\n\n      - Support : Playlist can be upload via FTP or HTTP web interface\n\n    - Faster and better intelligence M3U parser\n\n    - Advanced built in player features:\n     Our player supports almost all popular formats including RTMP with all options including tokens.\nNo need to define separate options, just pass whole rtmp url with options , our application will handle the rest.\n   - Subtitle support in .srt formats, can be upload via FTP or HTTP\n      \n\n\nExtra features\n1. GSE PLAYLIST MANAGER\n-Best way to manage your playlists on IOS platform\n\n2. Favourite playlist\n- User can now add favourite channels from local, remote, database etc.\n- Favourite playlist can be export to M3U, import back to database\n\n3. Download Remote playlist to Local \n- User can now directly download http remote playlist to local playlist\n\n4. Remote playlist can be add to database straight away\n5. View playlist contents\n- User can now view what is inside the M3U/JSON playlist content for LOCAL/REMOTE\n- Good for the beginner to see how M3U/JSON playlist works\n\n6. Dynamic Language support features \n    - Language set to default language, however users can switch between 31 languages without changing device language setting\n   - Supported language\nArabic , Czech , Danish , German , Greek , English , Spanish , Finnish , French , Hebrew , Hungarian , Indonesian , Italian , Japanese , Korean , Malay , Dutch , Portuguese , Romanian , Russian , Swedish , Thai , Turkish , Chinese (Simplified) , Chinese (Traditional) , Catalan , Norwegian , Polish , Slovak , Ukrainian , Vietnamese\n\n\n\nPlease report any bugs if you found one or features request to david@gsetechnology.co.uk\n\n\nDisclaimer:\n- GSE SMART IPTV PRO does not supply or include any media or content except some sample dummy link with Sintel\n“Sintel” is licensed as Creative Commons Attribution 3.0.\n© copyright Blender Foundation | durian.blender.org\n- Users must provide their own content\n- GSE SMART IPTV PRO has no affiliation with any third-part provider what so ever.\n- We do not endorse the streaming of copyright protected material without permission of the copyright holder.",
+  "release_notes": null,
+  "version": "1.0",
+  "current_version_release_date": "2022-11-14T17:13:41Z",
+  "rating": 3.89324,
+  "rating_count": 281,
+  "minimum_os": "9.0",
+  "url": "https://apps.apple.com/it/app/gse-smart-iptv-pro/id6443923265?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/b3/6c/78/b36c78f0-e992-c0e2-e5ce-7f6ad3e8765e/f7c86a74-f07f-495b-b031-43c75a75d079_1.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/3c/1f/a6/3c1fa67b-acfb-853e-a0ae-a5a91816f0ad/93c13ea6-8a92-4c3c-9457-a41b1388aedc_2.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/9e/3b/8c/9e3b8c9e-ceba-8765-3443-6604c9e69624/3aada2c1-8590-41ad-8ca8-eaa754d1e5da_3.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/9d/53/cf/9d53cf2a-fb86-a915-35fb-dde74a4a53ae/334526a7-c2d4-4ea0-9050-d94c1cfd9140_4.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/47/5a/66/475a66bf-ccd7-a1df-b388-d030239328a2/92bcc818-fff7-431c-a955-de56d763ae31_5.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/50/36/93/50369363-0cc0-fc98-28eb-16a14c629e06/86c26234-10cf-4fe4-b78b-2a086a86a9aa_6.png/392x696bb.png"
+  ]
+}

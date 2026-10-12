@@ -1,0 +1,36 @@
+{
+  "id": "578665578",
+  "name": "Threema. App messaggi sicura",
+  "developer": "Threema GmbH",
+  "bundle_id": "ch.threema.iapp",
+  "store_country": "it",
+  "ranks": {
+    "it": 10
+  },
+  "price": 7.99,
+  "formatted_price": "7,99 €",
+  "currency": "EUR",
+  "genre": "Social Networking",
+  "genres": [
+    "Social network",
+    "Utility"
+  ],
+  "description": "Threema è il servizio di messaggistica sicura più venduto al mondo, utilizzato da oltre 12 milioni di persone in più di 175 paesi, sviluppato in Svizzera e progettato pensando alla privacy e alla protezione dei dati. Che si tratti di chat, chiamate o file, tutto è crittografato end-to-end e non viene lasciata alcuna traccia di dati. Invece di un numero di telefono o di un indirizzo e-mail, un ID Threema generato casualmente funge da identificatore univoco, anonimo e sicuro. Threema protegge ciò che conta davvero: la sua privacy.\n\nVantaggi di Threema:\n• Messaggi di testo e vocali, comprese le reazioni emoji\n• Chiamate vocali, video e di gruppo crittografate end-to-end\n• Condivisione della posizione\n• Invio di file in tutti i formati (PDF, GIF, MP3, ZIP e altro)\n• Possibilità di modificare i messaggi inviati ed eliminarli per i componenti della chat\n• Applicazione desktop e client web per chattare comodamente sul suo PC\n• Creazione di gruppi e sondaggi\n• Modalità chiara o scura\n• Nessuna pubblicità, nessun tracciamento, nessuna raccolta dati\n• Verifica dell’identità dei contatti tramite la scansione del loro codice QR\n\nSicurezza affidabile:\n• Open source e audit regolari\n• Server in Svizzera\n• Utilizzo anonimo possibile: non è richiesto alcun numero di telefono o indirizzo email\n• I messaggi vengono eliminati dal server immediatamente dopo la consegna\n\nAvete domande o problemi? Le nostre FAQ possono aiutarvi: https://threema.com/support\n\nDivertitevi a usare Threema!",
+  "release_notes": "• Various improvements in relation to Threema calls\n\nThreema 7.4\n• Added an alphabetical index scroller to the contact list when starting a new chat\n• Added swipe actions for search results in the contact list\n• Improved audio controls in calls, voice messages, and media playback\n• Improved Threema calls and features related to Threema 2.0 for desktop\n• Fixed a bug that caused a warning about multiple connections to be shown incorrectly\n• Fixed a bug that prevented the typing indicator from disappearing\n• Fixed various bugs and crashes in relation to calls\n• Other improvements and various bug fixes\n• Note: Starting with the next major app version, iOS 17 will no longer be supported",
+  "version": "7.4.1",
+  "current_version_release_date": "2026-10-06T07:29:27Z",
+  "rating": 4.46386,
+  "rating_count": 166,
+  "minimum_os": "17.0",
+  "url": "https://apps.apple.com/it/app/threema-app-messaggi-sicura/id578665578?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a2/99/d1/a299d122-0569-5975-82ea-bd68c71b99a6/ios-6.9-7.1-it_it-01-promo.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/64/c7/95/64c79501-ba26-54e1-6ec2-5e7d7e56e5ca/ios-6.9-7.1-it_it-02-promo.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/47/d0/de/47d0de63-cf3c-091f-98fa-1969a0c129ec/ios-6.9-7.1-it_it-03-promo.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/90/1b/e0/901be08a-aead-2068-42a2-0f88c6d5e1f5/ios-6.9-7.1-it_it-04-promo.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f8/cb/b0/f8cbb0ce-3a0f-3ae7-07d1-4fa3b8b89b08/ios-6.9-7.1-it_it-05-promo.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c5/db/4c/c5db4c17-f6e4-99a1-93fb-2a38bb8eb12e/ios-6.9-7.1-it_it-06-promo.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e3/f0/34/e3f034ae-14ff-6d3c-22b3-03089d30d7ba/ios-6.9-7.1-it_it-07-promo.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e2/0a/6d/e20a6dc4-131d-a143-1c14-e9c34cb87389/ios-6.9-7.1-it_it-08-promo.png/320x480bb.jpg"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "6778099993",
+  "name": "Manager for Scooters",
+  "developer": "Radoslaw Marciniak",
+  "bundle_id": "pl.olomowostudio.KukirinG4",
+  "store_country": "it",
+  "ranks": {
+    "it": 2
+  },
+  "price": 0.99,
+  "formatted_price": "0,99 €",
+  "currency": "EUR",
+  "genre": "Travel",
+  "genres": [
+    "Viaggi",
+    "Utility"
+  ],
+  "description": "Odblokuj pełen potencjał swojej hulajnogi dzięki aplikacji Manager for Scooters - najlepszej nieoficjalnej aplikacji stworzonej specjalnie dla pojazdów marki KuKirin. Zyskaj dostęp do zaawansowanych danych na żywo, pełnej personalizacji i wsparcia technicznego bezpośrednio na swoim iPhonie.\nNajważniejsze funkcje:\n• Telemetria w czasie rzeczywistym: Monitoruj aktualną prędkość, moc silnika i kluczowe statystyki na bieżąco podczas jazdy.\n• Zaawansowana diagnostyka baterii: Śledź dokładne napięcie oraz procentowe naładowanie ogniw, aby optymalnie zarządzać zasięgiem i osiągami.\n• Zmiana trybów jazdy: Wygodnie przełączaj się między trybami Eco, Sport i Race, dopasowując dynamikę do miejskiego terenu.\n• Inteligentna kontrola pojazdu: Zarządzaj funkcjami takimi jak tempomat (Cruise Control) czy start od zera (Zero Start) z poziomu czystego, minimalistycznego interfejsu.\n• Wbudowane poradniki i instrukcje: Uzyskaj dostęp do instrukcji wideo i tekstowych krok po kroku - od unboxingu, przez wymianę opon i regulację hamulców, aż po wymianę kontrolera.\nZaprojektowany z myślą o czytelności, pozbawiony rozpraszaczy kokpit aplikacji zapewnia bezpośrednią kontrolę i pełną widoczność stanu sprzętowego Twojej hulajnogi - bez zbędnych i ciężkich frameworków.\nBrak ukrytych subskrypcji, brak trackerów reklamowych i brak wymogu zakładania konta w chmurze. Płacisz raz, łączysz się przez Bluetooth i ruszasz w drogę.\nKompatybilność: KuKirin G2 / G2 Master (2025/2026) / G3 / G4\nKażdorazowe użycie zastrzeżonego znaku \"KuKirin\" jest tylko w celach identyfikacyjnych. Aplikacja nie jest powiązana z Shenzhen KuKirin Technology Co., Ltd.",
+  "release_notes": "- Zmiany w aplikacji odnośnie praw autorskich\n- Poprawki stabilności protokołu BLE.",
+  "version": "4.1",
+  "current_version_release_date": "2026-09-03T20:42:29Z",
+  "rating": 4.15254,
+  "rating_count": 59,
+  "minimum_os": "16.6",
+  "url": "https://apps.apple.com/it/app/manager-for-scooters/id6778099993?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/16/a4/e8/16a4e8b6-8fde-9a1e-9c05-c99499be5536/92_1x_shots_so.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/27/54/40/27544037-1344-4d39-c62f-df43f3a9ded5/744_1x_shots_so.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/94/ae/fa/94aefad4-b83e-0ff8-41b0-44660a7443f8/342_1x_shots_so.png/320x480bb.jpg"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "357421934",
+  "name": "PeakFinder",
+  "developer": "PeakFinder GmbH",
+  "bundle_id": "ch.peakfinder.peakfinder-alps",
+  "store_country": "it",
+  "ranks": {
+    "it": 4
+  },
+  "price": 5.99,
+  "formatted_price": "5,99 €",
+  "currency": "EUR",
+  "genre": "Travel",
+  "genres": [
+    "Viaggi",
+    "Navigazione"
+  ],
+  "description": "Le montagne chiamano! Esplora più montagne di un alpinista! PeakFinder lo rende possibile… e mostra i nomi di tutte le montagne e vette con una visualizzazione panoramica a 360°.\nFunziona completamente offline e in tutto il mondo!\n\nL'app conosce più di 1'000'000 vette, dal Monte Everest alla piccola collina dietro l'angolo.\n\n•••••••••\nVincitrice di diversi premi, come \"La migliore dell'App Store\", \"L'app della settimana\", …\nAltamente consigliata da macnewsworld.com, nationalgeographic.com, smokinapps.com, outdoor-magazin.com, easyviaggio.com, digital-geography.com, …\n•••••••••\n\n\n••• Caratteristiche •••\n\n• Funziona completamente offline in tutto il mondo\n• Include più di 1'000'000 nomi di vette\n• Sovrappone l'immagine della fotocamera al disegno del panorama\n• Rendering rapido dei paesaggi circostanti in un raggio di 300km\n• Binocoli digitali per selezionare le vette meno prominenti\n• La funzione 'Mostrami' per le vette visibili\n• Selezione del panorama mediante il GPS, un elenco di vette o una mappa (online)\n• Può volare come un uccellino di vetta in vetta e salire di quota in perpendicolare\n• Contrassegna le montagne e i luoghi che ti piacciono\n• Mostra l'orbita solare e quella lunare, così come gli orari di alba e tramonto\n• Usa la bussola e i sensori dell'accelerometro\n• Aggiornamento quotidiani dell'elenco di vette\n• Non contiene costi ricorrenti. Si paga una volta sola\n• Senza annunci pubblicitari\n\n\n••• Valutazioni •••\n\nOgni buona valutazione (anche quelle successive agli aggiornamenti) mi rendono felice. Le valutazioni e le recensioni positive per me significano rendere possibile continuare a migliorare l'app per te. Grazie mille!\n\n\n••• Assistenza •••\n\nPer domande, problemi, errori, nomi di montagne mancanti e idee per una futura espansione, sono felice di aiutarti. Scrivi a support@peakfinder.com.",
+  "release_notes": "PeakFinder utilizza un nuovo modello di elevazione. Contiene più dettagli del terreno a parità di dimensione dei dati, così le montagne vengono visualizzate in modo ancora più preciso.",
+  "version": "4.9.2",
+  "current_version_release_date": "2026-10-07T13:03:56Z",
+  "rating": 4.7415,
+  "rating_count": 6058,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/it/app/peakfinder/id357421934?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/b8/e6/d5/b8e6d554-2fed-9af1-be4b-11eec0a4a38f/1e3001dc-491d-4d71-81f1-dcfd9c0753b6_iPhone_6s_Plus-screenshot1.png/406x228bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/aa/18/ea/aa18ea92-8c1e-eb22-72ec-824759ddccb6/2dd215d4-8a31-4c18-a966-a05a4e93a837_iPhone_6s_Plus-screenshot2.png/406x228bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/cb/d0/98/cbd098a7-d5d1-ebed-0788-204e8752449b/22106f1a-cc4e-4eda-bf5f-69bb0847f7c3_iPhone_6s_Plus-screenshot3.png/406x228bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/da/ca/ee/dacaee3f-6a50-8c7a-7694-59e427be2921/b2cf7c56-1d75-447f-81bf-87e4f9f45bc4_iPhone_6s_Plus-screenshot4.png/406x228bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/37/f0/ce/37f0ce18-fa7a-7ba6-7482-a0e4fa75514a/f75fa185-b003-4559-9f0e-0f658c6b3da7_iPhone_6s_Plus-screenshot5.png/406x228bb.png"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "916366645",
+  "name": "Procreate Pocket",
+  "developer": "Savage Interactive Pty Ltd",
+  "bundle_id": "au.com.savageinteractive.procreate-pocket",
+  "store_country": "us",
+  "ranks": {
+    "us": 5
+  },
+  "price": 5.99,
+  "formatted_price": "$5.99",
+  "currency": "USD",
+  "genre": "Graphics & Design",
+  "genres": [
+    "Graphics & Design",
+    "Productivity"
+  ],
+  "description": "App of the Year winner Procreate Pocket is the most feature-packed and versatile art app ever designed for iPhone. \n\nProcreate Pocket has everything you need to create expressive sketches, rich paintings, gorgeous illustrations, and beautiful animations. Offering hundreds of handmade brushes, a suite of intuitive artistic tools, an advanced layer system, and the powerful Valkyrie graphics engine. Work on the couch, on the train, at the beach, or while waiting in line for coffee. \n\nIt’s a complete art studio in the palm of your hand.\n\nHighlights:\n• High resolution canvases — up to 16k by 4k on compatible devices\n• Intuitive Dark Mode interface made for iPhone\n• Revolutionary QuickShape feature for perfect shapes\n• Smooth and responsive smudge sampling\n• Powered by Valkyrie, the lightning-fast 64-bit painting engine \n• Create art in stunning 64-bit color\n• 250 levels of undo and redo\n• Continuous auto-save — never lose work again\n\nBreakthrough brushes:\n• Packed with 100s of beautifully crafted brushes\n• Brush sets keep your painting, sketching, and drawing brushes organized\n• Over 100 customizable settings for every brush\n• Brush Studio — design custom brushes\n• Import and export custom Procreate brushes\n• Import Adobe® Photoshop® brushes, and run them faster than Photoshop®\n\nFull-featured layering system:\n• Layer your art for precise control over details and composition\n• Create Layer and Clipping Masks for non-destructive editing\n• Stay organized by combining layers into groups\n• Transform objects simultaneously across multiple layers\n• Access over 25 layer blend modes for industry-grade compositing\n\nColor without compromise:\n• Fill your line work with ColorDrop\n• Disc, Classic, Harmony, Value, and Palette color panels\n• Import color profiles for color matching\n• Assign Color Dynamics to any brush\n\nPrecision design tools:\n• Add vector text to your illustrations\n• Easily import all your favorite fonts\n• Crop and resize your canvas for perfect composition\n• Perspective, isometric, 2D, and symmetry visual guides\n• Drawing Assist perfects your strokes in real time\n• StreamLine smooths your strokes for beautiful lettering and expert inking\n\nAnimation Assist: \n• Easy frame-by-frame animation with customizable onion skinning\n• Create storyboards, GIFs, animatics, and simple animations\n• Export your animations in the full resolution of your canvas\n\n Dramatic finishing effects:\n• Gradient Map — remap your image’s colors with a customizable gradient\n• Glitch, Chromatic Aberration, Glow, and Halftone to add new dimensions to your work\n• Gaussian and Motion Blur filters for depth and movement, or use Sharpen for perfect clarity\n• Advanced Noise filter gives you more control for a classic, retro look\n• Adjust Hue, Saturation, or Brightness in real time\n• Powerful image adjustments including Color Balance, Curves, and HSB\n• Bring your art to life with the fun, intuitive, and creative Warp, Symmetry, and Liquify Dynamics \n\nTime-lapse replay:\n• Relive your creative journey with Procreate's celebrated Time-lapse Replay\n• Export your Time-lapse recording in 4K for high-end video production\n• Share a short, 30-second version of your Time-lapse on your socials\n\nReference Companion:\n• Keep a full canvas or reference image with you at all times \n• Paint on your face with AR\n• Color-pick right from the reference window\n\nImport assets and share your creations:\n• Import or export your art as Adobe® Photoshop® PSD files\n• Import Adobe® ASE and ACO Color Palettes\n• Import images files such as JPG, PNG, and TIFF\n• Drag and drop artworks, brushes, palettes, and fonts between applications• Export to AirDrop, iCloud Drive, Photos, iTunes, Dropbox, Google Drive, Facebook, X (formerly Twitter), Instagram, TikTok, Weibo, Mail, and more\n• Share your art as PDF, JPEG, PNG, TIFF, GIF, HEVC, or MP4 files",
+  "release_notes": "This compatibility update helps you get the best out of Procreate Pocket on every supported device and operating system version.",
+  "version": "4.0.19",
+  "current_version_release_date": "2026-09-20T23:03:40Z",
+  "rating": 3.84236,
+  "rating_count": 12719,
+  "minimum_os": "15.4.1",
+  "url": "https://apps.apple.com/us/app/procreate-pocket/id916366645?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/80/27/c4/8027c411-c5ac-3048-e933-5207d72b8a19/a960b4d4-8b77-4fde-af85-f03169a62061_2.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/f5/ff/35/f5ff352f-01f1-e943-26ba-ab88387e008c/c74e08e3-06f5-4505-acdc-4253d2b86706_3.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9c/8c/f3/9c8cf303-1472-023b-9635-815cd309c0e1/be78d962-d25b-4e56-9b79-d6873fb6550c_4.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5f/0d/eb/5f0deb8a-d342-9b63-9d25-1b325f0307d9/aa4e0f85-155f-421a-8712-5a5269d8e74f_5.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8e/01/10/8e01106f-d9b6-bea6-10b6-052d3f70eb0d/0b923cc6-95c1-4b50-a974-8b9c79197e83_6.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/02/fe/1a/02fe1a68-1eaf-83b7-1267-9650ba2a9937/97b5c3ce-e5b2-4242-81c7-39d66d95c80f_7.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/de/cb/59/decb59a0-1578-ba6f-7884-f39b898fcc76/927350b1-6171-42ce-90bd-44321974f348_8.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3c/19/f7/3c19f70f-0174-484b-aa63-3151cbf26bb8/9d35c5d0-9872-4e13-ba4b-2058799cf5b7_9.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4f/d7/c4/4fd7c4a8-c47f-69a6-526d-296d61755ea8/e170beb4-b0d9-40a6-b46f-f9c6ef83184b_10.png/392x696bb.png"
+  ]
+}

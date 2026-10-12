@@ -21,7 +21,8 @@ struct HistoryGrid: View {
     private var days: [LogicalDay] {
         let thisWeek = today.weekStart(firstWeekday: firstWeekday)
         let firstWeek = habit.createdOn.weekStart(firstWeekday: firstWeekday)
-        let weeks = min((thisWeek.ordinal - firstWeek.ordinal) / 7 + 1, Self.maxWeeks)
+        // A habit started "in the future", after the clock was moved back, still shows this week.
+        let weeks = min(max((thisWeek.ordinal - firstWeek.ordinal) / 7 + 1, 1), Self.maxWeeks)
         return (0..<weeks).flatMap { week in
             (0..<7).map { thisWeek - week * 7 + $0 }
         }

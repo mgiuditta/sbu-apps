@@ -44,10 +44,15 @@ struct HabitsImportTests {
         #""createdOn": 20000, "schedule": {"weekdays": {"_0": [0, 9]}}"#,
         #""createdOn": 20000, "schedule": {"timesPerWeek": {"_0": 40}}"#,
         #""createdOn": 20000, "reminders": [{"hour": 99, "minute": 0}]"#,
+        #""createdOn": 9223372036854775807"#, // a day past the end overflows
+        #""createdOn": 20000, "log": {"20001": 9223372036854775807}"#, // one more mark overflows
+        #""createdOn": 20000, "earlier": [{"until": 20000, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,
+        #""createdOn": 20000, "earlier": [{"until": 20005, "timesPerDay": 1, "schedule": {"everyDay": {}}}, {"until": 20002, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,
     ])
     func implausibleHabitsAreRefused(fields: String) {
-        let json = #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "log": {}, "#
-            + fields + "}]}"
+        // The changed fields first: with a key twice, the decoder keeps the first one.
+        let json = #"{"version": 1, "habits": [{"#
+            + fields + #", "id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "log": {}}]}"#
 
         #expect(throws: HabitsImport.Failure.damaged) { try HabitsImport(data: Data(json.utf8)) }
     }

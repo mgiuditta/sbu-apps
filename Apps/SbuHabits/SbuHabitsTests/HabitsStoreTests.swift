@@ -10,9 +10,8 @@ struct HabitsStoreTests {
     }
 
     @Test func savedHabitsLoadBack() throws {
-        var habit = Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(ordinal: 20_000))
+        var habit = Habit(title: "Leggere", symbol: "book", schedule: .weekdays([2, 4]), createdOn: LogicalDay(ordinal: 20_000))
         habit.log[LogicalDay(ordinal: 20_001)] = 1
-        habit.schedule = .weekdays([2, 4])
         let file = HabitsFile(habits: [habit])
 
         try store.save(file)

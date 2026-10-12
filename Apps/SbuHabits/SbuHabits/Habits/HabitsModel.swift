@@ -10,6 +10,8 @@ final class HabitsModel {
     private(set) var today: LogicalDay
     /// Hour the day starts, from Impostazioni.
     private(set) var startHour = 0
+    /// The saved file could not be read: nothing is written, so it is never lost.
+    private(set) var isUnreadable = false
 
     @ObservationIgnored private let store: HabitsStore
     @ObservationIgnored private let now: () -> Date
@@ -46,32 +48,44 @@ final class HabitsModel {
         HabitProgress(of: habit, today: today, firstWeekday: calendar.firstWeekday)
     }
 
-    /// Reads the file again and recomputes today, for when the app comes back to the foreground.
+    /// The moment the next logical day starts, when the grid has to move on.
+    var nextDayStart: Date {
+        let noon = (today + 1).noon(in: calendar)
+        return calendar.date(bySettingHour: startHour, minute: 0, second: 0, of: noon) ?? noon
+    }
+
+    /// Reads the file again and recomputes today, for when the app comes back to the foreground
+    /// or a new day starts.
     func reload() {
-        // ponytail: an unreadable file shows as no habits; save() still refuses to overwrite a newer version.
-        let file = (try? store.load()) ?? HabitsFile()
-        habits = file.habits
-        startHour = file.startHour
+        do {
+            let file = try store.load()
+            habits = file.habits
+            startHour = file.startHour
+            isUnreadable = false
+        } catch {
+            habits = []
+            isUnreadable = true
+        }
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
         planReminders()
     }
 
     /// Moves the start of the day, for people who live past midnight.
     func setStartHour(_ hour: Int) {
-        startHour = min(max(hour, HabitsFile.startHourRange.lowerBound), HabitsFile.startHourRange.upperBound)
+        startHour = Habit.clamp(hour, to: HabitsFile.startHourRange)
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
         save()
     }
 
     func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, reminders: [ReminderTime] = []) {
         var habit = Habit(title: "", symbol: symbol, createdOn: today)
-        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders) else { return }
+        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders, from: today) else { return }
         habits.append(habit)
         save()
     }
 
     func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, reminders: [ReminderTime] = []) {
-        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders) }
+        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders, from: today) }
     }
 
     /// Moves habits in the Statistiche list; the grid follows the same order.
@@ -109,12 +123,15 @@ final class HabitsModel {
     }
 
     private func update(_ habit: Habit, _ change: (inout Habit) -> Void) {
+        // The app may have stayed open past the start of the day: marks go on the real today.
+        today = LogicalDay(now(), startHour: startHour, calendar: calendar)
         guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
         change(&habits[index])
         save()
     }
 
     private func save() {
+        guard isUnreadable == false else { return }
         // ponytail: a failed write keeps the change in memory only; add an alert if it shows up in practice.
         try? store.save(HabitsFile(habits: habits, startHour: startHour))
         WidgetCenter.shared.reloadAllTimelines()

@@ -570,6 +570,16 @@
         }
       }
     },
+    "Non riesco a leggere le abitudini salvate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your saved habits can't be read"
+          }
+        }
+      }
+    },
     "Non saltare oggi" : {
       "localizations" : {
         "en" : {

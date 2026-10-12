@@ -12,8 +12,12 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// SF Symbol name, one of `HabitSymbol.all`.
     var symbol: String
     /// How many times a day it must be done: 1 for a yes/no habit, 8 for eight glasses of water.
-    var timesPerDay: Int
-    var schedule: Schedule
+    /// Today's value; past days use `timesPerDay(on:)`.
+    private(set) var timesPerDay: Int
+    /// Today's schedule; past days use `schedule(on:)`.
+    private(set) var schedule: Schedule
+    /// Settings replaced by edits, oldest first.
+    private(set) var earlier: [HabitSettings] = []
     /// The first day the habit counts: no day before it enters a Serie.
     let createdOn: LogicalDay
     /// How many times it was done on each logical day; missing days are zero.
@@ -32,8 +36,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day, schedules, skips and reminders existed: yes/no, every day,
-    // nothing skipped, no reminders.
+    // Files saved before times per day, schedules, skips, reminders and edits existed: yes/no,
+    // every day, nothing skipped, no reminders, never edited.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -45,6 +49,17 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         log = try container.decode([LogicalDay: Int].self, forKey: .log)
         skipped = try container.decodeIfPresent(Set<LogicalDay>.self, forKey: .skipped) ?? []
         reminders = try container.decodeIfPresent([ReminderTime].self, forKey: .reminders) ?? []
+        earlier = try container.decodeIfPresent([HabitSettings].self, forKey: .earlier) ?? []
+    }
+
+    /// The schedule that applied on `day`.
+    func schedule(on day: LogicalDay) -> Schedule {
+        earlier.first { day < $0.until }?.schedule ?? schedule
+    }
+
+    /// The times per day that applied on `day`.
+    func timesPerDay(on day: LogicalDay) -> Int {
+        earlier.first { day < $0.until }?.timesPerDay ?? timesPerDay
     }
 
     /// Times it was done on `day`.
@@ -52,28 +67,36 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         log[day, default: 0]
     }
 
-    /// Done on `day` only when every time of the day is done.
+    /// Done on `day` only when every time that day asked for is done.
     func isDone(on day: LogicalDay) -> Bool {
-        count(on: day) >= timesPerDay
+        count(on: day) >= timesPerDay(on: day)
     }
 
-    /// Applies the form's fields, trimmed and kept in range. Leaves the log as it is: changing
-    /// the schedule never rewrites the past.
+    /// Applies the form's fields from `today` on, trimmed and kept in range. Past days keep the
+    /// goal and schedule they had: changing them never rewrites the past.
     /// - Returns: `false`, changing nothing, when the title is blank or no weekday is chosen.
-    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, reminders: [ReminderTime] = []) -> Bool {
+    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, reminders: [ReminderTime] = [], from today: LogicalDay) -> Bool {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxTitleLength))
         guard title.isEmpty == false, schedule != .weekdays([]) else { return false }
         self.title = title
         self.symbol = symbol
         self.reminders = Array(Set(reminders)).sorted()
+        let newSchedule: Schedule
+        let newTimes: Int
         if case .timesPerWeek(let times) = schedule {
-            self.schedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
+            newSchedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
             // A weekly habit counts days, so it is done once a day.
-            self.timesPerDay = 1
+            newTimes = 1
         } else {
-            self.schedule = schedule
-            self.timesPerDay = Self.clamp(timesPerDay, to: Self.timesPerDayRange)
+            newSchedule = schedule
+            newTimes = Self.clamp(timesPerDay, to: Self.timesPerDayRange)
         }
+        // Keep the old rules for the days before today, once per day of edits.
+        if (newSchedule, newTimes) != (self.schedule, self.timesPerDay), today > createdOn, earlier.last?.until != today {
+            earlier.append(HabitSettings(until: today, timesPerDay: self.timesPerDay, schedule: self.schedule))
+        }
+        self.schedule = newSchedule
+        self.timesPerDay = newTimes
         return true
     }
 
@@ -102,7 +125,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         }
     }
 
-    private static func clamp(_ value: Int, to range: ClosedRange<Int>) -> Int {
+    static func clamp(_ value: Int, to range: ClosedRange<Int>) -> Int {
         min(max(value, range.lowerBound), range.upperBound)
     }
 }

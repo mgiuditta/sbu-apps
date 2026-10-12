@@ -15,7 +15,7 @@ nonisolated enum Streak {
             return weeks(of: habit, today: today, firstWeekday: firstWeekday)
         }
         return countBack(from: today, to: habit.createdOn) { day in
-            if habit.schedule.includes(day) == false || habit.isSkipped(on: day) { return .neutral }
+            if habit.schedule(on: day).includes(day) == false || habit.isSkipped(on: day) { return .neutral }
             return habit.isDone(on: day) ? .done : .missed
         }
     }
@@ -24,7 +24,7 @@ nonisolated enum Streak {
     static func full(of habits: [Habit], today: LogicalDay) -> Int {
         guard let firstDay = habits.map(\.createdOn).min() else { return 0 }
         return countBack(from: today, to: firstDay) { day in
-            let expected = habits.filter { $0.createdOn <= day && $0.schedule.includes(day) && $0.isSkipped(on: day) == false }
+            let expected = habits.filter { $0.createdOn <= day && $0.schedule(on: day).includes(day) && $0.isSkipped(on: day) == false }
             if expected.isEmpty { return .neutral }
             return expected.allSatisfy { $0.isDone(on: day) } ? .done : .missed
         }
@@ -39,10 +39,11 @@ nonisolated enum Streak {
             var weekStart = habit.createdOn.weekStart(firstWeekday: firstWeekday)
             while weekStart <= thisWeek {
                 let lastDay = weekStart == thisWeek ? today : weekStart + 6
-                if HabitProgress(of: habit, today: lastDay, firstWeekday: firstWeekday).isComplete {
-                    run += 1
-                } else if weekStart != thisWeek {
-                    run = 0
+                switch week(of: habit, endingOn: lastDay, firstWeekday: firstWeekday) {
+                case .done: run += 1
+                case .neutral: break
+                case .missed where weekStart != thisWeek: run = 0
+                case .missed: break
                 }
                 best = max(best, run)
                 weekStart = weekStart + 7
@@ -51,7 +52,7 @@ nonisolated enum Streak {
         }
         var day = habit.createdOn
         while day <= today {
-            if habit.schedule.includes(day), habit.isSkipped(on: day) == false {
+            if habit.schedule(on: day).includes(day), habit.isSkipped(on: day) == false {
                 if habit.isDone(on: day) {
                     run += 1
                 } else if day != today {
@@ -65,17 +66,25 @@ nonisolated enum Streak {
     }
 
     private static func weeks(of habit: Habit, today: LogicalDay, firstWeekday: Int) -> Int {
-        let isReached = { (lastDay: LogicalDay) in
-            HabitProgress(of: habit, today: lastDay, firstWeekday: firstWeekday).isComplete
-        }
         let thisWeek = today.weekStart(firstWeekday: firstWeekday)
-        var weekEnd = isReached(today) ? thisWeek + 6 : thisWeek - 1
+        var weekEnd = week(of: habit, endingOn: today, firstWeekday: firstWeekday) == .done ? thisWeek + 6 : thisWeek - 1
         var count = 0
-        while weekEnd >= habit.createdOn, isReached(weekEnd) {
-            count += 1
+        while weekEnd >= habit.createdOn {
+            switch week(of: habit, endingOn: weekEnd, firstWeekday: firstWeekday) {
+            case .done: count += 1
+            case .neutral: break
+            case .missed: return count
+            }
             weekEnd = weekEnd - 7
         }
         return count
+    }
+
+    /// A week whose every day was skipped asked for nothing: neutral, never counted.
+    private static func week(of habit: Habit, endingOn lastDay: LogicalDay, firstWeekday: Int) -> Day {
+        let progress = HabitProgress(of: habit, today: lastDay, firstWeekday: firstWeekday)
+        if progress.goal == 0 { return .neutral }
+        return progress.isComplete ? .done : .missed
     }
 
     private static func countBack(from today: LogicalDay, to firstDay: LogicalDay, result: (LogicalDay) -> Day) -> Int {

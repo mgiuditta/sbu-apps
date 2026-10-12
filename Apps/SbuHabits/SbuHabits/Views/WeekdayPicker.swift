@@ -46,7 +46,7 @@ private struct WeekdayToggle: View {
         Button(action: toggle) {
             Text(letter)
                 .font(SbuTheme.subheadline.weight(isOn ? .semibold : .regular))
-                .frame(maxWidth: .infinity, minHeight: SymbolPicker.minSize)
+                .frame(maxWidth: .infinity, minHeight: SbuTheme.space12) // at least the 44pt tap target
                 .foregroundStyle(isOn ? SbuTheme.onAccent : SbuTheme.ink)
                 .background(isOn ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.surfaceSunken), in: .circle)
                 .contentShape(.circle)

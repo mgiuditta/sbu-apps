@@ -8,19 +8,25 @@ struct HabitsTimelineProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (HabitsWidgetEntry) -> Void) {
-        let entry = Self.entry(now: .now)
+        let entry = Self.entry(for: Self.load(), now: .now)
         // The gallery shows real habits when there are some, sample ones otherwise.
         completion(entry.habits.isEmpty && context.isPreview ? .sample : entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<HabitsWidgetEntry>) -> Void) {
         let now = Date.now
+        let file = Self.load()
+        // Each new day's timeline also tops up the reminders, for people who never open the app.
+        ReminderScheduler.replace(with: ReminderPlan.reminders(for: file.habits, now: now, startHour: file.startHour, calendar: .current))
         // The app and the intent reload the widget on every change; this covers the new day.
-        completion(Timeline(entries: [Self.entry(now: now)], policy: .after(Self.nextDayStart(after: now))))
+        completion(Timeline(entries: [Self.entry(for: file, now: now)], policy: .after(Self.nextDayStart(for: file, after: now))))
     }
 
-    private static func entry(now: Date) -> HabitsWidgetEntry {
-        let file = (try? HabitsStore.shared.load()) ?? HabitsFile()
+    private static func load() -> HabitsFile {
+        (try? HabitsStore.shared.load()) ?? HabitsFile()
+    }
+
+    private static func entry(for file: HabitsFile, now: Date) -> HabitsWidgetEntry {
         let calendar = Calendar.current
         let today = LogicalDay(now, startHour: file.startHour, calendar: calendar)
         let habits = Array(TodayGrid.habits(file.habits, on: today, firstWeekday: calendar.firstWeekday).prefix(8))
@@ -31,8 +37,7 @@ struct HabitsTimelineProvider: TimelineProvider {
         )
     }
 
-    private static func nextDayStart(after now: Date) -> Date {
-        let file = (try? HabitsStore.shared.load()) ?? HabitsFile()
+    private static func nextDayStart(for file: HabitsFile, after now: Date) -> Date {
         let calendar = Calendar.current
         let tomorrow = LogicalDay(now, startHour: file.startHour, calendar: calendar) + 1
         let noon = tomorrow.noon(in: calendar)

@@ -5,8 +5,9 @@ import Foundation
 nonisolated enum ReminderPlan {
     /// iOS keeps at most 64 pending local notifications per app.
     static let limit = 64
-    /// Days ahead to plan; the app plans again whenever anything changes or it comes back.
-    static let days = 7
+    /// Days ahead to plan, within `limit`. The app plans again on every change and when it comes
+    /// back, and the widget on every timeline, so reminders keep coming without opening the app.
+    static let days = 30
 
     static func reminders(for habits: [Habit], now: Date, startHour: Int, calendar: Calendar) -> [PlannedReminder] {
         let today = LogicalDay(now, startHour: startHour, calendar: calendar)

@@ -14,7 +14,7 @@ nonisolated enum DayState: Equatable, Sendable {
             self = .done
         } else if habit.isSkipped(on: day) {
             self = .skipped
-        } else if day == today || habit.schedule.includes(day) == false {
+        } else if day == today || habit.schedule(on: day).includes(day) == false {
             // A weekly habit has no fixed days, so a day without it is not a miss.
             self = .empty
         } else {

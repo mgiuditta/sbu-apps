@@ -3,13 +3,10 @@ import SwiftUI
 
 /// A grid of the curated habit symbols; the chosen one sits on the accent.
 struct SymbolPicker: View {
-    /// Minimum tap target from the Human Interface Guidelines.
-    static let minSize: CGFloat = 44
-
     @Binding var selection: String
 
     var body: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: Self.minSize), spacing: SbuTheme.space2)], spacing: SbuTheme.space2) {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: SbuTheme.space12), spacing: SbuTheme.space2)], spacing: SbuTheme.space2) {
             ForEach(HabitSymbol.all) { symbol in
                 SymbolButton(symbol: symbol, isSelected: symbol.id == selection) {
                     selection = symbol.id
@@ -35,8 +32,8 @@ private struct SymbolButton: View {
                     .imageScale(.medium)
             }
             .labelStyle(.iconOnly)
-            .font(.title3)
-            .frame(maxWidth: .infinity, minHeight: SymbolPicker.minSize)
+            .font(SbuTheme.title2)
+            .frame(maxWidth: .infinity, minHeight: SbuTheme.space12) // at least the 44pt tap target
             .foregroundStyle(isSelected ? SbuTheme.onAccent : SbuTheme.ink)
             .background(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(.clear), in: .rect(cornerRadius: SbuTheme.radiusMd))
             .contentShape(.rect(cornerRadius: SbuTheme.radiusMd))

@@ -3,12 +3,9 @@ import SwiftUI
 
 /// The app inside the standard Sbu shell.
 struct RootView: View {
-    @State private var model: HabitsModel
-    @State private var sheet: HabitSheet?
+    let model: HabitsModel
 
-    init(model: HabitsModel = HabitsModel()) {
-        _model = State(initialValue: model)
-    }
+    @State private var sheet: HabitSheet?
 
     var body: some View {
         SbuAppShell("Sbu Habits", accent: SbuTheme.accentHabits, field: SbuTheme.fieldHabits, appIcon: Image(.appIconArtwork)) {

@@ -30,13 +30,13 @@ struct ReminderPlanTests {
     @Test func aDailyHabitIsRemindedEveryDayAhead() {
         let dates = plan([habit()]).map(\.date)
 
-        #expect(dates == (0..<7).map { monday(at: 20, plusDays: $0) })
+        #expect(dates == (0..<ReminderPlan.days).map { monday(at: 20, plusDays: $0) })
     }
 
     @Test func onlyExpectedDaysAreReminded() {
-        let dates = plan([habit(.weekdays([2, 4]))]).map(\.date) // Mondays and Wednesdays
+        let dates = plan([habit(.weekdays([2, 4]))]).map(\.date).prefix(4) // Mondays and Wednesdays
 
-        #expect(dates == [monday(at: 20), monday(at: 20, plusDays: 2)])
+        #expect(Array(dates) == [monday(at: 20), monday(at: 20, plusDays: 2), monday(at: 20, plusDays: 7), monday(at: 20, plusDays: 9)])
     }
 
     @Test func aHabitDoneOrSkippedTodayIsNotRemindedToday() {
@@ -55,12 +55,12 @@ struct ReminderPlanTests {
 
     @Test func aWeeklyHabitIsRemindedUntilItsGoalIsReached() {
         var gym = habit(.timesPerWeek(1))
-        #expect(plan([gym]).count == 7)
+        #expect(plan([gym]).first?.date == monday(at: 20))
 
         gym.log[today] = 1 // done today, Monday: this week's goal is reached
 
-        // The plan covers this week only, Monday to Sunday: nothing left to remind.
-        #expect(plan([gym]).isEmpty)
+        // Nothing more this week; reminders start again next Monday.
+        #expect(plan([gym]).first?.date == monday(at: 20, plusDays: 7))
     }
 
     @Test func anHourBeforeTheStartOfTheDayFallsTheNextMorning() {

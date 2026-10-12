@@ -33,7 +33,7 @@ struct HabitRing: View {
             .rotationEffect(.degrees(-90))
 
             Image(systemName: symbol)
-                .font(.title)
+                .font(SbuTheme.title2)
                 .fontWeight(.medium)
                 .imageScale(.medium)
                 .foregroundStyle(SbuTheme.onField)

@@ -71,16 +71,6 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "First quarter" } }
       }
     },
-    "Prossima luna nuova" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next new moon" } }
-      }
-    },
-    "Prossima luna piena" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next full moon" } }
-      }
-    },
     "Sbu Moon" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Moon" } }

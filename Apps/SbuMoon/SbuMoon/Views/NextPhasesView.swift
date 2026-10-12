@@ -1,42 +1,19 @@
 import SbuKit
 import SwiftUI
 
-/// The next full moon and the next new moon, with day and time in the iPhone's time zone.
+/// The next four principal phases in order, with day and time in the iPhone's time zone.
 struct NextPhasesView: View {
-    let reading: MoonReading
+    let phases: [PhaseEvent]
 
     var body: some View {
-        VStack(spacing: SbuTheme.space3) {
-            NextPhaseRow("Prossima luna piena", date: reading.nextFullMoon)
-            NextPhaseRow("Prossima luna nuova", date: reading.nextNewMoon)
+        VStack(spacing: SbuTheme.space2) {
+            ForEach(phases, id: \.date) { event in
+                MoonFactRow(
+                    event.phase.phase.name,
+                    value: Text(event.date, format: .dateTime.weekday(.abbreviated).day().month(.abbreviated).hour().minute())
+                )
+            }
         }
-    }
-}
-
-/// One upcoming phase: a label above its date, centred, read as one element.
-private struct NextPhaseRow: View {
-    private let label: LocalizedStringKey
-    private let date: Date
-
-    init(_ label: LocalizedStringKey, date: Date) {
-        self.label = label
-        self.date = date
-    }
-
-    var body: some View {
-        VStack(spacing: SbuTheme.space1) {
-            Text(label)
-                .font(SbuTheme.footnote)
-                .foregroundStyle(SbuTheme.inkMuted)
-
-            Text(date, format: .dateTime.weekday(.wide).day().month(.wide).hour().minute())
-                .font(SbuTheme.subheadline)
-                .monospacedDigit()
-                .foregroundStyle(SbuTheme.inkMuted)
-        }
-        .multilineTextAlignment(.center)
-        .fixedSize(horizontal: false, vertical: true)
-        .accessibilityElement(children: .combine)
     }
 }
 
@@ -51,7 +28,7 @@ private struct NextPhaseRow: View {
 
 private struct NextPhasesPreview: View {
     var body: some View {
-        NextPhasesView(reading: MoonReading(date: .now, calendar: .current))
+        NextPhasesView(phases: MoonReading(date: .now, calendar: .current).upcomingPhases)
             .padding(SbuTheme.space4)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(SbuTheme.surface)

@@ -26,7 +26,7 @@ final class MoonFlowTests: XCTestCase {
 
         XCTAssertTrue(figure(in: app).waitForExistence(timeout: 5))
         XCTAssertTrue(figure(in: app).label.contains("%"), figure(in: app).label)
-        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Prossima luna piena'")).firstMatch.exists)
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Luna piena,'")).firstMatch.exists)
         XCTAssertFalse(app.buttons["today"].exists, "Oggi shows only on another day")
 
         // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,

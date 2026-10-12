@@ -56,12 +56,30 @@ struct MoonReadingTests {
         #expect(MoonReading.phase(at: evening, calendar: tokyo) == .waxingGibbous)
     }
 
-    @Test func nextFullAndNewMoonComeAfterTheDate() throws {
+    @Test func upcomingPhasesAreTheNextFourInOrder() throws {
         let reading = MoonReading(date: try date("2024-01-25T18:00:00Z"), calendar: utc)
 
-        // Full moon 24 February 2024 12:30 UTC, new moon 9 February 2024 22:59 UTC.
-        #expect(abs(reading.nextFullMoon.timeIntervalSince(try date("2024-02-24T12:30:00Z"))) < 120)
-        #expect(abs(reading.nextNewMoon.timeIntervalSince(try date("2024-02-09T22:59:00Z"))) < 120)
+        // Almanac, UTC: last quarter 2 Feb 23:18, new 9 Feb 22:59, first quarter 16 Feb 15:01, full 24 Feb 12:30.
+        let expected: [(PrincipalPhase, String)] = [
+            (.lastQuarter, "2024-02-02T23:18:00Z"),
+            (.new, "2024-02-09T22:59:00Z"),
+            (.firstQuarter, "2024-02-16T15:01:00Z"),
+            (.full, "2024-02-24T12:30:00Z"),
+        ]
+        try #require(reading.upcomingPhases.count == expected.count)
+        for (event, (phase, instant)) in zip(reading.upcomingPhases, expected) {
+            #expect(event.phase == phase)
+            #expect(abs(event.date.timeIntervalSince(try date(instant))) < 120)
+        }
+    }
+
+    @Test func upcomingPhasesStartStrictlyAfterThePhaseInstant() throws {
+        let fullMoon = MoonAstronomy.next(.full, after: try date("2024-01-20T00:00:00Z"))
+
+        let reading = MoonReading(date: fullMoon, calendar: utc)
+
+        #expect(reading.upcomingPhases.map(\.phase) == [.lastQuarter, .new, .firstQuarter, .full])
+        #expect(reading.upcomingPhases.allSatisfy { $0.date > fullMoon })
     }
 
     @Test(arguments: [("2024-01-14T12:00:00Z", true), ("2024-01-21T06:00:00Z", true), ("2024-01-29T12:00:00Z", false), ("2024-02-05T12:00:00Z", false)])

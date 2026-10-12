@@ -1238,6 +1238,83 @@
           }
         }
       }
+    },
+    "Salute" : {
+      "comment" : "The form's section that links a habit to Apple Health, named as in iOS.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Health"
+          }
+        }
+      }
+    },
+    "Collega a Salute" : {
+      "comment" : "Toggle: the habit marks itself done from Apple Health.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link to Health"
+          }
+        }
+      }
+    },
+    "Misura" : {
+      "comment" : "Picker: which Apple Health measure the habit follows.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measure"
+          }
+        }
+      }
+    },
+    "Obiettivo al giorno" : {
+      "comment" : "Stepper label: the Health total that marks the habit done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily goal"
+          }
+        }
+      }
+    },
+    "Si segna da sola quando Salute arriva all'obiettivo. Se neghi l'accesso, la segni tu." : {
+      "comment" : "Footer under the Health link in the habit form.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It marks itself done when Health reaches the goal. If you deny access, you mark it yourself."
+          }
+        }
+      }
+    },
+    "Passi" : {
+      "comment" : "Apple Health measure: step count.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steps"
+          }
+        }
+      }
+    },
+    "%@ passi" : {
+      "comment" : "A goal in steps, the number already formatted: 8.000 passi.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ steps"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

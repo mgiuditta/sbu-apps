@@ -241,6 +241,33 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheFormLinksAHabitToSalute() throws {
+        let app = launch()
+        app.buttons["Aggiungi"].firstMatch.tap()
+        XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
+        // Collega a Salute sits below the schedule.
+        app.collectionViews.firstMatch.swipeUp()
+
+        app.switches["Collega a Salute"].switches.firstMatch.tap()
+
+        XCTAssertTrue(app.staticTexts["Si segna da sola quando Salute arriva all'obiettivo. Se neghi l'accesso, la segni tu."].waitForExistence(timeout: 5))
+        let goal = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'passi' OR value CONTAINS 'passi'")).firstMatch
+        XCTAssertTrue(goal.exists, app.debugDescription)
+        // Dynamic Type is left out too: the form is all system rows and bar buttons, which scale,
+        // and the audit flags every one of them, Annulla included, as partially supported.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            // The inline title fits; the audit reads the glass bar's edge as clipping it.
+            if issue.auditType == .textClipped, issue.element?.label == "Nuova abitudine" {
+                return true
+            }
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+        // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi.
+        app.navigationBars.buttons["Annulla"].tap()
+    }
+
+    @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)

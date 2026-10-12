@@ -52,6 +52,16 @@ nonisolated struct LogicalDay: Hashable, Comparable, Codable, CodingKeyRepresent
         return gregorian.date(from: parts) ?? .now
     }
 
+    /// From `startHour` on this day to `startHour` on the next, in `calendar`'s time zone: the
+    /// moments whose data counts for this day.
+    func interval(startHour: Int, in calendar: Calendar) -> DateInterval {
+        func start(of day: LogicalDay) -> Date {
+            let noon = day.noon(in: calendar)
+            return calendar.date(bySettingHour: startHour, minute: 0, second: 0, of: noon) ?? noon
+        }
+        return DateInterval(start: start(of: self), end: start(of: self + 1))
+    }
+
     static func < (lhs: LogicalDay, rhs: LogicalDay) -> Bool {
         lhs.ordinal < rhs.ordinal
     }

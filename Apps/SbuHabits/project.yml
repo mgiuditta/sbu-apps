@@ -28,6 +28,9 @@ targets:
       path: SbuHabits/SbuHabits.entitlements
       properties:
         com.apple.security.application-groups: [group.dev.sbu.habits]
+        # Read only, for habits linked to Salute; no clinical records.
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits
@@ -35,6 +38,8 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Habits
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.healthcare-fitness
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        # Italian source; the English one is in InfoPlist.xcstrings.
+        INFOPLIST_KEY_NSHealthShareUsageDescription: "Sbu Habits legge da Salute solo le misure che colleghi, per segnare le tue abitudini. I dati restano su questo iPhone."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

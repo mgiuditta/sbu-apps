@@ -85,6 +85,10 @@ _Avoid_: cattiva abitudine, vizio, abitudine negativa
 Quante volte al giorno puoi cedere a un'**Abitudine da evitare** restando nel giorno fatto: 0 per "non fumare", 2 per "massimo due caffè".
 _Avoid_: soglia, tetto, obiettivo
 
+**Abitudine collegata** (_Linked habit_):
+Un'abitudine da fare collegata a una misura di Salute con un obiettivo al giorno: si segna da sola quando il totale del giorno logico raggiunge l'obiettivo, e conta una volta al giorno. Salute aggiunge soltanto: non toglie mai un segno, e puoi sempre segnarla a mano (se neghi l'accesso, la segni sempre tu). Sbu Habits legge da Salute e non scrive mai; un'**Abitudine da evitare** non si collega.
+_Avoid_: abitudine automatica, sincronizzata, integrazione
+
 ### Sbu Cards
 
 **Nota** (_Note_):

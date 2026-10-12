@@ -1,0 +1,24 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "NSHealthShareUsageDescription" : {
+      "comment" : "The Health read permission prompt. Read only, data stays on the device.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Habits reads from Health only the measures you link, to mark your habits. Your data stays on this iPhone."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Habits legge da Salute solo le misure che colleghi, per segnare le tue abitudini. I dati restano su questo iPhone."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

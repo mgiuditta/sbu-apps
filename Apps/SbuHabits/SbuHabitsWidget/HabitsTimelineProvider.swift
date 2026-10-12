@@ -1,47 +1,37 @@
+import AppIntents
 import Foundation
 import WidgetKit
 
-/// Reads the shared habits file and shows today's grid until the next day starts.
-struct HabitsTimelineProvider: TimelineProvider {
+/// Reads the shared habits file and shows the chosen part of today's grid until the next day starts.
+struct HabitsTimelineProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> HabitsWidgetEntry {
         .sample
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (HabitsWidgetEntry) -> Void) {
-        let entry = Self.entry(for: Self.load(), now: .now)
+    func snapshot(for configuration: ChooseHabitsIntent, in context: Context) async -> HabitsWidgetEntry {
+        let entry = Self.entry(for: WidgetFile.load(), chosen: configuration.habits, now: .now)
         // The gallery shows real habits when there are some, sample ones otherwise.
-        completion(entry.habits.isEmpty && context.isPreview ? .sample : entry)
+        return entry.habits.isEmpty && context.isPreview ? .sample : entry
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<HabitsWidgetEntry>) -> Void) {
+    func timeline(for configuration: ChooseHabitsIntent, in context: Context) async -> Timeline<HabitsWidgetEntry> {
         let now = Date.now
-        let file = Self.load()
+        let file = WidgetFile.load()
         // Each new day's timeline also tops up the reminders, for people who never open the app.
-        ReminderScheduler.replace(with: ReminderPlan.reminders(for: file.habits, now: now, startHour: file.startHour, calendar: .current))
+        await ReminderScheduler.replace(with: ReminderPlan.reminders(for: file.habits, now: now, startHour: file.startHour, calendar: .current))
         // The app and the intent reload the widget on every change; this covers the new day.
-        completion(Timeline(entries: [Self.entry(for: file, now: now)], policy: .after(Self.nextDayStart(for: file, after: now))))
+        return Timeline(entries: [Self.entry(for: file, chosen: configuration.habits, now: now)], policy: .after(WidgetFile.nextDayStart(for: file, after: now)))
     }
 
-    private static func load() -> HabitsFile {
-        (try? HabitsStore.shared.load()) ?? HabitsFile()
-    }
-
-    private static func entry(for file: HabitsFile, now: Date) -> HabitsWidgetEntry {
+    private static func entry(for file: HabitsFile, chosen: [HabitEntity], now: Date) -> HabitsWidgetEntry {
         let calendar = Calendar.current
         let today = LogicalDay(now, startHour: file.startHour, calendar: calendar)
-        // All of today's habits: the view picks what fits its size.
-        let habits = TodayGrid.habits(file.habits, on: today, firstWeekday: calendar.firstWeekday)
+        // The view picks what fits its size.
+        let habits = WidgetChoice.grid(file.habits, chosen: chosen.map(\.id), today: today, firstWeekday: calendar.firstWeekday)
         return HabitsWidgetEntry(
             date: now,
             habits: habits,
             progress: Dictionary(uniqueKeysWithValues: habits.map { ($0.id, HabitProgress(of: $0, today: today, firstWeekday: calendar.firstWeekday)) })
         )
-    }
-
-    private static func nextDayStart(for file: HabitsFile, after now: Date) -> Date {
-        let calendar = Calendar.current
-        let tomorrow = LogicalDay(now, startHour: file.startHour, calendar: calendar) + 1
-        let noon = tomorrow.noon(in: calendar)
-        return calendar.date(bySettingHour: file.startHour, minute: 0, second: 0, of: noon) ?? noon
     }
 }

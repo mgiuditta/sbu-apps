@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@" : {
+      "comment" : "A habit's own title, as the user wrote it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
     "%lld di %lld" : {
       "comment" : "VoiceOver progress of a habit done several times a day: 3 of 8.",
       "localizations" : {
@@ -108,6 +119,16 @@
         }
       }
     },
+    "Abitudini" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habits"
+          }
+        }
+      }
+    },
     "Abitudini di oggi" : {
       "localizations" : {
         "en" : {
@@ -174,6 +195,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tree"
+          }
+        }
+      }
+    },
+    "Altre %lld abitudini" : {
+      "localizations" : {
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Altra %lld abitudine"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Altre %lld abitudini"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld more habit"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld more habits"
+                }
+              }
+            }
           }
         }
       }
@@ -406,6 +467,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start of the day"
+          }
+        }
+      }
+    },
+    "L'anello e la serie di un'abitudine." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit's ring and streak."
+          }
+        }
+      }
+    },
+    "Lascia vuoto per vedere la prima abitudine da fare oggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave empty to see the first habit still due today."
+          }
+        }
+      }
+    },
+    "Lascia vuoto per vedere tutte le abitudini di oggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave empty to see all of today's habits."
           }
         }
       }
@@ -780,6 +871,26 @@
         }
       }
     },
+    "Scegli le abitudini" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose habits"
+          }
+        }
+      }
+    },
+    "Scegli un'abitudine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a habit"
+          }
+        }
+      }
+    },
     "Scrittura" : {
       "localizations" : {
         "en" : {
@@ -986,6 +1097,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title"
+          }
+        }
+      }
+    },
+    "Un'abitudine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit"
           }
         }
       }

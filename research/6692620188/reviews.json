@@ -1,0 +1,44 @@
+[
+  {
+    "rating": 3,
+    "title": "Bella ma",
+    "text": "Bella funzionale e graficamente appagante ma limitare a 3 abbonamenti il piano free la rende pressoché inutile",
+    "version": "1.1.8",
+    "country": "it"
+  },
+  {
+    "rating": 1,
+    "title": "lo sviluppatore non risponde e l'app non notifica",
+    "text": "ho inviato delle richieste allo sviluppatore rimaste senza risposta, ed inoltre l'APP non notifica  l'approssimarsi della  scadenza dell'abbonamento inserito. Così è inutile averla acquistata",
+    "version": "1.0.43",
+    "country": "it"
+  },
+  {
+    "rating": 3,
+    "title": "Beautiful App",
+    "text": "My only issue with it is: it’s useless unless you purchase orbit plus. People who need this app will 100% want to track more than 5 subscriptions, and €10 to move from useless to “maybe useful” is probably too much to gamble on. My suggestion is either make the paywall less steep or move it somewhere where it doesn’t effect the experience so early that it effectively stops users from falling in love with what you did. Would love to see the app reach its full potential!",
+    "version": "1.0.1",
+    "country": "it"
+  },
+  {
+    "rating": 2,
+    "title": "Flagship features don’t work correctly",
+    "text": "The app is well designed and the ability to see all synthesized information about your subscriptions is really useful. Unfortunately, the import features, whether from a photo or from file manager, simply don’t work for me no matter how many times I try to make them work. I paid $25 to be able to have lifetime access to these convenience features and with the selling point of the app for me not working, I feel like I’ve wasted my money. If these features worked I would give it a full 5 stars no question, but having to manually set everything up is a hassle I deliberately paid to avoid and can’t even take advantage of. Would love a refund or for a way to get this taken care of.",
+    "version": "1.2.96",
+    "country": "us"
+  },
+  {
+    "rating": 2,
+    "title": "I guess I misunderstood?",
+    "text": "I thought if this app was finding all of my subscriptions that it would give me some sort of info on them. The app has found apps that I had no idea I was paying for (& lots of them!), so it did its job. I just need to cancel them but can’t find info. I expected help 😩",
+    "version": "1.2.94",
+    "country": "us"
+  },
+  {
+    "rating": 2,
+    "title": "It has potential but isn’t complete…",
+    "text": "This application is no where near complete - too many manual tasks that could all be easily automated on the dev side. I immediately regretted paying for it.",
+    "version": "1.2.72",
+    "country": "us"
+  }
+]

@@ -1,0 +1,455 @@
+{
+  "features": [
+    {
+      "name": "Add subscription from service catalog",
+      "description": "Add sheet with a searchable catalog of popular services (name, logo, category, default cycle) plus 'custom'. Picking a service pre-fills name, category and cycle; the user sets price, currency, cycle and next payment date.",
+      "priority": "core",
+      "reason": "Pure local data bundled in the app. Service brand logos are third-party trademarks: Sbu shows a neutral monogram or SF Symbol per category unless the logo decision says otherwise."
+    },
+    {
+      "name": "Custom subscription",
+      "description": "Free-form entry with name, price, currency, billing cycle, start date / next payment date, category, list, payment method, URL and notes.",
+      "priority": "core",
+      "reason": "SwiftData model and a native Form."
+    },
+    {
+      "name": "Billing cycles",
+      "description": "Daily, weekly, monthly, yearly and custom intervals (every N days/weeks/months/years); next payment computed from start date and cycle, end-of-month safe.",
+      "priority": "core",
+      "reason": "Pure date arithmetic with Calendar, tested with Swift Testing."
+    },
+    {
+      "name": "Monthly and yearly totals",
+      "description": "Home shows the count of subscriptions and the yearly total (toggle to monthly), normalising every cycle to the same period; remaining payments this month.",
+      "priority": "core",
+      "reason": "The one figure of the app: total per month or year in the main currency. Decimal math, FormatStyle currency."
+    },
+    {
+      "name": "Multiple currencies with conversion",
+      "description": "64 currencies; each subscription keeps its own currency, totals shown in a main currency with live conversion rates.",
+      "priority": "core",
+      "reason": "Per-subscription currency and Locale-aware formatting are core. Live rates need the network: Sbu uses rates entered by the user (or a bundled table refreshed per release); decision in a grilling."
+    },
+    {
+      "name": "Renewal reminders",
+      "description": "Local notification before each payment (same day, 1, 3, 7 days or custom), at a chosen time; none for canceled or paused subscriptions.",
+      "priority": "core",
+      "reason": "UNUserNotificationCenter calendar triggers, rescheduled on each change and at launch (64 pending limit). Reviews of Orbit and Bobby show broken notifications as the top failure."
+    },
+    {
+      "name": "Free trial tracking",
+      "description": "Mark a subscription as a free trial with an end date and the price after the trial; separate 'Free trials' section on home; alert before the trial converts.",
+      "priority": "core",
+      "reason": "Local data plus local notification."
+    },
+    {
+      "name": "Payment calendar",
+      "description": "Month grid with each renewal on its day, totals for the month and for the remaining payments; tap a day to see payments, long-press to add from that date.",
+      "priority": "core",
+      "reason": "SwiftUI grid built from computed occurrences; no EventKit needed."
+    },
+    {
+      "name": "Subscription detail",
+      "description": "Sheet with name, price, cycle, trial end, next payment, category, list, payment method, URL, notes, price history and billing history; Edit button.",
+      "priority": "core",
+      "reason": "Native List/Form."
+    },
+    {
+      "name": "Price history",
+      "description": "Record price changes with an effective date; future changes apply only from their date and totals follow.",
+      "priority": "nice",
+      "reason": "Child entity in SwiftData; useful but secondary."
+    },
+    {
+      "name": "Billing history / timeline",
+      "description": "Timeline of key events: subscribed, paused, resumed, canceled, renewed.",
+      "priority": "nice",
+      "reason": "Derived from dates and status changes; local."
+    },
+    {
+      "name": "Cancel and pause",
+      "description": "Mark as canceled (kept in history, out of totals and reminders) or paused; completed one-time or fixed-length payment plans.",
+      "priority": "core",
+      "reason": "Status enum on the model; excludes reminders and totals."
+    },
+    {
+      "name": "One-time payments and fixed payment plans",
+      "description": "Track a payment that happens once, or N installments, without treating it as an active renewal.",
+      "priority": "nice",
+      "reason": "Extends the cycle model with an end date / installment count."
+    },
+    {
+      "name": "Categories",
+      "description": "Default categories (streaming, music, productivity, cloud, utilities such as water, electricity, gas, internet, rent, mortgage, insurance) editable in Settings; filter and group by category.",
+      "priority": "core",
+      "reason": "SwiftData entity, SF Symbols per category."
+    },
+    {
+      "name": "Lists (Personal, Family, Business)",
+      "description": "Custom lists to separate groups of subscriptions; home and widget filter by list; totals per list.",
+      "priority": "nice",
+      "reason": "Local organisation only; in Orbit it is a Plus feature."
+    },
+    {
+      "name": "Payment methods",
+      "description": "User-defined payment methods (card name, PayPal, bank) to filter and group by.",
+      "priority": "nice",
+      "reason": "Free text labels only, never card numbers."
+    },
+    {
+      "name": "Sorting, filtering and grouping on home",
+      "description": "Sort by next payment, name, price (normalised); group by billing cycle; collapsible sections; preferences remembered.",
+      "priority": "core",
+      "reason": "Pure sorting on the model, @AppStorage for preferences."
+    },
+    {
+      "name": "Search subscriptions",
+      "description": "Search the list by name (on the Orbit roadmap).",
+      "priority": "nice",
+      "reason": ".searchable on the native list."
+    },
+    {
+      "name": "Mark as paid",
+      "description": "Confirm a payment happened (on the Orbit roadmap, requested in Bobby reviews).",
+      "priority": "nice",
+      "reason": "Billing event in SwiftData."
+    },
+    {
+      "name": "Home screen widgets",
+      "description": "Upcoming payments widget (small: remaining this month and next 3; medium/large: list), all lists or one list; refreshes daily.",
+      "priority": "core",
+      "reason": "WidgetKit with an App Group store. In Orbit widgets are a Plus feature."
+    },
+    {
+      "name": "Siri, Shortcuts and Spotlight",
+      "description": "Ask price, next renewal, upcoming payments and count; open a subscription, the calendar or Add; find subscriptions in Spotlight.",
+      "priority": "nice",
+      "reason": "App Intents with AppEntity and AppShortcutsProvider (iOS 17); IndexedEntity for Spotlight on iOS 18 when available."
+    },
+    {
+      "name": "CSV export",
+      "description": "Settings > Export subscriptions to a CSV file through the share sheet.",
+      "priority": "core",
+      "reason": "Local file via ShareLink / fileExporter; it is the backup without an account."
+    },
+    {
+      "name": "CSV import",
+      "description": "Import subscriptions from a CSV file with a review step before saving.",
+      "priority": "nice",
+      "reason": "fileImporter and a pure parser, on device. Also the migration path from other trackers."
+    },
+    {
+      "name": "iCloud sync",
+      "description": "Sync subscriptions across the user's Apple devices.",
+      "priority": "nice",
+      "reason": "Allowed by ADR-0008 as an opt-in in Settings, off by default: SwiftData with CloudKit private database."
+    },
+    {
+      "name": "Magic Import from screenshots, PDFs and bank statements",
+      "description": "Removes personal data on device, then sends the text to an AI service to identify subscriptions and logos; the user reviews suggestions before saving.",
+      "priority": "skip",
+      "reason": "Requires a network AI service. An on-device variant (Vision text recognition plus a local matcher against the catalog) is a separate decision."
+    },
+    {
+      "name": "Guided setup / subscription finder",
+      "description": "Checklist of popular services to tick during onboarding, with typical prices, to build the first list quickly.",
+      "priority": "nice",
+      "reason": "Pure local catalog; no import from accounts."
+    },
+    {
+      "name": "Cancellation help",
+      "description": "Link to where each service is canceled; Orbit only offers guides on its website, users ask for it in-app.",
+      "priority": "nice",
+      "reason": "A URL field per subscription and Apple's manage subscriptions sheet (StoreKit showManageSubscriptions) for App Store subscriptions; links open Safari."
+    },
+    {
+      "name": "Logo search and custom icons",
+      "description": "Search logos online for services not in the catalog; import icons from the App Store (roadmap).",
+      "priority": "skip",
+      "reason": "Network and third-party trademarks."
+    },
+    {
+      "name": "Shared lists with family or friends",
+      "description": "Share a list with other people (in progress in Orbit).",
+      "priority": "skip",
+      "reason": "Needs CloudKit sharing between accounts; out of 'one thing' for now, possible future grilling."
+    },
+    {
+      "name": "Animated planet diagram",
+      "description": "Home hero with a planet and orbiting subscription moons; tap the sun to switch moons to logos.",
+      "priority": "skip",
+      "reason": "Decorative brand visual; copying it conflicts with guideline 4.1 and the design system (one figure on paper)."
+    },
+    {
+      "name": "Orbit Plus paywall",
+      "description": "One-time or annual purchase unlocking unlimited subscriptions, widgets, lists, iCloud and Magic Import.",
+      "priority": "skip",
+      "reason": "Sbu has no in-app purchases."
+    },
+    {
+      "name": "Analytics and crash reporting",
+      "description": "Mixpanel and Firebase Crashlytics.",
+      "priority": "skip",
+      "reason": "No analytics or third-party SDKs."
+    },
+    {
+      "name": "Bank linking and email scanning",
+      "description": "Not in Orbit; offered by competitors such as Rocket Money.",
+      "priority": "skip",
+      "reason": "Accounts, servers and network."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Home",
+      "purpose": "See all subscriptions and what they cost in a year or month.",
+      "elements": [
+        "Add button top right",
+        "Hero animated planet with orbiting subscriptions (decorative)",
+        "Count of subscriptions with list picker (All / Personal / Family / Business)",
+        "Yearly total (toggle monthly), remaining this month",
+        "Section Free trials with its total",
+        "Section Active with sort control (Next, Name, Price) and group by billing cycle",
+        "Rows: logo, name, relative date and date of next payment, price, chevron",
+        "Collapsible sections, filter menus by category, cycle, payment method"
+      ]
+    },
+    {
+      "name": "Add subscription",
+      "purpose": "Pick a service from the catalog or create a custom one.",
+      "elements": [
+        "Search field",
+        "Catalog of popular services with logos grouped by category",
+        "Custom entry",
+        "Form: name, price, currency, billing cycle, start / payment date, free trial and end date, reminder, category, list, payment method, URL, notes"
+      ]
+    },
+    {
+      "name": "Subscription detail",
+      "purpose": "Check one subscription and act on it.",
+      "elements": [
+        "Edit button",
+        "Logo, name, price large",
+        "Rows: billing, free trial, next payment, category",
+        "Price history card",
+        "Billing history timeline",
+        "Pause, cancel, delete"
+      ]
+    },
+    {
+      "name": "Calendar",
+      "purpose": "See which day each payment falls on.",
+      "elements": [
+        "Month title and weekday header",
+        "Day cells with service logos on renewal days, today highlighted",
+        "Monthly total and upcoming total, high-cost days marked",
+        "Long-press a day to add a subscription from that date"
+      ]
+    },
+    {
+      "name": "Magic Import",
+      "purpose": "Build the list from screenshots, statements, CSV, PDF or pasted text.",
+      "elements": [
+        "Source picker (photo, file, paste)",
+        "Progress and error recovery for large files",
+        "Review list with save, edit or decline per suggestion"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Preferences and data.",
+      "elements": [
+        "Main currency",
+        "Edit lists, categories, payment methods",
+        "Notifications default timing",
+        "iCloud sync (Plus)",
+        "Export subscriptions (CSV)",
+        "Subscription finder guide",
+        "Feedback and roadmap board, Orbit Plus"
+      ]
+    },
+    {
+      "name": "Paywall",
+      "purpose": "Sell Orbit Plus.",
+      "elements": [
+        "Plans: Plus, Annual, Lifetime",
+        "Feature list: unlimited tracking, widgets, iCloud, Magic Import, lists"
+      ]
+    },
+    {
+      "name": "Widgets",
+      "purpose": "Upcoming payments on the Home Screen.",
+      "elements": [
+        "Small: remaining payments this month and next 3 subscriptions",
+        "Medium/large: upcoming list",
+        "Configurable list"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First launch",
+      "steps": [
+        "Value screens (find all subscriptions, hidden costs)",
+        "Magic Import or guided setup offered",
+        "Notification permission",
+        "Home with first subscriptions; paywall when exceeding the free limit"
+      ]
+    },
+    {
+      "name": "Add a subscription",
+      "steps": [
+        "Tap +",
+        "Search or pick a service, or Custom",
+        "Enter price, currency, cycle, payment date",
+        "Optionally mark free trial, choose reminder, category, list",
+        "Save; reminder scheduled; totals update"
+      ]
+    },
+    {
+      "name": "Trial ending",
+      "steps": [
+        "Notification the day before: trial ends, amount that will be charged",
+        "Open subscription",
+        "Cancel with the provider, then mark canceled in the app"
+      ]
+    },
+    {
+      "name": "Change price",
+      "steps": [
+        "Open detail, Edit",
+        "Set new price and its effective date",
+        "Price history records the change; totals use it from that date"
+      ]
+    },
+    {
+      "name": "Export",
+      "steps": [
+        "Settings > Export subscriptions",
+        "CSV through the share sheet"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Subscription",
+        "fields": [
+          {"name": "id", "type": "UUID", "note": ""},
+          {"name": "name", "type": "String", "note": ""},
+          {"name": "serviceID", "type": "String?", "note": "catalog slug; nil for custom"},
+          {"name": "price", "type": "Decimal", "note": "current price"},
+          {"name": "currencyCode", "type": "String", "note": "ISO 4217"},
+          {"name": "cycle", "type": "BillingCycle", "note": "unit (day/week/month/year) + interval; once; installments"},
+          {"name": "startDate", "type": "Date", "note": "anchor for occurrences"},
+          {"name": "endDate", "type": "Date?", "note": "fixed plans, canceled"},
+          {"name": "status", "type": "enum", "note": "active, trial, paused, canceled, completed"},
+          {"name": "trialEndDate", "type": "Date?", "note": ""},
+          {"name": "reminder", "type": "ReminderOffset?", "note": "days before, time of day"},
+          {"name": "category", "type": "Category?", "note": ""},
+          {"name": "list", "type": "SubscriptionList?", "note": ""},
+          {"name": "paymentMethod", "type": "PaymentMethod?", "note": "label only"},
+          {"name": "url", "type": "URL?", "note": "account / cancel page"},
+          {"name": "notes", "type": "String", "note": ""}
+        ]
+      },
+      {
+        "name": "PriceChange",
+        "fields": [
+          {"name": "price", "type": "Decimal", "note": ""},
+          {"name": "effectiveDate", "type": "Date", "note": "future changes apply from this date"}
+        ]
+      },
+      {
+        "name": "BillingEvent",
+        "fields": [
+          {"name": "kind", "type": "enum", "note": "subscribed, renewed, paused, resumed, canceled, paid"},
+          {"name": "date", "type": "Date", "note": ""}
+        ]
+      },
+      {
+        "name": "Category",
+        "fields": [
+          {"name": "name", "type": "String", "note": "editable"},
+          {"name": "symbol", "type": "String", "note": "SF Symbol"}
+        ]
+      },
+      {
+        "name": "SubscriptionList",
+        "fields": [{"name": "name", "type": "String", "note": "Personal by default"}]
+      },
+      {
+        "name": "PaymentMethod",
+        "fields": [{"name": "name", "type": "String", "note": "label, never card data"}]
+      },
+      {
+        "name": "Service (catalog)",
+        "fields": [
+          {"name": "slug", "type": "String", "note": "bundled, read-only"},
+          {"name": "name", "type": "String", "note": ""},
+          {"name": "category", "type": "String", "note": ""},
+          {"name": "defaultCycle", "type": "BillingCycle", "note": ""},
+          {"name": "url", "type": "URL?", "note": "manage / cancel page"}
+        ]
+      }
+    ],
+    "storage": "On device. Orbit: local store with iCloud sync for Plus, CSV export. Sbu: SwiftData in an App Group container (widgets), optional CloudKit private database (ADR-0008), CSV export/import; migrate the 1.0 Expo SQLite file (Documents/SQLite/sbu_subscriptions.db) on first launch."
+  },
+  "monetization": {
+    "model": "Freemium: free download with a limit on tracked subscriptions, Orbit Plus as in-app purchase (one-time and annual options).",
+    "price": "US: Orbit Plus $12.99, Orbit Plus Annual $19.99, Orbit Plus Lifetime $24.99 and $39.99; AU Lifetime from $29.99. Family Sharing on some purchases.",
+    "paywalled_features": [
+      "More than 3-5 subscriptions (reviews: 5 at launch, 3 in version 1.1.8)",
+      "Custom lists",
+      "iCloud sync",
+      "Magic Import (type or paste explicitly Plus; document import advertised as the main value)",
+      "Widgets (opened to all users to try since the iOS 26 update, listed as Plus in the description)",
+      "Priority features"
+    ],
+    "notes": "Paywall appears early, as soon as the free limit is reached; reviews call the free tier useless. Analytics via Mixpanel and Crashlytics."
+  },
+  "user_pains": [
+    {
+      "pain": "Free tier too small: the app is useless without Plus",
+      "evidence": "'limitare a 3 abbonamenti il piano free la rende pressoché inutile'; 'useless unless you purchase orbit plus ... track more than 5'; Bobby: 'baseline of 5 subscriptions before you have to buy'",
+      "mentions": 2
+    },
+    {
+      "pain": "Renewal notifications do not arrive",
+      "evidence": "'l'APP non notifica l'approssimarsi della scadenza'; in Bobby the most frequent complaint ('Notifications don't work. It's the primary purpose of the app')",
+      "mentions": 1
+    },
+    {
+      "pain": "Paid import features fail",
+      "evidence": "'the import features, whether from a photo or from file manager, simply don't work ... I paid $25'",
+      "mentions": 1
+    },
+    {
+      "pain": "No help to actually cancel what was found",
+      "evidence": "'I just need to cancel them but can't find info. I expected help'",
+      "mentions": 1
+    },
+    {
+      "pain": "Too much manual work, feels incomplete",
+      "evidence": "'too many manual tasks that could all be easily automated'",
+      "mentions": 1
+    },
+    {
+      "pain": "Developer does not answer support requests",
+      "evidence": "'ho inviato delle richieste allo sviluppatore rimaste senza risposta'",
+      "mentions": 1
+    },
+    {
+      "pain": "Missing logos for less known services",
+      "evidence": "justuseapp review: Google Workspace, Fastmail, frame.io show emoji instead of logos",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "6692620188",
+    "name": "Abbonamenti: Orbit",
+    "url": "https://apps.apple.com/it/app/abbonamenti-orbit/id6692620188?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 6
+  }
+}

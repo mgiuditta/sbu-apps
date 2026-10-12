@@ -1,0 +1,32 @@
+{
+  "id": "6692620188",
+  "name": "Abbonamenti: Orbit",
+  "developer": "Flooben Ltd",
+  "bundle_id": "com.flooben.orbit",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Finance",
+  "genres": [
+    "Finanza",
+    "Produttività"
+  ],
+  "description": "I nostri preferiti su Apple: “I nostri preferiti: scopri un nuovo design straordinario” & “Ottime app per iOS26”\n\nLa maggior parte delle persone spreca €1.279+ all’anno in abbonamenti dimenticati, ma pensa di averne solo 3 o 4.\n\nUnisciti a oltre 20k persone che usano Orbit, il gestore degli abbonamenti che svela i costi nascosti con Magic Import per scoprire tutto ciò che prosciuga il tuo conto. Visualizza le spese importando all’istante da screenshot, file CSV o estratti conto. Annulla ciò che non usi e risparmia.\n\nPerché Orbit?\n- Magic Import: trova tutti i tuoi abbonamenti con la configurazione guidata\n- Importazione immediata: da screenshot, CSV o estratti conto\n- Costi nascosti in chiaro: la tua spesa annuale reale in un’unica vista\n- Fine delle prove in tempo: avvisi prima del passaggio a pagamento\n- Niente rinnovi a sorpresa: notifiche puntuali\n- Calendario visivo: tutte le scadenze a colpo d’occhio\n- Privacy prima di tutto: tutto resta sul tuo dispositivo\n\nOrbit rende la gestione degli abbonamenti chiara—e persino piacevole. Supporto per oltre 30 lingue e valute, design curato e funzioni che ti aiutano davvero a risparmiare.\n\nOrbit Plus\nAnnulla abbonamenti. Risparmia. Acquisto una tantum, nessun abbonamento.\n\nPrivacy Policy: https://flooben.com/privacypolicy\nTerms of Use: https://flooben.com/termsandconditions",
+  "release_notes": "- Novità: Orbit è pronto per iPhone Duo. Esplora i tuoi pagamenti ricorrenti con viste del calendario e degli abbonamenti a tutto schermo, progettate per sfruttare al meglio il display di Duo.\n- Novità su iOS 27: Controlla prezzi, date di rinnovo, pagamenti in arrivo e numero di abbonamenti nella lista Personale con Siri o Comandi Rapidi.\n- Novità su iOS 27: Trova e apri gli abbonamenti della lista Personale da Spotlight.\n- Novità su iOS 27: Usa Siri o Comandi Rapidi per aprire un abbonamento, il calendario dei pagamenti, Aggiungi abbonamento o Importazione magica.\n- Correzione: Da Modifica puoi anticipare la Data di pagamento di un abbonamento futuro, mantenendo sincronizzate la data di inizio e la Cronologia fatturazione.\n- Correzione: Ripristinando una Data di pagamento futura dopo aver visualizzato l’anteprima della Cronologia fatturazione, ora viene ripristinata anche la data di inizio originale.\n- Correzione: Quando sposti una Data di pagamento prevista per più tardi oggi, la vecchia data non rimane più visualizzata.\n- Correzione: L’ordinamento scelto nella schermata Home viene mantenuto dopo aver chiuso e riaperto Orbit.",
+  "version": "1.3",
+  "current_version_release_date": "2026-10-07T23:09:01Z",
+  "rating": 4.71717,
+  "rating_count": 99,
+  "minimum_os": "17.0",
+  "url": "https://apps.apple.com/it/app/abbonamenti-orbit/id6692620188?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/56/2a/68/562a68f0-9d4a-0f26-5704-1113e648a797/300976C1-4BB7-4805-88B0-C075B95EA85A-107.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/b5/7f/ab/b57fab95-596a-c233-7be1-455db3384972/38203483-CA96-49A2-91CA-04F9AAC07781-106.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/57/10/8e/57108ee2-659f-a59f-7148-08889a0e41f8/E5FAFEFD-2342-4168-B732-170096A14F24-105.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/de/ab/48/deab482a-c38b-7f9e-47cb-b3d3ed90c791/8FF4C469-3705-4E4D-BC2B-422281DB4BC0-104.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/f2/7b/0c/f27b0c71-48ac-e10c-d97c-0bc40096ea1a/619E05C9-7753-45D9-9CB9-A63B4D7919F5-103.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b7/0e/9d/b70e9d35-ba73-2352-8696-7e7db86eccad/D2263800-CEE4-427D-A27C-2E247609AAF9-102.png/320x480bb.jpg"
+  ]
+}

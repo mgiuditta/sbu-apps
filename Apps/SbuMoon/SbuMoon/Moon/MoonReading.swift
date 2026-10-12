@@ -1,6 +1,7 @@
 import Foundation
 
-/// What the screen shows for one instant: how lit the moon is, its phase, and the next four principal phases.
+/// What the screen shows for one instant: how lit the moon is, its phase, the next four principal
+/// phases, the moon's age and its distance.
 nonisolated struct MoonReading: Equatable, Sendable {
     /// The instant this reading is for.
     var date: Date
@@ -9,6 +10,10 @@ nonisolated struct MoonReading: Equatable, Sendable {
     var phase: MoonPhase
     /// The four principal phases strictly after `date`, in order: one of each.
     var upcomingPhases: [PhaseEvent]
+    /// Age of the moon: time since the last new moon at or before `date`.
+    var age: Duration
+    /// Distance between the centres of the Earth and the moon.
+    var distance: Measurement<UnitLength>
 
     /// Whether the moon is going from new to full: the next full moon comes before the next new one.
     var isWaxing: Bool {
@@ -25,8 +30,12 @@ nonisolated struct MoonReading: Equatable, Sendable {
         self.date = date
         illumination = MoonAstronomy.illuminatedFraction(at: date)
         phase = Self.phase(at: date, calendar: calendar)
-        // events(around:) spans two lunations after the date, so four always follow it.
-        upcomingPhases = Array(MoonAstronomy.events(around: date).filter { $0.date > date }.prefix(PrincipalPhase.allCases.count))
+        // events(around:) spans two lunations either side, so a new moon has always passed and four phases follow.
+        let events = MoonAstronomy.events(around: date)
+        upcomingPhases = Array(events.filter { $0.date > date }.prefix(PrincipalPhase.allCases.count))
+        let lastNewMoon = events.last { $0.phase == .new && $0.date <= date }?.date ?? date
+        age = .seconds(date.timeIntervalSince(lastNewMoon))
+        distance = Measurement(value: MoonDistance.kilometres(at: date), unit: .kilometers)
     }
 
     /// A principal phase names its whole calendar day; between two of them the moon is

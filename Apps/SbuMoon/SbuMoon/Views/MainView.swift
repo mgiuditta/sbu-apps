@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The tool screen: how lit the moon is as the figure, its phase, the next four phases,
-/// and the date shown.
+/// The tool screen: how lit the moon is as the figure, its phase, the moon drawn as it looks, the next four
+/// phases, its age and distance, and the date shown.
 struct MainView: View {
     let model: MoonModel
 
@@ -19,9 +19,10 @@ struct MainView: View {
                 format: .percent.precision(.fractionLength(0)),
                 context: reading.phase.name
             ) {
-                VStack(spacing: SbuTheme.space8) {
+                VStack(spacing: SbuTheme.space6) {
                     MoonDiscView(disc: reading.disc)
                     NextPhasesView(phases: reading.upcomingPhases)
+                    MoonDetailsView(age: reading.age, distance: reading.distance)
                 }
             } pills: {
                 DatePill(date: reading.date, isToday: model.isShowingToday) {

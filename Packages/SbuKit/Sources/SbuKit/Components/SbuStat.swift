@@ -2,8 +2,8 @@ import SwiftUI
 
 /// The central figure of an app: an uppercase caption, the number in `stat`, a context line.
 ///
-/// Use one per screen, near the top. Do not color the number: put any state in `context`
-/// as a word.
+/// Use one per management screen, near the top, never on the tool screen: there the figure
+/// goes in `SbuToolField`. Do not color the number: put any state in `context` as a word.
 public struct SbuStat: View {
     private let label: LocalizedStringKey
     /// The value already formatted for the current locale.

@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The one screen: the angle in an `SbuStat`, the bubble or edge indicator, and Calibra.
+/// The tool screen: the angle as the figure, the bubble or edge indicator, and Calibra.
 struct MainView: View {
     let model: LevelModel
 
@@ -18,24 +18,19 @@ struct MainView: View {
     }
 
     var body: some View {
-        VStack(spacing: SbuTheme.space8) {
-            SbuStat(
-                "Inclinazione",
-                value: model.reading.magnitude,
-                format: .number.precision(.fractionLength(1)),
-                unit: "°",
-                context: context
-            )
-
+        SbuToolField(
+            "Inclinazione",
+            value: model.reading.magnitude,
+            format: .number.precision(.fractionLength(1)),
+            unit: "°",
+            context: context
+        ) {
             LevelIndicator(reading: model.reading)
                 .frame(maxWidth: 320)
-
-            Spacer(minLength: 0)
-
+        } pills: {
             SbuButton("Calibra", action: model.calibrate)
                 .disabled(model.isMotionAvailable == false)
         }
-        .padding(SbuTheme.space4)
         .sensoryFeedback(.success, trigger: model.reading.isLevel) { _, isLevel in isLevel }
         .task {
             await model.run()
@@ -45,13 +40,15 @@ struct MainView: View {
 
 #Preview("Light") {
     MainView(model: LevelModel())
-        .background(SbuTheme.surface)
+        .background(SbuTheme.fieldLevel)
+        .environment(\.colorScheme, .dark)
         .tint(SbuTheme.accentLevel)
 }
 
 #Preview("Dark") {
     MainView(model: LevelModel())
-        .background(SbuTheme.surface)
+        .background(SbuTheme.fieldLevel)
+        .environment(\.colorScheme, .dark)
         .tint(SbuTheme.accentLevel)
         .preferredColorScheme(.dark)
 }

@@ -1315,6 +1315,39 @@
           }
         }
       }
+    },
+    "Minuti di consapevolezza" : {
+      "comment" : "Apple Health measure, as Health names it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mindful Minutes"
+          }
+        }
+      }
+    },
+    "Distanza camminata + corsa" : {
+      "comment" : "Apple Health measure, as Health names it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walking + Running Distance"
+          }
+        }
+      }
+    },
+    "Energia attiva" : {
+      "comment" : "Apple Health measure: active calories, as Health names it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active Energy"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

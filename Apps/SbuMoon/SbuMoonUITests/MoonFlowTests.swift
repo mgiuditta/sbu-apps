@@ -1,6 +1,6 @@
 import XCTest
 
-/// Drives the tool screen like a person would: read the moon, pick another day, go back to today.
+/// Drives the tool screen like a person would: read the moon, pick or swipe to another day, go back to today.
 /// Runs in Italian, so the simulator's language never matters.
 final class MoonFlowTests: XCTestCase {
     override func setUp() {
@@ -26,7 +26,9 @@ final class MoonFlowTests: XCTestCase {
 
         XCTAssertTrue(figure(in: app).waitForExistence(timeout: 5))
         XCTAssertTrue(figure(in: app).label.contains("%"), figure(in: app).label)
-        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Prossima luna piena'")).firstMatch.exists)
+        for phase in ["Luna nuova,", "Primo quarto,", "Luna piena,", "Ultimo quarto,", "Età della luna,", "Distanza dalla Terra,"] {
+            XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", phase)).firstMatch.exists, phase)
+        }
         XCTAssertFalse(app.buttons["today"].exists, "Oggi shows only on another day")
 
         // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,
@@ -60,6 +62,25 @@ final class MoonFlowTests: XCTestCase {
         today.tap()
 
         XCTAssertFalse(app.buttons["today"].waitForExistence(timeout: 2))
+        XCTAssertEqual(figure(in: app).label, todayFigure)
+    }
+
+    @MainActor
+    func testSwipingChangesTheDayAndBack() {
+        let app = launch()
+        let datePill = app.buttons["date"]
+        XCTAssertTrue(datePill.waitForExistence(timeout: 5))
+        let todayFigure = figure(in: app).label
+
+        app.swipeLeft()
+
+        XCTAssertTrue(app.buttons["today"].waitForExistence(timeout: 5), "A swipe to the left shows tomorrow")
+        XCTAssertNotEqual(datePill.label, "Oggi")
+
+        app.swipeRight()
+
+        XCTAssertFalse(app.buttons["today"].waitForExistence(timeout: 2), "A swipe to the right comes back to today")
+        XCTAssertEqual(datePill.label, "Oggi")
         XCTAssertEqual(figure(in: app).label, todayFigure)
     }
 }

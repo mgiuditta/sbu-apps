@@ -11,6 +11,16 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Date" } }
       }
     },
+    "Distanza dalla Terra" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Distance from Earth" } }
+      }
+    },
+    "Età della luna" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Moon age" } }
+      }
+    },
     "Fasi calcolate su questo iPhone con gli algoritmi di Jean Meeus, senza rete e senza posizione. Gli orari hanno un errore di qualche minuto." : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Phases worked out on this iPhone with Jean Meeus's algorithms, with no network and no location. Times are accurate to within a few minutes." } }
@@ -34,6 +44,16 @@
     "Gibbosa crescente" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Waxing gibbous" } }
+      }
+    },
+    "Giorno precedente" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous day" } }
+      }
+    },
+    "Giorno successivo" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next day" } }
       }
     },
     "Illuminazione" : {
@@ -69,16 +89,6 @@
     "Primo quarto" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "First quarter" } }
-      }
-    },
-    "Prossima luna nuova" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next new moon" } }
-      }
-    },
-    "Prossima luna piena" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next full moon" } }
       }
     },
     "Sbu Moon" : {

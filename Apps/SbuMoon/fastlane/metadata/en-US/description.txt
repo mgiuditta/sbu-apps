@@ -8,9 +8,10 @@ Data stays on your device.
 Open the app and you know what the moon looks like right now: how much of it is lit, whether it is waxing or waning, when the next full moon comes.
 
 - Illuminated percentage, one large readable figure
-- The phase's name and its symbol
-- Day and time of the next full moon and the next new moon
-- Any day from 1900 to 2100, from a calendar
+- The moon drawn as it looks, with its lit part and the phase's name
+- Day and time of the next four phases: new moon, first quarter, full moon, last quarter
+- The moon's age and its distance from Earth
+- Any day from 1900 to 2100: swipe for the day before or after, or pick it from a calendar
 - Worked out on your iPhone: no location, no network, no permissions
 - Light and dark mode, Dynamic Type, VoiceOver
 

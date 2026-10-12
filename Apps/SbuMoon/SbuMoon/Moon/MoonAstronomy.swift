@@ -45,14 +45,16 @@ nonisolated enum MoonAstronomy {
 
     // MARK: Illumination
 
+    /// Julian centuries of Terrestrial Time from J2000.0 at a date.
+    static func julianCenturies(at date: Date) -> Double {
+        let julianDay = julianDay(of: date)
+        return (julianDay + deltaT(julianDay: julianDay) / 86_400 - j2000) / 36_525
+    }
+
     /// Fraction of the moon's disc lit by the sun at a date, from 0 (new) to 1 (full).
     static func illuminatedFraction(at date: Date) -> Double {
-        let julianDay = julianDay(of: date)
-        let t = (julianDay + deltaT(julianDay: julianDay) / 86_400 - j2000) / 36_525
-        // Meeus 47.2, 47.3, 47.4: mean elongation, sun's and moon's mean anomaly, in degrees.
-        let d = 297.8501921 + 445_267.1114034 * t - 0.0018819 * t * t + pow(t, 3) / 545_868 - pow(t, 4) / 113_065_000
-        let m = 357.5291092 + 35_999.0502909 * t - 0.0001536 * t * t + pow(t, 3) / 24_490_000
-        let mPrime = 134.9633964 + 477_198.8675055 * t + 0.0087414 * t * t + pow(t, 3) / 69_699 - pow(t, 4) / 14_712_000
+        let a = LunarArguments(julianCenturies: julianCenturies(at: date))
+        let d = a.elongation, m = a.sunAnomaly, mPrime = a.moonAnomaly
         // Meeus 48.4: phase angle.
         let i = 180 - d
             - 6.289 * sine(mPrime)

@@ -5,6 +5,16 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Add the habits you want to build and hold one down when you do it. At the top you see your full streak: the days in a row you did everything.
 
-Sbu does one thing: __ONE_THING_EN__
+- As many habits as you want, no limits
+- Yes or no, or several times a day: 8 glasses of water
+- Every day, on chosen days, or N times a week
+- Skip today when you are ill, without losing your streak
+- Start of the day for night shifts
+- Reminders only on due days, and only if you have not done it yet
+- Interactive widget: mark from the Home Screen
+- Statistics with your best streak and the last 26 weeks
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it counts the days in a row you keep a habit.

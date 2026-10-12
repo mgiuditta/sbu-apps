@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// One habit's page: its Serie as the figure, the best one, and the last 26 weeks.
+/// One habit's page: its Serie as the figure, the best one, and its history.
 struct HabitDetailView: View {
     let model: HabitsModel
     let habit: Habit
@@ -24,7 +24,7 @@ struct HabitDetailView: View {
                     .listRowBackground(Color.clear)
             }
 
-            Section("Ultime 26 settimane") {
+            Section("Storico") {
                 HistoryGrid(habit: habit, today: model.today, firstWeekday: model.firstWeekday)
             }
         }

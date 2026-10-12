@@ -5,6 +5,16 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alto vedi la Serie piena: i giorni di fila in cui hai fatto tutto.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Tutte le abitudini che vuoi, senza limiti
+- Sì o no, oppure più volte al giorno: 8 bicchieri d'acqua
+- Ogni giorno, in giorni scelti, oppure N volte a settimana
+- Salta oggi quando sei malato, senza perdere la serie
+- Inizio della giornata per chi fa i turni di notte
+- Promemoria solo nei giorni previsti e solo se non l'hai ancora fatta
+- Widget interattivo: segni dalla schermata Home
+- Statistiche con la serie migliore e le ultime 26 settimane
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: conta i giorni di fila in cui mantieni un'abitudine.

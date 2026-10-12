@@ -15,6 +15,12 @@ nonisolated struct HabitsStore: Sendable {
         if let name = ProcessInfo.processInfo.environment["SBU_HABITS_FILE"] {
             return HabitsStore(url: .temporaryDirectory.appending(path: name))
         }
+        // fastlane snapshot shows three demo habits, never the user's own.
+        if UserDefaults.standard.bool(forKey: "FASTLANE_SNAPSHOT") {
+            let store = HabitsStore(url: .temporaryDirectory.appending(path: "snapshot.json"))
+            try? store.save(.demo(today: LogicalDay(.now)))
+            return store
+        }
         let folder = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) ?? .applicationSupportDirectory
         return HabitsStore(url: folder.appending(path: "habits.json"))
     }

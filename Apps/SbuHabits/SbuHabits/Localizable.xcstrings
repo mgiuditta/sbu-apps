@@ -910,6 +910,16 @@
         }
       }
     },
+    "Storico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        }
+      }
+    },
     "Strumento" : {
       "localizations" : {
         "en" : {
@@ -966,16 +976,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title"
-          }
-        }
-      }
-    },
-    "Ultime 26 settimane" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Last 26 weeks"
           }
         }
       }

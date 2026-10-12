@@ -1,12 +1,12 @@
 import SbuKit
 import SwiftUI
 
-/// The last 26 weeks of a habit, newest week first, one column per weekday.
+/// A habit's weeks since it began, up to the last 26, newest first, one column per weekday.
 ///
 /// Done is a filled accent circle with a checkmark, skipped a forward mark, missed an empty
 /// ring, and a day with nothing expected stays blank: state never rests on color alone.
 struct HistoryGrid: View {
-    private static let weeks = 26
+    static let maxWeeks = 26
 
     @Environment(\.calendar) private var calendar
 
@@ -20,7 +20,9 @@ struct HistoryGrid: View {
 
     private var days: [LogicalDay] {
         let thisWeek = today.weekStart(firstWeekday: firstWeekday)
-        return (0..<Self.weeks).flatMap { week in
+        let firstWeek = habit.createdOn.weekStart(firstWeekday: firstWeekday)
+        let weeks = min((thisWeek.ordinal - firstWeek.ordinal) / 7 + 1, Self.maxWeeks)
+        return (0..<weeks).flatMap { week in
             (0..<7).map { thisWeek - week * 7 + $0 }
         }
     }

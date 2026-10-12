@@ -33,7 +33,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Habits
-        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.healthcare-fitness
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait

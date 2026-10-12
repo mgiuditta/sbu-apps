@@ -14,7 +14,7 @@ interface TextPage {
 }
 
 /** Support address, not decided yet: the contact paragraph appears only once it is set. */
-const SUPPORT_EMAIL: string | undefined = undefined;
+const SUPPORT_EMAIL: string | undefined = 'matteogiuditta@gmail.com';
 
 const principles: Record<Locale, TextPage> = {
   it: {

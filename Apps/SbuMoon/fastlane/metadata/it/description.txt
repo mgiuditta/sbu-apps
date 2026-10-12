@@ -1,0 +1,17 @@
+Nessun abbonamento.
+Nessun acquisto in-app.
+Nessun account.
+Nessuna pubblicità.
+Nessun tracking.
+Dati solo sul dispositivo.
+
+Apri l'app e sai com'è la luna adesso: quanta parte è illuminata, se cresce o cala, quando arriva la prossima luna piena.
+
+- Percentuale illuminata, una cifra grande e leggibile
+- Nome della fase e il suo simbolo
+- Giorno e ora della prossima luna piena e della prossima luna nuova
+- Qualsiasi giorno dal 1900 al 2100, da un calendario
+- Calcolata sull'iPhone: niente posizione, niente rete, nessun permesso
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: ti dice com'è la luna.

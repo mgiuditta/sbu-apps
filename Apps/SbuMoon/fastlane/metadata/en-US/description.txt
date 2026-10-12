@@ -1,0 +1,17 @@
+No subscription.
+No in-app purchases.
+No account.
+No ads.
+No tracking.
+Data stays on your device.
+
+Open the app and you know what the moon looks like right now: how much of it is lit, whether it is waxing or waning, when the next full moon comes.
+
+- Illuminated percentage, one large readable figure
+- The phase's name and its symbol
+- Day and time of the next full moon and the next new moon
+- Any day from 1900 to 2100, from a calendar
+- Worked out on your iPhone: no location, no network, no permissions
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it tells you what the moon looks like.

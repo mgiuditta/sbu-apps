@@ -1,0 +1,29 @@
+{
+  "id": "1104649303",
+  "name": "My Moon Phase Pro - Alerts",
+  "developer": "JRustonApps B.V.",
+  "bundle_id": "com.jrustonapps.My-Moon-Phase-Pro",
+  "store_country": "it",
+  "ranks": {},
+  "price": 3.99,
+  "formatted_price": "3,99 €",
+  "currency": "EUR",
+  "genre": "Weather",
+  "genres": [
+    "Meteorologia",
+    "Viaggi"
+  ],
+  "description": "My Moon Phase Pro è la migliore app per tracciare il calendario lunare. Ha un elegante design scuro che semplifica la visualizzazione di informazioni quali l'attuale ciclo lunare, i periodi di sorgere e tramonto della luna, nonché extra come quando sarà la prossima luna piena. Se sei interessato alla fotografia lunare, puoi anche scoprire quando sono le ore d'oro e quelle blu in modo da poter scattare le foto più belle.\n\n- Visualizza il ciclo lunare per qualsiasi data futura scorrendo sulla barra della data o toccando il pulsante del calendario!\n- Consenti all'app di utilizzare la posizione corrente o seleziona manualmente una posizione a tua scelta da utilizzare!\n- Guarda quanto dovrebbe essere nuvoloso il cielo nei prossimi giorni in modo da poter capire se sarai in grado di vedere la luna o no!\n- Trova le fasi lunari imminenti direttamente nella schermata principale: saprai immediatamente quando ci sarà la luna piena, la luna nuova, il primo e l'ultimo quarto successivi.\n- Le ore d'oro e blu sono disponibili per consentire di calcolare quando scattare foto.\n- Sono disponibili informazioni più specifiche come la distanza della luna dalla Terra, l'età della luna e l'altitudine attuale. Questo è disponibile per qualsiasi data sul calendario lunare.\n- Ricevi notifiche quando la luna raggiunge una particolare fase di tua scelta.\n\nSe vuoi il modo più efficiente per tenere il passo con il calendario lunare e le fasi lunari attuali, My Moon Phase Pro è l'app giusta per te.",
+  "release_notes": "- Il design dell'app è stato migliorato.\n- Supporto per iPhone Duo.",
+  "version": "26.6.0",
+  "current_version_release_date": "2026-10-12T18:11:52Z",
+  "rating": 4.88571,
+  "rating_count": 35,
+  "minimum_os": "17.0",
+  "url": "https://apps.apple.com/it/app/my-moon-phase-pro-alerts/id1104649303?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/75/4e/ee/754eee6a-64bd-85fd-bc5d-18869960da35/73f1aeb3-9f93-473b-a2eb-4965d813b0a2_Simulator_Screenshot_-_iPhone_6s_Plus_-_2024-02-29_at_10.26.11.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d6/96/5c/d6965cc0-f1f6-f1a7-1f4a-6685e574a420/8628538c-f39c-49e2-8f76-529ccf0f8386_Simulator_Screenshot_-_iPhone_6s_Plus_-_2024-02-29_at_10.26.15.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/38/14/6d/38146d11-be96-9c86-c6ab-55cdf9f2703b/b71decbb-cde6-4341-b8de-eb84c8b1efd3_Simulator_Screenshot_-_iPhone_8_Plus_-_2024-04-09_at_14.15.49.png/392x696bb.png"
+  ]
+}

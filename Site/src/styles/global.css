@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Bricolage Grotesque is for marketing only: allowed on the site, never in an app. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../../../Design/fonts/BricolageGrotesque-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    background: var(--sbu-surface);
+    color: var(--sbu-ink);
+    font-family: var(--font-sans);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  a {
+    color: var(--sbu-brand);
+    text-underline-offset: var(--spacing-1);
+  }
+
+  :focus-visible {
+    outline: var(--sbu-hairline) solid var(--sbu-focus);
+    outline-width: calc(var(--sbu-hairline) * 2);
+    outline-offset: calc(var(--sbu-hairline) * 2);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+}
+
+@layer components {
+  /* Reading measure: the design system has no layout width token, so the column follows the text. */
+  .page {
+    max-width: 70ch;
+    margin-inline: auto;
+    padding-inline: var(--spacing-4);
+  }
+
+  .prose > * + * { margin-top: var(--spacing-4); }
+  .prose h2 {
+    margin-top: var(--spacing-8);
+    font-size: var(--text-title-2);
+    line-height: var(--text-title-2--line-height);
+    font-weight: var(--text-title-2--font-weight);
+  }
+  .prose ul { list-style: disc; padding-left: var(--spacing-6); }
+}

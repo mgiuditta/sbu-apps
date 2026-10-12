@@ -1,0 +1,57 @@
+---
+import AppTile from '../components/AppTile.astro';
+import PromiseChips from '../components/PromiseChips.astro';
+import Base from '../layouts/Base.astro';
+import mark from '../../../Design/logos/sbu-mark.svg?url';
+import { localePath, ui } from '../i18n';
+import type { Route } from '../lib/routes';
+
+type Props = Route;
+const { locale, path, alternates, apps } = Astro.props;
+const t = ui[locale];
+const copy = {
+  it: {
+    title: 'sbu.dev · App per iPhone gratuite che fanno una cosa sola',
+    hero: 'Una cosa sola.',
+    lead: 'App gratuite per iPhone. Ognuna rifà una sola app a pagamento dell’App Store e fa solo quel lavoro.',
+    apps: 'Le app',
+    oneThing: 'Sbu fa una cosa sola',
+    oneThingText: 'Ogni app ha un compito e nient’altro. Non ti chiede di pagare, di registrarti o di guardare pubblicità. Quello che salvi resta sul tuo iPhone.',
+    principles: 'Leggi i principi',
+  },
+  en: {
+    title: 'sbu.dev · Free iPhone apps that each do one thing',
+    hero: 'One thing only.',
+    lead: 'Free iPhone apps. Each one remakes a single paid App Store app and does only that job.',
+    apps: 'Apps',
+    oneThing: 'Sbu does one thing',
+    oneThingText: 'Each app has one job and nothing else. It never asks you to pay, sign up or watch ads. What you save stays on your iPhone.',
+    principles: 'Read the principles',
+  },
+}[locale];
+const site = Astro.site!.href;
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'Organization', name: 'sbu.dev', url: site, logo: new URL(mark, site).href },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription },
+];
+---
+<Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd}>
+  <section class="flex flex-col gap-6 py-12">
+    <h1 class="font-display text-display-hero">{copy.hero}</h1>
+    <p class="text-body text-ink-muted">{copy.lead}</p>
+    <PromiseChips promises={t.promises} label={t.promisesLabel} />
+  </section>
+
+  <section id="app" aria-labelledby="apps-title" class="flex flex-col gap-4">
+    <h2 id="apps-title" class="text-title-2">{copy.apps}</h2>
+    <ul class="divide-y divide-line overflow-hidden rounded-lg bg-surface-raised">
+      {apps.map((app) => <li><AppTile app={app} locale={locale} /></li>)}
+    </ul>
+  </section>
+
+  <section aria-labelledby="one-thing-title" class="flex flex-col gap-4 pt-12">
+    <h2 id="one-thing-title" class="font-display text-display-title">{copy.oneThing}</h2>
+    <p class="text-body text-ink-muted">{copy.oneThingText}</p>
+    <p><a href={localePath(locale, 'principi')}>{copy.principles}</a></p>
+  </section>
+</Base>

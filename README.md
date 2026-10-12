@@ -7,6 +7,7 @@ Design/            design system snapshot: tokens.json, icons, logos, fonts
 Packages/SbuKit/   SwiftUI package: SbuTheme tokens, components, app shell
 Apps/Sbu<Name>/    one XcodeGen project per app, with fastlane
 Tools/             discover, spec, icons, token sync, new app scaffold
+Site/              sbu.dev: Astro + Tailwind, app text read from each app's fastlane metadata
 .claude/skills/    Swift agent skills to load before writing Swift (see CLAUDE.md)
 ```
 
@@ -40,11 +41,11 @@ Between 3 and 4 you write the app: start from `MainView.swift`, put strings in `
 
 | | |
 |---|---|
-| `sync_tokens.py` | Regenerates SbuKit colors (asset catalog, light/dark) and metrics from `Design/tokens.json`. CI fails if they drift. |
+| `sync_tokens.py` | Regenerates SbuKit colors (asset catalog, light/dark), metrics and `Site/src/styles/tokens.css` from `Design/tokens.json`. CI fails if they drift. |
 | `make_icons.py` | `{name, accent, glyph}` → `Design/icons/sbu-<name>.svg` (rx 230) and a 1024 PNG without alpha for `AppIcon.appiconset`. Warns if the glyph leaves the 560 box. |
 | `discover.py` | Top-paid charts (Apple marketing RSS) + iTunes Lookup: description, screenshots, price, release notes, genre. |
 | `spec.py` | Claude (`claude-opus-5-5`, vision, structured output) → `features[]`, `screens[]`, `flows[]`, `data_model`, `monetization`, `user_pains[]`. |
-| `new_app.sh` | Scaffolds `Apps/Sbu<Name>` from `Tools/templates/app`. |
+| `new_app.sh` | Scaffolds `Apps/Sbu<Name>` from `Tools/templates/app` and its site entry `Site/src/content/apps/<name>.md`. |
 
 Specs come only from public App Store data. Nothing here decompiles or extracts assets from other apps.
 
@@ -54,3 +55,7 @@ Specs come only from public App Store data. Nothing here decompiles or extracts 
 |---|---|---|
 | [Sbu Level](Apps/SbuLevel) | `accent-level` | Clinometer + bubble level |
 | [Sbu Habits](Apps/SbuHabits) | `accent-habits` | Streaks |
+
+## Site
+
+`cd Site && npm install && npm run dev`. Pages are built from `src/content/apps/*.md` (accent, store id, Originale, FAQ) joined with `Apps/*/fastlane/metadata/{it,en-US}` (name, subtitle, description). Set `status: live` and `appStoreId` when an app is on the App Store; its `alternatives/<it|en>/<originale>.md` page is built only then and with `draft: false`. `SBU_DRAFTS=1 npm run build` builds drafts too. Strategy in `docs/marketing/`.

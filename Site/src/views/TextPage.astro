@@ -1,0 +1,36 @@
+---
+// Principi, Supporto, Privacy: plain text pages. Copy lives in ../lib/pages.ts.
+import Base from '../layouts/Base.astro';
+import { text, type App } from '../lib/apps';
+import { breadcrumbs, faqPage } from '../lib/jsonld';
+import { pages } from '../lib/pages';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { app?: App };
+const { locale, path, alternates, view, app } = Astro.props;
+const name = app ? text(app, locale).name : undefined;
+const page = pages[view as keyof typeof pages](locale, name, app?.permissions[locale] ?? []);
+const site = Astro.site!;
+const jsonLd = [
+  breadcrumbs(site, locale, [['sbu.dev', ''], [page.title, path]]),
+  ...(page.faq?.length ? [faqPage(page.faq)] : []),
+];
+---
+<Base locale={locale} path={path} alternates={alternates} title={`${page.title} · sbu.dev`} description={page.description} jsonLd={jsonLd}>
+  <article class="prose py-8">
+    <h1 class="text-large-title">{page.title}</h1>
+    {page.sections.map((section) => (
+      <>
+        {section.heading && <h2>{section.heading}</h2>}
+        {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+        {section.list && <ul>{section.list.map((item) => <li>{item}</li>)}</ul>}
+      </>
+    ))}
+    {page.faq?.map((item) => (
+      <>
+        <h2>{item.q}</h2>
+        <p>{item.a}</p>
+      </>
+    ))}
+  </article>
+</Base>

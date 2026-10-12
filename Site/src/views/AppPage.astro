@@ -1,0 +1,87 @@
+---
+import FreeBadge from '../components/FreeBadge.astro';
+import ToolFieldShot from '../components/ToolFieldShot.astro';
+import Base from '../layouts/Base.astro';
+import { capitalize, localePath, ui } from '../i18n';
+import { text, type App } from '../lib/apps';
+import { breadcrumbs, faqPage } from '../lib/jsonld';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { app: App };
+const { locale, path, alternates, app, alternatives } = Astro.props;
+const t = ui[locale];
+const listing = text(app, locale);
+const faq = app.faq[locale];
+const alternative = alternatives.find((entry) => entry.app.slug === app.slug && entry.locale === locale);
+const site = Astro.site!;
+const url = new URL(localePath(locale, path), site).href;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: listing.name,
+    description: `${capitalize(listing.oneThing)}.`,
+    url,
+    image: new URL(app.icon, site).href,
+    operatingSystem: 'iOS 17',
+    applicationCategory: app.category,
+    inLanguage: ['it', 'en'],
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+    ...(app.storeUrl && { downloadUrl: app.storeUrl, installUrl: app.storeUrl }),
+  },
+  breadcrumbs(site, locale, [[t.nav.apps, ''], [listing.name, path]]),
+  ...(faq.length ? [faqPage(faq)] : []),
+];
+---
+<Base
+  locale={locale}
+  path={path}
+  alternates={alternates}
+  title={`${listing.name}: ${listing.subtitle} · sbu.dev`}
+  description={`${listing.name} ${listing.oneThing}. ${t.metaSuffix}`}
+  image={app.iconPng}
+  jsonLd={jsonLd}
+>
+  <article class="flex flex-col gap-8 py-8">
+    <header class="flex flex-col gap-4">
+      <img src={app.icon} alt="" width="96" height="96" class="size-[calc(var(--spacing-12)*2)]" />
+      <h1 class="text-large-title">{listing.name}</h1>
+      <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
+      {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
+      {app.storeUrl ? (
+        <p><a href={app.storeUrl} class="inline-block rounded-lg bg-ink px-6 py-3 text-headline text-surface no-underline">{t.appStore}</a></p>
+      ) : (
+        <p class="text-caption uppercase text-ink-muted">{t.comingSoon}</p>
+      )}
+      <p class="text-footnote text-ink-muted">{t.requires}</p>
+      <FreeBadge locale={locale} />
+    </header>
+
+    <ToolFieldShot app={app} locale={locale} />
+
+    <section aria-labelledby="features" class="flex flex-col gap-4">
+      <h2 id="features" class="text-title-2">{t.features}</h2>
+      <ul class="divide-y divide-line rounded-lg bg-surface-raised">
+        {listing.features.map((feature) => <li class="px-4 py-3">{feature}</li>)}
+      </ul>
+    </section>
+
+    {faq.length > 0 && (
+      <section aria-labelledby="faq" class="flex flex-col gap-4">
+        <h2 id="faq" class="text-title-2">{t.faq}</h2>
+        {faq.map((item) => (
+          <div class="flex flex-col gap-1">
+            <h3 class="text-headline">{item.q}</h3>
+            <p class="text-ink-muted">{item.a}</p>
+          </div>
+        ))}
+      </section>
+    )}
+
+    <ul class="flex flex-col gap-2">
+      {alternative && <li><a href={localePath(locale, `alternatives/${alternative.slug}`)}>{t.alternativeLink(app.originale?.name ?? '')}</a></li>}
+      <li><a href={localePath(locale, `privacy/${app.slug}`)}>{t.privacyLink(listing.name)}</a></li>
+    </ul>
+  </article>
+</Base>

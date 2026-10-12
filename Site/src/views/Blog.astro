@@ -1,0 +1,49 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { formatDate, localePath, ui } from '../i18n';
+import type { Post } from '../lib/apps';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { posts?: Post[]; post?: Post };
+const { locale, path, alternates, posts = [], post } = Astro.props;
+const t = ui[locale];
+const rendered = post ? await render(post) : undefined;
+const Content = rendered?.Content;
+const description = locale === 'it' ? 'Come nascono le app Sbu.' : 'How Sbu apps are made.';
+const jsonLd = post
+  ? [{
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.data.title,
+      description: post.data.description,
+      datePublished: post.data.date.toISOString(),
+      inLanguage: locale,
+      author: { '@type': 'Organization', name: 'sbu.dev' },
+    }]
+  : [];
+---
+{post && Content ? (
+  <Base locale={locale} path={path} alternates={alternates} title={`${post.data.title} · sbu.dev`} description={post.data.description} jsonLd={jsonLd}>
+    <article class="prose py-8">
+      <h1 class="text-large-title">{post.data.title}</h1>
+      <p class="text-footnote text-ink-muted"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time></p>
+      <Content />
+    </article>
+  </Base>
+) : (
+  <Base locale={locale} path={path} alternates={alternates} title={`${t.nav.blog} · sbu.dev`} description={description}>
+    <section class="flex flex-col gap-6 py-8">
+      <h1 class="text-large-title">{t.nav.blog}</h1>
+      <ul class="flex flex-col gap-4">
+        {posts.map((entry) => (
+          <li class="flex flex-col gap-1">
+            <a href={localePath(locale, `blog/${entry.id.split('/')[1]}`)} class="text-headline">{entry.data.title}</a>
+            <p class="text-ink-muted">{entry.data.description}</p>
+            <p class="text-footnote text-ink-muted"><time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, locale)}</time></p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </Base>
+)}

@@ -1,0 +1,28 @@
+---
+// Every page of the site, in both locales, generated from content (see src/lib/routes.ts).
+import AlternativePage from '../views/AlternativePage.astro';
+import AppPage from '../views/AppPage.astro';
+import Blog from '../views/Blog.astro';
+import Home from '../views/Home.astro';
+import TextPage from '../views/TextPage.astro';
+import { routes, urlParam, type Route } from '../lib/routes';
+
+export async function getStaticPaths() {
+  return (await routes()).map((route) => ({ params: { path: urlParam(route) }, props: route }));
+}
+
+const route = Astro.props as Route;
+const views = {
+  home: Home,
+  app: AppPage,
+  alternative: AlternativePage,
+  principles: TextPage,
+  support: TextPage,
+  privacy: TextPage,
+  appPrivacy: TextPage,
+  blog: Blog,
+  post: Blog,
+};
+const View = views[route.view];
+---
+<View {...route} />

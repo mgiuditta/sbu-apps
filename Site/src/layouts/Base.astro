@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import mark from '../../../Design/logos/sbu-mark.svg?url';
+import { localePath, ui, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** Locale-neutral path: '' or 'apps/level'. */
+  path: string;
+  alternates: Locale[];
+  title: string;
+  description: string;
+  jsonLd?: object[];
+  image?: string;
+  noindex?: boolean;
+}
+
+const { locale, path, alternates, title, description, jsonLd = [], image, noindex = false } = Astro.props;
+const t = ui[locale];
+const site = Astro.site!;
+const absolute = (target: Locale) => new URL(localePath(target, path), site).href;
+const other = t.otherLocale.lang as Locale;
+const ogLocale = { it: 'it_IT', en: 'en_US' };
+const nav = [
+  { href: localePath(locale, ''), label: t.nav.apps },
+  { href: localePath(locale, 'principi'), label: t.nav.principles },
+  { href: localePath(locale, 'support'), label: t.nav.support },
+];
+const footer = [
+  { href: localePath(locale, 'principi'), label: t.nav.principles },
+  { href: localePath(locale, 'support'), label: t.nav.support },
+  { href: localePath(locale, 'privacy'), label: t.nav.privacy },
+  { href: localePath(locale, 'blog'), label: t.nav.blog },
+];
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={absolute(locale)} />}
+    {!noindex && alternates.map((alt) => <link rel="alternate" hreflang={alt} href={absolute(alt)} />)}
+    {!noindex && alternates.includes('it') && <link rel="alternate" hreflang="x-default" href={absolute('it')} />}
+    <link rel="icon" href={mark} type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="sbu.dev" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={absolute(locale)} />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    {alternates.filter((alt) => alt !== locale).map((alt) => <meta property="og:locale:alternate" content={ogLocale[alt]} />)}
+    {image && <meta property="og:image" content={new URL(image, site).href} />}
+    <meta name="twitter:card" content="summary" />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </head>
+  <body class="min-h-dvh bg-surface text-ink">
+    <a href="#main" class="sr-only focus:not-sr-only">{t.skip}</a>
+    <header class="page flex flex-wrap items-center justify-between gap-4 py-4">
+      <a href={localePath(locale, '')} class="flex items-center gap-2 text-headline text-ink no-underline">
+        <img src={mark} alt="" width="32" height="32" class="size-8" />
+        sbu.dev
+      </a>
+      <nav aria-label={t.navLabel}>
+        <ul class="flex flex-wrap items-center gap-4 text-subheadline">
+          {nav.map((item) => <li><a href={item.href} class="text-ink no-underline hover:underline">{item.label}</a></li>)}
+          {alternates.includes(other) && (
+            <li><a href={localePath(other, path)} hreflang={other} lang={other} class="text-ink-muted">{t.otherLocale.label}</a></li>
+          )}
+        </ul>
+      </nav>
+    </header>
+    <main id="main" class="page pb-12">
+      <slot />
+    </main>
+    <footer class="border-t border-line">
+      <div class="page flex flex-col gap-2 py-8 text-footnote text-ink-muted">
+        <ul class="flex flex-wrap gap-4">
+          {footer.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+        <p>{t.footerNote}</p>
+      </div>
+    </footer>
+  </body>
+</html>

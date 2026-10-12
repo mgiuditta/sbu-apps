@@ -1,0 +1,16 @@
+---
+// The promises as pills with a `success` dot: always next to their words, never color alone.
+interface Props {
+  promises: readonly string[];
+  label: string;
+}
+const { promises, label } = Astro.props;
+---
+<ul aria-label={label} class="flex flex-wrap gap-2">
+  {promises.map((promise) => (
+    <li class="flex items-center gap-1 rounded-pill bg-surface-raised px-3 py-1 text-footnote font-[var(--text-caption--font-weight)] text-ink">
+      <span aria-hidden="true" class="size-2 rounded-pill bg-success"></span>
+      {promise}
+    </li>
+  ))}
+</ul>

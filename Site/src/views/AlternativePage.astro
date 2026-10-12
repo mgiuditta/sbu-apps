@@ -1,0 +1,59 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { formatDate, localePath, ui } from '../i18n';
+import { text, type Alternative } from '../lib/apps';
+import { breadcrumbs, faqPage } from '../lib/jsonld';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { alternative: Alternative };
+const { locale, path, alternates, alternative, apps } = Astro.props;
+const { entry, app } = alternative;
+const t = ui[locale];
+const listing = text(app, locale);
+const { Content } = await render(entry);
+const others = apps.filter((other) => other.slug !== app.slug && other.status === 'live').slice(0, 2);
+const site = Astro.site!;
+const jsonLd = [
+  breadcrumbs(site, locale, [[t.nav.apps, ''], [listing.name, `apps/${app.slug}`], [entry.data.title, path]]),
+  ...(entry.data.faq.length ? [faqPage(entry.data.faq)] : []),
+];
+---
+<Base locale={locale} path={path} alternates={alternates} title={`${entry.data.title} · sbu.dev`} description={entry.data.description} image={app.iconPng} jsonLd={jsonLd}>
+  <article class="flex flex-col gap-8 py-8">
+    <h1 class="text-large-title">{entry.data.title}</h1>
+    <div class="prose"><Content /></div>
+
+    <table class="w-full overflow-hidden rounded-lg bg-surface-raised text-left">
+      <thead class="text-caption uppercase text-ink-muted">
+        <tr><th scope="col" class="px-4 py-3"></th><th scope="col" class="px-4 py-3">{app.originale?.name}</th><th scope="col" class="px-4 py-3">{listing.name}</th></tr>
+      </thead>
+      <tbody class="divide-y divide-line">
+        {entry.data.facts.map((fact) => (
+          <tr><th scope="row" class="px-4 py-3 font-[var(--text-body--font-weight)] text-ink-muted">{fact.label}</th><td class="px-4 py-3">{fact.originale}</td><td class="px-4 py-3">{fact.sbu}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="text-footnote text-ink-muted">{t.checked(formatDate(entry.data.checked, locale))}</p>
+
+    <p><a href={localePath(locale, `apps/${app.slug}`)}>{t.backToApp(listing.name)}</a></p>
+
+    {entry.data.faq.length > 0 && (
+      <section aria-labelledby="faq" class="flex flex-col gap-4">
+        <h2 id="faq" class="text-title-2">{t.faq}</h2>
+        {entry.data.faq.map((item) => (
+          <div class="flex flex-col gap-1">
+            <h3 class="text-headline">{item.q}</h3>
+            <p class="text-ink-muted">{item.a}</p>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {others.length > 0 && (
+      <ul class="flex flex-col gap-2">
+        {others.map((other) => <li><a href={localePath(locale, `apps/${other.slug}`)}>{text(other, locale).name}</a></li>)}
+      </ul>
+    )}
+  </article>
+</Base>

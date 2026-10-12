@@ -7,7 +7,8 @@
 #   glyph         a make_icons.py preset (level, noise, ...) or SVG elements in 1024 coordinates
 #
 # Creates Apps/Sbu<Name> (XcodeGen project, bundle id dev.sbu.<name>, SbuKit dependency,
-# generated icon, fastlane lanes test/snapshot/frameit/beta/release) and generates the Xcode project.
+# generated icon, fastlane lanes test/snapshot/frameit/beta/release), the site entry Site/src/content/apps/<name>.md,
+# and generates the Xcode project.
 set -euo pipefail
 
 if [[ $# -ne 3 ]]; then
@@ -70,10 +71,32 @@ rm -rf "$tmp"
 
 (cd "$dest" && xcodegen generate --quiet)
 
+# Site page: only what the fastlane listing doesn't say. The site skips the app until the listing is filled in.
+site_app="$root/Site/src/content/apps/$lower.md"
+if [[ ! -e $site_app ]]; then
+  order=$(( $(cat "$root"/Site/src/content/apps/*.md 2>/dev/null | sed -n 's/^order: //p' | sort -n | tail -1) + 1 ))
+  cat > "$site_app" <<EOF
+---
+# Name, subtitle, description and features come from Apps/Sbu$name/fastlane/metadata. Do not repeat them here.
+app: Sbu$name
+accent: $accent
+order: $order
+status: building
+appStoreId: null
+category: UtilitiesApplication
+# originale: { name: <Originale>, appStoreId: <id> }
+# figure:
+#   it: { value: "<Cifra>", label: <etichetta> }
+#   en: { value: "<figure>", label: <label> }
+---
+EOF
+fi
+
 cat <<EOF
 Created Apps/Sbu$name (dev.sbu.$lower, $accent).
 Next:
   1. Write the app in Apps/Sbu$name/Sbu$name (start from MainView.swift), strings in Localizable.xcstrings.
   2. Fill fastlane/metadata/{it,en-US}: subtitle and the __FEATURES__/__ONE_THING__ placeholders.
   3. cd Apps/Sbu$name && fastlane test
+  4. Site/src/content/apps/$lower.md: Originale, Cifra, FAQ; then cd Site && npm run build
 EOF

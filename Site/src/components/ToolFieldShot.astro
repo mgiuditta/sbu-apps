@@ -1,0 +1,21 @@
+---
+// A still of the Schermata strumento: the app's `field-*` color with its Cifra, like SbuToolField.
+import Stat from './Stat.astro';
+import { ui, type Locale } from '../i18n';
+import { text, type App } from '../lib/apps';
+
+interface Props {
+  app: App;
+  locale: Locale;
+}
+const { app, locale } = Astro.props;
+const figure = app.figure?.[locale];
+---
+{figure && (
+  <figure class="flex flex-col gap-2">
+    <div class="flex justify-center rounded-xl px-6 py-12" style={`background: var(--sbu-${app.field})`}>
+      <Stat value={figure.value} label={figure.label} onField />
+    </div>
+    <figcaption class="text-footnote text-ink-muted">{ui[locale].shotCaption(text(app, locale).name)}</figcaption>
+  </figure>
+)}

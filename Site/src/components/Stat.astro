@@ -1,0 +1,13 @@
+---
+// The Cifra: one per page, monospaced digits. On a field it is `on-field` at stat-hero size.
+interface Props {
+  value: string;
+  label: string;
+  onField?: boolean;
+}
+const { value, label, onField = false } = Astro.props;
+---
+<p class="flex flex-col items-center gap-1">
+  <span class:list={['text-caption uppercase', onField ? 'text-on-field-muted' : 'text-ink-muted']}>{label}</span>
+  <span class:list={['font-mono tabular-nums', onField ? 'text-stat-hero text-on-field' : 'text-stat text-ink']}>{value}</span>
+</p>

@@ -1,0 +1,11 @@
+---
+// Same four promises as SbuFreeBadge(.pills) in the apps and the App Store screenshots.
+import PromiseChips from './PromiseChips.astro';
+import { ui, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const t = ui[Astro.props.locale];
+---
+<PromiseChips promises={t.freeBadge} label={t.promisesLabel} />

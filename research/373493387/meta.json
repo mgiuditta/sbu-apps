@@ -4,10 +4,7 @@
   "developer": "Anki Software, LLC",
   "bundle_id": "net.ichi2.anki",
   "store_country": "it",
-  "ranks": {
-    "it": 8,
-    "us": 3
-  },
+  "ranks": {},
   "price": 29.99,
   "formatted_price": "29,99 €",
   "currency": "EUR",

@@ -1,0 +1,31 @@
+{
+  "id": "286215117",
+  "name": "Clinometer + bubble level",
+  "developer": "Peter Breitling",
+  "bundle_id": "com.yourcompany.Clinometer",
+  "store_country": "it",
+  "ranks": {},
+  "price": 1.99,
+  "formatted_price": "1,99 €",
+  "currency": "EUR",
+  "genre": "Utilities",
+  "genres": [
+    "Utility",
+    "Produttività"
+  ],
+  "description": "This professional tool called Clinometer is the most precise (all you can get with some calculations) slope measurement tool for the iPhone, iPod Touch and iPad using all sides of the device plus the camera. It can be used for simple applications like aligning a frame as well as for more sophisticated fields of applications where an arbitrary slope needs to be measured exactly. Read the reviews (and write your own) for all the applications you find! Thank for all your positive feedback! Please use our support link if you have questions and suggestions, we don't read the iTunes reviews every day!\n\nWith this tool, the slope can be measured by all edges of the device and through the camera. The current features include:\n\n◆ 3 Modes (incl. auto switching): Clinometer mode (auto when holding upright), Camera mode (any direction, manual activation) and Bubble level (smoothly fading in when holding flat).\n\n◆ Relative angles: Besides measuring absolute angles, for every mode you can measure the relative angle between device positions\n\n◆ Advanced two way calibration on all sides: For every 4 sides plus the bubble mode you can calibrate in two steps, which allows you to calibrate exactly even on non-level surfaces. Each direction can be calibrated individually to achieve the optimal precision. \n\n◆ Speech synthesis: The device will speak the current reading, so you don't have to watch the display while measuring/aligning your object.\n\n◆ Five different unit modes: The device can display the slope in degrees (rounded or in tenth of degrees), percentage, rise over run (common for roof slope measurement in :12) and 1V:H (common in engineering)\n\n◆ Dial Rotation: You can smoothly rotate the background dial and thus define which side of the device represents 0° and 90° degrees. \n\n◆ Motion-sensitive Lock feature: Besides the common instant simple tap hold mechanism you can activate the motion-sensitive lock. If activated the device waits for the final lock until you hold your device steady enough for at least 2 seconds. You can set the lock sensitivity between 0.1° and 1.0° degrees. \n\n◆ Peer Mode: Use two devices to measure angles: One as a display, the other as the measurement device that can be attached to the hardware you want to align. \n\n◆ Fullscreen Mode: The full screen mode can be toggled by tapping the center of the screen and by the upper and lower arrows in the center. This prevents you from erroneous inputs while measuring.\n\n◆ Different color schemes: Press the S/C Button to instantly switch the color. The color can be selected differently for the bubble and the clinometer mode. The predefined color sets include day and night color schemes (Black on White, White on Black and Red). \n\n◆ Adjustable Auto-Lock: You can prevent the device from turning into the sleep mode. \n\nAccording to wikipedia: An inclinometer or clinometer is an instrument for measuring angles of slope (or tilt), elevation or inclination of an object with respect to gravity. It is also known as a tilt meter, tilt indicator, slope alert, slope gauge, gradient meter, gradiometer, level gauge, level meter, declinometer, and pitch & roll indicator. \n\nFor recreational use only. After the calibration it CAN (!) be very accurate especially for the main axis after calibration. The measurement is performed as well as possible (we try our best) by using the three inbuilt accelerometers. \n\nTHANK YOU FOR YOUR SUPPORT! \n\nWe will improve the application long-term. This was the first application of this kind shortly after the opening of the App Store. Since then it is continuously updated and enriched with new features.",
+  "release_notes": "Quest’app è stata aggiornata da Apple per renderla compatibile con watchOS 27. Non sono incluse nuove funzionalità.\n\nFix rotation issue",
+  "version": "4.9.4",
+  "current_version_release_date": "2022-12-18T23:25:01Z",
+  "rating": 4.33333,
+  "rating_count": 6,
+  "minimum_os": "11.0",
+  "url": "https://apps.apple.com/it/app/clinometer-bubble-level/id286215117?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/be/fa/aa/befaaa4c-90df-f123-f8f1-045140499c80/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/ff/8d/f6/ff8df682-57db-3f39-9d22-e72f51c2cb99/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/4c/de/70/4cde70cc-5baa-37fc-9157-7ea27e7f0dd7/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/fa/d4/21/fad42146-1c32-28c3-2387-0acf2b835c31/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/91/b7/04/91b70413-c45d-77c1-2779-5af05ce98a5e/pr_source.png/392x696bb.png"
+  ]
+}

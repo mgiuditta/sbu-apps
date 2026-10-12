@@ -1,0 +1,36 @@
+{
+  "id": "963034692",
+  "name": "Streaks",
+  "developer": "Crunchy Bagel",
+  "bundle_id": "com.streaksapp.streak",
+  "store_country": "it",
+  "ranks": {},
+  "price": 6.99,
+  "formatted_price": "6,99 €",
+  "currency": "EUR",
+  "genre": "Health & Fitness",
+  "genres": [
+    "Salute e benessere",
+    "Utility"
+  ],
+  "description": "STREAKS: La lista di cose da fare che ti aiuta a creare delle buone abitudini.\nVincitore dell'Apple Design Award\n\nTieni traccia di fino a 24 attività che vuoi completare ogni giorno. Il tuo obiettivo è quello di costruire una lunga serie di giorni consecutivi. Streaks funziona con l'app Salute e ti aiuta a completare i tuoi obiettivi per tenerti in forma.\n\nCARATTERISTICHE:\n\n* Personalizza il colore dell'app\n* Centinaia di icone tra cui scegliere\n* Notifiche promemoria personalizzabili che ti aiutano a non perdere l'obiettivo\n* Visualizza la tua serie attuale e la migliore, oltre alle tue statistiche di completamento\n* Quando completi un'attività dell'app Salute, Streaks lo viene a sapere automaticamente\n* Rompi le brutte abitudini con attività negative\n* Apple Watch\n\nIn caso di dubbi, suggerimenti o altri commenti, invia una e-mail a support@streaks.app, o inviaci un tweet su @TheStreaksApp.\n\nSe ti piace Streaks, scrivi una recensione! Le recensioni sono azzerate ogni volta che rilasciamo un aggiornamento dunque contiamo sul tuo sostegno continuo.\n\nINFO SUI DATI SALUTE:\n\nSui dispositivi supportati, Streaks, con la tua autorizzazione, legge i tuoi dati su camminata/corsa per determinare se hai completato le tue attività. L'accesso ai dati avviene in piena sintonia con le regole delle app iOS decise da Apple. Per ulteriori informazioni sul nostro uso dei dati, leggi le nostre politiche della privacy su https://streaks.app/privacy.html.\n\nI passi e la distanza sono disponibili automaticamente solo quando si usa un iPhone 5S o superiore, o usando un accessorio che può scrivere all'app Salute come Apple Watch. In caso di dubbi, contatta support@streaks.app.",
+  "release_notes": "STREAKS 11.5:\n\n* Novità: Nuovo design per i pulsanti della schermata principale\n* Novità: Tema Halloween 2026\n* Novità: Miglioramenti ai temi stagionali\n* Novità: Supporto per i dispositivi più recenti\n* Varie altre correzioni e migliorie\n\n----\n\nIn caso di problemi, feedback o commenti, contattaci all’indirizzo support@streaks.app.",
+  "version": "11.5.0",
+  "current_version_release_date": "2026-10-09T22:53:46Z",
+  "rating": 4.67358,
+  "rating_count": 723,
+  "minimum_os": "17.6",
+  "url": "https://apps.apple.com/it/app/streaks/id963034692?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/28/14/44/281444a8-613a-62da-fff2-62c82b5f2f93/iPhone_18_Pro_Max-05-tasks.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a9/5a/00/a95a0061-ebe6-84be-52a5-dec96c6be74b/iPhone_18_Pro_Max-10-stats.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e3/5b/be/e35bbe7f-3898-3b08-ebe5-a4d453f8c923/iPhone_18_Pro_Max-15-notes.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ac/02/00/ac0200db-5847-6797-a1a9-197d769d2b3c/iPhone_18_Pro_Max-20-add-health.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/6c/9a/b2/6c9ab2c3-c264-8ef5-6605-d88becaccd15/iPhone_18_Pro_Max-25-steps.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/70/dd/71/70dd713b-9097-ac59-dd1f-91afeca6c5b4/iPhone_18_Pro_Max-30-notifications.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a9/c3/59/a9c35935-34ef-727a-3211-660ca528b926/iPhone_18_Pro_Max-35-sharing.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/41/7b/78417b44-6231-a8a7-3519-40247df62155/iPhone_18_Pro_Max-40-widgets-clear.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9b/0a/66/9b0a6690-3a56-2ad3-875a-16ea07422d54/iPhone_18_Pro_Max-41-widgets.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/92/44/9f/92449f94-c969-bda4-bce7-1ca2fb2ef003/iPhone_18_Pro_Max-45-live.png/320x480bb.jpg"
+  ]
+}

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Download the App Store top-paid charts and enrich each app with public iTunes Lookup data.
 
-Usage: python3 Tools/discover.py [--countries it us] [--limit 50] [--no-screenshots]
+Usage: python3 Tools/discover.py [--countries it us] [--limit 50] [--ids <app-id> ...] [--no-screenshots]
+--ids skips the charts and fetches those apps from the first country that sells them.
 Writes research/<app-id>/meta.json and research/<app-id>/screenshots/NN.<ext>.
 Only public App Store data: chart RSS, iTunes Lookup API, listing screenshots.
 """
@@ -83,25 +84,42 @@ def download_screenshots(info: dict) -> int:
     return saved
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--countries", nargs="+", default=["it", "us"])
-    parser.add_argument("--limit", type=int, default=50, choices=[10, 25, 50, 100])
-    parser.add_argument("--no-screenshots", action="store_true")
-    args = parser.parse_args()
-
+def from_charts(countries: list[str], limit: int) -> list[dict]:
     ranks: dict[str, dict[str, int]] = {}
     first_country: dict[str, str] = {}
-    for cc in args.countries:
-        for rank, entry in enumerate(chart(cc, args.limit), start=1):
+    for cc in countries:
+        for rank, entry in enumerate(chart(cc, limit), start=1):
             ranks.setdefault(entry["id"], {})[cc] = rank
             first_country.setdefault(entry["id"], cc)
 
     apps: list[dict] = []
-    for cc in args.countries:
+    for cc in countries:
         ids = [app_id for app_id, country in first_country.items() if country == cc]
         for app_id, app in lookup(ids, cc).items():
             apps.append(meta(app, ranks[app_id], cc))
+    return apps
+
+
+def by_id(ids: list[str], countries: list[str]) -> list[dict]:
+    apps: list[dict] = []
+    missing = list(ids)
+    for cc in countries:
+        found = lookup(missing, cc) if missing else {}
+        apps += [meta(app, {}, cc) for app in found.values()]
+        missing = [app_id for app_id in missing if app_id not in found]
+    if missing:
+        print(f"not on the store in {' '.join(countries)}: {' '.join(missing)}")
+    return apps
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--countries", nargs="+", default=["it", "us"])
+    parser.add_argument("--limit", type=int, default=50, choices=[10, 25, 50, 100])
+    parser.add_argument("--ids", nargs="+", help="fetch these app ids instead of the charts")
+    parser.add_argument("--no-screenshots", action="store_true")
+    args = parser.parse_args()
+    apps = by_id(args.ids, args.countries) if args.ids else from_charts(args.countries, args.limit)
 
     for info in apps:
         folder = RESEARCH / info["id"]
@@ -113,7 +131,7 @@ def main() -> None:
             shots = sum(pool.map(download_screenshots, apps))
         print(f"{shots} screenshots")
 
-    for info in sorted(apps, key=lambda a: min(a["ranks"].values())):
+    for info in sorted(apps, key=lambda a: min(a["ranks"].values(), default=0)):
         ranks_text = " ".join(f"{cc}#{rank}" for cc, rank in info["ranks"].items())
         print(f"{info['id']:>12}  {ranks_text:<14} {info['formatted_price'] or '':>8}  {info['name']}")
     print(f"{len(apps)} apps -> {RESEARCH.relative_to(ROOT)}/")

@@ -1,11 +1,12 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
-/* Bricolage Grotesque is for marketing only: allowed on the site, never in an app. */
+/* Bricolage Grotesque: display titles and the Cifra. Design/fonts has only the Bold cut, so it also
+   serves the 800 the display tokens ask for, instead of a synthesized bold. */
 @font-face {
   font-family: "Bricolage Grotesque";
   src: url("../../../Design/fonts/BricolageGrotesque-Bold.ttf") format("truetype");
-  font-weight: 700;
+  font-weight: 700 800;
   font-display: swap;
 }
 

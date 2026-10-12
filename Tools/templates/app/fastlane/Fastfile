@@ -27,20 +27,26 @@ platform :ios do
   lane :beta do
     api_key
     increment_build_number(build_number: latest_testflight_build_number + 1, xcodeproj: "Sbu__NAME__.xcodeproj")
-    build_app(scheme: "Sbu__NAME__", export_method: "app-store")
+    build_app(scheme: "Sbu__NAME__", export_method: "app-store", xcargs: signing_args)
     upload_to_testflight(skip_waiting_for_build_processing: true)
   end
 
   desc "Build and upload to the App Store with metadata and framed screenshots, without submitting"
   lane :release do
     api_key
-    build_app(scheme: "Sbu__NAME__", export_method: "app-store")
+    build_app(scheme: "Sbu__NAME__", export_method: "app-store", xcargs: signing_args)
     upload_to_app_store(
       submit_for_review: false,
       force: true,
       overwrite_screenshots: true,
       precheck_include_in_app_purchases: false
     )
+  end
+
+  # Automatic signing creates the App Store profiles (app and widget, with the App Group) itself.
+  def signing_args
+    "-allowProvisioningUpdates -authenticationKeyPath #{ENV.fetch("ASC_KEY_PATH")} " \
+      "-authenticationKeyID #{ENV.fetch("ASC_KEY_ID")} -authenticationKeyIssuerID #{ENV.fetch("ASC_ISSUER_ID")}"
   end
 
   private_lane :api_key do

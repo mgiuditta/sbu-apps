@@ -1,6 +1,6 @@
-#if DEBUG
 import Foundation
 
+// Compiled in Release too: #Preview bodies are, and they use it.
 extension HabitsModel {
     /// Three habits in a throwaway file, for previews: water 1 of 8, reading done, walking to do.
     static var preview: HabitsModel {
@@ -14,4 +14,3 @@ extension HabitsModel {
         return model
     }
 }
-#endif

@@ -20,7 +20,7 @@ const jsonLd = [
   ...(entry.data.faq.length ? [faqPage(entry.data.faq)] : []),
 ];
 ---
-<Base locale={locale} path={path} alternates={alternates} title={`${entry.data.title} · sbu.dev`} description={entry.data.description} image={app.icon} jsonLd={jsonLd}>
+<Base locale={locale} path={path} alternates={alternates} title={`${entry.data.title} · sbu.dev`} description={entry.data.description} image={`/og/${app.slug}.png`} jsonLd={jsonLd}>
   <article class="flex flex-col gap-8 py-8">
     <PageTitle text={entry.data.title} accent={app.accent} />
     <div class="prose"><Content /></div>

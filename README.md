@@ -43,6 +43,7 @@ Between 3 and 4 you write the app: start from `MainView.swift`, put strings in `
 |---|---|
 | `sync_tokens.py` | Regenerates SbuKit colors (asset catalog, light/dark), metrics and `Site/src/styles/tokens.css` from `Design/tokens.json`. CI fails if they drift. |
 | `make_icons.py` | `<name>` → engraved icon `Design/icons/sbu-<name>.png` from `engravings.json` and `source/`; `--generate` draws a new engraving with Gemini, `--appiconset`/`--artwork` write light, dark and tinted variants. |
+| `make_og.py` | Link previews (1200×630) for the site: each app's name closed by its full stop beside its engraving, and the home's title per locale, into `Site/public/og/`. Rerun after a new engraving. |
 | `discover.py` | Top-paid charts (Apple marketing RSS) + iTunes Lookup: description, screenshots, price, release notes, genre. |
 | `spec.py` | Claude (`claude-opus-5-5`, vision, structured output) → `features[]`, `screens[]`, `flows[]`, `data_model`, `monetization`, `user_pains[]`. |
 | `new_app.sh` | Scaffolds `Apps/Sbu<Name>` from `Tools/templates/app` and its site entry `Site/src/content/apps/<name>.md`. |

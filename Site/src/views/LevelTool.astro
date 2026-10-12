@@ -77,7 +77,7 @@ const jsonLd = [
   faqPage(copy.faq),
 ];
 ---
-<Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} jsonLd={jsonLd}>
+<Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} image={`/og/${app.slug}.png`} jsonLd={jsonLd}>
   <article class="flex flex-col gap-12 py-8" style={`--c: var(--sbu-${app.accent})`}>
     <header class="flex flex-col gap-4">
       <PageTitle text={copy.title} accent={app.accent} />

@@ -41,7 +41,7 @@ const jsonLd = [
   alternates={alternates}
   title={`${listing.name}: ${listing.subtitle} · sbu.dev`}
   description={`${listing.name} ${listing.oneThing}. ${t.metaSuffix}`}
-  image={app.icon}
+  image={`/og/${app.slug}.png`}
   jsonLd={jsonLd}
 >
   <article class="app flex flex-col gap-12 py-8" style={`--c: var(--sbu-${app.accent})`}>

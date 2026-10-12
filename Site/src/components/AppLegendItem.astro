@@ -1,0 +1,21 @@
+---
+// One App Sbu in the home legend: a small square in the app's accent as its key, the name, the Cosa sola.
+// The key sits on the name's baseline, like the full stop, but it is a key, not a full stop: no card, no icon.
+import { capitalize, localePath, ui, type Locale } from '../i18n';
+import { text, type App } from '../lib/apps';
+
+interface Props {
+  app: App;
+  locale: Locale;
+}
+const { app, locale } = Astro.props;
+const listing = text(app, locale);
+---
+<a href={localePath(locale, `apps/${app.slug}`)} class="group grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-3 py-3 text-ink no-underline">
+  <span aria-hidden="true" class="size-2" style={`background: var(--sbu-${app.accent})`}></span>
+  <span class="flex flex-wrap items-baseline justify-between gap-x-4">
+    <span class="text-headline group-hover:underline">{listing.name}</span>
+    {app.status !== 'live' && <span class="text-footnote text-ink-muted">{ui[locale].comingSoon}</span>}
+  </span>
+  <span class="col-start-2 text-subheadline text-ink-muted">{capitalize(listing.oneThing)}.</span>
+</a>

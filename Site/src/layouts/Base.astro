@@ -83,11 +83,12 @@ const footer = [
       <slot />
     </main>
     <footer class="border-t border-line">
-      <div class="page flex flex-col gap-2 py-8 text-footnote text-ink-muted">
-        <ul class="flex flex-wrap gap-4">
+      {/* text-footnote on the children, not here: on .page it would shrink the 70ch column. */}
+      <div class="page flex flex-col gap-2 py-8 text-ink-muted">
+        <ul class="flex flex-wrap gap-4 text-footnote">
           {footer.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
         </ul>
-        <p>{t.footerNote}</p>
+        <p class="text-footnote">{t.footerNote}</p>
       </div>
     </footer>
   </body>

@@ -1,5 +1,5 @@
 ---
-import AppTile from '../components/AppTile.astro';
+import AppLegendItem from '../components/AppLegendItem.astro';
 import PageTitle from '../components/PageTitle.astro';
 import PromiseChips from '../components/PromiseChips.astro';
 import Base from '../layouts/Base.astro';
@@ -43,10 +43,10 @@ const jsonLd = [
     <PromiseChips promises={t.promises} label={t.promisesLabel} />
   </section>
 
-  <section id="app" aria-labelledby="apps-title" class="flex flex-col gap-4">
+  <section id="app" aria-labelledby="apps-title" class="flex flex-col gap-2">
     <h2 id="apps-title" class="text-title-2">{copy.apps}</h2>
-    <ul class="divide-y divide-line overflow-hidden rounded-lg bg-surface-raised">
-      {apps.map((app) => <li><AppTile app={app} locale={locale} /></li>)}
+    <ul class="divide-y divide-line border-y border-line">
+      {apps.map((app) => <li><AppLegendItem app={app} locale={locale} /></li>)}
     </ul>
   </section>
 

@@ -1,0 +1,16 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Sbu __NAME__" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu __NAME__" } }
+      }
+    },
+    "Valore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

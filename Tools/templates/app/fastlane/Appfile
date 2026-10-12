@@ -1,0 +1,2 @@
+app_identifier("dev.sbu.__LOWER__")
+team_id(ENV["SBU_TEAM_ID"]) if ENV["SBU_TEAM_ID"]

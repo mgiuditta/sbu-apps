@@ -6,9 +6,9 @@ DerivedData/
 .swiftpm/
 build/
 __pycache__/
-fastlane/report.xml
-fastlane/test_output/
-fastlane/screenshots/
+**/fastlane/report.xml
+**/fastlane/test_output/
+**/fastlane/screenshots/**/*.png
 *.ipa
 *.dSYM.zip
 research/*/screenshots/

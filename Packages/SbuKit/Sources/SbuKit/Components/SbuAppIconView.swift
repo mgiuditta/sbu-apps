@@ -3,7 +3,7 @@ import SwiftUI
 /// Shows an app icon inside the app, in onboarding or settings, clipped like the home screen.
 ///
 /// The real icon ships as a 1024 PNG in `AppIcon.appiconset`; this view draws the same SVG,
-/// which apps add to their asset catalog as `AppIconImage`. The icon is decorative.
+/// which apps add to their asset catalog as `AppIconArtwork`. The icon is decorative.
 public struct SbuAppIconView: View {
     private let image: Image
     private let side: CGFloat

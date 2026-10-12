@@ -28,7 +28,8 @@ struct MainView: View {
             LevelIndicator(reading: model.reading)
                 .frame(maxWidth: 320)
         } pills: {
-            SbuButton("Calibra", action: model.calibrate)
+            Button("Calibra", action: model.calibrate)
+                .buttonStyle(SbuFieldPillStyle())
                 .disabled(model.isMotionAvailable == false)
         }
         .sensoryFeedback(.success, trigger: model.reading.isLevel) { _, isLevel in isLevel }

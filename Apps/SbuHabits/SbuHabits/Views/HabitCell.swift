@@ -8,6 +8,8 @@ struct HabitCell: View {
     /// How long to hold before the habit counts as done.
     private static let holdDuration = 0.5
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     let habit: Habit
     /// Times done today.
     let count: Int
@@ -51,7 +53,9 @@ struct HabitCell: View {
                 .font(SbuTheme.footnote)
                 .monospacedDigit()
                 .foregroundStyle(SbuTheme.onFieldMuted)
+                .contentTransition(.numericText(value: Double(streak)))
                 .opacity(streak > 0 ? 1 : 0)
+                .animation(reduceMotion ? nil : .snappy, value: streak)
         }
         .frame(maxWidth: .infinity)
         .contentShape(.rect)

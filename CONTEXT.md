@@ -77,6 +77,20 @@ _Avoid_: streak, catena
 I giorni di fila in cui tutte le abitudini previste quel giorno sono state fatte; le abitudini settimanali non vi entrano. È la **Cifra** di Sbu Habits.
 _Avoid_: serie totale, giornata perfetta
 
+### Sbu Cards
+
+**Nota** (_Note_):
+Quello che scrivi o importi: un insieme di campi (fronte, retro, testo con lacune) con dei tag.
+_Avoid_: flashcard, scheda
+
+**Carta** (_Card_):
+Una domanda da ripassare, generata da una **Nota**; una Nota ne genera una o più (inversa, una per lacuna).
+_Avoid_: flashcard, nota
+
+**Mazzo** (_Deck_):
+Un gruppo di **Carte** con le sue impostazioni di ripasso; può contenere sottomazzi.
+_Avoid_: collezione, cartella
+
 ## Relationships
 
 - Un **Candidato** ha al più uno **Spec**, scritto prima di decidere

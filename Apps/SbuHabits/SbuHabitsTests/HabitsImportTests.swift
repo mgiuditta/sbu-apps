@@ -45,6 +45,8 @@ struct HabitsImportTests {
         #""createdOn": 20000, "schedule": {"timesPerWeek": {"_0": 40}}"#,
         #""createdOn": 20000, "reminders": [{"hour": 99, "minute": 0}]"#,
         #""createdOn": 9223372036854775807"#, // a day past the end overflows
+        #""createdOn": 20000, "health": {"measure": "steps", "goal": 1e300}"#,
+        #""createdOn": 20000, "limit": 2, "health": {"measure": "steps", "goal": 8000}"#,
         #""createdOn": 20000, "log": {"20001": 9223372036854775807}"#, // one more mark overflows
         #""createdOn": 20000, "earlier": [{"until": 20000, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,
         #""createdOn": 20000, "earlier": [{"until": 20005, "timesPerDay": 1, "schedule": {"everyDay": {}}}, {"until": 20002, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,

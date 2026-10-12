@@ -59,6 +59,8 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
             && habit.title.count <= Habit.maxTitleLength
             && times.allSatisfy(Habit.timesPerDayRange.contains)
             && limits.allSatisfy(Habit.limitRange.contains)
+            // A Salute goal the form offers (NaN never is), and only on a habit to do.
+            && habit.health.map { $0.measure.goalRange.contains($0.goal) && habit.limit == nil } ?? true
             && habit.log.values.allSatisfy { (0...maxCount).contains($0) }
             && habit.reminders.allSatisfy { (0..<24).contains($0.hour) && (0..<60).contains($0.minute) }
             && schedules.allSatisfy { schedule in

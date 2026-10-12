@@ -3,7 +3,8 @@ import SwiftUI
 
 /// One habit on the field: symbol in a ring, title, Serie.
 ///
-/// Hold it to add one time, hold it again once done to take one back. A short tap opens its menu.
+/// Hold it to add one time, hold it again once done today to take one back. A short tap opens
+/// its menu. A weekly habit's ring shows the week: one segment per day done.
 struct HabitCell: View {
     /// How long to hold before the habit counts as done.
     private static let holdDuration = 0.5
@@ -11,8 +12,7 @@ struct HabitCell: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let habit: Habit
-    /// Times done today.
-    let count: Int
+    let progress: HabitProgress
     let streak: Int
     let markDone: () -> Void
     let undoLast: () -> Void
@@ -22,23 +22,27 @@ struct HabitCell: View {
 
     @ScaledMetric(relativeTo: .title2) private var ringSize = SbuTheme.space12 * 2
 
-    private var isDone: Bool {
-        count >= habit.timesPerDay
-    }
-
-    /// Filled segments, moving one segment forward while holding, or back once done.
+    /// Filled segments, moving one segment forward while holding, or back when the hold undoes.
     private var filled: Double {
-        guard isHolding else { return Double(count) }
-        return Double(isDone ? count - 1 : count + 1)
+        guard isHolding else { return Double(progress.done) }
+        return Double(progress.holdUndoes ? progress.done - 1 : progress.done + 1)
     }
 
-    private var progress: Text {
-        habit.timesPerDay > 1 ? Text("\(count) di \(habit.timesPerDay)") : Text(isDone ? "Fatta" : "Da fare")
+    private var progressText: Text {
+        if progress.goal > 1 {
+            Text("\(progress.done) di \(progress.goal)")
+        } else {
+            Text(progress.isComplete ? "Fatta" : "Da fare")
+        }
+    }
+
+    private var streakText: Text {
+        habit.schedule.isWeekly ? Text("\(streak) settimane") : Text("\(streak) giorni")
     }
 
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
-            HabitRing(symbol: isDone ? "checkmark" : habit.symbol, segments: habit.timesPerDay, filled: filled)
+            HabitRing(symbol: progress.isComplete ? "checkmark" : habit.symbol, segments: progress.goal, filled: filled)
                 // Up to its scaled size, never wider than the column.
                 .frame(maxWidth: ringSize, maxHeight: ringSize)
                 .aspectRatio(1, contentMode: .fit)
@@ -50,7 +54,7 @@ struct HabitCell: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
 
-            // The Serie alone, no unit: the word "giorni" belongs to the figure. Hidden at zero, kept for even rows.
+            // The Serie alone, no unit: "giorni" belongs to the figure, and weeks read in VoiceOver. Hidden at zero, kept for even rows.
             Text(streak, format: .number)
                 .font(SbuTheme.footnote)
                 .monospacedDigit()
@@ -65,21 +69,21 @@ struct HabitCell: View {
         // A dialog on tap, not a context menu: a context menu would take the long press.
         .onTapGesture(perform: showMenu)
         .onLongPressGesture(minimumDuration: Self.holdDuration, perform: toggle, onPressingChanged: setHolding)
-        .sensoryFeedback(trigger: count) { old, new in
-            new >= habit.timesPerDay ? .success : .impact(weight: new > old ? .medium : .light)
+        .sensoryFeedback(trigger: progress.done) { old, new in
+            new >= progress.goal ? .success : .impact(weight: new > old ? .medium : .light)
         }
         .confirmationDialog(habit.title, isPresented: $isShowingMenu, titleVisibility: .visible) {
             Button("Annulla ultima", action: undoLast)
-                .disabled(count == 0)
+                .disabled(progress.marksToday == 0)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(habit.title)
-        .accessibilityValue(progress + Text(verbatim: ", ") + Text("\(streak) giorni"))
+        .accessibilityValue(progressText + Text(verbatim: ", ") + streakText)
         .accessibilityActions {
-            if isDone == false {
+            if progress.holdUndoes == false {
                 Button("Segna come fatta", action: markDone)
             }
-            if count > 0 {
+            if progress.marksToday > 0 {
                 Button("Annulla ultima", action: undoLast)
             }
         }
@@ -88,7 +92,7 @@ struct HabitCell: View {
     private func toggle() {
         // The finger may still be down: stop counting it as a hold, or the ring would flip back.
         isHolding = false
-        isDone ? undoLast() : markDone()
+        progress.holdUndoes ? undoLast() : markDone()
     }
 
     private func showMenu() {
@@ -112,12 +116,24 @@ struct HabitCell: View {
 private struct HabitCellPreview: View {
     var body: some View {
         HStack(spacing: SbuTheme.space3) {
-            HabitCell(habit: Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(.now)), count: 1, streak: 12, markDone: {}, undoLast: {})
-            HabitCell(habit: Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: LogicalDay(.now)), count: 3, streak: 1, markDone: {}, undoLast: {})
+            HabitCellPreviewItem(habit: Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(.now)), marks: 1, streak: 12)
+            HabitCellPreviewItem(habit: Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: LogicalDay(.now)), marks: 3, streak: 1)
         }
         .padding(SbuTheme.space4)
         .background(SbuTheme.fieldHabits)
         .environment(\.colorScheme, .dark)
         .tint(SbuTheme.accentHabits)
+    }
+}
+
+private struct HabitCellPreviewItem: View {
+    let habit: Habit
+    let marks: Int
+    let streak: Int
+
+    var body: some View {
+        var marked = habit
+        marked.log[LogicalDay(.now)] = marks
+        return HabitCell(habit: marked, progress: HabitProgress(of: marked, today: LogicalDay(.now), firstWeekday: 2), streak: streak, markDone: {}, undoLast: {})
     }
 }

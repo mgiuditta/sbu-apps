@@ -27,7 +27,7 @@ struct HabitGrid: View {
             ForEach(model.todayHabits) { habit in
                 HabitCell(
                     habit: habit,
-                    count: habit.count(on: model.today),
+                    progress: model.progress(of: habit),
                     streak: model.streak(of: habit),
                     markDone: { model.markDone(habit) },
                     undoLast: { model.undoLast(habit) }

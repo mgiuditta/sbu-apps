@@ -133,6 +133,22 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testAWeeklyHabitCountsDaysOfTheWeek() {
+        let app = launch()
+        app.buttons["Aggiungi"].firstMatch.tap()
+        app.textFields["Titolo"].tap()
+        app.textFields["Titolo"].typeText("Palestra")
+        app.buttons["Volte a settimana"].tap()
+        app.navigationBars.buttons["Aggiungi"].tap()
+        let palestra = habit("Palestra", in: app)
+        XCTAssertEqual(palestra.value as? String, "0 di 3, 0 settimane")
+
+        palestra.press(forDuration: 1)
+
+        XCTAssertEqual(palestra.value as? String, "1 di 3, 0 settimane")
+    }
+
+    @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)

@@ -22,7 +22,7 @@ struct StreakTests {
         ([], 0),
     ])
     func countsDaysInARowUpToToday(doneDaysAgo: [Int], expected: Int) {
-        #expect(Streak.current(of: habit(doneDaysAgo: doneDaysAgo), today: today) == expected)
+        #expect(Streak.current(of: habit(doneDaysAgo: doneDaysAgo), today: today, firstWeekday: 2) == expected)
     }
 
     @Test(arguments: [(3, true), (2, false), (0, false)])
@@ -31,7 +31,7 @@ struct StreakTests {
         habit.log[today - 1] = timesYesterday
         habit.log[today - 2] = 3
 
-        #expect(Streak.current(of: habit, today: today) == (counts ? 2 : 0))
+        #expect(Streak.current(of: habit, today: today, firstWeekday: 2) == (counts ? 2 : 0))
         #expect(Streak.full(of: [habit], today: today) == (counts ? 2 : 0))
     }
 
@@ -39,7 +39,7 @@ struct StreakTests {
         // Marks before the creation day, like a bad clock, never enter the streak.
         let habit = habit(age: 1, doneDaysAgo: [0, 1, 2, 3])
 
-        #expect(Streak.current(of: habit, today: today) == 2)
+        #expect(Streak.current(of: habit, today: today, firstWeekday: 2) == 2)
     }
 
     @Test(arguments: [
@@ -75,14 +75,14 @@ struct StreakTests {
             habit.log[today - daysAgo] = 1
         }
 
-        #expect(Streak.current(of: habit, today: today) == 3)
+        #expect(Streak.current(of: habit, today: today, firstWeekday: 2) == 3)
     }
 
     @Test func aMissedExpectedDayBreaksTheSerie() {
         var habit = Habit(title: "Palestra", symbol: "dumbbell", schedule: .weekdays([2, 4, 6]), createdOn: today - 30)
         habit.log[today - 2] = 1 // Friday done, Wednesday missed
 
-        #expect(Streak.current(of: habit, today: today) == 1)
+        #expect(Streak.current(of: habit, today: today, firstWeekday: 2) == 1)
     }
 
     @Test func fullStreakConsidersOnlyHabitsExpectedThatDay() {
@@ -108,6 +108,6 @@ struct StreakTests {
         let sundays = Habit(title: "Chiamare casa", symbol: "phone", schedule: .weekdays([1]), createdOn: today)
         let mondays = Habit(title: "Piante", symbol: "leaf", schedule: .weekdays([2]), createdOn: today)
 
-        #expect(TodayGrid.habits([daily, sundays, mondays], on: today).map(\.title) == ["Leggere", "Chiamare casa"])
+        #expect(TodayGrid.habits([daily, sundays, mondays], on: today, firstWeekday: 2).map(\.title) == ["Leggere", "Chiamare casa"])
     }
 }

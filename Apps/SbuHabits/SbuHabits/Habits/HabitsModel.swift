@@ -15,7 +15,7 @@ final class HabitsModel {
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
     /// The habits expected today, in the grid's order.
-    var todayHabits: [Habit] { TodayGrid.habits(habits, on: today) }
+    var todayHabits: [Habit] { TodayGrid.habits(habits, on: today, firstWeekday: calendar.firstWeekday) }
 
     init(store: HabitsStore = .shared, now: @escaping () -> Date = Date.init, calendar: Calendar = .current) {
         self.store = store
@@ -26,7 +26,11 @@ final class HabitsModel {
     }
 
     func streak(of habit: Habit) -> Int {
-        Streak.current(of: habit, today: today)
+        Streak.current(of: habit, today: today, firstWeekday: calendar.firstWeekday)
+    }
+
+    func progress(of habit: Habit) -> HabitProgress {
+        HabitProgress(of: habit, today: today, firstWeekday: calendar.firstWeekday)
     }
 
     /// Reads the file again and recomputes today, for when the app comes back to the foreground.
@@ -39,9 +43,14 @@ final class HabitsModel {
     func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay) {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Habit.maxTitleLength))
         guard title.isEmpty == false else { return }
-        if case .weekdays(let weekdays) = schedule, weekdays.isEmpty { return }
-        let range = Habit.timesPerDayRange
-        let times = min(max(timesPerDay, range.lowerBound), range.upperBound)
+        var schedule = schedule
+        switch schedule {
+        case .weekdays(let weekdays) where weekdays.isEmpty: return
+        case .timesPerWeek(let times): schedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
+        default: break
+        }
+        // A weekly habit counts days, so it is done once a day.
+        let times = schedule.isWeekly ? 1 : Self.clamp(timesPerDay, to: Habit.timesPerDayRange)
         habits.append(Habit(title: title, symbol: symbol, timesPerDay: times, schedule: schedule, createdOn: today))
         save()
     }
@@ -60,6 +69,10 @@ final class HabitsModel {
             let left = $0.log[today, default: 0] - 1
             $0.log[today] = left > 0 ? left : nil
         }
+    }
+
+    private static func clamp(_ value: Int, to range: ClosedRange<Int>) -> Int {
+        min(max(value, range.lowerBound), range.upperBound)
     }
 
     private func update(_ habit: Habit, _ change: (inout Habit) -> Void) {

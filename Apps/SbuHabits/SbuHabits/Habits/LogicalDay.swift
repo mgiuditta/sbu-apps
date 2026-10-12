@@ -35,12 +35,21 @@ nonisolated struct LogicalDay: Hashable, Comparable, Codable, CodingKeyRepresent
         ((ordinal + 4) % 7 + 7) % 7 + 1
     }
 
+    /// The first day of the week this day falls in, for a week starting on `firstWeekday`.
+    func weekStart(firstWeekday: Int) -> LogicalDay {
+        self - (weekday - firstWeekday + 7) % 7
+    }
+
     static func < (lhs: LogicalDay, rhs: LogicalDay) -> Bool {
         lhs.ordinal < rhs.ordinal
     }
 
     static func - (day: LogicalDay, days: Int) -> LogicalDay {
         LogicalDay(ordinal: day.ordinal - days)
+    }
+
+    static func + (day: LogicalDay, days: Int) -> LogicalDay {
+        LogicalDay(ordinal: day.ordinal + days)
     }
 
     // A single value in JSON, and a plain key when it indexes a dictionary.

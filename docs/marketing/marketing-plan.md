@@ -6,7 +6,8 @@ Solo developer, 0 € spend, no analytics on the site, no email list. The only c
 
 1. **One launch moment per App Sbu.** Every new app is a reason to post, update the site and publish its alternative page. Cadence follows the build cadence, not a calendar.
 2. **Alternative pages + AlternativeTo listings** capture people already looking to leave a paid app.
-3. **The Promesse are the story.** "Free, and the site has zero scripts too" is the hook for Reddit, Hacker News and Italian tech press.
+3. **The Promesse are the story.** "Free, and the site has no cookies or analytics, its scripts send nothing" is the hook for Reddit, Hacker News and Italian tech press.
+4. **Free tools on the site** catch people searching for the job, not for an app, and hand them to the App Sbu.
 
 ## Ideas kept (from the marketing-ideas library)
 
@@ -22,6 +23,9 @@ Solo developer, 0 € spend, no analytics on the site, no email list. The only c
 | Activation | Customer language (139) | FAQs and copy reuse wording from 1-3 star reviews of the Originale |
 | Retention | Powered-by (87) | "Parte di sbu.dev" footer in every app links to the site: each app cross-sells the suite |
 | Retention | Changelogs (108), Support as marketing (135) | Release notes on the app page; answer every support mail |
+| Acquisition | Engineering as marketing (15), free tools (14) | `/livella`: bubble level and clinometer in the browser, ends on what Sbu Level adds. `/abbonamenti`: yearly subscription cost, ends on "Sbu apps cost €0". Both in the footer. Next: `/rumore-bianco` when Sbu Noise has a listing. |
+| Acquisition | Press coverage (74) | `/stampa`: one line, one paragraph, facts counted from content, icons, previews, logo. Link previews (`Tools/make_og.py`) on every page. |
+| Acquisition | Marketing jiu-jitsu (12), deferred | "Il conto": the sum of the Originali's public prices as one figure. Weak at two apps (8,98 €); ship with 4-5 live. |
 | Referral | Content repurposing (5) | One blog post per launch, cut into a Reddit post and a short thread |
 
 ## Ideas dropped and why

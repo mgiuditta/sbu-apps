@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
+import logoSvg from '../../../Design/logos/sbu-logo.svg?raw';
 import { localePath, ui, type Locale } from '../i18n';
 
 interface Props {
@@ -21,6 +22,10 @@ const site = Astro.site!;
 const absolute = (target: Locale) => new URL(localePath(target, path), site).href;
 const other = t.otherLocale.lang as Locale;
 const ogLocale = { it: 'it_IT', en: 'en_US' };
+// The logo as drawn, its warm black swapped for currentColor so it follows `brand` in dark mode.
+const logo = logoSvg
+  .replaceAll('fill="#0A0A00"', 'fill="currentColor"')
+  .replace('<svg ', '<svg aria-hidden="true" focusable="false" class="block h-5 w-auto" ');
 const nav = [
   { href: localePath(locale, ''), label: t.nav.apps },
   { href: localePath(locale, 'principi'), label: t.nav.principles },
@@ -44,6 +49,8 @@ const footer = [
     {!noindex && alternates.map((alt) => <link rel="alternate" hreflang={alt} href={absolute(alt)} />)}
     {!noindex && alternates.includes('it') && <link rel="alternate" hreflang="x-default" href={absolute('it')} />}
     <link rel="icon" href={mark} type="image/svg+xml" />
+    {/* public/apple-touch-icon.png: Design/logos/sbu-mark.svg at 180px, square corners (iOS rounds them). */}
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="sbu.dev" />
@@ -59,9 +66,9 @@ const footer = [
   <body class="min-h-dvh bg-surface text-ink">
     <a href="#main" class="sr-only focus:not-sr-only">{t.skip}</a>
     <header class="page flex flex-wrap items-center justify-between gap-4 py-4">
-      <a href={localePath(locale, '')} class="flex items-center gap-2 text-headline text-ink no-underline">
-        <img src={mark} alt="" width="32" height="32" class="size-8" />
-        sbu.dev
+      <a href={localePath(locale, '')} class="py-2 text-brand">
+        <Fragment set:html={logo} />
+        <span class="sr-only">sbu.dev</span>
       </a>
       <nav aria-label={t.navLabel}>
         <ul class="flex flex-wrap items-center gap-4 text-subheadline">
@@ -76,11 +83,12 @@ const footer = [
       <slot />
     </main>
     <footer class="border-t border-line">
-      <div class="page flex flex-col gap-2 py-8 text-footnote text-ink-muted">
-        <ul class="flex flex-wrap gap-4">
+      {/* text-footnote on the children, not here: on .page it would shrink the 70ch column. */}
+      <div class="page flex flex-col gap-2 py-8 text-ink-muted">
+        <ul class="flex flex-wrap gap-4 text-footnote">
           {footer.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
         </ul>
-        <p>{t.footerNote}</p>
+        <p class="text-footnote">{t.footerNote}</p>
       </div>
     </footer>
   </body>

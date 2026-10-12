@@ -1,5 +1,6 @@
 ---
 import { render } from 'astro:content';
+import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
 import { formatDate, localePath, ui } from '../i18n';
 import type { Post } from '../lib/apps';
@@ -26,7 +27,7 @@ const jsonLd = post
 {post && Content ? (
   <Base locale={locale} path={path} alternates={alternates} title={`${post.data.title} · sbu.dev`} description={post.data.description} jsonLd={jsonLd}>
     <article class="prose py-8">
-      <h1 class="text-large-title">{post.data.title}</h1>
+      <PageTitle text={post.data.title} />
       <p class="text-footnote text-ink-muted"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time></p>
       <Content />
     </article>
@@ -34,7 +35,7 @@ const jsonLd = post
 ) : (
   <Base locale={locale} path={path} alternates={alternates} title={`${t.nav.blog} · sbu.dev`} description={description}>
     <section class="flex flex-col gap-6 py-8">
-      <h1 class="text-large-title">{t.nav.blog}</h1>
+      <PageTitle text={t.nav.blog} />
       <ul class="flex flex-col gap-4">
         {posts.map((entry) => (
           <li class="flex flex-col gap-1">

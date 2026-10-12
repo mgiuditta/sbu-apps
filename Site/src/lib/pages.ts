@@ -28,7 +28,7 @@ const principles: Record<Locale, TextPage> = {
       {
         heading: 'Una cosa sola',
         paragraphs: [
-          'Ogni app rifà una sola app a pagamento dell’App Store, l’Originale, e fa il suo lavoro principale. Se un’app sembra aver bisogno di una seconda funzione grande, è il segnale che sta facendo troppo.',
+          'Ogni app fa un solo lavoro, e lo fa per intero. Se un’app sembra aver bisogno di una seconda funzione grande, è il segnale che sta facendo troppo.',
         ],
       },
       {
@@ -38,9 +38,9 @@ const principles: Record<Locale, TextPage> = {
         ],
       },
       {
-        heading: 'Da dove nascono le app',
+        heading: 'Come nasce un’app',
         paragraphs: [
-          'Sbu parte dalle classifiche delle app a pagamento e studia solo quello che l’App Store mostra a tutti: descrizione, screenshot, recensioni. Il codice e la grafica sono nuovi.',
+          'Sbu sceglie un lavoro semplice che l’iPhone sa già fare, come misurare una pendenza o contare i giorni di fila, e ci costruisce un’app gratuita. Il codice e la grafica sono scritti da zero.',
         ],
       },
     ],
@@ -56,7 +56,7 @@ const principles: Record<Locale, TextPage> = {
       {
         heading: 'One thing',
         paragraphs: [
-          'Each app remakes a single paid App Store app, the Original, and does its main job. If an app seems to need a second big feature, it is doing too much.',
+          'Each app does one job, and does all of it. If an app seems to need a second big feature, it is doing too much.',
         ],
       },
       {
@@ -66,9 +66,9 @@ const principles: Record<Locale, TextPage> = {
         ],
       },
       {
-        heading: 'Where the apps come from',
+        heading: 'How an app is made',
         paragraphs: [
-          'Sbu starts from the top paid charts and studies only what the App Store shows everyone: description, screenshots, reviews. The code and the design are new.',
+          'Sbu picks a simple job your iPhone can already do, like measuring a slope or counting days in a row, and builds a free app for it. The code and the design are written from scratch.',
         ],
       },
     ],

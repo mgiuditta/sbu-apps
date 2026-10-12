@@ -29,8 +29,8 @@ public extension SbuTheme {
     static let accentLevel = Color("accent-level", bundle: .module)
     /// Tint e sfondo icona di Sbu Noise (rumore bianco, suoni per dormire).
     static let accentNoise = Color("accent-noise", bundle: .module)
-    /// Tint e sfondo icona di Sbu Scan (documenti → PDF, OCR).
-    static let accentScan = Color("accent-scan", bundle: .module)
+    /// Tint e sfondo icona di Sbu Docs (documenti → PDF, OCR).
+    static let accentDocs = Color("accent-docs", bundle: .module)
     /// Tint e sfondo icona di Sbu Habits (abitudini, streak).
     static let accentHabits = Color("accent-habits", bundle: .module)
     /// Tint e sfondo icona di Sbu Cards (flashcard, ripetizione spaziata).
@@ -96,7 +96,7 @@ public extension SbuTheme {
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-scan", "accent-habits", "accent-cards", "accent-block", "accent-dark", "on-accent", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "on-accent", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [

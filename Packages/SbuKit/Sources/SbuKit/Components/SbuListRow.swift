@@ -104,7 +104,7 @@ private struct SbuListRowPreview: View {
         List {
             Section("Prossimi rinnovi") {
                 SbuListRow("Netflix Premium", subtitle: "Intrattenimento · mensile", systemImage: "play.rectangle", iconBackground: SbuTheme.accentCards, amount: "17,99", status: "tra 2 giorni", statusTone: .warning)
-                SbuListRow("iCloud+ 200 GB", subtitle: "Cloud · mensile", systemImage: "icloud", iconBackground: SbuTheme.accentScan, amount: "2,99", status: "14 nov")
+                SbuListRow("iCloud+ 200 GB", subtitle: "Cloud · mensile", systemImage: "icloud", iconBackground: SbuTheme.accentDocs, amount: "2,99", status: "14 nov")
                 SbuListRow("Spotify", subtitle: "Musica · annuale", systemImage: "music.note", iconBackground: SbuTheme.accentHabits, amount: "119,88", status: "pagato", statusTone: .success)
                 SbuListRow("Livella", subtitle: "Accento chiaro", systemImage: "level", iconBackground: SbuTheme.accentLevel, iconForeground: SbuTheme.onAccentLevel)
             }

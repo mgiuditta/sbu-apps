@@ -32,7 +32,7 @@ GLYPHS = {
     '<path d="M352 512 H672"/>',
     "level": '<path d="M232 512 H792"/><circle cx="512" cy="512" r="120"/>',
     "noise": '<path d="M352 400 V624 M512 288 V736 M672 440 V584"/>',
-    "scan": '<path d="M352 232 H592 L704 344 V792 H352 Z"/><path d="M416 560 H640"/>',
+    "docs": '<path d="M352 232 H592 L704 344 V792 H352 Z"/><path d="M416 560 H640"/>',
     "habits": '<circle cx="512" cy="512" r="248"/><path d="M400 520 L480 600 L632 440"/>',
     "cards": '<rect x="312" y="360" width="400" height="280" rx="48"/>'
     '<path d="M408 296 H760 A48 48 0 0 1 808 344 V560"/>',

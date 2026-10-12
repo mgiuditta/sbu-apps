@@ -1,4 +1,4 @@
-import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n';
 
 const icons = import.meta.glob<string>('../../../Design/icons/*.png', { query: '?url', import: 'default', eager: true });
@@ -12,9 +12,11 @@ export type App = Awaited<ReturnType<typeof getApps>>[number];
 /** App content joined with its App Store listing, in display order. Apps without a filled listing are left out. */
 export async function getApps() {
   const apps = await getCollection('apps');
+  // Looked up in the collection, not with getEntry: apps still being built have no listing, by design.
+  const listings = new Map((await getCollection('listings')).map((listing) => [listing.id, listing]));
   const joined = await Promise.all(
     apps.map(async (app) => {
-      const listing = await getEntry('listings', app.data.app);
+      const listing = listings.get(app.data.app);
       const png = icon(app.id);
       if (!listing) return undefined;
       if (!png) throw new Error(`Missing Design/icons/sbu-${app.id}.png`);

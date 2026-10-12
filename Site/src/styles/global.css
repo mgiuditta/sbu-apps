@@ -48,6 +48,18 @@
     padding-inline: var(--spacing-4);
   }
 
+  /* The home's header floats over its full-screen stage, clear of the notch and the rounded corners. */
+  .stage-bar {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 10;
+    padding:
+      calc(var(--spacing-4) + env(safe-area-inset-top))
+      max(var(--spacing-6), env(safe-area-inset-right))
+      0
+      max(var(--spacing-6), env(safe-area-inset-left));
+  }
+
   .prose > * + * { margin-top: var(--spacing-4); }
   .prose h2 {
     margin-top: var(--spacing-8);

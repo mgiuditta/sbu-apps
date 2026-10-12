@@ -14,9 +14,12 @@ interface Props {
   jsonLd?: object[];
   image?: string;
   noindex?: boolean;
+  /** `stage`: the home. The header floats over a full-screen main, which brings its own width. */
+  layout?: 'page' | 'stage';
 }
 
-const { locale, path, alternates, title, description, jsonLd = [], image, noindex = false } = Astro.props;
+const { locale, path, alternates, title, description, jsonLd = [], image, noindex = false, layout = 'page' } = Astro.props;
+const stage = layout === 'stage';
 const t = ui[locale];
 const site = Astro.site!;
 const absolute = (target: Locale) => new URL(localePath(target, path), site).href;
@@ -42,7 +45,7 @@ const footer = [
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content={stage ? 'width=device-width, initial-scale=1, viewport-fit=cover' : 'width=device-width, initial-scale=1'} />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={absolute(locale)} />}
@@ -65,21 +68,27 @@ const footer = [
   </head>
   <body class="min-h-dvh bg-surface text-ink">
     <a href="#main" class="sr-only focus:not-sr-only">{t.skip}</a>
-    <header class="page flex flex-wrap items-center justify-between gap-4 py-4">
+    <header
+      class:list={[
+        'flex flex-wrap items-center justify-between gap-4',
+        stage ? 'stage-bar' : 'page py-4',
+      ]}
+    >
       <a href={localePath(locale, '')} class="py-2 text-brand">
         <Fragment set:html={logo} />
         <span class="sr-only">sbu.dev</span>
       </a>
       <nav aria-label={t.navLabel}>
         <ul class="flex flex-wrap items-center gap-4 text-subheadline">
-          {nav.map((item) => <li><a href={item.href} class="text-ink no-underline hover:underline">{item.label}</a></li>)}
+          {nav.map((item) => <li><a href={item.href} class:list={['no-underline hover:underline', stage ? 'text-ink-muted hover:text-ink' : 'text-ink']}>{item.label}</a></li>)}
           {alternates.includes(other) && (
             <li><a href={localePath(other, path)} hreflang={other} lang={other} class="text-ink-muted">{t.otherLocale.label}</a></li>
           )}
+          <slot name="nav-end" />
         </ul>
       </nav>
     </header>
-    <main id="main" class="page pb-12">
+    <main id="main" class:list={[!stage && 'page pb-12']}>
       <slot />
     </main>
     <footer class="border-t border-line">

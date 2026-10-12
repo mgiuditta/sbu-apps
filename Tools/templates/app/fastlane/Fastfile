@@ -43,10 +43,35 @@ platform :ios do
     )
   end
 
+  desc "Upload only metadata and framed screenshots to the App Store listing, without a build or submitting"
+  lane :metadata do
+    api_key
+    ensure_review_detail
+    upload_to_app_store(
+      skip_binary_upload: true,
+      submit_for_review: false,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
   # Automatic signing creates the App Store profiles (app and widget, with the App Group) itself.
   def signing_args
     "-allowProvisioningUpdates -authenticationKeyPath #{ENV.fetch("ASC_KEY_PATH")} " \
       "-authenticationKeyID #{ENV.fetch("ASC_KEY_ID")} -authenticationKeyIssuerID #{ENV.fetch("ASC_ISSUER_ID")}"
+  end
+
+  # A first version has no App Review details yet, and deliver fails reading them ("No data",
+  # fastlane#20538): create the empty record first.
+  private_lane :ensure_review_detail do
+    app = Spaceship::ConnectAPI::App.find(CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier))
+    version = app.get_edit_app_store_version
+    begin
+      version.fetch_app_store_review_detail
+    rescue StandardError
+      version.create_app_store_review_detail(attributes: { notes: "No account needed. All data stays on the device." })
+    end
   end
 
   private_lane :api_key do

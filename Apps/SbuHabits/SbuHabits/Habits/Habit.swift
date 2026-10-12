@@ -20,6 +20,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     var log: [LogicalDay: Int] = [:]
     /// Days skipped with Salta oggi, for example when ill: neutral for every Serie.
     var skipped: Set<LogicalDay> = []
+    /// Times of day to be reminded, only on expected days and only while not done.
+    var reminders: [ReminderTime] = []
 
     init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, createdOn: LogicalDay) {
         self.id = id
@@ -30,7 +32,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day, schedules and skips existed: yes/no, every day, nothing skipped.
+    // Files saved before times per day, schedules, skips and reminders existed: yes/no, every day,
+    // nothing skipped, no reminders.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -41,6 +44,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         createdOn = try container.decode(LogicalDay.self, forKey: .createdOn)
         log = try container.decode([LogicalDay: Int].self, forKey: .log)
         skipped = try container.decodeIfPresent(Set<LogicalDay>.self, forKey: .skipped) ?? []
+        reminders = try container.decodeIfPresent([ReminderTime].self, forKey: .reminders) ?? []
     }
 
     /// Times it was done on `day`.
@@ -56,11 +60,12 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// Applies the form's fields, trimmed and kept in range. Leaves the log as it is: changing
     /// the schedule never rewrites the past.
     /// - Returns: `false`, changing nothing, when the title is blank or no weekday is chosen.
-    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule) -> Bool {
+    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, reminders: [ReminderTime] = []) -> Bool {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxTitleLength))
         guard title.isEmpty == false, schedule != .weekdays([]) else { return false }
         self.title = title
         self.symbol = symbol
+        self.reminders = Array(Set(reminders)).sorted()
         if case .timesPerWeek(let times) = schedule {
             self.schedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
             // A weekly habit counts days, so it is done once a day.

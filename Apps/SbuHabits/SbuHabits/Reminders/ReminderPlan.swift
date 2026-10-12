@@ -1,0 +1,43 @@
+import Foundation
+
+/// Which reminders to schedule: only on days a habit is expected, never for a habit already
+/// done or skipped today, soonest first, within the limit iOS keeps pending.
+nonisolated enum ReminderPlan {
+    /// iOS keeps at most 64 pending local notifications per app.
+    static let limit = 64
+    /// Days ahead to plan; the app plans again whenever anything changes or it comes back.
+    static let days = 7
+
+    static func reminders(for habits: [Habit], now: Date, startHour: Int, calendar: Calendar) -> [PlannedReminder] {
+        let today = LogicalDay(now, startHour: startHour, calendar: calendar)
+        var planned: [PlannedReminder] = []
+        for offset in 0..<days {
+            let day = today + offset
+            for habit in habits where habit.reminders.isEmpty == false && isExpected(habit, on: day, today: today, calendar: calendar) {
+                for time in habit.reminders {
+                    let date = moment(of: time, on: day, startHour: startHour, calendar: calendar)
+                    guard date > now else { continue }
+                    planned.append(PlannedReminder(id: "\(habit.id)-\(day.ordinal)-\(time.hour)-\(time.minute)", habitID: habit.id, title: habit.title, date: date))
+                }
+            }
+        }
+        return Array(planned.sorted { $0.date < $1.date }.prefix(limit))
+    }
+
+    private static func isExpected(_ habit: Habit, on day: LogicalDay, today: LogicalDay, calendar: Calendar) -> Bool {
+        guard day >= habit.createdOn, habit.isSkipped(on: day) == false, habit.isDone(on: day) == false else { return false }
+        guard habit.schedule.isWeekly else { return habit.schedule.includes(day) }
+        // Any day can be one of the week's days. This week, only until the goal is reached.
+        let firstWeekday = calendar.firstWeekday
+        let isThisWeek = day.weekStart(firstWeekday: firstWeekday) == today.weekStart(firstWeekday: firstWeekday)
+        return isThisWeek == false || HabitProgress(of: habit, today: today, firstWeekday: firstWeekday).isComplete == false
+    }
+
+    /// The moment `time` falls on in `day`: an hour before the start of the day belongs to the
+    /// next calendar morning.
+    private static func moment(of time: ReminderTime, on day: LogicalDay, startHour: Int, calendar: Calendar) -> Date {
+        let noon = day.noon(in: calendar)
+        let date = calendar.date(bySettingHour: time.hour, minute: time.minute, second: 0, of: noon) ?? noon
+        return time.hour < startHour ? calendar.date(byAdding: .day, value: 1, to: date) ?? date : date
+    }
+}

@@ -38,6 +38,14 @@ final class HabitsFlowTests: XCTestCase {
         return cell
     }
 
+    /// Waits for VoiceOver's value to settle: the screen updates a moment after the gesture.
+    @MainActor
+    private func expectValue(_ element: XCUIElement, _ value: String, file: StaticString = #filePath, line: UInt = #line) {
+        let settled = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", value), object: element)
+        let result = XCTWaiter.wait(for: [settled], timeout: 5)
+        XCTAssertEqual(result, .completed, "value is \(element.value ?? "nil")", file: file, line: line)
+    }
+
     @MainActor
     private func figure(in app: XCUIApplication) -> String {
         app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Serie piena'")).firstMatch.label
@@ -63,11 +71,11 @@ final class HabitsFlowTests: XCTestCase {
         let app = launch()
         add("Leggere", in: app)
         let leggere = habit("Leggere", in: app)
-        XCTAssertEqual(leggere.value as? String, "Da fare, 0 giorni")
+        expectValue(leggere, "Da fare, 0 giorni")
 
         leggere.press(forDuration: 1)
 
-        XCTAssertEqual(leggere.value as? String, "Fatta, 1 giorno")
+        expectValue(leggere, "Fatta, 1 giorno")
         XCTAssertTrue(figure(in: app).contains("1"), figure(in: app))
     }
 
@@ -80,7 +88,7 @@ final class HabitsFlowTests: XCTestCase {
 
         leggere.press(forDuration: 1)
 
-        XCTAssertEqual(leggere.value as? String, "Da fare, 0 giorni")
+        expectValue(leggere, "Da fare, 0 giorni")
     }
 
     @MainActor
@@ -88,18 +96,18 @@ final class HabitsFlowTests: XCTestCase {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)
         let acqua = habit("Bere acqua", in: app)
-        XCTAssertEqual(acqua.value as? String, "0 di 3, 0 giorni")
+        expectValue(acqua, "0 di 3, 0 giorni")
 
         acqua.press(forDuration: 1)
         acqua.press(forDuration: 1)
-        XCTAssertEqual(acqua.value as? String, "2 di 3, 0 giorni")
+        expectValue(acqua, "2 di 3, 0 giorni")
 
         acqua.press(forDuration: 1)
-        XCTAssertEqual(acqua.value as? String, "3 di 3, 1 giorno")
+        expectValue(acqua, "3 di 3, 1 giorno")
 
         acqua.tap()
         app.buttons["Annulla ultima"].tap()
-        XCTAssertEqual(acqua.value as? String, "2 di 3, 0 giorni")
+        expectValue(acqua, "2 di 3, 0 giorni")
     }
 
     @MainActor
@@ -111,7 +119,7 @@ final class HabitsFlowTests: XCTestCase {
 
         app = launch()
 
-        XCTAssertEqual(habit("Leggere", in: app).value as? String, "Fatta, 1 giorno")
+        expectValue(habit("Leggere", in: app), "Fatta, 1 giorno")
     }
 
     @MainActor
@@ -141,11 +149,11 @@ final class HabitsFlowTests: XCTestCase {
         app.buttons["Volte a settimana"].tap()
         app.navigationBars.buttons["Aggiungi"].tap()
         let palestra = habit("Palestra", in: app)
-        XCTAssertEqual(palestra.value as? String, "0 di 3, 0 settimane")
+        expectValue(palestra, "0 di 3, 0 settimane")
 
         palestra.press(forDuration: 1)
 
-        XCTAssertEqual(palestra.value as? String, "1 di 3, 0 settimane")
+        expectValue(palestra, "1 di 3, 0 settimane")
     }
 
     @MainActor
@@ -156,11 +164,11 @@ final class HabitsFlowTests: XCTestCase {
 
         leggere.tap()
         app.buttons["Salta oggi"].tap()
-        XCTAssertEqual(leggere.value as? String, "Saltata oggi, 0 giorni")
+        expectValue(leggere, "Saltata oggi, 0 giorni")
 
         leggere.tap()
         app.buttons["Non saltare oggi"].tap()
-        XCTAssertEqual(leggere.value as? String, "Da fare, 0 giorni")
+        expectValue(leggere, "Da fare, 0 giorni")
     }
 
     @MainActor

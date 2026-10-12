@@ -13,6 +13,7 @@ final class HabitsModel {
     @ObservationIgnored private let store: HabitsStore
     @ObservationIgnored private let now: () -> Date
     @ObservationIgnored private let calendar: Calendar
+    @ObservationIgnored private let scheduleReminders: @MainActor ([PlannedReminder]) -> Void
 
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
@@ -21,10 +22,17 @@ final class HabitsModel {
     /// The habits expected today, in the grid's order.
     var todayHabits: [Habit] { TodayGrid.habits(habits, on: today, firstWeekday: calendar.firstWeekday) }
 
-    init(store: HabitsStore = .shared, now: @escaping () -> Date = Date.init, calendar: Calendar = .current) {
+    /// - Parameter scheduleReminders: Receives the full reminder plan after every change; tests pass their own.
+    init(
+        store: HabitsStore = .shared,
+        now: @escaping () -> Date = Date.init,
+        calendar: Calendar = .current,
+        scheduleReminders: @escaping @MainActor ([PlannedReminder]) -> Void = ReminderScheduler.replace
+    ) {
         self.store = store
         self.now = now
         self.calendar = calendar
+        self.scheduleReminders = scheduleReminders
         today = LogicalDay(now(), calendar: calendar)
         reload()
     }
@@ -44,6 +52,7 @@ final class HabitsModel {
         habits = file.habits
         startHour = file.startHour
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
+        planReminders()
     }
 
     /// Moves the start of the day, for people who live past midnight.
@@ -53,15 +62,15 @@ final class HabitsModel {
         save()
     }
 
-    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay) {
+    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, reminders: [ReminderTime] = []) {
         var habit = Habit(title: "", symbol: symbol, createdOn: today)
-        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule) else { return }
+        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders) else { return }
         habits.append(habit)
         save()
     }
 
-    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule) {
-        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule) }
+    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, reminders: [ReminderTime] = []) {
+        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders) }
     }
 
     /// Moves habits in the Statistiche list; the grid follows the same order.
@@ -107,5 +116,11 @@ final class HabitsModel {
     private func save() {
         // ponytail: a failed write keeps the change in memory only; add an alert if it shows up in practice.
         try? store.save(HabitsFile(habits: habits, startHour: startHour))
+        planReminders()
+    }
+
+    /// Plans every reminder again: marking a habit done drops today's.
+    private func planReminders() {
+        scheduleReminders(ReminderPlan.reminders(for: habits, now: now(), startHour: startHour, calendar: calendar))
     }
 }

@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The form that creates or edits a habit: a title, how many times a day, which days, and a symbol.
-/// Editing never rewrites the log, and offers Elimina.
+/// The form that creates or edits a habit: a title, how many times a day, which days, a symbol
+/// and reminder times. Editing never rewrites the log, and offers Elimina.
 struct HabitForm: View {
     private enum Kind {
         case everyDay, weekdays, timesPerWeek
@@ -20,6 +20,7 @@ struct HabitForm: View {
     @State private var kind: Kind
     @State private var weekdays: Set<Int>
     @State private var timesPerWeek: Int
+    @State private var reminders: [RemindersSection.Row]
 
     private var schedule: Schedule {
         switch kind {
@@ -47,6 +48,9 @@ struct HabitForm: View {
         _title = State(initialValue: habit?.title ?? "")
         _symbol = State(initialValue: habit?.symbol ?? HabitSymbol.all[0].id)
         _timesPerDay = State(initialValue: habit?.timesPerDay ?? 1)
+        _reminders = State(initialValue: (habit?.reminders ?? []).map { time in
+            RemindersSection.Row(time: Calendar.current.date(bySettingHour: time.hour, minute: time.minute, second: 0, of: .now) ?? .now)
+        })
         switch habit?.schedule ?? .everyDay {
         case .everyDay:
             _kind = State(initialValue: .everyDay)
@@ -99,6 +103,8 @@ struct HabitForm: View {
                     }
                 }
 
+                RemindersSection(rows: $reminders)
+
                 Section("Simbolo") {
                     SymbolPicker(selection: $symbol)
                 }
@@ -136,10 +142,14 @@ struct HabitForm: View {
     }
 
     private func confirm() {
+        let times = reminders.map { row in
+            let parts = Calendar.current.dateComponents([.hour, .minute], from: row.time)
+            return ReminderTime(hour: parts.hour ?? 0, minute: parts.minute ?? 0)
+        }
         if let habit {
-            model.edit(habit, title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule)
+            model.edit(habit, title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: times)
         } else {
-            model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule)
+            model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: times)
         }
         dismiss()
     }

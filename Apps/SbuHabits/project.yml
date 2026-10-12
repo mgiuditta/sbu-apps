@@ -42,6 +42,8 @@ targets:
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         # Italian source; the English one is in InfoPlist.xcstrings.
         INFOPLIST_KEY_NSHealthShareUsageDescription: "Sbu Habits legge da Salute solo le misure che colleghi, per segnare le tue abitudini. I dati restano su questo iPhone."
+        # Required with HealthKit even though Sbu Habits never writes to Salute.
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati restano su questo iPhone."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

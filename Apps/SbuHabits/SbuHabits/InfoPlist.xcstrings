@@ -18,6 +18,24 @@
           }
         }
       }
+    },
+    "NSHealthUpdateUsageDescription" : {
+      "comment" : "The Health write permission prompt, required by the App Store with HealthKit. The app never writes.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Habits never writes to Health. It only reads the measures you link, and your data stays on this iPhone."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati restano su questo iPhone."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

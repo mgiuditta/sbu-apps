@@ -1,0 +1,3 @@
+# Sync e backup su iCloud dell'utente, solo se lo attiva
+
+Un'**App Sbu** può sincronizzare o fare il backup dei propri dati su iCloud dell'utente (Portachiavi iCloud con `kSecAttrSynchronizable`, CloudKit database privato, iCloud Drive) perché i dati restano nell'account Apple dell'utente e non passano da un server di sbu.dev né di terzi. È un'opzione in Impostazioni, spenta di default: chi non la attiva tiene tutto sul dispositivo. Resta sempre anche l'export/import in file. Nessun account Sbu, nessun dato leggibile da sbu.dev; l'etichetta privacy resta "nessun dato raccolto". Primi casi: Authenticator (codici), Cycle (diario), Invoice (archivio).

@@ -35,7 +35,7 @@ Direction **Carta e punto fermo**: Sbu fa una cosa sola e la chiude con un punto
 ## Product rules
 
 - No third-party dependencies in SbuKit. Apps depend only on SbuKit and Apple frameworks.
-- No analytics, accounts, network calls, ads or tracking in apps. Data stays on the device. Links to sbu.dev open Safari.
+- No analytics, accounts, network calls, ads or tracking in apps. Data stays on the device. Links to sbu.dev open Safari. Two exceptions: the local network to the user's own devices when the one thing needs it (ADR-0007), and the user's own iCloud for sync/backup, off by default (ADR-0008).
 - Every user-facing string in Italian (source) and English, in `Localizable.xcstrings`. Second person singular, short sentences, no emoji, no exclamation marks. Actions are infinitive verbs ("Calibra"), results are participles ("Calibrata").
 - App Store descriptions start with the fixed promise block, in this order: nessun abbonamento · nessun acquisto in-app · nessun account · nessuna pubblicità · nessun tracking · dati solo sul dispositivo. Then features, then "Sbu fa una cosa sola: …".
 - Specs come only from public App Store data (`Tools/discover.py`, `Tools/spec.py`). Never write code that decompiles, unpacks or extracts assets from other apps.

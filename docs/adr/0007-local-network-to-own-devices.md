@@ -1,0 +1,3 @@
+# La rete locale verso i dispositivi dell'utente è ammessa
+
+Un'**App Sbu** può parlare con dispositivi dell'utente sulla stessa rete Wi-Fi (Bonjour/SSDP, HTTP, WebSocket, TLS verso l'IP locale) quando la **Cosa sola** non si può fare in altro modo: l'iPhone non ha infrarossi, quindi un telecomando TV passa dalla rete di casa. Mai internet, mai il cloud dei produttori, nessun dato inviato oltre ai comandi per quel dispositivo. Il permesso "Rete locale" ha una stringa IT/EN che dice cosa fa l'app; l'etichetta privacy resta "nessun dato raccolto" e "dati solo sul dispositivo" resta vero. Primo caso: Sbu Remote.

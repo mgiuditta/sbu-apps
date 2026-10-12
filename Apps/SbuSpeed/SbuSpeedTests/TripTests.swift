@@ -83,4 +83,17 @@ struct TripTests {
         #expect(trip.isEmpty)
         #expect(trip.averageSpeed == 0)
     }
+
+    @Test func savedTripKeepsTheTotalsButNotTheLastFix() throws {
+        let saved = trip((0...5).map { .fix(at: Double($0), metersNorth: Double($0) * 10, speed: 10) })
+
+        var restored = try JSONDecoder().decode(Trip.self, from: JSONEncoder().encode(saved))
+
+        #expect(restored.maxSpeed == saved.maxSpeed)
+        #expect(restored.distance == saved.distance)
+        #expect(restored.movingTime == saved.movingTime)
+        // The next fix after a relaunch only starts counting again.
+        restored.record(.fix(at: 6, metersNorth: 60, speed: 10))
+        #expect(restored.distance == saved.distance)
+    }
 }

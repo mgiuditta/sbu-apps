@@ -1,7 +1,8 @@
 import Foundation
 
 /// The current trip: top speed, distance and time spent moving, from the samples seen while the app is open.
-nonisolated struct Trip: Equatable, Sendable {
+/// It is saved on the iPhone and goes on across launches until the person resets it.
+nonisolated struct Trip: Codable, Equatable, Sendable {
     /// Speeds less certain than this (m/s) do not count as the top speed: they are GPS spikes.
     static let maxSpeedAccuracy = 2.5
     /// Positions less certain than this (metres) do not add distance.
@@ -17,6 +18,7 @@ nonisolated struct Trip: Equatable, Sendable {
     private(set) var distance = 0.0
     /// Seconds.
     private(set) var movingTime: TimeInterval = 0
+    /// The previous fix. Not saved: after a relaunch the gap is too long to add distance anyway.
     private var last: SpeedSample?
 
     /// Metres per second over the time spent moving, so stops do not lower it.
@@ -31,6 +33,10 @@ nonisolated struct Trip: Equatable, Sendable {
         self.maxSpeed = maxSpeed
         self.distance = distance
         self.movingTime = movingTime
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case maxSpeed, distance, movingTime
     }
 
     mutating func record(_ sample: SpeedSample) {

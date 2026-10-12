@@ -10,6 +10,7 @@ struct RootView: View {
             MainView(model: model)
         } settings: {
             UnitSection(model: model)
+            SpeedLimitSection(model: model)
         }
     }
 }

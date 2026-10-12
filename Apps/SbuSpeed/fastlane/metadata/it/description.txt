@@ -8,8 +8,10 @@ Dati solo sul dispositivo.
 Apri l'app e leggi la tua velocità in grande, dal GPS dell'iPhone. In bici, di corsa, in barca o in auto: un numero solo, leggibile da lontano.
 
 - Velocità attuale in km/h o mph, una cifra grande e intera
-- Velocità massima, velocità media e distanza del viaggio
+- Velocità massima, velocità media e distanza del viaggio, salvate finché non lo azzeri
 - La media conta solo il tempo in movimento: le soste non la abbassano
+- Limite di velocità facoltativo: quando lo superi lo leggi sotto la cifra, e l'iPhone vibra e suona una volta
+- Il quadrante si adatta come in auto: 60, 120, 200 o 300 km/h
 - Azzera il viaggio con una conferma
 - Lo schermo resta acceso mentre guardi la velocità
 - La posizione si usa solo con l'app aperta e resta sull'iPhone

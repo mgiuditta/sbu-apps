@@ -24,12 +24,18 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
     /// Short symbol next to the figure: "km/h" or "mph".
     var symbol: String { speed.symbol }
 
-    /// The top of the gauge, in this unit.
-    var fullScale: Double {
+    /// The possible tops of the dial in this unit, smallest first, like the scales of car speedometers.
+    var dialScales: [Double] {
         switch self {
-        case .kilometersPerHour: 200
-        case .milesPerHour: 130
+        case .kilometersPerHour: [60, 120, 200, 300]
+        case .milesPerHour: [40, 80, 130, 200]
         }
+    }
+
+    /// The smallest dial top that contains `value` (in this unit); the largest when nothing does.
+    func fullScale(containing value: Double) -> Double {
+        let scales = dialScales
+        return scales.first { $0 >= value } ?? scales[scales.count - 1]
     }
 
     /// km/h where the metric system is used, mph in the US and the UK.
@@ -44,8 +50,12 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
 
     /// A speed in metres per second, rounded to the unit: "87 km/h".
     func speedText(metersPerSecond: Double, locale: Locale = .autoupdatingCurrent) -> String {
-        Measurement(value: metersPerSecond, unit: UnitSpeed.metersPerSecond)
-            .converted(to: speed)
+        speedText(value: value(ofMetersPerSecond: metersPerSecond), locale: locale)
+    }
+
+    /// A speed already in this unit, rounded: "50 km/h".
+    func speedText(value: Double, locale: Locale = .autoupdatingCurrent) -> String {
+        Measurement(value: value, unit: speed)
             .formatted(.measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0))).locale(locale))
     }
 

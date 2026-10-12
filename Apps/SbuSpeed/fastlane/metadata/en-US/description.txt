@@ -8,8 +8,10 @@ Data stays on your device.
 Open the app and read your speed in large digits, from your iPhone's GPS. On a bike, on a run, on a boat or in a car: one number, readable from a distance.
 
 - Current speed in km/h or mph, one large whole number
-- Top speed, average speed and distance of the trip
+- Top speed, average speed and distance of the trip, kept until you reset it
 - The average counts only time spent moving: stops do not lower it
+- Optional speed limit: go over it and the line under the number says so, and your iPhone vibrates and plays a sound once
+- The dial adapts like a car's: 40, 80, 130 or 200 mph
 - Reset the trip with a confirmation
 - The screen stays on while you watch your speed
 - Location is used only while the app is open and stays on your iPhone

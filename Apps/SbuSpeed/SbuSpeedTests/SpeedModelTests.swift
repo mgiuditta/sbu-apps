@@ -67,6 +67,110 @@ struct SpeedModelTests {
         #expect(model.speed == 10)
     }
 
+    @Test func tripGoesOnAfterARelaunch() async {
+        let first = model([
+            .access(.granted),
+            .sample(.fix(at: 0, metersNorth: 0, speed: 10)),
+            .sample(.fix(at: 1, metersNorth: 14, speed: 14)),
+        ])
+        await first.run()
+
+        let second = model()
+
+        #expect(second.trip.maxSpeed == 14)
+        #expect(second.trip.distance == first.trip.distance)
+        #expect(second.trip.movingTime == first.trip.movingTime)
+    }
+
+    @Test func resetClearsTheSavedTrip() async {
+        let first = model([.access(.granted), .sample(.fix(at: 0, speed: 10))])
+        await first.run()
+
+        first.resetTrip()
+
+        #expect(model().trip.isEmpty)
+    }
+
+    @Test func dialStartsAtTheSmallestScale() {
+        #expect(model(locale: "it_IT").dialFullScale == 60)
+    }
+
+    @Test func dialHoldsTheTripTopSpeedAfterSlowingDown() async {
+        // 25 m/s is 90 km/h, then 5 m/s is 18 km/h.
+        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 25)), .sample(.fix(at: 1, speed: 5))])
+
+        await model.run()
+
+        #expect(model.dialFullScale == 120)
+    }
+
+    @Test func dialHoldsTheLimit() {
+        let model = model(locale: "it_IT")
+
+        model.speedLimit = SpeedLimit(value: 130, unit: .kilometersPerHour)
+
+        #expect(model.dialFullScale == 200)
+    }
+
+    @Test func dialFollowsTheUnit() async {
+        // 25 m/s is 90 km/h or 56 mph.
+        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 25))])
+        await model.run()
+
+        model.unit = .milesPerHour
+
+        #expect(model.dialFullScale == 80)
+    }
+
+    @Test func speedLimitIsOffByDefault() {
+        #expect(model().speedLimit == nil)
+    }
+
+    @Test func goingOverTheLimitAlertsOnceAndShowsIt() async {
+        // 50 km/h is 13.9 m/s.
+        let model = model([
+            .access(.granted),
+            .sample(.fix(at: 0, speed: 12)),
+            .sample(.fix(at: 1, speed: 15)),
+            .sample(.fix(at: 2, speed: 16)),
+        ])
+        model.speedLimit = SpeedLimit(value: 50, unit: .kilometersPerHour)
+
+        await model.run()
+
+        #expect(model.limitAlerts == 1)
+        #expect(model.isOverLimit)
+    }
+
+    @Test func belowTheLimitNothingIsShown() async {
+        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 12))])
+        model.speedLimit = SpeedLimit(value: 50, unit: .kilometersPerHour)
+
+        await model.run()
+
+        #expect(model.limitAlerts == 0)
+        #expect(model.isOverLimit == false)
+    }
+
+    @Test func speedLimitIsSavedAndFollowsTheUnit() {
+        let first = model(locale: "it_IT")
+        first.speedLimit = SpeedLimit(value: 50, unit: .kilometersPerHour)
+
+        first.unit = .milesPerHour
+
+        #expect(first.speedLimit == SpeedLimit(value: 30, unit: .milesPerHour))
+        #expect(model(locale: "it_IT").speedLimit == SpeedLimit(value: 30, unit: .milesPerHour))
+    }
+
+    @Test func turningTheLimitOffIsSaved() {
+        let first = model()
+        first.speedLimit = SpeedLimit(value: 50, unit: .kilometersPerHour)
+
+        first.speedLimit = nil
+
+        #expect(model().speedLimit == nil)
+    }
+
     @Test(arguments: [("it_IT", SpeedUnit.kilometersPerHour), ("en_US", .milesPerHour)])
     func unitDefaultsToTheRegion(locale: String, expected: SpeedUnit) {
         #expect(model(locale: locale).unit == expected)
@@ -91,5 +195,7 @@ struct SpeedModelTests {
         #expect(model.status == .moving)
         #expect(SpeedFigureStyle(unit: .kilometersPerHour).locale(Locale(identifier: "it_IT")).format(model.speed) == "52")
         #expect(source.isStopped == false)
+        defaults.removeObject(forKey: "FASTLANE_SNAPSHOT")
+        #expect(SpeedModel(source: FakeSpeedSource([]), defaults: defaults).trip.isEmpty)
     }
 }

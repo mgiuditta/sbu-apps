@@ -1,3 +1,4 @@
+import AudioToolbox
 import SbuKit
 import SwiftUI
 import UIKit
@@ -8,8 +9,14 @@ struct MainView: View {
 
     @Environment(\.openURL) private var openURL
 
+    /// The system sound played once when the speed goes over the limit.
+    private static let limitSound: SystemSoundID = 1005
+
     private var context: LocalizedStringKey {
-        switch model.status {
+        if model.isOverLimit, let limit = model.speedLimit {
+            return "Oltre il limite di \(limit.text())"
+        }
+        return switch model.status {
         case .needsAccess: "Consenti la posizione"
         case .denied: "Posizione non consentita"
         case .approximate: "Serve la posizione esatta"
@@ -21,7 +28,7 @@ struct MainView: View {
 
     private var gaugeFraction: Double {
         guard let speed = model.speed else { return 0 }
-        return model.unit.value(ofMetersPerSecond: speed) / model.unit.fullScale
+        return model.unit.value(ofMetersPerSecond: speed) / model.dialFullScale
     }
 
     var body: some View {
@@ -30,7 +37,9 @@ struct MainView: View {
             value: model.speed,
             format: SpeedFigureStyle(unit: model.unit),
             unit: model.unit.symbol,
-            context: context
+            context: context,
+            contextSystemImage: model.isOverLimit ? "exclamationmark.triangle" : nil,
+            contextTone: model.isOverLimit ? .danger : .neutral
         ) {
             VStack(spacing: SbuTheme.space6) {
                 SpeedGauge(fraction: gaugeFraction)
@@ -50,9 +59,15 @@ struct MainView: View {
         // A speedometer is read at a glance: the screen stays on while it is shown.
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
+        .sensoryFeedback(.warning, trigger: model.limitAlerts)
+        .onChange(of: model.limitAlerts, playLimitSound)
         .task {
             await model.run()
         }
+    }
+
+    private func playLimitSound() {
+        AudioServicesPlaySystemSound(Self.limitSound)
     }
 
     private func openSettings() {

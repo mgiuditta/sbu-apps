@@ -30,6 +30,31 @@ export async function getApps() {
   return joined.filter((app) => app !== undefined).sort((a, b) => a.order - b.order);
 }
 
+/** Apps with a content file but no listing yet: name and one line, for the home. No page of their own. */
+export async function getUpcoming() {
+  const apps = await getCollection('apps');
+  const listed = new Set((await getCollection('listings')).map((listing) => listing.id));
+  return apps
+    .filter((app) => !listed.has(app.data.app))
+    .map((app) => {
+      const png = icon(app.id);
+      if (!png) throw new Error(`Missing Design/icons/sbu-${app.id}.png`);
+      if (!app.data.teaser) throw new Error(`apps/${app.id}: an app without a listing needs a teaser`);
+      return {
+        slug: app.id,
+        accent: app.data.accent,
+        order: app.data.order,
+        // SbuNoise -> Sbu Noise: the listing is where the real name will come from.
+        name: app.data.app.replace(/^Sbu/, 'Sbu '),
+        teaser: app.data.teaser,
+        icon: png,
+      };
+    })
+    .sort((a, b) => a.order - b.order);
+}
+
+export type UpcomingApp = Awaited<ReturnType<typeof getUpcoming>>[number];
+
 export function text(app: App, locale: Locale) {
   return app.listing[locale];
 }

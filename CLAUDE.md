@@ -47,3 +47,17 @@ Source: https://claude.ai/artifact/A9vJiSmn34wgxe9ePFHLfA, snapshot in `Design/t
 - `#Preview` light and dark for every view.
 - After changing Swift: `xcodebuild test` on an iPhone simulator for SbuKit and the touched app, as CI does.
 - Commit after each completed step.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues of mgiuditta/sbu-apps, via `gh`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Standard labels: needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.

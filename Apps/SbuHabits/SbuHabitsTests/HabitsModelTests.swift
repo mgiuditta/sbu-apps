@@ -108,4 +108,26 @@ struct HabitsModelTests {
 
         #expect(model.habits[0].title.count == Habit.maxTitleLength)
     }
+
+    @Test func withADayStartingAtFourMarksAtTwoCountForTheDayBefore() throws {
+        var rome = Calendar(identifier: .gregorian)
+        rome.timeZone = try #require(TimeZone(identifier: "Europe/Rome"))
+        let twoAM = try #require(rome.date(from: DateComponents(year: 2026, month: 10, day: 13, hour: 2)))
+        let noonBefore = try #require(rome.date(from: DateComponents(year: 2026, month: 10, day: 12, hour: 12)))
+        let model = HabitsModel(store: store, now: { twoAM }, calendar: rome)
+
+        model.setStartHour(4)
+
+        #expect(model.today == LogicalDay(noonBefore, calendar: rome))
+        #expect(HabitsModel(store: store, now: { twoAM }, calendar: rome).startHour == 4)
+    }
+
+    @Test(arguments: [-1, 7, 99])
+    func theStartHourStaysBetweenMidnightAndSix(hour: Int) {
+        let model = HabitsModel(store: store)
+
+        model.setStartHour(hour)
+
+        #expect(HabitsFile.startHourRange.contains(model.startHour))
+    }
 }

@@ -7,6 +7,8 @@ final class HabitsModel {
     private(set) var habits: [Habit] = []
     /// Today's logical day; `reload()` moves it forward.
     private(set) var today: LogicalDay
+    /// Hour the day starts, from Impostazioni.
+    private(set) var startHour = 0
 
     @ObservationIgnored private let store: HabitsStore
     @ObservationIgnored private let now: () -> Date
@@ -35,9 +37,18 @@ final class HabitsModel {
 
     /// Reads the file again and recomputes today, for when the app comes back to the foreground.
     func reload() {
-        today = LogicalDay(now(), calendar: calendar)
         // ponytail: an unreadable file shows as no habits; save() still refuses to overwrite a newer version.
-        habits = (try? store.load().habits) ?? []
+        let file = (try? store.load()) ?? HabitsFile()
+        habits = file.habits
+        startHour = file.startHour
+        today = LogicalDay(now(), startHour: startHour, calendar: calendar)
+    }
+
+    /// Moves the start of the day, for people who live past midnight.
+    func setStartHour(_ hour: Int) {
+        startHour = Self.clamp(hour, to: HabitsFile.startHourRange)
+        today = LogicalDay(now(), startHour: startHour, calendar: calendar)
+        save()
     }
 
     func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay) {
@@ -82,6 +93,6 @@ final class HabitsModel {
 
     private func save() {
         // ponytail: a failed write keeps the change in memory only; add an alert if it shows up in practice.
-        try? store.save(HabitsFile(habits: habits))
+        try? store.save(HabitsFile(habits: habits, startHour: startHour))
     }
 }

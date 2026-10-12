@@ -300,6 +300,16 @@
         }
       }
     },
+    "Inizio della giornata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start of the day"
+          }
+        }
+      }
+    },
     "Libro" : {
       "localizations" : {
         "en" : {
@@ -516,6 +526,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Schedule"
+          }
+        }
+      }
+    },
+    "Quello che fai prima di quest'ora conta per il giorno prima." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What you do before this hour counts for the day before."
           }
         }
       }

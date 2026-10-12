@@ -14,7 +14,7 @@ struct RootView: View {
         SbuAppShell("Sbu Habits", accent: SbuTheme.accentHabits, field: SbuTheme.fieldHabits, appIcon: Image(.appIconArtwork)) {
             MainView(model: model, add: showAdd)
         } settings: {
-            EmptyView()
+            StartOfDaySection(model: model)
         }
         // Outside the shell's dark field, so the form follows the system color scheme.
         .sheet(isPresented: $isAdding) {

@@ -40,6 +40,18 @@ struct LogicalDayTests {
         #expect(tomorrow.ordinal == today.ordinal + 1)
     }
 
+    @Test(arguments: [
+        (2026, 3, 29), // clocks go forward in Rome at 2:00
+        (2026, 10, 25), // clocks go back in Rome at 3:00
+        (2027, 1, 1), // the night after New Year's Eve
+    ])
+    func withADayStartingAtFourTheNightBelongsToTheDayBefore(year: Int, month: Int, day: Int) {
+        let night = LogicalDay(date(year, month, day, 3, 30), startHour: 4, calendar: calendar)
+        let dayBefore = LogicalDay(date(year, month, day, 12), calendar: calendar) - 1
+
+        #expect(night == dayBefore)
+    }
+
     @Test func survivesAJSONRoundTripAsADictionaryKey() throws {
         let log = [LogicalDay(ordinal: 20_373): 2]
 

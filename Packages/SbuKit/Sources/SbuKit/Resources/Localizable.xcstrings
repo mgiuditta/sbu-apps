@@ -6,9 +6,9 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Opens sbu.dev in Safari" } }
       }
     },
-    "App gratuite che rifanno le utility a pagamento." : {
+    "App gratuite che fanno una cosa sola." : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free apps that remake the paid utilities." } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free apps that do one thing." } }
       }
     },
     "Dati solo su questo iPhone" : {

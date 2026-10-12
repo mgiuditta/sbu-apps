@@ -2,7 +2,7 @@
   "default": {
     "background": "../frame-background.png",
     "padding": 48,
-    "title": { "color": "#2ead4f", "font": "../../../../Design/fonts/BricolageGrotesque-Bold.ttf" },
+    "title": { "color": "#0a0a00", "font": "../../../../Design/fonts/BricolageGrotesque-Bold.ttf" },
     "show_complete_frame": true,
     "stack_title": true
   },

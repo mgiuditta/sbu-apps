@@ -15,7 +15,7 @@ struct SbuFooterLink: View {
                         .font(SbuTheme.subheadline.weight(.semibold))
                         .foregroundStyle(SbuTheme.ink)
 
-                    Text("App gratuite che rifanno le utility a pagamento.", bundle: SbuTheme.bundle)
+                    Text("App gratuite che fanno una cosa sola.", bundle: SbuTheme.bundle)
                         .font(SbuTheme.footnote)
                         .foregroundStyle(SbuTheme.inkMuted)
                 }

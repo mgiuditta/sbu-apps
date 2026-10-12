@@ -21,6 +21,12 @@
   --sbu-accent-dark: #5f5f57;
   --sbu-accent-speed: #677000;
   --sbu-accent-moon: #7955a0;
+  --sbu-accent-clean: #9a418c;
+  --sbu-accent-authenticator: #5a6986;
+  --sbu-accent-invoice: #037c58;
+  --sbu-accent-transcribe: #067494;
+  --sbu-accent-find: #4d7455;
+  --sbu-accent-remote: #65619a;
   --sbu-on-accent: #ffffff;
   --sbu-success: #1b7a35;
   --sbu-warning: #8f5800;
@@ -53,6 +59,12 @@
     --sbu-accent-dark: #b8b8ab;
     --sbu-accent-speed: #afba5c;
     --sbu-accent-moon: #c39dee;
+    --sbu-accent-clean: #ea8ad8;
+    --sbu-accent-authenticator: #a1b1d2;
+    --sbu-accent-invoice: #31ce97;
+    --sbu-accent-transcribe: #0cc3f6;
+    --sbu-accent-find: #94bd9c;
+    --sbu-accent-remote: #aca9e8;
     --sbu-on-accent: #0a0a00;
     --sbu-success: #6cc77a;
     --sbu-warning: #f0b04a;
@@ -84,6 +96,12 @@
   --color-accent-dark: var(--sbu-accent-dark);
   --color-accent-speed: var(--sbu-accent-speed);
   --color-accent-moon: var(--sbu-accent-moon);
+  --color-accent-clean: var(--sbu-accent-clean);
+  --color-accent-authenticator: var(--sbu-accent-authenticator);
+  --color-accent-invoice: var(--sbu-accent-invoice);
+  --color-accent-transcribe: var(--sbu-accent-transcribe);
+  --color-accent-find: var(--sbu-accent-find);
+  --color-accent-remote: var(--sbu-accent-remote);
   --color-on-accent: var(--sbu-on-accent);
   --color-success: var(--sbu-success);
   --color-warning: var(--sbu-warning);

@@ -41,12 +41,12 @@ const jsonLd = [
   alternates={alternates}
   title={`${listing.name}: ${listing.subtitle} · sbu.dev`}
   description={`${listing.name} ${listing.oneThing}. ${t.metaSuffix}`}
-  image={app.iconPng}
+  image={app.icon}
   jsonLd={jsonLd}
 >
   <article class="flex flex-col gap-8 py-8">
     <header class="flex flex-col gap-4">
-      <img src={app.icon} alt="" width="96" height="96" class="size-[calc(var(--spacing-12)*2)]" />
+      <img src={app.icon} alt="" width="96" height="96" class="rounded-icon size-[calc(var(--spacing-12)*2)]" />
       <PageTitle text={listing.name} accent={app.accent} />
       <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
       {listing.intro.map((paragraph) => <p>{paragraph}</p>)}

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Scaffold a new Sbu app from Tools/templates/app.
 #
-# Usage: Tools/new_app.sh <Name> <accent-token> <glyph>
+# Usage: Tools/new_app.sh <Name> <accent-token> <subject>
 #   Name          English noun, capitalised: Level, Noise, Habits
 #   accent-token  an accent-* token from Design/tokens.json: accent-level
-#   glyph         a make_icons.py preset (level, noise, ...) or SVG elements in 1024 coordinates
+#   subject       the instrument the icon engraves, in English: "an old iron padlock, closed" (needs GEMINI_API_KEY)
 #
 # Creates Apps/Sbu<Name> (XcodeGen project, bundle id dev.sbu.<name>, SbuKit dependency,
 # generated icon, fastlane lanes test/snapshot/frameit/beta/release), the site entry Site/src/content/apps/<name>.md,
@@ -16,7 +16,7 @@ if [[ $# -ne 3 ]]; then
   exit 64
 fi
 
-name=$1 accent=$2 glyph=$3
+name=$1 accent=$2 subject=$3
 root=$(cd "$(dirname "$0")/.." && pwd)
 lower=$(printf '%s' "$name" | tr '[:upper:]' '[:lower:]')
 dest="$root/Apps/Sbu$name"
@@ -48,11 +48,18 @@ find "$dest" -type f \( -name '*.swift' -o -name '*.yml' -o -name '*.json' -o -n
   xargs -0 sed -i '' -e "s/__NAME__/$name/g" -e "s/__LOWER__/$lower/g" -e "s/__ACCENT__/$accent_swift/g" \
     -e "s/__ACCENT_HEX__/$accent_hex/g"
 
-# Icon: design-system SVG, AppIcon.appiconset PNG, and the same SVG for SbuAppIconView.
-assets="$dest/Sbu$name/Assets.xcassets"
-python3 "$root/Tools/make_icons.py" "$(python3 -c 'import json, sys; print(json.dumps({"name": sys.argv[1], "accent": sys.argv[2], "glyph": sys.argv[3]}))' "$lower" "$accent" "$glyph")" \
-  --out "$root/Design/icons" --appiconset "$assets/AppIcon.appiconset"
-cp "$root/Design/icons/sbu-$lower.svg" "$assets/AppIconArtwork.imageset/AppIconArtwork.svg"
+# Icon: engraved instrument on paper, light/dark/tinted in AppIcon.appiconset, light/dark for SbuAppIconView.
+assets="$root/Apps/Sbu$name/Sbu$name/Assets.xcassets"
+python3 - "$root/Design/icons/engravings.json" "$lower" "$accent" "$subject" <<'PY'
+import json, sys
+path, name, accent, subject = sys.argv[1:]
+specs = json.load(open(path))
+specs[name] = {"accent": accent, "subject": subject}
+json.dump(specs, open(path, "w"), indent=2)
+open(path, "a").write("\n")
+PY
+python3 "$root/Tools/make_icons.py" "$lower" --generate \
+  --appiconset "$assets/AppIcon.appiconset" --artwork "$assets/AppIconArtwork.imageset"
 
 # frameit background: plain light `surface`.
 python3 -c 'import sys; from PIL import Image; Image.new("RGB", (1320, 2868), sys.argv[1]).save(sys.argv[2])' \

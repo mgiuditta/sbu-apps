@@ -1,10 +1,10 @@
 import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n';
 
-const icons = import.meta.glob<string>('../../../Design/icons/*.{svg,png}', { query: '?url', import: 'default', eager: true });
+const icons = import.meta.glob<string>('../../../Design/icons/*.png', { query: '?url', import: 'default', eager: true });
 
-function icon(slug: string, ext: 'svg' | 'png'): string | undefined {
-  return icons[`../../../Design/icons/sbu-${slug}.${ext}`];
+function icon(slug: string): string | undefined {
+  return icons[`../../../Design/icons/sbu-${slug}.png`];
 }
 
 export type App = Awaited<ReturnType<typeof getApps>>[number];
@@ -15,15 +15,14 @@ export async function getApps() {
   const joined = await Promise.all(
     apps.map(async (app) => {
       const listing = await getEntry('listings', app.data.app);
-      const svg = icon(app.id, 'svg');
+      const png = icon(app.id);
       if (!listing) return undefined;
-      if (!svg) throw new Error(`Missing Design/icons/sbu-${app.id}.svg`);
+      if (!png) throw new Error(`Missing Design/icons/sbu-${app.id}.png`);
       return {
         slug: app.id,
         ...app.data,
         listing: listing.data,
-        icon: svg,
-        iconPng: icon(app.id, 'png'),
+        icon: png,
         storeUrl: app.data.status === 'live' && app.data.appStoreId ? `https://apps.apple.com/app/id${app.data.appStoreId}` : undefined,
       };
     }),

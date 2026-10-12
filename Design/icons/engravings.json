@@ -1,0 +1,11 @@
+{
+  "subscriptions": {"accent": "accent-subscriptions", "subject": "a vintage brass mechanical cash register, three-quarter view"},
+  "scanner": {"accent": "accent-scanner", "subject": "a vintage brass magnifying glass, three-quarter view"},
+  "level": {"accent": "accent-level", "subject": "a vintage brass carpenter's spirit level with a bubble vial, three-quarter view"},
+  "noise": {"accent": "accent-noise", "subject": "a vintage 1950s tabletop radio with a speaker grille"},
+  "docs": {"accent": "accent-docs", "subject": "a vintage manual typewriter with a sheet of paper in it, three-quarter view"},
+  "habits": {"accent": "accent-habits", "subject": "an antique hourglass with sand flowing"},
+  "cards": {"accent": "accent-cards", "subject": "a small wooden card index box with paper index cards standing inside"},
+  "block": {"accent": "accent-block", "subject": "an old iron padlock, closed"},
+  "dark": {"accent": "accent-dark", "subject": "an old brass oil lamp with the flame turned low"}
+}

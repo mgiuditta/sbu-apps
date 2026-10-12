@@ -1,125 +1,175 @@
 #!/usr/bin/env python3
-"""Generate a Sbu app icon: 1024 SVG (marketing, rounded) and 1024 PNG (Xcode, square, no alpha).
+"""Generate a Sbu app icon: an engraved instrument on paper, closed by the full stop.
 
-Grammar (Design/tokens.json): full field in the app's accent-* (radius-icon, rx 230 at 1024),
-one white glyph, stroke icon-stroke (96) with round caps, inside icon-glyph-box (560, centred).
+Grammar (Design/README.md, CLAUDE.md): the real instrument behind the app, engraved in
+warm black (`ink`) on paper (`surface`), centred, with the square full stop in the app's
+`accent-*` at the bottom right. Dark: the engraving in light ink on warm black, the square
+in the accent's dark value. Tinted: the dark variant in greys, for iOS to tint.
+
+Subjects live in Design/icons/engravings.json ({name: {accent, subject}}). The engraving is
+kept as a greyscale ink mask in Design/icons/source/sbu-<name>.png (white = ink), so icons
+rebuild without calling a model.
 
 Usage:
-  python3 Tools/make_icons.py '{"name": "level", "accent": "accent-level", "glyph": "level"}' \
-      [--out Design/icons] [--appiconset Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIcon.appiconset]
+  python3 Tools/make_icons.py level [--appiconset Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIcon.appiconset]
+      [--artwork Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIconArtwork.imageset]
+  python3 Tools/make_icons.py level --generate          # new engraving from Gemini (GEMINI_API_KEY)
+  python3 Tools/make_icons.py level --from-image raw.png # engraving from an image you supply
 
-`glyph` is a preset name (see GLYPHS) or raw SVG elements in 1024 coordinates, e.g.
-'<path d="M232 512 H792"/>'. Elements get the stroke style; do not add fill or stroke yourself.
-PNG rasterisation uses macOS `sips` and Pillow.
+Writes Design/icons/sbu-<name>.png (light, 1024, no alpha); with --appiconset also the dark and tinted variants.
 """
 import argparse
+import base64
 import json
-import shutil
-import subprocess
+import os
 import sys
-import tempfile
+import urllib.request
 from pathlib import Path
+
+from PIL import Image, ImageDraw, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
 TOKENS = ROOT / "Design" / "tokens.json"
+ICONS = ROOT / "Design" / "icons"
+SPECS = ICONS / "engravings.json"
 CANVAS = 1024
-RADIUS = 230  # radius-icon 22.5% of 1024, as drawn in the design system icons.
-
-# Glyphs of the nine design-system icons (Design/icons/*.svg).
-GLYPHS = {
-    "subscriptions": '<path d="M688 352 A232 232 0 1 0 744 512"/><path d="M700 230 L700 372 L560 372"/>',
-    "scanner": '<path d="M296 420 V296 H420 M604 296 H728 V420 M728 604 V728 H604 M420 728 H296 V604"/>'
-    '<path d="M352 512 H672"/>',
-    "level": '<path d="M232 512 H792"/><circle cx="512" cy="512" r="120"/>',
-    "noise": '<path d="M352 400 V624 M512 288 V736 M672 440 V584"/>',
-    "docs": '<path d="M352 232 H592 L704 344 V792 H352 Z"/><path d="M416 560 H640"/>',
-    "habits": '<circle cx="512" cy="512" r="248"/><path d="M400 520 L480 600 L632 440"/>',
-    "cards": '<rect x="312" y="360" width="400" height="280" rx="48"/>'
-    '<path d="M408 296 H760 A48 48 0 0 1 808 344 V560"/>',
-    "block": '<path d="M512 240 L744 328 V520 C744 664 632 752 512 792 C392 752 280 664 280 520 V328 Z"/>',
-    "dark": '<path d="M600 268 A248 248 0 1 0 760 640 A200 200 0 0 1 600 268 Z"/>',
-}
+MARGIN = 0.15  # space around the engraving, as a fraction of its longer side
+STOP_SIDE = 0.085  # full stop side, as a fraction of the canvas
+STOP_INSET = 0.10  # full stop distance from the bottom-right corner
+MODEL = "gemini-2.5-flash-image"
+STYLE = (
+    "Single subject, centered, filling about 70% of a square frame, generous empty margin. "
+    "Fine copperplate engraving / etching style with dense crosshatching and stipple, "
+    "warm near-black ink on plain flat off-white paper background, no paper texture, no color, "
+    "no border, no frame, no text, no letters, no shadow on the ground, crisp lines that stay legible when small."
+)
 
 
-def token_values() -> tuple[dict, dict]:
-    tokens = json.loads(TOKENS.read_text())
-    colors = {t["name"]: t["value"]["light"] for t in tokens["color"]["tokens"]}
-    strokes = {t["name"]: int(t["value"].removesuffix("px")) for t in tokens["stroke"]["tokens"]}
-    return colors, strokes
+def rgb(hex_value: str) -> tuple[int, int, int]:
+    h = hex_value.lstrip("#")
+    return tuple(int(h[i : i + 2], 16) for i in (0, 2, 4))
 
 
-def svg(accent_hex: str, glyph: str, stroke: int, radius: int) -> str:
-    return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CANVAS} {CANVAS}" width="{CANVAS}" height="{CANVAS}">\n'
-        f'  <rect width="{CANVAS}" height="{CANVAS}" rx="{radius}" fill="{accent_hex}"/>\n'
-        f'  <g fill="none" stroke="#FFFFFF" stroke-width="{stroke}" stroke-linecap="round" stroke-linejoin="round">'
-        f"{glyph}</g>\n"
-        "</svg>\n"
-    )
+def colors() -> dict:
+    return {t["name"]: t["value"] for t in json.loads(TOKENS.read_text())["color"]["tokens"]}
 
 
-def rasterise(svg_text: str, png: Path) -> None:
-    """Render with macOS `sips` (ImageMagick's SVG renderer drops strokes), then drop alpha."""
-    from PIL import Image
-
-    with tempfile.TemporaryDirectory() as tmp:
-        source = Path(tmp) / "icon.svg"
-        source.write_text(svg_text)
-        subprocess.run(["sips", "-s", "format", "png", str(source), "--out", str(png)], check=True, capture_output=True)
-    Image.open(png).convert("RGB").save(png)
-
-
-def check_glyph_box(glyph: str, stroke: int, box: int) -> None:
-    """Warn when the glyph, including half the stroke, leaves the centred glyph box."""
-    from PIL import Image
-
-    with tempfile.TemporaryDirectory() as tmp:
-        png = Path(tmp) / "glyph.png"
-        rasterise(svg("#000000", glyph, stroke, 0), png)
-        bbox = Image.open(png).convert("L").point(lambda v: 255 if v > 127 else 0).getbbox()
-    low, high = (CANVAS - box) // 2 - stroke // 2, (CANVAS + box) // 2 + stroke // 2
-    if bbox and (min(bbox) < low or max(bbox) > high):
-        print(f"warning: glyph ink {bbox} leaves glyph box {low}..{high}", file=sys.stderr)
+def ink_mask(image: Image.Image) -> Image.Image:
+    """Greyscale engraving -> mask where white is ink, cropped to the subject and centred."""
+    grey = ImageOps.autocontrast(ImageOps.grayscale(image), cutoff=0.5)
+    paper = 200  # anything lighter is paper
+    grey = grey.point(lambda v: 255 if v >= paper else int(v * 255 / paper))
+    box = grey.point(lambda v: 255 if v < 180 else 0).getbbox()
+    if box is None:
+        sys.exit("no ink found in the image")
+    grey = grey.crop(box)
+    w, h = grey.size
+    side = max(w, h)
+    pad = int(side * MARGIN)
+    framed = Image.new("L", (side + 2 * pad, side + 2 * pad), 255)
+    framed.paste(grey, ((side - w) // 2 + pad, (side - h) // 2 + pad))
+    return ImageOps.invert(framed.resize((CANVAS, CANVAS), Image.LANCZOS))
 
 
-def write_appiconset(png: Path, folder: Path) -> None:
-    folder.mkdir(parents=True, exist_ok=True)
-    shutil.copy(png, folder / "AppIcon.png")
-    contents = {
-        "images": [{"filename": "AppIcon.png", "idiom": "universal", "platform": "ios", "size": "1024x1024"}],
-        "info": {"author": "xcode", "version": 1},
+def generate(subject: str) -> Image.Image:
+    key = os.environ.get("GEMINI_API_KEY") or sys.exit("GEMINI_API_KEY is not set")
+    body = {
+        "contents": [{"parts": [{"text": f"Illustration: {subject}. {STYLE}"}]}],
+        "generationConfig": {"responseModalities": ["IMAGE"], "imageConfig": {"aspectRatio": "1:1"}},
     }
-    (folder / "Contents.json").write_text(json.dumps(contents, indent=2) + "\n")
+    request = urllib.request.Request(
+        f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent",
+        data=json.dumps(body).encode(),
+        headers={"Content-Type": "application/json", "x-goog-api-key": key},
+    )
+    reply = json.load(urllib.request.urlopen(request, timeout=180))
+    for part in reply["candidates"][0]["content"]["parts"]:
+        if "inlineData" in part:
+            from io import BytesIO
+
+            return Image.open(BytesIO(base64.b64decode(part["inlineData"]["data"])))
+    sys.exit("the model returned no image: " + json.dumps(reply)[:300])
+
+
+def compose(mask: Image.Image, line: str, ground: str, stop: str | None) -> Image.Image:
+    icon = Image.composite(Image.new("RGB", mask.size, rgb(line)), Image.new("RGB", mask.size, rgb(ground)), mask)
+    if stop:
+        side, inset = int(CANVAS * STOP_SIDE), int(CANVAS * STOP_INSET)
+        corner = CANVAS - inset
+        ImageDraw.Draw(icon).rectangle([corner - side, corner - side, corner, corner], fill=rgb(stop))
+    return icon
+
+
+def write_appiconset(icons: dict, folder: Path) -> None:
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.glob("*.png"):
+        old.unlink()
+    images = []
+    for variant, image in icons.items():
+        image.save(folder / f"AppIcon-{variant}.png")
+        entry = {"filename": f"AppIcon-{variant}.png", "idiom": "universal", "platform": "ios", "size": "1024x1024"}
+        if variant != "light":
+            entry["appearances"] = [{"appearance": "luminosity", "value": variant}]
+        images.append(entry)
+    (folder / "Contents.json").write_text(json.dumps({"images": images, "info": {"author": "xcode", "version": 1}}, indent=2) + "\n")
+
+
+def write_artwork(icons: dict, folder: Path) -> None:
+    """Same icon for SbuAppIconView, light and dark."""
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.iterdir():
+        if old.name != "Contents.json":
+            old.unlink()
+    images = []
+    for variant in ("light", "dark"):
+        name = f"AppIconArtwork-{variant}.png"
+        icons[variant].resize((512, 512), Image.LANCZOS).save(folder / name)
+        entry = {"filename": name, "idiom": "universal"}
+        if variant == "dark":
+            entry["appearances"] = [{"appearance": "luminosity", "value": "dark"}]
+        images.append(entry)
+    (folder / "Contents.json").write_text(json.dumps({"images": images, "info": {"author": "xcode", "version": 1}}, indent=2) + "\n")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("spec", help='JSON {"name", "accent", "glyph"}')
-    parser.add_argument("--out", type=Path, default=ROOT / "Design" / "icons", help="folder for sbu-<name>.svg/.png")
-    parser.add_argument("--appiconset", type=Path, help="also write AppIcon.appiconset here")
+    parser.add_argument("name", help="app name in Design/icons/engravings.json, like level")
+    source_group = parser.add_mutually_exclusive_group()
+    source_group.add_argument("--generate", action="store_true", help="draw a new engraving with Gemini")
+    source_group.add_argument("--from-image", type=Path, help="use this image as the engraving")
+    parser.add_argument("--appiconset", type=Path, help="also write this AppIcon.appiconset")
+    parser.add_argument("--artwork", type=Path, help="also write this AppIconArtwork.imageset")
     args = parser.parse_args()
 
-    spec = json.loads(args.spec)
-    colors, strokes = token_values()
-    if spec["accent"] not in colors or not spec["accent"].startswith("accent-"):
-        sys.exit(f"accent must be an accent-* token, one of: {', '.join(c for c in colors if c.startswith('accent-'))}")
-    glyph = GLYPHS.get(spec["glyph"], spec["glyph"])
-    if not glyph.lstrip().startswith("<"):
-        sys.exit(f"glyph must be a preset ({', '.join(GLYPHS)}) or SVG elements")
+    specs = json.loads(SPECS.read_text())
+    spec = specs.get(args.name) or sys.exit(f"{args.name} is not in {SPECS.relative_to(ROOT)}")
+    palette = colors()
+    accent = palette.get(spec["accent"]) or sys.exit(f"unknown accent token {spec['accent']}")
 
-    stroke = strokes["icon-stroke"]
-    check_glyph_box(glyph, stroke, strokes["icon-glyph-box"])
+    source = ICONS / "source" / f"sbu-{args.name}.png"
+    if args.generate or args.from_image:
+        raw = generate(spec["subject"]) if args.generate else Image.open(args.from_image)
+        source.parent.mkdir(parents=True, exist_ok=True)
+        ink_mask(raw).save(source)
+    if not source.exists():
+        sys.exit(f"{source.relative_to(ROOT)} is missing: run with --generate or --from-image")
+    mask = Image.open(source).convert("L")
 
-    args.out.mkdir(parents=True, exist_ok=True)
-    base = args.out / f"sbu-{spec['name']}"
-    base.with_suffix(".svg").write_text(svg(colors[spec["accent"]], glyph, stroke, RADIUS))
-    # Xcode masks the icon itself: the PNG is the full square field without alpha.
-    rasterise(svg(colors[spec["accent"]], glyph, stroke, 0), base.with_suffix(".png"))
-    print(f"{base}.svg, {base}.png")
-
+    ink, surface = palette["ink"], palette["surface"]
+    variants = {
+        "light": compose(mask, ink["light"], surface["light"], accent["light"]),
+        "dark": compose(mask, ink["dark"], ink["light"], accent["dark"]),
+        "tinted": ImageOps.grayscale(compose(mask, "#ffffff", "#000000", "#ffffff")).convert("RGB"),
+    }
+    # Design/icons keeps the light icon; the variants go only into the app's asset catalog.
+    variants["light"].save(ICONS / f"sbu-{args.name}.png")
+    print(ICONS.relative_to(ROOT) / f"sbu-{args.name}.png")
     if args.appiconset:
-        write_appiconset(base.with_suffix(".png"), args.appiconset)
+        write_appiconset(variants, args.appiconset)
         print(args.appiconset)
+    if args.artwork:
+        write_artwork(variants, args.artwork)
+        print(args.artwork)
 
 
 if __name__ == "__main__":

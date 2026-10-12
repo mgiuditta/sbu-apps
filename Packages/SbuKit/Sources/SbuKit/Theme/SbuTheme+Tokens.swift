@@ -86,10 +86,6 @@ public extension SbuTheme {
 
     // MARK: - Stroke
 
-    /// Tratto del glifo nell'icona app su canvas 1024 (= 9.4% del lato), estremità arrotondate.
-    static let iconStroke: CGFloat = 96
-    /// Riquadro in cui sta il glifo, centrato sul canvas 1024: il glifo non esce mai da qui.
-    static let iconGlyphBox: CGFloat = 560
     /// Separatori di lista in `line`.
     static let hairline: CGFloat = 1
 
@@ -121,8 +117,6 @@ extension SbuTheme {
         "radius-xl": radiusXl,
         "radius-pill": radiusPill,
         "radius-icon": radiusIcon,
-        "icon-stroke": iconStroke,
-        "icon-glyph-box": iconGlyphBox,
         "hairline": hairline,
         "mark-size": markSize,
         "mark-gap": markGap,

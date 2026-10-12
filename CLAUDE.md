@@ -29,7 +29,7 @@ Direction **Carta e punto fermo**: Sbu fa una cosa sola e la chiude con un punto
 - Nothing that looks like a paywall: no gradients, colored-border cards, stars, "PRO", shadows.
 - Status colors (`success`, `warning`, `danger`) always come with a word or SF Symbol. Delete and reset are `danger` and confirm (`SbuButton(kind: .destructive)` does it).
 - Type: SF for all text, Dynamic Type styles only. `stat` and `statHero` are Bricolage Grotesque ExtraBold (bundled in SbuKit, OFL, listed under Impostazioni → Licenze), sized with `@ScaledMetric` and `Font.custom(_:fixedSize:)`, tabular figures. `statSmall` is SF with `.monospacedDigit()`. SF Symbols at `.medium` weight and scale, no custom icons in the UI.
-- App icon grammar: full `accent-*` field, rx 230 at 1024, one white glyph, stroke 96 with round caps, inside the 560 box. Generate with `Tools/make_icons.py`.
+- App icon grammar: the real instrument behind the app, engraved in `ink` on `surface` paper, closed by the square full stop in the app's accent at the bottom right; dark is light ink on warm black, tinted is greys. Subjects in `Design/icons/engravings.json`, ink masks in `Design/icons/source/`. Generate with `Tools/make_icons.py` (`--generate` uses Gemini).
 - The logo (`Design/logos/sbu-logo.svg`: lowercase `sbu` plus the square, `#0A0A00`) is never redrawn; `sbu-mark.svg` is the same wordmark in white on warm black.
 
 ## Product rules

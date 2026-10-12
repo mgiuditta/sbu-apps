@@ -33,7 +33,7 @@ cd Apps/SbuNoise && fastlane test                   # 4. build the app from spec
 fastlane snapshot && fastlane frameit && fastlane beta   # 5. App Store screenshots, frames, TestFlight
 ```
 
-Between 3 and 4 you write the app: start from `MainView.swift`, put strings in `Localizable.xcstrings` (Italian source, English translation), and fill the placeholders in `fastlane/metadata/{it,en-US}`. `new_app.sh` arguments: an English noun, an `accent-*` token not used by a nearby category, and a glyph preset from `Tools/make_icons.py` or raw SVG elements in 1024 coordinates.
+Between 3 and 4 you write the app: start from `MainView.swift`, put strings in `Localizable.xcstrings` (Italian source, English translation), and fill the placeholders in `fastlane/metadata/{it,en-US}`. `new_app.sh` arguments: an English noun, an `accent-*` token not used by a nearby category, and the instrument the icon engraves, in English (needs `GEMINI_API_KEY`).
 
 `fastlane release` uploads build, metadata and framed screenshots without submitting. `beta` and `release` read `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_PATH` and `SBU_TEAM_ID`.
 
@@ -42,7 +42,7 @@ Between 3 and 4 you write the app: start from `MainView.swift`, put strings in `
 | | |
 |---|---|
 | `sync_tokens.py` | Regenerates SbuKit colors (asset catalog, light/dark), metrics and `Site/src/styles/tokens.css` from `Design/tokens.json`. CI fails if they drift. |
-| `make_icons.py` | `{name, accent, glyph}` → `Design/icons/sbu-<name>.svg` (rx 230) and a 1024 PNG without alpha for `AppIcon.appiconset`. Warns if the glyph leaves the 560 box. |
+| `make_icons.py` | `<name>` → engraved icon `Design/icons/sbu-<name>.png` from `engravings.json` and `source/`; `--generate` draws a new engraving with Gemini, `--appiconset`/`--artwork` write light, dark and tinted variants. |
 | `discover.py` | Top-paid charts (Apple marketing RSS) + iTunes Lookup: description, screenshots, price, release notes, genre. |
 | `spec.py` | Claude (`claude-opus-5-5`, vision, structured output) → `features[]`, `screens[]`, `flows[]`, `data_model`, `monetization`, `user_pains[]`. |
 | `new_app.sh` | Scaffolds `Apps/Sbu<Name>` from `Tools/templates/app` and its site entry `Site/src/content/apps/<name>.md`. |

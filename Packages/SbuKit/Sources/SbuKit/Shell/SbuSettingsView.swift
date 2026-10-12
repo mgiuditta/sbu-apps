@@ -37,6 +37,15 @@ struct SbuSettingsView<Settings: View>: View {
                     .listRowBackground(SbuTheme.surfaceRaised)
 
                 Section {
+                    NavigationLink {
+                        SbuLicensesView()
+                    } label: {
+                        Text("Licenze", bundle: SbuTheme.bundle)
+                    }
+                }
+                .listRowBackground(SbuTheme.surfaceRaised)
+
+                Section {
                     SbuFreeBadge(style: .pills)
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets())

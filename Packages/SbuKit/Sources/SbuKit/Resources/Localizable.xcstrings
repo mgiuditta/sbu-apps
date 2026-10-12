@@ -26,6 +26,12 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } }
       }
     },
+    "Licenze" : {
+      "comment" : "Settings row and screen with the licence notices of the bundled fonts.",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Licenses" } }
+      }
+    },
     "Nessun account" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "No account" } }

@@ -38,6 +38,7 @@ struct StatFontTests {
     }
 
     @Test func faceIsProportionalWithoutTheFeature() throws {
+        try #require(SbuFont.isRegistered)
         let font = try #require(UIFont(name: SbuFont.statPostScriptName, size: 64))
         let one = ("1111" as NSString).size(withAttributes: [.font: font]).width
         let zero = ("0000" as NSString).size(withAttributes: [.font: font]).width

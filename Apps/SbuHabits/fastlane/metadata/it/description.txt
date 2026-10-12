@@ -10,11 +10,16 @@ Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alt
 - Tutte le abitudini che vuoi, senza limiti
 - Sì o no, oppure più volte al giorno: 8 bicchieri d'acqua
 - Ogni giorno, in giorni scelti, oppure N volte a settimana
+- Abitudini da evitare con un limite al giorno: quando cedi, la tieni premuta
+- Collega un'abitudine a Salute: passi, acqua, minuti di consapevolezza, distanza camminata + corsa, energia attiva
+- Si segna da sola quando arrivi all'obiettivo del giorno, anche ad app chiusa
+- Salute in sola lettura: Sbu Habits non scrive mai e i dati restano sull'iPhone
 - Salta oggi quando sei malato, senza perdere la serie
 - Inizio della giornata per chi fa i turni di notte
 - Promemoria solo nei giorni previsti e solo se non l'hai ancora fatta
 - Widget interattivo: segni dalla schermata Home
 - Statistiche con la serie migliore e le ultime 26 settimane
+- Esporta e importa i tuoi dati in un file, salvato dove scegli tu
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: conta i giorni di fila in cui mantieni un'abitudine.

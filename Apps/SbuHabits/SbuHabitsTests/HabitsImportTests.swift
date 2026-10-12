@@ -35,6 +35,23 @@ struct HabitsImportTests {
         #expect(throws: failure) { try HabitsImport(data: Data(json.utf8)) }
     }
 
+    /// A habit with one field changed from a valid one, as a hand-edited or crafted file would.
+    @Test(arguments: [
+        #""createdOn": -1000000000"#, // streaks would walk billions of days on every launch
+        #""createdOn": 20000, "skipped": [5]"#,
+        #""createdOn": 20000, "timesPerDay": 1000000"#,
+        #""createdOn": 20000, "limit": -1"#,
+        #""createdOn": 20000, "schedule": {"weekdays": {"_0": [0, 9]}}"#,
+        #""createdOn": 20000, "schedule": {"timesPerWeek": {"_0": 40}}"#,
+        #""createdOn": 20000, "reminders": [{"hour": 99, "minute": 0}]"#,
+    ])
+    func implausibleHabitsAreRefused(fields: String) {
+        let json = #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "log": {}, "#
+            + fields + "}]}"
+
+        #expect(throws: HabitsImport.Failure.damaged) { try HabitsImport(data: Data(json.utf8)) }
+    }
+
     @Test func aStartOfDayOutOfRangeIsKeptInRange() throws {
         let candidate = try HabitsImport(data: Data(#"{"version": 1, "habits": [], "startHour": 12}"#.utf8))
 

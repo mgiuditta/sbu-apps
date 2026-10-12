@@ -10,7 +10,7 @@ export function localePath(locale: Locale, path: string): string {
 export const ui = {
   it: {
     siteDescription: 'App gratuite per iPhone che fanno una cosa sola. Nessun abbonamento, nessun account, nessuna pubblicità.',
-    nav: { apps: 'App', principles: 'Principi', support: 'Supporto', blog: 'Blog', privacy: 'Privacy' },
+    nav: { apps: 'App', principles: 'Principi', support: 'Supporto', blog: 'Blog', privacy: 'Privacy', levelTool: 'Livella online', subscriptionCost: 'Quanto spendi in abbonamenti' },
     otherLocale: { label: 'English', lang: 'en' },
     skip: 'Vai al contenuto',
     navLabel: 'Principale',
@@ -34,7 +34,7 @@ export const ui = {
   },
   en: {
     siteDescription: 'Free iPhone apps that each do one thing. No subscription, no account, no ads.',
-    nav: { apps: 'Apps', principles: 'Principles', support: 'Support', blog: 'Blog', privacy: 'Privacy' },
+    nav: { apps: 'Apps', principles: 'Principles', support: 'Support', blog: 'Blog', privacy: 'Privacy', levelTool: 'Bubble level online', subscriptionCost: 'Subscription cost' },
     otherLocale: { label: 'Italiano', lang: 'it' },
     skip: 'Skip to content',
     navLabel: 'Main',

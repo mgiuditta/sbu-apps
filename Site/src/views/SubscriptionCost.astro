@@ -1,0 +1,248 @@
+---
+// A free tool: add up what your subscriptions cost in a year. The sum happens in the browser;
+// nothing is stored or sent. Without JavaScript it is a page that explains what it would do.
+import PageTitle from '../components/PageTitle.astro';
+import Base from '../layouts/Base.astro';
+import { localePath, ui } from '../i18n';
+import { breadcrumbs, faqPage } from '../lib/jsonld';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { view: 'subscriptionCost' };
+const { locale, path, alternates } = Astro.props;
+const t = ui[locale];
+const copy = {
+  it: {
+    title: 'Quanto spendi in abbonamenti',
+    metaTitle: 'Quanto spendi in abbonamenti all’anno · sbu.dev',
+    description: 'Somma gli abbonamenti delle tue app e scopri quanto spendi in un anno. Il calcolo avviene nel browser: nessun dato salvato o inviato.',
+    lede: 'Scrivi le app che paghi ogni settimana, mese o anno. Il totale si aggiorna mentre scrivi e non lascia il browser.',
+    name: 'App',
+    namePlaceholder: 'Nome',
+    price: 'Prezzo in euro',
+    period: 'Ogni',
+    periods: { week: 'settimana', month: 'mese', year: 'anno' },
+    add: 'Aggiungi un abbonamento',
+    remove: 'Togli',
+    perYear: 'all’anno',
+    inFive: (amount: string) => `In cinque anni: ${amount}.`,
+    noScript: 'Il calcolo ha bisogno di JavaScript, che qui è spento.',
+    closeTitle: 'Le app Sbu costano 0 €',
+    closeBody: 'Ogni app Sbu fa una cosa sola, gratis: nessun abbonamento, nessun acquisto in-app, nessun account.',
+    closeLink: 'Vedi le app',
+    faq: [
+      { q: 'I miei dati vengono salvati?', a: 'No. Quello che scrivi resta nella pagina e sparisce quando la chiudi. Il sito non usa cookie né statistiche.' },
+      { q: 'Come calcola il totale annuo?', a: 'Un abbonamento settimanale conta 52 volte, uno mensile 12 volte, uno annuale una volta.' },
+      { q: 'Dove trovo i miei abbonamenti su iPhone?', a: 'In Impostazioni, tocca il tuo nome e poi Abbonamenti. Lì vedi prezzi e rinnovi, e puoi disdire.' },
+    ],
+  },
+  en: {
+    title: 'What your subscriptions cost',
+    metaTitle: 'What your app subscriptions cost per year · sbu.dev',
+    description: 'Add up your app subscriptions and see what you spend in a year. The sum runs in your browser: nothing saved or sent.',
+    lede: 'Write down the apps you pay for every week, month or year. The total updates as you type and never leaves your browser.',
+    name: 'App',
+    namePlaceholder: 'Name',
+    price: 'Price in euros',
+    period: 'Every',
+    periods: { week: 'week', month: 'month', year: 'year' },
+    add: 'Add a subscription',
+    remove: 'Remove',
+    perYear: 'a year',
+    inFive: (amount: string) => `In five years: ${amount}.`,
+    noScript: 'The sum needs JavaScript, which is off here.',
+    closeTitle: 'Sbu apps cost €0',
+    closeBody: 'Every Sbu app does one thing, for free: no subscription, no in-app purchases, no account.',
+    closeLink: 'See the apps',
+    faq: [
+      { q: 'Is my data saved?', a: 'No. What you type stays on the page and is gone when you close it. The site uses no cookies or analytics.' },
+      { q: 'How is the yearly total worked out?', a: 'A weekly subscription counts 52 times, a monthly one 12 times, a yearly one once.' },
+      { q: 'Where do I find my subscriptions on iPhone?', a: 'In Settings, tap your name, then Subscriptions. You see prices and renewals there, and can cancel.' },
+    ],
+  },
+}[locale];
+
+// The five-year line is built in the browser from this template.
+const strings = { inFive: copy.inFive('{}') };
+const site = Astro.site!;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: copy.title,
+    url: new URL(localePath(locale, path), site).href,
+    description: copy.description,
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Any',
+    inLanguage: locale,
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+  },
+  breadcrumbs(site, locale, [['sbu.dev', ''], [copy.title, path]]),
+  faqPage(copy.faq),
+];
+---
+<Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} jsonLd={jsonLd}>
+  <article class="flex flex-col gap-12 py-8">
+    <header class="flex flex-col gap-4">
+      <PageTitle text={copy.title} />
+      <p class="text-ink-muted">{copy.lede}</p>
+    </header>
+
+    <section class="flex flex-col gap-6" data-cost data-locale={locale} data-strings={JSON.stringify(strings)} aria-label={copy.title}>
+      <p class="flex flex-col gap-1" aria-live="polite">
+        <span class="figure font-display tabular-nums text-ink" data-total>0 €</span>
+        <span class="text-subheadline text-ink-muted">{copy.perYear}</span>
+        <span class="text-subheadline text-ink-muted" data-five></span>
+      </p>
+
+      <ul class="rows" data-rows hidden></ul>
+      <p><button type="button" class="btn is-ghost" data-add hidden>{copy.add}</button></p>
+      <noscript><p class="text-ink-muted">{copy.noScript}</p></noscript>
+
+      <template data-row>
+        <li class="row">
+          <label class="field grow">
+            <span class="text-caption uppercase text-ink-muted">{copy.name}</span>
+            <input type="text" autocomplete="off" placeholder={copy.namePlaceholder} />
+          </label>
+          <label class="field">
+            <span class="text-caption uppercase text-ink-muted">{copy.price}</span>
+            <input type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" data-price />
+          </label>
+          <label class="field">
+            <span class="text-caption uppercase text-ink-muted">{copy.period}</span>
+            <select data-period>
+              <option value="week">{copy.periods.week}</option>
+              <option value="month" selected>{copy.periods.month}</option>
+              <option value="year">{copy.periods.year}</option>
+            </select>
+          </label>
+          <button type="button" class="remove" data-remove>{copy.remove}</button>
+        </li>
+      </template>
+    </section>
+
+    <section aria-labelledby="close-title" class="flex flex-col items-start gap-4 border-y border-line py-8">
+      <h2 id="close-title" class="text-title-2">{copy.closeTitle}</h2>
+      <p>{copy.closeBody}</p>
+      <a href={localePath(locale, '')} class="btn">{copy.closeLink}</a>
+    </section>
+
+    <section aria-labelledby="faq" class="flex flex-col gap-4">
+      <h2 id="faq" class="text-title-2">{t.faq}</h2>
+      {copy.faq.map((item) => (
+        <div class="flex flex-col gap-1">
+          <h3 class="text-headline">{item.q}</h3>
+          <p class="text-ink-muted">{item.a}</p>
+        </div>
+      ))}
+    </section>
+  </article>
+</Base>
+
+<style>
+  .figure {
+    font-size: clamp(var(--text-stat-hero), 18vw, calc(var(--text-stat-hero) * 2.2));
+    font-weight: var(--text-stat-hero--font-weight);
+    line-height: 1;
+    letter-spacing: var(--text-stat-hero--letter-spacing);
+  }
+
+  .rows { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: var(--spacing-3);
+    padding-block: var(--spacing-4);
+    border-bottom: var(--sbu-hairline) solid var(--sbu-line);
+  }
+  .field { display: grid; gap: var(--spacing-1); min-width: calc(var(--spacing-12) * 2.5); }
+  .field.grow { flex: 1 1 calc(var(--spacing-12) * 4); }
+  .field input, .field select {
+    width: 100%;
+    padding: var(--spacing-2) var(--spacing-3);
+    border: var(--sbu-hairline) solid var(--sbu-line);
+    border-radius: var(--radius-md);
+    background: var(--sbu-surface-raised);
+    color: var(--sbu-ink);
+    font: inherit;
+  }
+  .remove {
+    padding: var(--spacing-2) 0;
+    border: 0;
+    background: none;
+    color: var(--sbu-ink-muted);
+    font: inherit;
+    font-size: var(--text-subheadline);
+    text-decoration: underline;
+    text-underline-offset: var(--spacing-1);
+    cursor: pointer;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: var(--spacing-3) var(--spacing-6);
+    border: var(--sbu-hairline) solid transparent;
+    border-radius: var(--radius-lg);
+    background: var(--sbu-ink);
+    color: var(--sbu-surface);
+    font: inherit;
+    font-size: var(--text-headline);
+    font-weight: var(--text-headline--font-weight);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn.is-ghost { background: transparent; border-color: var(--sbu-line); color: var(--sbu-ink); }
+</style>
+
+<script>
+  const times = { week: 52, month: 12, year: 1 } as const;
+
+  /** "4,99", "4.99", "€ 4,99" -> 4.99. Anything else -> 0. */
+  function parsePrice(raw: string): number {
+    const value = Number(raw.replace(/[€\s]/g, '').replace(',', '.'));
+    return Number.isFinite(value) && value > 0 ? value : 0;
+  }
+
+  const root = document.querySelector<HTMLElement>('[data-cost]');
+  if (root) start(root);
+
+  function start(root: HTMLElement) {
+    const strings = JSON.parse(root.dataset.strings ?? '{}') as { inFive: string };
+    const euros = new Intl.NumberFormat(root.dataset.locale, { style: 'currency', currency: 'EUR' });
+    const rows = root.querySelector<HTMLUListElement>('[data-rows]')!;
+    const template = root.querySelector<HTMLTemplateElement>('[data-row]')!;
+    const add = root.querySelector<HTMLButtonElement>('[data-add]')!;
+    const total = root.querySelector<HTMLElement>('[data-total]')!;
+    const five = root.querySelector<HTMLElement>('[data-five]')!;
+
+    function update() {
+      let year = 0;
+      for (const row of rows.children) {
+        const price = parsePrice(row.querySelector<HTMLInputElement>('[data-price]')!.value);
+        const period = row.querySelector<HTMLSelectElement>('[data-period]')!.value as keyof typeof times;
+        year += price * times[period];
+      }
+      total.textContent = euros.format(year);
+      five.textContent = year > 0 ? strings.inFive.replace('{}', euros.format(year * 5)) : '';
+    }
+
+    function addRow(focus: boolean) {
+      const row = template.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
+      row.querySelector('[data-remove]')!.addEventListener('click', () => {
+        row.remove();
+        if (!rows.children.length) addRow(true);
+        update();
+      });
+      rows.append(row);
+      if (focus) row.querySelector('input')!.focus();
+    }
+
+    rows.addEventListener('input', update);
+    add.addEventListener('click', () => addRow(true));
+    rows.hidden = false;
+    add.hidden = false;
+    addRow(false);
+    update();
+  }
+</script>

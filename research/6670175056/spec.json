@@ -1,0 +1,454 @@
+{
+  "features": [
+    {
+      "name": "One-tap recording",
+      "description": "A large record button starts a recording. A bottom sheet offers record audio, upload a file, write a note or record a phone call. The recording view shows a waveform, a timer, a live transcription toggle, cancel, pause and stop.",
+      "priority": "core",
+      "reason": "The main function. AVAudioRecorder on the device, no network."
+    },
+    {
+      "name": "Unlimited recording length",
+      "description": "Record lectures and meetings of several hours without a time limit.",
+      "priority": "core",
+      "reason": "Only disk space limits a local recording. Long-form transcription needs chunking on iOS 17 (SFSpeechRecognizer) or SpeechAnalyzer on iOS 26."
+    },
+    {
+      "name": "Background and locked-screen recording",
+      "description": "Recording continues with the screen locked or while using other apps.",
+      "priority": "core",
+      "reason": "UIBackgroundModes audio. Reviews report recordings that end with 'no data' or keep only the first 2 minutes: reliability matters."
+    },
+    {
+      "name": "Live transcription toggle",
+      "description": "During recording the user can switch live transcription on or off.",
+      "priority": "nice",
+      "reason": "On-device recogniser in parallel with the recorder; can also transcribe after stopping."
+    },
+    {
+      "name": "Transcript with speaker labels and timestamps",
+      "description": "Timestamped transcript with labelled speakers, automatic punctuation, capitals and paragraph breaks. Speakers can be renamed.",
+      "priority": "core",
+      "reason": "Transcript, punctuation and timestamps are on-device. Automatic speaker labels are not available from Apple APIs: manual labels only, or a decision."
+    },
+    {
+      "name": "Processing progress",
+      "description": "After stopping, a progress screen shows stages: uploading, transcribing, identifying speakers, summarising.",
+      "priority": "nice",
+      "reason": "On the device there is no upload; a simple progress for file transcription is enough."
+    },
+    {
+      "name": "Many transcription languages with auto-detect",
+      "description": "Searchable language picker with auto-detect; summary language set separately.",
+      "priority": "core",
+      "reason": "SFSpeechRecognizer.supportedLocales filtered by supportsOnDeviceRecognition; no auto-detect on device, so the user picks the language (default: device language)."
+    },
+    {
+      "name": "Translation",
+      "description": "Record in one language and translate the transcript into another.",
+      "priority": "nice",
+      "reason": "Translation framework (iOS 17.4 sheet, TranslationSession on iOS 18) works on-device after a language download. Outside the one function: decision."
+    },
+    {
+      "name": "AI summary, action items and highlights",
+      "description": "Summary tab with a paragraph, action items with assignee and description, highlights, next steps and conclusion. Edit panel to change summary length, language and template.",
+      "priority": "nice",
+      "reason": "Server LLM in the original. On the device only Foundation Models on iOS 26 with Apple Intelligence: needs a decision."
+    },
+    {
+      "name": "AI chat on a recording",
+      "description": "Chat tab where the user asks questions about the recording, with suggested prompts.",
+      "priority": "skip",
+      "reason": "Cloud LLM; a local version would need Foundation Models and goes beyond transcribing."
+    },
+    {
+      "name": "Import audio files and PDF",
+      "description": "Upload audio files (and PDF documents) to transcribe or summarise.",
+      "priority": "core",
+      "reason": "fileImporter for audio and transcription of the file on the device. PDF summary is out of scope."
+    },
+    {
+      "name": "YouTube link transcription",
+      "description": "Paste a YouTube link to get a transcript and summary; YouTube items have their own filter.",
+      "priority": "skip",
+      "reason": "Requires network and downloading third-party content."
+    },
+    {
+      "name": "Phone call recording",
+      "description": "Record phone calls through a service with phone verification; limited to 100 minutes per month.",
+      "priority": "skip",
+      "reason": "Requires a server-side call bridge and an account."
+    },
+    {
+      "name": "Bot for online meetings",
+      "description": "Connect Google or Outlook calendar; a bot joins meetings automatically and must be admitted.",
+      "priority": "skip",
+      "reason": "Account, server and calendar integration."
+    },
+    {
+      "name": "Search with timestamps",
+      "description": "Search field on the home; inside a note, type a word and jump to that point of the recording.",
+      "priority": "core",
+      "reason": "Local text search on transcripts with segment timestamps."
+    },
+    {
+      "name": "Audio player",
+      "description": "Player at the bottom of the note with position slider and total time.",
+      "priority": "core",
+      "reason": "AVAudioPlayer; local."
+    },
+    {
+      "name": "Export and share",
+      "description": "Share button with Share summary (text) and Share PDF; transcript as PDF or text; share sheet with AirDrop, Messages, Mail, link.",
+      "priority": "core",
+      "reason": "ShareLink with text and a PDF rendered on the device. Shared links need a server: skip that part."
+    },
+    {
+      "name": "Library with filters, favourites and folders",
+      "description": "Home list with title, emoji icon, source, time and duration; chips All, Favorites, Folders, YouTube; folders with name, colour and emoji; multi-select with move, merge, favourite, delete.",
+      "priority": "nice",
+      "reason": "Local organisation. Emoji icons and coloured folders conflict with the design system (one accent, SF Symbols only)."
+    },
+    {
+      "name": "Trash with 30-day expiry",
+      "description": "Deleted notes go to a trash and are deleted after 30 days.",
+      "priority": "nice",
+      "reason": "Local soft delete; protects against accidental loss."
+    },
+    {
+      "name": "Typed notes with voice input",
+      "description": "Create a text note by typing or dictating.",
+      "priority": "skip",
+      "reason": "A note-taking app is a different function."
+    },
+    {
+      "name": "Apple Watch recording",
+      "description": "Record from the Watch; recordings sync to the phone.",
+      "priority": "nice",
+      "reason": "watchOS target with WatchConnectivity; local but a second product. Reviews report lost Watch recordings."
+    },
+    {
+      "name": "Widgets and Shortcut",
+      "description": "Home Screen and Lock Screen widgets with a microphone to start recording; Shortcut setup.",
+      "priority": "nice",
+      "reason": "WidgetKit plus App Intents; local."
+    },
+    {
+      "name": "Account, sign-in and cloud storage",
+      "description": "Sign in with Apple or Google required; encrypted cloud storage; sign in on desktop.",
+      "priority": "skip",
+      "reason": "Accounts and cloud are forbidden by the product rules; Sbu keeps data on the device."
+    },
+    {
+      "name": "Tracking prompt, rating prompt and social proof in onboarding",
+      "description": "App Tracking Transparency prompt at launch, rating request and testimonials before the paywall.",
+      "priority": "skip",
+      "reason": "Tracking and paywall patterns are forbidden."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Onboarding",
+      "purpose": "Sell the subscription before first use.",
+      "elements": [
+        "tracking permission prompt",
+        "splash and intro with Get Started",
+        "sign-in with Apple or Google",
+        "about eight feature screens with Continue",
+        "notification permission",
+        "privacy screen",
+        "rating prompt and testimonials",
+        "paywall with 3-day free trial toggle, weekly and yearly plans"
+      ]
+    },
+    {
+      "name": "Library (home)",
+      "purpose": "Find and open recordings.",
+      "elements": [
+        "app title with mic icon",
+        "search field and settings gear",
+        "filter chips: All, Favorites, Folders, YouTube",
+        "rows with emoji thumbnail, title, source badge, date or time, duration, more button",
+        "New Summary / record button"
+      ]
+    },
+    {
+      "name": "New item sheet",
+      "purpose": "Choose the source of a new note.",
+      "elements": [
+        "record audio",
+        "upload file",
+        "create note",
+        "record call"
+      ]
+    },
+    {
+      "name": "Recording",
+      "purpose": "Capture audio.",
+      "elements": [
+        "waveform",
+        "timer",
+        "live transcription toggle",
+        "cancel",
+        "pause / resume",
+        "stop"
+      ]
+    },
+    {
+      "name": "Note: Summary",
+      "purpose": "Read the AI summary.",
+      "elements": [
+        "back, favourite heart, share, more",
+        "title",
+        "segmented control: Summary, Transcript, Chat",
+        "sections: Summary, Action Items with assignee chips, Highlights, Next Steps, Conclusion",
+        "audio player with slider at the bottom"
+      ]
+    },
+    {
+      "name": "Note: Transcript",
+      "purpose": "Read the timestamped text.",
+      "elements": [
+        "speaker and timestamp per paragraph",
+        "floating playback panel"
+      ]
+    },
+    {
+      "name": "Note: Chat",
+      "purpose": "Ask the AI about the recording.",
+      "elements": [
+        "assistant greeting",
+        "user and assistant bubbles",
+        "suggested prompts",
+        "message field"
+      ]
+    },
+    {
+      "name": "Share sheet",
+      "purpose": "Export the note.",
+      "elements": [
+        "Share summary",
+        "Share PDF"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Account and preferences.",
+      "elements": [
+        "account: email, log out, delete account",
+        "integrations: calendars, Apple Watch, desktop sign-in",
+        "app language, summary language",
+        "summary length slider and templates",
+        "speaker display and auto-label toggles",
+        "notifications",
+        "theme, support, privacy"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First launch",
+      "steps": [
+        "Tracking prompt",
+        "Intro and sign-in",
+        "Feature tour, notification permission, privacy, rating, testimonials",
+        "Paywall with 3-day trial",
+        "Empty library with a prompt to start the first recording"
+      ]
+    },
+    {
+      "name": "Record and summarise",
+      "steps": [
+        "Tap New and choose Record audio",
+        "Record, optionally pause",
+        "Stop: progress through upload, transcription, speakers, summary",
+        "Note opens on the Summary tab"
+      ]
+    },
+    {
+      "name": "Share a summary",
+      "steps": [
+        "Open a note",
+        "Tap share",
+        "Choose Share summary or Share PDF",
+        "Pick the destination in the share sheet"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Recording",
+        "fields": [
+          {
+            "name": "title",
+            "type": "String",
+            "note": "generated, editable"
+          },
+          {
+            "name": "emoji",
+            "type": "String",
+            "note": "generated thumbnail"
+          },
+          {
+            "name": "source",
+            "type": "enum",
+            "note": "mic, file, YouTube, call, meeting"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "duration",
+            "type": "TimeInterval",
+            "note": ""
+          },
+          {
+            "name": "isFavorite",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "folder",
+            "type": "Folder?",
+            "note": ""
+          },
+          {
+            "name": "deletedAt",
+            "type": "Date?",
+            "note": "trash, purged after 30 days"
+          }
+        ]
+      },
+      {
+        "name": "TranscriptSegment",
+        "fields": [
+          {
+            "name": "start",
+            "type": "TimeInterval",
+            "note": ""
+          },
+          {
+            "name": "speaker",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Summary",
+        "fields": [
+          {
+            "name": "overview",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "actionItems",
+            "type": "[ActionItem]",
+            "note": "assignee, title, description, done"
+          },
+          {
+            "name": "highlights",
+            "type": "[String]",
+            "note": ""
+          },
+          {
+            "name": "length",
+            "type": "enum",
+            "note": "short, medium, long"
+          },
+          {
+            "name": "language",
+            "type": "Locale",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Folder",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "color",
+            "type": "Color",
+            "note": ""
+          },
+          {
+            "name": "emoji",
+            "type": "String",
+            "note": ""
+          }
+        ]
+      }
+    ],
+    "storage": "Cloud with an account (encrypted, per the listing). For Sbu: SwiftData and audio files on the device only."
+  },
+  "monetization": {
+    "model": "Free download with a hard or soft paywall right after onboarding; weekly, monthly and yearly auto-renewing subscriptions with a 3-day free trial.",
+    "price": "Weekly 5.99-8.99 USD, monthly 17.99 USD, yearly 79.99-99.99 USD (App Store in-app purchase list).",
+    "paywalled_features": [
+      "recording beyond one lecture per day on the free tier",
+      "transcription",
+      "AI summaries",
+      "AI chat",
+      "phone calls (100 min/month even when paid)",
+      "export"
+    ],
+    "notes": "Paywall appears after feature tour, rating prompt and testimonials; the free trial toggle is on by default. Italian review: '3 giorni di prova poi costa un botto'."
+  },
+  "user_pains": [
+    {
+      "pain": "Too expensive, weekly billing",
+      "evidence": "'Costo eccessivo... 3 giorni di prova poi costa un botto', '$8.99 a week... It should be monthly', 'Over $8 a month', 'Not free as advertised', 'Scam', 'Rip off'",
+      "mentions": 7
+    },
+    {
+      "pain": "Recordings lost or truncated",
+      "evidence": "'Lost the recorded topics', 'it says no data', 'transcript only has the first 2 minutes', 'only about two came through', Watch meetings stuck 'summarizing' then lost",
+      "mentions": 5
+    },
+    {
+      "pain": "Poor Italian transcription and incomplete summaries",
+      "evidence": "'trascrizioni sono errate e i riassunti sono del tutto incompleti', 'da una lezione di 2 ore fa un riassunto di mezza pagina', 'the summary is incorrect'",
+      "mentions": 3
+    },
+    {
+      "pain": "Speakers not recognised",
+      "evidence": "'It doesn't recognize different speakers'",
+      "mentions": 1
+    },
+    {
+      "pain": "Mixed languages confuse the transcription",
+      "evidence": "'four hour meeting 75% in English, none of the English parts were transcribed', 'check language availability before purchase'",
+      "mentions": 2
+    },
+    {
+      "pain": "Hidden caps",
+      "evidence": "'only 100 minutes of recorded phone calls per month', '100 hr limit', 'only being able to record one lecture'",
+      "mentions": 3
+    },
+    {
+      "pain": "Mandatory account and complicated start",
+      "evidence": "'I have to use my Apple or Google accounts. That's a deal breaker', 'so complicated to get up and running'",
+      "mentions": 2
+    }
+  ],
+  "source": {
+    "app_id": "6670175056",
+    "name": "Summary - Note con IA",
+    "url": "https://apps.apple.com/it/app/summary-note-con-ia/id6670175056?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 42
+  }
+}

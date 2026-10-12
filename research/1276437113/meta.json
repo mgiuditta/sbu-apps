@@ -1,0 +1,32 @@
+{
+  "id": "1276437113",
+  "name": "Otter Transcribe Voice Notes",
+  "developer": "Otter.ai, Inc.",
+  "bundle_id": "com.aisense.otter",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Productivity",
+  "genres": [
+    "Produttività",
+    "Economia"
+  ],
+  "description": "Never take meeting notes again. Otter AI is the fastest way to transcribe voice in real time. Get a meeting assistant that records audio, writes notes, automatically captures slides, and generates summaries. \n\nAvailable in English, Spanish, French and Japanese. Otter AI is also available on the web. Start for free.\n\nTrusted by over 10 million people and featured by Apple as \"App of the Day\" and \"Editors' Choice.\" \n\nAutomated meeting notes for Zoom, Google Meet, Microsoft Teams, and more. Stay connected and collaborative when you work from home.\n\nOtter transcribes all your meetings, interviews, lectures, and everyday voice conversations in real time, so you can focus on the discussion. \n\nKEY FEATURES\n• AI Meeting Assistant: get automated meeting notes & summaries \n• AI Chat: get answers and generate content\n• AI Channels: combine live conversations with async updates. Chat with teammates.\n• Record & transcribe live\n• Automated meeting notes & summaries\n• Share & collaborate \n• All notes are searchable & shareable \n• Edit & highlight\n• Organize & export\n• Import & sync\n\nLooking for a specific feature? Here are the details: \n\nRECORD & TRANSCRIBE LIVE \n• Instantly record in one tap\n• Transcribe in real time \n• Highlight key points to review later\n• Insert photos of whiteboard discussions, slides, etc.\n• Input audio via built-in mic or Bluetooth device\n\nENRICH NOTES WITH AI \n• Gather information across all your conversations\n• Ask questions about a specific meeting\n• Generate follow- up emails\n• Automated Slide Capture during virtual meetings\n• Generate summary, outline and keywords after all meetings\n• Punctuate, capitalize, and break paragraphs automatically\n\nSHARE & COLLABORATE \n• Invite group members to view, edit, and highlight collaboratively\n• Add comments and assign action items\n• Share links externally \n\nSEARCH & PLAYBACK\n• Search the text so you don't have to scrub through the whole audio\n• Playback at adjustable speeds\n• Follow along the highlighted word as the audio is playing\n• Tap on any word to jump the audio to that spot\n\nEDIT & HIGHLIGHT\n• Edit the text to correct any errors\n• Tag the speakers to label the paragraphs and train Otter to identify speakers too\n• Highlight sentences in one tap\n\nIMPORT & SYNC\n• Import audio and video files\n• Upload from other call recording apps\n• Sync your calendars to be reminded to record your meetings and auto-title your notes\n• Import your contacts for easy sharing\n\nOPTIMIZED FOR iOS\n• Start/Stop recording with Siri Shortcut & home widget\n• Record via AirPods\n• Sync with iOS Calendar, Contacts & Camera\n\nOtter Pro \nGet more playback speeds, skip silence, and bulk export. Payment will be charged to your iTunes Account at confirmation of purchase. Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period. Account will be charged for renewal within 24-hours prior to the end of the current period. You can manage your subscriptions in Settings and auto-renewal may be turned off by going to your Account Settings after purchase. Any unused portion of a free trial period, if offered, will be forfeited when you purchase a subscription. \n\nNeed help? Check out our Help Center: https://help.otter.ai\n\nTerms of Service: https://otter.ai/terms-of-service\nPrivacy Policy: https://otter.ai/privacy-policy",
+  "release_notes": "Working hard to provide the most accurate transcription.\nEnhanced recording for online meetings and multi-language.",
+  "version": "3.109.0",
+  "current_version_release_date": "2026-09-29T16:59:48Z",
+  "rating": 4.60975,
+  "rating_count": 246,
+  "minimum_os": "16.0",
+  "url": "https://apps.apple.com/it/app/otter-transcribe-voice-notes/id1276437113?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/42/0f/1c/420f1c81-06e3-aae9-b538-e943f7976a12/db12207a-c0bf-4330-ae6a-658ee3208702_1.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ac/15/7d/ac157d9e-0c38-029d-dbab-e087f64804f5/17d2bbdb-4d00-412a-ac38-bb4b4c8e629a_2.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2a/0e/2f/2a0e2fd1-3786-9087-095d-7c4c090f862b/ed6daf0a-89c4-483d-8f30-7c502e062856_3.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d5/26/d7/d526d77b-8893-cca2-7201-e78ddf183f4c/5a13a7a6-c19b-454d-a733-2851080bf6ea_4.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a0/ac/34/a0ac3437-113f-ce3b-42de-777d829ad510/284b4038-5403-4dd0-91e8-16f471b9d382_6.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f0/2c/5a/f02c5ada-c895-95d9-d322-ce8f63f25da6/993eb64b-2f84-436f-b74d-3526dd48e840_5.png/392x696bb.png"
+  ]
+}

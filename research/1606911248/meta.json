@@ -1,0 +1,33 @@
+{
+  "id": "1606911248",
+  "name": "Fatture Preventivi Invoice Fly",
+  "developer": "Labhouse Mobile",
+  "bundle_id": "io.labhouse.invoicesapp",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Business",
+  "genres": [
+    "Economia",
+    "Produttività"
+  ],
+  "description": "Invoice Fly è il modo più semplice per creare e  inviare fatture professionali ai tuoi clienti. È perfetta per piccole imprese, freelance e liberi professionisti. Che tu voglia creare una fattura o un preventivo, Invoice Fly è l'app di fatturazione numero 1 per te.\n\n\nOrganizza le tue finanze con Invoice Fly, creando, inviando e monitorando le fatture comodamente dal tuo telefono.\n\n\nPotrai configurare tutti i dettagli che desideri, aggiungendo dati di pagamento, imposte, ritenute, scadenze, immagini aggiuntive, sconti, firme e non solo. Inoltre, ti avviseremo quando il cliente riceverà e aprirà la tua fattura.\n\n\nFunzionalità:\n- Crea fatture in meno di un minuto, ovunque tu sia.\n- Genera fatture dai preventivi con un gesto.\n- Scegli tra diversi modelli di fatture personalizzabili.\n- Allega immagini e note aggiuntive.\n- Sconti su singoli articoli o sul totale.\n- Imposte su singoli articoli o sul totale.\n- Aggiungi la firma.\n- Condividi o stampa le fatture ovunque.\n- Configura rapidamente i clienti dalla rubrica del telefono.\n- Sincronizza tutti i tuoi dispositivi con un unico account.\n- Monitora le tue entrate con report semplici da utilizzare.\n-  Avviso quando il cliente riceve e apre la fattura.\n- Assistenza 24 ore su 24\n\n\nCreare e inviare una fattura non è mai stato così semplice:\nStep 1: tocca Crea fattura\nStep 2: seleziona il cliente comodamente dalla rubrica\nStep 3: Aggiungi gli articoli e i prezzi desiderati\nStep 4: Ecco fatto, salva e invia.\n\n\nInformativa sulla privacy: https://invoicefly.com/privacy-policy\nTermini di utilizzo: https://invoicefly.com/terms-and-cond",
+  "release_notes": "Ecco le nuove caratteristiche di Invoice Fly:\n\n- Miglioramenti UI/UX\n- Miglioramenti generali delle prestazioni e correzioni di bug\n\nNon aspettate e iniziate subito a usare Invoice Fly! Ricordatevi anche di condividere la vostra esperienza scrivendo una recensione sull'App Store.",
+  "version": "2.44.0",
+  "current_version_release_date": "2026-10-05T10:47:08Z",
+  "rating": 4.62826,
+  "rating_count": 191,
+  "minimum_os": "15.6",
+  "url": "https://apps.apple.com/it/app/fatture-preventivi-invoice-fly/id1606911248?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/be/4d/ef/be4defe8-fb32-39f7-8462-b752362b1224/01.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/43/62/3d/43623d56-f07a-59e4-38d3-410864c9db2d/02.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/dc/8b/b5/dc8bb54e-ba46-e601-43d7-0f76300341f2/03.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0b/f2/0e/0bf20ee2-ba70-3748-049c-a3c8e713a19b/04.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/02/c3/f7/02c3f7a7-51d9-86bb-6197-f812418fb7cf/05.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1d/ce/40/1dce4093-88d7-e305-894a-a2e4d1066577/06.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a9/28/42/a92842fe-6901-484b-fe7c-4140b2ca8c78/07.jpg/392x696bb.jpg"
+  ]
+}

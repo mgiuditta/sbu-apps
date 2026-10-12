@@ -1,0 +1,281 @@
+{
+  "features": [
+    {
+      "name": "Automatic TV discovery on the same Wi-Fi",
+      "description": "On first launch, scan the local network and list the smart TVs and streaming devices found, with name, brand and model when the device reports them. The user taps one to connect. A manual entry by IP address covers networks where discovery fails.",
+      "priority": "core",
+      "reason": "Without discovery there is no remote. It needs local-network access (SSDP multicast and Bonjour), which conflicts with the 'no network calls' product rule as written: an open decision, see the ADR grilling ticket."
+    },
+    {
+      "name": "Pairing with the TV",
+      "description": "Per brand: accept a prompt on the TV (Samsung, LG), type a PIN shown on the TV (Android/Google TV, Sony, Philips, Vizio) or nothing at all (Roku). The token or certificate obtained is stored on the device so the next launch reconnects without asking.",
+      "priority": "core",
+      "reason": "Required by every protocol except Roku ECP. Reviews show it is the first point of failure ('asks for the TV's consent', PIN asked again)."
+    },
+    {
+      "name": "Remote: power, home, back, D-pad and OK",
+      "description": "Main screen with power, home, back, a directional pad with a central OK, and the device name at the top. Each tap sends one key event to the TV.",
+      "priority": "core",
+      "reason": "This is the app's single job. The original paywalls it after a few taps, which is the main complaint in the reviews."
+    },
+    {
+      "name": "Touchpad navigation mode",
+      "description": "A segmented toggle swaps the D-pad for a large touch surface. A swipe moves the focus one step in that direction (repeat while the finger keeps moving), a tap is OK. A ripple shows the touch point.",
+      "priority": "core",
+      "reason": "Shown as the hero feature in the screenshots. Built from SwiftUI gestures over the same key events, nothing new on the protocol side."
+    },
+    {
+      "name": "Volume, mute and channel up/down",
+      "description": "Rocker-style buttons for volume up/down and channel up/down plus mute. Long press repeats.",
+      "priority": "core",
+      "reason": "Basic remote function; reviews complain the free version cannot even raise the volume."
+    },
+    {
+      "name": "Media keys",
+      "description": "Rewind, play/pause, fast-forward, instant replay, options/info (*) in a button grid under the navigation area.",
+      "priority": "core",
+      "reason": "Visible in the remote screenshot. Available as plain key codes in every protocol."
+    },
+    {
+      "name": "Keyboard input",
+      "description": "A keyboard button in the top bar opens a text field with the iOS keyboard; typed text is sent live to the focused field on the TV (search boxes in YouTube, Netflix, etc.).",
+      "priority": "core",
+      "reason": "Typing with a D-pad is the most painful thing a physical remote does. Supported by Roku (Lit_), Samsung, LG, Android TV (IME) and Sony."
+    },
+    {
+      "name": "Voice search",
+      "description": "A microphone button records a phrase and sends it to the TV as a search or as text.",
+      "priority": "nice",
+      "reason": "Can be done fully on device: SFSpeechRecognizer with on-device recognition, then send the text via the keyboard path. Android TV also accepts raw audio. Reviews say it does not work in the original."
+    },
+    {
+      "name": "App shortcuts (Channels)",
+      "description": "A grid of streaming apps installed on the TV; tapping one launches it on the TV. A row of three shortcuts also sits at the bottom of the remote screen.",
+      "priority": "core",
+      "reason": "Launching apps is in every protocol (Roku launch, Samsung/LG app ids, Android deep links). The original uses brand logos; Sbu must show the TV's own app list as plain text/SF Symbols, which is an open design point."
+    },
+    {
+      "name": "Input source switching",
+      "description": "Choose HDMI 1-4, AV or tuner from a list.",
+      "priority": "nice",
+      "reason": "Listed in the description ('input sources'). Supported by Roku TV, LG, Sony and Philips; on Samsung only as the Source key."
+    },
+    {
+      "name": "Cast photos and videos from the phone",
+      "description": "Casts tab: pick a photo or video from the library and show it on the TV.",
+      "priority": "nice",
+      "reason": "Either system AirPlay (AVRoutePickerView, no own network code, works on AirPlay 2 TVs) or a local HTTP server plus DLNA/Cast, which is heavier and touches the network rule. Open decision."
+    },
+    {
+      "name": "Several TVs and quick switching",
+      "description": "Remember every paired TV and switch between them from the device name in the top bar.",
+      "priority": "nice",
+      "reason": "One reviewer praises using it across all TVs at home. Simple local list."
+    },
+    {
+      "name": "Power on from standby",
+      "description": "Turn the TV on when it is in standby via Wake-on-LAN or brand-specific wake.",
+      "priority": "nice",
+      "reason": "A recurring complaint ('cannot turn the TV on without the real remote'). Works only if the TV keeps its network on in standby; must be explained honestly."
+    },
+    {
+      "name": "Ads and premium paywall",
+      "description": "Interstitial upgrade prompts every few taps; premium removes ads and unlocks all features.",
+      "priority": "skip",
+      "reason": "Forbidden by the product rules: no ads, no subscription, no in-app purchases."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Onboarding and TV search",
+      "purpose": "Explain the same-Wi-Fi requirement, trigger the local network permission and list the TVs found.",
+      "elements": [
+        "Short explanation that phone and TV must be on the same Wi-Fi",
+        "System local network permission prompt",
+        "List of discovered devices with name and brand",
+        "Pairing step per brand: prompt on TV or PIN field",
+        "Paywall with trial shown right after, in the original"
+      ]
+    },
+    {
+      "name": "Remote",
+      "purpose": "Control the connected TV.",
+      "elements": [
+        "Top bar: keyboard button on the left, connected TV name in the centre (tap to switch), cast button on the right",
+        "Row: home button left, segmented toggle D-pad/touchpad centre, power button right (red)",
+        "Large navigation area: D-pad with OK, or touchpad with dotted surface and ripple",
+        "Button grid: back, instant replay, options, rewind, play/pause, fast-forward, asterisk/options, microphone, volume and channel",
+        "Row of three app shortcuts at the bottom",
+        "Tab bar: Remote, Channels, Casts, Settings"
+      ]
+    },
+    {
+      "name": "Channels",
+      "purpose": "Launch a streaming app on the TV.",
+      "elements": [
+        "Title 'Channels'",
+        "Two-column grid of app tiles (brand logos in the original)",
+        "Tab bar"
+      ]
+    },
+    {
+      "name": "Keyboard",
+      "purpose": "Type text into the TV's focused search field.",
+      "elements": [
+        "Search field with live text",
+        "System keyboard",
+        "Text mirrored on the TV's own search box"
+      ]
+    },
+    {
+      "name": "Casts",
+      "purpose": "Send a photo or video from the phone to the TV.",
+      "elements": [
+        "Choice between photos and videos",
+        "Photo picker",
+        "Full-screen preview while the TV shows the same image"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Manage TVs, premium and app info.",
+      "elements": [
+        "Connected TV and option to forget or change it",
+        "Premium upgrade entry (skip in Sbu)",
+        "Restore purchases, privacy, terms, support e-mail"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First connection",
+      "steps": [
+        "Open the app; it explains that phone and TV must share the Wi-Fi",
+        "Allow local network access in the system prompt",
+        "Pick the TV from the discovered list (or enter its IP)",
+        "Accept on the TV or type the PIN shown on the TV",
+        "The remote opens with the TV name in the top bar"
+      ]
+    },
+    {
+      "name": "Navigate with the touchpad",
+      "steps": [
+        "Tap the touchpad segment",
+        "Swipe in a direction to move the focus on the TV",
+        "Tap to confirm (OK)",
+        "Tap back to go up a level"
+      ]
+    },
+    {
+      "name": "Search by typing",
+      "steps": [
+        "Open the TV app's search box with the remote",
+        "Tap the keyboard button",
+        "Type; the text appears on the TV as you type",
+        "Press return to confirm"
+      ]
+    },
+    {
+      "name": "Launch an app",
+      "steps": [
+        "Open the Channels tab",
+        "Tap an app",
+        "The app opens on the TV"
+      ]
+    },
+    {
+      "name": "Cast a photo",
+      "steps": [
+        "Open the Casts tab",
+        "Allow photo library access",
+        "Pick a photo",
+        "The photo appears on the TV"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "PairedTV",
+        "fields": [
+          { "name": "id", "type": "String", "note": "USN/serial or MAC-derived stable id" },
+          { "name": "name", "type": "String", "note": "friendly name reported by the TV" },
+          { "name": "brand", "type": "enum", "note": "roku, samsung, lg, androidTV, sony, philips, vizio, hisense, fireTV" },
+          { "name": "host", "type": "String", "note": "last known IP or Bonjour hostname" },
+          { "name": "macAddress", "type": "String?", "note": "for Wake-on-LAN" },
+          { "name": "credential", "type": "Keychain reference", "note": "Samsung token, LG client-key, Sony PSK/cookie, Philips digest user/pass, Android TV client certificate" },
+          { "name": "lastUsed", "type": "Date", "note": "pick the default TV on launch" }
+        ]
+      },
+      {
+        "name": "TVApp",
+        "fields": [
+          { "name": "id", "type": "String", "note": "channel id, app id or deep link, per protocol" },
+          { "name": "name", "type": "String", "note": "as reported by the TV" },
+          { "name": "isShortcut", "type": "Bool", "note": "one of the three on the remote screen (user-chosen)" }
+        ]
+      },
+      {
+        "name": "Settings",
+        "fields": [
+          { "name": "navigationMode", "type": "enum", "note": "dpad or touchpad" },
+          { "name": "haptics", "type": "Bool", "note": "haptic tap on every key" }
+        ]
+      }
+    ],
+    "storage": "Paired TV list and settings in a small Codable file or UserDefaults; pairing secrets in the Keychain. Nothing leaves the device except the commands sent to the user's own TV on the local network."
+  },
+  "monetization": {
+    "model": "Free download with ads and an aggressive paywall: after about 4-10 taps the remote stops working until the user starts a trial or subscribes. Weekly, monthly, yearly (3-day trial) and lifetime options.",
+    "price": "Free; in-app purchases from 4.99 to 44.99 USD (weekly 4.99/6.99, monthly 8.99, yearly 19.99/39.99, lifetime 44.99). Italian reviews cite 19, 32.99, 44 and 60 EUR.",
+    "paywalled_features": [
+      "All remote keys after a few free taps, volume included",
+      "Touchpad",
+      "Keyboard",
+      "Voice search",
+      "Channels",
+      "Cast photos and videos",
+      "Ad removal"
+    ],
+    "notes": "The privacy label declares tracking (location, identifiers, usage data, diagnostics) for advertising and analytics. Sbu Remote would be entirely free, with no tracking; its only network traffic would be to the user's own TV on the local network."
+  },
+  "user_pains": [
+    {
+      "pain": "Nothing works without paying: the remote stops after a few taps, even volume",
+      "evidence": "'quella gratis non ti permette di fare niente… Manco alzare il volume'; 'puoi premere solo 4 volte e poi non funziona più'; 'senza abbonamento non ti fa fare niente'",
+      "mentions": 9
+    },
+    {
+      "pain": "Price too high for a remote, unexpected charges after the trial",
+      "evidence": "'60 euro'; 'mi ha preso 32,99€ dal conto'; 'got €44 without letting me know'; 'Sale mas economico comprar el control'",
+      "mentions": 6
+    },
+    {
+      "pain": "Paid but it does not work or does not connect",
+      "evidence": "'Ho pagato per niente! Rivoglio i miei soldi'; 'senza che nemmeno l'applicazione funzioni'",
+      "mentions": 3
+    },
+    {
+      "pain": "Cannot turn the TV on without the physical remote",
+      "evidence": "'Se non hai il telecomando vero e proprio non puoi accendere il televisore' (LG)",
+      "mentions": 1
+    },
+    {
+      "pain": "Pairing friction: the TV asks for consent before anything works",
+      "evidence": "'chiede il consenso della tv'",
+      "mentions": 1
+    },
+    {
+      "pain": "Spam and ads interrupt use",
+      "evidence": "'Demasiado spam para pagar'",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "1539090879",
+    "name": "TV Remote - Universal Control",
+    "url": "https://apps.apple.com/it/app/tv-remote-universal-control/id1539090879?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 16
+  }
+}

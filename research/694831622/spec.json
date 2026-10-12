@@ -1,0 +1,274 @@
+{
+  "features": [
+    {
+      "name": "Create invoices",
+      "description": "New document from the + button on the invoice list. The editor has three blocks in order: your business details, the client, the line items (description, rate, quantity, amount), then totals (subtotal, discount, tax, total, balance due), notes and signature. Number and dates are prefilled.",
+      "priority": "core",
+      "reason": "The whole purpose of the app. Pure local data plus a PDF render."
+    },
+    {
+      "name": "Estimates and one-tap conversion to invoice",
+      "description": "Estimates live in their own tab with the same editor. A button at the bottom of the estimate turns it into an invoice with the same client and items.",
+      "priority": "core",
+      "reason": "Listed first in the listing and in the help centre; a local copy between two document kinds."
+    },
+    {
+      "name": "Receipts",
+      "description": "After an invoice is marked paid, a receipt can be sent to the client showing the payment.",
+      "priority": "nice",
+      "reason": "Listing promises receipts; it is a variant of the paid invoice PDF."
+    },
+    {
+      "name": "PDF preview and export",
+      "description": "Edit / Preview / History tabs on the document screen. Preview shows the rendered page; the document can be saved as PDF or printed.",
+      "priority": "core",
+      "reason": "The invoice is the PDF. PDFKit or UIGraphicsPDFRenderer on device."
+    },
+    {
+      "name": "Send by email, SMS, WhatsApp",
+      "description": "Arrow button opens the choice of email or text; the screenshot shows the system share sheet with the PDF (AirDrop, Messages, Mail, Dropbox).",
+      "priority": "core",
+      "reason": "Share sheet and MFMailComposeViewController send the PDF without any server."
+    },
+    {
+      "name": "Business details and logo",
+      "description": "Settings hold business name, address, contacts, business number and logo shown in the document header.",
+      "priority": "core",
+      "reason": "Required on every invoice. Logo from Photos via PhotosPicker."
+    },
+    {
+      "name": "Bank / payment details",
+      "description": "Payment instructions (bank details) printed at the bottom of the invoice.",
+      "priority": "core",
+      "reason": "How a client actually pays without an online processor."
+    },
+    {
+      "name": "Client from contacts",
+      "description": "Pick the client from the phone's contacts to fill name, email, phone and address.",
+      "priority": "core",
+      "reason": "Contacts picker (CNContactPickerViewController) needs no permission prompt."
+    },
+    {
+      "name": "Taxes and discounts",
+      "description": "Tax set in Settings: on the total, deducted (withholding), or per item for multiple rates; with rate, label and inclusive switch. Discount as percentage or fixed amount.",
+      "priority": "core",
+      "reason": "Every invoice needs them. Pure arithmetic, testable."
+    },
+    {
+      "name": "Product photos on the invoice",
+      "description": "Photos with captions attached under the totals (screenshot 1).",
+      "priority": "nice",
+      "reason": "Local images embedded in the PDF."
+    },
+    {
+      "name": "Signature",
+      "description": "Signature drawn on the device, printed with the signing date.",
+      "priority": "core",
+      "reason": "Listed in the listing and screenshots; PencilKit on device."
+    },
+    {
+      "name": "Templates and colour",
+      "description": "Seven layouts (four free, three paid) and an accent colour from presets or hex.",
+      "priority": "nice",
+      "reason": "One clean layout is enough for Sbu; colour choice conflicts with the single-accent rule and needs a decision."
+    },
+    {
+      "name": "Mark paid and payment method",
+      "description": "Button at the bottom of the editor records the payment and method; the list shows due dates in red when overdue.",
+      "priority": "core",
+      "reason": "Paid / unpaid status is local data."
+    },
+    {
+      "name": "Invoice history list",
+      "description": "Invoice tab lists client, number, amount and due date, overdue in red, with a floating + button. Bottom tabs: Invoices, Estimates, Expenses, Payments, More.",
+      "priority": "core",
+      "reason": "Main screen."
+    },
+    {
+      "name": "Read receipts and status notifications",
+      "description": "Push notification when the client opens, pays or the invoice comes due.",
+      "priority": "skip",
+      "reason": "Opened/paid tracking needs a hosted link and a server. A local due-date reminder is possible without it."
+    },
+    {
+      "name": "Online payments (card, PayPal, Stripe, QR to pay)",
+      "description": "Client pays from a hosted invoice page or a QR code printed on the invoice.",
+      "priority": "skip",
+      "reason": "Requires accounts with a processor and a server."
+    },
+    {
+      "name": "Expenses",
+      "description": "Expenses tab, receipt photo saves key information.",
+      "priority": "skip",
+      "reason": "A second job; Sbu does one thing."
+    },
+    {
+      "name": "Contracts",
+      "description": "Contracts listed among document types in the screenshots.",
+      "priority": "skip",
+      "reason": "Outside the single job of invoicing."
+    },
+    {
+      "name": "Account and cross-device sync",
+      "description": "Sign-up and data stored on the developer's servers, shared across devices and the web app.",
+      "priority": "skip",
+      "reason": "No accounts, data on the device."
+    },
+    {
+      "name": "Region, currency and date format",
+      "description": "Settings > Region: language, currency, date format, tax year with a live preview.",
+      "priority": "core",
+      "reason": "FormatStyle with the user's locale and a chosen currency code."
+    },
+    {
+      "name": "Default notes and labels",
+      "description": "Default notes for invoices and estimates, custom labels for quantity and rate, default email message.",
+      "priority": "nice",
+      "reason": "Saves retyping; local settings."
+    },
+    {
+      "name": "Duplicate a document",
+      "description": "Not present according to a 1-star review; users ask for it to reuse an estimate as a template.",
+      "priority": "core",
+      "reason": "Cheap and asked for explicitly."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Invoice list",
+      "purpose": "History of invoices, the starting point.",
+      "elements": ["rows with client name and number on the left, amount and due date on the right", "overdue due dates in red", "floating + button bottom right", "bottom tab bar: Invoices, Estimates, Expenses, Payments, More"]
+    },
+    {
+      "name": "Estimate list",
+      "purpose": "Same list for estimates.",
+      "elements": ["rows with client, number, amount", "+ button"]
+    },
+    {
+      "name": "Document editor (Edit tab)",
+      "purpose": "Fill in an invoice or estimate.",
+      "elements": ["top tabs Edit / Preview / History", "business info block", "client block", "line items with Reorder", "totals: subtotal, discount, tax, total, balance due", "photos", "notes", "signature", "Mark Paid or Make Invoice button at the bottom", "send arrow bottom right", "overflow menu top right"]
+    },
+    {
+      "name": "Preview",
+      "purpose": "See the rendered PDF as the client will.",
+      "elements": ["full page render", "template button at the bottom"]
+    },
+    {
+      "name": "History",
+      "purpose": "Timeline of sent, opened and paid events for the document.",
+      "elements": ["event list"]
+    },
+    {
+      "name": "Template picker",
+      "purpose": "Choose layout and colour.",
+      "elements": ["template thumbnails", "Style tab with colour presets and custom hex"]
+    },
+    {
+      "name": "Share sheet",
+      "purpose": "Send the PDF.",
+      "elements": ["PDF document header with size", "contacts row", "AirDrop, Messages, Mail, other apps"]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Business and invoice defaults.",
+      "elements": ["Business details", "Region (language, currency, date format, tax year) with preview", "Tax (on total, deducted, per item; rate, label, inclusive)", "Default notes", "Default email message", "Labels", "Payments setup", "Account"]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First invoice",
+      "steps": ["open Invoices tab", "tap +", "fill business info (first time)", "pick client from contacts", "add items with rate and quantity", "check totals", "sign", "tap Preview", "tap send, choose email or text"]
+    },
+    {
+      "name": "Estimate to invoice",
+      "steps": ["open Estimates tab", "open the estimate", "scroll to the bottom", "tap Make Invoice", "send the new invoice"]
+    },
+    {
+      "name": "Mark paid",
+      "steps": ["open the invoice", "scroll to the bottom", "tap Mark Paid", "choose payment method", "optionally send a receipt"]
+    },
+    {
+      "name": "Set tax defaults",
+      "steps": ["open Settings", "tap Tax", "choose on total, deducted or per item", "enter rate and label", "set inclusive", "go back to save"]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Business",
+        "fields": [
+          {"name": "name", "type": "String", "note": "header"},
+          {"name": "address", "type": "String", "note": ""},
+          {"name": "email", "type": "String", "note": ""},
+          {"name": "phone", "type": "String", "note": ""},
+          {"name": "businessNumber", "type": "String", "note": "VAT number in Italy"},
+          {"name": "logo", "type": "Data?", "note": "image"},
+          {"name": "paymentInstructions", "type": "String", "note": "bank details"},
+          {"name": "signature", "type": "Data?", "note": "PencilKit drawing"}
+        ]
+      },
+      {
+        "name": "Client",
+        "fields": [
+          {"name": "name", "type": "String", "note": ""},
+          {"name": "email", "type": "String", "note": ""},
+          {"name": "phone", "type": "String", "note": ""},
+          {"name": "address", "type": "String", "note": ""},
+          {"name": "taxID", "type": "String", "note": "reviews ask for client VAT number and fiscal code"}
+        ]
+      },
+      {
+        "name": "Document",
+        "fields": [
+          {"name": "kind", "type": "enum invoice|estimate", "note": ""},
+          {"name": "number", "type": "String", "note": "INV0001 style"},
+          {"name": "date", "type": "Date", "note": ""},
+          {"name": "dueDate", "type": "Date?", "note": "on receipt or N days"},
+          {"name": "client", "type": "Client", "note": ""},
+          {"name": "items", "type": "[LineItem]", "note": "ordered"},
+          {"name": "discount", "type": "Discount?", "note": "percent or fixed"},
+          {"name": "taxMode", "type": "enum total|deducted|perItem", "note": ""},
+          {"name": "notes", "type": "String", "note": ""},
+          {"name": "photos", "type": "[Data]", "note": "with captions"},
+          {"name": "currency", "type": "String", "note": "ISO code"},
+          {"name": "paidAt", "type": "Date?", "note": "with method"},
+          {"name": "template", "type": "String", "note": "layout and colour"}
+        ]
+      },
+      {
+        "name": "LineItem",
+        "fields": [
+          {"name": "description", "type": "String", "note": ""},
+          {"name": "rate", "type": "Decimal", "note": "reviews: needs three decimals"},
+          {"name": "quantity", "type": "Decimal", "note": ""},
+          {"name": "taxRate", "type": "Decimal?", "note": "per item mode"}
+        ]
+      }
+    ],
+    "storage": "Account on the developer's servers, synced across devices and web. For Sbu: SwiftData on device."
+  },
+  "monetization": {
+    "model": "Free download, subscription. Free use is capped (the listing says the first two documents are free; the help centre says Essentials allows up to 3 invoices a month).",
+    "price": "Essentials 6.99 USD/month or 69.99/year, Plus 13.49/month or 134.99/year, Premium 19.99-21.99/month (web sources disagree); some users bought 10-invoice packs.",
+    "paywalled_features": ["more than the free invoice quota", "PDF export after building a document", "premium templates", "item and client autofill (Plus)", "photos on invoices (Plus)", "reports (Plus)", "unlimited invoices (Premium)"],
+    "notes": "Reviews report the paywall appearing only at export, after the document was written, and difficulty cancelling."
+  },
+  "user_pains": [
+    {"pain": "Paywall at export after the work is done, free app is not really free", "evidence": "reviews: export forces a paid subscription without warning; 'free' only for a few minutes; deleted on seeing the subscription", "mentions": 6},
+    {"pain": "Not compliant with Italian invoicing: no client VAT number or fiscal code, no multiple rates, no withholding, INPS 4%, Enasarco, stamp duty, flat-rate regime", "evidence": "reviews asking for P.IVA/CF of the client, multiple rates, ritenuta d'acconto, rivalsa INPS, marca da bollo, regime forfettario; 'not legal'", "mentions": 11},
+    {"pain": "No electronic invoice (SDI)", "evidence": "review asking whether e-invoicing will be possible", "mentions": 1},
+    {"pain": "Crashes, white screens, slow PDF after updates", "evidence": "reviews on iPad and iPhone 12 Pro Max, slow PDF generation", "mentions": 4},
+    {"pain": "Cannot duplicate an estimate", "evidence": "review asking for a year for duplicate", "mentions": 1},
+    {"pain": "Data loss and sync problems", "evidence": "lost all 2017 invoices; sync issues between devices; no quick client search", "mentions": 2},
+    {"pain": "Hard to cancel the subscription", "evidence": "two reviews cannot cancel", "mentions": 2},
+    {"pain": "Prices limited to two decimals", "evidence": "cannot enter 0,012 EUR", "mentions": 1}
+  ],
+  "source": {
+    "app_id": "694831622",
+    "name": "Invoice Simple– Creare Fattura",
+    "url": "https://apps.apple.com/it/app/invoice-simple-creare-fattura/id694831622?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 27
+  }
+}

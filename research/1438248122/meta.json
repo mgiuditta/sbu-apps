@@ -1,0 +1,36 @@
+{
+  "id": "1438248122",
+  "name": "Tuner Pro Accordatore Chitarra",
+  "developer": "MWM",
+  "bundle_id": "com.mwm.guitartuner",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Music",
+  "genres": [
+    "Musica",
+    "Utility"
+  ],
+  "description": "Sblocca l'accordatura perfetta per la tua chitarra in pochi secondi! Centra ogni nota con il nostro accordatore intuitivo, ora potenziato dall'AI. Impara gli accordi e suona le tue canzoni preferite all'istante.\n\nNiente cavi, niente complicazioni. Solo il tuo telefono e il tuo strumento. Che tu sia un principiante o un professionista, Tuner Pro ti aiuta a suonare al meglio.\n\nPerché ti piacerà:\n- Accorda la tua chitarra, il basso o l'ukulele con facilità.\n- Esercitati con la generazione di accordi e testi tramite AI.\n- Impara rapidamente con le modalità manuale o automatica.\n\nFunzionalità principali:\n- Accordatore cromatico per tutti gli strumenti.\n- Precisione di +/- 0.5 centesimi.\n- Gamma di accordatura: Ab1 (51.91 Hz) - D5 (587.32 Hz).\n- Scopri 2640 accordi.\n- Visualizza gli accordi con la nostra vasta libreria.\n- Metronomo con impostazioni di indicazione del tempo e suddivisioni.\n- Giochi per imparare gli accordi visivamente.\n\nPronto a portare il tuo modo di suonare al livello successivo? Scarica Tuner Pro ora!\n\nL'abbonamento premium sblocca le seguenti funzionalità:\n- Libreria di oltre 2500 accordi sbloccata: visualizza come suonare QUALSIASI accordo con il tuo strumento, ascolta come dovrebbe suonare\n- Tutte le funzionalità sbloccate per il metronomo (tap tempo, suddivisioni)\n- Accesso completo a giochi e allenamenti: questi sono un ottimo modo per imparare gli accordi a memoria e dove mettere le dita sulla tastiera\n- Annunci rimossi\n\nPrivacy Policy and Terms of use: http://musicworldmedia.com/products/tuner/tos",
+  "release_notes": "Continuous improvements.\nBetter features. Enhanced stability. More music!",
+  "version": "4.01.08",
+  "current_version_release_date": "2026-10-05T08:02:39Z",
+  "rating": 4.35762,
+  "rating_count": 1208,
+  "minimum_os": "16.0",
+  "url": "https://apps.apple.com/it/app/tuner-pro-accordatore-chitarra/id1438248122?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/45/c5/d7/45c5d73f-f420-1e90-b6ea-e8cf559caf0f/51bf8992-3b58-4c9d-8cd8-61528b55055f_it-01.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/79/8b/a1/798ba12c-6e67-85ca-73a9-1591ade18304/cea227ac-dbf5-42e7-b308-f78f78467dee_it-02.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ff/16/41/ff1641f5-d9ed-44e3-ff49-a1e49a46834e/45093dff-c0c1-4afc-9b55-39d0fd8abac5_it-03.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c2/6c/03/c26c03e4-0fb2-7825-9235-ebb22edb818c/6dd20bd4-05e7-40f4-a498-31c64f981cec_it-04.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/24/ba/ef/24baefbe-ec50-ca80-7047-658ed6b4ad16/cd204f2d-2315-4f8d-8a35-56dc73d56cb2_it-05.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4c/fc/86/4cfc8667-7ab7-d120-7e5e-720cb991c4b6/4af4e4e4-9242-4158-a6fa-8c8188fae84d_it-06.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/35/f6/de/35f6dec9-55bc-a277-a4c9-8ab3cfe6906d/d0f6d9e6-f939-4d0c-a04d-d2df78052ce7_it-07.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b4/0c/da/b40cdaef-d3e3-2d0c-f2c3-743aa77434ac/c69ba4cc-c349-4d32-9b3b-e35e2650d7ad_it-08.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/99/7e/c9/997ec93f-b420-45e2-0ff2-3f7065ae0bbf/2d11db09-d6e2-4d52-acc9-2276e5ff22b4_it-09.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0f/ae/4c/0fae4c48-856f-e4c1-899f-32b376a86598/f717602a-6e97-4d56-89b3-183bacfadd92_it-10.jpg/392x696bb.jpg"
+  ]
+}

@@ -1,0 +1,265 @@
+{
+  "features": [
+    {
+      "name": "Nearby Bluetooth scan",
+      "description": "One tap starts a scan of Bluetooth Low Energy advertisements around the phone. A bottom sheet titled like 'Scanning...' shows a pulsing Bluetooth disc and a close button; discovered devices appear as rows in the main list with an icon, a name and a signal percentage. Unnamed devices are shown or hidden depending on the filter.",
+      "priority": "core",
+      "reason": "This is the whole app. CoreBluetooth CBCentralManager scanForPeripherals with duplicates allowed gives name, advertisement data and RSSI on device, with no network."
+    },
+    {
+      "name": "Hot/cold proximity meter",
+      "description": "Selecting a device opens a detail screen with the device name as large title, a hint to move around so the signal grows, and a circular ring around the device image that fills with signal strength, with the value as a big percentage under it. The value rises as the phone gets closer.",
+      "priority": "core",
+      "reason": "The core finding gesture. RSSI from repeated advertisements, smoothed (moving median or Kalman) and mapped to a 0-100 scale or to words like cold/warm/hot. Reviews say the raw number jumps and can even rise when walking away, so smoothing and honest wording matter."
+    },
+    {
+      "name": "Device list with signal",
+      "description": "Main screen with large title, settings gear top left, help button top right, and a list of rows: device icon inside a signal ring, device name, signal percentage, chevron. Sorted by signal.",
+      "priority": "core",
+      "reason": "Native List on device. The ring is decorative; Sbu shows one figure per screen, so the list shows words or secondary numbers in inkMuted."
+    },
+    {
+      "name": "Device type icons",
+      "description": "Each row shows a picture of the device type (laptop, earbuds, watch, headphones, phone).",
+      "priority": "nice",
+      "reason": "Type can be guessed only partly from advertised name and appearance/service data. Sbu uses SF Symbols (airpods, applewatch, laptopcomputer, headphones) instead of product renders."
+    },
+    {
+      "name": "Notify when lost (separation alert)",
+      "description": "Toggle on the device detail screen that sends a notification when the device goes out of range.",
+      "priority": "nice",
+      "reason": "Possible only in a limited way: background BLE scans need a service UUID filter, ignore duplicates and are throttled, and most earbuds rotate their address, so an alert is unreliable. One review reports a notification every 10 minutes after uninstalling. Needs a grilling decision; Apple's Find My already offers left-behind alerts for its own devices."
+    },
+    {
+      "name": "Battery level for select devices",
+      "description": "Shows the battery level of some paired devices (added in version 3.10.0).",
+      "priority": "nice",
+      "reason": "Only for BLE devices that expose the standard Battery Service (0x180F) and accept a connection. AirPods battery is not readable by third-party apps. Must be labelled as available only for some devices."
+    },
+    {
+      "name": "Rescan / search again",
+      "description": "A button that clears the list and scans again. In the free tier reviews say this button opens the subscription screen.",
+      "priority": "core",
+      "reason": "Basic control, free in Sbu."
+    },
+    {
+      "name": "Help screen",
+      "description": "Question-mark button top right opens tips on how to search: keep the device on and out of its case, walk slowly, rotate the phone.",
+      "priority": "core",
+      "reason": "Static on-device content. In Sbu this is where the honest limits go (closed case, dead battery, classic Bluetooth, Find My)."
+    },
+    {
+      "name": "Settings",
+      "description": "Gear button top left opens settings: subscription management, restore purchases, rate the app, privacy and terms links, other apps by the developer.",
+      "priority": "nice",
+      "reason": "Sbu keeps Impostazioni with licences, hide unnamed devices, sound/haptic toggles. Store links, other apps and rating prompts are dropped."
+    },
+    {
+      "name": "Last seen location",
+      "description": "Remember where and when a device was last detected, shown on a map (offered by similar apps; not visible in Find Air screenshots).",
+      "priority": "nice",
+      "reason": "CoreLocation when-in-use plus MapKit, stored locally. It records only where the phone was when it last heard the device, not where the device is. Not in Find Air's listing, so it is an extra; decide in grilling."
+    },
+    {
+      "name": "Proximity sound and haptics",
+      "description": "A beep or haptic tick whose rate increases as the signal grows, so the user can search without watching the screen.",
+      "priority": "nice",
+      "reason": "Core Haptics / UIFeedbackGenerator and AVAudioPlayer with bundled tones, all on device. Not in Find Air's listing; useful for accessibility."
+    },
+    {
+      "name": "Play sound on the lost device",
+      "description": "Make the lost earbuds or watch play a sound.",
+      "priority": "skip",
+      "reason": "Third-party apps cannot command AirPods or Apple Watch; only Apple's Find My can. Promising it would mislead (guideline 2.3)."
+    },
+    {
+      "name": "Locate devices out of Bluetooth range",
+      "description": "Show where a far-away device is.",
+      "priority": "skip",
+      "reason": "Needs Apple's Find My network or a server. Not available to third-party apps and against the no-network rule."
+    },
+    {
+      "name": "Air Apps One subscription and paywall",
+      "description": "Paywall at launch and on actions like rescan or opening a device; weekly, monthly, yearly plans and a bundle of 30+ apps.",
+      "priority": "skip",
+      "reason": "Sbu has no purchases or subscriptions."
+    },
+    {
+      "name": "Rating prompts, ads and tracking",
+      "description": "Early 'are you enjoying the app' prompt, advertising, and tracking identifiers declared in privacy labels.",
+      "priority": "skip",
+      "reason": "No ads, analytics or tracking in Sbu."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Device list (home)",
+      "purpose": "Show nearby Bluetooth devices with their signal and start a scan.",
+      "elements": [
+        "Settings gear top left",
+        "Help button top right",
+        "Large title with the app name",
+        "List of rounded rows: device image in a progress ring, device name, signal percentage, chevron",
+        "Scan button or automatic scan on open"
+      ]
+    },
+    {
+      "name": "Scanning sheet",
+      "purpose": "Show that a scan is running.",
+      "elements": [
+        "Bottom sheet over the list",
+        "Title 'Scanning...'",
+        "Close button top right",
+        "Pulsing concentric circles around a Bluetooth glyph"
+      ]
+    },
+    {
+      "name": "Device detail / finder",
+      "purpose": "Guide the user to one device with live signal strength.",
+      "elements": [
+        "Back button",
+        "Device name as large title",
+        "Hint: move around for the signal strength to increase",
+        "Row with 'Notify when lost' toggle",
+        "Large ring filled to the signal value around the device image",
+        "Large signal percentage below the ring"
+      ]
+    },
+    {
+      "name": "Paywall",
+      "purpose": "Sell the Air Apps One subscription (shown at launch and on gated actions).",
+      "elements": [
+        "Generated illustration",
+        "Plan options weekly/monthly/yearly with free trial",
+        "Continue button, close button"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Account, subscription and app links.",
+      "elements": [
+        "Subscription and restore",
+        "Rate, share, other apps",
+        "Privacy policy and terms"
+      ]
+    },
+    {
+      "name": "Help",
+      "purpose": "Tips for finding a device.",
+      "elements": [
+        "Short list of tips"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Find a lost device",
+      "steps": [
+        "Open the app and grant Bluetooth permission",
+        "Scan starts; devices appear in the list with signal percentage",
+        "Tap the device by name",
+        "Walk around; the ring and percentage grow as the phone gets closer",
+        "At high signal, look nearby and pick up the device"
+      ]
+    },
+    {
+      "name": "Enable lost alert",
+      "steps": [
+        "Open a device detail",
+        "Turn on 'Notify when lost'",
+        "Grant notification permission",
+        "Receive a notification when the device is no longer seen"
+      ]
+    },
+    {
+      "name": "First launch (original)",
+      "steps": [
+        "Onboarding pages",
+        "Paywall with free trial",
+        "Rating prompt within seconds",
+        "List; rescan and device detail can reopen the paywall"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "SeenDevice",
+        "fields": [
+          {"name": "identifier", "type": "UUID", "note": "CBPeripheral.identifier, app-scoped; can change when the device rotates its address"},
+          {"name": "name", "type": "String?", "note": "Advertised local name or peripheral name; many devices advertise none"},
+          {"name": "kind", "type": "enum", "note": "Guessed type: earbuds, headphones, watch, phone, computer, tracker, unknown"},
+          {"name": "rssi", "type": "Int", "note": "Latest raw RSSI in dBm"},
+          {"name": "smoothedRSSI", "type": "Double", "note": "Filtered value used for the hot/cold meter"},
+          {"name": "lastSeen", "type": "Date", "note": "Time of the last advertisement"}
+        ]
+      },
+      {
+        "name": "SavedDevice",
+        "fields": [
+          {"name": "identifier", "type": "UUID", "note": "Peripheral identifier to recognise it next time"},
+          {"name": "label", "type": "String", "note": "User-given name"},
+          {"name": "notifyWhenLost", "type": "Bool", "note": "Separation alert toggle"},
+          {"name": "lastSeenAt", "type": "Date?", "note": "Last time the app heard it"},
+          {"name": "lastSeenLatitude", "type": "Double?", "note": "Phone position at that time, optional"},
+          {"name": "lastSeenLongitude", "type": "Double?", "note": "Phone position at that time, optional"}
+        ]
+      }
+    ],
+    "storage": "On device only. Live scan results in memory; saved devices and last-seen positions in SwiftData or a small Codable file. No account, no sync."
+  },
+  "monetization": {
+    "model": "Free download, core function behind auto-renewing subscription (Air Apps One bundle) with free trial",
+    "price": "USD 4.99-9.99/week, 9.99-19.99/month, 69.99/year (IAP list also shows Air Apps Pro 9.99-69.99)",
+    "paywalled_features": [
+      "Scanning beyond the first try / search again",
+      "Opening the device finder",
+      "Notify when lost"
+    ],
+    "notes": "Paywall appears at launch and on gated actions; reviews describe weekly charges, trouble cancelling and prices not shown before download. Privacy label declares purchases, identifiers, usage data and diagnostics used to track. Sbu gives every on-device function free."
+  },
+  "user_pains": [
+    {
+      "pain": "The app does nothing useful without paying; paywall at launch and on rescan",
+      "evidence": "\"You have to pay for it to work\", \"the search again button doesn't work but instead asks me to pay a membership\", \"Can't do anything without a subscription\"",
+      "mentions": 22
+    },
+    {
+      "pain": "Price too high, weekly billing, charges after cancelling, prices hidden until download",
+      "evidence": "\"$10/week ($520/year)\", \"canceled this app a month ago and am still being charged weekly\", \"non specificate i prezzi dell'app\"",
+      "mentions": 14
+    },
+    {
+      "pain": "Does not find the device or the signal number is meaningless",
+      "evidence": "\"non ha trovato nulla, neppure le cuffie a 10 cm\", \"the further I was from it the higher the percentage went\", \"can't find my AirPods under a blanket\", \"does not work around metal\"",
+      "mentions": 16
+    },
+    {
+      "pain": "Aggressive prompts: rating request, upsell images, ads, notifications",
+      "evidence": "\"asking if I'm enjoying the app\" seconds after opening, \"too many pop up ads\", \"notification every 10 minutes\" after deleting",
+      "mentions": 8
+    },
+    {
+      "pain": "Screenshots and listing promise more than the app does",
+      "evidence": "\"the App Store screenshots create expectations the app does not currently meet\", \"Nothing is like the pictures shown\"",
+      "mentions": 3
+    },
+    {
+      "pain": "Cannot find dead or powered-off devices or devices outside the house",
+      "evidence": "\"could this app find JLab earbuds even when it's dead?\", single AirPod not found after two weeks, hearing aid not found",
+      "mentions": 4
+    },
+    {
+      "pain": "Apple's Find My is better and free for Apple devices",
+      "evidence": "\"your better off just using find my\", \"paid 100 bucks for apple air tags now you want to charge me\"",
+      "mentions": 3
+    }
+  ],
+  "source": {
+    "app_id": "1507917112",
+    "name": "Find Air: Trova il dispositivo",
+    "url": "https://apps.apple.com/it/app/find-air-trova-il-dispositivo/id1507917112?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 74
+  }
+}

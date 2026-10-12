@@ -1,0 +1,31 @@
+{
+  "id": "694831622",
+  "name": "Invoice Simple– Creare Fattura",
+  "developer": "Zenvoice Inc.",
+  "bundle_id": "com.logicalengine.qsei",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Business",
+  "genres": [
+    "Economia",
+    "Produttività"
+  ],
+  "description": "Crea e invia facilmente fatture, preventivi e ricevute professionali ovunque ti trovi! Lo strumento perfetto per freelance e aziende in crescita per creare documenti all'istante mentre visiti i clienti.\n\nPer aziende in crescita che desiderano:\n\n· Un modo semplice per creare rapidamente preventivi, fatture e ricevute\n· Fatture dall'aspetto professionale che puoi inviare direttamente dal tuo cellulare\n\nChe si tratti di una fattura per un lavoro di giardinaggio o di una ricevuta per i materiali del tuo lavoro part-time, Invoice Simple è l'app perfetta per la tua piccola impresa.\n\nSCARICA E CREA LE TUE PRIME DUE FATTURE/PREVENTIVI/RICEVUTE GRATIS!\n\n6 MODI IN CUI INVOICE SIMPLE TI SEMPLIFICA LA VITA:\n\nFACILE DA USARE\nProgettato per non farti perdere tempo a capirlo.\n\nFATTURA OVUNQUE\nCon il tuo cliente o alla tua scrivania: non esiste un modo più veloce per inviare una fattura.\n\nMANTIENILO ORGANIZZATO\nTutta la tua cronologia in un unico posto, facile da trovare e leggere.\n\nASPETTO PROFESSIONALE\nCrea fatture e preventivi dall'aspetto professionale all'istante.\n\nFATTURA IN SICUREZZA\nUnisciti a centinaia di migliaia di piccoli imprenditori che si affidano a Invoice Simple, una delle app di fatturazione più apprezzate.\n\nPersonalizza facilmente ogni dettaglio della tua fattura, preventivo o ricevuta:\n\n-Aggiungi il tuo logo e le informazioni aziendali\n-Includi i tuoi dati bancari\n-Aggiungi facilmente le informazioni del cliente dai tuoi contatti\n-Modifica tasse e sconti\n-Aggiungi informazioni e foto del prodotto\n-Firma la tua fattura\n-Invia la tua fattura o preventivo via e-mail, SMS, WhatsApp o scaricalo in formato PDF.\n-Ricevi notifiche istantanee quando vengono aperti, pagati o in scadenza.\n\nInvoice Simple, il creatore definitivo di fatture, preventivi e ricevute.\n\nTermini di utilizzo: https://www.invoicesimple.com/terms\nInformativa sulla privacy: https://www.invoicesimple.com/privacy",
+  "release_notes": "Welcome to the new Invoice Simple experience!\n\nWe've been working hard on improving our app's performance and stability while delivering the invoicing experience you expect with us.\n  \nLet us know what you think and feel free to contact our 24/7 support team if you come across any issues\n  \n- various bug fixes",
+  "version": "6.16.0",
+  "current_version_release_date": "2026-10-07T16:48:48Z",
+  "rating": 4.68558,
+  "rating_count": 881,
+  "minimum_os": "15.1",
+  "url": "https://apps.apple.com/it/app/invoice-simple-creare-fattura/id694831622?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2a/b3/fa/2ab3fae5-0a2b-ac6a-adf8-fd24dcb9e266/InvoiceSimple_iOS_6.5_IT_1.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fa/ae/2b/faae2b46-7646-009e-464a-06159a582518/InvoiceSimple_iOS_6.9_IT_2.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/74/af/37/74af37b6-c768-986d-daab-689c86e0fbeb/InvoiceSimple_iOS_6.9_IT_4.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f0/1e/f0/f01ef049-248c-f7c4-602c-c32ea28191eb/InvoiceSimple_iOS_6.9_IT_5.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c9/80/f4/c980f45f-c6ab-6498-5e2c-23c8f2633d7e/InvoiceSimple_iOS_6.9_IT_6.jpg/320x480bb.jpg"
+  ]
+}

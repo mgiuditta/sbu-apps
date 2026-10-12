@@ -1,0 +1,373 @@
+{
+  "features": [
+    {
+      "name": "Accordatore automatico per corde",
+      "description": "Il microfono rileva la nota della corda pizzicata, sceglie la corda più vicina dell'accordatura attiva, mostra lo scarto in cent con un indicatore su griglia e un'etichetta 'alza'/'abbassa'; spunta di conferma quando la corda è intonata.",
+      "priority": "core",
+      "reason": "È la funzione principale; gratuita nell'originale per l'accordatura standard di chitarra, basso e ukulele. Solo AVAudioEngine e DSP locale."
+    },
+    {
+      "name": "Modalità manuale con nota di riferimento",
+      "description": "Spento l'interruttore Auto, si tocca una corda sulla paletta: l'app suona la nota di riferimento e accorda solo quella corda.",
+      "priority": "core",
+      "reason": "Utile con corde nuove o molto scordate; sintesi audio locale."
+    },
+    {
+      "name": "Scelta strumento e accordatura",
+      "description": "Elenco di strumenti (chitarra 6/7/12, basso 4/5, ukulele, violino, viola, violoncello, mandolino, banjo, balalaika, cavaquinho) e accordature (standard, drop, aperte, abbassate) con le note di ogni corda.",
+      "priority": "core",
+      "reason": "Dati musicali pubblici (frequenze), nessuna rete."
+    },
+    {
+      "name": "Accordatore cromatico",
+      "description": "Riconosce qualunque nota della scala cromatica senza corde predefinite.",
+      "priority": "core",
+      "reason": "A pagamento nell'originale; puro DSP."
+    },
+    {
+      "name": "Accordature personalizzate",
+      "description": "L'utente compone un'accordatura scegliendo la nota di ogni corda.",
+      "priority": "nice",
+      "reason": "A pagamento nell'originale; salvataggio locale."
+    },
+    {
+      "name": "Calibrazione A4",
+      "description": "Impostazioni: frequenza di riferimento regolabile con + e -, Reset riporta a 440 Hz.",
+      "priority": "core",
+      "reason": "Standard degli accordatori, locale."
+    },
+    {
+      "name": "Precisione pro",
+      "description": "Interruttore che passa la lettura da passi di 10 cent a ±1 cent.",
+      "priority": "nice",
+      "reason": "In Sbu la precisione fine può essere sempre attiva."
+    },
+    {
+      "name": "Modalità mancini",
+      "description": "Specchia la paletta e l'ordine delle corde.",
+      "priority": "nice",
+      "reason": "Impostazione locale."
+    },
+    {
+      "name": "Metronomo",
+      "description": "BPM 30-240 con pulsanti +/- e ghiera circolare, avvio/pausa, tap tempo, indicazione del tempo.",
+      "priority": "nice",
+      "reason": "Seconda funzione, locale con AVAudioEngine; da valutare se rompe 'una cosa sola'."
+    },
+    {
+      "name": "Libreria accordi",
+      "description": "Diagrammi degli accordi con ascolto del suono.",
+      "priority": "nice",
+      "reason": "Contenuto generabile algoritmicamente da teoria musicale; da valutare (grilling)."
+    },
+    {
+      "name": "Canzoni con accordi, tab e testi",
+      "description": "Catalogo in streaming di brani con accordi, testi, versione semplificata/originale e scorrimento automatico.",
+      "priority": "skip",
+      "reason": "Richiede server, licenze editoriali dei testi e rete."
+    },
+    {
+      "name": "Giochi ed ear training sugli accordi",
+      "description": "Trainer con livelli e punteggi a stelle per memorizzare e riconoscere accordi.",
+      "priority": "skip",
+      "reason": "Gamification e lezioni: fuori dal 'una cosa sola'."
+    },
+    {
+      "name": "Richiesta canzoni, account Yousician, pubblicità",
+      "description": "Funzioni legate al servizio online e agli annunci.",
+      "priority": "skip",
+      "reason": "Account, rete e pubblicità vietati."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Accordatore",
+      "purpose": "Accordare lo strumento",
+      "elements": [
+        "logo in alto a sinistra",
+        "interruttore Auto in alto a destra",
+        "strumento e accordatura con freccia (apre la scelta)",
+        "simboli bemolle/diesis ai lati",
+        "bolla con scarto in cent ed etichetta alza/abbassa",
+        "griglia di fondo",
+        "paletta disegnata con corde e pulsanti nota ai lati",
+        "tab bar a 5 voci: Brani, Strumenti, Accordatore, Metronomo/strumenti, Impostazioni"
+      ]
+    },
+    {
+      "name": "Seleziona accordatura",
+      "purpose": "Scegliere strumento e accordatura",
+      "elements": [
+        "barra con indietro e titolo",
+        "paletta grande dello strumento, carosello degli strumenti ai lati",
+        "lista di accordature con nome e chip delle note per corda",
+        "spunta sull'accordatura attiva"
+      ]
+    },
+    {
+      "name": "Brani",
+      "purpose": "Catalogo canzoni",
+      "elements": [
+        "titolo grande",
+        "campo di ricerca",
+        "sezioni a carosello (Top 100, Classici) con copertine"
+      ]
+    },
+    {
+      "name": "Brano",
+      "purpose": "Suonare accordi e testo",
+      "elements": [
+        "copertina a tutta larghezza",
+        "preferito e menu",
+        "schede Semplificato/Originale",
+        "elenco accordi",
+        "interruttore scorrimento intelligente",
+        "sezioni con accordi"
+      ]
+    },
+    {
+      "name": "Strumenti",
+      "purpose": "Hub di esercizi",
+      "elements": [
+        "titolo",
+        "schede: libreria accordi, diagrammi, ear training, suona gli accordi, a memoria, con stelle 0/6"
+      ]
+    },
+    {
+      "name": "Gioco accordo",
+      "purpose": "Imparare un accordo",
+      "elements": [
+        "titolo 'nuovo accordo'",
+        "diagramma tastiera con dita",
+        "nome accordo",
+        "tocca per continuare"
+      ]
+    },
+    {
+      "name": "Metronomo",
+      "purpose": "Tenere il tempo",
+      "elements": [
+        "indietro e titolo",
+        "BPM con - e +",
+        "ghiera circolare con tacche e maniglia",
+        "pausa/avvio al centro",
+        "icona tap"
+      ]
+    },
+    {
+      "name": "Impostazioni",
+      "purpose": "Preferenze",
+      "elements": [
+        "calibrazione",
+        "precisione pro",
+        "mancini",
+        "account e abbonamento"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Prima accordatura",
+      "steps": [
+        "Apertura diretta sull'accordatore",
+        "Permesso microfono",
+        "Pizzica una corda",
+        "L'app riconosce la corda e mostra lo scarto",
+        "Gira la meccanica finché appare la spunta",
+        "Passa alla corda successiva"
+      ]
+    },
+    {
+      "name": "Cambio accordatura",
+      "steps": [
+        "Tocca strumento/accordatura",
+        "Scorri gli strumenti",
+        "Scegli un'accordatura dalla lista (le alternative chiedono l'abbonamento)",
+        "Torna all'accordatore con le nuove note"
+      ]
+    },
+    {
+      "name": "Calibrazione",
+      "steps": [
+        "Impostazioni",
+        "Calibra",
+        "+/- sulla frequenza",
+        "Reset a 440 Hz"
+      ]
+    },
+    {
+      "name": "Metronomo",
+      "steps": [
+        "Tab metronomo",
+        "Regola BPM con ghiera, +/- o tap",
+        "Avvia/ferma"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Instrument",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "note": "chitarra6, basso4, ukulele…"
+          },
+          {
+            "name": "name",
+            "type": "LocalizedString",
+            "note": ""
+          },
+          {
+            "name": "stringCount",
+            "type": "Int",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Tuning",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "instrumentID",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "LocalizedString",
+            "note": "Standard, Drop D…"
+          },
+          {
+            "name": "notes",
+            "type": "[Note]",
+            "note": "dalla corda più grave"
+          },
+          {
+            "name": "isCustom",
+            "type": "Bool",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Note",
+        "fields": [
+          {
+            "name": "pitchClass",
+            "type": "Int",
+            "note": "0-11"
+          },
+          {
+            "name": "octave",
+            "type": "Int",
+            "note": "notazione scientifica"
+          }
+        ]
+      },
+      {
+        "name": "TunerSettings",
+        "fields": [
+          {
+            "name": "referenceA4",
+            "type": "Double",
+            "note": "Hz, default 440"
+          },
+          {
+            "name": "autoMode",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "leftHanded",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "selectedTuningID",
+            "type": "String",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "MetronomeSettings",
+        "fields": [
+          {
+            "name": "bpm",
+            "type": "Int",
+            "note": "30-240"
+          },
+          {
+            "name": "beatsPerBar",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "subdivision",
+            "type": "Int",
+            "note": ""
+          }
+        ]
+      }
+    ],
+    "storage": "Impostazioni e accordature personalizzate in locale (UserDefaults/SwiftData); catalogo strumenti/accordature incluso nell'app."
+  },
+  "monetization": {
+    "model": "Freemium con abbonamento e pubblicità",
+    "price": "Gratis; Pro/Tools/Play/Learn: es. Play 8,99 $/mese o 39,99 $/anno, Tools 6,49 $/mese o 29,99 $/anno, Learn 24,99 $/mese o 139,99 $/anno; prova 7 giorni",
+    "paywalled_features": [
+      "accordature alternative (anche Drop D) e personalizzate",
+      "accordatore cromatico",
+      "strumenti oltre chitarra/basso/ukulele",
+      "accordi intermedi, ear training e giochi",
+      "catalogo canzoni completo"
+    ],
+    "notes": "L'accordatura standard di chitarra, basso e ukulele è gratuita, con pubblicità. La funzione principale (accordare) quindi NON è a pagamento; lo sono le accordature alternative e il cromatico."
+  },
+  "user_pains": [
+    {
+      "pain": "Chiede di pagare per accordature basilari",
+      "evidence": "'chiedete soldi per accordare un drop d'",
+      "mentions": 1
+    },
+    {
+      "pain": "Pubblicità invadente e richieste continue di acquisto",
+      "evidence": "'Too many ads', 'ask ask ask', 'long ad of yousician'",
+      "mentions": 3
+    },
+    {
+      "pain": "Non si avvia o non apre i brani senza internet",
+      "evidence": "'requires internet connection', 'dice che sono offline', blocco sulla schermata di apertura",
+      "mentions": 4
+    },
+    {
+      "pain": "Prova gratuita che si rinnova a pagamento",
+      "evidence": "'La prova gratuita dura 7 giorni poi paghi'",
+      "mentions": 2
+    },
+    {
+      "pain": "Catalogo canzoni incompleto o ridotto",
+      "evidence": "'sono sparite tante canzoni', brani non trovati",
+      "mentions": 2
+    },
+    {
+      "pain": "Corda rotta seguendo l'accordatura",
+      "evidence": "Corda spezzata sull'ultima corda: possibile ottava sbagliata",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "527588389",
+    "name": "GuitarTuna: Accordatore, Tuner",
+    "url": "https://apps.apple.com/it/app/guitartuna-accordatore-tuner/id527588389",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 13
+  }
+}

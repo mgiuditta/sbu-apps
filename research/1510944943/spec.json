@@ -1,0 +1,445 @@
+{
+  "features": [
+    {
+      "name": "Storage overview",
+      "description": "Home dashboard showing device storage used versus total (bar or ring) and how much the app can free, by category, after a first scan of the photo library.",
+      "priority": "core",
+      "reason": "Device capacity comes from URLResourceValues volume keys; category sizes from PHAssetResource file sizes. On device."
+    },
+    {
+      "name": "Duplicate photos",
+      "description": "Group exact or near-exact duplicates (same pixels, re-saved copies, burst copies). In each group the app pre-marks one 'best' photo to keep and the others for deletion; a single bottom button deletes the whole selection showing count and size.",
+      "priority": "core",
+      "reason": "PhotoKit fetch plus Vision VNGenerateImageFeaturePrintRequest distance with a tight threshold; runs offline."
+    },
+    {
+      "name": "Similar photos with best-shot suggestion",
+      "description": "Group visually similar shots taken close in time. Suggest the best one using face capture quality (eyes open, smiling, looking at camera), sharpness, and whether the user edited or favourited it. User can override the pick; the rest are pre-selected.",
+      "priority": "core",
+      "reason": "Vision feature print with a looser threshold plus VNDetectFaceCaptureQualityRequest and PHAsset.isFavorite / hasAdjustments. On device."
+    },
+    {
+      "name": "Swipe to keep or delete",
+      "description": "Card stack of photos: swipe left to mark for deletion, right to keep. Marked items go to an in-app bin that is reviewed before the actual deletion.",
+      "priority": "core",
+      "reason": "SwiftUI DragGesture; deletion through PHAssetChangeRequest.deleteAssets, which also shows the system confirmation."
+    },
+    {
+      "name": "In-app bin with final review",
+      "description": "Everything marked is collected in a review grid; user can restore items and then confirm one deletion. Photos then land in the system Recently Deleted album for 30 days.",
+      "priority": "core",
+      "reason": "Core safety promise of the app. Local state plus one PhotoKit change request."
+    },
+    {
+      "name": "Videos sorted by size",
+      "description": "List all videos sorted largest first with size and duration so the biggest can be removed first.",
+      "priority": "core",
+      "reason": "PHAssetResource file size per video; on device."
+    },
+    {
+      "name": "Screenshots and screen recordings",
+      "description": "Separate category with all screenshots (mediaSubtypes .photoScreenshot) and screen recordings for bulk review.",
+      "priority": "core",
+      "reason": "PhotoKit smart album / subtype predicate."
+    },
+    {
+      "name": "Live Photos to still",
+      "description": "Convert Live Photos into still photos to save the video part, showing before and after size.",
+      "priority": "nice",
+      "reason": "Possible by saving the still image as a new asset and deleting the original; metadata and album membership need care, so it is a second step."
+    },
+    {
+      "name": "Video compression",
+      "description": "Re-encode a large video at low, medium or high quality, preview, and show size before and after; save the compressed copy and optionally delete the original.",
+      "priority": "nice",
+      "reason": "AVAssetExportSession presets on device; quality loss needs a clear preview and confirmation."
+    },
+    {
+      "name": "Chat app media",
+      "description": "Group photos that came from messaging apps (WhatsApp, Snapchat, WeChat) for bulk deletion.",
+      "priority": "nice",
+      "reason": "Only heuristics are possible (saved without camera EXIF, album named after the app); no reliable public source attribute."
+    },
+    {
+      "name": "Keep list",
+      "description": "Mark photos as protected so they never show up again in cleaning suggestions.",
+      "priority": "nice",
+      "reason": "Local list of PHAsset localIdentifiers."
+    },
+    {
+      "name": "Duplicate contacts merge",
+      "description": "Find contacts with the same name or number and merge them into one, with optional backup first.",
+      "priority": "nice",
+      "reason": "Contacts framework (CNContactStore, CNSaveRequest) works offline; reviews report contacts lost, so it needs a backup (vCard export) and careful confirmation. Outside the photo-only promise."
+    },
+    {
+      "name": "Email cleaner and unsubscribe",
+      "description": "Connect a mail account, group messages by sender and category (social, promotions, spam) and bulk delete or unsubscribe.",
+      "priority": "skip",
+      "reason": "Requires signing in to a mail provider and network access; against the no-account, no-network rule."
+    },
+    {
+      "name": "iCloud cleaning",
+      "description": "Promise to clean iCloud storage.",
+      "priority": "skip",
+      "reason": "The app only sees the Photos library; iCloud Photos follows automatically. No separate iCloud API without network/account."
+    },
+    {
+      "name": "Storage and battery widgets",
+      "description": "Home screen widgets showing storage used percent and battery level.",
+      "priority": "nice",
+      "reason": "WidgetKit can show free storage; battery is outside the app's one job."
+    },
+    {
+      "name": "Cleaning results screen",
+      "description": "After deletion show before/after storage and the space freed, plus a celebration and 'time saved'.",
+      "priority": "core",
+      "reason": "Space freed is the one figure of the session; drop confetti and time-saved claims."
+    },
+    {
+      "name": "Subscription paywall and trial",
+      "description": "Weekly or lifetime subscription with a 7-day trial; free tier limits deletions (about 5 photos per day) or adds ads.",
+      "priority": "skip",
+      "reason": "No subscriptions or in-app purchases in Sbu."
+    },
+    {
+      "name": "Ads to unlock deletion",
+      "description": "Watch an ad to delete a small batch in the free tier.",
+      "priority": "skip",
+      "reason": "No ads in Sbu."
+    },
+    {
+      "name": "Rating prompt after deletion",
+      "description": "Ask for an App Store rating after a successful cleanup.",
+      "priority": "skip",
+      "reason": "Not a user feature; SKStoreReviewController could be considered later but not part of parity."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Onboarding",
+      "purpose": "Short carousel on value, then photo access request and paywall",
+      "elements": [
+        "2-step carousel",
+        "Photo library permission request",
+        "Paywall with trial toggle and weekly plan"
+      ]
+    },
+    {
+      "name": "Home dashboard",
+      "purpose": "Overview of storage and cleaning categories",
+      "elements": [
+        "Storage bar used/total",
+        "Category cards: duplicates, similar, screenshots, videos, Live Photos, chat media, contacts, email",
+        "Size and count per category",
+        "Settings gear"
+      ]
+    },
+    {
+      "name": "Duplicates and similar",
+      "purpose": "Grouped review of duplicates and similar photos",
+      "elements": [
+        "Title with total count and size",
+        "Group rows with best photo badge and other photos marked with X",
+        "Per-group count and size",
+        "Bottom button 'Delete N GB'"
+      ]
+    },
+    {
+      "name": "Swipe sorter",
+      "purpose": "Card-by-card decision",
+      "elements": [
+        "Photo card",
+        "Swipe left delete / right keep",
+        "Counter",
+        "Undo"
+      ]
+    },
+    {
+      "name": "Bin review",
+      "purpose": "Final check before deletion",
+      "elements": [
+        "Grid of marked items",
+        "Tap to restore",
+        "Delete button with total size"
+      ]
+    },
+    {
+      "name": "Videos",
+      "purpose": "Large videos list",
+      "elements": [
+        "Videos sorted by size",
+        "Size per item",
+        "Selection and delete"
+      ]
+    },
+    {
+      "name": "Video compressor",
+      "purpose": "Compress one video",
+      "elements": [
+        "Before/after split preview with play button",
+        "Original and compressed size",
+        "Quality picker low/medium/high",
+        "Start compression button"
+      ]
+    },
+    {
+      "name": "Live Photos converter",
+      "purpose": "Convert Live Photos to stills",
+      "elements": [
+        "Stack of Live Photos with before size",
+        "After size",
+        "Convert button"
+      ]
+    },
+    {
+      "name": "Chat media",
+      "purpose": "Photos saved from chat apps",
+      "elements": [
+        "Count and size",
+        "Grid with source app tag",
+        "Delete button"
+      ]
+    },
+    {
+      "name": "Contacts duplicates",
+      "purpose": "Merge duplicate contacts",
+      "elements": [
+        "List of duplicate pairs with checkboxes",
+        "Merged preview",
+        "Merge N contacts button",
+        "Settings gear"
+      ]
+    },
+    {
+      "name": "Email cleaner",
+      "purpose": "Mail categories and unsubscribe",
+      "elements": [
+        "Categories with counts (social, promotions, updates, spam, forums)",
+        "Sender list with keep / unsubscribe",
+        "Delete N emails button"
+      ]
+    },
+    {
+      "name": "Result",
+      "purpose": "Session summary",
+      "elements": [
+        "Before and after storage bars",
+        "Space freed",
+        "Time saved",
+        "Celebration graphic"
+      ]
+    },
+    {
+      "name": "Widgets",
+      "purpose": "Home screen",
+      "elements": [
+        "Storage used percent and GB",
+        "Battery percent ring"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First run",
+      "steps": [
+        "Open app",
+        "Swipe through 2 onboarding cards",
+        "Grant photo access",
+        "See paywall with 7-day trial",
+        "Start trial or close",
+        "Scan runs and dashboard fills"
+      ]
+    },
+    {
+      "name": "Clean similar photos",
+      "steps": [
+        "Tap Similar on dashboard",
+        "Each group shows suggested best photo, others pre-selected",
+        "Adjust selection",
+        "Tap Delete N GB",
+        "Confirm system deletion dialog",
+        "See result screen"
+      ]
+    },
+    {
+      "name": "Swipe cleanup",
+      "steps": [
+        "Open swipe sorter",
+        "Swipe left or right on each photo",
+        "Open bin",
+        "Restore any photo",
+        "Confirm deletion"
+      ]
+    },
+    {
+      "name": "Free biggest videos",
+      "steps": [
+        "Open Videos",
+        "Sorted largest first",
+        "Select or compress",
+        "Confirm"
+      ]
+    },
+    {
+      "name": "Merge contacts",
+      "steps": [
+        "Open Contacts",
+        "Grant contacts access",
+        "Review duplicate groups",
+        "Tap Merge"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "ScanResult",
+        "fields": [
+          {
+            "name": "category",
+            "type": "enum",
+            "note": "duplicates, similar, screenshots, videos, livePhotos, chatMedia"
+          },
+          {
+            "name": "groups",
+            "type": "[AssetGroup]",
+            "note": ""
+          },
+          {
+            "name": "totalBytes",
+            "type": "Int64",
+            "note": "sum of resource sizes"
+          }
+        ]
+      },
+      {
+        "name": "AssetGroup",
+        "fields": [
+          {
+            "name": "assetIDs",
+            "type": "[String]",
+            "note": "PHAsset localIdentifier"
+          },
+          {
+            "name": "bestAssetID",
+            "type": "String?",
+            "note": "suggested keeper"
+          },
+          {
+            "name": "bytes",
+            "type": "Int64",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "BinItem",
+        "fields": [
+          {
+            "name": "assetID",
+            "type": "String",
+            "note": "PHAsset localIdentifier"
+          },
+          {
+            "name": "markedAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "KeepItem",
+        "fields": [
+          {
+            "name": "assetID",
+            "type": "String",
+            "note": "protected from suggestions"
+          }
+        ]
+      },
+      {
+        "name": "CleanupStats",
+        "fields": [
+          {
+            "name": "deletedCount",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "freedBytes",
+            "type": "Int64",
+            "note": ""
+          }
+        ]
+      }
+    ],
+    "storage": "Photo library through PhotoKit; scan cache, bin, keep list and stats on device. The listing stresses offline local processing."
+  },
+  "monetization": {
+    "model": "Freemium subscription",
+    "price": "Free download; weekly plan (seen at 6.99-13 EUR per week in reviews, 3.99-6.99 USD in public paywall listings), yearly 29.99 USD, lifetime 39.99 USD; 7-day free trial",
+    "paywalled_features": [
+      "Bulk deletion beyond about 5 photos per day",
+      "All cleaning categories",
+      "Video compression",
+      "Contacts merge",
+      "Email cleaner"
+    ],
+    "notes": "Paywall appears right after onboarding; trial requires a card and auto-renews. Many reviews say they were charged at trial start."
+  },
+  "user_pains": [
+    {
+      "pain": "Free to download but nothing usable without a subscription",
+      "evidence": "'Scaricalo gratis ma paga per usarlo', 'Inutile perché a pagamento tutto', 'Non è gratuita'",
+      "mentions": 42
+    },
+    {
+      "pain": "Trial charged immediately or renewal unclear",
+      "evidence": "'Dice 7 giorni di prova gratis ma fa partire l'abbonamento settimanale da 13€ immediatamente', 'Ha addebitato 10€ all'inizio della settimana di prova'",
+      "mentions": 10
+    },
+    {
+      "pain": "Weekly price out of proportion; iCloud storage is cheaper",
+      "evidence": "'9,99€ a settimana', 'il costo è superiore allo spazio iCloud'",
+      "mentions": 12
+    },
+    {
+      "pain": "Free tier limited to about 5 deletions a day",
+      "evidence": "'Posso eliminare solo 5 foto e poi si paga', 'You can delete only 5 pics without buying pro'",
+      "mentions": 4
+    },
+    {
+      "pain": "App stuck on launch screen on recent iOS",
+      "evidence": "'rimane con la schermata dell'icona e non fa nulla', 'gets stuck on the startup screen'",
+      "mentions": 5
+    },
+    {
+      "pain": "Deleted the wrong things: contacts, emails, hidden photos",
+      "evidence": "'Mi ha cancellato non so quanti contatti', 'è andato addirittura nella cartella nascosti'",
+      "mentions": 3
+    },
+    {
+      "pain": "Misleading or long ads",
+      "evidence": "'La pubblicità è ingannevole', 'Le vostre pubblicità sono troppo lunghe'",
+      "mentions": 4
+    },
+    {
+      "pain": "Space not actually freed / no cache cleaning",
+      "evidence": "'Ho eliminato 15g di file multimediali e lo Spazio su iPhone è rimasto identico'",
+      "mentions": 2
+    },
+    {
+      "pain": "Paywall only after the user did the sorting work",
+      "evidence": "'dopo 20 o 30 minuti avevo finito di eliminare le foto, poi ho messo elimina e mi ha chiesto di pagare'",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "1510944943",
+    "name": "Cleanup: Pulizia del telefono",
+    "url": "https://apps.apple.com/it/app/cleanup-pulizia-del-telefono/id1510944943?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 69
+  }
+}

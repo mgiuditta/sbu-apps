@@ -1,0 +1,338 @@
+{
+  "features": [
+    {
+      "name": "Swipe to keep or delete",
+      "description": "Full-screen card of one photo or video: swipe right to keep, swipe left to mark for deletion; label appears on the card while dragging. Header shows the photo age ('58 sec fa'), an info button and a position counter (2/225) with undo.",
+      "priority": "core",
+      "reason": "The app's core. SwiftUI DragGesture plus PhotoKit; on device."
+    },
+    {
+      "name": "Month by month timeline",
+      "description": "Home is a vertical list of months (newest first). Each row shows progress (pie fills as the month is reviewed); finished months are struck through.",
+      "priority": "core",
+      "reason": "PHFetchOptions with creationDate ranges; progress stored locally."
+    },
+    {
+      "name": "Recents and random queues",
+      "description": "Extra entries on top of the timeline: recent photos with a badge of unreviewed count, and a shuffled random queue.",
+      "priority": "core",
+      "reason": "Simple PhotoKit fetches; random order on device."
+    },
+    {
+      "name": "On This Day",
+      "description": "Queue of photos taken on today's date in past years, with a small calendar of days that have photos, and a daily streak counter.",
+      "priority": "nice",
+      "reason": "PhotoKit date predicate. A streak is gamification; the queue itself is fine."
+    },
+    {
+      "name": "Review before delete",
+      "description": "After finishing a batch, a grid shows everything marked; tap a tile to restore it; one button deletes all. Then the system confirmation and Recently Deleted.",
+      "priority": "core",
+      "reason": "PHAssetChangeRequest.deleteAssets; core safety step."
+    },
+    {
+      "name": "Bookmarks / maybe pile",
+      "description": "Set aside a photo you are unsure about to decide later.",
+      "priority": "core",
+      "reason": "Local list of identifiers."
+    },
+    {
+      "name": "Tap to go back, long press for metadata",
+      "description": "Tap goes to previous card; long press shows date, place, size, camera.",
+      "priority": "core",
+      "reason": "PHAsset properties and PHAssetResource; on device."
+    },
+    {
+      "name": "Favourite and share from card",
+      "description": "Heart toggles favourite in Photos; share sheet.",
+      "priority": "nice",
+      "reason": "PHAssetChangeRequest isFavorite; ShareLink."
+    },
+    {
+      "name": "Albums cleanup",
+      "description": "List of user albums to swipe through one album at a time.",
+      "priority": "nice",
+      "reason": "PHAssetCollection fetch; on device."
+    },
+    {
+      "name": "Statistics",
+      "description": "Photos deleted and space saved for the batch and in total.",
+      "priority": "core",
+      "reason": "Local counters; the space saved is the one figure."
+    },
+    {
+      "name": "Video playback in swipe",
+      "description": "Videos play inline on the card so they can be judged before deleting.",
+      "priority": "core",
+      "reason": "AVPlayer; a review says videos did not play and were deleted by mistake."
+    },
+    {
+      "name": "On This Day widget",
+      "description": "Home screen widget showing a memory from today in past years.",
+      "priority": "nice",
+      "reason": "WidgetKit with photo thumbnail; reading the photo library from a widget needs care with the app group cache."
+    },
+    {
+      "name": "Memories map",
+      "description": "Globe or map with photos placed by location.",
+      "priority": "skip",
+      "reason": "Not cleaning; outside the app's one job (MapKit tiles also hit the network)."
+    },
+    {
+      "name": "AI photo enhancement",
+      "description": "Sharpen or upscale old, blurry photos with a before/after slider.",
+      "priority": "skip",
+      "reason": "Server-side AI in the original; not cleaning."
+    },
+    {
+      "name": "Supercut videos",
+      "description": "Generate a video montage from a month of photos.",
+      "priority": "skip",
+      "reason": "Not cleaning; outside the one job."
+    },
+    {
+      "name": "Themes, trophies, Wrapped",
+      "description": "Colour themes, trophy room, yearly summary.",
+      "priority": "skip",
+      "reason": "Gamification and colour themes against design system and one-job rule."
+    },
+    {
+      "name": "Subscription, swipe limit and ads",
+      "description": "Free tier limited (7-10 deletions then wait about 8 hours) or watch an ad; weekly/yearly premium with 3-day trial.",
+      "priority": "skip",
+      "reason": "No subscriptions, limits or ads in Sbu."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Onboarding",
+      "purpose": "Explain swipe, ask access, show paywall",
+      "elements": [
+        "4 onboarding steps",
+        "Photo permission",
+        "Soft paywall with 3-day trial, weekly and yearly plan"
+      ]
+    },
+    {
+      "name": "Home timeline",
+      "purpose": "Pick what to review",
+      "elements": [
+        "App wordmark and menu button",
+        "On This Day row with streak badge",
+        "Recents row with unreviewed badge",
+        "Random row",
+        "One row per month with progress pie; finished months struck through"
+      ]
+    },
+    {
+      "name": "Swipe card",
+      "purpose": "Decide one photo at a time",
+      "elements": [
+        "Back with photo age",
+        "Info button",
+        "Counter n/total and undo",
+        "Photo card with KEEP/DELETE label while dragging",
+        "Side actions: favourite, bookmark, enhance, share",
+        "Bottom labels delete / keep"
+      ]
+    },
+    {
+      "name": "Review grid",
+      "purpose": "Confirm deletions",
+      "elements": [
+        "Back",
+        "3-column grid, marked tiles tinted with trash badge",
+        "Delete N photos button"
+      ]
+    },
+    {
+      "name": "Success",
+      "purpose": "Summary",
+      "elements": [
+        "Images deleted and space saved in this batch",
+        "Total deleted and saved",
+        "Continue button"
+      ]
+    },
+    {
+      "name": "On This Day calendar",
+      "purpose": "Choose a day",
+      "elements": [
+        "Week grid with highlighted days that have photos"
+      ]
+    },
+    {
+      "name": "Albums",
+      "purpose": "Album list to review",
+      "elements": [
+        "User albums as rows"
+      ]
+    },
+    {
+      "name": "Menu / settings",
+      "purpose": "Stats and options",
+      "elements": [
+        "Swipe stats",
+        "Theme",
+        "Auto-advance"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Clean a month",
+      "steps": [
+        "Open app",
+        "Tap a month",
+        "Swipe each photo right to keep, left to delete",
+        "Tap to go back if needed",
+        "At end open review grid",
+        "Restore any tile",
+        "Tap delete",
+        "Confirm system dialog",
+        "See success summary"
+      ]
+    },
+    {
+      "name": "Daily memories",
+      "steps": [
+        "Open On This Day",
+        "Swipe through photos of this date",
+        "Review and delete"
+      ]
+    },
+    {
+      "name": "Free tier wall",
+      "steps": [
+        "Delete a few photos",
+        "Limit reached",
+        "Wait about 8 hours, watch an ad, or subscribe"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "ReviewDecision",
+        "fields": [
+          {
+            "name": "assetID",
+            "type": "String",
+            "note": "PHAsset localIdentifier"
+          },
+          {
+            "name": "decision",
+            "type": "enum",
+            "note": "keep, delete, bookmark"
+          },
+          {
+            "name": "decidedAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "MonthProgress",
+        "fields": [
+          {
+            "name": "month",
+            "type": "DateComponents",
+            "note": "year and month"
+          },
+          {
+            "name": "reviewed",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "total",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "done",
+            "type": "Bool",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Stats",
+        "fields": [
+          {
+            "name": "deletedCount",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "savedBytes",
+            "type": "Int64",
+            "note": ""
+          },
+          {
+            "name": "streakDays",
+            "type": "Int",
+            "note": "On This Day"
+          }
+        ]
+      }
+    ],
+    "storage": "Photo library via PhotoKit; decisions and progress on device. Reviews report progress lost after an update."
+  },
+  "monetization": {
+    "model": "Freemium subscription with ads",
+    "price": "Free download; weekly 4.99-9.99 USD (8 EUR in reviews), yearly 29.99-109.99 USD (79.99 EUR in reviews), monthly 4.99 USD; 3-day trial",
+    "paywalled_features": [
+      "Unlimited deletions (free tier stops after a few, then waits about 8 hours)",
+      "AI enhancement",
+      "Supercuts",
+      "Ad-free use"
+    ],
+    "notes": "Soft paywall early in onboarding. Ads every few photos in the free tier."
+  },
+  "user_pains": [
+    {
+      "pain": "Weekly or yearly price too high for a simple app",
+      "evidence": "'Come può un app per svuotare foto costare 8€ alla settimana?', '79.99€ al anno'",
+      "mentions": 9
+    },
+    {
+      "pain": "Free tier stops after a handful of deletions, then waits hours",
+      "evidence": "'7 foto ogni 8 ore', 'Dopo aver cancellato UNA foto ... aspettare 8h'",
+      "mentions": 5
+    },
+    {
+      "pain": "Ads, and ads that never load blocking deletion",
+      "evidence": "'Guarda un breve annuncio per eliminare… ma l'annuncio non parte mai'",
+      "mentions": 3
+    },
+    {
+      "pain": "Crashes or won't open after updates",
+      "evidence": "'stuck on a monochrome screen', 'Ogni 2 minuti si blocca'",
+      "mentions": 4
+    },
+    {
+      "pain": "Progress lost or counts wrong; reviewed photos reappear",
+      "evidence": "'ha tolto i mesi già cancellati, annullando settimane di lavoro', 'fa riapparire sempre foto già visualizzate'",
+      "mentions": 2
+    },
+    {
+      "pain": "Charged after trial without warning",
+      "evidence": "'non ha avvisato dell'inizio di un abbonamento'",
+      "mentions": 2
+    },
+    {
+      "pain": "Videos don't play and phone heats up, causing wrong deletions",
+      "evidence": "'non fa vedere i video quindi ne ho eliminati molti per sbaglio'",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "1583884012",
+    "name": "Swipewipe: Pulizia Foto",
+    "url": "https://apps.apple.com/it/app/swipewipe-pulizia-foto/id1583884012?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 22
+  }
+}

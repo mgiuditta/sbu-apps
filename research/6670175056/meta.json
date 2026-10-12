@@ -1,0 +1,35 @@
+{
+  "id": "6670175056",
+  "name": "Summary - Note con IA",
+  "developer": "Labhouse Mobile",
+  "bundle_id": "io.labhouse.audioapp",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Productivity",
+  "genres": [
+    "Produttività",
+    "Economia"
+  ],
+  "description": "Summary AI rende le riunioni più produttive registrando, trascrivendo e riassumendo automaticamente le conversazioni. Che si tratti di una riunione aziendale, un’intervista, una lezione o un podcast, Summary AI cattura tutto chiaramente così puoi rimanere presente e concentrato.\n\nCon un solo tocco, l'app registra l’audio, genera trascrizioni precise con etichette dei parlanti e crea riassunti facili da leggere. Puoi anche fare domande come: “Quali sono stati i punti chiave della riunione sulla strategia di marketing?” e ottenere risposte immediate grazie all’intelligenza artificiale integrata.\n\nPerché usare Summary AI?\n\nPrendi e condividi facimente le note dei meeting in modo professionale\n\nRegistra e trascrivi interviste, lezioni, webinar e podcast\n\nGenera sottotitoli per persone con disabilità uditive o in ambienti silenziosi\n\nPer chi è Summary AI?\n\nProfessionisti: Cattura note nei meeting, azioni da intraprendere e discussioni con i clienti\n\nStudenti: Registra e rivedi lezioni, gruppi di studio e seminari\n\nGiornalisti e ricercatori: Trascrivi interviste con precisione\n\nTutti: Summary AI gestisce tutto, dai memo vocali ai webinar\n\nFunzionalità principali\n\nRegistrazione con un solo tocco\nAvvia la registrazione in un attimo e concentrati su ciò che conta: Summary AI pensa a tutto il resto.\n\nTempo di registrazione illimitato\nRegistra quanto vuoi, senza limiti di tempo né interruzioni.\n\nRegistra in background o con schermo bloccato\nContinua a registrare anche con lo schermo bloccato o usando altre app. Perfetto per sessioni riservate e senza interruzioni.\n\nTrascrizione precisa con etichette dei parlanti\nTrascrizioni chiare, con nomi, ricercabili e facili da consultare.\n\nRiassunti e punti chiave generati dall’IA\nNon otterrai solo una trascrizione, ma anche il quadro generale sintetizzato in un elenco puntato.\n\nRicerca intelligente e con marcatori temporali\nDigita una parola chiave e vai subito a quel punto nella registrazione.\n\nFai domande sulla conversazione\nOttieni risposte immediate dall’IA, come “Chi è stato incaricato della revisione del budget?”\n\nPunteggiatura, maiuscole e interruzioni automatiche\nTrascrizioni chiare e leggibili, senza bisogno di modifiche manuali.\n\nAumenta la tua produttività\n\nRisparmia tempo leggendo solo il riassunto\n\nRimani concentrato nella conversazione, senza distrarti con le note\n\nEsporta le note in PDF, condividile o conservale\n\nNon perderai nessun dettaglio, tutto è ricercabile\n\nLe tue registrazioni e note rimarranno sempre private. Summary AI dà priorità alla sicurezza e non condivide mai i tuoi dati con terze parti.\n\nInformativa sulla privacy: https://summaryai.app/privacy\n\nTermini di utilizzo: https://summaryai.app/terms",
+  "release_notes": "Ecco le nuove funzionalità di AI Summary:\n- Miglioramenti all’interfaccia e all’esperienza utente (UI/UX)\n- Miglioramenti generali delle prestazioni e correzioni di bug",
+  "version": "2.20.2",
+  "current_version_release_date": "2026-10-01T07:48:06Z",
+  "rating": 4.55243,
+  "rating_count": 782,
+  "minimum_os": "15.1",
+  "url": "https://apps.apple.com/it/app/summary-note-con-ia/id6670175056?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4d/96/42/4d96429d-8d27-2a0a-892e-19c136a024b5/01.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/59/ec/4f/59ec4f85-ef3b-d0d0-2967-3b7f7a6ec9db/02.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/25/3f/f9/253ff97e-4d7f-daa9-eaae-093bf915398d/03.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ee/04/52/ee045216-7a24-84f2-1c83-f4203bbe81f2/04.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0e/41/e4/0e41e442-896b-1aa3-48ac-5172f072428b/05.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cf/3e/ef/cf3eefb8-194b-ae67-863a-9ca78d1f6bd3/06.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/18/c1/49/18c1494a-7257-8c8e-c612-9c0d510d465d/08.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5a/11/bb/5a11bb6f-5f29-3af4-013d-e1b749a3a55d/09.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/31/2c/b3/312cb3be-a9df-f861-6363-038d2bc40877/10.jpg/320x480bb.jpg"
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "features": [
+    {
+      "name": "Codici TOTP",
+      "description": "Genera codici a tempo (RFC 6238) di 6 cifre ogni 30 secondi per ogni account, con anello del tempo residuo che diventa rosso negli ultimi secondi. Funziona offline.",
+      "priority": "core",
+      "reason": "È la funzione dell'app; CryptoKit HMAC, nessuna rete."
+    },
+    {
+      "name": "Codici HOTP e parametri otpauth",
+      "description": "Supporto a contatore (RFC 4226) e ai parametri della Key URI: algoritmo SHA1/SHA256/SHA512, 6-8 cifre, periodo diverso da 30 s.",
+      "priority": "core",
+      "reason": "Il listing non lo cita, ma i QR otpauth:// reali li usano: senza, alcuni account non funzionano."
+    },
+    {
+      "name": "Aggiunta da QR con la fotocamera",
+      "description": "Pulsante + nella lista, scansione del QR otpauth:// mostrato dal sito, account creato con emittente e nome.",
+      "priority": "core",
+      "reason": "Flusso principale di setup (screenshot 1 e 3); VisionKit/AVFoundation sul dispositivo."
+    },
+    {
+      "name": "Aggiunta da immagine della galleria",
+      "description": "Importa il QR da uno screenshot o una foto, utile quando il QR è sullo stesso iPhone.",
+      "priority": "core",
+      "reason": "Gli utenti non hanno un secondo dispositivo; PhotosPicker + Vision, nessun permesso libreria."
+    },
+    {
+      "name": "Inserimento manuale della chiave",
+      "description": "Emittente, nome account e chiave segreta Base32 digitati a mano, con opzioni avanzate.",
+      "priority": "core",
+      "reason": "Citato nel listing; necessario quando il QR non si legge."
+    },
+    {
+      "name": "Copia del codice con un tocco",
+      "description": "Tocco sulla riga per copiare il codice negli appunti, con conferma.",
+      "priority": "core",
+      "reason": "Recensioni: 'posso copiare ma non so dove incollare'; la copia deve essere ovvia e scadere dagli appunti."
+    },
+    {
+      "name": "Lista codici con ricerca",
+      "description": "Lista grande titolata con barra di ricerca, ogni riga: logo, emittente, account, codice grande, anello del tempo, menu '...'.",
+      "priority": "core",
+      "reason": "Schermata principale (screenshot 2 e 3)."
+    },
+    {
+      "name": "Modifica, riordino ed eliminazione account",
+      "description": "Pulsante Modifica: rinomina emittente e account, aggiorna la chiave, trascina per riordinare, elimina con conferma.",
+      "priority": "core",
+      "reason": "Citato nel listing ('full control')."
+    },
+    {
+      "name": "Blocco con Face ID, Touch ID o codice",
+      "description": "Blocco all'apertura con biometria o PIN dell'app, auto-blocco quando l'app va in background, contenuto sfocato.",
+      "priority": "core",
+      "reason": "Screenshot 5; LocalAuthentication, codice del dispositivo come ripiego invece di un PIN proprio."
+    },
+    {
+      "name": "Cartelle",
+      "description": "Raggruppa i codici in cartelle (per esempio Social) con un gestore cartelle.",
+      "priority": "nice",
+      "reason": "Visto nel walkthrough; utile con molti account ma non essenziale."
+    },
+    {
+      "name": "Loghi dei servizi",
+      "description": "Icona del servizio accanto a ogni account (Google, Microsoft, Facebook...).",
+      "priority": "skip",
+      "reason": "Loghi di terzi: marchi da non incorporare e scaricarli richiede rete; il design Sbu usa SF Symbols e iniziali."
+    },
+    {
+      "name": "Esportazione codici come QR",
+      "description": "Schermata 'Export Codes' che mostra un QR per trasferire gli account su un altro dispositivo.",
+      "priority": "core",
+      "reason": "Screenshot 3; QR mostrato a schermo, nessuna rete. Sbu può esportare in otpauth-migration per compatibilità."
+    },
+    {
+      "name": "Import dal QR di migrazione di Google Authenticator",
+      "description": "Lettura di otpauth-migration://offline?data= (protobuf) con più account per QR e batch multipli.",
+      "priority": "core",
+      "reason": "Non nel listing, ma chi cambia app viene quasi sempre da Google o Microsoft Authenticator; parser protobuf scritto a mano, nessuna dipendenza."
+    },
+    {
+      "name": "Backup cifrato in file locale",
+      "description": "Esporta tutti gli account in un file cifrato con password (AES-GCM, chiave da password) e lo reimporta.",
+      "priority": "core",
+      "reason": "Recensioni: 'ho perso tutti i codici'. Non nel listing dell'originale; file via fileExporter, nessun server."
+    },
+    {
+      "name": "Sincronizzazione iCloud",
+      "description": "Account sincronizzati tra dispositivi via iCloud Keychain o CloudKit.",
+      "priority": "nice",
+      "reason": "È rete Apple: va deciso se le regole 'dati solo sul dispositivo' la ammettono."
+    },
+    {
+      "name": "Gestore password",
+      "description": "Sezione Password con lista, ricerca, aggiunta di servizio/account/password, modifica, copia ed eliminazione.",
+      "priority": "skip",
+      "reason": "Seconda funzione: Sbu fa una cosa sola, e iOS ha già l'app Password."
+    },
+    {
+      "name": "Generatore di password",
+      "description": "Foglio che propone una password forte con parametri e pulsante 'usa questa password'.",
+      "priority": "skip",
+      "reason": "Legato al gestore password; fuori dalla cosa sola."
+    },
+    {
+      "name": "Avviso dati trapelati",
+      "description": "Banner 'Leaked data' che segnala password a rischio con punti esclamativi rossi.",
+      "priority": "skip",
+      "reason": "Richiede un servizio di breach in rete."
+    },
+    {
+      "name": "Browser privato",
+      "description": "Tab Browser con barra di ricerca, scorciatoie a siti, schede, senza cronologia.",
+      "priority": "skip",
+      "reason": "Rete e seconda funzione."
+    },
+    {
+      "name": "VPN",
+      "description": "Interruttore VPN con scelta della località, elencato tra i vantaggi premium.",
+      "priority": "skip",
+      "reason": "Rete e server."
+    },
+    {
+      "name": "Abbonamento settimanale con prova",
+      "description": "Paywall dopo l'onboarding con prova di 3 giorni e piano settimanale; senza abbonamento i codici diventano illeggibili.",
+      "priority": "skip",
+      "reason": "Sbu non vende nulla."
+    },
+    {
+      "name": "Tracciamento e pubblicità",
+      "description": "Richiesta ATT al primo avvio, identificatori e dati d'uso per pubblicità e analytics, popup pubblicitari.",
+      "priority": "skip",
+      "reason": "Vietato dalle regole di prodotto."
+    },
+    {
+      "name": "Widget",
+      "description": "Codice o lista codici nella schermata Home o Blocco.",
+      "priority": "nice",
+      "reason": "Non nell'originale; mostrare segreti fuori dall'app bloccata è una scelta di sicurezza da decidere."
+    },
+    {
+      "name": "Riempimento automatico dei codici",
+      "description": "Estensione di provider credenziali che propone il codice sopra la tastiera.",
+      "priority": "nice",
+      "reason": "ASOneTimeCodeCredential esiste solo da iOS 18: con target iOS 17 va dietro #available."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Onboarding",
+      "purpose": "Tre passi: permesso di tracciamento, creazione PIN, attivazione Face ID, poi paywall.",
+      "elements": [
+        "richiesta ATT di sistema",
+        "tastierino PIN",
+        "richiesta Face ID",
+        "paywall con piano settimanale, interruttore prova 3 giorni, elenco vantaggi"
+      ]
+    },
+    {
+      "name": "Codici",
+      "purpose": "Lista degli account 2FA con codice corrente.",
+      "elements": [
+        "pulsante Modifica in alto a sinistra",
+        "pulsante + in alto a destra",
+        "titolo grande",
+        "barra di ricerca",
+        "card per account: logo, emittente, account, codice a 6 cifre in due gruppi da 3",
+        "anello col tempo residuo, rosso negli ultimi secondi",
+        "menu ...",
+        "tab bar Codes/Passwords/Browser/Settings"
+      ]
+    },
+    {
+      "name": "Aggiungi account",
+      "purpose": "Creare un account 2FA.",
+      "elements": [
+        "mirino fotocamera per QR",
+        "importa da galleria",
+        "inserimento manuale chiave",
+        "Fatto"
+      ]
+    },
+    {
+      "name": "Esporta codici",
+      "purpose": "Mostrare un QR per trasferire gli account.",
+      "elements": [
+        "titolo",
+        "QR grande",
+        "chiudi"
+      ]
+    },
+    {
+      "name": "Blocco",
+      "purpose": "Coprire i codici finché l'utente non si autentica.",
+      "elements": [
+        "contenuto sfocato",
+        "richiesta Face ID",
+        "ripiego PIN"
+      ]
+    },
+    {
+      "name": "Password",
+      "purpose": "Gestore password.",
+      "elements": [
+        "Modifica",
+        "+",
+        "ricerca",
+        "banner dati trapelati",
+        "lista servizio/account con avvisi"
+      ]
+    },
+    {
+      "name": "Aggiungi password",
+      "purpose": "Nuova credenziale.",
+      "elements": [
+        "servizio con logo",
+        "account obbligatorio",
+        "password obbligatoria",
+        "note",
+        "foglio password forte con parametri e pulsante usa"
+      ]
+    },
+    {
+      "name": "Browser",
+      "purpose": "Navigazione privata.",
+      "elements": [
+        "avanti/indietro",
+        "barra URL",
+        "contatore schede",
+        "menu",
+        "scorciatoie a siti",
+        "spiegazione privacy"
+      ]
+    },
+    {
+      "name": "Impostazioni",
+      "purpose": "Sicurezza e comportamento dell'app.",
+      "elements": [
+        "blocco app",
+        "auto-blocco",
+        "cartelle",
+        "abbonamento",
+        "privacy e termini"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Primo avvio",
+      "steps": [
+        "Prompt ATT",
+        "Crea PIN",
+        "Attiva Face ID",
+        "Paywall con prova 3 giorni",
+        "Chiusura o abbonamento",
+        "Lista vuota"
+      ]
+    },
+    {
+      "name": "Aggiungi con QR",
+      "steps": [
+        "Tocca +",
+        "Inquadra il QR del sito o scegli un'immagine",
+        "Account creato con emittente e nome",
+        "Il codice appare in lista",
+        "Copia e incolla il codice nel sito per confermare"
+      ]
+    },
+    {
+      "name": "Aggiungi a mano",
+      "steps": [
+        "Tocca +",
+        "Scegli inserimento manuale",
+        "Scrivi emittente, account e chiave",
+        "Fatto"
+      ]
+    },
+    {
+      "name": "Usa un codice",
+      "steps": [
+        "Apri l'app",
+        "Sblocca con Face ID",
+        "Cerca l'account",
+        "Tocca per copiare",
+        "Incolla nel sito prima che l'anello si chiuda"
+      ]
+    },
+    {
+      "name": "Trasferisci su altro dispositivo",
+      "steps": [
+        "Apri Esporta codici",
+        "Autenticati",
+        "Mostra il QR",
+        "Scansionalo con l'altro dispositivo"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "OTPAccount",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "identità stabile"
+          },
+          {
+            "name": "issuer",
+            "type": "String",
+            "note": "emittente dal QR, modificabile"
+          },
+          {
+            "name": "accountName",
+            "type": "String",
+            "note": "email o nome utente"
+          },
+          {
+            "name": "secret",
+            "type": "Data",
+            "note": "chiave decodificata da Base32, solo nel Keychain"
+          },
+          {
+            "name": "kind",
+            "type": "enum totp|hotp",
+            "note": "RFC 6238 / 4226"
+          },
+          {
+            "name": "algorithm",
+            "type": "enum sha1|sha256|sha512",
+            "note": "default sha1"
+          },
+          {
+            "name": "digits",
+            "type": "Int",
+            "note": "6, 7 o 8"
+          },
+          {
+            "name": "period",
+            "type": "Int",
+            "note": "secondi, default 30 (solo TOTP)"
+          },
+          {
+            "name": "counter",
+            "type": "UInt64",
+            "note": "solo HOTP, incrementato a ogni nuovo codice"
+          },
+          {
+            "name": "folder",
+            "type": "String?",
+            "note": "cartella opzionale"
+          },
+          {
+            "name": "sortIndex",
+            "type": "Int",
+            "note": "ordine manuale"
+          }
+        ]
+      },
+      {
+        "name": "AppLockSettings",
+        "fields": [
+          {
+            "name": "isEnabled",
+            "type": "Bool",
+            "note": "blocco all'apertura"
+          },
+          {
+            "name": "autoLockDelay",
+            "type": "Duration",
+            "note": "subito o dopo un intervallo in background"
+          }
+        ]
+      }
+    ],
+    "storage": "Keychain (kSecClassGenericPassword, kSecAttrAccessibleWhenUnlockedThisDeviceOnly) per segreti e metadati; impostazioni in UserDefaults. Nessun server. L'originale non dichiara dove salva; le recensioni riportano codici spariti."
+  },
+  "monetization": {
+    "model": "Gratis da scaricare, abbonamento settimanale con prova di 3 giorni; paywall dopo l'onboarding, codici bloccati senza abbonamento; tracciamento e pubblicità.",
+    "price": "Piani settimanali da 5,99 a 14,90 $ (10 acquisti in-app elencati, tutti settimanali)",
+    "paywalled_features": [
+      "visualizzare i codici dopo il periodo iniziale",
+      "gestore password",
+      "browser privato",
+      "VPN",
+      "rimozione pubblicità"
+    ],
+    "notes": "Etichette privacy: identificatori, dati d'uso e diagnostica usati per tracciare. Nome e immagini fanno pensare a Google o Microsoft Authenticator."
+  },
+  "user_pains": [
+    {
+      "pain": "Impossibile disdire l'abbonamento, addebiti dopo la disdetta",
+      "evidence": "'Non c'è un menù per disdire l'abbonamento'; 'Charged me for a subscription that I canceled'",
+      "mentions": 24
+    },
+    {
+      "pain": "Abbonamento settimanale caro e prova che addebita subito",
+      "evidence": "'$9.99 a week'; 'Says 3 day trial, they charge you right away'",
+      "mentions": 20
+    },
+    {
+      "pain": "Confusa con Google o Microsoft Authenticator",
+      "evidence": "'Everyone thought Authenticator App was Microsoft Authenticator'; 'This is not the Google one'",
+      "mentions": 9
+    },
+    {
+      "pain": "Codici bloccati dietro paywall dopo averci messo gli account",
+      "evidence": "'The next day it's not letting me view the code... I have to pay'",
+      "mentions": 3
+    },
+    {
+      "pain": "Codici persi, nessun backup",
+      "evidence": "'I opened the app I lost all my codes'; 'my code is gone, so I have lost everything'",
+      "mentions": 5
+    },
+    {
+      "pain": "Difficile da usare e configurare",
+      "evidence": "'Impossible to set up'; 'Too confusing'; 'Not designed with senior citizens in mind'",
+      "mentions": 15
+    },
+    {
+      "pain": "QR non riconosciuti",
+      "evidence": "'It won't recognize the QR codes'; 'Impossible to scan'",
+      "mentions": 2
+    },
+    {
+      "pain": "Non chiaro dove incollare il codice",
+      "evidence": "'I can copy but no where to paste'",
+      "mentions": 1
+    },
+    {
+      "pain": "Pubblicità invadenti",
+      "evidence": "'I have to spend a few minutes closing ads just to use it'",
+      "mentions": 1
+    },
+    {
+      "pain": "Crash",
+      "evidence": "'L'app crasha inspiegabilmente'",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "6754900760",
+    "name": "Authenticator ℠ App",
+    "url": "https://apps.apple.com/it/app/authenticator-app/id6754900760?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 122
+  }
+}

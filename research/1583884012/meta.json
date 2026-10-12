@@ -1,0 +1,36 @@
+{
+  "id": "1583884012",
+  "name": "Swipewipe: Pulizia Foto",
+  "developer": "MWM",
+  "bundle_id": "com.aoklab.fewerphotos",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Utilities",
+  "genres": [
+    "Utility",
+    "Foto e video"
+  ],
+  "description": "Riprendi il controllo della tua galleria, uno swipe alla volta. Swipewipe rende la pulizia delle tue foto facile e divertente. Rivivi i tuoi ricordi più belli mentre fai ordine!\n\nFinalmente, una soluzione semplice ed elegante per gestire i tuoi ricordi. Sfoglia le tue immagini mese per mese, rivivi i momenti passati con la nostra funzione \"Accadde Oggi\", esplora i tuoi viaggi su una splendida mappa dei ricordi e dai nuova vita alle vecchie foto con il potenziamento IA.\n\nDecidi cosa tenere e cosa eliminare con un semplice swipe.\n\nPerché te ne innamorerai:\n• Swipe Semplice: A destra per tenere, a sinistra per cancellare.\n• Accadde Oggi: Rivivi i ricordi degli anni passati.\n• Mese per Mese: Organizza le tue foto in ordine cronologico.\n• Mappa dei Ricordi: Riscopri le tue avventure in giro per il mondo.\n• Miglioramento Foto IA: Rendi più nitidi e belli i tuoi ricordi preferiti.\n• Navigazione Facile: Tocca per tornare indietro, tieni premuto per i metadati.\n\nFunzionalità Principali:\n• Segnalibri: Metti da parte le foto su cui sei indeciso.\n• Monitoraggio Progressi: Guarda quanta pulizia hai fatto.\n• Statistiche: Tieni traccia delle foto revisionate e dello spazio risparmiato.\n• Widget \"Accadde Oggi\": Ricorda ogni giorno i tuoi momenti più belli.\n• Mappamondo: Scopri dove sono nati i tuoi ricordi.\n• Potenziamento Foto: Migliora la qualità di foto vecchie, sfocate o sgranate.\n\nLa nostra galleria non dovrebbe essere un caos. Ritrova i tuoi ricordi, riscopri i momenti dimenticati e inizia a liberare spazio oggi stesso.\n\nScarica Swipewipe e inizia a fare swipe!\n\nContratto di licenza con l'utente finale Apple: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
+  "release_notes": "Questo aggiornamento risolve alcuni problemi con l’eliminazione delle foto.",
+  "version": "3.5.1",
+  "current_version_release_date": "2026-10-09T12:46:38Z",
+  "rating": 4.61714,
+  "rating_count": 1178,
+  "minimum_os": "18.0",
+  "url": "https://apps.apple.com/it/app/swipewipe-pulizia-foto/id1583884012?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/80/19/3e/80193eb1-302a-dafc-9614-6fb2bb1591db/IT_iphone69_01.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b6/80/fa/b680facc-d398-aa74-ffdd-7eee03137f81/IT_iphone69_02.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c9/e4/c7/c9e4c728-db14-0d0b-ccdd-7049cd68051e/IT_iphone69_03.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7d/e0/f0/7de0f07f-e8b9-cf67-dfa4-05f24413e2da/IT_iphone69_04.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ae/32/09/ae320925-ad17-e7d8-3dac-fb9d35b5f159/IT_iphone69_05.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0d/ca/be/0dcabead-cadb-7116-0622-4ef6788a84ac/IT_iphone69_06.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f7/ad/14/f7ad14d4-6ef2-c0e6-da43-6af75381d448/IT_iphone69_07.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e3/c1/25/e3c1250c-7d25-c1e0-4b0d-5a7ba60593f0/IT_iphone69_08.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/2d/85/74/2d857474-4eb1-03b1-216c-b64f638d5189/IT_iphone69_09.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/02/9b/29/029b299c-5b00-8e6f-7d96-dbc9950bcf33/IT_iphone69_10.png/320x480bb.jpg"
+  ]
+}

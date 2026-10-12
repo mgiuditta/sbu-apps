@@ -1,0 +1,97 @@
+{
+  "features": [
+    {"name": "Registrazione mestruazioni", "description": "Segnare inizio e fine delle mestruazioni su un calendario e modificare le date in seguito (pulsante 'modifica date' sulla schermata Oggi).", "priority": "core", "reason": "Funzione principale; gratuita in Flo. Dati locali, nessuna rete."},
+    {"name": "Previsione prossime mestruazioni", "description": "Stima della data delle prossime mestruazioni dalle lunghezze dei cicli registrati, mostrata come giorni tratteggiati nel calendario e come conto alla rovescia.", "priority": "core", "reason": "Algoritmo locale su media dei cicli; gratuito in Flo."},
+    {"name": "Previsione ovulazione e finestra fertile", "description": "Giorno di ovulazione stimato e finestra fertile (7 giorni, fino a 14 se cicli irregolari o meno di 3 cicli) evidenziati nel calendario.", "priority": "core", "reason": "Calcolo locale; serve un testo chiaro che non è un metodo contraccettivo."},
+    {"name": "Probabilità di gravidanza del giorno", "description": "Etichetta bassa/media/alta del giorno corrente derivata dalla posizione nella finestra fertile.", "priority": "nice", "reason": "Deriva dalla finestra fertile, ma è un claim quasi medico: da decidere."},
+    {"name": "Schermata Oggi con giorno del ciclo", "description": "Striscia di giorni scorrevole in alto, cerchio centrale con 'Mestruazioni: giorno N' o giorni alle prossime, pulsante per modificare le date.", "priority": "core", "reason": "È la cifra unica della schermata (SbuStat)."},
+    {"name": "Registro sintomi, umore e perdite", "description": "Griglia di icone selezionabili per umore, sintomi fisici, perdite vaginali, flusso, attività sessuale, test di ovulazione; oltre 70 voci.", "priority": "core", "reason": "Gratuito in Flo; dati locali, SF Symbols al posto delle illustrazioni."},
+    {"name": "Temperatura basale e muco cervicale", "description": "Registrazione della BBT e del tipo di muco come segnali di fertilità.", "priority": "nice", "reason": "Utile per chi cerca una gravidanza; HealthKit ha i tipi relativi."},
+    {"name": "Peso, acqua, note", "description": "Tracker aggiuntivi di peso, acqua bevuta e note libere del giorno.", "priority": "nice", "reason": "Note utili; peso e acqua escono dal 'fa una cosa sola'."},
+    {"name": "Storico e grafici dei cicli", "description": "Elenco dei cicli passati con lunghezza ciclo e mestruazioni, grafici di andamento.", "priority": "core", "reason": "Swift Charts locale; gratuito in Flo (cycle history)."},
+    {"name": "Tendenze del ciclo e insight sui sintomi", "description": "Analisi se il ciclo è nella norma e pattern di sintomi per fase; Premium.", "priority": "nice", "reason": "Calcolo locale possibile; evitare giudizi medici."},
+    {"name": "Report per il medico", "description": "Riepilogo degli ultimi 6 mesi di cicli e sintomi da inviare via email o stampare; Premium.", "priority": "core", "reason": "A pagamento in Flo; PDF locale con ShareLink, nessun server."},
+    {"name": "Promemoria", "description": "Notifiche per inizio mestruazioni, ovulazione, pillola o contraccettivo, abitudini.", "priority": "core", "reason": "Notifiche locali (UserNotifications)."},
+    {"name": "Registro pillola anticoncezionale", "description": "Registrare la presa della pillola e il tipo di contraccezione.", "priority": "nice", "reason": "Richiesto nelle recensioni; locale."},
+    {"name": "Integrazione Apple Salute", "description": "Importa dati da Salute; Flo non scrive le mestruazioni in Salute.", "priority": "core", "reason": "HealthKit lettura e scrittura del cycle tracking, punto debole di Flo nelle recensioni."},
+    {"name": "Blocco con codice o Face ID", "description": "Codice di accesso opzionale con sblocco biometrico.", "priority": "core", "reason": "LocalAuthentication; coerente con la promessa di privacy."},
+    {"name": "Modalità gravidanza", "description": "Dopo il concepimento passa a un diario settimana per settimana con dimensioni del feto e contenuti.", "priority": "nice", "reason": "Contatore settimane locale possibile; contenuti medici esclusi."},
+    {"name": "Perimenopausa", "description": "Punteggio e timeline della perimenopausa.", "priority": "skip", "reason": "Contenuto e punteggio medico redazionale, fuori dalla funzione unica."},
+    {"name": "Consigli quotidiani e libreria articoli", "description": "Storie del giorno, articoli e video di esperti; Premium.", "priority": "skip", "reason": "Contenuti online e medici: rete e redazione."},
+    {"name": "Assistente salute e Symptom Checker", "description": "Chatbot e autovalutazione PCOS/endometriosi; Premium.", "priority": "skip", "reason": "Server, claim diagnostici."},
+    {"name": "Secret Chats (community)", "description": "Forum anonimo con post, like e commenti.", "priority": "skip", "reason": "Richiede server e account."},
+    {"name": "Flo a due (partner)", "description": "Condivide previsioni con il partner tramite codice.", "priority": "skip", "reason": "Richiede account e server; al massimo un riepilogo condiviso a mano."},
+    {"name": "Modalità anonima e account", "description": "Uso senza email; account con email per backup.", "priority": "skip", "reason": "Sbu non ha account: tutto è già anonimo e locale."},
+    {"name": "App Apple Watch", "description": "Conto alla rovescia alle mestruazioni e registrazione rapida dei sintomi dal polso.", "priority": "nice", "reason": "watchOS fuori dal perimetro attuale; valutare un widget prima."},
+    {"name": "Tema chiaro e scuro", "description": "Aspetto chiaro o scuro.", "priority": "core", "reason": "Già dato dal design system."}
+  ],
+  "screens": [
+    {"name": "Oggi", "purpose": "Stato del ciclo di oggi e accesso rapido alla registrazione.", "elements": ["striscia orizzontale di giorni con oggi evidenziato", "cerchio grande con fase e giorno ('Mestruazioni: giorno 2' o 'Ovulazione tra N giorni')", "pulsante 'Modifica date delle mestruazioni'", "fila di card: 'Registra i sintomi' con +, probabilità di gravidanza, articoli del giorno", "banner Premium"]},
+    {"name": "Calendario", "purpose": "Mese con mestruazioni registrate, previste e finestra fertile.", "elements": ["intestazione giorni della settimana", "griglia del mese", "giorni di mestruazioni previste con cerchio tratteggiato", "finestra fertile in colore secondario", "giorno di ovulazione evidenziato", "etichetta OGGI"]},
+    {"name": "Registra sintomi", "purpose": "Selezione multipla delle voci del giorno.", "elements": ["sezioni: Umore, Sintomi, Perdite vaginali, Flusso, Sesso, Test", "griglia di 4 icone tonde con etichetta", "spunta sulle voci selezionate", "pulsante Applica"]},
+    {"name": "Grafici e report", "purpose": "Storico dei cicli e report per il medico.", "elements": ["lunghezza ciclo e mestruazioni nel tempo", "elenco cicli passati", "report degli ultimi 6 mesi da inviare o stampare"]},
+    {"name": "Gravidanza", "purpose": "Diario settimana per settimana.", "elements": ["pillole delle settimane", "dimensione del feto con paragone a un frutto", "lunghezza in mm", "testo dello sviluppo della settimana"]},
+    {"name": "Contenuti", "purpose": "Articoli e ricerca.", "elements": ["campo Cerca", "segnalibri", "scorciatoie per temi", "card articoli"]},
+    {"name": "Community", "purpose": "Post anonimi con commenti.", "elements": ["autore del gruppo e Segui", "domanda in immagine", "like, commenti, salva", "risposte con avatar"]},
+    {"name": "Profilo e impostazioni", "purpose": "Promemoria, impostazioni del ciclo, privacy, aiuto.", "elements": ["promemoria", "durata media ciclo e mestruazioni", "modalità anonima", "codice di accesso / Face ID", "Apple Salute", "tema"]},
+    {"name": "Apple Watch", "purpose": "Conto alla rovescia sul polso.", "elements": ["data e ora", "'Mestruazioni tra N giorni' con cifra grande", "pulsante + per sintomi", "pulsante per registrare le mestruazioni"]}
+  ],
+  "flows": [
+    {"name": "Onboarding", "steps": ["benvenuto e consenso privacy", "obiettivo (monitorare ciclo, cercare gravidanza, gravidanza)", "anno di nascita", "data ultime mestruazioni, durata ciclo e mestruazioni", "regolarità, contraccezione, condizioni", "permesso notifiche", "Apple Salute", "schermata di personalizzazione", "paywall con prova di 14 giorni, poi offerta scontata", "creazione account"]},
+    {"name": "Registrare l'inizio delle mestruazioni", "steps": ["aprire Oggi", "toccare Modifica date", "selezionare i giorni nel calendario", "salvare: le previsioni si ricalcolano"]},
+    {"name": "Registrare sintomi", "steps": ["toccare + su Oggi", "selezionare le voci per sezione", "Applica", "rivedere dal calendario"]},
+    {"name": "Impostare un promemoria pillola", "steps": ["Menu", "Promemoria", "Farmaci e contraccezione", "scegliere tipo e orario", "Salva"]},
+    {"name": "Report per il medico", "steps": ["Menu", "Grafici e report", "generare il report di 6 mesi", "inviare via email o stampare"]}
+  ],
+  "data_model": {
+    "entities": [
+      {"name": "Period", "fields": [
+        {"name": "start", "type": "Date", "note": "primo giorno, giorno di calendario"},
+        {"name": "end", "type": "Date?", "note": "ultimo giorno; nil se in corso"},
+        {"name": "flow", "type": "[Date: FlowLevel]", "note": "intensità per giorno"}]},
+      {"name": "DayLog", "fields": [
+        {"name": "date", "type": "Date", "note": "chiave, giorno di calendario"},
+        {"name": "moods", "type": "Set<Mood>", "note": "enum"},
+        {"name": "symptoms", "type": "Set<Symptom>", "note": "enum"},
+        {"name": "discharge", "type": "Discharge?", "note": "enum"},
+        {"name": "sex", "type": "SexualActivity?", "note": "protetto/non protetto"},
+        {"name": "ovulationTest", "type": "TestResult?", "note": ""},
+        {"name": "basalTemperature", "type": "Measurement<UnitTemperature>?", "note": ""},
+        {"name": "contraceptiveTaken", "type": "Bool", "note": ""},
+        {"name": "note", "type": "String", "note": ""}]},
+      {"name": "CycleSettings", "fields": [
+        {"name": "averageCycleLength", "type": "Int", "note": "giorni, default 28, usato finché ci sono meno di 3 cicli"},
+        {"name": "averagePeriodLength", "type": "Int", "note": "giorni, default 5"},
+        {"name": "goal", "type": "Goal", "note": "monitorare, cercare gravidanza, gravidanza"},
+        {"name": "pregnancyStart", "type": "Date?", "note": "modalità gravidanza"}]},
+      {"name": "Reminder", "fields": [
+        {"name": "kind", "type": "ReminderKind", "note": "mestruazioni, ovulazione, pillola"},
+        {"name": "time", "type": "DateComponents", "note": ""},
+        {"name": "enabled", "type": "Bool", "note": ""}]},
+      {"name": "Prediction", "fields": [
+        {"name": "nextPeriod", "type": "ClosedRange<Date>", "note": "calcolata, non salvata"},
+        {"name": "ovulation", "type": "Date", "note": "calcolata"},
+        {"name": "fertileWindow", "type": "ClosedRange<Date>", "note": "7-14 giorni"}]}
+    ],
+    "storage": "Flo: account sul server con sincronizzazione, analytics e SDK di terzi. Sbu: SwiftData sul dispositivo con protezione file completa, sincronizzazione opzionale con HealthKit (cycle tracking), nessuna rete."
+  },
+  "monetization": {
+    "model": "Freemium: download gratuito, abbonamento Flo Premium con prova gratuita di 14 giorni sull'annuale.",
+    "price": "Acquisti in-app $1.99-$59.99 (US); annuale tipico $39.99-$59.99, offerte scontate del 33% dopo il primo paywall. In IT circa 20 euro l'anno citati in una recensione.",
+    "paywalled_features": ["report per il medico degli ultimi 6 mesi", "tendenze del ciclo e pattern dei sintomi", "consigli quotidiani, articoli e video di esperti", "assistente salute virtuale", "symptom checker", "contenuti gravidanza approfonditi", "Flo a due completo", "punteggio perimenopausa"],
+    "notes": "ATTENZIONE: la funzione principale (registrazione mestruazioni, previsioni di mestruazioni e ovulazione, calendario, sintomi, storico, promemoria) è GRATUITA in Flo. Il paywall riguarda contenuti, insight e report. Le recensioni lamentano però che la versione gratuita è sempre più limitata e piena di pop-up Premium."
+  },
+  "user_pains": [
+    {"pain": "Pop-up Premium continui a ogni apertura, alcuni senza chiusura", "evidence": "'devi rifiutare almeno tre o quattro volte gli inviti a fare upgrade'; 'prima di arrivare a inserire l'inizio del ciclo devo disfarmi di un numero impressionante di pop up'", "mentions": 14},
+    {"pain": "Troppe funzioni a pagamento per un bisogno che non si sceglie", "evidence": "'qualsiasi cosa che non sia quando ti viene il ciclo è a pagamento'; 'il ciclo non abbiamo deciso di averlo noi'", "mentions": 16},
+    {"pain": "Privacy: dati sensibili condivisi con terzi", "evidence": "'Raccolgono e condividono con i terzi (ad esempio Meta) i tuoi dati'; 'hanno venduto i dati per spot pubblicitari'", "mentions": 4},
+    {"pain": "Previsioni imprecise o che cambiano", "evidence": "'tutte le previsioni sono errate'; 'a volte cambia la previsione'; 'mi sbaglia la data di inizio'", "mentions": 6},
+    {"pain": "Sincronizzazione con Apple Salute assente o rotta", "evidence": "'non riescono ancora a sincronizzarsi e trasferire i dati da flo a salute'", "mentions": 1},
+    {"pain": "Promemoria pillola inaffidabili o assenti", "evidence": "'non mandare le notifiche per la pillola'; 'non consenta di segnare l'anticoncezionale'", "mentions": 3},
+    {"pain": "Dati persi, nessun backup senza account", "evidence": "'mi cancella sempre le registrazioni del giorno di ciclo'; 'non hai nemmeno la possibilità di fare il backup'; reinstallando si rifà tutto", "mentions": 3},
+    {"pain": "Notifiche insensibili dopo un aborto spontaneo o fuori luogo", "evidence": "'when I miscarried it kept telling me my period was late'; 'notifiche che potrebbero colpire profondamente le persone'", "mentions": 2},
+    {"pain": "Mancano voci specifiche (coaguli, PMA, parto e post parto)", "evidence": "'doesn't let me also select clots'; 'non consente di inserire dati relativi a trattamenti PMA'; 'non fa segnare la nascita del bambino'", "mentions": 3},
+    {"pain": "Onboarding lungo che finisce in un paywall", "evidence": "'Tremila domande iniziali per poi alla fine scoprire che devi pagare'", "mentions": 1}
+  ],
+  "source": {"app_id": "1038369065", "name": "Flo diario del ciclo mestruale", "url": "https://apps.apple.com/it/app/flo-diario-del-ciclo-mestruale/id1038369065", "model": "claude-opus-5-5 (agent)", "reviews": 57}
+}

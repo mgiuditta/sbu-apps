@@ -1,0 +1,285 @@
+{
+  "features": [
+    {
+      "name": "Accordatore con quadrante a lancetta",
+      "description": "Arco graduato da -50 a +50 cent con lancetta, nota grande e frequenza in Hz sotto; spunta verde quando intonata. Precisione dichiarata ±0,5 cent, gamma Ab1 (51,91 Hz) - D5 (587,32 Hz).",
+      "priority": "core",
+      "reason": "Funzione principale, gratuita nel listino (il premium sblocca accordi, metronomo completo, giochi, rimozione annunci)."
+    },
+    {
+      "name": "Modalità Auto/manuale",
+      "description": "Interruttore AUTO: rileva la corda; spento, si sceglie la corda toccando la nota accanto alla paletta.",
+      "priority": "core",
+      "reason": "Locale."
+    },
+    {
+      "name": "Scelta strumento/accordatura",
+      "description": "Pillola 'Guitar / Standard' con freccia: chitarra, basso, ukulele e accordature (drop D, mezzo tono sotto).",
+      "priority": "core",
+      "reason": "Dati locali."
+    },
+    {
+      "name": "Accordatore cromatico",
+      "description": "Righello orizzontale scorrevole con le note vicine (F, F#, G, G#, A), indicatore centrale, frequenza grande e cent.",
+      "priority": "core",
+      "reason": "Puro DSP."
+    },
+    {
+      "name": "Libreria accordi",
+      "description": "2640 accordi: diagramma con dita numerate e colorate, varianti a pagine, ascolto, selettore della fondamentale a rullo.",
+      "priority": "nice",
+      "reason": "Generabile da teoria musicale; parte a pagamento nell'originale. Grilling su contenuti e 'una cosa sola'."
+    },
+    {
+      "name": "Metronomo",
+      "description": "Ghiera circolare con Tap, nome del tempo (Andante), BPM grande, +/- e righello, indicazione del tempo, suddivisioni, suono.",
+      "priority": "nice",
+      "reason": "Tap e suddivisioni a pagamento nell'originale; locale."
+    },
+    {
+      "name": "Basi di accompagnamento",
+      "description": "Brani strumentali per genere con BPM, tonalità e giro di accordi, lettore in basso, accordi che scorrono.",
+      "priority": "skip",
+      "reason": "Contenuti audio prodotti dallo sviluppatore, scaricati: richiede rete/licenze."
+    },
+    {
+      "name": "Accordi e testi generati da AI",
+      "description": "Si sceglie una canzone e l'app genera la scheda accordi con testo.",
+      "priority": "skip",
+      "reason": "Server, AI remota, diritti sui testi."
+    },
+    {
+      "name": "Lezioni e giochi sugli accordi",
+      "description": "Lezioni a livelli con stelle, lucchetti, punteggi, quiz G/D.",
+      "priority": "skip",
+      "reason": "Gamification, stelle e lucchetti vietati; fuori dalla funzione."
+    },
+    {
+      "name": "Pubblicità e tracking",
+      "description": "Annunci nel piano gratuito, richiesta ATT all'avvio.",
+      "priority": "skip",
+      "reason": "Vietati."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Accordatore",
+      "purpose": "Accordare",
+      "elements": [
+        "pillola strumento/accordatura in alto a sinistra",
+        "AUTO con interruttore e ingranaggio in alto a destra",
+        "arco -50…+50 cent con lancetta",
+        "nota grande e Hz",
+        "paletta con note ai lati, nota attiva evidenziata",
+        "tab bar: Tracks, Tuner, Tools"
+      ]
+    },
+    {
+      "name": "Accordatore cromatico",
+      "purpose": "Qualsiasi nota",
+      "elements": [
+        "pillola Chromatic",
+        "righello di note scorrevole",
+        "indicatore verticale centrale",
+        "Hz grande e cent"
+      ]
+    },
+    {
+      "name": "Lista accordi",
+      "purpose": "Consultare accordi",
+      "elements": [
+        "indietro e titolo",
+        "diagramma con dita colorate",
+        "punti pagina varianti",
+        "play",
+        "icona mano con dita numerate",
+        "rullo delle fondamentali"
+      ]
+    },
+    {
+      "name": "Tracks",
+      "purpose": "Basi",
+      "elements": [
+        "schede a tutta larghezza con foto, titolo, genere, BPM, tonalità, accordi",
+        "mini lettore in basso con BPM e Key"
+      ]
+    },
+    {
+      "name": "Spartito traccia",
+      "purpose": "Seguire gli accordi",
+      "elements": [
+        "accordi in riquadri che scorrono",
+        "linea di lettura",
+        "Track settings / View chords"
+      ]
+    },
+    {
+      "name": "Metronomo",
+      "purpose": "Tempo",
+      "elements": [
+        "Sound",
+        "ghiera con Tap",
+        "nome tempo e BPM",
+        "- righello +",
+        "4/4, play, suddivisione"
+      ]
+    },
+    {
+      "name": "Lezioni",
+      "purpose": "Giochi accordi",
+      "elements": [
+        "lista lezioni con stelle e lucchetti",
+        "punteggio"
+      ]
+    },
+    {
+      "name": "Paywall",
+      "purpose": "Abbonamento",
+      "elements": [
+        "prova gratuita",
+        "piani settimanale/annuale",
+        "promemoria fine prova"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Onboarding",
+      "steps": [
+        "Scelta dello strumento da una griglia",
+        "Richiesta tracking",
+        "Permesso microfono",
+        "Paywall con prova e piani (soft, chiudibile)",
+        "Accordatore"
+      ]
+    },
+    {
+      "name": "Accordare",
+      "steps": [
+        "Pizzica la corda",
+        "AUTO riconosce la corda e la evidenzia",
+        "Lancetta e cent",
+        "Spunta verde quando intonata"
+      ]
+    },
+    {
+      "name": "Metronomo",
+      "steps": [
+        "Tools",
+        "Metronomo",
+        "Imposta BPM, 4/4, suddivisione (alcune a pagamento)",
+        "Play"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Tuning",
+        "fields": [
+          {
+            "name": "instrument",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "notes",
+            "type": "[Note]",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "TunerSettings",
+        "fields": [
+          {
+            "name": "referenceA4",
+            "type": "Double",
+            "note": "Hz"
+          },
+          {
+            "name": "autoMode",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "notation",
+            "type": "Enum",
+            "note": "lettere o do-re-mi"
+          }
+        ]
+      },
+      {
+        "name": "MetronomeSettings",
+        "fields": [
+          {
+            "name": "bpm",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "timeSignature",
+            "type": "String",
+            "note": "4/4"
+          },
+          {
+            "name": "subdivision",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "sound",
+            "type": "String",
+            "note": ""
+          }
+        ]
+      }
+    ],
+    "storage": "Locale (UserDefaults)."
+  },
+  "monetization": {
+    "model": "Freemium con abbonamento settimanale/annuale e pubblicità; paywall in onboarding",
+    "price": "Gratis; settimanale 4,99-8,99 $ (in Italia 7,50-8 € segnalati), annuale 49,99 $, prova di pochi giorni",
+    "paywalled_features": [
+      "libreria completa di 2500+ accordi con audio",
+      "metronomo: tap tempo e suddivisioni",
+      "giochi e allenamenti completi",
+      "rimozione pubblicità"
+    ],
+    "notes": "Nel listino l'accordatore non è tra le funzioni premium: la funzione principale NON è a pagamento. Le recensioni però percepiscono l'app come a pagamento per il paywall in onboarding confuso con il permesso microfono."
+  },
+  "user_pains": [
+    {
+      "pain": "Abbonamento attivato senza volerlo durante l'onboarding",
+      "evidence": "'mentre consenti l'utilizzo di microfono, esce fuori … la sottoscrizione', 'quando si istalla ti iscrive'",
+      "mentions": 8
+    },
+    {
+      "pain": "Disdetta difficile, addebiti dopo aver cancellato l'app",
+      "evidence": "'non riesco a disdire', 'eliminata il giorno stesso … abbonamento comunque attivo'",
+      "mentions": 8
+    },
+    {
+      "pain": "Prezzo sproporzionato per un accordatore",
+      "evidence": "'8 euro a settimana per un accordatore è una pazzia', 'con 12 euro mi compro un accordatore a pinza'",
+      "mentions": 6
+    },
+    {
+      "pain": "Percepita come non gratuita",
+      "evidence": "'NON È GRATUITA', 'O ti abboni o niente', 'bisogna prima abbinare una carta'",
+      "mentions": 7
+    }
+  ],
+  "source": {
+    "app_id": "1438248122",
+    "name": "Tuner Pro Accordatore Chitarra",
+    "url": "https://apps.apple.com/it/app/tuner-pro-accordatore-chitarra/id1438248122",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 25
+  }
+}

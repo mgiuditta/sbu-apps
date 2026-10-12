@@ -1,0 +1,67 @@
+{
+  "features": [
+    {"name": "Scansione QR automatica dalla fotocamera", "description": "Inquadri il codice nel riquadro e la lettura parte da sola, senza premere nulla; poi apre la schermata del risultato.", "priority": "core", "reason": "È la funzione principale (screenshot 1, 'Auto Scan' nel listing). VisionKit DataScannerViewController, fallback AVFoundation, tutto sul dispositivo."},
+    {"name": "Lettura codici a barre", "description": "Legge anche codici a barre lineari (prodotti, EAN/UPC e simili) oltre ai QR.", "priority": "core", "reason": "Promessa nel listing ('QR Code Reader & Barcode Scanner'). Le simbologie si riconoscono offline con VisionKit/Vision."},
+    {"name": "Torcia", "description": "Pulsante con il fulmine sotto il mirino che accende la luce del telefono per codici al buio.", "priority": "core", "reason": "Visibile nello screenshot 1. AVCaptureDevice torch, locale."},
+    {"name": "Lettura da foto", "description": "Pulsante immagine sotto il mirino: scegli una foto dalla libreria e l'app ne estrae il codice.", "priority": "core", "reason": "Visibile nello screenshot 1. PhotosPicker + Vision VNDetectBarcodesRequest, nessun permesso libreria completo."},
+    {"name": "Schermata risultato", "description": "Mostra il QR letto ridisegnato, il contenuto in un campo con pulsante copia, e due azioni grandi: apri in Safari e condividi.", "priority": "core", "reason": "Screenshot 2. Il cuore dell'esperienza dopo la lettura."},
+    {"name": "Anteprima sicura del link (Safe Browsing / SafeScan)", "description": "Prima di aprire un link mostra dove porta. Nell'Originale la funzione SafeScan arriva in 1.2.0, probabilmente con controlli lato server.", "priority": "core", "reason": "Utile contro i QR truffa. Sbu la fa solo in locale: dominio evidenziato, schema http/https, punycode e caratteri ingannevoli, link accorciati segnalati. Niente reputazione online (sarebbe rete)."},
+    {"name": "Browser in-app per i risultati", "description": "Dalla 1.2.3 i link dei QR si aprono in un browser dentro l'app.", "priority": "skip", "reason": "Le regole Sbu vogliono i link aperti in Safari; un browser interno è anche il luogo dove l'Originale fa tracking."},
+    {"name": "Crea QR da link", "description": "Campo di testo per incollare un link, pulsante crea, contatore dei QR gratuiti rimasti (5), pulsante abbonati.", "priority": "core", "reason": "Screenshot 3. CoreImage CIQRCodeGenerator, offline. Sbu senza contatore né limite."},
+    {"name": "Crea QR per Wi-Fi, social e altri tipi", "description": "Dalla 1.1.7 crea codici per Wi-Fi, Instagram, Snapchat e altro.", "priority": "nice", "reason": "Wi-Fi e contatto (vCard) sono utili e locali; i preset social sono solo link con un prefisso, coperti dal QR da link."},
+    {"name": "Condividi il QR come immagine", "description": "Il QR creato o letto si condivide come PNG dal foglio di condivisione di sistema (AirDrop, Messaggi, ecc.), con link copiabile.", "priority": "core", "reason": "Screenshot 4. ShareLink con Transferable PNG, locale."},
+    {"name": "Salva ed esporta le scansioni", "description": "Le scansioni si salvano e si esportano o condividono via messaggi.", "priority": "core", "reason": "Promessa nel listing. Cronologia locale SwiftData, esportazione con il foglio di condivisione."},
+    {"name": "Ricerca prodotto dal codice a barre (barcode lookup)", "description": "Dalla 1.2.4 il codice a barre di un prodotto viene cercato per mostrarne i dati.", "priority": "skip", "reason": "Richiede un database prodotti online: è rete. Da decidere in un grilling (al massimo una ricerca web aperta in Safari su richiesta)."},
+    {"name": "Offerte e coupon", "description": "Scansione per scoprire sconti e coupon.", "priority": "skip", "reason": "Serve un server di offerte ed è marketing di affiliazione; contrario alle regole."},
+    {"name": "Limite di scansioni e creazioni gratuite", "description": "Scansioni illimitate e creazione codici solo con premium; contatore dei QR rimasti.", "priority": "skip", "reason": "È il paywall. Sbu non limita nulla."},
+    {"name": "Abbonamento settimanale con prova di 3 giorni", "description": "Prova gratuita di 3 giorni poi 5,99-9,99 $ a settimana, oppure sblocco una tantum 5,99 $.", "priority": "skip", "reason": "Sbu non vende nulla."},
+    {"name": "Tracking e analytics", "description": "Le etichette privacy dichiarano identificatori e dati di utilizzo usati per tracciare e per pubblicità di terzi.", "priority": "skip", "reason": "Vietato dalle regole Sbu."}
+  ],
+  "screens": [
+    {"name": "Scan", "purpose": "Schermata strumento: inquadrare e leggere un codice.", "elements": ["Titolo 'Scan' in alto al centro", "Mirino della fotocamera in un riquadro arrotondato a tutta larghezza", "Istruzione sotto il riquadro: posiziona il codice nella cornice", "Pulsante torcia (fulmine)", "Pulsante lettura da foto (immagine)", "Fondo scuro"]},
+    {"name": "Risultato scansione", "purpose": "Mostrare cosa contiene il codice e cosa farne.", "elements": ["Pulsante indietro in alto a sinistra", "Titolo 'Scan'", "QR ridisegnato al centro", "Campo con il contenuto (URL) e pulsante copia a destra", "Pulsante grande 'apri in Safari'", "Pulsante grande 'condividi'"]},
+    {"name": "Create", "purpose": "Generare un QR da un link.", "elements": ["Titolo 'Create'", "Campo di testo per il link con tastiera aperta", "Contatore dei QR gratuiti rimasti", "Pulsante 'crea QR'", "Pulsante 'abbonati'"]},
+    {"name": "Risultato creazione", "purpose": "Mostrare e condividere il QR creato.", "elements": ["Pulsante indietro", "Titolo 'Create'", "QR generato", "Campo con il link e pulsante copia", "Pulsante apri in Safari", "Foglio di condivisione di sistema con anteprima PNG"]},
+    {"name": "Paywall", "purpose": "Vendere l'abbonamento (prova 3 giorni, piani settimanali).", "elements": ["Non visibile negli screenshot; dedotto da listing e recensioni"]}
+  ],
+  "flows": [
+    {"name": "Leggere un QR", "steps": ["Apri l'app sulla schermata Scan", "Inquadra il codice nel riquadro", "La lettura avviene da sola", "Si apre il risultato con QR, contenuto e azioni", "Tocca apri in Safari, copia o condividi"]},
+    {"name": "Leggere da una foto", "steps": ["Tocca il pulsante immagine", "Scegli una foto dalla libreria", "L'app trova il codice e mostra il risultato"]},
+    {"name": "Creare un QR", "steps": ["Vai su Create", "Incolla o scrivi un link", "Tocca crea (scala un credito gratuito su 5)", "Vedi il QR e condividilo come PNG"]},
+    {"name": "Superare il limite", "steps": ["Finite le scansioni o le creazioni gratuite compare l'abbonamento", "Prova di 3 giorni, poi addebito settimanale"]}
+  ],
+  "data_model": {
+    "entities": [
+      {"name": "Scan", "fields": [
+        {"name": "id", "type": "UUID", "note": ""},
+        {"name": "payload", "type": "String", "note": "contenuto grezzo del codice"},
+        {"name": "symbology", "type": "String", "note": "qr, ean13, upce, code128..."},
+        {"name": "kind", "type": "enum", "note": "url, testo, wifi, contatto, telefono, email, sms, posizione, evento, prodotto"},
+        {"name": "source", "type": "enum", "note": "fotocamera o foto"},
+        {"name": "scannedAt", "type": "Date", "note": ""}
+      ]},
+      {"name": "CreatedCode", "fields": [
+        {"name": "id", "type": "UUID", "note": ""},
+        {"name": "payload", "type": "String", "note": "stringa codificata nel QR"},
+        {"name": "kind", "type": "enum", "note": "link, testo, wifi, contatto"},
+        {"name": "createdAt", "type": "Date", "note": ""}
+      ]}
+    ],
+    "storage": "Nell'Originale non dichiarato (probabilmente locale, con analytics remoti). In Sbu: SwiftData sul dispositivo, nessuna sincronizzazione."
+  },
+  "monetization": {
+    "model": "Freemium con abbonamento settimanale e prova gratuita di 3 giorni",
+    "price": "Gratis da scaricare; acquisti in-app: Weekly Unlock all features 9,99 $ e 7,99 $, Weekly Pro User 5,99 $, sblocco una tantum 5,99 $; il listing cita anche 6,99 $/settimana",
+    "paywalled_features": ["Scansioni illimitate", "Creazione di QR oltre i 5 gratuiti", "Altre funzioni premium non specificate"],
+    "notes": "Le recensioni 1-3 stelle parlano quasi solo di addebiti settimanali inattesi (fino a 520 $/anno). Etichette privacy: identificatori e dati d'uso usati per tracciare."
+  },
+  "user_pains": [
+    {"pain": "Addebito settimanale inatteso dopo la prova", "evidence": "'charging me $10 a week for nothing', 'tricks you into renewing at $9.99 per week', 'Watch the fine print', '3 Days Free = $520 per year'", "mentions": 7},
+    {"pain": "Non è gratis come sembra", "evidence": "'It's NOT free', 'It keeps wanting me to buy subscription', recensione che chiede di cancellare la prova", "mentions": 4},
+    {"pain": "Prezzo sproporzionato per una funzione di base", "evidence": "'Cost seems high', 'Rip off city... casual user trying to read cereal box', 'Good App, Unreasonable Pricing'", "mentions": 3},
+    {"pain": "La Fotocamera dell'iPhone fa già la stessa cosa", "evidence": "'you can use the qr scanner on your camera', 'something my phone does for free', utente che non riesce più a leggere QR con la fotocamera", "mentions": 3},
+    {"pain": "Percepita come truffa o app installata per errore", "evidence": "'Biggest scam ever', 'Scam app... I don't know how this app got put on my phone', 'Fake App'", "mentions": 5},
+    {"pain": "Non funziona o è difficile da usare", "evidence": "'Not working and performing poorly', 'Cancel this app. I could not get it to work', 'Lousy instructions: Invasive'", "mentions": 3}
+  ],
+  "source": {"app_id": "6503708537", "name": "Scan QR Code Now", "url": "https://apps.apple.com/it/app/scan-qr-code-now/id6503708537?uo=4", "model": "claude-opus-5-5 (agent)", "reviews": 27}
+}

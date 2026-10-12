@@ -1,0 +1,33 @@
+{
+  "id": "6477849675",
+  "name": "Stompers: Walking Step Counter",
+  "developer": "Stompers, LLC",
+  "bundle_id": "com.stompers",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Health & Fitness",
+  "genres": [
+    "Salute e benessere",
+    "Social network"
+  ],
+  "description": "It's the ultimate free pedometer game! If you're in a walking challenge, contest, or competition or just want to walk with your family or group chat, Stompers is the most fun way to stay motivated to stay fit all day. Build motivation, burn a calorie, and track your health and fitness with a friend to reach your fitness goals. Whether you're lazy, a pacer, or active, walkers and striders have the easiest workouts for burning calories, getting fit, and losing weight. Join the next big social media network of 2025 today.\n\nHow it works:\n1. Sync and connect your Apple Health\n2. Add your friends or make new friends\n3. Play a new game every day! \n\nPrivacy: https://www.stompers.com/privacy\nTerms: https://www.stompers.com/terms",
+  "release_notes": "Bug fixes & performance improvements",
+  "version": "1.9.8",
+  "current_version_release_date": "2026-10-10T23:18:12Z",
+  "rating": 3.85714,
+  "rating_count": 14,
+  "minimum_os": "16.4",
+  "url": "https://apps.apple.com/it/app/stompers-walking-step-counter/id6477849675?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/42/05/5f/42055faf-09cd-5484-49c6-3722358aeca6/Stompers__V1_SS1__U0028App_Store_U0029.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5b/18/09/5b180920-2854-b8df-a96a-84f0f26fff6f/Stompers__V1_SS2__U0028App_Store_U0029.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6e/4e/1f/6e4e1f55-bb53-0b42-acfa-31b04490dca9/Stompers__V1_SS3__U0028App_Store_U0029.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a9/97/39/a9973996-aa75-97b1-35b6-5bcd426ae6d1/Stompers__V1_SS2__U0028App_Store_U0029-1.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/97/6f/cc/976fcc85-5ac4-88a8-8113-8c9444142369/Stompers__V1_SS2__U0028App_Store_U0029-2.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/33/22/38/332238bd-bdb3-980e-1f46-767373c795e7/Stompers__V1_SS2__U0028App_Store_U0029-3.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c7/2f/7a/c72f7a5d-93b4-1b9f-46af-d6e2efbf1671/Stompers__V1_SS7__U0028App_Store_U0029.jpg/320x480bb.jpg"
+  ]
+}

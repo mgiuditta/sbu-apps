@@ -1,0 +1,69 @@
+{
+  "features": [
+    {"name": "Passi di oggi", "description": "Conteggio dei passi del giorno letto da Apple Health (Health Connect su Android), mostrato come cifra grande al centro della home con il tempo rimasto alla fine della partita.", "priority": "core", "reason": "È la funzione che resta senza il gioco sociale: CMPedometer per oggi e HealthKit per la somma da tutte le sorgenti, tutto sul dispositivo. In Stompers il totale giornaliero è gratuito."},
+    {"name": "Modalità 24 ore", "description": "Senza abbonamento la partita smette di contare i passi alle 21 (modalità notte); Super Stompers fa contare tutti i passi fino a mezzanotte.", "priority": "core", "reason": "È la funzione a pagamento più citata nelle recensioni (turnisti di notte). In Sbu la giornata conta sempre 24 ore, senza finestre."},
+    {"name": "Storico dei giorni passati", "description": "Calendario della settimana con il risultato di ogni giorno; le recensioni dicono che vedere i passi dei giorni passati è a pagamento.", "priority": "core", "reason": "HealthKit (statistiche giornaliere) per lo storico lungo, CMPedometer per gli ultimi 7 giorni come ripiego. Dati solo sul dispositivo."},
+    {"name": "Widget con la posizione", "description": "Widget della schermata Home che mostra la tua posizione nella partita; iOS decide quando aggiornarlo.", "priority": "core", "reason": "WidgetKit con i passi di oggi letti dall'estensione (HealthKit), senza classifica né rete."},
+    {"name": "Apple Watch", "description": "I passi del Watch arrivano tramite Apple Health; il listing promuove 'i passi al polso'.", "priority": "nice", "reason": "I passi del Watch arrivano già in HealthKit gratis. Un'app o complicazione watchOS è un target in più: da decidere."},
+    {"name": "Partita giornaliera tra amici", "description": "Ogni giorno una nuova gara tra amici o gruppi, con classifica, avatar che camminano su una pista, podio rivelato alle 21.", "priority": "skip", "reason": "Richiede account, server e sincronizzazione tra utenti."},
+    {"name": "Oggetti e sabotaggi", "description": "Oggetti che compaiono lungo il percorso ogni circa 2 ore (mazza, dinamite, banana, casco) per togliere o aggiungere passi agli amici.", "priority": "skip", "reason": "Dipende dalla partita in rete; falsa il conteggio, che in Sbu è un dato misurato."},
+    {"name": "Avatar personalizzabile (Stomper)", "description": "Personaggio animato con colore, corporatura, capelli, vestiti e accessori; onboarding guidato e skin rare.", "priority": "skip", "reason": "Grafica decorativa in conflitto con il design system (una cifra per schermata, niente illustrazioni)."},
+    {"name": "Pacchetti e monete", "description": "Pacchetti con skin rare e monete acquistabili (da 1,99 a 13,99 $) per sbloccare cosmetici.", "priority": "skip", "reason": "Acquisti in-app e meccaniche a sorpresa: vietati."},
+    {"name": "Gare personalizzate (Contest)", "description": "Gare con regole e durata scelte, a cui invitare amici.", "priority": "skip", "reason": "Richiede account e server."},
+    {"name": "Condivisione sui social", "description": "Scheda con podio e avatar da condividere su Instagram, Snapchat, X o con il foglio di condivisione.", "priority": "nice", "reason": "ShareLink con un'immagine generata in locale (ImageRenderer) dei passi di oggi, senza SDK di terze parti."},
+    {"name": "Inviti dai contatti e notifiche di gioco", "description": "Richiesta di accesso ai contatti e notifiche ripetute per aggiungere amici.", "priority": "skip", "reason": "Serve solo alla rete sociale; le recensioni la indicano come fastidiosa."},
+    {"name": "Obiettivo giornaliero", "description": "Non presente in Stompers come tale: il traguardo è battere gli amici.", "priority": "core", "reason": "Senza amici serve un riferimento: un obiettivo personale (es. 8.000 passi) dà senso alla cifra. Da confermare nel grilling sulla gamification."}
+  ],
+  "screens": [
+    {"name": "Home (partita)", "purpose": "Mostrare i passi di oggi e la gara in corso.", "elements": ["selettore del gruppo (Amici) in alto", "badge profilo in alto a destra", "striscia della settimana L-D con il vincitore di ogni giorno", "etichetta 'Passi oggi' e cifra grande", "tempo rimasto alla fine della partita", "pista illustrata con avatar animati e fumetti con posizione e passi", "oggetto raccoglibile sulla pista", "pannello inferiore con barra del percorso e posizioni", "tab bar: Home, Aggiungi, Negozio, Profilo"]},
+    {"name": "Risultato del giorno", "purpose": "Rivelare il podio alla fine della partita.", "elements": ["sheet con avatar e medaglia del piazzamento", "frase con posizione e data", "totale passi", "classifica con avatar, nome, username e passi"]},
+    {"name": "Creazione dello Stomper", "purpose": "Onboarding e personalizzazione dell'avatar.", "elements": ["barra di avanzamento", "pulsante aiuto", "domanda e sottotitolo", "anteprima animata", "griglia di opzioni (colore capelli, vestiti)"]},
+    {"name": "Condividi", "purpose": "Condividere il podio sui social.", "elements": ["scheda immagine con podio e marchio", "classifica", "pulsanti Instagram Story, Snapchat, X", "pulsante Condividi"]},
+    {"name": "Negozio / Pacchetti", "purpose": "Vendere skin e monete.", "elements": ["titolo del pacchetto speciale", "griglia di carte skin illustrate"]},
+    {"name": "Contest", "purpose": "Creare una gara con regole e durata.", "elements": ["illustrazione", "icona e titolo", "descrizione", "slot per i partecipanti", "pulsante Crea"]},
+    {"name": "Profilo / Impostazioni (Me)", "purpose": "Account, abbonamento, eliminazione account.", "elements": ["ingranaggio", "Get Super Stompers", "numero di telefono", "elimina account"]}
+  ],
+  "flows": [
+    {"name": "Primo avvio", "steps": ["registrazione con telefono o Apple", "creazione dello Stomper", "permesso Apple Health", "permesso contatti e notifiche", "paywall con prova gratuita"]},
+    {"name": "Giornata tipo", "steps": ["camminare con telefono o Watch", "aprire l'app per sincronizzare", "raccogliere oggetti sulla pista", "usarli sugli amici", "alle 21 vedere il podio"]},
+    {"name": "Sbloccare 24 ore", "steps": ["aprire una partita in modalità notte", "toccare 'Unlock 24-hour mode'", "paywall Super Stompers"]}
+  ],
+  "data_model": {
+    "entities": [
+      {"name": "DaySteps", "fields": [
+        {"name": "date", "type": "Date", "note": "inizio del giorno nel calendario locale"},
+        {"name": "steps", "type": "Int", "note": "somma HealthKit o CMPedometer"},
+        {"name": "distance", "type": "Double?", "note": "metri, se disponibili"}
+      ]},
+      {"name": "Player", "fields": [
+        {"name": "username", "type": "String", "note": "account su server (skip in Sbu)"},
+        {"name": "avatar", "type": "Avatar", "note": "cosmetici (skip)"},
+        {"name": "coins", "type": "Int", "note": "valuta (skip)"}
+      ]},
+      {"name": "Game", "fields": [
+        {"name": "day", "type": "Date", "note": "partita giornaliera"},
+        {"name": "endsAt", "type": "Date", "note": "21:00 locale, mezzanotte con Super Stompers"},
+        {"name": "standings", "type": "[Player: Int]", "note": "classifica sul server (skip)"}
+      ]}
+    ],
+    "storage": "Stompers: server con account (telefono/Apple) e Apple Health in lettura. Sbu: nessuna persistenza dei passi, letti ogni volta da HealthKit/CMPedometer; solo l'obiettivo in UserDefaults/App Group per il widget."
+  },
+  "monetization": {
+    "model": "Freemium con abbonamento Super Stompers (prova gratuita) e monete/pacchetti",
+    "price": "Settimanale 4,99 $, mensile 9,99 $, annuale 39,99-59,99 $ (test fino a 79,99 $); monete 1,99-13,99 $",
+    "paywalled_features": ["modalità 24 ore (passi dopo le 21)", "storico dei giorni passati (dalle recensioni)", "cosmetici e skin rare (monete o pacchetti)"],
+    "notes": "Il conteggio dei passi di oggi e la partita base sono gratuiti; il paywall colpisce la finestra serale e lo storico. Le recensioni lamentano 'gratis' ingannevole, addebiti dopo la prova, rimborsi negati."
+  },
+  "user_pains": [
+    {"pain": "Passi che non coincidono con Apple Health o il Watch", "evidence": "'13k steps on my health app and it only logged 124'; '10,000-11,000 steps and it only counts 7,500'", "mentions": 22},
+    {"pain": "Non è gratis: prova che diventa abbonamento, addebiti e rimborsi negati", "evidence": "'It's not free you get seven day trial and then it starts charging to count your steps'", "mentions": 11},
+    {"pain": "La giornata finisce alle 21 a meno di pagare", "evidence": "'Turns off 3hrs before end of day unless you pay'; turnisti di notte esclusi", "mentions": 5},
+    {"pain": "Bug, blocchi, batteria", "evidence": "'app freezes constantly'; 'kills our battery so fast'", "mentions": 9},
+    {"pain": "Account persi, login ripetuti, account duplicati", "evidence": "'It makes me sign-in or login every dang day'", "mentions": 5},
+    {"pain": "Richieste insistenti di contatti e notifiche", "evidence": "'stop asking to share my contacts when I declined more than 10x'", "mentions": 4},
+    {"pain": "Garmin, Fitbit, Samsung non sincronizzano", "evidence": "'doesn't connect to my Garmin watch'", "mentions": 6},
+    {"pain": "Tutto costa: storico, cosmetici, giornata intera", "evidence": "'if you wanna see your past days steps money'", "mentions": 4},
+    {"pain": "Fusi orari e risultati diversi tra amici", "evidence": "'One person's app will say they get first place, but on another friend's app...'", "mentions": 4}
+  ],
+  "source": {"app_id": "6477849675", "name": "Stompers: Walking Step Counter", "url": "https://apps.apple.com/it/app/stompers-walking-step-counter/id6477849675?uo=4", "model": "claude-opus-5-5 (agent)", "reviews": 75}
+}

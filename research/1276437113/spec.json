@@ -1,0 +1,425 @@
+{
+  "features": [
+    {
+      "name": "One-tap recording",
+      "description": "A floating microphone button on the home list starts a new recording in one tap. If a calendar event is in progress, a bottom sheet asks whether to record that event or a new untitled recording. Input from the built-in mic or a Bluetooth headset (AirPods).",
+      "priority": "core",
+      "reason": "The heart of the app. AVAudioRecorder or AVAudioEngine records on the device with no network; the calendar choice is optional and can be dropped."
+    },
+    {
+      "name": "Live transcript while recording",
+      "description": "While recording, the transcript appears paragraph by paragraph with a timestamp per paragraph. A bottom bar shows a red recording dot, a level waveform, the elapsed time, pause and stop.",
+      "priority": "core",
+      "reason": "On-device speech recognition (SFSpeechRecognizer with requiresOnDeviceRecognition on iOS 17, SpeechTranscriber on iOS 26) gives live text without a server. Otter does it in the cloud and only when online."
+    },
+    {
+      "name": "Background and locked-screen recording",
+      "description": "Recording continues with the screen off or with another app in front, and can be stopped later from the app.",
+      "priority": "core",
+      "reason": "UIBackgroundModes audio with an active AVAudioSession keeps recording. Reviews complain about recordings that stop halfway: reliability is a differentiator."
+    },
+    {
+      "name": "Pause and resume",
+      "description": "Pause button in the recording bar; the recording continues in the same note after resume.",
+      "priority": "core",
+      "reason": "Trivial with AVAudioRecorder.pause/record; no network."
+    },
+    {
+      "name": "Highlight a moment while recording",
+      "description": "A highlight button in the recording bar marks the sentence just spoken. Highlights are collected in a panel of the note and shown inline in the transcript.",
+      "priority": "nice",
+      "reason": "A timestamp stored with the note; fully local."
+    },
+    {
+      "name": "Insert photo during recording",
+      "description": "A camera/photo button adds a picture of a whiteboard or slide, which is placed in the transcript at the moment it was taken.",
+      "priority": "nice",
+      "reason": "PhotosPicker or the camera with a timestamp; local. Secondary to the one function of transcribing."
+    },
+    {
+      "name": "Speaker labels",
+      "description": "Paragraphs grouped by speaker with name and avatar. The user tags speakers and Otter learns to recognise their voice in later meetings.",
+      "priority": "nice",
+      "reason": "Apple offers no on-device diarisation API on iOS 17 or 26. Manual speaker tagging per paragraph is possible locally; automatic voice recognition is not without a third-party model."
+    },
+    {
+      "name": "Automatic punctuation and paragraphs",
+      "description": "The transcript is punctuated, capitalised and split into paragraphs at pauses and speaker changes.",
+      "priority": "core",
+      "reason": "addsPunctuation on SFSpeechRecognitionRequest (iOS 16+) and segment timestamps for paragraph breaks; on-device."
+    },
+    {
+      "name": "Playback synced to the text",
+      "description": "An audio player under the note. The current word is highlighted while playing; tapping any word jumps the audio there. Playback speed is selectable.",
+      "priority": "core",
+      "reason": "AVAudioPlayer with the segment timestamps from the recogniser; local. Otter limits speeds to Pro."
+    },
+    {
+      "name": "Skip silence",
+      "description": "During playback, silent stretches are skipped.",
+      "priority": "nice",
+      "reason": "Can be computed locally from audio levels or the gaps between transcript segments. Paid in Otter."
+    },
+    {
+      "name": "Search across notes and inside a transcript",
+      "description": "A search icon on the home searches all notes; inside a note, search highlights each match and shows the count.",
+      "priority": "core",
+      "reason": "Local text search on stored transcripts (SwiftData predicate or in-memory filter)."
+    },
+    {
+      "name": "Edit the transcript",
+      "description": "Tap a paragraph to correct words, confirm with a checkmark. Title editable.",
+      "priority": "core",
+      "reason": "Local text editing. Reviews complain that correcting is hard and that the whole transcript cannot be copied at once."
+    },
+    {
+      "name": "Custom vocabulary",
+      "description": "A settings list of names and terms the recogniser often gets wrong, to improve accuracy.",
+      "priority": "nice",
+      "reason": "contextualStrings on SFSpeechRecognitionRequest (and contextual strings in SpeechAnalyzer) work on-device."
+    },
+    {
+      "name": "Import audio and video files",
+      "description": "A cloud-upload icon on the home imports an audio or video file and transcribes it like a recording.",
+      "priority": "core",
+      "reason": "fileImporter plus SFSpeechURLRecognitionRequest or SpeechAnalyzer on a file; on-device. Otter limits free imports to 3 in a lifetime."
+    },
+    {
+      "name": "Export",
+      "description": "Export audio (mp3) and text (txt), and on paid plans pdf, docx and srt subtitles; bulk export on Business.",
+      "priority": "core",
+      "reason": "ShareLink with plain text, SRT built from timestamps, audio file and PDF via ImageRenderer/UIGraphicsPDFRenderer; all local. Reviews complain that data is held hostage behind the paywall."
+    },
+    {
+      "name": "AI summary, outline, keywords and action items",
+      "description": "After the meeting a Summary tab shows a short paragraph, a checklist of action items with assignees, and an outline of topics with bullet points.",
+      "priority": "nice",
+      "reason": "Otter does it on its servers. On the device only Foundation Models (iOS 26 with Apple Intelligence, 4096-token context) can do it: needs a decision on availability and long transcripts."
+    },
+    {
+      "name": "AI chat on a meeting and across all meetings",
+      "description": "A chat tab inside each note and a global chat tab where the user asks questions, drafts follow-up emails and gets answers with links to the source meetings.",
+      "priority": "skip",
+      "reason": "Cloud LLM with an account. A local equivalent would need Foundation Models and is outside the one function of transcribing."
+    },
+    {
+      "name": "OtterPilot: bot that joins Zoom, Meet and Teams",
+      "description": "From synced calendars, a bot joins online meetings automatically, records, captures slides and writes the summary.",
+      "priority": "skip",
+      "reason": "Requires an account, server-side bot and calendar/network integration."
+    },
+    {
+      "name": "Calendar sync and agenda",
+      "description": "An Upcoming carousel with today's meetings, a switch for automatic summary per meeting, auto-title of notes from the event, reminders to record.",
+      "priority": "skip",
+      "reason": "Built around the online-meeting bot and the account; EventKit naming could be a later nicety but is not needed for the function."
+    },
+    {
+      "name": "Sharing, collaboration, comments and channels",
+      "description": "Invite people to view and edit a note, comment, assign action items, share external links, AI Channels for team chat.",
+      "priority": "skip",
+      "reason": "Requires accounts and a server."
+    },
+    {
+      "name": "Folders",
+      "description": "Create folders and move notes into them from a multi-select menu.",
+      "priority": "nice",
+      "reason": "Local grouping; useful only with many notes."
+    },
+    {
+      "name": "Siri Shortcut and Home Screen widget",
+      "description": "Start and stop recording from a Shortcut or a home widget.",
+      "priority": "nice",
+      "reason": "App Intents (with openAppWhenRun or AudioRecordingIntent on iOS 18) and WidgetKit; local."
+    },
+    {
+      "name": "Languages",
+      "description": "Transcription in English, Spanish, French and Japanese only (no Italian).",
+      "priority": "core",
+      "reason": "The most frequent complaint in Italian reviews. Apple on-device recognition supports Italian and many other locales."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Home",
+      "purpose": "List of notes and entry point to record.",
+      "elements": [
+        "hamburger menu top left",
+        "notifications bell with badge, search, upload icons top right",
+        "Upcoming section with horizontally scrolling meeting cards (title, time, automatic summary switch) and an Agenda link",
+        "Earlier today section with note cards: title, participant avatars, time, duration, owner, folder, bullet summary, captured slide image",
+        "floating blue microphone button bottom right",
+        "tab bar: Home, AI Chat"
+      ]
+    },
+    {
+      "name": "Record chooser sheet",
+      "purpose": "Pick whether the new recording belongs to a calendar event.",
+      "elements": [
+        "title asking which one to record",
+        "close button",
+        "row for the current calendar event with time range and mic icon",
+        "row for a new recording with mic icon"
+      ]
+    },
+    {
+      "name": "Note detail: Transcript (also during recording)",
+      "purpose": "Read the transcript live or later.",
+      "elements": [
+        "note title with add-people, expand and more buttons",
+        "segmented chips: Summary, Transcript, Chat, Comments",
+        "title, date, duration, owner",
+        "paragraphs with speaker avatar, name and timestamp",
+        "recording bar: red dot, waveform, timer, pause, stop, highlight, comment, add photo"
+      ]
+    },
+    {
+      "name": "Note detail: Summary",
+      "purpose": "Read the AI overview of the meeting.",
+      "elements": [
+        "back button, title, more button",
+        "summary paragraph",
+        "Action items checklist with assignee avatars and an add action item row",
+        "Outline with topic headings and bullet points"
+      ]
+    },
+    {
+      "name": "Note detail: Chat",
+      "purpose": "Ask questions about one meeting.",
+      "elements": [
+        "messages from users and the assistant with timestamps",
+        "message field with a sparkle send button"
+      ]
+    },
+    {
+      "name": "AI Chat tab",
+      "purpose": "Ask questions across all meetings.",
+      "elements": [
+        "menu and info buttons",
+        "conversation with answers that link to source meetings",
+        "message field",
+        "tab bar"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Record an in-person conversation",
+      "steps": [
+        "Tap the microphone button on the home",
+        "Choose the current event or a new recording",
+        "Watch the transcript appear live; highlight or add a photo if needed",
+        "Pause or stop",
+        "The note opens with transcript; summary and outline arrive after processing"
+      ]
+    },
+    {
+      "name": "Review a past note",
+      "steps": [
+        "Open a note from the home list",
+        "Read the Summary or switch to Transcript",
+        "Play the audio, tap a word to jump, change speed",
+        "Search a word, edit a paragraph, tag a speaker",
+        "Export or share from the more menu"
+      ]
+    },
+    {
+      "name": "Import a file",
+      "steps": [
+        "Tap the upload icon on the home",
+        "Pick an audio or video file",
+        "Wait for transcription; the new note appears in the list"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Note",
+        "fields": [
+          {
+            "name": "title",
+            "type": "String",
+            "note": "auto from calendar event or date, editable"
+          },
+          {
+            "name": "createdAt",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "duration",
+            "type": "TimeInterval",
+            "note": ""
+          },
+          {
+            "name": "audioFile",
+            "type": "URL",
+            "note": "recording or imported file"
+          },
+          {
+            "name": "language",
+            "type": "Locale",
+            "note": "transcription language"
+          },
+          {
+            "name": "folder",
+            "type": "Folder?",
+            "note": ""
+          },
+          {
+            "name": "summary",
+            "type": "String?",
+            "note": "AI summary, outline and keywords"
+          }
+        ]
+      },
+      {
+        "name": "Segment",
+        "fields": [
+          {
+            "name": "start",
+            "type": "TimeInterval",
+            "note": "offset in the audio"
+          },
+          {
+            "name": "end",
+            "type": "TimeInterval",
+            "note": ""
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "note": "editable"
+          },
+          {
+            "name": "speaker",
+            "type": "Speaker?",
+            "note": "manual or learned label"
+          }
+        ]
+      },
+      {
+        "name": "Highlight",
+        "fields": [
+          {
+            "name": "time",
+            "type": "TimeInterval",
+            "note": "moment marked during recording"
+          }
+        ]
+      },
+      {
+        "name": "Photo",
+        "fields": [
+          {
+            "name": "time",
+            "type": "TimeInterval",
+            "note": ""
+          },
+          {
+            "name": "image",
+            "type": "Data",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "ActionItem",
+        "fields": [
+          {
+            "name": "text",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "done",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "assignee",
+            "type": "Speaker?",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "VocabularyTerm",
+        "fields": [
+          {
+            "name": "text",
+            "type": "String",
+            "note": "custom word for the recogniser"
+          }
+        ]
+      }
+    ],
+    "storage": "Otter stores everything in its cloud behind an account. For Sbu: SwiftData on the device for notes and segments, audio files in Application Support, no sync."
+  },
+  "monetization": {
+    "model": "Freemium subscription with an account. Free Basic plan with monthly minute caps; Pro, Business and Enterprise subscriptions.",
+    "price": "Basic free (300 min/month, 30 min per conversation, 3 imports in a lifetime). Pro 16.99 USD/month or 8.33 USD/month yearly (1,200 min, 90 min per conversation). Business 30 USD/month or 19.99 USD/month yearly.",
+    "paywalled_features": [
+      "playback speeds other than 1x",
+      "skip silence",
+      "export pdf, docx and srt",
+      "bulk export",
+      "more than 30 minutes per conversation",
+      "more than 300 minutes per month",
+      "more than 3 imported files",
+      "more AI chat queries",
+      "access to older notes after the subscription ends"
+    ],
+    "notes": "Listing mentions Otter Pro for more speeds, skip silence and bulk export; plan limits from otter.ai/pricing."
+  },
+  "user_pains": [
+    {
+      "pain": "Italian not supported: Italian speech is transcribed as invented English",
+      "evidence": "Italian reviews: 'non trascrive in lingua italiana', 'Non gestisce lingua italiana', 'Only works with English', 'Only detects English', subscription bought before finding out",
+      "mentions": 6
+    },
+    {
+      "pain": "Almost everything is behind the subscription and the free trial is too short",
+      "evidence": "US reviews: 'U have to pay for everything', 'transcription limit on free sub, so can't test', 'It is NOT FREE', broke student wishing it were free",
+      "mentions": 5
+    },
+    {
+      "pain": "Recordings lost or stopped halfway",
+      "evidence": "'Sometimes it stops recording in the middle', 'Did not record the entire meeting', 'Lost meeting minutes', summary still missing after 10 hours",
+      "mentions": 4
+    },
+    {
+      "pain": "Data held hostage after the subscription ends",
+      "evidence": "'Holds your data hostage... can't get it unless I pay, not even the raw recording'",
+      "mentions": 1
+    },
+    {
+      "pain": "Cannot copy the whole transcript, editing is hard",
+      "evidence": "'Only lets you copy each speaking point at a time', 'correcting is difficult', no way to edit at length",
+      "mentions": 3
+    },
+    {
+      "pain": "Hard to find old notes",
+      "evidence": "'There's no calendar view to go back and find old meetings... scrolling along a list'",
+      "mentions": 1
+    },
+    {
+      "pain": "Too complex, over-developed interface",
+      "evidence": "'Do you want an entire UI to have to interact with and learn', 'over developed and not well thought out'",
+      "mentions": 2
+    },
+    {
+      "pain": "Unexpected renewals and privacy fears about recording",
+      "evidence": "'auto-recurring charges... got charged for 1.5 years', 'recording my activities... without my knowledge'",
+      "mentions": 2
+    }
+  ],
+  "source": {
+    "app_id": "1276437113",
+    "name": "Otter Transcribe Voice Notes",
+    "url": "https://apps.apple.com/it/app/otter-transcribe-voice-notes/id1276437113?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 36
+  }
+}

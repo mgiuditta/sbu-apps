@@ -1,0 +1,463 @@
+{
+  "features": [
+    {
+      "name": "Create invoices in under a minute",
+      "description": "Big create button under the monthly cards. Draft editor with sections for client, line items, summary (subtotal, tax, total, paid, balance due) and payment settings; Finish at the top. Number, date and due date (none, 30 days, custom) are editable.",
+      "priority": "core",
+      "reason": "The core job; local data and PDF."
+    },
+    {
+      "name": "Estimates converted to invoices with one gesture",
+      "description": "Estimate documents share the editor; one action creates the invoice from the estimate.",
+      "priority": "core",
+      "reason": "Listed feature, local copy."
+    },
+    {
+      "name": "Customisable templates",
+      "description": "Template carousel with live preview, logo size, colour palette, header toggles, font size, high-contrast text, custom labels, terms and conditions.",
+      "priority": "nice",
+      "reason": "One Sbu layout is enough; colour palette conflicts with the single-accent rule."
+    },
+    {
+      "name": "Taxes and discounts per item or on total",
+      "description": "Item form with name, price, quantity, unit, tax and discount type (none, percent, fixed); tax and discount also on the total; withholdings listed in the description.",
+      "priority": "core",
+      "reason": "Needed on every invoice; pure arithmetic."
+    },
+    {
+      "name": "Images and notes attached",
+      "description": "Attach images or PDFs and extra notes to the document.",
+      "priority": "nice",
+      "reason": "Local attachments in the PDF."
+    },
+    {
+      "name": "Signature",
+      "description": "Signature pad with clear and save; printed under the totals with the name.",
+      "priority": "core",
+      "reason": "PencilKit on device."
+    },
+    {
+      "name": "Share or print",
+      "description": "Action menu: send, export, print, sign, duplicate, delete; system share sheet.",
+      "priority": "core",
+      "reason": "Share sheet, Mail and UIPrintInteractionController, no server."
+    },
+    {
+      "name": "Clients from the phone contacts",
+      "description": "Client list with sorting and tags, add form (name, email, phone, address) or import from Contacts.",
+      "priority": "core",
+      "reason": "Contacts picker, local data."
+    },
+    {
+      "name": "Saved items",
+      "description": "Items catalogue with unit, tax and a save toggle when adding to an invoice.",
+      "priority": "core",
+      "reason": "Speeds up repeat invoices; local."
+    },
+    {
+      "name": "Status and paid stamp",
+      "description": "Status (sent, paid, due today, overdue) shown in the list in colour and as a stamp on the preview; record a payment with method (cash, check, card).",
+      "priority": "core",
+      "reason": "Paid / unpaid status computed from local dates and payments."
+    },
+    {
+      "name": "Monthly income cards",
+      "description": "Horizontal cards per month with total and change versus the previous month; list grouped by month with a filter (All, paid, unpaid).",
+      "priority": "nice",
+      "reason": "The one figure on the home screen could be the month total; percentages may be dropped."
+    },
+    {
+      "name": "Reports",
+      "description": "Dashboard with balance chart, total invoiced, revenue by client, estimate status, tax summary.",
+      "priority": "nice",
+      "reason": "Local aggregation with Swift Charts; keep minimal."
+    },
+    {
+      "name": "Notification when the client opens or pays",
+      "description": "Push notifications 'invoice paid', 'estimate accepted', 'opened'.",
+      "priority": "skip",
+      "reason": "Needs a hosted invoice link and a server."
+    },
+    {
+      "name": "Online payments (card, PayPal, Stripe, Apple Pay)",
+      "description": "Client pays from the invoice link through connected processors.",
+      "priority": "skip",
+      "reason": "Accounts and server."
+    },
+    {
+      "name": "Receipt scanning and expenses",
+      "description": "Scan receipts with OCR into an expense form, categories, expense dashboard and export.",
+      "priority": "skip",
+      "reason": "A second job."
+    },
+    {
+      "name": "AI estimate builder, voice to invoice, AI assistant",
+      "description": "Generate itemised estimates from a photo or text, dictate an invoice, chat assistant that also generates logos.",
+      "priority": "skip",
+      "reason": "Cloud AI, network."
+    },
+    {
+      "name": "Time tracking",
+      "description": "Time entries per client turned into invoice lines.",
+      "priority": "skip",
+      "reason": "A second job."
+    },
+    {
+      "name": "Recurring invoices and automatic reminders",
+      "description": "Invoices repeated on a schedule and reminders emailed to clients before and after the due date.",
+      "priority": "skip",
+      "reason": "Emailing clients automatically needs a server; a local reminder to the user is possible."
+    },
+    {
+      "name": "Account, sync and team",
+      "description": "Sign-in, sync across devices, team members with roles and QR invite.",
+      "priority": "skip",
+      "reason": "No accounts."
+    },
+    {
+      "name": "Tax and currency settings",
+      "description": "Country, default tax rate, currency with confirmation to update existing documents.",
+      "priority": "core",
+      "reason": "FormatStyle currency; local defaults."
+    },
+    {
+      "name": "Data export and import",
+      "description": "App settings offer export and import of data.",
+      "priority": "core",
+      "reason": "Without sync, a local backup file is how users keep their data."
+    },
+    {
+      "name": "Widgets",
+      "description": "Home and lock screen widgets with setup tutorials.",
+      "priority": "nice",
+      "reason": "WidgetKit; e.g. amount to collect."
+    }
+  ],
+  "screens": [
+    {
+      "name": "Invoices home",
+      "purpose": "Monthly overview and list.",
+      "elements": [
+        "settings gear and search at the top",
+        "horizontal monthly cards with total and percent change",
+        "large create invoice button",
+        "month header with filter (All)",
+        "rows: icon, client, number, amount, status word in colour",
+        "total balance due row",
+        "bottom tabs incl. Tools and Reports"
+      ]
+    },
+    {
+      "name": "Document preview",
+      "purpose": "Rendered invoice with status.",
+      "elements": [
+        "number as title",
+        "Customize button",
+        "page render",
+        "PAID stamp",
+        "status pill (Sent)",
+        "More menu"
+      ]
+    },
+    {
+      "name": "Draft editor",
+      "purpose": "Fill in the invoice.",
+      "elements": [
+        "Finish button",
+        "details (number, date, due)",
+        "client",
+        "items",
+        "summary",
+        "payment settings",
+        "tooltips on first use"
+      ]
+    },
+    {
+      "name": "Customize",
+      "purpose": "Template and look.",
+      "elements": [
+        "live preview",
+        "template thumbnails numbered",
+        "logo size, colour, header toggles, font size, labels, signature"
+      ]
+    },
+    {
+      "name": "Clients",
+      "purpose": "Client directory.",
+      "elements": [
+        "billing summary per client",
+        "sort and tag filter",
+        "add button",
+        "import from contacts"
+      ]
+    },
+    {
+      "name": "Add expense",
+      "purpose": "Scan a receipt.",
+      "elements": [
+        "receipt photo",
+        "expense date",
+        "scan button",
+        "total and tax"
+      ]
+    },
+    {
+      "name": "Reports",
+      "purpose": "Income and expenses.",
+      "elements": [
+        "period picker",
+        "balance chart",
+        "revenue by client donut",
+        "tax summary"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Account, business, tax, payments, app.",
+      "elements": [
+        "account",
+        "subscription",
+        "business info",
+        "tax and currency",
+        "payments",
+        "reminders and notifications",
+        "team",
+        "language, theme, export/import",
+        "widgets"
+      ]
+    },
+    {
+      "name": "Paywall",
+      "purpose": "Subscription during onboarding.",
+      "elements": [
+        "3-day trial toggle",
+        "weekly vs annual plan",
+        "feature list",
+        "FAQ",
+        "restore"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Onboarding",
+      "steps": [
+        "tracking prompt",
+        "welcome",
+        "feature carousel",
+        "business name and industry",
+        "logo",
+        "AI estimate demo",
+        "rating prompt",
+        "notifications prompt",
+        "paywall with 3-day trial",
+        "account sign-up",
+        "guided first invoice"
+      ]
+    },
+    {
+      "name": "Create and send",
+      "steps": [
+        "tap create invoice",
+        "select client from contacts",
+        "add items and prices",
+        "save",
+        "send via share sheet"
+      ]
+    },
+    {
+      "name": "Estimate to invoice",
+      "steps": [
+        "open estimate",
+        "convert to invoice",
+        "send"
+      ]
+    },
+    {
+      "name": "Record payment",
+      "steps": [
+        "open invoice",
+        "record payment",
+        "choose method",
+        "status becomes Paid and the stamp appears"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Business",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "industry",
+            "type": "String",
+            "note": "onboarding"
+          },
+          {
+            "name": "logo",
+            "type": "Data?",
+            "note": ""
+          },
+          {
+            "name": "taxRate",
+            "type": "Decimal",
+            "note": "default"
+          },
+          {
+            "name": "currency",
+            "type": "String",
+            "note": "ISO code"
+          },
+          {
+            "name": "signature",
+            "type": "Data?",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Client",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "email",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "phone",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "address",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "tags",
+            "type": "[String]",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Item",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "note": "descriptions up to ~1400 chars per a reviewer"
+          },
+          {
+            "name": "price",
+            "type": "Decimal",
+            "note": ""
+          },
+          {
+            "name": "unit",
+            "type": "String",
+            "note": "e.g. days"
+          },
+          {
+            "name": "taxRate",
+            "type": "Decimal?",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Document",
+        "fields": [
+          {
+            "name": "kind",
+            "type": "enum invoice|estimate",
+            "note": ""
+          },
+          {
+            "name": "number",
+            "type": "String",
+            "note": "INV0042"
+          },
+          {
+            "name": "date",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "dueDate",
+            "type": "Date?",
+            "note": "none, 30 days, custom"
+          },
+          {
+            "name": "lines",
+            "type": "[LineItem]",
+            "note": "quantity, price, tax, discount"
+          },
+          {
+            "name": "status",
+            "type": "enum draft|sent|paid|overdue",
+            "note": "overdue derived"
+          },
+          {
+            "name": "payments",
+            "type": "[Payment]",
+            "note": "amount, date, method"
+          },
+          {
+            "name": "attachments",
+            "type": "[Data]",
+            "note": ""
+          },
+          {
+            "name": "terms",
+            "type": "String",
+            "note": ""
+          }
+        ]
+      }
+    ],
+    "storage": "Account with cloud sync and team sharing. For Sbu: SwiftData on device, export/import file as backup."
+  },
+  "monetization": {
+    "model": "Free download, hard paywall during onboarding with a 3-day trial, then weekly or annual subscription.",
+    "price": "Weekly 8.99 USD (variants 5.99-9.99), yearly 98.99 USD, monthly 8.99-12.99 in some variants.",
+    "paywalled_features": [
+      "creating and sending invoices beyond the trial",
+      "templates",
+      "reports",
+      "AI tools",
+      "receipt scanner",
+      "online payments"
+    ],
+    "notes": "Paywall comes before the first real invoice, after setup, rating prompt and AI demo. Annual plan shown as a weekly price."
+  },
+  "user_pains": [
+    {
+      "pain": "Not compliant with non Anglo-Saxon (Italian) tax rules",
+      "evidence": "review: improvements to issue legal tax documents promised and never made; review: unusable for a proper invoice",
+      "mentions": 2
+    },
+    {
+      "pain": "Too expensive",
+      "evidence": "review: costs more",
+      "mentions": 1
+    }
+  ],
+  "source": {
+    "app_id": "1606911248",
+    "name": "Fatture Preventivi Invoice Fly",
+    "url": "https://apps.apple.com/it/app/fatture-preventivi-invoice-fly/id1606911248?uo=4",
+    "model": "claude-opus-5-5 (agent)",
+    "reviews": 18
+  }
+}

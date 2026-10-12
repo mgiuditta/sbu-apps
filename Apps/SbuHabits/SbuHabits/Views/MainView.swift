@@ -47,6 +47,12 @@ struct MainView: View {
                 model.reload()
             }
         }
+        // Habits linked to Salute mark themselves when the app comes back.
+        .task(id: scenePhase) {
+            if scenePhase == .active {
+                await model.refreshFromHealth()
+            }
+        }
         // Moves the grid to the new day while the app stays open.
         .task(id: model.today) {
             try? await Task.sleep(for: .seconds(max(model.nextDayStart.timeIntervalSinceNow, 1)))

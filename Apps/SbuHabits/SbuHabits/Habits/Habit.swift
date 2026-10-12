@@ -32,6 +32,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     var skipped: Set<LogicalDay> = []
     /// Times of day to be reminded, only on expected days and only while not done.
     var reminders: [ReminderTime] = []
+    /// The Salute measure that marks it done by itself, only for a habit to do.
+    private(set) var health: HealthLink?
 
     init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, createdOn: LogicalDay) {
         self.id = id
@@ -43,8 +45,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day, schedules, limits, skips, reminders and edits existed: yes/no,
-    // every day, to do, nothing skipped, no reminders, never edited.
+    // Files saved before times per day, schedules, limits, skips, reminders, edits and Salute existed:
+    // yes/no, every day, to do, nothing skipped, no reminders, never edited, marked by hand.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -58,6 +60,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         skipped = try container.decodeIfPresent(Set<LogicalDay>.self, forKey: .skipped) ?? []
         reminders = try container.decodeIfPresent([ReminderTime].self, forKey: .reminders) ?? []
         earlier = try container.decodeIfPresent([HabitSettings].self, forKey: .earlier) ?? []
+        health = try container.decodeIfPresent(HealthLink.self, forKey: .health)
     }
 
     /// The schedule that applied on `day`.
@@ -96,14 +99,16 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// Applies the form's fields from `today` on, trimmed and kept in range. Past days keep the
     /// goal and schedule they had: changing them never rewrites the past.
     /// - Returns: `false`, changing nothing, when the title is blank or no weekday is chosen.
-    /// An Abitudine da evitare keeps its kind: it takes `limit`, has no reminders and no weekly schedule.
-    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], from today: LogicalDay) -> Bool {
+    /// An Abitudine da evitare keeps its kind: it takes `limit`, has no reminders, no weekly schedule
+    /// and no link to Salute. A habit linked to Salute is done once a day, when the goal is reached.
+    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, from today: LogicalDay) -> Bool {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxTitleLength))
         guard title.isEmpty == false, schedule != .weekdays([]) else { return false }
         self.title = title
         self.symbol = symbol
         let newLimit = self.limit.map { Self.clamp(limit ?? $0, to: Self.limitRange) }
         self.reminders = newLimit == nil ? Array(Set(reminders)).sorted() : []
+        let newHealth = newLimit == nil ? health.map { HealthLink(measure: $0.measure, goal: $0.goal) } : nil
         let newSchedule: Schedule
         let newTimes: Int
         if newLimit != nil, schedule.isWeekly {
@@ -116,7 +121,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
             newTimes = 1
         } else {
             newSchedule = schedule
-            newTimes = Self.clamp(timesPerDay, to: Self.timesPerDayRange)
+            // Salute marks the whole day at once.
+            newTimes = newHealth == nil ? Self.clamp(timesPerDay, to: Self.timesPerDayRange) : 1
         }
         // Keep the old rules for the days before today, once per day of edits.
         if (newSchedule, newTimes, newLimit) != (self.schedule, self.timesPerDay, self.limit), today > createdOn, earlier.last?.until != today {
@@ -125,6 +131,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.schedule = newSchedule
         self.timesPerDay = newTimes
         self.limit = newLimit
+        self.health = newHealth
         return true
     }
 
@@ -154,7 +161,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         }
     }
 
-    static func clamp(_ value: Int, to range: ClosedRange<Int>) -> Int {
+    static func clamp<Value: Comparable>(_ value: Value, to range: ClosedRange<Value>) -> Value {
         min(max(value, range.lowerBound), range.upperBound)
     }
 }

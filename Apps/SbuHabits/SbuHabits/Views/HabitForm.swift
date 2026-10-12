@@ -2,8 +2,8 @@ import SbuKit
 import SwiftUI
 
 /// The form that creates or edits a habit: to do or to avoid, a title, how many times a day or
-/// the Limite, which days, a symbol and reminder times. The kind is chosen once; editing never
-/// rewrites the log, and offers Elimina.
+/// the Limite, which days, a link to Salute, a symbol and reminder times. The kind is chosen once;
+/// editing never rewrites the log, and offers Elimina.
 struct HabitForm: View {
     private enum Kind {
         case everyDay, weekdays, timesPerWeek
@@ -24,6 +24,9 @@ struct HabitForm: View {
     @State private var weekdays: Set<Int>
     @State private var timesPerWeek: Int
     @State private var reminders: [RemindersSection.Row]
+    @State private var linksHealth: Bool
+    @State private var healthMeasure: HealthMeasure
+    @State private var healthGoal: Double
 
     private var schedule: Schedule {
         switch kind {
@@ -41,6 +44,10 @@ struct HabitForm: View {
         habit == nil ? "Aggiungi" : "Salva"
     }
 
+    private var healthLink: HealthLink? {
+        linksHealth && avoids == false ? HealthLink(measure: healthMeasure, goal: healthGoal) : nil
+    }
+
     private var canAdd: Bool {
         title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false && schedule != .weekdays([])
     }
@@ -56,6 +63,10 @@ struct HabitForm: View {
         _reminders = State(initialValue: (habit?.reminders ?? []).map { time in
             RemindersSection.Row(time: Calendar.current.date(bySettingHour: time.hour, minute: time.minute, second: 0, of: .now) ?? .now)
         })
+        let measure = habit?.health?.measure ?? .steps
+        _linksHealth = State(initialValue: habit?.health != nil)
+        _healthMeasure = State(initialValue: measure)
+        _healthGoal = State(initialValue: habit?.health?.goal ?? measure.defaultGoal)
         switch habit?.schedule ?? .everyDay {
         case .everyDay:
             _kind = State(initialValue: .everyDay)
@@ -93,8 +104,9 @@ struct HabitForm: View {
                         Stepper(value: $limit, in: Habit.limitRange) {
                             LabeledContent("Limite al giorno", value: limit, format: .number)
                         }
-                    } else if kind != .timesPerWeek {
+                    } else if kind != .timesPerWeek, linksHealth == false {
                         // A weekly habit is done once a day: its count is the days of the week.
+                        // So is one linked to Salute, done when the goal is reached.
                         Stepper(value: $timesPerDay, in: Habit.timesPerDayRange) {
                             LabeledContent("Volte al giorno", value: timesPerDay, format: .number)
                         }
@@ -126,6 +138,11 @@ struct HabitForm: View {
                             LabeledContent("Volte a settimana", value: timesPerWeek, format: .number)
                         }
                     }
+                }
+
+                // Only a habit to do can reach a goal in Salute.
+                if avoids == false, model.isHealthAvailable {
+                    HealthSection(isOn: $linksHealth, measure: $healthMeasure, goal: $healthGoal)
                 }
 
                 if avoids == false {
@@ -180,10 +197,17 @@ struct HabitForm: View {
             let parts = Calendar.current.dateComponents([.hour, .minute], from: row.time)
             return ReminderTime(hour: parts.hour ?? 0, minute: parts.minute ?? 0)
         }
+        let link = healthLink
         if let habit {
-            model.edit(habit, title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: avoids ? limit : nil, reminders: times)
+            model.edit(habit, title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: avoids ? limit : nil, reminders: times, health: link)
         } else {
-            model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: avoids ? limit : nil, reminders: times)
+            model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: avoids ? limit : nil, reminders: times, health: link)
+        }
+        if let link {
+            // Outlives the form: iOS asks for Salute over the grid, then the habit marks itself.
+            Task {
+                await model.connectHealth(link.measure)
+            }
         }
         dismiss()
     }

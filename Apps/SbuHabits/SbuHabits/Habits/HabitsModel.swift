@@ -17,6 +17,9 @@ final class HabitsModel {
     @ObservationIgnored private let now: () -> Date
     @ObservationIgnored private let calendar: Calendar
     @ObservationIgnored private let scheduleReminders: @MainActor ([PlannedReminder]) -> Void
+    @ObservationIgnored private let health: any HealthReading
+    /// The measures Salute is followed for, `nil` until `observeHealth()`.
+    @ObservationIgnored private var observedMeasures: Set<HealthMeasure>?
 
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
@@ -28,17 +31,29 @@ final class HabitsModel {
     /// The habits expected today, in the grid's order.
     var todayHabits: [Habit] { TodayGrid.habits(habits, on: today, firstWeekday: calendar.firstWeekday) }
 
-    /// - Parameter scheduleReminders: Receives the full reminder plan after every change; tests pass their own.
+    /// Whether the form can offer Collega a Salute.
+    var isHealthAvailable: Bool { health.isAvailable }
+
+    /// The measures some habit to do is linked to.
+    var linkedMeasures: Set<HealthMeasure> {
+        Set(habits.compactMap { $0.limit == nil ? $0.health?.measure : nil })
+    }
+
+    /// - Parameters:
+    ///   - scheduleReminders: Receives the full reminder plan after every change; tests pass their own.
+    ///   - health: Where linked habits read their totals; tests pass a fake.
     init(
         store: HabitsStore = .shared,
         now: @escaping () -> Date = Date.init,
         calendar: Calendar = .current,
-        scheduleReminders: @escaping @MainActor ([PlannedReminder]) -> Void = ReminderScheduler.replace
+        scheduleReminders: @escaping @MainActor ([PlannedReminder]) -> Void = ReminderScheduler.replace,
+        health: any HealthReading = HealthKitReader()
     ) {
         self.store = store
         self.now = now
         self.calendar = calendar
         self.scheduleReminders = scheduleReminders
+        self.health = health
         today = LogicalDay(now(), calendar: calendar)
         reload()
     }
@@ -94,16 +109,56 @@ final class HabitsModel {
         save()
     }
 
-    /// - Parameter limit: The Limite of an Abitudine da evitare, `nil` for a habit to do.
-    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = []) {
+    /// - Parameters:
+    ///   - limit: The Limite of an Abitudine da evitare, `nil` for a habit to do.
+    ///   - health: The Salute measure and goal that mark it done; call `connectHealth(_:)` after.
+    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil) {
         var habit = Habit(title: "", symbol: symbol, limit: limit, createdOn: today)
-        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, from: today) else { return }
+        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, from: today) else { return }
         habits.append(habit)
         save()
     }
 
-    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = []) {
-        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, from: today) }
+    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil) {
+        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, from: today) }
+    }
+
+    /// Asks to read `measure` from Salute, the first time a habit is linked to it, then marks
+    /// what today's data already reaches.
+    func connectHealth(_ measure: HealthMeasure) async {
+        await health.requestAccess(toRead: [measure])
+        await refreshFromHealth()
+    }
+
+    /// Follows the linked measures in Salute, in the background too, and marks habits whenever
+    /// new data comes; with no habit linked, nothing runs in the background. Called at launch, the
+    /// background ones included, then again whenever the linked measures change.
+    func observeHealth() {
+        let measures = linkedMeasures
+        observedMeasures = measures
+        health.observe(measures) { [weak self] in
+            await self?.refreshFromHealth()
+        }
+    }
+
+    /// Reads the file again, then today's totals from Salute, and marks the linked habits whose
+    /// goal is reached. Today is the logical day: with a start at 4, steps at 02:00 count for the
+    /// day before.
+    func refreshFromHealth() async {
+        reload()
+        let measures = linkedMeasures
+        guard isUnreadable == false, measures.isEmpty == false else { return }
+        let day = today
+        let interval = day.interval(startHour: startHour, in: calendar)
+        var totals: [HealthMeasure: Double] = [:]
+        for measure in measures {
+            // A measure that cannot be read leaves its habits to be marked by hand.
+            totals[measure] = try? await health.total(of: measure, in: interval)
+        }
+        // The habits may have changed while Salute answered: mark the ones there are now.
+        if HealthMarking.mark(&habits, totals: totals, on: day) {
+            save()
+        }
     }
 
     /// Moves habits in the Statistiche list; the grid follows the same order.
@@ -155,6 +210,9 @@ final class HabitsModel {
         try? store.save(file)
         WidgetCenter.shared.reloadAllTimelines()
         planReminders()
+        if let observedMeasures, observedMeasures != linkedMeasures {
+            observeHealth()
+        }
     }
 
     /// Plans every reminder again: marking a habit done drops today's.

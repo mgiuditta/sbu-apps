@@ -35,6 +35,14 @@ _Avoid_: feature principale, core feature
 Il numero che misura la **Cosa sola**, mostrato in grande una volta per schermata.
 _Avoid_: KPI, metrica, valore
 
+**Schermata strumento** (_Tool screen_):
+La schermata principale di un'**App Sbu**, dove fa la sua **Cosa sola**, su un campo scuro del colore dell'app.
+_Avoid_: home, dashboard, prima tab
+
+**Schermata di gestione** (_Management screen_):
+Ogni altra schermata di un'**App Sbu** (impostazioni, storico, liste), su fondo chiaro di sistema.
+_Avoid_: schermata secondaria
+
 **Accento** (_Accent_):
 Il colore di una sola **App Sbu**, tinta dell'interfaccia e campo della sua icona.
 _Avoid_: colore primario, tint
@@ -68,6 +76,7 @@ _Avoid_: secondo Originale, alternativa
 - Un'**App Sbu** ha esattamente una **Cosa sola** e zero o una **Cifra** (Sbu Scanner non ne ha)
 - Un'**App Sbu** ha esattamente un **Accento**, e un **Accento** appartiene a una sola **App Sbu**
 - L'**Accento** di Sbu Subscriptions ha lo stesso valore del **Brand** ma resta un concetto distinto
+- Un'**App Sbu** ha esattamente una **Schermata strumento**, che mostra la **Cifra** se esiste, e zero o più **Schermate di gestione**
 - L'icona di un'**App Sbu** è il suo **Accento** pieno con un solo **Glifo**
 - Un'**App Sbu** rispetta tutte le **Promesse**; se ne viola una non si pubblica
 - Il **FreeBadge** mostra un sottoinsieme fisso di quattro **Promesse**

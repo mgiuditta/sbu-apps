@@ -29,21 +29,3 @@ jobs:
       - name: Build
         working-directory: Site
         run: npm ci && npm run build
-
-      # Deploy only from main and only when both secrets exist. None are configured yet.
-      # Secrets stay out of the npm steps: only these two steps see them.
-      - name: Cloudflare secrets present
-        id: cloudflare
-        if: github.event_name == 'push'
-        env:
-          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: echo "ready=$([[ -n $TOKEN && -n $ACCOUNT ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-
-      - name: Deploy to Cloudflare Pages
-        if: steps.cloudflare.outputs.ready == 'true'
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy Site/dist --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT || 'sbu-dev' }} --branch=main

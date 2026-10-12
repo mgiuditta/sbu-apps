@@ -123,8 +123,8 @@ function privacy(locale: Locale, app?: string, permissions: string[] = []): Text
     heading: it ? 'Questo sito' : 'This site',
     paragraphs: [
       it
-        ? 'sbu.dev non usa cookie, statistiche o script. È ospitato su Cloudflare Pages, che riceve il tuo indirizzo IP per consegnarti le pagine, come ogni server web.'
-        : 'sbu.dev uses no cookies, analytics or scripts. It is hosted on Cloudflare Pages, which receives your IP address to deliver the pages, like any web server.',
+        ? 'sbu.dev non usa cookie, statistiche o script. Il server che lo ospita riceve il tuo indirizzo IP per consegnarti le pagine, come ogni server web.'
+        : 'sbu.dev uses no cookies, analytics or scripts. The server that hosts it receives your IP address to deliver the pages, like any web server.',
     ],
   });
   if (app) {

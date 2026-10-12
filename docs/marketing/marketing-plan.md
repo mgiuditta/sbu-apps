@@ -35,7 +35,7 @@ Solo developer, 0 € spend, no analytics on the site, no email list. The only c
 
 | Weeks | Moves | Done when |
 |---|---|---|
-| 1-2 | Site live on Cloudflare Pages; Search Console + Bing verified (DNS record, no script); old sbu.dev repo archived | `sitemap-index.xml` submitted, `/privacy` resolves for App Review |
+| 1-2 | Site live on Coolify; Search Console + Bing verified (DNS record, no script); old sbu.dev repo archived | `sitemap-index.xml` submitted, `/privacy` resolves for App Review |
 | 3-4 | Sbu Level and Sbu Habits live on the App Store: add `appStoreId`, flip status to `live`, publish both alternative pages; AlternativeTo entries | Two alternative pages indexed |
 | 5-8 | Launch post "Perché sbu.dev" on the blog, Reddit and Show HN; reply to threads asking for free alternatives | First non-brand queries in Search Console |
 | 9-12 | Third App Sbu: same launch loop; first press and YouTube pitches with three apps | Three app pages and three alternative pages live |

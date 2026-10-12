@@ -13,3 +13,4 @@ __pycache__/
 *.dSYM.zip
 research/*/screenshots/
 .venv/
+**/fastlane/screenshots/screenshots.html

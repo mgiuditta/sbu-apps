@@ -1,0 +1,1 @@
+livella,bolla,clinometro,inclinazione,angolo,gradi,goniometro,mensola,quadro

@@ -1,0 +1,71 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Appoggia l'iPhone su una superficie in bolla e tocca Calibra. La calibrazione resta su questo iPhone." : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Place your iPhone on a level surface and tap Calibrate. The calibration stays on this iPhone." } }
+      }
+    },
+    "Azzera calibrazione" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset calibration" } }
+      }
+    },
+    "Calibra" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calibrate" } }
+      }
+    },
+    "Calibrata" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calibrated" } }
+      }
+    },
+    "Calibrazione" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calibration" } }
+      }
+    },
+    "In bolla" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Level" } }
+      }
+    },
+    "In piano" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Lying flat" } }
+      }
+    },
+    "Inclinazione" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tilt" } }
+      }
+    },
+    "Non calibrata" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not calibrated" } }
+      }
+    },
+    "Sbu Level" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Level" } }
+      }
+    },
+    "Sensore di movimento non disponibile" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Motion sensor unavailable" } }
+      }
+    },
+    "Stato" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status" } }
+      }
+    },
+    "Sul bordo" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "On its edge" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

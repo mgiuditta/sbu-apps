@@ -1,0 +1,16 @@
+No subscription.
+No in-app purchases.
+No account.
+No ads.
+No tracking.
+Data stays on your device.
+
+Lay your iPhone on a surface and the bubble tells you if it is level. Stand it on an edge and it becomes a clinometer: read the angle to a tenth of a degree.
+
+- Tilt in degrees, one large readable figure
+- Bubble level when flat, clinometer on an edge, picked automatically
+- Calibration against a reference surface, saved on your iPhone
+- A tap of haptic feedback when you are exactly level
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it tells you if something is straight.

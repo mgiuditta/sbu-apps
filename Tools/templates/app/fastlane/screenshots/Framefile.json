@@ -2,7 +2,7 @@
   "default": {
     "background": "../frame-background.png",
     "padding": 48,
-    "title": { "color": "__ACCENT_HEX__" },
+    "title": { "color": "__ACCENT_HEX__", "font": "../../../../Design/fonts/BricolageGrotesque-Bold.ttf" },
     "show_complete_frame": true,
     "stack_title": true
   },

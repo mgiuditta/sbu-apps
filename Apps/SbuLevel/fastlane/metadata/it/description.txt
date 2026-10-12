@@ -1,0 +1,16 @@
+Nessun abbonamento.
+Nessun acquisto in-app.
+Nessun account.
+Nessuna pubblicità.
+Nessun tracking.
+Dati solo sul dispositivo.
+
+Appoggia l'iPhone su una superficie e la bolla ti dice se è in piano. Mettilo su un bordo e diventa un clinometro: leggi l'angolo al decimo di grado.
+
+- Inclinazione in gradi, una cifra grande e leggibile
+- Livella a bolla in piano, clinometro sul bordo, si sceglie da sola
+- Calibrazione su una superficie di riferimento, salvata sull'iPhone
+- Vibrazione quando sei esattamente in bolla
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: ti dice se una cosa è dritta.

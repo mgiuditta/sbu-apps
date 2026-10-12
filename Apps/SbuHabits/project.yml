@@ -23,6 +23,7 @@ targets:
     sources: [SbuHabits]
     dependencies:
       - package: SbuKit
+      - target: SbuHabitsWidget
     entitlements:
       path: SbuHabits/SbuHabits.entitlements
       properties:
@@ -38,6 +39,36 @@ targets:
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+  SbuHabitsWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuHabitsWidget
+      # The widget shares the habits' types, the reminder plan, the ring and the intent with the app.
+      - path: SbuHabits/Habits
+        excludes: [HabitsModel.swift, HabitsModel+Preview.swift, HabitSymbol.swift]
+      - SbuHabits/Reminders
+      - SbuHabits/Intents
+      - SbuHabits/Views/HabitRing.swift
+      - SbuHabits/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuHabitsWidget/SbuHabitsWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.habits]
+    info:
+      path: SbuHabitsWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Habits
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits.widget
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES

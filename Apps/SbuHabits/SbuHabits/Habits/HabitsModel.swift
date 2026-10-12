@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import WidgetKit
 
 /// The habits on this iPhone: today's grid, the Serie piena, and the actions that change them.
 @Observable
@@ -116,6 +117,7 @@ final class HabitsModel {
     private func save() {
         // ponytail: a failed write keeps the change in memory only; add an alert if it shows up in practice.
         try? store.save(HabitsFile(habits: habits, startHour: startHour))
+        WidgetCenter.shared.reloadAllTimelines()
         planReminders()
     }
 

@@ -9,6 +9,7 @@ extension HabitsModel {
         model.add(title: "Bere acqua", symbol: "drop", timesPerDay: 8)
         model.add(title: "Leggere", symbol: "book")
         model.add(title: "Camminare", symbol: "figure.walk")
+        model.add(title: "Caffè", symbol: "cup.and.saucer", limit: 2)
         model.markDone(model.habits[0])
         model.markDone(model.habits[1])
         return model

@@ -4,7 +4,9 @@ import SwiftUI
 /// One habit on the tool screen: symbol in a ring, title, Serie.
 ///
 /// Hold it to add one time, hold it again once done today to take one back. A short tap opens
-/// its menu. A weekly habit's ring shows the week: one segment per day done.
+/// its menu. A weekly habit's ring shows the week: one segment per day done. An Abitudine da
+/// evitare's ring shows the margin left; every hold is one more time given in, and over the
+/// Limite the ring turns full with a cross.
 struct HabitCell: View {
     /// How long to hold before the habit counts as done.
     private static let holdDuration = 0.5
@@ -24,8 +26,13 @@ struct HabitCell: View {
 
     @ScaledMetric(relativeTo: .title2) private var ringSize = SbuTheme.space12 * 2
 
-    /// Filled segments, moving one segment forward while holding, or back when the hold undoes.
+    /// Filled segments, moving one segment forward while holding, or back when the hold undoes
+    /// or uses up the margin.
     private var filled: Double {
+        if progress.limit != nil {
+            if progress.isOverLimit { return Double(max(progress.goal, 1)) }
+            return Double(isHolding ? max(progress.margin - 1, 0) : progress.margin)
+        }
         guard isHolding else { return Double(progress.done) }
         return Double(progress.holdUndoes ? progress.done - 1 : progress.done + 1)
     }
@@ -34,6 +41,10 @@ struct HabitCell: View {
     private var symbol: String {
         if progress.isSkippedToday && habit.schedule.isWeekly == false {
             "forward"
+        } else if progress.isOverLimit {
+            "xmark"
+        } else if progress.limit != nil {
+            habit.symbol
         } else if progress.isComplete {
             "checkmark"
         } else {
@@ -48,6 +59,10 @@ struct HabitCell: View {
     private var progressText: Text {
         if progress.isSkippedToday {
             Text("Saltata oggi")
+        } else if progress.isOverLimit {
+            Text("Da evitare, limite superato, \(progress.done) su \(progress.goal)")
+        } else if progress.limit != nil {
+            Text("Da evitare, \(progress.done) su \(progress.goal)")
         } else if progress.goal > 1 {
             Text("\(progress.done) di \(progress.goal)")
         } else {
@@ -62,6 +77,8 @@ struct HabitCell: View {
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
             HabitRing(symbol: symbol, segments: max(progress.goal, 1), filled: filled)
+                // Over the Limite, with the cross: never color alone.
+                .tint(progress.isOverLimit ? SbuTheme.danger : nil)
                 // Up to its scaled size, never wider than the column.
                 .frame(maxWidth: ringSize, maxHeight: ringSize)
                 .aspectRatio(1, contentMode: .fit)
@@ -89,7 +106,10 @@ struct HabitCell: View {
         .onTapGesture(perform: showMenu)
         .onLongPressGesture(minimumDuration: Self.holdDuration, perform: toggle, onPressingChanged: setHolding)
         .sensoryFeedback(trigger: progress.done) { old, new in
-            new >= progress.goal ? .success : .impact(weight: new > old ? .medium : .light)
+            if progress.limit != nil {
+                return new > progress.goal ? .warning : .impact(weight: new > old ? .medium : .light)
+            }
+            return new >= progress.goal ? .success : .impact(weight: new > old ? .medium : .light)
         }
         .confirmationDialog(habit.title, isPresented: $isShowingMenu, titleVisibility: .visible) {
             Button("Annulla ultima", action: undoLast)
@@ -101,7 +121,9 @@ struct HabitCell: View {
         .accessibilityLabel(habit.title)
         .accessibilityValue(progressText + Text(verbatim: ", ") + streakText)
         .accessibilityActions {
-            if progress.holdUndoes == false {
+            if progress.limit != nil {
+                Button("Ho ceduto", action: markDone)
+            } else if progress.holdUndoes == false {
                 Button("Segna come fatta", action: markDone)
             }
             if progress.marksToday > 0 {
@@ -141,6 +163,8 @@ private struct HabitCellPreview: View {
         HStack(spacing: SbuTheme.space3) {
             HabitCellPreviewItem(habit: Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(.now)), marks: 1, streak: 12)
             HabitCellPreviewItem(habit: Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: LogicalDay(.now)), marks: 3, streak: 1)
+            HabitCellPreviewItem(habit: Habit(title: "Caffè", symbol: "cup.and.saucer", limit: 2, createdOn: LogicalDay(.now)), marks: 1, streak: 4)
+            HabitCellPreviewItem(habit: Habit(title: "Non fumare", symbol: "lungs", limit: 0, createdOn: LogicalDay(.now)), marks: 1, streak: 0)
         }
         .padding(SbuTheme.space4)
         .background(SbuTheme.surface)

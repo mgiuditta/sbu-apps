@@ -1150,6 +1150,94 @@
           }
         }
       }
+    },
+    "Da evitare" : {
+      "comment" : "Kind of habit: something to stay within a daily limit of.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To avoid"
+          }
+        }
+      }
+    },
+    "Da evitare, %lld su %lld" : {
+      "comment" : "VoiceOver progress of an avoided habit: times given in today, then the daily limit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To avoid, %1$lld of %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da evitare, %1$lld su %2$lld"
+          }
+        }
+      }
+    },
+    "Da evitare, limite superato, %lld su %lld" : {
+      "comment" : "VoiceOver progress of an avoided habit gone over its limit: times given in today, then the daily limit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To avoid, over the limit, %1$lld of %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da evitare, limite superato, %1$lld su %2$lld"
+          }
+        }
+      }
+    },
+    "Ho ceduto" : {
+      "comment" : "VoiceOver action: one more time an avoided habit happened today.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I gave in"
+          }
+        }
+      }
+    },
+    "Limite al giorno" : {
+      "comment" : "Most times a day an avoided habit is allowed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily limit"
+          }
+        }
+      }
+    },
+    "Quando cedi, tieni premuta l'abitudine. Il giorno è fatto se resti entro il limite." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When you give in, hold the habit. The day is done if you stay within the limit."
+          }
+        }
+      }
+    },
+    "Tipo" : {
+      "comment" : "Form picker: a habit to do or one to avoid.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kind"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

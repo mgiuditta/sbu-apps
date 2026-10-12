@@ -77,6 +77,14 @@ _Avoid_: streak, catena
 I giorni di fila in cui tutte le abitudini previste quel giorno sono state fatte; le abitudini settimanali non vi entrano. È la **Cifra** di Sbu Habits.
 _Avoid_: serie totale, giornata perfetta
 
+**Abitudine da evitare** (_Habit to avoid_):
+Un'abitudine da tenere entro un **Limite**: segni ogni volta che cedi, e un giorno è fatto se a fine giornata sei rimasto entro il Limite. Oggi non conta finché non finisce, ma superare il Limite interrompe subito la **Serie**. Il tipo si sceglie alla creazione e non cambia; non ha promemoria né programmazione a settimana.
+_Avoid_: cattiva abitudine, vizio, abitudine negativa
+
+**Limite** (_Limit_):
+Quante volte al giorno puoi cedere a un'**Abitudine da evitare** restando nel giorno fatto: 0 per "non fumare", 2 per "massimo due caffè".
+_Avoid_: soglia, tetto, obiettivo
+
 ### Sbu Cards
 
 **Nota** (_Note_):

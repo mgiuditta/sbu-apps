@@ -77,15 +77,16 @@ final class HabitsModel {
         save()
     }
 
-    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, reminders: [ReminderTime] = []) {
-        var habit = Habit(title: "", symbol: symbol, createdOn: today)
-        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders, from: today) else { return }
+    /// - Parameter limit: The Limite of an Abitudine da evitare, `nil` for a habit to do.
+    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = []) {
+        var habit = Habit(title: "", symbol: symbol, limit: limit, createdOn: today)
+        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, from: today) else { return }
         habits.append(habit)
         save()
     }
 
-    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, reminders: [ReminderTime] = []) {
-        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: reminders, from: today) }
+    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = []) {
+        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, from: today) }
     }
 
     /// Moves habits in the Statistiche list; the grid follows the same order.
@@ -107,7 +108,8 @@ final class HabitsModel {
         save()
     }
 
-    /// Adds one time today; a habit already done today stays as it is.
+    /// Adds one time today; a habit already done today stays as it is. For an Abitudine da
+    /// evitare, one more time given in.
     func markDone(_ habit: Habit) {
         update(habit) { $0.mark(on: today) }
     }

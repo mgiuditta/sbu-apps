@@ -1,11 +1,14 @@
 import Foundation
 
-/// Something the user wants to do on some days, once or several times, with its log of the days it was done.
+/// Something the user wants to do on some days, once or several times, with its log of the days it was done;
+/// or, for an Abitudine da evitare, something to stay within a Limite of, with the times the user gave in.
 nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// Longest title the form accepts, so it fits a grid cell.
     static let maxTitleLength = 30
     /// The range the form offers for times per day.
     static let timesPerDayRange = 1...20
+    /// The range the form offers for the Limite: 0 is "never".
+    static let limitRange = 0...20
 
     let id: UUID
     var title: String
@@ -16,6 +19,9 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     private(set) var timesPerDay: Int
     /// Today's schedule; past days use `schedule(on:)`.
     private(set) var schedule: Schedule
+    /// The Limite of an Abitudine da evitare, `nil` for a habit to do; the kind never changes.
+    /// Today's value; past days use `limit(on:)`.
+    private(set) var limit: Int?
     /// Settings replaced by edits, oldest first.
     private(set) var earlier: [HabitSettings] = []
     /// The first day the habit counts: no day before it enters a Serie.
@@ -27,17 +33,18 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// Times of day to be reminded, only on expected days and only while not done.
     var reminders: [ReminderTime] = []
 
-    init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, createdOn: LogicalDay) {
+    init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, createdOn: LogicalDay) {
         self.id = id
         self.title = title
         self.symbol = symbol
         self.timesPerDay = timesPerDay
         self.schedule = schedule
+        self.limit = limit
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day, schedules, skips, reminders and edits existed: yes/no,
-    // every day, nothing skipped, no reminders, never edited.
+    // Files saved before times per day, schedules, limits, skips, reminders and edits existed: yes/no,
+    // every day, to do, nothing skipped, no reminders, never edited.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -45,6 +52,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         symbol = try container.decode(String.self, forKey: .symbol)
         timesPerDay = try container.decodeIfPresent(Int.self, forKey: .timesPerDay) ?? 1
         schedule = try container.decodeIfPresent(Schedule.self, forKey: .schedule) ?? .everyDay
+        limit = try container.decodeIfPresent(Int.self, forKey: .limit)
         createdOn = try container.decode(LogicalDay.self, forKey: .createdOn)
         log = try container.decode([LogicalDay: Int].self, forKey: .log)
         skipped = try container.decodeIfPresent(Set<LogicalDay>.self, forKey: .skipped) ?? []
@@ -62,28 +70,47 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         earlier.first { day < $0.until }?.timesPerDay ?? timesPerDay
     }
 
-    /// Times it was done on `day`.
+    /// The Limite that applied on `day`, `nil` for a habit to do.
+    func limit(on day: LogicalDay) -> Int? {
+        guard limit != nil else { return nil }
+        return earlier.first { day < $0.until }.flatMap(\.limit) ?? limit
+    }
+
+    /// Times it was done on `day`, or for an Abitudine da evitare, times the user gave in.
     func count(on day: LogicalDay) -> Int {
         log[day, default: 0]
     }
 
-    /// Done on `day` only when every time that day asked for is done.
+    /// Done on `day` only when every time that day asked for is done; an Abitudine da evitare,
+    /// while within its Limite.
     func isDone(on day: LogicalDay) -> Bool {
-        count(on: day) >= timesPerDay(on: day)
+        if let limit = limit(on: day) { return count(on: day) <= limit }
+        return count(on: day) >= timesPerDay(on: day)
+    }
+
+    /// An Abitudine da evitare gone over its Limite on `day`: missed for good, today too.
+    func isOverLimit(on day: LogicalDay) -> Bool {
+        limit(on: day).map { count(on: day) > $0 } ?? false
     }
 
     /// Applies the form's fields from `today` on, trimmed and kept in range. Past days keep the
     /// goal and schedule they had: changing them never rewrites the past.
     /// - Returns: `false`, changing nothing, when the title is blank or no weekday is chosen.
-    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, reminders: [ReminderTime] = [], from today: LogicalDay) -> Bool {
+    /// An Abitudine da evitare keeps its kind: it takes `limit`, has no reminders and no weekly schedule.
+    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], from today: LogicalDay) -> Bool {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxTitleLength))
         guard title.isEmpty == false, schedule != .weekdays([]) else { return false }
         self.title = title
         self.symbol = symbol
-        self.reminders = Array(Set(reminders)).sorted()
+        let newLimit = self.limit.map { Self.clamp(limit ?? $0, to: Self.limitRange) }
+        self.reminders = newLimit == nil ? Array(Set(reminders)).sorted() : []
         let newSchedule: Schedule
         let newTimes: Int
-        if case .timesPerWeek(let times) = schedule {
+        if newLimit != nil, schedule.isWeekly {
+            // A limit is per day: an Abitudine da evitare is never weekly.
+            newSchedule = .everyDay
+            newTimes = 1
+        } else if case .timesPerWeek(let times) = schedule {
             newSchedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
             // A weekly habit counts days, so it is done once a day.
             newTimes = 1
@@ -92,11 +119,12 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
             newTimes = Self.clamp(timesPerDay, to: Self.timesPerDayRange)
         }
         // Keep the old rules for the days before today, once per day of edits.
-        if (newSchedule, newTimes) != (self.schedule, self.timesPerDay), today > createdOn, earlier.last?.until != today {
-            earlier.append(HabitSettings(until: today, timesPerDay: self.timesPerDay, schedule: self.schedule))
+        if (newSchedule, newTimes, newLimit) != (self.schedule, self.timesPerDay, self.limit), today > createdOn, earlier.last?.until != today {
+            earlier.append(HabitSettings(until: today, timesPerDay: self.timesPerDay, schedule: self.schedule, limit: self.limit))
         }
         self.schedule = newSchedule
         self.timesPerDay = newTimes
+        self.limit = newLimit
         return true
     }
 
@@ -104,9 +132,10 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         skipped.contains(day)
     }
 
-    /// Adds one time on `day`, and takes back a skip; a habit already done stays as it is.
+    /// Adds one time on `day`, and takes back a skip; a habit to do already done stays as it is,
+    /// an Abitudine da evitare counts every time the user gave in, over the Limite too.
     mutating func mark(on day: LogicalDay) {
-        guard isDone(on: day) == false else { return }
+        guard limit(on: day) != nil || isDone(on: day) == false else { return }
         skipped.remove(day)
         log[day, default: 0] += 1
     }

@@ -32,6 +32,20 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    private func addAvoided(_ title: String, limit: Int, in app: XCUIApplication) {
+        app.buttons["Aggiungi"].firstMatch.tap()
+        let titleField = app.textFields["Titolo"]
+        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
+        app.buttons["Da evitare"].tap()
+        titleField.tap()
+        titleField.typeText(title)
+        for _ in 0..<limit {
+            app.steppers.firstMatch.buttons.element(boundBy: 1).tap() // the "+" half
+        }
+        app.navigationBars.buttons["Aggiungi"].tap()
+    }
+
+    @MainActor
     private func habit(_ title: String, in app: XCUIApplication) -> XCUIElement {
         let cell = app.descendants(matching: .any).matching(identifier: title).firstMatch
         XCTAssertTrue(cell.waitForExistence(timeout: 5))
@@ -209,10 +223,28 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testGivingInPastTheLimitIsMissed() {
+        let app = launch()
+        addAvoided("Caffè", limit: 1, in: app)
+        let caffe = habit("Caffè", in: app)
+        expectValue(caffe, "Da evitare, 0 su 1, 0 giorni")
+
+        caffe.press(forDuration: 1)
+        expectValue(caffe, "Da evitare, 1 su 1, 0 giorni")
+
+        caffe.press(forDuration: 1)
+        expectValue(caffe, "Da evitare, limite superato, 2 su 1, 0 giorni")
+
+        caffe.tap()
+        app.buttons["Annulla ultima"].tap()
+        expectValue(caffe, "Da evitare, 1 su 1, 0 giorni")
+    }
+
+    @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)
-        add("Leggere", in: app)
+        addAvoided("Caffè", limit: 2, in: app)
 
         // Contrast is left out: text colors come from tokens with checked ratios, and the audit
         // misreads the iOS 26 glass bar and the ring's decorative track as text contrast.

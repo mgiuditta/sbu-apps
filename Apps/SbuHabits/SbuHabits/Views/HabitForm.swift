@@ -1,8 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// The form that creates or edits a habit: a title, how many times a day, which days, a symbol
-/// and reminder times. Editing never rewrites the log, and offers Elimina.
+/// The form that creates or edits a habit: to do or to avoid, a title, how many times a day or
+/// the Limite, which days, a symbol and reminder times. The kind is chosen once; editing never
+/// rewrites the log, and offers Elimina.
 struct HabitForm: View {
     private enum Kind {
         case everyDay, weekdays, timesPerWeek
@@ -14,6 +15,8 @@ struct HabitForm: View {
     /// The habit to edit, or `nil` to add a new one.
     let habit: Habit?
 
+    @State private var avoids: Bool
+    @State private var limit: Int
     @State private var title: String
     @State private var symbol: String
     @State private var timesPerDay: Int
@@ -45,6 +48,8 @@ struct HabitForm: View {
     init(model: HabitsModel, editing habit: Habit? = nil) {
         self.model = model
         self.habit = habit
+        _avoids = State(initialValue: habit?.limit != nil)
+        _limit = State(initialValue: habit?.limit ?? 0)
         _title = State(initialValue: habit?.title ?? "")
         _symbol = State(initialValue: habit?.symbol ?? HabitSymbol.all[0].id)
         _timesPerDay = State(initialValue: habit?.timesPerDay ?? 1)
@@ -71,14 +76,32 @@ struct HabitForm: View {
         NavigationStack {
             Form {
                 Section {
+                    Picker("Tipo", selection: $avoids) {
+                        Text("Da fare").tag(false)
+                        Text("Da evitare").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
+                    // Changing the kind would rewrite what the log means.
+                    .disabled(habit != nil)
+                    .onChange(of: avoids, dropWeekly)
+
                     TextField("Titolo", text: $title)
                         .onChange(of: title, limitTitle)
 
-                    // A weekly habit is done once a day: its count is the days of the week.
-                    if kind != .timesPerWeek {
+                    if avoids {
+                        Stepper(value: $limit, in: Habit.limitRange) {
+                            LabeledContent("Limite al giorno", value: limit, format: .number)
+                        }
+                    } else if kind != .timesPerWeek {
+                        // A weekly habit is done once a day: its count is the days of the week.
                         Stepper(value: $timesPerDay, in: Habit.timesPerDayRange) {
                             LabeledContent("Volte al giorno", value: timesPerDay, format: .number)
                         }
+                    }
+                } footer: {
+                    if avoids {
+                        Text("Quando cedi, tieni premuta l'abitudine. Il giorno è fatto se resti entro il limite.")
                     }
                 }
 
@@ -86,7 +109,9 @@ struct HabitForm: View {
                     Picker("Programmazione", selection: $kind) {
                         Text("Ogni giorno").tag(Kind.everyDay)
                         Text("Giorni della settimana").tag(Kind.weekdays)
-                        Text("Volte a settimana").tag(Kind.timesPerWeek)
+                        if avoids == false {
+                            Text("Volte a settimana").tag(Kind.timesPerWeek)
+                        }
                     }
                     .pickerStyle(.inline)
                     .labelsHidden()
@@ -103,7 +128,9 @@ struct HabitForm: View {
                     }
                 }
 
-                RemindersSection(rows: $reminders)
+                if avoids == false {
+                    RemindersSection(rows: $reminders)
+                }
 
                 Section("Simbolo") {
                     SymbolPicker(selection: $symbol)
@@ -131,6 +158,13 @@ struct HabitForm: View {
         }
     }
 
+    /// An Abitudine da evitare is never weekly.
+    private func dropWeekly() {
+        if avoids, kind == .timesPerWeek {
+            kind = .everyDay
+        }
+    }
+
     private func limitTitle() {
         if title.count > Habit.maxTitleLength {
             title = String(title.prefix(Habit.maxTitleLength))
@@ -147,9 +181,9 @@ struct HabitForm: View {
             return ReminderTime(hour: parts.hour ?? 0, minute: parts.minute ?? 0)
         }
         if let habit {
-            model.edit(habit, title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: times)
+            model.edit(habit, title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: avoids ? limit : nil, reminders: times)
         } else {
-            model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, reminders: times)
+            model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: avoids ? limit : nil, reminders: times)
         }
         dismiss()
     }

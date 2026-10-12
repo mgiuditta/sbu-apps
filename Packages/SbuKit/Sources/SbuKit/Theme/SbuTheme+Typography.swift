@@ -41,12 +41,15 @@ public extension SbuTheme {
     /// `stat-small`: amounts and counters in list rows, right aligned, without a full stop.
     static let statSmall = smallNumberFont(size: statSmallSize)
 
-    /// Creates the font of `statHero` and `stat` at a given size, with tabular figures.
+    /// Creates the font of `statHero` and `stat` at a given size: Bricolage Grotesque ExtraBold
+    /// with tabular figures, so a changing figure does not shift.
     ///
-    /// Components pass a `@ScaledMetric` size so figures follow Dynamic Type.
+    /// The size is fixed because components already scale it with a `@ScaledMetric`, so figures
+    /// follow Dynamic Type once. The first call registers the font bundled with SbuKit.
     /// - Parameter size: The point size, usually scaled from `statHeroSize` or `statSize`.
     static func numberFont(size: CGFloat) -> Font {
-        .system(size: size, weight: .heavy).monospacedDigit()
+        _ = SbuFont.isRegistered
+        return .custom(SbuFont.statPostScriptName, fixedSize: size).monospacedDigit()
     }
 
     /// Creates the font of `statSmall` at a given size: SF, weight 500, monospaced digits.

@@ -67,6 +67,30 @@ struct SpeedModelTests {
         #expect(model.speed == 10)
     }
 
+    @Test func tripGoesOnAfterARelaunch() async {
+        let first = model([
+            .access(.granted),
+            .sample(.fix(at: 0, metersNorth: 0, speed: 10)),
+            .sample(.fix(at: 1, metersNorth: 14, speed: 14)),
+        ])
+        await first.run()
+
+        let second = model()
+
+        #expect(second.trip.maxSpeed == 14)
+        #expect(second.trip.distance == first.trip.distance)
+        #expect(second.trip.movingTime == first.trip.movingTime)
+    }
+
+    @Test func resetClearsTheSavedTrip() async {
+        let first = model([.access(.granted), .sample(.fix(at: 0, speed: 10))])
+        await first.run()
+
+        first.resetTrip()
+
+        #expect(model().trip.isEmpty)
+    }
+
     @Test(arguments: [("it_IT", SpeedUnit.kilometersPerHour), ("en_US", .milesPerHour)])
     func unitDefaultsToTheRegion(locale: String, expected: SpeedUnit) {
         #expect(model(locale: locale).unit == expected)
@@ -91,5 +115,7 @@ struct SpeedModelTests {
         #expect(model.status == .moving)
         #expect(SpeedFigureStyle(unit: .kilometersPerHour).locale(Locale(identifier: "it_IT")).format(model.speed) == "52")
         #expect(source.isStopped == false)
+        defaults.removeObject(forKey: "FASTLANE_SNAPSHOT")
+        #expect(SpeedModel(source: FakeSpeedSource([]), defaults: defaults).trip.isEmpty)
     }
 }

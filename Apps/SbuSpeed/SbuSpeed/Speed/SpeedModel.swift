@@ -1,10 +1,11 @@
 import Foundation
 import Observation
 
-/// Live speedometer state: the latest speed, the current trip and the unit saved on this iPhone.
+/// Live speedometer state: the latest speed, plus the current trip and the unit saved on this iPhone.
 @Observable
 final class SpeedModel {
     private static let unitKey = "unit"
+    private static let tripKey = "trip"
 
     private(set) var access = LocationAccess.notDetermined
     /// Metres per second; `nil` until a fix carries a valid speed.
@@ -25,6 +26,7 @@ final class SpeedModel {
         self.source = source
         self.defaults = defaults
         unit = defaults.string(forKey: Self.unitKey).flatMap(SpeedUnit.init(rawValue:)) ?? .preferred(for: locale)
+        trip = defaults.data(forKey: Self.tripKey).flatMap { try? JSONDecoder().decode(Trip.self, from: $0) } ?? Trip()
     }
 
     /// Reads the source until the calling task is cancelled.
@@ -50,17 +52,26 @@ final class SpeedModel {
         case .sample(let sample):
             speed = sample.hasValidSpeed ? sample.speed : nil
             trip.record(sample)
+            saveTrip()
         }
     }
 
     func resetTrip() {
         trip = Trip()
+        saveTrip()
+    }
+
+    private func saveTrip() {
+        if let data = try? JSONEncoder().encode(trip) {
+            defaults.set(data, forKey: Self.tripKey)
+        }
     }
 
     private func showSnapshotDrive() {
         func metersPerSecond(_ kilometersPerHour: Double) -> Double {
             Measurement(value: kilometersPerHour, unit: UnitSpeed.kilometersPerHour).converted(to: .metersPerSecond).value
         }
+        // Not saved: the screenshot drive must not replace the person's trip.
         access = .granted
         speed = metersPerSecond(52)
         trip = Trip(maxSpeed: metersPerSecond(87), distance: 12_400, movingTime: 12_400 / metersPerSecond(46))

@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// Today's habits on the field: two columns for a few, three for more, one at accessibility
+/// Today's habits on the tool screen: two columns for a few, three for more, one at accessibility
 /// text sizes. A short last row sits centered; past the screen, the grid scrolls.
 struct HabitGrid: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -53,16 +53,14 @@ struct HabitGrid: View {
 #Preview("Light") {
     HabitGrid(model: .preview) { _ in }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.fieldHabits)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
 }
 
 #Preview("Dark") {
     HabitGrid(model: .preview) { _ in }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.fieldHabits)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
         .preferredColorScheme(.dark)
 }

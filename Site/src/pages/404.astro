@@ -1,9 +1,10 @@
 ---
+import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
 ---
 <Base locale="it" path="" alternates={[]} title="Pagina non trovata · sbu.dev" description="Questa pagina non esiste." noindex>
   <section class="flex flex-col gap-4 py-12">
-    <h1 class="text-large-title">Pagina non trovata</h1>
+    <PageTitle text="Pagina non trovata" />
     <p class="text-ink-muted">Questa pagina non esiste. <a href="/">Torna alle app</a>.</p>
     <p class="text-ink-muted" lang="en">This page does not exist. <a href="/en">Back to the apps</a>.</p>
   </section>

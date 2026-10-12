@@ -1,5 +1,6 @@
 ---
-import AppTile from '../components/AppTile.astro';
+import AppLegendItem from '../components/AppLegendItem.astro';
+import PageTitle from '../components/PageTitle.astro';
 import PromiseChips from '../components/PromiseChips.astro';
 import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
@@ -12,19 +13,19 @@ const t = ui[locale];
 const copy = {
   it: {
     title: 'sbu.dev · App per iPhone gratuite che fanno una cosa sola',
-    hero: 'Una cosa sola.',
-    lead: 'App gratuite per iPhone. Ognuna rifà una sola app a pagamento dell’App Store e fa solo quel lavoro.',
+    hero: 'Sbu fa una cosa sola',
+    lead: 'App gratuite per iPhone. Ognuna fa un solo lavoro e non ti chiede niente in cambio.',
     apps: 'Le app',
-    oneThing: 'Sbu fa una cosa sola',
+    oneThing: 'Perché una cosa sola',
     oneThingText: 'Ogni app ha un compito e nient’altro. Non ti chiede di pagare, di registrarti o di guardare pubblicità. Quello che salvi resta sul tuo iPhone.',
     principles: 'Leggi i principi',
   },
   en: {
     title: 'sbu.dev · Free iPhone apps that each do one thing',
-    hero: 'One thing only.',
-    lead: 'Free iPhone apps. Each one remakes a single paid App Store app and does only that job.',
+    hero: 'Sbu does one thing',
+    lead: 'Free iPhone apps. Each one does a single job and asks nothing in return.',
     apps: 'Apps',
-    oneThing: 'Sbu does one thing',
+    oneThing: 'Why one thing',
     oneThingText: 'Each app has one job and nothing else. It never asks you to pay, sign up or watch ads. What you save stays on your iPhone.',
     principles: 'Read the principles',
   },
@@ -37,15 +38,15 @@ const jsonLd = [
 ---
 <Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd}>
   <section class="flex flex-col gap-6 py-12">
-    <h1 class="font-display text-display-hero">{copy.hero}</h1>
+    <PageTitle text={copy.hero} size="hero" />
     <p class="text-body text-ink-muted">{copy.lead}</p>
     <PromiseChips promises={t.promises} label={t.promisesLabel} />
   </section>
 
-  <section id="app" aria-labelledby="apps-title" class="flex flex-col gap-4">
+  <section id="app" aria-labelledby="apps-title" class="flex flex-col gap-2">
     <h2 id="apps-title" class="text-title-2">{copy.apps}</h2>
-    <ul class="divide-y divide-line overflow-hidden rounded-lg bg-surface-raised">
-      {apps.map((app) => <li><AppTile app={app} locale={locale} /></li>)}
+    <ul class="divide-y divide-line border-y border-line">
+      {apps.map((app) => <li><AppLegendItem app={app} locale={locale} /></li>)}
     </ul>
   </section>
 

@@ -1,5 +1,6 @@
 ---
 import { render } from 'astro:content';
+import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
 import { formatDate, localePath, ui } from '../i18n';
 import { text, type Alternative } from '../lib/apps';
@@ -21,7 +22,7 @@ const jsonLd = [
 ---
 <Base locale={locale} path={path} alternates={alternates} title={`${entry.data.title} · sbu.dev`} description={entry.data.description} image={app.iconPng} jsonLd={jsonLd}>
   <article class="flex flex-col gap-8 py-8">
-    <h1 class="text-large-title">{entry.data.title}</h1>
+    <PageTitle text={entry.data.title} accent={app.accent} />
     <div class="prose"><Content /></div>
 
     <table class="w-full overflow-hidden rounded-lg bg-surface-raised text-left">

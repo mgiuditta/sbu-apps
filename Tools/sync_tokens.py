@@ -57,6 +57,35 @@ def colorset(hex_light: str, hex_dark: str) -> dict:
     }
 
 
+def luminance(hex_value: str) -> float:
+    h = hex_value.lstrip("#")
+    channels = [int(h[i : i + 2], 16) / 255 for i in (0, 2, 4)]
+    r, g, b = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in channels]
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def contrast(a: str, b: str) -> float:
+    high, low = sorted([luminance(a), luminance(b)], reverse=True)
+    return (high + 0.05) / (low + 0.05)
+
+
+def check_contrast(colors: list[dict]) -> list[str]:
+    """WCAG pairs the design system promises, in both themes. Returns the failures."""
+    by_name = {t["name"]: t["value"] for t in colors}
+    grounds = ["surface", "surface-raised"]
+    accents = [n for n in by_name if n.startswith("accent-")]
+    pairs = [("ink", g, 7) for g in grounds]
+    pairs += [(n, g, 4.5) for n in ["ink-muted", "success", "warning", "danger", *accents] for g in grounds]
+    pairs += [("on-accent", a, 4.5) for a in accents] + [("on-brand", "brand", 4.5), ("focus", "surface", 3)]
+    failures = []
+    for theme in ("light", "dark"):
+        for fg, bg, minimum in pairs:
+            ratio = contrast(by_name[fg][theme][:7], by_name[bg][theme][:7])
+            if ratio < minimum:
+                failures.append(f"{theme}: {fg} on {bg} is {ratio:.2f}:1, needs {minimum}:1")
+    return failures
+
+
 def css(tokens: dict) -> str:
     """Light and dark custom properties, plus a Tailwind theme that holds only design-system tokens."""
     colors = tokens["color"]["tokens"]
@@ -73,6 +102,7 @@ def css(tokens: dict) -> str:
         "  color-scheme: light dark;",
         *block("light"),
         *[f"  --sbu-{t['name']}: {t['value']};" for t in tokens["stroke"]["tokens"]],
+        *[f"  --sbu-{t['name']}: {float(t['value'][:-1]) / 100:g}em;" for t in tokens["mark"]["tokens"]],
         "}",
         "",
         "@media (prefers-color-scheme: dark) {",
@@ -112,7 +142,12 @@ def main() -> None:
         ("Spacing", tokens["spacing"]["tokens"]),
         ("Radius", tokens["radius"]["tokens"]),
         ("Stroke", tokens["stroke"]["tokens"]),
+        ("Mark", tokens["mark"]["tokens"]),
     ]
+
+    failures = check_contrast(colors)
+    if failures:
+        raise SystemExit("Contrast below the design system minimum:\n  " + "\n  ".join(failures))
 
     if ASSETS.exists():
         shutil.rmtree(ASSETS)

@@ -1,5 +1,6 @@
 ---
 // Principi, Supporto, Privacy: plain text pages. Copy lives in ../lib/pages.ts.
+import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
 import { text, type App } from '../lib/apps';
 import { breadcrumbs, faqPage } from '../lib/jsonld';
@@ -18,7 +19,7 @@ const jsonLd = [
 ---
 <Base locale={locale} path={path} alternates={alternates} title={`${page.title} · sbu.dev`} description={page.description} jsonLd={jsonLd}>
   <article class="prose py-8">
-    <h1 class="text-large-title">{page.title}</h1>
+    <PageTitle text={page.title} accent={app?.accent} />
     {page.sections.map((section) => (
       <>
         {section.heading && <h2>{section.heading}</h2>}

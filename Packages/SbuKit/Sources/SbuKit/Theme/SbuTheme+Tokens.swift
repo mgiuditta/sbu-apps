@@ -5,75 +5,49 @@ import SwiftUI
 public extension SbuTheme {
     // MARK: - Color
 
-    /// Sfondo di schermata (iOS systemGroupedBackground). Ogni schermata parte da qui.
+    /// Carta: sfondo di ogni schermata, schermata strumento compresa (iOS systemGroupedBackground). Neutro caldo, stessa tinta del nero del logo.
     static let surface = Color("surface", bundle: .module)
-    /// Card, righe di lista, sheet. Sempre su `surface`, mai card dentro card.
+    /// Righe di lista, card, sheet. Sempre su `surface`, mai card dentro card.
     static let surfaceRaised = Color("surface-raised", bundle: .module)
-    /// Campi di input, track di slider e progress, zone disabilitate.
+    /// Campi di input, fondo dell'indicatore di Sbu Level, zone disabilitate. Non per i track di anelli e progress: in dark è più scuro di `surface`, lì si usa `line`.
     static let surfaceSunken = Color("surface-sunken", bundle: .module)
-    /// Testo primario e icone su `surface` e `surface-raised` (16.5:1 / 15.8:1).
+    /// Testo primario, cifre e icone. In light è il nero caldo del logo (#0A0A00).
     static let ink = Color("ink", bundle: .module)
-    /// Testo secondario, caption, label di sezione su `surface` e `surface-raised` (5.5:1 / 7.0:1). Mai per cifre importanti.
+    /// Testo secondario, unità, caption, label di sezione. Mai per la cifra.
     static let inkMuted = Color("ink-muted", bundle: .module)
-    /// Separatori di lista e bordi di input. Hairline 1px, mai più spessa.
+    /// Separatori di lista e bordi di input (hairline 1px), track di anelli e progress.
     static let line = Color("line", bundle: .module)
-    /// Colore di sbu.dev: tint di iOS (link, toggle attivi, bottone primario), marchio. Nelle singole app il tint è `accent` dell'app, `brand` resta per il footer 'parte di sbu.dev' e lo splash.
+    /// Il colore di Sbu è il nero caldo del logo. Logo, footer 'parte di sbu.dev', splash, link e tint di sbu.dev. Nelle app il tint è l'`accent` dell'app.
     static let brand = Color("brand", bundle: .module)
-    /// Testo e glifi sopra `brand` (5.2:1 / 6.1:1). In dark il brand si schiarisce, quindi il testo sopra diventa scuro: non usare mai bianco letterale.
+    /// Testo e glifi sopra `brand`.
     static let onBrand = Color("on-brand", bundle: .module)
-    /// Tint e sfondo icona di Sbu Subscriptions. Coincide con `brand`: è l'app capostipite.
+    /// Accento di Sbu Subscriptions: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentSubscriptions = Color("accent-subscriptions", bundle: .module)
-    /// Tint e sfondo icona di Sbu Scanner (QR / barcode).
+    /// Accento di Sbu Scanner: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentScanner = Color("accent-scanner", bundle: .module)
-    /// Tint e sfondo icona di Sbu Level. Sopra questo giallo il testo è `ink` light (#14181f), mai bianco.
+    /// Accento di Sbu Level: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentLevel = Color("accent-level", bundle: .module)
-    /// Tint e sfondo icona di Sbu Noise (rumore bianco, suoni per dormire).
+    /// Accento di Sbu Noise: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentNoise = Color("accent-noise", bundle: .module)
-    /// Tint e sfondo icona di Sbu Docs (documenti → PDF, OCR).
+    /// Accento di Sbu Docs: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentDocs = Color("accent-docs", bundle: .module)
-    /// Tint e sfondo icona di Sbu Habits (abitudini, streak).
+    /// Accento di Sbu Habits: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentHabits = Color("accent-habits", bundle: .module)
-    /// Tint e sfondo icona di Sbu Cards (flashcard, ripetizione spaziata).
+    /// Accento di Sbu Cards: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentCards = Color("accent-cards", bundle: .module)
-    /// Tint e sfondo icona di Sbu Block (content blocker Safari).
+    /// Accento di Sbu Block: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentBlock = Color("accent-block", bundle: .module)
-    /// Tint e sfondo icona di Sbu Dark (dark mode per Safari).
+    /// Accento di Sbu Dark: grafite calda, l'unico accento senza tinta.
     static let accentDark = Color("accent-dark", bundle: .module)
-    /// Glifo bianco dentro le icone app e testo sui bottoni pieni colorati con un `accent-*`. Eccezione: `accent-level` usa `ink` light.
+    /// Testo e glifi sopra ogni `accent-*`: bianco in light, nero caldo in dark (gli accenti dark sono chiari). Mai bianco letterale.
     static let onAccent = Color("on-accent", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Subscriptions: `accent-subscriptions` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-subscriptions`.
-    static let fieldSubscriptions = Color("field-subscriptions", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Scanner: `accent-scanner` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-scanner`.
-    static let fieldScanner = Color("field-scanner", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Level: `accent-level` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-level`.
-    static let fieldLevel = Color("field-level", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Noise: `accent-noise` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-noise`.
-    static let fieldNoise = Color("field-noise", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Docs: `accent-docs` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-docs`.
-    static let fieldDocs = Color("field-docs", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Habits: `accent-habits` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-habits`.
-    static let fieldHabits = Color("field-habits", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Cards: `accent-cards` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-cards`.
-    static let fieldCards = Color("field-cards", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Block: `accent-block` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-block`.
-    static let fieldBlock = Color("field-block", bundle: .module)
-    /// Sfondo a campo pieno della schermata strumento di Sbu Dark: `accent-dark` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-dark`.
-    static let fieldDark = Color("field-dark", bundle: .module)
-    /// Testo primario e cifra `stat-hero` sopra ogni `field-*` (≥ 13.7:1 ovunque).
-    static let onField = Color("on-field", bundle: .module)
-    /// Unità, etichette `caption` e testo secondario sopra ogni `field-*` (≥ 7.0:1). Mai per la cifra.
-    static let onFieldMuted = Color("on-field-muted", bundle: .module)
-    /// Pill e card sopra il campo: bianco al 14%, `radius-pill` o `radius-lg`. Testo dentro in `on-field`. È l'unica superficie semitrasparente del sistema, oltre al vetro di Apple.
-    static let fieldControl = Color("field-control", bundle: .module)
-    /// Pill selezionata sopra il campo: bianco al 24%. Lo stato attivo si legge anche dal testo in grassetto, non solo dal colore.
-    static let fieldControlActive = Color("field-control-active", bundle: .module)
-    /// Stato positivo: pagamento già avvenuto, abitudine completata, scansione riuscita. Sempre con testo o icona, mai solo colore.
+    /// Stato positivo: abitudine completata, calibrazione riuscita. Sempre con una parola o un SF Symbol.
     static let success = Color("success", bundle: .module)
-    /// Rinnovo imminente, prova gratuita in scadenza, batteria/sensore non calibrato.
+    /// Attenzione: sensore non calibrato, promemoria scaduto. Sempre con una parola o un SF Symbol.
     static let warning = Color("warning", bundle: .module)
-    /// Azione distruttiva (elimina, azzera) e errore. Si distingue da `success` per luminosità, non solo per tinta.
+    /// Azione distruttiva (elimina, azzera) ed errore. Sempre con una parola o un SF Symbol, e conferma.
     static let danger = Color("danger", bundle: .module)
-    /// Anello di focus 2px solido per tastiera / Full Keyboard Access, su ogni superficie (≥3:1).
+    /// Anello di focus 2px per tastiera / Full Keyboard Access.
     static let focus = Color("focus", bundle: .module)
 
     // MARK: - Spacing
@@ -118,11 +92,18 @@ public extension SbuTheme {
     static let iconGlyphBox: CGFloat = 560
     /// Separatori di lista in `line`.
     static let hairline: CGFloat = 1
+
+    // MARK: - Mark
+
+    /// Il punto fermo: lato del quadrato rispetto alla dimensione del font della cifra o del titolo che chiude. Sta sulla linea di base.
+    static let markSize: CGFloat = 0.22
+    /// Spazio tra l'ultimo carattere e il punto fermo, rispetto alla dimensione del font.
+    static let markGap: CGFloat = 0.06
 }
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "on-accent", "field-subscriptions", "field-scanner", "field-level", "field-noise", "field-docs", "field-habits", "field-cards", "field-block", "field-dark", "on-field", "on-field-muted", "field-control", "field-control-active", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "on-accent", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [
@@ -143,5 +124,7 @@ extension SbuTheme {
         "icon-stroke": iconStroke,
         "icon-glyph-box": iconGlyphBox,
         "hairline": hairline,
+        "mark-size": markSize,
+        "mark-gap": markGap,
     ]
 }

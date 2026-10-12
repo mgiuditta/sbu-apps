@@ -24,7 +24,6 @@ export async function getApps() {
         listing: listing.data,
         icon: svg,
         iconPng: icon(app.id, 'png'),
-        field: app.data.accent.replace(/^accent-/, 'field-'),
         storeUrl: app.data.status === 'live' && app.data.appStoreId ? `https://apps.apple.com/app/id${app.data.appStoreId}` : undefined,
       };
     }),

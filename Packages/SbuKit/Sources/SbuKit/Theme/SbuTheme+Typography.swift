@@ -30,24 +30,32 @@ public extension SbuTheme {
     /// Point size of `statHero` before Dynamic Type scaling.
     static let statHeroSize: CGFloat = 64
     /// Letter spacing of `stat`.
-    static let statTracking: CGFloat = -1
+    static let statTracking: CGFloat = -1.5
     /// Letter spacing of `statHero`.
-    static let statHeroTracking: CGFloat = -2
+    static let statHeroTracking: CGFloat = -3
 
-    /// `stat`: the one figure the app exists to show. Monospaced digits, one per screen.
+    /// `stat`: the one figure the app exists to show, closed by `SbuFullStop`. One per screen.
     static let stat = numberFont(size: statSize)
-    /// `stat-hero`: the figure on the tool screen, in `onField` over the app's field.
-    /// One per app, never on a management screen.
+    /// `stat-hero`: the figure on the tool screen, in `ink`, closed by `SbuFullStop`. One per app.
     static let statHero = numberFont(size: statHeroSize)
-    /// `stat-small`: amounts and counters in list rows, right aligned.
-    static let statSmall = numberFont(size: statSmallSize)
+    /// `stat-small`: amounts and counters in list rows, right aligned, without a full stop.
+    static let statSmall = smallNumberFont(size: statSmallSize)
 
-    /// Creates the monospaced number font used by `statHero`, `stat` and `statSmall` at a given size.
+    /// Creates the font of `statHero` and `stat` at a given size: Bricolage Grotesque ExtraBold
+    /// with tabular figures, so a changing figure does not shift.
     ///
-    /// Components pass a `@ScaledMetric` size so figures follow Dynamic Type.
-    /// - Parameter size: The point size, usually scaled from `statHeroSize`, `statSize` or `statSmallSize`.
-    /// - Returns: A medium-weight monospaced font with monospaced digits.
+    /// The size is fixed because components already scale it with a `@ScaledMetric`, so figures
+    /// follow Dynamic Type once. The first call registers the font bundled with SbuKit.
+    /// - Parameter size: The point size, usually scaled from `statHeroSize` or `statSize`.
     static func numberFont(size: CGFloat) -> Font {
-        .system(size: size, weight: .medium, design: .monospaced).monospacedDigit()
+        _ = SbuFont.isRegistered
+        return .custom(SbuFont.statPostScriptName, fixedSize: size).monospacedDigit()
+    }
+
+    /// Creates the font of `statSmall` at a given size: SF, weight 500, monospaced digits.
+    ///
+    /// - Parameter size: The point size, usually scaled from `statSmallSize`.
+    static func smallNumberFont(size: CGFloat) -> Font {
+        .system(size: size, weight: .medium).monospacedDigit()
     }
 }

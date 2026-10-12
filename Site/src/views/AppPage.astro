@@ -1,5 +1,6 @@
 ---
 import FreeBadge from '../components/FreeBadge.astro';
+import PageTitle from '../components/PageTitle.astro';
 import ToolFieldShot from '../components/ToolFieldShot.astro';
 import Base from '../layouts/Base.astro';
 import { capitalize, localePath, ui } from '../i18n';
@@ -46,7 +47,7 @@ const jsonLd = [
   <article class="flex flex-col gap-8 py-8">
     <header class="flex flex-col gap-4">
       <img src={app.icon} alt="" width="96" height="96" class="size-[calc(var(--spacing-12)*2)]" />
-      <h1 class="text-large-title">{listing.name}</h1>
+      <PageTitle text={listing.name} accent={app.accent} />
       <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
       {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
       {app.storeUrl ? (

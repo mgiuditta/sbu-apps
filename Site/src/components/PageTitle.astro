@@ -1,0 +1,19 @@
+---
+// The page h1, closed by the full stop: the logo's square, on the baseline, hidden from screen readers.
+// Exactly one per page, and only here: never use the square as decoration elsewhere.
+interface Props {
+  text: string;
+  /** `hero` only on the home page. */
+  size?: 'hero' | 'title';
+  /** The app's `accent-*` token on its own pages; `ink` otherwise. */
+  accent?: string;
+}
+const { text, size = 'title', accent } = Astro.props;
+// The square is the full stop, so a trailing period would be a second one.
+const title = text.replace(/\.+$/, '');
+// Keep the last word and the square together, so the square never wraps alone.
+const split = title.lastIndexOf(' ') + 1;
+---
+<h1 class:list={['font-display text-balance', size === 'hero' ? 'text-display-hero' : 'text-display-title']}>
+  {title.slice(0, split)}<span class="whitespace-nowrap">{title.slice(split)}<span aria-hidden="true" class="full-stop" style={accent ? `background: var(--sbu-${accent})` : undefined}></span></span>
+</h1>

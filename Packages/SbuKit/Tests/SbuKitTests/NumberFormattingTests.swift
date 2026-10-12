@@ -5,14 +5,11 @@ import Testing
 
 /// Figures use monospaced digits and follow the locale.
 struct NumberFormattingTests {
-    @Test func statFontsUseMonospacedDigits() {
-        let stat = Font.system(size: 40, weight: .medium, design: .monospaced)
-        let statSmall = Font.system(size: 22, weight: .medium, design: .monospaced)
+    @Test func statSmallUsesSystemMonospacedDigits() {
+        let statSmall = Font.system(size: 22, weight: .medium)
 
-        #expect(SbuTheme.stat == stat.monospacedDigit())
-        #expect(SbuTheme.stat != stat)
         #expect(SbuTheme.statSmall == statSmall.monospacedDigit())
-        #expect(SbuTheme.numberFont(size: 17) == Font.system(size: 17, weight: .medium, design: .monospaced).monospacedDigit())
+        #expect(SbuTheme.statSmall != statSmall)
     }
 
     @Test(arguments: [

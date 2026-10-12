@@ -76,15 +76,13 @@ struct MainView: View {
 
 #Preview("Light") {
     MainView(model: .preview) { _ in }
-        .background(SbuTheme.fieldHabits)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
 }
 
 #Preview("Dark") {
     MainView(model: .preview) { _ in }
-        .background(SbuTheme.fieldHabits)
-        .environment(\.colorScheme, .dark)
+        .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
         .preferredColorScheme(.dark)
 }

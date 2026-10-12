@@ -4,7 +4,7 @@ Monorepo of free iOS apps for sbu.dev: Swift 6, SwiftUI, iOS 17+, shared `Packag
 
 ## Swift skills: mandatory
 
-Before writing or reviewing any Swift, load the skills in `.claude/skills/` that cover the work (vendored from the twostraws/swift-agent-skills index, MIT, licence kept per skill). Always:
+Before writing or reviewing any Swift, load the skills in `.claude/skills/` that cover the work (vendored from the twostraws/swift-agent-skills index and rshankras/claude-code-apple-skills, MIT, licence kept per skill). Always:
 
 - `swiftui-pro`, `swift-concurrency-pro`, `swift-testing-pro` (Paul Hudson): the baseline for every Swift change.
 - `swiftui-ui-patterns`, `swiftui-view-refactor`, `swiftui-design-principles`: views and screens.
@@ -18,18 +18,19 @@ Where a skill and these rules disagree, these rules win: iOS 17 deployment targe
 
 ## Design system: the only source
 
-Source: https://claude.ai/artifact/A9vJiSmn34wgxe9ePFHLfA, snapshot in `Design/tokens.json`. Never invent a color, size, spacing, radius or font.
+Direction **Carta e punto fermo**: Sbu fa una cosa sola e la chiude con un punto. Paper, the logo's warm black, one square per screen. Source: `Design/tokens.json` (v4), reference board linked in `Design/README.md`. Never invent a color, size, spacing, radius or font.
 
 - Use `SbuTheme.<token>` (camel-cased token names: `surfaceRaised`, `space4`, `radiusLg`). No literal colors or spacings in app code.
-- Colors and metrics are generated: edit `Design/tokens.json`, run `python3 Tools/sync_tokens.py`. Never edit `SbuTheme+Tokens.swift` or the colorsets by hand.
-- One thing per app: one `SbuStat` per screen, in `ink`, `.monospacedDigit()`; everything else secondary in `inkMuted`.
+- Colors and metrics are generated: edit `Design/tokens.json`, run `python3 Tools/sync_tokens.py` (it fails if a promised contrast pair drops below WCAG). Never edit `SbuTheme+Tokens.swift` or the colorsets by hand.
+- The square is the full stop (`SbuFullStop`): exactly one per screen, closing the one figure (`SbuStat` or `SbuToolField`), in the app's accent; on the site it closes the page title. Size and gap come from `mark-size`/`mark-gap`, on the baseline. Never decorative, never two on a screen, never on list containers. VoiceOver ignores it.
+- One thing per app: one figure per screen, in `ink`; everything else secondary in `inkMuted`. Every screen, the tool screen included, sits on `surface`: no colored or dark fields.
 - Native controls (`List .insetGrouped`, `Form`, `NavigationStack`, sheets). Every app runs inside `SbuAppShell`.
-- The only living color is the app's `accent*` (tint). `brand` only in the sbu.dev footer and splash. Never two accents on a screen. On `accentLevel`, text is `onAccentLevel`, never white.
+- The only living color is the app's `accent*` (tint, the full stop, filled buttons). Text on an accent is `onAccent` (white in light, warm black in dark), never literal white. `brand` is the logo's warm black: logo, sbu.dev footer and splash. Never two accents on a screen.
 - Nothing that looks like a paywall: no gradients, colored-border cards, stars, "PRO", shadows.
 - Status colors (`success`, `warning`, `danger`) always come with a word or SF Symbol. Delete and reset are `danger` and confirm (`SbuButton(kind: .destructive)` does it).
-- Dynamic Type text styles only; `stat`/`statSmall` scale with `@ScaledMetric`. SF Symbols at `.medium` weight and scale, no custom icons in the UI.
+- Type: SF for all text, Dynamic Type styles only. `stat` and `statHero` are Bricolage Grotesque ExtraBold (bundled in SbuKit, OFL, listed under Impostazioni → Licenze), sized with `@ScaledMetric` and `Font.custom(_:fixedSize:)`, tabular figures. `statSmall` is SF with `.monospacedDigit()`. SF Symbols at `.medium` weight and scale, no custom icons in the UI.
 - App icon grammar: full `accent-*` field, rx 230 at 1024, one white glyph, stroke 96 with round caps, inside the 560 box. Generate with `Tools/make_icons.py`.
-- Bricolage Grotesque (`Design/fonts`) is for screenshots and marketing only, never inside an app.
+- The logo (`Design/logos/sbu-logo.svg`: lowercase `sbu` plus the square, `#0A0A00`) is never redrawn; `sbu-mark.svg` is the same wordmark in white on warm black.
 
 ## Product rules
 

@@ -67,6 +67,9 @@ targets:
       path: SbuHabitsWidget/Info.plist
       properties:
         CFBundleDisplayName: Sbu Habits
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:

@@ -8,7 +8,6 @@ struct SbuButtonStyle: ButtonStyle {
     let kind: SbuButton.Kind
 
     @Environment(\.isEnabled) private var isEnabled
-    @Environment(\.sbuOnAccent) private var onAccent
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -25,7 +24,7 @@ struct SbuButtonStyle: ButtonStyle {
         guard isEnabled else { return AnyShapeStyle(SbuTheme.inkMuted) }
 
         return switch kind {
-        case .primary: AnyShapeStyle(onAccent)
+        case .primary: AnyShapeStyle(SbuTheme.onAccent)
         case .secondary: AnyShapeStyle(.tint)
         case .destructive: AnyShapeStyle(SbuTheme.danger)
         }

@@ -1,0 +1,56 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Apre sbu.dev in Safari" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Opens sbu.dev in Safari" } }
+      }
+    },
+    "App gratuite che rifanno le utility a pagamento." : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free apps that remake the paid utilities." } }
+      }
+    },
+    "Dati solo su questo iPhone" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data stays on this iPhone" } }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } }
+      }
+    },
+    "Impostazioni" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } }
+      }
+    },
+    "Nessun account" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No account" } }
+      }
+    },
+    "Nessun acquisto in-app" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No in-app purchases" } }
+      }
+    },
+    "Nessuna pubblicità" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No ads" } }
+      }
+    },
+    "Parte di sbu.dev" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Part of sbu.dev" } }
+      }
+    },
+    "Versione %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Version %@" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -4,6 +4,7 @@ import AlternativePage from '../views/AlternativePage.astro';
 import AppPage from '../views/AppPage.astro';
 import Blog from '../views/Blog.astro';
 import Home from '../views/Home.astro';
+import LevelTool from '../views/LevelTool.astro';
 import TextPage from '../views/TextPage.astro';
 import { routes, urlParam, type Route } from '../lib/routes';
 
@@ -15,6 +16,7 @@ const route = Astro.props as Route;
 const views = {
   home: Home,
   app: AppPage,
+  levelTool: LevelTool,
   alternative: AlternativePage,
   principles: TextPage,
   support: TextPage,

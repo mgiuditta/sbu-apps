@@ -5,6 +5,7 @@ import { getAlternatives, getApps, getUpcoming, type Alternative, type App, type
 type View =
   | { view: 'home'; upcoming: UpcomingApp[] }
   | { view: 'principles' | 'support' | 'privacy' }
+  | { view: 'levelTool'; app: App }
   | { view: 'app' | 'appPrivacy'; app: App }
   | { view: 'alternative'; alternative: Alternative }
   | { view: 'blog'; posts: Post[] }
@@ -27,6 +28,7 @@ export async function routes(): Promise<Route[]> {
   const upcoming = await getUpcoming();
   const posts = (await getCollection('blog', (post) => !post.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
 
+  const level = apps.find((app) => app.slug === 'level');
   const pages: (View & { path: string; locale: Locale })[] = [];
   for (const locale of locales) {
     const own = (post: Post) => post.id.startsWith(`${locale}/`);
@@ -37,6 +39,8 @@ export async function routes(): Promise<Route[]> {
       { view: 'privacy', path: 'privacy', locale },
       ...apps.map((app) => ({ view: 'app' as const, app, path: `apps/${app.slug}`, locale })),
       ...apps.map((app) => ({ view: 'appPrivacy' as const, app, path: `privacy/${app.slug}`, locale })),
+      // A free tool in the browser: the level for people who search for one, not for an app.
+      ...(level ? [{ view: 'levelTool' as const, app: level, path: 'livella', locale }] : []),
       { view: 'blog', posts: posts.filter(own), path: 'blog', locale },
       ...posts.filter(own).map((post) => ({ view: 'post' as const, post, path: `blog/${post.id.split('/')[1]}`, locale })),
     );

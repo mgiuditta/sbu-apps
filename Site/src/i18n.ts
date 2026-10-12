@@ -26,9 +26,10 @@ export const ui = {
     shotCaption: (name: string) => `Così appare in ${name}`,
     alternativeLink: (originale: string) => `Usavi ${originale}? Leggi il confronto.`,
     privacyLink: (name: string) => `Privacy di ${name}`,
+    tryLevel: 'Prova la livella nel browser',
     backToApp: (name: string) => `Vai a ${name}`,
     checked: (date: string) => `Dati dell’App Store verificati il ${date}.`,
-    footerNote: 'Questo sito non usa cookie né statistiche. L’unico script muove il punto della home e non invia niente.',
+    footerNote: 'Questo sito non usa cookie né statistiche. I suoi script girano solo nel tuo browser e non inviano niente.',
     readPost: 'Leggi',
   },
   en: {
@@ -49,9 +50,10 @@ export const ui = {
     shotCaption: (name: string) => `How it looks in ${name}`,
     alternativeLink: (originale: string) => `Used ${originale}? Read the comparison.`,
     privacyLink: (name: string) => `${name} privacy`,
+    tryLevel: 'Try the level in your browser',
     backToApp: (name: string) => `Go to ${name}`,
     checked: (date: string) => `App Store facts checked on ${date}.`,
-    footerNote: 'This site uses no cookies or analytics. The only script moves the dot on the home page and sends nothing.',
+    footerNote: 'This site uses no cookies or analytics. Its scripts run only in your browser and send nothing.',
     readPost: 'Read',
   },
 } as const;

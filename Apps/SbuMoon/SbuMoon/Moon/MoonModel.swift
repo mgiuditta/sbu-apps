@@ -37,6 +37,15 @@ final class MoonModel {
         pickedDate = calendar.isDate(date, inSameDayAs: fixedNow ?? now) ? nil : date
     }
 
+    /// Moves the date shown by whole days, at the same time of day, within `dateRange`.
+    func showDay(byAdding days: Int, now: Date = .now, calendar: Calendar = .current) {
+        let shown = date(now: now)
+        guard let moved = calendar.date(byAdding: .day, value: days, to: shown),
+              Self.dateRange.contains(moved)
+        else { return }
+        show(moved, now: now, calendar: calendar)
+    }
+
     func showToday() {
         pickedDate = nil
     }

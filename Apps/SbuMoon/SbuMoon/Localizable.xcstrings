@@ -46,6 +46,16 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Waxing gibbous" } }
       }
     },
+    "Giorno precedente" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous day" } }
+      }
+    },
+    "Giorno successivo" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next day" } }
+      }
+    },
     "Illuminazione" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Illumination" } }

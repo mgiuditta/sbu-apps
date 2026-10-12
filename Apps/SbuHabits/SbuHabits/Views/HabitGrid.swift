@@ -16,7 +16,9 @@ struct HabitGrid: View {
         GeometryReader { proxy in
             let cellWidth = (proxy.size.width - SbuTheme.space3 * CGFloat(columns - 1)) / CGFloat(columns)
             ScrollView {
-                LazyVStack(spacing: SbuTheme.space6) {
+                // Not lazy: a lazy stack drops the rows that grow past the screen with larger
+                // text, and their text stops scaling with it (#97). Today's habits are few.
+                VStack(spacing: SbuTheme.space6) {
                     ForEach(rows(of: habits, columns: columns), id: \.first?.id) { row in
                         HStack(alignment: .top, spacing: SbuTheme.space3) {
                             ForEach(row) { habit in

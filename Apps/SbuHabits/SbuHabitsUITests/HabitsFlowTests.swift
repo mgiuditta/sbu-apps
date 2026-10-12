@@ -245,6 +245,8 @@ final class HabitsFlowTests: XCTestCase {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)
         addAvoided("Caffè", limit: 2, in: app)
+        // A third habit, alone on the last row: larger text pushes it past the screen (#97).
+        add("Leggere", in: app)
 
         // Contrast is left out: text colors come from tokens with checked ratios, and the audit
         // misreads the iOS 26 glass bar and the ring's decorative track as text contrast.

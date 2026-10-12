@@ -64,6 +64,14 @@ struct MoonReadingTests {
         #expect(abs(reading.nextNewMoon.timeIntervalSince(try date("2024-02-09T22:59:00Z"))) < 120)
     }
 
+    @Test(arguments: [("2024-01-14T12:00:00Z", true), ("2024-01-21T06:00:00Z", true), ("2024-01-29T12:00:00Z", false), ("2024-02-05T12:00:00Z", false)])
+    func discIsLitOnTheWaxingOrWaningSide(instant: String, isWaxing: Bool) throws {
+        let reading = MoonReading(date: try date(instant), calendar: utc)
+
+        #expect(reading.isWaxing == isWaxing)
+        #expect(reading.disc == MoonDisc(illumination: reading.illumination, isWaxing: isWaxing))
+    }
+
     @Test(arguments: ["it_IT", "en_US"])
     func illuminationIsAWholePercent(identifier: String) {
         let format = FloatingPointFormatStyle<Double>.Percent.percent.precision(.fractionLength(0)).locale(Locale(identifier: identifier))

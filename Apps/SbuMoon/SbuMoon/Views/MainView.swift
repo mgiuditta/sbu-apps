@@ -20,7 +20,7 @@ struct MainView: View {
                 context: reading.phase.name
             ) {
                 VStack(spacing: SbuTheme.space8) {
-                    MoonPhaseSymbol(phase: reading.phase)
+                    MoonDiscView(disc: reading.disc)
                     NextPhasesView(reading: reading)
                 }
             } pills: {

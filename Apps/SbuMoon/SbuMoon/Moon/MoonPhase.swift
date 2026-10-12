@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The eight names of the moon's phase, each with the SF Symbol iOS uses for it.
+/// The eight names of the moon's phase.
 nonisolated enum MoonPhase: CaseIterable, Sendable {
     case new
     case waxingCrescent
@@ -21,19 +21,6 @@ nonisolated enum MoonPhase: CaseIterable, Sendable {
         case .waningGibbous: "Gibbosa calante"
         case .lastQuarter: "Ultimo quarto"
         case .waningCrescent: "Luna calante"
-        }
-    }
-
-    var systemImage: String {
-        switch self {
-        case .new: "moonphase.new.moon"
-        case .waxingCrescent: "moonphase.waxing.crescent"
-        case .firstQuarter: "moonphase.first.quarter"
-        case .waxingGibbous: "moonphase.waxing.gibbous"
-        case .full: "moonphase.full.moon"
-        case .waningGibbous: "moonphase.waning.gibbous"
-        case .lastQuarter: "moonphase.last.quarter"
-        case .waningCrescent: "moonphase.waning.crescent"
         }
     }
 }

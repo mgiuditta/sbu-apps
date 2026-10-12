@@ -12,6 +12,12 @@ nonisolated struct MoonReading: Equatable, Sendable {
     /// The first new moon strictly after `date`.
     var nextNewMoon: Date
 
+    /// Whether the moon is going from new to full: the next full moon comes before the next new one.
+    var isWaxing: Bool { nextFullMoon < nextNewMoon }
+
+    /// The disc to draw, lit on the side the sun is.
+    var disc: MoonDisc { MoonDisc(illumination: illumination, isWaxing: isWaxing) }
+
     /// Creates the reading for an instant; `calendar` decides which day a principal phase falls on.
     init(date: Date, calendar: Calendar) {
         self.date = date

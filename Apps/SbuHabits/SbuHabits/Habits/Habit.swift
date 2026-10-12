@@ -18,6 +18,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     let createdOn: LogicalDay
     /// How many times it was done on each logical day; missing days are zero.
     var log: [LogicalDay: Int] = [:]
+    /// Days skipped with Salta oggi, for example when ill: neutral for every Serie.
+    var skipped: Set<LogicalDay> = []
 
     init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, createdOn: LogicalDay) {
         self.id = id
@@ -28,7 +30,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day and schedules existed: those habits are yes/no, every day.
+    // Files saved before times per day, schedules and skips existed: yes/no, every day, nothing skipped.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -38,6 +40,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         schedule = try container.decodeIfPresent(Schedule.self, forKey: .schedule) ?? .everyDay
         createdOn = try container.decode(LogicalDay.self, forKey: .createdOn)
         log = try container.decode([LogicalDay: Int].self, forKey: .log)
+        skipped = try container.decodeIfPresent(Set<LogicalDay>.self, forKey: .skipped) ?? []
     }
 
     /// Times it was done on `day`.
@@ -48,5 +51,30 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// Done on `day` only when every time of the day is done.
     func isDone(on day: LogicalDay) -> Bool {
         count(on: day) >= timesPerDay
+    }
+
+    func isSkipped(on day: LogicalDay) -> Bool {
+        skipped.contains(day)
+    }
+
+    /// Adds one time on `day`, and takes back a skip; a habit already done stays as it is.
+    mutating func mark(on day: LogicalDay) {
+        guard isDone(on: day) == false else { return }
+        skipped.remove(day)
+        log[day, default: 0] += 1
+    }
+
+    /// Takes back the last time marked on `day`.
+    mutating func undoLast(on day: LogicalDay) {
+        let left = count(on: day) - 1
+        log[day] = left > 0 ? left : nil
+    }
+
+    /// Skips `day`, clearing its marks, or takes the skip back.
+    mutating func toggleSkip(on day: LogicalDay) {
+        if skipped.remove(day) == nil {
+            skipped.insert(day)
+            log[day] = nil
+        }
     }
 }

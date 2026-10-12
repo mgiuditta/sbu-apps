@@ -30,7 +30,8 @@ struct HabitGrid: View {
                     progress: model.progress(of: habit),
                     streak: model.streak(of: habit),
                     markDone: { model.markDone(habit) },
-                    undoLast: { model.undoLast(habit) }
+                    undoLast: { model.undoLast(habit) },
+                    toggleSkip: { model.toggleSkip(habit) }
                 )
             }
         }

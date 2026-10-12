@@ -410,6 +410,16 @@
         }
       }
     },
+    "Non saltare oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't skip today"
+          }
+        }
+      }
+    },
     "Nuoto" : {
       "localizations" : {
         "en" : {
@@ -526,6 +536,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Savings"
+          }
+        }
+      }
+    },
+    "Salta oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip today"
+          }
+        }
+      }
+    },
+    "Saltata oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skipped today"
           }
         }
       }

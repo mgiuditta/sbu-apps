@@ -16,6 +16,7 @@ struct HabitCell: View {
     let streak: Int
     let markDone: () -> Void
     let undoLast: () -> Void
+    let toggleSkip: () -> Void
 
     @State private var isHolding = false
     @State private var isShowingMenu = false
@@ -28,8 +29,25 @@ struct HabitCell: View {
         return Double(progress.holdUndoes ? progress.done - 1 : progress.done + 1)
     }
 
+    /// The symbol in the ring: a checkmark when done, a skip mark when skipped, so state never rests on color.
+    private var symbol: String {
+        if progress.isSkippedToday && habit.schedule.isWeekly == false {
+            "forward"
+        } else if progress.isComplete {
+            "checkmark"
+        } else {
+            habit.symbol
+        }
+    }
+
+    private var skipTitle: LocalizedStringKey {
+        progress.isSkippedToday ? "Non saltare oggi" : "Salta oggi"
+    }
+
     private var progressText: Text {
-        if progress.goal > 1 {
+        if progress.isSkippedToday {
+            Text("Saltata oggi")
+        } else if progress.goal > 1 {
             Text("\(progress.done) di \(progress.goal)")
         } else {
             Text(progress.isComplete ? "Fatta" : "Da fare")
@@ -42,7 +60,7 @@ struct HabitCell: View {
 
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
-            HabitRing(symbol: progress.isComplete ? "checkmark" : habit.symbol, segments: progress.goal, filled: filled)
+            HabitRing(symbol: symbol, segments: max(progress.goal, 1), filled: filled)
                 // Up to its scaled size, never wider than the column.
                 .frame(maxWidth: ringSize, maxHeight: ringSize)
                 .aspectRatio(1, contentMode: .fit)
@@ -75,6 +93,7 @@ struct HabitCell: View {
         .confirmationDialog(habit.title, isPresented: $isShowingMenu, titleVisibility: .visible) {
             Button("Annulla ultima", action: undoLast)
                 .disabled(progress.marksToday == 0)
+            Button(skipTitle, action: toggleSkip)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(habit.title)
@@ -86,6 +105,7 @@ struct HabitCell: View {
             if progress.marksToday > 0 {
                 Button("Annulla ultima", action: undoLast)
             }
+            Button(skipTitle, action: toggleSkip)
         }
     }
 
@@ -134,6 +154,6 @@ private struct HabitCellPreviewItem: View {
     var body: some View {
         var marked = habit
         marked.log[LogicalDay(.now)] = marks
-        return HabitCell(habit: marked, progress: HabitProgress(of: marked, today: LogicalDay(.now), firstWeekday: 2), streak: streak, markDone: {}, undoLast: {})
+        return HabitCell(habit: marked, progress: HabitProgress(of: marked, today: LogicalDay(.now), firstWeekday: 2), streak: streak, markDone: {}, undoLast: {}, toggleSkip: {})
     }
 }

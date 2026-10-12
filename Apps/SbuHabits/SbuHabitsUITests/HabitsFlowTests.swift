@@ -149,6 +149,21 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testSkippingTodayCanBeTakenBack() {
+        let app = launch()
+        add("Leggere", in: app)
+        let leggere = habit("Leggere", in: app)
+
+        leggere.tap()
+        app.buttons["Salta oggi"].tap()
+        XCTAssertEqual(leggere.value as? String, "Saltata oggi, 0 giorni")
+
+        leggere.tap()
+        app.buttons["Non saltare oggi"].tap()
+        XCTAssertEqual(leggere.value as? String, "Da fare, 0 giorni")
+    }
+
+    @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)

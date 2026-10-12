@@ -57,18 +57,17 @@ final class HabitsModel {
 
     /// Adds one time today; a habit already done today stays as it is.
     func markDone(_ habit: Habit) {
-        update(habit) {
-            guard $0.isDone(on: today) == false else { return }
-            $0.log[today, default: 0] += 1
-        }
+        update(habit) { $0.mark(on: today) }
     }
 
     /// Takes back today's last mark.
     func undoLast(_ habit: Habit) {
-        update(habit) {
-            let left = $0.log[today, default: 0] - 1
-            $0.log[today] = left > 0 ? left : nil
-        }
+        update(habit) { $0.undoLast(on: today) }
+    }
+
+    /// Skips today, or takes the skip back.
+    func toggleSkip(_ habit: Habit) {
+        update(habit) { $0.toggleSkip(on: today) }
     }
 
     private static func clamp(_ value: Int, to range: ClosedRange<Int>) -> Int {

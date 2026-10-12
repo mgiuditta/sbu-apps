@@ -1,7 +1,7 @@
 /// The Serie of a habit and the Serie piena of all of them, counted in logical days.
 ///
 /// Today not done yet never breaks a streak: the day is not over. Days with nothing expected
-/// are neutral: they neither break a streak nor add to it. Weekly habits count in weeks and
+/// and skipped days are neutral: they neither break a streak nor add to it. Weekly habits count in weeks and
 /// stay out of the Serie piena, which counts days.
 nonisolated enum Streak {
     private enum Day {
@@ -15,7 +15,7 @@ nonisolated enum Streak {
             return weeks(of: habit, today: today, firstWeekday: firstWeekday)
         }
         return countBack(from: today, to: habit.createdOn) { day in
-            if habit.schedule.includes(day) == false { return .neutral }
+            if habit.schedule.includes(day) == false || habit.isSkipped(on: day) { return .neutral }
             return habit.isDone(on: day) ? .done : .missed
         }
     }
@@ -24,7 +24,7 @@ nonisolated enum Streak {
     static func full(of habits: [Habit], today: LogicalDay) -> Int {
         guard let firstDay = habits.map(\.createdOn).min() else { return 0 }
         return countBack(from: today, to: firstDay) { day in
-            let expected = habits.filter { $0.createdOn <= day && $0.schedule.includes(day) }
+            let expected = habits.filter { $0.createdOn <= day && $0.schedule.includes(day) && $0.isSkipped(on: day) == false }
             if expected.isEmpty { return .neutral }
             return expected.allSatisfy { $0.isDone(on: day) } ? .done : .missed
         }

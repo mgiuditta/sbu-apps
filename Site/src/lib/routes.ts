@@ -7,6 +7,7 @@ type View =
   | { view: 'principles' | 'support' | 'privacy' }
   | { view: 'levelTool'; app: App }
   | { view: 'subscriptionCost' }
+  | { view: 'press'; upcoming: UpcomingApp[] }
   | { view: 'app' | 'appPrivacy'; app: App }
   | { view: 'alternative'; alternative: Alternative }
   | { view: 'blog'; posts: Post[] }
@@ -43,6 +44,7 @@ export async function routes(): Promise<Route[]> {
       // A free tool in the browser: the level for people who search for one, not for an app.
       ...(level ? [{ view: 'levelTool' as const, app: level, path: 'livella', locale }] : []),
       { view: 'subscriptionCost', path: 'abbonamenti', locale },
+      { view: 'press', upcoming, path: 'stampa', locale },
       { view: 'blog', posts: posts.filter(own), path: 'blog', locale },
       ...posts.filter(own).map((post) => ({ view: 'post' as const, post, path: `blog/${post.id.split('/')[1]}`, locale })),
     );

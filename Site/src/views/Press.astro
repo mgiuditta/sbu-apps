@@ -1,0 +1,184 @@
+---
+// Press kit: what Sbu is in one line and one paragraph, the facts, every app's icon and preview,
+// the logo and how to use it. Facts are computed from content, so they never go stale.
+import PageTitle from '../components/PageTitle.astro';
+import Base from '../layouts/Base.astro';
+import logo from '../../../Design/logos/sbu-logo.svg?url';
+import mark from '../../../Design/logos/sbu-mark.svg?url';
+import { capitalize, localePath, ui } from '../i18n';
+import { text } from '../lib/apps';
+import { breadcrumbs } from '../lib/jsonld';
+import { SUPPORT_EMAIL } from '../lib/pages';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { view: 'press' };
+const { locale, path, alternates, apps, upcoming } = Astro.props;
+const t = ui[locale];
+const live = apps.filter((app) => app.status === 'live').length;
+const total = apps.length + upcoming.length;
+const copy = {
+  it: {
+    title: 'Stampa',
+    description: 'Cartella stampa di sbu.dev: descrizioni pronte, fatti, icone, anteprime e logo da scaricare.',
+    lede: 'Quello che serve per scrivere di Sbu. Testi e immagini sono liberi da usare.',
+    oneLine: 'In una riga',
+    oneLineText: 'Sbu fa app gratuite per iPhone che fanno una cosa sola, senza abbonamento, account, pubblicità né tracking.',
+    paragraph: 'In un paragrafo',
+    paragraphText:
+      'Sbu prende lavori semplici che l’iPhone sa già fare, come misurare una pendenza o contare i giorni di fila, e per ognuno fa un’app gratuita. Ogni app fa una cosa sola e rispetta sei promesse: nessun abbonamento, nessun acquisto in-app, nessun account, nessuna pubblicità, nessun tracking, dati solo sul dispositivo. Se un’app ne viola una, non esce.',
+    facts: 'Fatti',
+    factRows: [
+      ['Prezzo', '0 €, per ogni app, senza acquisti in-app.'],
+      ['Piattaforma', 'iPhone con iOS 17 o successivo.'],
+      ['Lingue', 'Italiano e inglese.'],
+      ['App', live > 0 ? `${total}, di cui ${live} sull’App Store.` : `${total} in lavorazione.`],
+      ['Dati', 'Restano sul dispositivo. Le app non si collegano a nessun server.'],
+      ['Sito', 'sbu.dev, senza cookie né statistiche.'],
+    ],
+    contact: 'Contatto',
+    apps: 'Le app',
+    icon: 'Icona',
+    preview: 'Anteprima',
+    logo: 'Logo',
+    logoRules: [
+      'Il logo è la parola sbu, minuscola, chiusa dal quadrato. Non ridisegnarlo e non cambiarne il colore.',
+      'Su sfondo chiaro usa il logo nero, su sfondo scuro il marchio bianco.',
+      'Il quadrato è il punto fermo: non usarlo da solo come decorazione.',
+    ],
+    logoLight: 'Logo, SVG',
+    logoDark: 'Marchio su nero, SVG',
+  },
+  en: {
+    title: 'Press',
+    description: 'sbu.dev press kit: ready descriptions, facts, and icons, previews and logo to download.',
+    lede: 'What you need to write about Sbu. Text and images are free to use.',
+    oneLine: 'In one line',
+    oneLineText: 'Sbu makes free iPhone apps that each do one thing, with no subscription, account, ads or tracking.',
+    paragraph: 'In one paragraph',
+    paragraphText:
+      'Sbu takes simple jobs your iPhone can already do, like measuring a slope or counting days in a row, and makes a free app for each. Every app does one thing and keeps six promises: no subscription, no in-app purchases, no account, no ads, no tracking, data stays on your device. If an app breaks one, it does not ship.',
+    facts: 'Facts',
+    factRows: [
+      ['Price', '€0 for every app, with no in-app purchases.'],
+      ['Platform', 'iPhone with iOS 17 or later.'],
+      ['Languages', 'Italian and English.'],
+      ['Apps', live > 0 ? `${total}, ${live} of them on the App Store.` : `${total} being built.`],
+      ['Data', 'It stays on the device. The apps connect to no server.'],
+      ['Site', 'sbu.dev, with no cookies or analytics.'],
+    ],
+    contact: 'Contact',
+    apps: 'The apps',
+    icon: 'Icon',
+    preview: 'Preview',
+    logo: 'Logo',
+    logoRules: [
+      'The logo is the word sbu, lowercase, closed by the square. Do not redraw it or change its colour.',
+      'On a light background use the black logo, on a dark one the white mark.',
+      'The square is the full stop: do not use it alone as decoration.',
+    ],
+    logoLight: 'Logo, SVG',
+    logoDark: 'Mark on black, SVG',
+  },
+}[locale];
+
+const entries = [
+  ...apps.map((app) => {
+    const listing = text(app, locale);
+    return { slug: app.slug, name: listing.name, line: `${capitalize(listing.oneThing)}.`, icon: app.icon, live: app.status === 'live', page: localePath(locale, `apps/${app.slug}`) };
+  }),
+  ...upcoming.map((app) => ({ slug: app.slug, name: app.name, line: app.teaser[locale], icon: app.icon, live: false, page: undefined })),
+];
+const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, path]])];
+---
+<Base locale={locale} path={path} alternates={alternates} title={`${copy.title} · sbu.dev`} description={copy.description} jsonLd={jsonLd}>
+  <article class="flex flex-col gap-12 py-8">
+    <header class="flex flex-col gap-4">
+      <PageTitle text={copy.title} />
+      <p class="text-ink-muted">{copy.lede}</p>
+    </header>
+
+    <section class="flex flex-col gap-6">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-caption uppercase text-ink-muted">{copy.oneLine}</h2>
+        <p class="font-display text-display-title text-balance">{copy.oneLineText}</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h2 class="text-caption uppercase text-ink-muted">{copy.paragraph}</h2>
+        <p>{copy.paragraphText}</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="facts" class="flex flex-col gap-4">
+      <h2 id="facts" class="text-title-2">{copy.facts}</h2>
+      <dl class="rows">
+        {copy.factRows.map(([term, detail]) => (
+          <div class="row"><dt class="text-ink-muted">{term}</dt><dd>{detail}</dd></div>
+        ))}
+        {SUPPORT_EMAIL && <div class="row"><dt class="text-ink-muted">{copy.contact}</dt><dd><a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></dd></div>}
+      </dl>
+    </section>
+
+    <section aria-labelledby="apps" class="flex flex-col gap-4">
+      <h2 id="apps" class="text-title-2">{copy.apps}</h2>
+      <ul class="rows">
+        {entries.map((entry) => (
+          <li class="app">
+            <img src={entry.icon} alt="" width="48" height="48" class="rounded-icon size-12" loading="lazy" />
+            <div class="flex flex-col gap-1">
+              <p class="text-headline">{entry.page ? <a href={entry.page} class="text-ink">{entry.name}</a> : entry.name}{!entry.live && <span class="text-footnote text-ink-muted"> · {t.comingSoon}</span>}</p>
+              <p class="text-subheadline text-ink-muted">{entry.line}</p>
+              <p class="flex flex-wrap gap-4 text-footnote">
+                <a href={entry.icon} download={`${entry.slug}-icon.png`}>{copy.icon}, PNG</a>
+                <a href={`/og/${entry.slug}.png`} download={`${entry.slug}-preview.png`}>{copy.preview}, PNG</a>
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="logo" class="flex flex-col gap-4">
+      <h2 id="logo" class="text-title-2">{copy.logo}</h2>
+      <div class="plates">
+        <a href={logo} download="sbu-logo.svg" class="plate bg-surface-raised">
+          <img src={logo} alt="" class="logo-img is-ink" />
+          <span class="text-footnote">{copy.logoLight}</span>
+        </a>
+        <a href={mark} download="sbu-mark.svg" class="plate bg-surface-raised">
+          <img src={mark} alt="" class="logo-img is-mark" />
+          <span class="text-footnote">{copy.logoDark}</span>
+        </a>
+      </div>
+      <ul class="flex flex-col gap-2 text-ink-muted">
+        {copy.logoRules.map((rule) => <li>{rule}</li>)}
+      </ul>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .rows { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
+  .row, .app {
+    display: grid;
+    gap: var(--spacing-1) var(--spacing-4);
+    padding-block: var(--spacing-3);
+    border-bottom: var(--sbu-hairline) solid var(--sbu-line);
+  }
+  @media (min-width: 40rem) { .row { grid-template-columns: calc(var(--spacing-12) * 3) minmax(0, 1fr); } }
+  .app { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
+  .plates { display: grid; gap: var(--spacing-4); }
+  @media (min-width: 40rem) { .plates { grid-template-columns: 1fr 1fr; } }
+  .logo-img { height: var(--spacing-8); width: auto; }
+  .logo-img.is-mark { height: var(--spacing-12); }
+  /* The logo file is warm black: on the dark theme's plate the preview is inverted, the download is not. */
+  @media (prefers-color-scheme: dark) { .logo-img.is-ink { filter: invert(1); } }
+  .plate {
+    display: grid;
+    justify-items: start;
+    gap: var(--spacing-4);
+    padding: var(--spacing-6);
+    border-radius: var(--radius-lg);
+    color: var(--sbu-ink);
+    text-decoration: none;
+  }
+</style>

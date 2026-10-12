@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// The layout of the tool screen: caption, the figure in `statHero`, a context line, the
-/// indicator, and a row of pills at the bottom.
+/// The layout of the tool screen: caption, the figure in `statHero` closed by `SbuFullStop`,
+/// a context line, the indicator, and a row of pills at the bottom.
 ///
 /// It sits on `surface`, like every screen: the figure in `ink`, captions in `inkMuted`, the
 /// indicator in the accent. The figure is optional, because not every app has one. Use one per app.
@@ -85,6 +85,8 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
                                 .font(SbuTheme.smallNumberFont(size: unitSize))
                                 .foregroundStyle(SbuTheme.inkMuted)
                         }
+
+                        SbuFullStop(fontSize: valueSize)
                     }
                 }
 

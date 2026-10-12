@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// The central figure of an app: an uppercase caption, the number in `stat`, a context line.
+/// The central figure of an app: an uppercase caption, the number in `stat` closed by
+/// `SbuFullStop`, a context line.
 ///
 /// Use one per management screen, near the top, never on the tool screen: there the figure
 /// goes in `SbuToolField`. Do not color the number: put any state in `context` as a word.
@@ -54,6 +55,8 @@ public struct SbuStat: View {
                         .font(SbuTheme.smallNumberFont(size: unitSize))
                         .foregroundStyle(SbuTheme.inkMuted)
                 }
+
+                SbuFullStop(fontSize: valueSize)
             }
 
             if let context {

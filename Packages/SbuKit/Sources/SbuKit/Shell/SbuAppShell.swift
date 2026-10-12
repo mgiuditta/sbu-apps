@@ -11,6 +11,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     private static var settingsTitle: String { String(localized: "Impostazioni", bundle: SbuTheme.bundle) }
 
     private let title: LocalizedStringKey
+    private let slug: String
     private let accent: Color
     private let onAccent: Color
     private let field: Color
@@ -23,6 +24,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     /// Creates the shell.
     /// - Parameters:
     ///   - title: App name, shown as the inline navigation title.
+    ///   - slug: The app's sbu.dev slug, such as `habits`: settings link to its privacy page.
     ///   - accent: The app's `accent*` token.
     ///   - onAccent: Text color on the accent: `onAccent`, or `onAccentLevel` for Sbu Level.
     ///   - field: The app's `field*` token, the background of the tool screen.
@@ -31,6 +33,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     ///   - settings: App-specific settings sections, placed above the sbu.dev footer.
     public init(
         _ title: LocalizedStringKey,
+        slug: String,
         accent: Color,
         onAccent: Color = SbuTheme.onAccent,
         field: Color,
@@ -39,6 +42,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
         @ViewBuilder settings: () -> Settings
     ) {
         self.title = title
+        self.slug = slug
         self.accent = accent
         self.onAccent = onAccent
         self.field = field
@@ -65,7 +69,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
         .environment(\.colorScheme, .dark)
         // Attached outside the dark environment, so settings follow the system color scheme.
         .sheet(isPresented: $isShowingSettings) {
-            SbuSettingsView(appName: title, appIcon: appIcon) {
+            SbuSettingsView(appName: title, appIcon: appIcon, slug: slug) {
                 settings
             }
         }
@@ -89,7 +93,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
 
 private struct SbuAppShellPreview: View {
     var body: some View {
-        SbuAppShell("Sbu Subscriptions", accent: SbuTheme.accentSubscriptions, field: SbuTheme.fieldSubscriptions, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
+        SbuAppShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, field: SbuTheme.fieldSubscriptions, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
             VStack(spacing: SbuTheme.space6) {
                 SbuStat("Spesa mensile", value: Decimal(string: "128.90") ?? 0, format: .currency(code: "EUR"))
                 Spacer()

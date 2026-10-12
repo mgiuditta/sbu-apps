@@ -122,7 +122,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
 }
 
 #Preview("Senza cifra") {
-    SbuAppShell("Sbu Noise", accent: SbuTheme.accentNoise, field: SbuTheme.fieldNoise, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
+    SbuAppShell("Sbu Noise", slug: "noise", accent: SbuTheme.accentNoise, field: SbuTheme.fieldNoise, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
         SbuToolField("Rumore rosa", context: "In riproduzione") {
             Image(systemName: "waveform")
                 .font(.largeTitle)
@@ -138,7 +138,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
 
 private struct SbuToolFieldPreview: View {
     var body: some View {
-        SbuAppShell("Sbu Level", accent: SbuTheme.accentLevel, onAccent: SbuTheme.onAccentLevel, field: SbuTheme.fieldLevel, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
+        SbuAppShell("Sbu Level", slug: "level", accent: SbuTheme.accentLevel, onAccent: SbuTheme.onAccentLevel, field: SbuTheme.fieldLevel, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle)) {
             SbuToolField("Inclinazione", value: 2.4, format: .number.precision(.fractionLength(1)), unit: "°", context: "In piano") {
                 Circle()
                     .stroke(SbuTheme.onFieldMuted, lineWidth: SbuTheme.hairline)

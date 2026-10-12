@@ -8,7 +8,7 @@ struct RootView: View {
     @State private var sheet: HabitSheet?
 
     var body: some View {
-        SbuAppShell("Sbu Habits", accent: SbuTheme.accentHabits, field: SbuTheme.fieldHabits, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, field: SbuTheme.fieldHabits, appIcon: Image(.appIconArtwork)) {
             MainView(model: model, present: present)
         } settings: {
             StartOfDaySection(model: model)

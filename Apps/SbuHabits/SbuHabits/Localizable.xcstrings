@@ -1238,6 +1238,38 @@
           }
         }
       }
+    },
+    "Dati" : {
+      "comment" : "Settings section with Esporta and Importa.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data"
+          }
+        }
+      }
+    },
+    "Esporta" : {
+      "comment" : "Settings action: share a file with every habit and its history.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export"
+          }
+        }
+      }
+    },
+    "Esporta crea un file con le abitudini e lo storico. Lo salvi dove vuoi tu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export creates a file with your habits and their history. You keep it wherever you want."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

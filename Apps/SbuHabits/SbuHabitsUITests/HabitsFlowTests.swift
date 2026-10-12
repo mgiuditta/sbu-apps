@@ -254,4 +254,23 @@ final class HabitsFlowTests: XCTestCase {
             return true
         }
     }
+
+    @MainActor
+    func testSettingsOfferExportAndPassTheAccessibilityAudit() throws {
+        let app = launch()
+        add("Leggere", in: app)
+
+        app.buttons["Impostazioni"].tap()
+        let export = app.buttons["Esporta"]
+        XCTAssertTrue(export.waitForExistence(timeout: 5))
+        XCTAssertTrue(export.isEnabled)
+
+        // Contrast is left out as on the tool screen. Dynamic Type too: in the settings sheet the
+        // audit flags every text as partially unsupported, system ones included (the Fine button,
+        // a plain section footer), so it says nothing about this screen.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+    }
 }

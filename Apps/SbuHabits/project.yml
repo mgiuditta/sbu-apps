@@ -51,7 +51,7 @@ targets:
       - SbuHabitsWidget
       # The widget shares the habits' types, the reminder plan, the ring and the intent with the app.
       - path: SbuHabits/Habits
-        excludes: [HabitsModel.swift, HabitsModel+Preview.swift, HabitSymbol.swift]
+        excludes: [HabitsModel.swift, HabitsModel+Preview.swift, HabitSymbol.swift, HabitsExport.swift]
       - SbuHabits/Reminders
       - SbuHabits/Intents
       - SbuHabits/Views/HabitRing.swift

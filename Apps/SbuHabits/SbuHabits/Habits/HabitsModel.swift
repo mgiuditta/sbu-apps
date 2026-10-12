@@ -20,6 +20,9 @@ final class HabitsModel {
 
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
+    /// Everything saved, as Esporta writes it.
+    var file: HabitsFile { HabitsFile(habits: habits, startHour: startHour) }
+
     var firstWeekday: Int { calendar.firstWeekday }
 
     /// The habits expected today, in the grid's order.
@@ -135,7 +138,7 @@ final class HabitsModel {
     private func save() {
         guard isUnreadable == false else { return }
         // ponytail: a failed write keeps the change in memory only; add an alert if it shows up in practice.
-        try? store.save(HabitsFile(habits: habits, startHour: startHour))
+        try? store.save(file)
         WidgetCenter.shared.reloadAllTimelines()
         planReminders()
     }

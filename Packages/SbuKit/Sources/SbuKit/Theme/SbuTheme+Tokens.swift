@@ -9,13 +9,13 @@ public extension SbuTheme {
     static let surface = Color("surface", bundle: .module)
     /// Righe di lista, card, sheet. Sempre su `surface`, mai card dentro card.
     static let surfaceRaised = Color("surface-raised", bundle: .module)
-    /// Campi di input, track di slider e progress, zone disabilitate.
+    /// Campi di input, fondo dell'indicatore di Sbu Level, zone disabilitate. Non per i track di anelli e progress: in dark è più scuro di `surface`, lì si usa `line`.
     static let surfaceSunken = Color("surface-sunken", bundle: .module)
     /// Testo primario, cifre e icone. In light è il nero caldo del logo (#0A0A00).
     static let ink = Color("ink", bundle: .module)
     /// Testo secondario, unità, caption, label di sezione. Mai per la cifra.
     static let inkMuted = Color("ink-muted", bundle: .module)
-    /// Separatori di lista e bordi di input. Hairline 1px, mai più spessa.
+    /// Separatori di lista e bordi di input (hairline 1px), track di anelli e progress.
     static let line = Color("line", bundle: .module)
     /// Il colore di Sbu è il nero caldo del logo. Logo, footer 'parte di sbu.dev', splash, link e tint di sbu.dev. Nelle app il tint è l'`accent` dell'app.
     static let brand = Color("brand", bundle: .module)

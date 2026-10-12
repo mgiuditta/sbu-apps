@@ -46,6 +46,8 @@ private struct SbuFullStopPreview: View {
             Text(verbatim: "2,4°")
                 .font(SbuTheme.numberFont(size: size))
                 .tracking(SbuTheme.statHeroTracking)
+                // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
+                .padding(.trailing, -SbuTheme.statHeroTracking)
                 .foregroundStyle(SbuTheme.ink)
             SbuFullStop(fontSize: size)
         }

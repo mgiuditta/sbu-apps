@@ -77,6 +77,8 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
                         Text(formattedValue)
                             .font(SbuTheme.numberFont(size: valueSize))
                             .tracking(SbuTheme.statHeroTracking)
+                            // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
+                            .padding(.trailing, -SbuTheme.statHeroTracking)
                             .foregroundStyle(SbuTheme.ink)
                             .contentTransition(.numericText())
 

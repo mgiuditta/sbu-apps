@@ -47,6 +47,8 @@ public struct SbuStat: View {
                 Text(formattedValue)
                     .font(SbuTheme.numberFont(size: valueSize))
                     .tracking(SbuTheme.statTracking)
+                    // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
+                    .padding(.trailing, -SbuTheme.statTracking)
                     .foregroundStyle(SbuTheme.ink)
                     .contentTransition(.numericText())
 

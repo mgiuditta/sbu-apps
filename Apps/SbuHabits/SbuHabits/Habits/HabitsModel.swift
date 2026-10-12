@@ -16,6 +16,8 @@ final class HabitsModel {
 
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
+    var firstWeekday: Int { calendar.firstWeekday }
+
     /// The habits expected today, in the grid's order.
     var todayHabits: [Habit] { TodayGrid.habits(habits, on: today, firstWeekday: calendar.firstWeekday) }
 
@@ -46,23 +48,38 @@ final class HabitsModel {
 
     /// Moves the start of the day, for people who live past midnight.
     func setStartHour(_ hour: Int) {
-        startHour = Self.clamp(hour, to: HabitsFile.startHourRange)
+        startHour = min(max(hour, HabitsFile.startHourRange.lowerBound), HabitsFile.startHourRange.upperBound)
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
         save()
     }
 
     func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay) {
-        let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Habit.maxTitleLength))
-        guard title.isEmpty == false else { return }
-        var schedule = schedule
-        switch schedule {
-        case .weekdays(let weekdays) where weekdays.isEmpty: return
-        case .timesPerWeek(let times): schedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
-        default: break
-        }
-        // A weekly habit counts days, so it is done once a day.
-        let times = schedule.isWeekly ? 1 : Self.clamp(timesPerDay, to: Habit.timesPerDayRange)
-        habits.append(Habit(title: title, symbol: symbol, timesPerDay: times, schedule: schedule, createdOn: today))
+        var habit = Habit(title: "", symbol: symbol, createdOn: today)
+        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule) else { return }
+        habits.append(habit)
+        save()
+    }
+
+    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule) {
+        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule) }
+    }
+
+    /// Moves habits in the Statistiche list; the grid follows the same order.
+    func move(fromOffsets source: IndexSet, toOffset destination: Int) {
+        let moving = source.map { habits[$0] }
+        var rest = habits.indices.filter { source.contains($0) == false }.map { habits[$0] }
+        rest.insert(contentsOf: moving, at: destination - source.count { $0 < destination })
+        habits = rest
+        save()
+    }
+
+    func bestStreak(of habit: Habit) -> Int {
+        Streak.best(of: habit, today: today, firstWeekday: calendar.firstWeekday)
+    }
+
+    /// Removes the habit and its whole log.
+    func delete(_ habit: Habit) {
+        habits.removeAll { $0.id == habit.id }
         save()
     }
 
@@ -79,10 +96,6 @@ final class HabitsModel {
     /// Skips today, or takes the skip back.
     func toggleSkip(_ habit: Habit) {
         update(habit) { $0.toggleSkip(on: today) }
-    }
-
-    private static func clamp(_ value: Int, to range: ClosedRange<Int>) -> Int {
-        min(max(value, range.lowerBound), range.upperBound)
     }
 
     private func update(_ habit: Habit, _ change: (inout Habit) -> Void) {

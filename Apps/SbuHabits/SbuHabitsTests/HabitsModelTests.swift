@@ -130,4 +130,39 @@ struct HabitsModelTests {
 
         #expect(HabitsFile.startHourRange.contains(model.startHour))
     }
+
+    @Test func editingKeepsTheLog() throws {
+        let model = HabitsModel(store: store)
+        model.add(title: "Leggere", symbol: "book")
+        model.markDone(model.habits[0])
+
+        model.edit(model.habits[0], title: "Leggere 20 pagine", symbol: "books.vertical", timesPerDay: 1, schedule: .weekdays([2, 4]))
+
+        let habit = try #require(HabitsModel(store: store).habits.first)
+        #expect(habit.title == "Leggere 20 pagine")
+        #expect(habit.schedule == .weekdays([2, 4]))
+        #expect(habit.count(on: model.today) == 1)
+    }
+
+    @Test func aBlankEditChangesNothing() {
+        let model = HabitsModel(store: store)
+        model.add(title: "Leggere", symbol: "book")
+
+        model.edit(model.habits[0], title: "  ", symbol: "drop", timesPerDay: 3, schedule: .everyDay)
+
+        #expect(model.habits[0].title == "Leggere")
+        #expect(model.habits[0].symbol == "book")
+    }
+
+    @Test func deletingRemovesTheHabitAndItsLog() {
+        let model = HabitsModel(store: store)
+        model.add(title: "Leggere", symbol: "book")
+        model.add(title: "Camminare", symbol: "figure.walk")
+        model.markDone(model.habits[0])
+
+        model.delete(model.habits[0])
+
+        #expect(model.habits.map(\.title) == ["Camminare"])
+        #expect(HabitsModel(store: store).habits.allSatisfy { $0.log.isEmpty })
+    }
 }

@@ -53,6 +53,25 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         count(on: day) >= timesPerDay
     }
 
+    /// Applies the form's fields, trimmed and kept in range. Leaves the log as it is: changing
+    /// the schedule never rewrites the past.
+    /// - Returns: `false`, changing nothing, when the title is blank or no weekday is chosen.
+    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule) -> Bool {
+        let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxTitleLength))
+        guard title.isEmpty == false, schedule != .weekdays([]) else { return false }
+        self.title = title
+        self.symbol = symbol
+        if case .timesPerWeek(let times) = schedule {
+            self.schedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
+            // A weekly habit counts days, so it is done once a day.
+            self.timesPerDay = 1
+        } else {
+            self.schedule = schedule
+            self.timesPerDay = Self.clamp(timesPerDay, to: Self.timesPerDayRange)
+        }
+        return true
+    }
+
     func isSkipped(on day: LogicalDay) -> Bool {
         skipped.contains(day)
     }
@@ -76,5 +95,9 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
             skipped.insert(day)
             log[day] = nil
         }
+    }
+
+    private static func clamp(_ value: Int, to range: ClosedRange<Int>) -> Int {
+        min(max(value, range.lowerBound), range.upperBound)
     }
 }

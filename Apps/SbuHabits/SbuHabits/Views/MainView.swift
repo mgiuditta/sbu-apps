@@ -7,7 +7,7 @@ struct MainView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let model: HabitsModel
-    let add: () -> Void
+    let present: (HabitSheet) -> Void
 
     /// The word after the figure. Two strings, as Xcode asks for plurals that omit the number.
     private var unit: String {
@@ -32,10 +32,13 @@ struct MainView: View {
             unit: unit,
             context: context
         ) {
-            HabitGrid(model: model)
+            HabitGrid(model: model, edit: edit)
         } pills: {
             Button("Aggiungi", action: add)
                 .buttonStyle(SbuFieldPillStyle())
+            Button("Statistiche", action: showStatistics)
+                .buttonStyle(SbuFieldPillStyle())
+                .disabled(model.habits.isEmpty)
         }
         // Rolls the figure's digits (SbuToolField sets .numericText) when the Serie piena changes.
         .animation(reduceMotion ? nil : .snappy, value: model.fullStreak)
@@ -45,17 +48,29 @@ struct MainView: View {
             }
         }
     }
+
+    private func add() {
+        present(.add)
+    }
+
+    private func edit(_ habit: Habit) {
+        present(.edit(habit))
+    }
+
+    private func showStatistics() {
+        present(.statistics)
+    }
 }
 
 #Preview("Light") {
-    MainView(model: .preview) {}
+    MainView(model: .preview) { _ in }
         .background(SbuTheme.fieldHabits)
         .environment(\.colorScheme, .dark)
         .tint(SbuTheme.accentHabits)
 }
 
 #Preview("Dark") {
-    MainView(model: .preview) {}
+    MainView(model: .preview) { _ in }
         .background(SbuTheme.fieldHabits)
         .environment(\.colorScheme, .dark)
         .tint(SbuTheme.accentHabits)

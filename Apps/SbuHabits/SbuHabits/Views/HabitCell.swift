@@ -17,6 +17,7 @@ struct HabitCell: View {
     let markDone: () -> Void
     let undoLast: () -> Void
     let toggleSkip: () -> Void
+    let edit: () -> Void
 
     @State private var isHolding = false
     @State private var isShowingMenu = false
@@ -94,6 +95,7 @@ struct HabitCell: View {
             Button("Annulla ultima", action: undoLast)
                 .disabled(progress.marksToday == 0)
             Button(skipTitle, action: toggleSkip)
+            Button("Modifica", action: edit)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(habit.title)
@@ -106,6 +108,7 @@ struct HabitCell: View {
                 Button("Annulla ultima", action: undoLast)
             }
             Button(skipTitle, action: toggleSkip)
+            Button("Modifica", action: edit)
         }
     }
 
@@ -154,6 +157,6 @@ private struct HabitCellPreviewItem: View {
     var body: some View {
         var marked = habit
         marked.log[LogicalDay(.now)] = marks
-        return HabitCell(habit: marked, progress: HabitProgress(of: marked, today: LogicalDay(.now), firstWeekday: 2), streak: streak, markDone: {}, undoLast: {}, toggleSkip: {})
+        return HabitCell(habit: marked, progress: HabitProgress(of: marked, today: LogicalDay(.now), firstWeekday: 2), streak: streak, markDone: {}, undoLast: {}, toggleSkip: {}, edit: {})
     }
 }

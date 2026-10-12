@@ -30,6 +30,40 @@ nonisolated enum Streak {
         }
     }
 
+    /// The longest Serie the habit ever had, in days or, for a weekly habit, in weeks.
+    static func best(of habit: Habit, today: LogicalDay, firstWeekday: Int) -> Int {
+        var best = 0
+        var run = 0
+        if case .timesPerWeek = habit.schedule {
+            let thisWeek = today.weekStart(firstWeekday: firstWeekday)
+            var weekStart = habit.createdOn.weekStart(firstWeekday: firstWeekday)
+            while weekStart <= thisWeek {
+                let lastDay = weekStart == thisWeek ? today : weekStart + 6
+                if HabitProgress(of: habit, today: lastDay, firstWeekday: firstWeekday).isComplete {
+                    run += 1
+                } else if weekStart != thisWeek {
+                    run = 0
+                }
+                best = max(best, run)
+                weekStart = weekStart + 7
+            }
+            return best
+        }
+        var day = habit.createdOn
+        while day <= today {
+            if habit.schedule.includes(day), habit.isSkipped(on: day) == false {
+                if habit.isDone(on: day) {
+                    run += 1
+                } else if day != today {
+                    run = 0
+                }
+                best = max(best, run)
+            }
+            day = day + 1
+        }
+        return best
+    }
+
     private static func weeks(of habit: Habit, today: LogicalDay, firstWeekday: Int) -> Int {
         let isReached = { (lastDay: LogicalDay) in
             HabitProgress(of: habit, today: lastDay, firstWeekday: firstWeekday).isComplete

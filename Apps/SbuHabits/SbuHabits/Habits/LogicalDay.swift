@@ -40,6 +40,18 @@ nonisolated struct LogicalDay: Hashable, Comparable, Codable, CodingKeyRepresent
         self - (weekday - firstWeekday + 7) % 7
     }
 
+    /// Noon of this day in `calendar`'s time zone: a moment safely inside the day, to format its
+    /// date or to set a time on it.
+    func noon(in calendar: Calendar) -> Date {
+        var utc = Calendar(identifier: .gregorian)
+        utc.timeZone = .gmt
+        var parts = utc.dateComponents([.year, .month, .day], from: Date(timeIntervalSince1970: Double(ordinal) * 86_400))
+        parts.hour = 12
+        var gregorian = Calendar(identifier: .gregorian)
+        gregorian.timeZone = calendar.timeZone
+        return gregorian.date(from: parts) ?? .now
+    }
+
     static func < (lhs: LogicalDay, rhs: LogicalDay) -> Bool {
         lhs.ordinal < rhs.ordinal
     }

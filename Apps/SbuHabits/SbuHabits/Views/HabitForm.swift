@@ -1,8 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// The form that creates a habit: a title, how many times a day, which days, and a symbol.
-struct AddHabitView: View {
+/// The form that creates or edits a habit: a title, how many times a day, which days, and a symbol.
+/// Editing never rewrites the log, and offers Elimina.
+struct HabitForm: View {
     private enum Kind {
         case everyDay, weekdays, timesPerWeek
     }
@@ -10,13 +11,15 @@ struct AddHabitView: View {
     @Environment(\.dismiss) private var dismiss
 
     let model: HabitsModel
+    /// The habit to edit, or `nil` to add a new one.
+    let habit: Habit?
 
-    @State private var title = ""
-    @State private var symbol = HabitSymbol.all[0].id
-    @State private var timesPerDay = 1
-    @State private var kind = Kind.everyDay
-    @State private var weekdays: Set<Int> = Set(1...7)
-    @State private var timesPerWeek = 3
+    @State private var title: String
+    @State private var symbol: String
+    @State private var timesPerDay: Int
+    @State private var kind: Kind
+    @State private var weekdays: Set<Int>
+    @State private var timesPerWeek: Int
 
     private var schedule: Schedule {
         switch kind {
@@ -26,8 +29,38 @@ struct AddHabitView: View {
         }
     }
 
+    private var formTitle: LocalizedStringKey {
+        habit == nil ? "Nuova abitudine" : "Modifica abitudine"
+    }
+
+    private var confirmTitle: LocalizedStringKey {
+        habit == nil ? "Aggiungi" : "Salva"
+    }
+
     private var canAdd: Bool {
         title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false && schedule != .weekdays([])
+    }
+
+    init(model: HabitsModel, editing habit: Habit? = nil) {
+        self.model = model
+        self.habit = habit
+        _title = State(initialValue: habit?.title ?? "")
+        _symbol = State(initialValue: habit?.symbol ?? HabitSymbol.all[0].id)
+        _timesPerDay = State(initialValue: habit?.timesPerDay ?? 1)
+        switch habit?.schedule ?? .everyDay {
+        case .everyDay:
+            _kind = State(initialValue: .everyDay)
+            _weekdays = State(initialValue: Set(1...7))
+            _timesPerWeek = State(initialValue: 3)
+        case .weekdays(let days):
+            _kind = State(initialValue: .weekdays)
+            _weekdays = State(initialValue: days)
+            _timesPerWeek = State(initialValue: 3)
+        case .timesPerWeek(let times):
+            _kind = State(initialValue: .timesPerWeek)
+            _weekdays = State(initialValue: Set(1...7))
+            _timesPerWeek = State(initialValue: times)
+        }
     }
 
     var body: some View {
@@ -69,15 +102,23 @@ struct AddHabitView: View {
                 Section("Simbolo") {
                     SymbolPicker(selection: $symbol)
                 }
+
+                if habit != nil {
+                    Section {
+                        SbuButton("Elimina", kind: .destructive, action: delete)
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                }
             }
-            .navigationTitle("Nuova abitudine")
+            .navigationTitle(formTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Annulla", action: cancel)
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Aggiungi", action: add)
+                    Button(confirmTitle, action: confirm)
                         .disabled(canAdd == false)
                 }
             }
@@ -94,19 +135,31 @@ struct AddHabitView: View {
         dismiss()
     }
 
-    private func add() {
-        model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule)
+    private func confirm() {
+        if let habit {
+            model.edit(habit, title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule)
+        } else {
+            model.add(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule)
+        }
+        dismiss()
+    }
+
+    private func delete() {
+        if let habit {
+            model.delete(habit)
+        }
         dismiss()
     }
 }
 
 #Preview("Light") {
-    AddHabitView(model: .preview)
+    HabitForm(model: .preview)
         .tint(SbuTheme.accentHabits)
 }
 
 #Preview("Dark") {
-    AddHabitView(model: .preview)
+    let model = HabitsModel.preview
+    HabitForm(model: model, editing: model.habits[0])
         .tint(SbuTheme.accentHabits)
         .preferredColorScheme(.dark)
 }

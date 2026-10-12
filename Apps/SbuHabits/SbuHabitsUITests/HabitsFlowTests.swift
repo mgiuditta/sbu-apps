@@ -164,6 +164,43 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testEditingAndDeletingAHabit() {
+        let app = launch()
+        add("Leggere", in: app)
+
+        habit("Leggere", in: app).tap()
+        app.buttons["Modifica"].tap()
+        let titleField = app.textFields["Titolo"]
+        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
+        titleField.tap()
+        XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
+        titleField.typeText(" ogni sera")
+        app.navigationBars.buttons["Salva"].tap()
+        let edited = habit("Leggere ogni sera", in: app)
+
+        edited.tap()
+        app.buttons["Modifica"].tap()
+        // Elimina sits at the bottom of the form, past the symbols.
+        app.collectionViews.firstMatch.swipeUp()
+        app.collectionViews.firstMatch.swipeUp()
+        app.buttons["Elimina"].firstMatch.tap()
+        app.buttons["Elimina"].firstMatch.tap() // the confirmation
+        XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testStatisticsShowAHabitsPage() {
+        let app = launch()
+        add("Leggere", in: app)
+        habit("Leggere", in: app).press(forDuration: 1)
+
+        app.buttons["Statistiche"].tap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggere'")).firstMatch.tap()
+
+        XCTAssertTrue(app.staticTexts["Serie migliore: 1"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()
         add("Bere acqua", timesPerDay: 3, in: app)

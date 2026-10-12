@@ -248,7 +248,27 @@
         }
       }
     },
+    "Elimina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
     "Fatta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Fine" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -350,6 +370,16 @@
         }
       }
     },
+    "Mancata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missed"
+          }
+        }
+      }
+    },
     "Medicine" : {
       "localizations" : {
         "en" : {
@@ -376,6 +406,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mind"
+          }
+        }
+      }
+    },
+    "Modifica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Modifica abitudine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit habit"
           }
         }
       }
@@ -416,6 +466,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No phone"
+          }
+        }
+      }
+    },
+    "Non prevista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not due"
           }
         }
       }
@@ -570,12 +630,32 @@
         }
       }
     },
+    "Saltata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skipped"
+          }
+        }
+      }
+    },
     "Saltata oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skipped today"
+          }
+        }
+      }
+    },
+    "Salva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         }
       }
@@ -620,12 +700,52 @@
         }
       }
     },
+    "Serie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak"
+          }
+        }
+      }
+    },
+    "Serie migliore: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best streak: %lld"
+          }
+        }
+      }
+    },
     "Serie piena" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Full streak"
+          }
+        }
+      }
+    },
+    "settimana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "week"
+          }
+        }
+      }
+    },
+    "settimane" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "weeks"
           }
         }
       }
@@ -666,6 +786,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Groceries"
+          }
+        }
+      }
+    },
+    "Statistiche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics"
           }
         }
       }
@@ -726,6 +856,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title"
+          }
+        }
+      }
+    },
+    "Ultime 26 settimane" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 26 weeks"
           }
         }
       }

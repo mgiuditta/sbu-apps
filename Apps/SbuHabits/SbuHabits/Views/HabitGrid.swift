@@ -6,6 +6,7 @@ struct HabitGrid: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let model: HabitsModel
+    let edit: (Habit) -> Void
 
     private var columns: [GridItem] {
         Array(repeating: GridItem(.flexible(), spacing: SbuTheme.space3), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
@@ -31,7 +32,8 @@ struct HabitGrid: View {
                     streak: model.streak(of: habit),
                     markDone: { model.markDone(habit) },
                     undoLast: { model.undoLast(habit) },
-                    toggleSkip: { model.toggleSkip(habit) }
+                    toggleSkip: { model.toggleSkip(habit) },
+                    edit: { edit(habit) }
                 )
             }
         }
@@ -39,7 +41,7 @@ struct HabitGrid: View {
 }
 
 #Preview("Light") {
-    HabitGrid(model: .preview)
+    HabitGrid(model: .preview) { _ in }
         .padding(SbuTheme.space4)
         .background(SbuTheme.fieldHabits)
         .environment(\.colorScheme, .dark)
@@ -47,7 +49,7 @@ struct HabitGrid: View {
 }
 
 #Preview("Dark") {
-    HabitGrid(model: .preview)
+    HabitGrid(model: .preview) { _ in }
         .padding(SbuTheme.space4)
         .background(SbuTheme.fieldHabits)
         .environment(\.colorScheme, .dark)

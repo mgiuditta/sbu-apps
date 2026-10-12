@@ -1,9 +1,10 @@
 import { getCollection } from 'astro:content';
 import { locales, localePath, type Locale } from '../i18n';
-import { getAlternatives, getApps, type Alternative, type App, type Post } from './apps';
+import { getAlternatives, getApps, getUpcoming, type Alternative, type App, type Post, type UpcomingApp } from './apps';
 
 type View =
-  | { view: 'home' | 'principles' | 'support' | 'privacy' }
+  | { view: 'home'; upcoming: UpcomingApp[] }
+  | { view: 'principles' | 'support' | 'privacy' }
   | { view: 'app' | 'appPrivacy'; app: App }
   | { view: 'alternative'; alternative: Alternative }
   | { view: 'blog'; posts: Post[] }
@@ -23,13 +24,14 @@ export type Route = View & {
 export async function routes(): Promise<Route[]> {
   const apps = await getApps();
   const alternatives = await getAlternatives(apps);
+  const upcoming = await getUpcoming();
   const posts = (await getCollection('blog', (post) => !post.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
 
   const pages: (View & { path: string; locale: Locale })[] = [];
   for (const locale of locales) {
     const own = (post: Post) => post.id.startsWith(`${locale}/`);
     pages.push(
-      { view: 'home', path: '', locale },
+      { view: 'home', upcoming, path: '', locale },
       { view: 'principles', path: 'principi', locale },
       { view: 'support', path: 'support', locale },
       { view: 'privacy', path: 'privacy', locale },

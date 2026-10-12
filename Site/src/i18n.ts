@@ -28,7 +28,7 @@ export const ui = {
     privacyLink: (name: string) => `Privacy di ${name}`,
     backToApp: (name: string) => `Vai a ${name}`,
     checked: (date: string) => `Dati dell’App Store verificati il ${date}.`,
-    footerNote: 'Questo sito non usa cookie, statistiche o script.',
+    footerNote: 'Questo sito non usa cookie né statistiche. L’unico script muove il punto della home e non invia niente.',
     readPost: 'Leggi',
   },
   en: {
@@ -51,7 +51,7 @@ export const ui = {
     privacyLink: (name: string) => `${name} privacy`,
     backToApp: (name: string) => `Go to ${name}`,
     checked: (date: string) => `App Store facts checked on ${date}.`,
-    footerNote: 'This site uses no cookies, analytics or scripts.',
+    footerNote: 'This site uses no cookies or analytics. The only script moves the dot on the home page and sends nothing.',
     readPost: 'Read',
   },
 } as const;

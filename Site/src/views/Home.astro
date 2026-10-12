@@ -1,58 +1,842 @@
 ---
-import AppLegendItem from '../components/AppLegendItem.astro';
-import PageTitle from '../components/PageTitle.astro';
+// The home is one screen: the title closed by the full stop, the apps as words below it.
+// Without JavaScript it is a page of links. With it, the full stop becomes a dot you can drag:
+// drop it on an app (or click the name) and the page turns into that app for a moment.
 import PromiseChips from '../components/PromiseChips.astro';
 import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import { localePath, ui } from '../i18n';
+import { text } from '../lib/apps';
 import type { Route } from '../lib/routes';
 
-type Props = Route;
-const { locale, path, alternates, apps } = Astro.props;
+type Props = Route & { view: 'home' };
+const { locale, path, alternates, apps, upcoming } = Astro.props;
 const t = ui[locale];
 const copy = {
   it: {
-    title: 'sbu.dev · App per iPhone gratuite che fanno una cosa sola',
+    title: 'sbu.dev · App gratuite per iPhone che fanno una cosa sola',
     hero: 'Sbu fa una cosa sola',
-    lead: 'App gratuite per iPhone. Ognuna fa un solo lavoro e non ti chiede niente in cambio.',
-    apps: 'Le app',
-    oneThing: 'Perché una cosa sola',
-    oneThingText: 'Ogni app ha un compito e nient’altro. Non ti chiede di pagare, di registrarti o di guardare pubblicità. Quello che salvi resta sul tuo iPhone.',
+    appsLabel: 'Le app',
+    hintGrab: 'Prendi il punto',
+    hintRest: ' e posalo su un’app.',
+    tilt: 'Attiva inclinazione',
+    back: 'Torna',
+    download: (name: string) => `Scarica ${name}`,
     principles: 'Leggi i principi',
+    days: 'giorni',
+    habits: ['Acqua', 'Leggere', 'Camminare'],
+    habitsLabel: 'Abitudini di oggi',
+    strings: {
+      flat: 'In piano.',
+      right: 'Pende a destra.',
+      left: 'Pende a sinistra.',
+      habitsIdle: 'Porta il punto dentro un anello per segnarlo.',
+      habitsFull: 'Giornata piena. La serie sale.',
+    },
   },
   en: {
     title: 'sbu.dev · Free iPhone apps that each do one thing',
     hero: 'Sbu does one thing',
-    lead: 'Free iPhone apps. Each one does a single job and asks nothing in return.',
-    apps: 'Apps',
-    oneThing: 'Why one thing',
-    oneThingText: 'Each app has one job and nothing else. It never asks you to pay, sign up or watch ads. What you save stays on your iPhone.',
+    appsLabel: 'Apps',
+    hintGrab: 'Grab the dot',
+    hintRest: ' and drop it on an app.',
+    tilt: 'Turn on tilt',
+    back: 'Back',
+    download: (name: string) => `Download ${name}`,
     principles: 'Read the principles',
+    days: 'days',
+    habits: ['Water', 'Reading', 'Walking'],
+    habitsLabel: 'Today’s habits',
+    strings: {
+      flat: 'Lying flat.',
+      right: 'Leans right.',
+      left: 'Leans left.',
+      habitsIdle: 'Drop the dot in a ring to mark it.',
+      habitsFull: 'Full day. The streak goes up.',
+    },
   },
 }[locale];
+
+// Apps with their own little demo on the home; any other listed app gets the engraving scene.
+const demos = new Set(['level', 'habits']);
+const short = (name: string) => name.replace(/^Sbu /, '');
+const listed = apps.map((app) => {
+  const listing = text(app, locale);
+  const kicker = `${listing.name} · ${listing.subtitle.charAt(0).toLowerCase()}${listing.subtitle.slice(1)}`;
+  return {
+    app,
+    name: listing.name,
+    kicker,
+    line: `${listing.oneThing.charAt(0).toUpperCase()}${listing.oneThing.slice(1)}.`,
+    page: localePath(locale, `apps/${app.slug}`),
+    // A live app goes to the App Store; until then the button goes to its page.
+    cta: app.storeUrl ? { href: app.storeUrl, label: copy.download(listing.name) } : { href: localePath(locale, `apps/${app.slug}`), label: t.backToApp(listing.name) },
+  };
+});
+const level = listed.find((entry) => entry.app.slug === 'level');
+const habits = listed.find((entry) => entry.app.slug === 'habits');
+const words = copy.hero.split(' ');
+const ringLength = 106.8; // 2πr for r = 17 in the ring's 40-unit viewBox.
+
 const site = Astro.site!.href;
 const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'Organization', name: 'sbu.dev', url: site, logo: new URL(mark, site).href },
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription },
 ];
 ---
-<Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd}>
-  <section class="flex flex-col gap-6 py-12">
-    <PageTitle text={copy.hero} size="hero" />
-    <p class="text-body text-ink-muted">{copy.lead}</p>
+<Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd} layout="stage">
+  <li slot="nav-end" data-tilt-item hidden>
+    <button type="button" data-tilt class="text-ink-muted hover:text-ink">{copy.tilt}</button>
+  </li>
+
+  <div class="punto" data-punto data-locale={locale} data-strings={JSON.stringify(copy.strings)}>
+    <section class="punto-scene" data-scene="home">
+      <div class="punto-home">
+        <h1 class="punto-title" data-title>
+          {words.map((word, index) =>
+            index < words.length - 1 ? (
+              <><span class="punto-word">{word}</span>{' '}</>
+            ) : (
+              <span class="punto-word">{word}<span class="punto-slot" data-slot aria-hidden="true"></span></span>
+            ),
+          )}
+        </h1>
+        <ul class="punto-apps" aria-label={copy.appsLabel} data-apps>
+          {listed.map((entry) => (
+            <li>
+              <a
+                href={entry.page}
+                class="punto-app"
+                data-app={entry.app.slug}
+                data-scene-id={demos.has(entry.app.slug) ? entry.app.slug : 'plate'}
+                data-name={entry.name}
+                data-line={entry.line}
+                data-plate={entry.app.icon}
+                data-cta-href={entry.cta.href}
+                data-cta-label={entry.cta.label}
+                data-soon={entry.app.status !== 'live' ? '' : undefined}
+                style={`--c: var(--sbu-${entry.app.accent})`}
+              ><span class="sr-only">Sbu </span>{short(entry.name)}</a>
+            </li>
+          ))}
+          {upcoming.map((app) => (
+            <li>
+              {/* Upgraded to a button by the script; without it, a name and "In arrivo". */}
+              <span
+                class="punto-app is-soon"
+                data-app={app.slug}
+                data-scene-id="plate"
+                data-name={app.name}
+                data-line={app.teaser[locale]}
+                data-plate={app.icon}
+                data-soon=""
+                style={`--c: var(--sbu-${app.accent})`}
+              ><span class="sr-only">Sbu </span>{short(app.name)}<span class="sr-only">, {t.comingSoon.toLowerCase()}</span></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p class="punto-hint" data-hint hidden><b>{copy.hintGrab}</b>{copy.hintRest}</p>
+    </section>
+
+    {level && (
+      <section class="punto-scene" data-scene="level" aria-labelledby="scene-level" style={`--c: var(--sbu-${level.app.accent})`} hidden>
+        <div class="punto-sc">
+          <h2 id="scene-level" class="punto-kick" tabindex="-1">{level.kicker}</h2>
+          <p class="punto-fig"><span data-degrees>0°</span><span class="punto-slot" data-slot aria-hidden="true"></span></p>
+          <div class="punto-vial" data-vial aria-hidden="true"></div>
+          <p class="punto-ctx" data-level-status aria-live="polite">{copy.strings.flat}</p>
+          <div class="punto-actions">
+            <a class="punto-btn" href={level.cta.href}>{level.cta.label}</a>
+            {level.app.status !== 'live' && <span class="punto-tag">{t.comingSoon}</span>}
+            <button type="button" class="punto-btn is-ghost" data-back>{copy.back}</button>
+          </div>
+        </div>
+      </section>
+    )}
+
+    {habits && (
+      <section class="punto-scene" data-scene="habits" aria-labelledby="scene-habits" style={`--c: var(--sbu-${habits.app.accent})`} hidden>
+        <div class="punto-sc">
+          <h2 id="scene-habits" class="punto-kick" tabindex="-1">{habits.kicker}</h2>
+          <p class="punto-fig is-medium"><span data-streak>9</span><span class="punto-unit"> {copy.days}</span><span class="punto-slot" data-slot aria-hidden="true"></span></p>
+          <ul class="punto-rings" aria-label={copy.habitsLabel}>
+            {copy.habits.map((name) => (
+              <li>
+                <button type="button" class="punto-ring" data-ring aria-pressed="false">
+                  <svg viewBox="0 0 40 40" aria-hidden="true">
+                    <circle class="punto-ring-track" cx="20" cy="20" r="17" fill="none" stroke-width="2.5" />
+                    <circle class="punto-ring-fill" cx="20" cy="20" r="17" fill="none" stroke-width="2.5" stroke-dasharray={ringLength} stroke-dashoffset={ringLength} />
+                  </svg>
+                  <span>{name}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p class="punto-ctx" data-habits-status aria-live="polite">{copy.strings.habitsIdle}</p>
+          <div class="punto-actions">
+            <a class="punto-btn" href={habits.cta.href}>{habits.cta.label}</a>
+            {habits.app.status !== 'live' && <span class="punto-tag">{t.comingSoon}</span>}
+            <button type="button" class="punto-btn is-ghost" data-back>{copy.back}</button>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="punto-scene" data-scene="plate" aria-labelledby="scene-plate" hidden>
+      <div class="punto-sc">
+        <img class="punto-plate" data-plate-img alt="" width="1024" height="1024" />
+        <h2 id="scene-plate" class="punto-fig is-small" tabindex="-1"><span data-plate-name></span><span class="punto-slot" data-slot aria-hidden="true"></span></h2>
+        <p class="punto-ctx" data-plate-line></p>
+        <div class="punto-actions">
+          <a class="punto-btn" data-plate-cta hidden></a>
+          <span class="punto-tag" data-plate-soon>{t.comingSoon}</span>
+          <button type="button" class="punto-btn is-ghost" data-back>{copy.back}</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  {/* Below the fold: what every app promises, for readers who scroll and for search engines. */}
+  <section aria-labelledby="promises-title" class="page flex flex-col gap-4 py-12">
+    <h2 id="promises-title" class="text-title-2">{t.promisesLabel}</h2>
     <PromiseChips promises={t.promises} label={t.promisesLabel} />
-  </section>
-
-  <section id="app" aria-labelledby="apps-title" class="flex flex-col gap-2">
-    <h2 id="apps-title" class="text-title-2">{copy.apps}</h2>
-    <ul class="divide-y divide-line border-y border-line">
-      {apps.map((app) => <li><AppLegendItem app={app} locale={locale} /></li>)}
-    </ul>
-  </section>
-
-  <section aria-labelledby="one-thing-title" class="flex flex-col gap-4 pt-12">
-    <h2 id="one-thing-title" class="font-display text-display-title">{copy.oneThing}</h2>
-    <p class="text-body text-ink-muted">{copy.oneThingText}</p>
     <p><a href={localePath(locale, 'principi')}>{copy.principles}</a></p>
   </section>
+
+  <div class="punto-wipe" data-wipe aria-hidden="true" hidden></div>
+  <div class="punto-dot" data-dot aria-hidden="true" hidden></div>
 </Base>
+
+<style is:global>
+  /* Sizes are the design system's, scaled with the viewport: the home title is display-hero
+     at its smallest and 2.6 times that on a wide screen. Colors are only --sbu-* tokens. */
+  .punto {
+    --title-size: clamp(var(--text-display-hero), 10.5vw, calc(var(--text-display-hero) * 2.6));
+    --dot-held: var(--spacing-8);
+    --ease: cubic-bezier(.2, .8, .2, 1);
+    position: relative;
+    display: grid;
+    min-height: 100svh;
+  }
+
+  .punto-scene {
+    grid-area: 1 / 1;
+    display: grid;
+    place-items: center;
+    padding:
+      calc(var(--spacing-12) * 2 + env(safe-area-inset-top))
+      max(var(--spacing-6), env(safe-area-inset-right))
+      calc(var(--spacing-12) * 2.5 + env(safe-area-inset-bottom))
+      max(var(--spacing-6), env(safe-area-inset-left));
+  }
+  .punto-scene[data-scene="level"] { touch-action: none; }
+
+  /* Home */
+  .punto-home { display: grid; justify-items: center; }
+  .punto-title {
+    margin: 0;
+    max-width: 11ch;
+    font-family: var(--font-display);
+    font-weight: var(--text-display-hero--font-weight);
+    font-size: var(--title-size);
+    line-height: 1; /* display-hero: 56px on 56px */
+    letter-spacing: -.04em; /* display-hero's -2px at 56px, kept as a ratio when it grows */
+    text-align: center;
+    text-wrap: balance;
+  }
+  .punto-word { display: inline-block; }
+  .punto-slot {
+    display: inline-block;
+    width: var(--sbu-mark-size);
+    height: var(--sbu-mark-size);
+    margin-inline-start: var(--sbu-mark-gap);
+    vertical-align: baseline;
+    background: currentColor;
+  }
+  /* With the script on, the dot is the full stop and the slot only holds its place. */
+  .punto-on .punto-slot { background: transparent; }
+
+  .punto-apps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-1) var(--spacing-5);
+    max-width: calc(var(--spacing-12) * 16);
+    margin-top: clamp(var(--spacing-8), 5vh, var(--spacing-12));
+    font-family: var(--font-display);
+    font-weight: var(--text-display-title--font-weight);
+    font-size: clamp(var(--text-title-2), 2.4vw, var(--text-display-title));
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    transition: opacity .6s ease .1s;
+  }
+  .punto-app {
+    position: relative;
+    display: inline-block;
+    padding: var(--spacing-1) 2px;
+    color: var(--sbu-ink);
+    text-decoration: none;
+    transition: color .25s;
+  }
+  .punto-app.is-soon { color: var(--sbu-ink-muted); }
+  button.punto-app { font: inherit; letter-spacing: inherit; background: none; border: 0; cursor: pointer; }
+  .punto-app::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: calc(var(--sbu-hairline) * 3);
+    background: var(--c);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s var(--ease);
+  }
+  a.punto-app:hover::after, button.punto-app:hover::after, .punto-app:focus-visible::after, .punto-app.is-hot::after { transform: scaleX(1); }
+  .punto-app.is-hot { color: var(--c); }
+
+  .punto-hint {
+    position: absolute;
+    inset: auto var(--spacing-6) calc(var(--spacing-6) + env(safe-area-inset-bottom));
+    margin: 0;
+    text-align: center;
+    font-size: var(--text-subheadline);
+    color: var(--sbu-ink-muted);
+    transition: opacity .4s;
+  }
+  .punto-hint b { color: var(--sbu-ink); font-weight: var(--text-headline--font-weight); }
+  .punto-hint.is-gone { opacity: 0; }
+
+  /* Intro: the words are revealed one by one as the dot writes them. */
+  .is-intro .punto-word { clip-path: inset(-20% 100% -20% -5%); }
+  .is-intro .punto-apps, .is-intro .punto-hint { opacity: 0; }
+
+  /* The dot */
+  .punto-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+    background: var(--acc, var(--sbu-ink));
+    cursor: grab;
+    touch-action: none;
+    will-change: transform;
+    transition: background-color .3s, opacity .2s;
+  }
+  .punto-dot::after { content: ""; position: absolute; inset: calc(var(--spacing-3) * -1); }
+  .punto-dot.is-held { cursor: grabbing; }
+  /* Three beats after the intro to say "take me", then still. */
+  .punto-dot.is-calling { animation: punto-call 2.4s ease-in-out 3; }
+  @keyframes punto-call {
+    0%, 70%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--acc) 40%, transparent); }
+    85% { box-shadow: 0 0 0 var(--spacing-2) transparent; }
+  }
+
+  .punto-wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    pointer-events: none;
+    background: var(--wipe, var(--sbu-ink));
+    clip-path: inset(50% 50% 50% 50%);
+  }
+
+  /* Scenes */
+  .punto-sc {
+    display: grid;
+    gap: var(--spacing-5);
+    justify-items: center;
+    width: min(calc(var(--spacing-12) * 19), 100%);
+    text-align: center;
+  }
+  /* Scene headings take focus when a scene opens, only so screen readers start there. */
+  .punto-scene [tabindex="-1"]:focus { outline: none; }
+
+  .punto-kick {
+    margin: 0;
+    font-size: var(--text-caption);
+    font-weight: var(--text-caption--font-weight);
+    letter-spacing: var(--text-caption--letter-spacing);
+    text-transform: uppercase;
+    color: var(--sbu-ink-muted);
+  }
+  .punto-fig {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: var(--text-stat-hero--font-weight);
+    font-size: clamp(var(--text-stat-hero), 16vw, calc(var(--text-stat-hero) * 3.4));
+    line-height: 1;
+    letter-spacing: -.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--sbu-ink);
+  }
+  /* The streak changes once, from 9 to 10: proportional figures, so the 1 is not the slab tabular one. */
+  .punto-fig.is-medium { font-variant-numeric: normal; font-size: clamp(var(--text-stat-hero), 11vw, calc(var(--text-stat-hero) * 2.3)); }
+  .punto-fig.is-small { font-size: clamp(var(--text-display-title), 8vw, calc(var(--text-display-hero) * 1.85)); }
+  .punto-unit {
+    font-family: var(--font-sans);
+    font-weight: var(--text-body--font-weight);
+    font-size: clamp(var(--text-headline), 2vw, var(--text-title-2));
+    letter-spacing: 0;
+    color: var(--sbu-ink-muted);
+  }
+  .punto-ctx {
+    margin: 0;
+    min-height: 1.4em;
+    font-size: clamp(var(--text-body), 1.6vw, var(--text-title-2));
+    color: var(--sbu-ink-muted);
+  }
+  .punto-vial {
+    position: relative;
+    width: 100%;
+    height: calc(var(--sbu-hairline) * 2);
+    margin-block: var(--spacing-6);
+    background: var(--sbu-line);
+  }
+  .punto-vial::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--spacing-5) * -1) auto;
+    left: 50%;
+    width: calc(var(--sbu-hairline) * 2);
+    margin-left: calc(var(--sbu-hairline) * -1);
+    background: var(--sbu-line);
+    transition: background .3s;
+  }
+  .punto-vial.is-flat::before { background: var(--c); }
+
+  .punto-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--spacing-3); }
+  .punto-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-3) var(--spacing-5);
+    border: var(--sbu-hairline) solid transparent;
+    border-radius: var(--radius-lg);
+    background: var(--c, var(--sbu-ink));
+    color: var(--sbu-on-accent);
+    font: inherit;
+    font-size: var(--text-subheadline);
+    font-weight: var(--text-headline--font-weight);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .punto-btn.is-ghost { background: transparent; border-color: var(--sbu-line); color: var(--sbu-ink); }
+  .punto-tag {
+    padding: var(--spacing-1) var(--spacing-3);
+    border: var(--sbu-hairline) solid var(--sbu-line);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-subheadline);
+    color: var(--sbu-ink-muted);
+  }
+
+  .punto-rings { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(var(--spacing-5), 4vw, var(--spacing-12)); }
+  .punto-ring {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: clamp(calc(var(--spacing-12) * 2), 14vw, calc(var(--spacing-12) * 3));
+    aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: none;
+    font: inherit;
+    cursor: pointer;
+  }
+  .punto-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+  .punto-ring-track { stroke: var(--sbu-line); transition: stroke .3s; }
+  .punto-ring-fill { stroke: var(--c); stroke-linecap: round; transition: stroke-dashoffset .6s var(--ease); }
+  .punto-ring span { font-size: var(--text-subheadline); color: var(--sbu-ink-muted); }
+  .punto-ring[aria-pressed="true"] span { color: var(--sbu-ink); font-weight: var(--text-headline--font-weight); }
+  .punto-ring.is-hot .punto-ring-track { stroke: var(--c); }
+
+  /* The engravings are ink on paper: multiplied in light, inverted onto the dark surface. */
+  .punto-plate { width: min(calc(var(--spacing-12) * 8), 70vw, 40svh); height: auto; border-radius: var(--radius-icon); mix-blend-mode: multiply; }
+  @media (prefers-color-scheme: dark) {
+    .punto-plate { filter: invert(1) hue-rotate(180deg) brightness(.94); mix-blend-mode: screen; }
+  }
+
+  .punto-on body { overflow-x: clip; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .punto-apps, .punto-hint, .punto-app, .punto-app::after, .punto-ring-fill { transition: none; }
+    .punto-dot { transition: none; }
+    .punto-dot.is-calling { animation: none; }
+  }
+  @media (forced-colors: active) {
+    .punto-dot, .punto-slot { forced-color-adjust: none; background: CanvasText; }
+    .punto-on .punto-slot { background: transparent; }
+    .punto-wipe { display: none; }
+  }
+</style>
+
+<script>
+  type Strings = { flat: string; right: string; left: string; habitsIdle: string; habitsFull: string };
+  type Point = { x: number; y: number };
+
+  const root = document.querySelector<HTMLElement>('[data-punto]');
+  if (root) start(root);
+
+  function start(root: HTMLElement) {
+    const html = document.documentElement;
+    const strings = JSON.parse(root.dataset.strings ?? '{}') as Strings;
+    const number = new Intl.NumberFormat(root.dataset.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const one = <T extends Element>(selector: string, scope: ParentNode = root) => scope.querySelector<T>(selector)!;
+    const all = <T extends Element>(selector: string, scope: ParentNode = root) => [...scope.querySelectorAll<T>(selector)];
+
+    const dot = one<HTMLElement>('[data-dot]', document);
+    const wipe = one<HTMLElement>('[data-wipe]', document);
+    const hint = one<HTMLElement>('[data-hint]');
+    const title = one<HTMLElement>('[data-title]');
+    const words = all<HTMLElement>('.punto-word', title);
+    const appList = one<HTMLElement>('[data-apps]');
+    const scenes = new Map(all<HTMLElement>('[data-scene]').map((scene) => [scene.dataset.scene!, scene]));
+    const vial = root.querySelector<HTMLElement>('[data-vial]');
+    const rings = all<HTMLButtonElement>('[data-ring]');
+
+    html.classList.add('punto-on');
+    dot.hidden = false;
+    hint.hidden = false;
+
+    // Apps that are not out yet were plain names: they become buttons that open their scene.
+    for (const soon of all<HTMLElement>('span.punto-app')) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = soon.className;
+      button.setAttribute('style', soon.getAttribute('style') ?? '');
+      Object.assign(button.dataset, soon.dataset);
+      button.append(...soon.childNodes);
+      soon.replaceWith(button);
+    }
+    const triggers = all<HTMLElement>('.punto-app', appList);
+
+    // State. Positions are page coordinates, so the dot stays put when the page scrolls.
+    let scene = 'home';
+    let held = false;
+    let intro = !reduce;
+    let busy = false;
+    let opener: HTMLElement | null = null;
+    let pos: Point = { x: 0, y: 0 };
+    let vel: Point = { x: 0, y: 0 };
+    let goal: Point = { x: 0, y: 0 };
+    let pointer: Point = { x: scrollX + innerWidth / 2, y: scrollY + innerHeight / 2 };
+    let keyTilt: number | null = null;
+    let gravity: Point = { x: 0, y: 0 };
+    let tiltOn = false;
+    const heldSize = parseFloat(getComputedStyle(root).getPropertyValue('--dot-held')) || 32;
+
+    const page = (rect: DOMRect) => ({
+      left: rect.left + scrollX,
+      right: rect.right + scrollX,
+      top: rect.top + scrollY,
+      bottom: rect.bottom + scrollY,
+      width: rect.width,
+      height: rect.height,
+    });
+    const slot = () => page(one<HTMLElement>('[data-slot]', scenes.get(scene)!).getBoundingClientRect());
+    const rest = () => {
+      const r = slot();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2, size: r.width };
+    };
+    const under = (element: Element, margin = 10) => {
+      const r = page(element.getBoundingClientRect());
+      return pos.x > r.left - margin && pos.x < r.right + margin && pos.y > r.top - margin && pos.y < r.bottom + margin;
+    };
+    const hovered = () => (scene === 'home' ? triggers.find((trigger) => under(trigger)) : undefined);
+    const accent = (trigger?: HTMLElement) => (trigger ? trigger.style.getPropertyValue('--c') : 'var(--sbu-ink)');
+    const settle = () => {
+      const r = rest();
+      pos = { x: r.x, y: r.y };
+      goal = { ...pos };
+      vel = { x: 0, y: 0 };
+    };
+
+    // Dragging
+    dot.addEventListener('pointerdown', (event) => {
+      if (busy) return;
+      held = true;
+      dot.classList.add('is-held');
+      dot.classList.remove('is-calling');
+      dot.setPointerCapture(event.pointerId);
+      hint.classList.add('is-gone');
+      pointer = { x: event.pageX, y: event.pageY };
+      event.preventDefault();
+    });
+    addEventListener('pointermove', (event) => {
+      pointer = { x: event.pageX, y: event.pageY };
+      keyTilt = null;
+    }, { passive: true });
+    const release = () => {
+      if (!held) return;
+      held = false;
+      dot.classList.remove('is-held');
+      drop();
+    };
+    addEventListener('pointerup', release);
+    addEventListener('pointercancel', release);
+
+    function drop() {
+      if (scene === 'home') {
+        const trigger = hovered();
+        if (trigger) open(trigger);
+      } else if (scene === 'habits') {
+        const ring = rings.find((candidate) => under(candidate, 0));
+        if (ring) mark(ring);
+      }
+    }
+
+    // Tilt: on a phone the page is the instrument. iOS asks first, from a button.
+    const onTilt = (event: DeviceOrientationEvent) => {
+      if (event.gamma == null || event.beta == null) return;
+      tiltOn = true;
+      gravity = { x: clamp(event.gamma / 30), y: clamp((event.beta - 40) / 30) };
+    };
+    type PermissionRequest = { requestPermission?: () => Promise<PermissionState> };
+    const orientation = (globalThis as { DeviceOrientationEvent?: PermissionRequest }).DeviceOrientationEvent;
+    // Only where it means something: a touch screen whose browser asks first (iOS Safari).
+    if (orientation?.requestPermission && matchMedia('(pointer: coarse)').matches) {
+      const item = one<HTMLElement>('[data-tilt-item]', document);
+      item.hidden = false;
+      one<HTMLButtonElement>('[data-tilt]', document).addEventListener('click', () => {
+        orientation.requestPermission!()
+          .then((state) => {
+            if (state !== 'granted') return;
+            addEventListener('deviceorientation', onTilt);
+            item.hidden = true;
+          })
+          .catch(() => {});
+      });
+    } else if (orientation && !orientation.requestPermission) {
+      addEventListener('deviceorientation', onTilt);
+    }
+
+    // Opening an app: a square in its accent grows from the dot, then shrinks onto the new full stop.
+    const clipFrom = (center: Point, size: number) => {
+      const x = center.x - scrollX;
+      const y = center.y - scrollY;
+      return `inset(${y - size / 2}px ${innerWidth - x - size / 2}px ${innerHeight - y - size / 2}px ${x - size / 2}px)`;
+    };
+    const full = 'inset(0px 0px 0px 0px)';
+    const easing = 'cubic-bezier(.7, 0, .2, 1)';
+
+    function transition(color: string, swap: () => void) {
+      if (reduce || busy) {
+        swap();
+        settle();
+        return;
+      }
+      busy = true;
+      wipe.style.setProperty('--wipe', color);
+      wipe.hidden = false;
+      const from = clipFrom(pos, heldSize);
+      dot.style.opacity = '0';
+      wipe.animate([{ clipPath: from }, { clipPath: full }], { duration: 520, easing, fill: 'forwards' }).finished.then(() => {
+        swap();
+        requestAnimationFrame(() => {
+          settle();
+          const r = rest();
+          wipe.animate([{ clipPath: full }, { clipPath: clipFrom(r, Math.max(10, r.size)) }], { duration: 560, easing, fill: 'forwards' }).finished.then(() => {
+            wipe.hidden = true;
+            dot.style.opacity = '';
+            busy = false;
+          });
+        });
+      });
+    }
+
+    function show(name: string) {
+      // Only one scene exists at a time, for the eye, the keyboard and screen readers.
+      scenes.forEach((element, key) => (element.hidden = key !== name));
+      scene = name;
+    }
+
+    function open(trigger: HTMLElement) {
+      if (busy || scene !== 'home') return;
+      opener = trigger;
+      transition(accent(trigger), () => {
+        const target = trigger.dataset.sceneId!;
+        if (target === 'plate') fillPlate(trigger);
+        triggers.forEach((other) => other.classList.remove('is-hot'));
+        scrollTo(0, 0);
+        show(target);
+        dot.style.setProperty('--acc', accent(trigger));
+        const heading = scenes.get(target)!.querySelector<HTMLElement>('[tabindex="-1"]');
+        heading?.focus({ preventScroll: true });
+      });
+    }
+
+    function back() {
+      if (busy || scene === 'home') return;
+      transition('var(--sbu-ink)', () => {
+        show('home');
+        dot.style.setProperty('--acc', 'var(--sbu-ink)');
+        opener?.focus({ preventScroll: true });
+      });
+    }
+
+    function fillPlate(trigger: HTMLElement) {
+      const plate = scenes.get('plate')!;
+      plate.style.setProperty('--c', accent(trigger));
+      one<HTMLImageElement>('[data-plate-img]', plate).src = trigger.dataset.plate ?? '';
+      one<HTMLElement>('[data-plate-name]', plate).textContent = trigger.dataset.name ?? '';
+      one<HTMLElement>('[data-plate-line]', plate).textContent = trigger.dataset.line ?? '';
+      one<HTMLElement>('[data-plate-soon]', plate).hidden = trigger.dataset.soon === undefined;
+      const cta = one<HTMLAnchorElement>('[data-plate-cta]', plate);
+      cta.hidden = !trigger.dataset.ctaHref;
+      if (trigger.dataset.ctaHref) {
+        cta.href = trigger.dataset.ctaHref;
+        cta.textContent = trigger.dataset.ctaLabel ?? '';
+      }
+    }
+
+    // A plain click opens the scene; cmd-click, ctrl-click and middle-click still go to the app page.
+    for (const trigger of triggers) {
+      trigger.addEventListener('click', (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        open(trigger);
+      });
+    }
+    all<HTMLElement>('[data-back]').forEach((button) => button.addEventListener('click', back));
+    addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') back();
+      if (scene === 'level' && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+        keyTilt = clamp((keyTilt ?? 0) + (event.key === 'ArrowLeft' ? -0.1 : 0.1));
+        event.preventDefault();
+      }
+    });
+
+    // Habits: three rings; all three done and the streak goes from 9 to 10.
+    const streak = root.querySelector<HTMLElement>('[data-streak]');
+    const habitsStatus = root.querySelector<HTMLElement>('[data-habits-status]');
+    function mark(ring: HTMLButtonElement) {
+      const done = ring.getAttribute('aria-pressed') !== 'true';
+      ring.setAttribute('aria-pressed', String(done));
+      one<SVGCircleElement>('.punto-ring-fill', ring).style.strokeDashoffset = done ? '0' : '';
+      const allDone = rings.every((candidate) => candidate.getAttribute('aria-pressed') === 'true');
+      if (streak) streak.textContent = allDone ? '10' : '9';
+      setText(habitsStatus, allDone ? strings.habitsFull : strings.habitsIdle);
+    }
+    rings.forEach((ring) => ring.addEventListener('click', () => mark(ring)));
+
+    // Intro: the dot writes the title word by word, then lands on the baseline.
+    const finishIntro = () => {
+      if (!intro) return;
+      intro = false;
+      words.forEach((word) => {
+        word.style.transition = '';
+        word.style.clipPath = '';
+      });
+      root.classList.remove('is-intro');
+      dot.classList.add('is-calling');
+    };
+    if (intro) {
+      root.classList.add('is-intro');
+      const first = page(words[0].getBoundingClientRect());
+      pos = { x: first.left - 40, y: first.top + first.height * 0.78 };
+      goal = { ...pos };
+      let index = 0;
+      const next = () => {
+        if (!intro) return;
+        if (index >= words.length) return finishIntro();
+        const word = words[index++];
+        const r = page(word.getBoundingClientRect());
+        word.style.transition = 'clip-path .3s cubic-bezier(.4, 0, .2, 1)';
+        word.style.clipPath = 'inset(-20% -5% -20% -5%)';
+        goal = { x: r.right + 10, y: r.top + r.height * 0.78 };
+        setTimeout(next, 300);
+      };
+      setTimeout(next, 350);
+      addEventListener('pointerdown', finishIntro, { once: true });
+      addEventListener('keydown', finishIntro, { once: true });
+      setTimeout(finishIntro, 4000);
+    } else {
+      settle();
+    }
+
+    // Every frame: where the dot wants to be, a spring to get there, and what it does to the page.
+    let last = performance.now();
+    let levelText = '';
+    function frame(now: number) {
+      const steps = Math.min(4, Math.max(1, Math.round((now - last) / (1000 / 60))));
+      last = now;
+      const r = rest();
+      if (intro) {
+        // goal is set by the intro
+      } else if (held) {
+        goal = { ...pointer };
+      } else if (scene === 'level' && vial) {
+        const v = page(vial.getBoundingClientRect());
+        const pull = keyTilt ?? (tiltOn ? gravity.x : clamp((pointer.x - scrollX - innerWidth / 2) / (innerWidth / 2)));
+        goal = { x: v.left + v.width / 2 - pull * (v.width / 2 - 20), y: v.top + 1 };
+      } else {
+        goal = { x: r.x + (tiltOn ? gravity.x * 6 : 0), y: r.y };
+      }
+
+      if (reduce) {
+        pos = { ...goal };
+        vel = { x: 0, y: 0 };
+      } else {
+        const k = held ? 0.32 : 0.09;
+        const damping = held ? 0.58 : 0.8;
+        for (let i = 0; i < steps; i++) {
+          vel = { x: (vel.x + (goal.x - pos.x) * k) * damping, y: (vel.y + (goal.y - pos.y) * k) * damping };
+          pos = { x: pos.x + vel.x, y: pos.y + vel.y };
+        }
+      }
+
+      const size = scene === 'level' || held ? heldSize : Math.max(10, r.size);
+      const stretch = reduce ? 0 : Math.min(0.35, Math.hypot(vel.x, vel.y) / 60);
+      const angle = Math.atan2(vel.y, vel.x);
+      dot.style.width = dot.style.height = `${size}px`;
+      dot.style.transform = `translate(${pos.x - size / 2}px, ${pos.y - size / 2}px) rotate(${angle}rad) scale(${1 + stretch}, ${1 - stretch * 0.6})`;
+
+      if (scene === 'home' && !intro) {
+        // The title leans away from the dot, like liquid in a vial.
+        if (!reduce) {
+          for (const word of words) {
+            const w = page(word.getBoundingClientRect());
+            const dx = w.left + w.width / 2 - pos.x;
+            const dy = w.top + w.height / 2 - pos.y;
+            const distance = Math.hypot(dx, dy) || 1;
+            const push = Math.max(0, 1 - distance / 420) * 26;
+            const gx = tiltOn ? gravity.x * 18 : 0;
+            const gy = tiltOn ? gravity.y * 10 : 0;
+            const turn = (tiltOn ? gravity.x * 3 : 0) + (dx / distance) * push * 0.08;
+            word.style.transform = `translate(${(dx / distance) * push + gx}px, ${(dy / distance) * push + gy}px) rotate(${turn}deg)`;
+          }
+        }
+        const hot = held ? hovered() : undefined;
+        triggers.forEach((trigger) => trigger.classList.toggle('is-hot', trigger === hot));
+        dot.style.setProperty('--acc', accent(hot));
+      }
+
+      if (scene === 'level' && vial) {
+        const v = page(vial.getBoundingClientRect());
+        const offset = (pos.x - (v.left + v.width / 2)) / (v.width / 2 - 20);
+        const degrees = Math.abs(offset) < 0.02 ? 0 : offset * 12;
+        const flat = Math.abs(degrees) < 0.3;
+        one<HTMLElement>('[data-degrees]').textContent = `${number.format(Math.abs(degrees))}°`;
+        vial.classList.toggle('is-flat', flat);
+        const text = flat ? strings.flat : degrees > 0 ? strings.right : strings.left;
+        if (text !== levelText) {
+          levelText = text;
+          setText(root.querySelector('[data-level-status]'), text);
+        }
+      }
+      if (scene === 'habits') rings.forEach((ring) => ring.classList.toggle('is-hot', held && under(ring, 0)));
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function clamp(value: number) {
+    return Math.max(-1, Math.min(1, value));
+  }
+
+  function setText(element: Element | null, text: string) {
+    if (element && element.textContent !== text) element.textContent = text;
+  }
+</script>

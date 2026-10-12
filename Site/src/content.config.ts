@@ -36,6 +36,8 @@ const apps = defineCollection({
     figure: localized(z.object({ value: z.string(), label: z.string() })).optional(),
     permissions: localized(z.array(z.string())).default({ it: [], en: [] }),
     faq: localized(faq).default({ it: [], en: [] }),
+    /** One line for an app with no listing yet: the home's "In arrivo" scene. Ignored once the listing exists. */
+    teaser: localized(z.string()).optional(),
   }),
 });
 

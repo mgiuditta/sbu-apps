@@ -26,7 +26,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
 TOKENS = ROOT / "Design" / "tokens.json"
@@ -54,12 +54,48 @@ def colors() -> dict:
     return {t["name"]: t["value"] for t in json.loads(TOKENS.read_text())["color"]["tokens"]}
 
 
+def subject_box(ink: Image.Image, cell: int = 8) -> tuple[int, int, int, int] | None:
+    """Bounding box of the subject, ignoring specks of dust that would push it off centre.
+
+    On a grid of `cell` pixels, grown by one cell so the strokes of the engraving join up, the
+    subject is the largest connected blob; a speck away from it is a blob of its own. The box is
+    then measured on the full-size ink inside that blob's area.
+    """
+    w, h = ink.size
+    gw, gh = max(1, w // cell), max(1, h // cell)
+    grid = ink.resize((gw, gh), Image.BOX).point(lambda v: 255 if v else 0).filter(ImageFilter.MaxFilter(3))
+    on = grid.load()
+    seen: set[tuple[int, int]] = set()
+    best: list[tuple[int, int]] = []
+    for start in ((x, y) for y in range(gh) for x in range(gw)):
+        if on[start] == 0 or start in seen:
+            continue
+        blob, stack = [], [start]
+        seen.add(start)
+        while stack:
+            x, y = stack.pop()
+            blob.append((x, y))
+            for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                if 0 <= nx < gw and 0 <= ny < gh and on[nx, ny] and (nx, ny) not in seen:
+                    seen.add((nx, ny))
+                    stack.append((nx, ny))
+        if len(blob) > len(best):
+            best = blob
+    if not best:
+        return None
+    xs, ys = [x for x, _ in best], [y for _, y in best]
+    area = (min(xs) * w // gw, min(ys) * h // gh, (max(xs) + 1) * w // gw, (max(ys) + 1) * h // gh)
+    inner = ink.crop(area).getbbox()
+    return (area[0] + inner[0], area[1] + inner[1], area[0] + inner[2], area[1] + inner[3]) if inner else None
+
+
 def ink_mask(image: Image.Image) -> Image.Image:
     """Greyscale engraving -> mask where white is ink, cropped to the subject and centred."""
     grey = ImageOps.autocontrast(ImageOps.grayscale(image), cutoff=0.5)
     paper = 200  # anything lighter is paper
     grey = grey.point(lambda v: 255 if v >= paper else int(v * 255 / paper))
-    box = grey.point(lambda v: 255 if v < 180 else 0).getbbox()
+    ink = grey.point(lambda v: 255 if v < 180 else 0)
+    box = subject_box(ink)
     if box is None:
         sys.exit("no ink found in the image")
     grey = grey.crop(box)

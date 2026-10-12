@@ -13,12 +13,20 @@ struct TokenTests {
             let value: [String: String]
         }
         struct MetricGroup: Decodable { let tokens: [MetricToken] }
+        struct TypeGroup: Decodable { let groups: [StyleGroup] }
+        struct StyleGroup: Decodable { let styles: [Style] }
+        struct Style: Decodable {
+            let name: String
+            let fontSize: String
+            let letterSpacing: String?
+        }
         struct MetricToken: Decodable {
             let name: String
             let value: String
         }
 
         let color: ColorGroup
+        let type: TypeGroup
         let spacing: MetricGroup
         let radius: MetricGroup
         let stroke: MetricGroup
@@ -55,6 +63,18 @@ struct TokenTests {
         }
     }
 
+    @Test(arguments: ["stat-hero", "stat", "stat-small"])
+    func numberStylesMatchTokenValues(name: String) throws {
+        let (size, tracking): (CGFloat, CGFloat) = switch name {
+        case "stat-hero": (SbuTheme.statHeroSize, SbuTheme.statHeroTracking)
+        case "stat": (SbuTheme.statSize, SbuTheme.statTracking)
+        default: (SbuTheme.statSmallSize, 0)
+        }
+        let style = try #require(tokens.type.groups.flatMap(\.styles).first { $0.name == name })
+        #expect(Double(style.fontSize.replacing("px", with: "")) == Double(size))
+        #expect(Double(style.letterSpacing?.replacing("px", with: "") ?? "0") == Double(tracking))
+    }
+
     @Test func onAccentLevelIsLightInk() throws {
         let ink = try #require(tokens.color.tokens.first { $0.name == "ink" }?.value["light"])
         #expect(hex(UIColor(SbuTheme.onAccentLevel)) == ink)
@@ -63,7 +83,9 @@ struct TokenTests {
     private func hex(_ color: UIColor) -> String {
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        let bytes = [red, green, blue].map { Int(($0 * 255).rounded()) }
+        // Opaque colors stay #rrggbb, translucent ones add the alpha byte as in tokens.json.
+        let channels = alpha < 1 ? [red, green, blue, alpha] : [red, green, blue]
+        let bytes = channels.map { Int(($0 * 255).rounded()) }
         return "#" + bytes.map { String($0, radix: 16).leftPadded(to: 2) }.joined()
     }
 }

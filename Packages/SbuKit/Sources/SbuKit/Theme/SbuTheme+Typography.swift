@@ -27,18 +27,25 @@ public extension SbuTheme {
     static let statSize: CGFloat = 40
     /// Point size of `statSmall` before Dynamic Type scaling.
     static let statSmallSize: CGFloat = 22
+    /// Point size of `statHero` before Dynamic Type scaling.
+    static let statHeroSize: CGFloat = 64
     /// Letter spacing of `stat`.
     static let statTracking: CGFloat = -1
+    /// Letter spacing of `statHero`.
+    static let statHeroTracking: CGFloat = -2
 
     /// `stat`: the one figure the app exists to show. Monospaced digits, one per screen.
     static let stat = numberFont(size: statSize)
+    /// `stat-hero`: the figure on the tool screen, in `onField` over the app's field.
+    /// One per app, never on a management screen.
+    static let statHero = numberFont(size: statHeroSize)
     /// `stat-small`: amounts and counters in list rows, right aligned.
     static let statSmall = numberFont(size: statSmallSize)
 
-    /// Creates the monospaced number font used by `stat` and `statSmall` at a given size.
+    /// Creates the monospaced number font used by `statHero`, `stat` and `statSmall` at a given size.
     ///
     /// Components pass a `@ScaledMetric` size so figures follow Dynamic Type.
-    /// - Parameter size: The point size, usually scaled from `statSize` or `statSmallSize`.
+    /// - Parameter size: The point size, usually scaled from `statHeroSize`, `statSize` or `statSmallSize`.
     /// - Returns: A medium-weight monospaced font with monospaced digits.
     static func numberFont(size: CGFloat) -> Font {
         .system(size: size, weight: .medium, design: .monospaced).monospacedDigit()

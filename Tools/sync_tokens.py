@@ -41,7 +41,7 @@ def colorset(hex_light: str, hex_dark: str) -> dict:
                     "red": f"0x{h[0:2].upper()}",
                     "green": f"0x{h[2:4].upper()}",
                     "blue": f"0x{h[4:6].upper()}",
-                    "alpha": "1.000",
+                    "alpha": f"{int(h[6:8], 16) / 255:.3f}" if len(h) == 8 else "1.000",
                 },
             },
         }

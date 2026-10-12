@@ -41,6 +41,32 @@ public extension SbuTheme {
     static let accentDark = Color("accent-dark", bundle: .module)
     /// Glifo bianco dentro le icone app e testo sui bottoni pieni colorati con un `accent-*`. Eccezione: `accent-level` usa `ink` light.
     static let onAccent = Color("on-accent", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Subscriptions: `accent-subscriptions` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-subscriptions`.
+    static let fieldSubscriptions = Color("field-subscriptions", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Scanner: `accent-scanner` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-scanner`.
+    static let fieldScanner = Color("field-scanner", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Level: `accent-level` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-level`.
+    static let fieldLevel = Color("field-level", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Noise: `accent-noise` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-noise`.
+    static let fieldNoise = Color("field-noise", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Docs: `accent-docs` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-docs`.
+    static let fieldDocs = Color("field-docs", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Habits: `accent-habits` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-habits`.
+    static let fieldHabits = Color("field-habits", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Cards: `accent-cards` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-cards`.
+    static let fieldCards = Color("field-cards", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Block: `accent-block` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-block`.
+    static let fieldBlock = Color("field-block", bundle: .module)
+    /// Sfondo a campo pieno della schermata strumento di Sbu Dark: `accent-dark` portato quasi al nero, identico nei due temi. Sopra: `on-field`, `on-field-muted`, `field-control`; tint = valore dark di `accent-dark`.
+    static let fieldDark = Color("field-dark", bundle: .module)
+    /// Testo primario e cifra `stat-hero` sopra ogni `field-*` (≥ 13.7:1 ovunque).
+    static let onField = Color("on-field", bundle: .module)
+    /// Unità, etichette `caption` e testo secondario sopra ogni `field-*` (≥ 7.0:1). Mai per la cifra.
+    static let onFieldMuted = Color("on-field-muted", bundle: .module)
+    /// Pill e card sopra il campo: bianco al 14%, `radius-pill` o `radius-lg`. Testo dentro in `on-field`. È l'unica superficie semitrasparente del sistema, oltre al vetro di Apple.
+    static let fieldControl = Color("field-control", bundle: .module)
+    /// Pill selezionata sopra il campo: bianco al 24%. Lo stato attivo si legge anche dal testo in grassetto, non solo dal colore.
+    static let fieldControlActive = Color("field-control-active", bundle: .module)
     /// Stato positivo: pagamento già avvenuto, abitudine completata, scansione riuscita. Sempre con testo o icona, mai solo colore.
     static let success = Color("success", bundle: .module)
     /// Rinnovo imminente, prova gratuita in scadenza, batteria/sensore non calibrato.
@@ -96,7 +122,7 @@ public extension SbuTheme {
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "on-accent", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "on-accent", "field-subscriptions", "field-scanner", "field-level", "field-noise", "field-docs", "field-habits", "field-cards", "field-block", "field-dark", "on-field", "on-field-muted", "field-control", "field-control-active", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [

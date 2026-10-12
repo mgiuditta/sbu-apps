@@ -24,7 +24,13 @@ struct StartOfDaySection: View {
             Text("Quello che fai prima di quest'ora conta per il giorno prima.")
         }
         .onChange(of: hour) { _, hour in
-            model.setStartHour(hour)
+            if hour != model.startHour {
+                model.setStartHour(hour)
+            }
+        }
+        // Importa can bring another start of the day.
+        .onChange(of: model.startHour) { _, startHour in
+            hour = startHour
         }
     }
 

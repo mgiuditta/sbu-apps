@@ -256,7 +256,7 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
-    func testSettingsOfferExportAndPassTheAccessibilityAudit() throws {
+    func testSettingsOfferExportAndImportAndPassTheAccessibilityAudit() throws {
         let app = launch()
         add("Leggere", in: app)
 
@@ -264,6 +264,7 @@ final class HabitsFlowTests: XCTestCase {
         let export = app.buttons["Esporta"]
         XCTAssertTrue(export.waitForExistence(timeout: 5))
         XCTAssertTrue(export.isEnabled)
+        XCTAssertTrue(app.buttons["Importa"].isEnabled)
 
         // Contrast is left out as on the tool screen. Dynamic Type too: in the settings sheet the
         // audit flags every text as partially unsupported, system ones included (the Fine button,

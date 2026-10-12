@@ -1261,12 +1261,161 @@
         }
       }
     },
-    "Esporta crea un file con le abitudini e lo storico. Lo salvi dove vuoi tu." : {
+    "Esporta crea un file con le abitudini e lo storico. Lo salvi dove vuoi tu. Importa sostituisce i dati attuali con quelli di un file." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Export creates a file with your habits and their history. You keep it wherever you want."
+            "value" : "Export creates a file with your habits and their history. You keep it wherever you want. Import replaces the current data with a file's."
+          }
+        }
+      }
+    },
+    "Importa" : {
+      "comment" : "Settings action and sheet title: replace the data with a file made by Esporta.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import"
+          }
+        }
+      }
+    },
+    "Nel file" : {
+      "comment" : "Section header: what a file chosen with Importa contains.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the file"
+          }
+        }
+      }
+    },
+    "Primo giorno" : {
+      "comment" : "The day the oldest habit in an imported file started.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First day"
+          }
+        }
+      }
+    },
+    "Sostituisci i dati attuali" : {
+      "comment" : "Destructive action: the imported file replaces every habit and its history.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace current data"
+          }
+        }
+      }
+    },
+    "Le abitudini e lo storico su questo iPhone lasciano il posto a quelli del file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The habits and history on this iPhone give way to the file's."
+          }
+        }
+      }
+    },
+    "Il file è vuoto" : {
+      "comment" : "Import error title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file is empty"
+          }
+        }
+      }
+    },
+    "Il file non è di Sbu Habits" : {
+      "comment" : "Import error title: not JSON or not a habits file.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file is not from Sbu Habits"
+          }
+        }
+      }
+    },
+    "Il file viene da una versione più recente" : {
+      "comment" : "Import error title: written by a newer Sbu Habits.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file comes from a newer version"
+          }
+        }
+      }
+    },
+    "Il file non si apre" : {
+      "comment" : "Import error title: the file could not be read.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file does not open"
+          }
+        }
+      }
+    },
+    "Dati non sostituiti" : {
+      "comment" : "Import error title: writing the imported data failed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data not replaced"
+          }
+        }
+      }
+    },
+    "Scegli un file creato con Esporta in Sbu Habits. I dati attuali restano come sono." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a file made with Export in Sbu Habits. Your current data stays as it is."
+          }
+        }
+      }
+    },
+    "Aggiorna Sbu Habits dall'App Store e importa di nuovo il file. I dati attuali restano come sono." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Sbu Habits from the App Store and import the file again. Your current data stays as it is."
+          }
+        }
+      }
+    },
+    "Controlla che il file sia scaricato su questo iPhone e riprova. I dati attuali restano come sono." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check that the file is downloaded to this iPhone and try again. Your current data stays as it is."
+          }
+        }
+      }
+    },
+    "Il salvataggio non è riuscito. Riprova: i dati attuali restano come sono." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saving did not work. Try again: your current data stays as it is."
           }
         }
       }

@@ -73,6 +73,20 @@ final class HabitsModel {
         planReminders()
     }
 
+    /// Replaces every habit, its history and the start of the day with an imported file, then
+    /// plans the reminders and refreshes the widgets.
+    /// - Throws: When the file cannot be written; nothing changes then, on disk or here.
+    func replace(with file: HabitsFile) throws {
+        let file = HabitsFile(habits: file.habits, startHour: Habit.clamp(file.startHour, to: HabitsFile.startHourRange))
+        try store.save(file)
+        habits = file.habits
+        startHour = file.startHour
+        isUnreadable = false
+        today = LogicalDay(now(), startHour: startHour, calendar: calendar)
+        WidgetCenter.shared.reloadAllTimelines()
+        planReminders()
+    }
+
     /// Moves the start of the day, for people who live past midnight.
     func setStartHour(_ hour: Int) {
         startHour = Habit.clamp(hour, to: HabitsFile.startHourRange)

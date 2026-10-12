@@ -66,7 +66,10 @@ schemes:
       targets:
         SbuMoon: all
     test:
-      targets: [SbuMoonTests]
+      targets:
+        - SbuMoonTests
+        - name: SbuMoonUITests
+          skippedTests: [SnapshotTests]
   SbuMoonSnapshots:
     build:
       targets:

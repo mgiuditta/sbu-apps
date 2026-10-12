@@ -1,14 +1,99 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "Calcolo" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calculation" } }
+      }
+    },
+    "Data" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Date" } }
+      }
+    },
+    "Fasi calcolate su questo iPhone con gli algoritmi di Jean Meeus, senza rete e senza posizione. Gli orari hanno un errore di qualche minuto." : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Phases worked out on this iPhone with Jean Meeus's algorithms, with no network and no location. Times are accurate to within a few minutes." } }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } }
+      }
+    },
+    "Fuso orario" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time zone" } }
+      }
+    },
+    "Gibbosa calante" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waning gibbous" } }
+      }
+    },
+    "Gibbosa crescente" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waxing gibbous" } }
+      }
+    },
+    "Illuminazione" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Illumination" } }
+      }
+    },
+    "Luna calante" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waning crescent" } }
+      }
+    },
+    "Luna crescente" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waxing crescent" } }
+      }
+    },
+    "Luna nuova" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New moon" } }
+      }
+    },
+    "Luna piena" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Full moon" } }
+      }
+    },
+    "Oggi" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } }
+      }
+    },
+    "Primo quarto" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "First quarter" } }
+      }
+    },
+    "Prossima luna nuova" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next new moon" } }
+      }
+    },
+    "Prossima luna piena" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next full moon" } }
+      }
+    },
     "Sbu Moon" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Moon" } }
       }
     },
-    "Valore" : {
+    "Scegli un altro giorno" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pick another day" } }
+      }
+    },
+    "Ultimo quarto" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last quarter" } }
       }
     }
   },

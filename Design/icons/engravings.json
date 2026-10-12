@@ -7,5 +7,7 @@
   "habits": {"accent": "accent-habits", "subject": "an antique hourglass with sand flowing"},
   "cards": {"accent": "accent-cards", "subject": "a small wooden card index box with paper index cards standing inside"},
   "block": {"accent": "accent-block", "subject": "an old iron padlock, closed"},
-  "dark": {"accent": "accent-dark", "subject": "an old brass oil lamp with the flame turned low"}
+  "dark": {"accent": "accent-dark", "subject": "an old brass oil lamp with the flame turned low"},
+  "speed": {"accent": "accent-speed", "subject": "a vintage chrome car speedometer gauge with a needle, front view"},
+  "moon": {"accent": "accent-moon", "subject": "an antique brass telescope on a small tripod, three-quarter view"}
 }

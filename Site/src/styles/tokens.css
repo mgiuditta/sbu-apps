@@ -19,6 +19,8 @@
   --sbu-accent-cards: #ab3a5d;
   --sbu-accent-block: #af3d34;
   --sbu-accent-dark: #5f5f57;
+  --sbu-accent-speed: #677000;
+  --sbu-accent-moon: #7955a0;
   --sbu-on-accent: #ffffff;
   --sbu-success: #1b7a35;
   --sbu-warning: #8f5800;
@@ -49,6 +51,8 @@
     --sbu-accent-cards: #f58ca6;
     --sbu-accent-block: #f98f82;
     --sbu-accent-dark: #b8b8ab;
+    --sbu-accent-speed: #afba5c;
+    --sbu-accent-moon: #c39dee;
     --sbu-on-accent: #0a0a00;
     --sbu-success: #6cc77a;
     --sbu-warning: #f0b04a;
@@ -78,6 +82,8 @@
   --color-accent-cards: var(--sbu-accent-cards);
   --color-accent-block: var(--sbu-accent-block);
   --color-accent-dark: var(--sbu-accent-dark);
+  --color-accent-speed: var(--sbu-accent-speed);
+  --color-accent-moon: var(--sbu-accent-moon);
   --color-on-accent: var(--sbu-on-accent);
   --color-success: var(--sbu-success);
   --color-warning: var(--sbu-warning);

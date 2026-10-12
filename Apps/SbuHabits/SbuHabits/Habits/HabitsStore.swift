@@ -11,6 +11,10 @@ nonisolated struct HabitsStore: Sendable {
 
     /// The file in the App Group container, or in Application Support if the group is missing.
     static var shared: HabitsStore {
+        // UI tests run each case on its own throwaway file, named in the launch environment.
+        if let name = ProcessInfo.processInfo.environment["SBU_HABITS_FILE"] {
+            return HabitsStore(url: .temporaryDirectory.appending(path: name))
+        }
         let folder = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) ?? .applicationSupportDirectory
         return HabitsStore(url: folder.appending(path: "habits.json"))
     }

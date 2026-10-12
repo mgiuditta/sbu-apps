@@ -39,7 +39,9 @@ struct HabitCell: View {
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
             HabitRing(symbol: isDone ? "checkmark" : habit.symbol, segments: habit.timesPerDay, filled: filled)
-                .frame(width: ringSize, height: ringSize)
+                // Up to its scaled size, never wider than the column.
+                .frame(maxWidth: ringSize, maxHeight: ringSize)
+                .aspectRatio(1, contentMode: .fit)
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
 
             Text(habit.title)
@@ -56,6 +58,7 @@ struct HabitCell: View {
                 .contentTransition(.numericText(value: Double(streak)))
                 .opacity(streak > 0 ? 1 : 0)
                 .animation(reduceMotion ? nil : .snappy, value: streak)
+                .accessibilityHidden(true)
         }
         .frame(maxWidth: .infinity)
         .contentShape(.rect)

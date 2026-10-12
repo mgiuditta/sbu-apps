@@ -1,25 +1,29 @@
 import SbuKit
 import SwiftUI
 
-/// Today's habits in two columns on the field.
+/// Today's habits in two columns on the field, one column at accessibility text sizes.
 struct HabitGrid: View {
-    private static let columns = [GridItem(.flexible(), spacing: SbuTheme.space3), GridItem(.flexible(), spacing: SbuTheme.space3)]
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let model: HabitsModel
 
+    private var columns: [GridItem] {
+        Array(repeating: GridItem(.flexible(), spacing: SbuTheme.space3), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
+    }
+
     var body: some View {
         // Centered in the free space while it fits, scrolling once it does not.
-        ViewThatFits(in: .vertical) {
-            grid
+        GeometryReader { proxy in
             ScrollView {
                 grid
+                    .frame(minHeight: proxy.size.height)
             }
+            .scrollBounceBehavior(.basedOnSize)
         }
-        .frame(maxHeight: .infinity)
     }
 
     private var grid: some View {
-        LazyVGrid(columns: Self.columns, spacing: SbuTheme.space6) {
+        LazyVGrid(columns: columns, spacing: SbuTheme.space6) {
             ForEach(model.habits) { habit in
                 HabitCell(
                     habit: habit,

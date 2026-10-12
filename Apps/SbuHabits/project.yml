@@ -68,7 +68,10 @@ schemes:
       targets:
         SbuHabits: all
     test:
-      targets: [SbuHabitsTests]
+      targets:
+        - SbuHabitsTests
+        - name: SbuHabitsUITests
+          skippedTests: [SnapshotTests]
   SbuHabitsSnapshots:
     build:
       targets:

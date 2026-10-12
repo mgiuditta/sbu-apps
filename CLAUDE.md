@@ -43,7 +43,7 @@ Source: https://claude.ai/artifact/A9vJiSmn34wgxe9ePFHLfA, snapshot in `Design/t
 
 - Swift 6 with `MainActor` default isolation (apps and SbuKit). Mark pure value types `nonisolated`.
 - One type per file; folders by feature (`Level/`, `Views/`).
-- Logic in `@Observable` models or pure types with Swift Testing tests (structs, `#expect`, parameterized). XCTest only for the snapshot UI test.
+- Logic in `@Observable` models or pure types with Swift Testing tests (structs, `#expect`, parameterized). XCTest only for UI tests: the snapshot test and flow tests that drive the screen and run `performAccessibilityAudit`.
 - `#Preview` light and dark for every view.
 - After changing Swift: `xcodebuild test` on an iPhone simulator for SbuKit and the touched app, as CI does.
 - Commit after each completed step.

@@ -3,20 +3,23 @@ import SwiftUI
 
 /// The app inside the standard Sbu shell.
 struct RootView: View {
+    let model: CleanModel
+
     var body: some View {
         SbuAppShell("Sbu Clean", slug: "clean", accent: SbuTheme.accentClean, appIcon: Image(.appIconArtwork)) {
-            MainView()
+            MainView(model: model)
         } settings: {
-            EmptyView()
+            LibrarySettingsSection(model: model)
         }
+        .environment(\.photoLibrary, model.library)
     }
 }
 
 #Preview("Light") {
-    RootView()
+    RootView(model: .preview)
 }
 
 #Preview("Dark") {
-    RootView()
+    RootView(model: .preview)
         .preferredColorScheme(.dark)
 }

@@ -5,6 +5,23 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Free up space in your Photos library without paying to delete. No daily limits, no waiting, no trial that turns into a subscription: swipe, review and delete as many photos as you like.
 
-Sbu does one thing: __ONE_THING_EN__
+- At the top, the space you can free, and below it your iPhone's storage
+- Swipe left for the bin, right to keep; undo the last choice with one tap
+- Month by month, Recent, Random, On this day and one album at a time: pick up where you left off, even after an update
+- Set uncertain photos aside to decide later, or always keep them: they won't come up again
+- Duplicates and similar photos found with Vision on your iPhone: the best one stays, the copies are already selected, and you decide
+- The best shot by face, sharpness, favourites and edited photos
+- Screenshots and screen recordings in a grid, to select all at once
+- Videos sorted from the heaviest, to watch before deciding
+- Compress a video in low, medium or high quality: the original stays until you decide
+- Turn Live Photos into still photos and save the video part
+- A bin with a final review: nothing is deleted without your confirmation and iOS's
+- It tells you plainly that iOS keeps deleted photos for 30 days in Recently Deleted
+- The space freed, in total and in the last cleanup
+- A widget with your iPhone's free space
+- The scan runs on your iPhone; a video kept only in iCloud downloads only when you ask
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it frees up space in your Photos library, one decision at a time.

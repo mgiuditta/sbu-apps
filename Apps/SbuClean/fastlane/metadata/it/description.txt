@@ -5,6 +5,23 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Libera spazio nella libreria Foto senza pagare per eliminare. Nessun limite al giorno, nessuna attesa, nessuna prova che diventa abbonamento: scorri, rivedi, elimina, quante foto vuoi.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- In alto lo spazio che puoi liberare, e sotto lo spazio dell'iPhone
+- Scorri a sinistra per il cestino, a destra per tenere; annulla l'ultima scelta in un tocco
+- Mese per mese, Recenti, Casuale, Accadde oggi e un album alla volta: riprendi da dove eri, anche dopo un aggiornamento
+- Metti da parte le foto incerte e decidi dopo, o tienile sempre: non ti verranno più proposte
+- Duplicati e foto simili trovati con Vision sull'iPhone: la migliore resta, le copie sono già selezionate, e scegli tu
+- La migliore secondo volto, nitidezza, preferite e foto modificate
+- Screenshot e registrazioni dello schermo in una griglia, da selezionare tutti insieme
+- Video ordinati dal più pesante, da guardare prima di decidere
+- Comprimi un video in qualità bassa, media o alta: l'originale resta finché non decidi
+- Trasforma le Live Photo in foto fisse e risparmia la parte video
+- Cestino con revisione finale: niente si elimina senza la tua conferma e quella di iOS
+- Ti dice chiaramente che iOS tiene le foto eliminate per 30 giorni in Eliminati di recente
+- Lo spazio liberato, in totale e nell'ultima pulizia
+- Widget con lo spazio libero dell'iPhone
+- L'analisi lavora sull'iPhone; un video solo in iCloud si scarica solo quando lo chiedi tu
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: libera spazio nella libreria Foto, una decisione alla volta.

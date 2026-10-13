@@ -1,0 +1,32 @@
+{
+  "sourceLanguage": "it",
+  "strings": {
+    "CFBundleDisplayName": {
+      "comment": "The app name under the icon.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Sbu Clean" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Sbu Clean" } }
+      }
+    },
+    "NSPhotoLibraryUsageDescription": {
+      "comment": "The Photos permission prompt. Everything stays on the device.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Clean looks at your photos and videos to find duplicates, screenshots and heavy files. Everything stays on this iPhone: nothing leaves the device."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Clean guarda le tue foto e i tuoi video per trovare duplicati, screenshot e file pesanti. Tutto resta su questo iPhone: niente lascia il dispositivo."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

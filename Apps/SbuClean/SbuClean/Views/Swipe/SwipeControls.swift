@@ -13,6 +13,8 @@ struct SwipeControls: View {
             SwipeControlButton(title: "Tieni sempre", systemImage: "lock", role: .secondary) { decide(.keepForever) }
             SwipeControlButton(title: "Tieni", systemImage: "checkmark", role: .keep) { decide(.keep) }
         }
+        // The card needs the room: past this size the words show in the large content viewer.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 }
 

@@ -33,6 +33,8 @@ struct SwipeScreen: View {
     var body: some View {
         VStack(spacing: SbuTheme.space3) {
             SpaceStat(label: "Nel cestino", bytes: model.trashBytes, context: context)
+                // The photo is the point of this screen: the figure stops growing before it.
+                .dynamicTypeSize(...DynamicTypeSize.accessibility1)
 
             ZStack {
                 if let deck, deck.isDone {

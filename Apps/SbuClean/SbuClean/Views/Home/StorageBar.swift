@@ -7,13 +7,16 @@ struct StorageBar: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space1) {
-            HStack(alignment: .firstTextBaseline) {
-                Text("iPhone")
-                    .foregroundStyle(SbuTheme.ink)
-                Spacer(minLength: SbuTheme.space2)
-                Text("\(storage.usedBytes.formatted(.byteCount(style: .file))) usati su \(storage.totalBytes.formatted(.byteCount(style: .file)))")
-                    .foregroundStyle(SbuTheme.inkMuted)
-                    .multilineTextAlignment(.trailing)
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline) {
+                    name
+                    Spacer(minLength: SbuTheme.space2)
+                    usage
+                }
+                VStack(alignment: .leading, spacing: 0) {
+                    name
+                    usage
+                }
             }
             .font(SbuTheme.footnote)
 
@@ -21,6 +24,17 @@ struct StorageBar: View {
                 .accessibilityHidden(true)
         }
         .accessibilityElement(children: .combine)
+    }
+
+    private var name: some View {
+        Text("iPhone")
+            .foregroundStyle(SbuTheme.ink)
+    }
+
+    private var usage: some View {
+        Text("\(storage.usedBytes.formatted(.byteCount(style: .file))) usati su \(storage.totalBytes.formatted(.byteCount(style: .file)))")
+            .foregroundStyle(SbuTheme.inkMuted)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }
 

@@ -44,6 +44,15 @@ final class CleanFlowTests: XCTestCase {
         XCTAssertTrue(issues.isEmpty, issues.joined(separator: "\n"))
     }
 
+    /// Taps the visible element with this label: the screen underneath keeps its own copy.
+    @MainActor
+    private func tapVisible(_ label: String, in app: XCUIApplication) {
+        let matches = app.staticTexts.matching(NSPredicate(format: "label == %@", label))
+        XCTAssertTrue(matches.firstMatch.waitForExistence(timeout: 5))
+        let visible = matches.allElementsBoundByIndex.last { $0.isHittable }
+        (visible ?? matches.firstMatch).tap()
+    }
+
     @MainActor
     private func openHomeRow(_ title: String, in app: XCUIApplication) {
         let row = element(startingWith: title, in: app)
@@ -97,10 +106,11 @@ final class CleanFlowTests: XCTestCase {
         attachScreenshot("04-months", of: app)
         try audit(app)
 
-        element(startingWith: "Recenti", in: app).tap()
+        app.cells.containing(.staticText, identifier: "Recenti").allElementsBoundByIndex.last { $0.isHittable }?.tap()
         let card = element(startingWith: "Foto,", in: app)
-        XCTAssertTrue(card.waitForExistence(timeout: 5))
+        let found = card.waitForExistence(timeout: 5)
         attachScreenshot("05-swipe", of: app)
+        XCTAssertTrue(found)
         try audit(app)
 
         let firstCard = card.label

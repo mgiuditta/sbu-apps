@@ -36,18 +36,21 @@ struct HomeScreen: View {
         } pills: {
             NavigationLink(value: Route.months) {
                 Text("Scorri le foto")
-                    .fixedSize()
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .buttonStyle(SbuFieldPillStyle())
             NavigationLink(value: Route.bin) {
                 Text("Cestino: \(model.state.trash.count)")
-                    .fixedSize()
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .buttonStyle(SbuFieldPillStyle())
         }
         .navigationDestination(for: Route.self) { route in
             RouteView(route: route, model: model)
         }
+        // The tool screen does not scroll: past this size the figure would leave no room for
+        // the list. Every screen it opens follows the largest sizes.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
     }
 }
 

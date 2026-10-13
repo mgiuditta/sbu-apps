@@ -11,6 +11,8 @@ struct BestBadge: View {
             .padding(.vertical, SbuTheme.space1)
             .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusSm))
             .padding(SbuTheme.space1)
+            // A tag on a thumbnail: it stays a tag. The tile's VoiceOver label says it.
+            .dynamicTypeSize(...DynamicTypeSize.xxLarge)
             .accessibilityHidden(true)
     }
 }

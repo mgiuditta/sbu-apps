@@ -58,15 +58,15 @@ struct MonthsScreen: View {
 
     private func queueRow(_ source: SwipeSource, count: Int?) -> some View {
         NavigationLink(value: Route.swipe(source)) {
-            LabeledContent {
-                if let count {
-                    Text("\(count) da vedere")
-                        .foregroundStyle(SbuTheme.inkMuted)
-                }
-            } label: {
+            VStack(alignment: .leading, spacing: 0) {
                 source.title
                     .font(SbuTheme.headline)
                     .foregroundStyle(SbuTheme.ink)
+                if let count {
+                    Text("\(count) da vedere")
+                        .font(SbuTheme.subheadline)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                }
             }
         }
     }

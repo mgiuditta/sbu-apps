@@ -39,6 +39,9 @@ struct SwipeControlButton: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
+        .accessibilityShowsLargeContentViewer {
+            Label(title, systemImage: systemImage)
+        }
     }
 
     private var glyph: AnyShapeStyle {

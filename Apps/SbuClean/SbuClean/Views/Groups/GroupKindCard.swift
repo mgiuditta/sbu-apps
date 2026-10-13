@@ -7,7 +7,9 @@ struct GroupKindCard: View {
     let model: CleanModel
     let kind: GroupKind
 
-    @ScaledMetric(relativeTo: .body) private var heroSide: CGFloat = 140
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private let heroSide: CGFloat = 140
 
     private var title: LocalizedStringKey {
         kind == .duplicate ? "Duplicati" : "Simili"
@@ -24,7 +26,10 @@ struct GroupKindCard: View {
 
             if let first = groups.first {
                 NavigationLink(value: Route.groups(kind)) {
-                    HStack(spacing: SbuTheme.space3) {
+                    let layout = dynamicTypeSize.isAccessibilitySize
+                        ? AnyLayout(VStackLayout(alignment: .leading, spacing: SbuTheme.space3))
+                        : AnyLayout(HStackLayout(spacing: SbuTheme.space3))
+                    layout {
                         MediaThumbnail(id: first.best, side: heroSide)
                             .frame(width: heroSide, height: heroSide)
                             .overlay(alignment: .bottomLeading) {

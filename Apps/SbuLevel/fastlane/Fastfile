@@ -18,9 +18,9 @@ platform :ios do
     capture_screenshots
   end
 
-  desc "Device frames and titles on the design-system surface (Framefile.json)"
-  lane :frameit do
-    frame_screenshots(path: "./fastlane/screenshots")
+  desc "Panorama on paper with the icon engraving and a closing card with the logo (Tools/make_screenshots.py)"
+  lane :frames do
+    sh("python3", File.expand_path("../../../Tools/make_screenshots.py", __dir__), "level")
   end
 
   desc "Build and upload to TestFlight"

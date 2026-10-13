@@ -31,13 +31,13 @@ Unit tests on the simulator
 
 App Store screenshots (Snapfile), Italian and English
 
-### ios frameit
+### ios frames
 
 ```sh
-[bundle exec] fastlane ios frameit
+[bundle exec] fastlane ios frames
 ```
 
-Device frames and titles on the design-system surface (Framefile.json)
+Panorama on paper with the icon engraving and a closing card with the logo (Tools/make_screenshots.py)
 
 ### ios beta
 

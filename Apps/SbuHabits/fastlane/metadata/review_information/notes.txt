@@ -20,3 +20,5 @@ Export and import: Settings > Data. "Export" creates a JSON file with all habits
 Start of the day: the gear in the top right corner opens Settings, where "Start of the day" sets the hour the day begins, for people who work night shifts. What you do before that hour counts for the day before. Settings also link to the privacy policy on sbu.dev.
 
 VoiceOver users mark a habit with the "Mark as done" action instead of the hold.
+
+Shared habits (iCloud, optional): in the form of an existing habit, "Share" opens the system iCloud sharing screen to invite people, read only. The habit goes to a zone of the owner's own iCloud (CloudKit private database), never to a server of ours; reminders, notes and Health details are not shared. Invited people need Sbu Habits and iCloud: the habit appears on their grid with a person badge, read only, and opens a screen with its statistics, where "Remove" leaves the share. The app registers for remote notifications only to receive iCloud's silent change notifications for shared habits (no alerts are ever shown). Without iCloud, "Share" is disabled with the reason.

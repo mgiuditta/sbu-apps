@@ -8,6 +8,7 @@ struct MainView: View {
     let model: SpeedModel
 
     @Environment(\.openURL) private var openURL
+    @State private var isConfirmingReset = false
 
     /// The system sound played once when the speed goes over the limit.
     private static let limitSound: SystemSoundID = 1005
@@ -52,8 +53,15 @@ struct MainView: View {
                 Button("Apri Impostazioni", action: openSettings)
                     .buttonStyle(SbuFieldPillStyle())
             } else {
-                SbuButton("Azzera viaggio", kind: .destructive, action: model.resetTrip)
-                    .disabled(model.trip.isEmpty)
+                // A pill like the others, not a full-width red button: a rare action stays light.
+                Button("Azzera viaggio") {
+                    isConfirmingReset = true
+                }
+                .buttonStyle(SbuFieldPillStyle())
+                .disabled(model.trip.isEmpty)
+                .confirmationDialog("Azzera viaggio", isPresented: $isConfirmingReset, titleVisibility: .visible) {
+                    Button("Azzera viaggio", role: .destructive, action: model.resetTrip)
+                }
             }
         }
         // A speedometer is read at a glance: the screen stays on while it is shown.

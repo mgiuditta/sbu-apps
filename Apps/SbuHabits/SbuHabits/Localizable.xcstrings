@@ -45,6 +45,47 @@
         }
       }
     },
+    "%lld anelli" : {
+      "comment" : "A goal in Activity rings closed: 3 anelli.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ring"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rings"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld anello"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld anelli"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld di %lld" : {
       "comment" : "VoiceOver progress of a habit done several times a day: 3 of 8.",
       "localizations" : {
@@ -95,6 +136,47 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld days"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld piani" : {
+      "comment" : "A goal in flights of stairs climbed: 10 piani.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld flight"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld flights"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld piano"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld piani"
                 }
               }
             }
@@ -597,6 +679,17 @@
         }
       }
     },
+    "Anelli Attività" : {
+      "comment" : "Apple Health and Fitness: the Move, Exercise and Stand rings.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity Rings"
+          }
+        }
+      }
+    },
     "Animali" : {
       "localizations" : {
         "en" : {
@@ -734,6 +827,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn on notifications for Sbu Habits in iOS Settings."
+          }
+        }
+      }
+    },
+    "Attività" : {
+      "comment" : "Group of Salute measures in the form: activity and exercise.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity"
           }
         }
       }
@@ -1417,6 +1521,28 @@
         }
       }
     },
+    "Chiudere %@" : {
+      "comment" : "Automatic title of a habit linked to Activity rings, the goal already formatted: Chiudere 3 anelli.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close %@"
+          }
+        }
+      }
+    },
+    "Chiudere gli anelli" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close your rings"
+          }
+        }
+      }
+    },
     "Ciak" : {
       "localizations" : {
         "en" : {
@@ -1759,6 +1885,28 @@
         }
       }
     },
+    "Distanza a nuoto" : {
+      "comment" : "Apple Health measure, as Health names it: swimming distance.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swimming Distance"
+          }
+        }
+      }
+    },
+    "Distanza in bicicletta" : {
+      "comment" : "Apple Health measure, as Health names it: cycling distance.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cycling Distance"
+          }
+        }
+      }
+    },
     "Divano" : {
       "localizations" : {
         "en" : {
@@ -1805,6 +1953,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dollar"
+          }
+        }
+      }
+    },
+    "Dormire %@" : {
+      "comment" : "Automatic title of a habit linked to sleep, the goal already formatted: Dormire 8 h.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep %@"
+          }
+        }
+      }
+    },
+    "Dormire abbastanza" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get enough sleep"
           }
         }
       }
@@ -1915,6 +2085,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Family"
+          }
+        }
+      }
+    },
+    "Fare esercizio %@" : {
+      "comment" : "Automatic title of a habit linked to exercise minutes, the goal already formatted: Fare esercizio 30 min.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exercise %@"
           }
         }
       }
@@ -2856,6 +3037,28 @@
         }
       }
     },
+    "Minuti di esercizio fisico" : {
+      "comment" : "Apple Health measure, as Health names it: exercise minutes, the Exercise ring.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exercise Minutes"
+          }
+        }
+      }
+    },
+    "Minuti in piedi" : {
+      "comment" : "Apple Health measure, as Health names it: stand minutes.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stand Minutes"
+          }
+        }
+      }
+    },
     "Modellismo" : {
       "localizations" : {
         "en" : {
@@ -3134,6 +3337,28 @@
         }
       }
     },
+    "Nuotare" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swim"
+          }
+        }
+      }
+    },
+    "Nuotare %@" : {
+      "comment" : "Automatic title of a habit linked to swimming distance, the goal already formatted: Nuotare 1000 m.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swim %@"
+          }
+        }
+      }
+    },
     "Nuoto" : {
       "localizations" : {
         "en" : {
@@ -3387,6 +3612,17 @@
         }
       }
     },
+    "Pedalare %@" : {
+      "comment" : "Automatic title of a habit linked to cycling distance, the goal already formatted: Pedalare 10 km.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cycle %@"
+          }
+        }
+      }
+    },
     "Pennello" : {
       "localizations" : {
         "en" : {
@@ -3453,6 +3689,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Weight"
+          }
+        }
+      }
+    },
+    "Piani saliti" : {
+      "comment" : "Apple Health measure, as Health names it: flights climbed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flights Climbed"
           }
         }
       }
@@ -3956,6 +4203,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rugby"
+          }
+        }
+      }
+    },
+    "Salire %@" : {
+      "comment" : "Automatic title of a habit linked to flights climbed, the goal already formatted: Salire 10 piani.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Climb %@"
+          }
+        }
+      }
+    },
+    "Salire le scale" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take the stairs"
           }
         }
       }
@@ -4513,6 +4782,50 @@
         }
       }
     },
+    "Stare alla luce %@" : {
+      "comment" : "Automatic title of a habit linked to time in daylight, the goal already formatted: Stare alla luce 30 min.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spend %@ in daylight"
+          }
+        }
+      }
+    },
+    "Stare alla luce del giorno" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spend time in daylight"
+          }
+        }
+      }
+    },
+    "Stare in piedi" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stand up"
+          }
+        }
+      }
+    },
+    "Stare in piedi %@" : {
+      "comment" : "Automatic title of a habit linked to stand minutes, the goal already formatted: Stare in piedi 60 min.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stand %@"
+          }
+        }
+      }
+    },
     "Statistiche" : {
       "localizations" : {
         "en" : {
@@ -4770,6 +5083,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Time"
+          }
+        }
+      }
+    },
+    "Tempo alla luce del giorno" : {
+      "comment" : "Apple Health measure, as Health names it: time in daylight.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time in Daylight"
           }
         }
       }

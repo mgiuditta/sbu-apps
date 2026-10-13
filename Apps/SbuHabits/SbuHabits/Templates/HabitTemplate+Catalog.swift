@@ -22,10 +22,14 @@ nonisolated extension HabitTemplate {
         // Salute
         .linked("health.walk", "Camminare", "Walk", symbol: "figure.walk", measure: .steps, goal: 8_000, keywords: "passi passeggiata steps"),
         .linked("health.run", "Correre", "Run", symbol: "figure.run", measure: .walkingRunningDistance, goal: 5_000, keywords: "corsa jogging running distanza km distance"),
-        .linked("health.hike", "Fare un'escursione", "Go hiking", symbol: "figure.hiking", measure: .walkingRunningDistance, goal: 10_000, keywords: "trekking montagna distanza km mountain distance"),
-        .linked("health.cycle", "Andare in bici", "Ride a bike", symbol: "bicycle", measure: .activeEnergy, goal: 300, keywords: "bicicletta pedalare ciclismo cycling calorie"),
-        .linked("health.workout", "Allenarsi", "Work out", symbol: "dumbbell", measure: .activeEnergy, goal: 400, keywords: "palestra allenamento sport gym training calorie"),
-        .linked("health.calories", "Bruciare calorie", "Burn calories", symbol: "flame", measure: .activeEnergy, goal: 500, keywords: "energia attiva kcal active energy"),
+        .linked("health.cycle", "Andare in bici", "Ride a bike", symbol: "bicycle", measure: .cyclingDistance, goal: 10_000, keywords: "bicicletta pedalare ciclismo cycling distanza km distance"),
+        .linked("health.swim", "Nuotare", "Swim", symbol: "figure.pool.swim", measure: .swimmingDistance, goal: 1_000, keywords: "nuoto piscina vasche swimming pool laps"),
+        .linked("health.workout", "Allenarsi", "Work out", symbol: "dumbbell", measure: .exerciseMinutes, goal: 30, keywords: "esercizio palestra allenamento sport exercise gym training minuti"),
+        .linked("health.stand", "Stare in piedi", "Stand up", symbol: "figure.stand", measure: .standMinutes, goal: 60, keywords: "alzarsi postura minuti in piedi stand minutes posture"),
+        .linked("health.stairs", "Salire le scale", "Take the stairs", symbol: "figure.stairs", measure: .flightsClimbed, goal: 10, keywords: "piani rampe gradini flights floors climb"),
+        .linked("health.daylight", "Stare alla luce del giorno", "Spend time in daylight", symbol: "sun.max", measure: .timeInDaylight, goal: 30, keywords: "sole all'aperto fuori uscire luce sun outdoors outside light"),
+        .linked("health.sleep", "Dormire abbastanza", "Get enough sleep", symbol: "bed.double", measure: .sleep, goal: 480, keywords: "sonno notte ore riposo sleep night hours rest"),
+        .linked("health.rings", "Chiudere gli anelli", "Close your rings", symbol: "target", measure: .activityRings, goal: 3, keywords: "anelli attività movimento esercizio activity rings move exercise apple watch"),
         .linked("health.meditate", "Meditare", "Meditate", symbol: "figure.mind.and.body", measure: .mindfulMinutes, goal: 10, keywords: "meditazione consapevolezza mindfulness meditation"),
         .linked("health.breathe", "Respirare con calma", "Breathe slowly", symbol: "lungs", measure: .mindfulMinutes, goal: 5, keywords: "respiro respirazione consapevolezza breathing mindfulness"),
 

@@ -454,6 +454,38 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheSaluteScreenListsEveryMeasureByGroup() throws {
+        let app = launch()
+        app.openHabitForm()
+        app.openFormRow("Salute")
+        app.switches["Collega a Salute"].switches.firstMatch.tap()
+
+        // Passi is chosen to start with; the groups follow the toggle.
+        XCTAssertTrue(app.buttons["Passi"].waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertTrue(app.buttons["Passi"].isSelected)
+        XCTAssertTrue(app.staticTexts["ATTIVITÀ"].exists || app.staticTexts["Attività"].exists, app.debugDescription)
+        try app.auditHabitForm()
+
+        let stand = app.buttons["Minuti in piedi"]
+        stand.tap()
+        XCTAssertTrue(stand.isSelected)
+        XCTAssertFalse(app.buttons["Passi"].isSelected)
+
+        // The last groups are below the screen's edge.
+        app.collectionViews.firstMatch.swipeUp()
+        XCTAssertTrue(app.buttons["Sonno"].waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertTrue(app.buttons["Acqua"].exists)
+        try app.auditHabitForm()
+
+        app.buttons["Anelli Attività"].tap()
+        app.backToForm()
+        let goal = app.formRow("Obiettivo")
+        XCTAssertTrue("\(goal.label) \(goal.value as? String ?? "")".contains("3 anelli"), goal.debugDescription)
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Chiudere 3 anelli'")).firstMatch.exists, app.debugDescription)
+        app.cancelNewHabit()
+    }
+
+    @MainActor
     func testALinkedHabitWithoutAccessIsMarkedByHand() {
         let app = launch()
         app.openHabitForm()

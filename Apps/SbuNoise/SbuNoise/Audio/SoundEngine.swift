@@ -17,7 +17,10 @@ final class SoundEngine {
 
     /// Adds a generated noise layer, replacing any layer with the same id.
     func addNoise(_ color: NoiseColor, id: String) throws {
-        let sampleRate = engine.outputNode.outputFormat(forBus: 0).sampleRate
+        try activateSession()
+        // The session's rate, not `outputNode`'s: reading the output node before the session is
+        // set up left wired EarPods with sound in the left ear only.
+        let sampleRate = AVAudioSession.sharedInstance().sampleRate
         let node = Self.makeNoiseNode(color, sampleRate: sampleRate > 0 ? sampleRate : 44_100)
         try add(node, id: id, format: node.outputFormat(forBus: 0))
     }
@@ -139,15 +142,23 @@ final class SoundEngine {
         for unit in [node, pitch, mixer] { engine.attach(unit) }
         engine.connect(node, to: pitch, format: format)
         engine.connect(pitch, to: mixer, format: format)
-        engine.connect(mixer, to: engine.mainMixerNode, format: format)
+        // Stereo out of each layer: a mono connection into the main mixer reached only the left
+        // ear on wired EarPods. The layer's mixer centers the mono sound; its pan is then a balance.
+        let stereo = AVAudioFormat(standardFormatWithSampleRate: format.sampleRate, channels: 2)
+        engine.connect(mixer, to: engine.mainMixerNode, format: stereo)
         layers[id] = (node, pitch, mixer)
         if !engine.isRunning {
-            // `.playback` keeps playing locked and in the background, and is not mixable, so the
-            // lock screen and Control Center show this app as the one playing.
-            try AVAudioSession.sharedInstance().setCategory(.playback)
-            try AVAudioSession.sharedInstance().setActive(true)
+            try activateSession()
             try engine.start()
         }
+    }
+
+    /// `.playback` keeps playing locked and in the background, and is not mixable, so the lock
+    /// screen and Control Center show this app as the one playing. Set up before the graph is built.
+    private func activateSession() throws {
+        guard !engine.isRunning else { return }
+        try AVAudioSession.sharedInstance().setCategory(.playback)
+        try AVAudioSession.sharedInstance().setActive(true)
     }
 
     /// A mono source node rendering `color` on the audio thread: the generator is captured by value

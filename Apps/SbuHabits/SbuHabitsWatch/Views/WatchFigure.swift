@@ -53,13 +53,13 @@ struct WatchFigure: View {
 }
 
 #Preview("Light") {
-    WatchFigure(value: 12, context: Text("3 su 5 oggi"))
+    WatchFigure(value: 12, context: Text(verbatim: "3 su 5 oggi"))
         .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
 }
 
 #Preview("Dark") {
-    WatchFigure(value: 1, context: Text("Tutte fatte"))
+    WatchFigure(value: 1, context: Text(verbatim: "1 su 1 oggi"))
         .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
         .preferredColorScheme(.dark)

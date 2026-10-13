@@ -10,6 +10,9 @@ struct TodayView: View {
 
     let habits: WatchHabits
 
+    /// The moment the grid is checked against: now, then the end of the grid's day.
+    @State private var now = Date.now
+
     private var columns: [GridItem] {
         Array(repeating: GridItem(.flexible(), spacing: SbuTheme.space2, alignment: .top), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
@@ -17,13 +20,10 @@ struct TodayView: View {
     var body: some View {
         Group {
             if let snapshot = habits.shown {
-                // Redrawn when the day the grid belongs to ends.
-                TimelineView(.explicit([snapshot.nextDayStart])) { context in
-                    if snapshot.isCurrent(at: context.date) {
-                        grid(snapshot)
-                    } else {
-                        ContentUnavailableView("Nuovo giorno", systemImage: "iphone", description: Text("Apri Sbu Habits sull'iPhone per le abitudini di oggi."))
-                    }
+                if snapshot.isCurrent(at: now) {
+                    grid(snapshot)
+                } else {
+                    ContentUnavailableView("Nuovo giorno", systemImage: "iphone", description: Text("Apri Sbu Habits sull'iPhone per le abitudini di oggi."))
                 }
             } else {
                 ContentUnavailableView("Nessuna abitudine", systemImage: "iphone", description: Text("Apri Sbu Habits sull'iPhone per vedere qui le tue abitudini."))
@@ -31,17 +31,29 @@ struct TodayView: View {
         }
         .background(SbuTheme.surface)
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active, let snapshot = habits.shown, snapshot.isCurrent(at: .now) == false {
+            guard phase == .active else { return }
+            now = .now
+            if let snapshot = habits.shown, snapshot.isCurrent(at: now) == false {
+                habits.requestRefresh()
+            }
+        }
+        // Leaves the grid when its day ends, while the app stays open.
+        .task(id: habits.shown?.nextDayStart) {
+            now = .now
+            guard let end = habits.shown?.nextDayStart else { return }
+            try? await Task.sleep(for: .seconds(max(end.timeIntervalSinceNow, 1)))
+            if Task.isCancelled == false {
+                now = .now
                 habits.requestRefresh()
             }
         }
     }
 
     private func grid(_ snapshot: WatchSnapshot) -> some View {
-        let done = snapshot.habits.count { snapshot.progress(of: $0).isComplete }
+        let tally = TodayTally(snapshot)
         return ScrollView {
             VStack(alignment: .leading, spacing: SbuTheme.space3) {
-                WatchFigure(value: snapshot.fullStreak, context: context(done: done, total: snapshot.habits.count))
+                WatchFigure(value: tally.fullStreak, context: context(tally))
 
                 LazyVGrid(columns: columns, spacing: SbuTheme.space3) {
                     ForEach(snapshot.habits) { habit in
@@ -60,11 +72,11 @@ struct TodayView: View {
         .animation(reduceMotion ? nil : .snappy, value: snapshot.fullStreak)
     }
 
-    private func context(done: Int, total: Int) -> Text {
-        if total == 0 {
+    private func context(_ tally: TodayTally) -> Text {
+        if tally.total == 0 {
             Text("Niente previsto oggi")
         } else {
-            Text("\(done) su \(total) oggi")
+            Text("\(tally.done) su \(tally.total) oggi")
         }
     }
 }

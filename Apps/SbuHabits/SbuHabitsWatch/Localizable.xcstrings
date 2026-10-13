@@ -1,7 +1,769 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-
+    "%@ passi" : {
+      "comment" : "A goal in steps, the number already formatted: 8.000 passi.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ steps"
+          }
+        }
+      }
+    },
+    "%lld anelli" : {
+      "comment" : "A goal in Activity rings closed: 3 anelli.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ring"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rings"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld anello"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld anelli"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld di %lld" : {
+      "comment" : "VoiceOver progress of a habit done several times a day: 3 of 8.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld of %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld di %2$lld"
+          }
+        }
+      }
+    },
+    "%lld giorni" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorno"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorni"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld mesi" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld month"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld months"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld mese"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld mesi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld piani" : {
+      "comment" : "A goal in flights of stairs climbed: 10 piani.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld flight"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld flights"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld piano"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld piani"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld settimane" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld week"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld weeks"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld settimana"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld settimane"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld su %lld oggi" : {
+      "comment" : "Apple Watch, under the Serie piena and in the complication: today's habits done out of today's habits.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld of %2$lld today"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld su %2$lld oggi"
+          }
+        }
+      }
+    },
+    "Acqua" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water"
+          }
+        }
+      }
+    },
+    "Alimentazione" : {
+      "comment" : "Tab of Aggiungi abitudine: eating and drinking.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Food"
+          }
+        }
+      }
+    },
+    "Anelli Attività" : {
+      "comment" : "Apple Health and Fitness: the Move, Exercise and Stand rings.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity Rings"
+          }
+        }
+      }
+    },
+    "Annulla ultima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo last"
+          }
+        }
+      }
+    },
+    "Apri Sbu Habits sull'iPhone" : {
+      "comment" : "Apple Watch complication with no grid for today yet.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sbu Habits on your iPhone"
+          }
+        }
+      }
+    },
+    "Apri Sbu Habits sull'iPhone per le abitudini di oggi." : {
+      "comment" : "Apple Watch, when the grid it has is from a day gone by.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sbu Habits on your iPhone for today's habits."
+          }
+        }
+      }
+    },
+    "Apri Sbu Habits sull'iPhone per vedere qui le tue abitudini." : {
+      "comment" : "Apple Watch, before the iPhone sent anything.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sbu Habits on your iPhone to see your habits here."
+          }
+        }
+      }
+    },
+    "Attività" : {
+      "comment" : "Group of Salute measures in the form: activity and exercise.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity"
+          }
+        }
+      }
+    },
+    "Bere acqua" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drink water"
+          }
+        }
+      }
+    },
+    "Caffè" : {
+      "comment" : "A demo Abitudine da evitare in the App Store screenshots.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coffee"
+          }
+        }
+      }
+    },
+    "Camminare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walk"
+          }
+        }
+      }
+    },
+    "Carta" : {
+      "comment" : "A notification sound bundled in Sbu Habits: two light notes.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paper"
+          }
+        }
+      }
+    },
+    "Da evitare, %lld su %lld" : {
+      "comment" : "VoiceOver progress of an avoided habit: times given in today, then the daily limit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To avoid, %1$lld of %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da evitare, %1$lld su %2$lld"
+          }
+        }
+      }
+    },
+    "Da evitare, limite superato, %lld su %lld" : {
+      "comment" : "VoiceOver progress of an avoided habit gone over its limit: times given in today, then the daily limit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To avoid, over the limit, %1$lld of %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da evitare, limite superato, %1$lld su %2$lld"
+          }
+        }
+      }
+    },
+    "Da fare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To do"
+          }
+        }
+      }
+    },
+    "Distanza a nuoto" : {
+      "comment" : "Apple Health measure, as Health names it: swimming distance.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swimming Distance"
+          }
+        }
+      }
+    },
+    "Distanza camminata + corsa" : {
+      "comment" : "Apple Health measure, as Health names it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walking + Running Distance"
+          }
+        }
+      }
+    },
+    "Distanza in bicicletta" : {
+      "comment" : "Apple Health measure, as Health names it: cycling distance.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cycling Distance"
+          }
+        }
+      }
+    },
+    "Energia attiva" : {
+      "comment" : "Apple Health measure: active calories, as Health names it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active Energy"
+          }
+        }
+      }
+    },
+    "Fatta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Ho ceduto" : {
+      "comment" : "VoiceOver action: one more time an avoided habit happened today.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I gave in"
+          }
+        }
+      }
+    },
+    "La serie piena e le abitudini fatte oggi." : {
+      "comment" : "Description of the Apple Watch complication in the gallery.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your full streak and the habits done today."
+          }
+        }
+      }
+    },
+    "Leggere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read"
+          }
+        }
+      }
+    },
+    "Meditare" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditate"
+          }
+        }
+      }
+    },
+    "Mente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mind"
+          }
+        }
+      }
+    },
+    "Minuti di consapevolezza" : {
+      "comment" : "Apple Health measure, as Health names it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mindful Minutes"
+          }
+        }
+      }
+    },
+    "Minuti di esercizio fisico" : {
+      "comment" : "Apple Health measure, as Health names it: exercise minutes, the Exercise ring.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exercise Minutes"
+          }
+        }
+      }
+    },
+    "Minuti in piedi" : {
+      "comment" : "Apple Health measure, as Health names it: stand minutes.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stand Minutes"
+          }
+        }
+      }
+    },
+    "Nessun promemoria" : {
+      "comment" : "Promemoria choice on the Notifiche screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reminders"
+          }
+        }
+      }
+    },
+    "Nessuna abitudine" : {
+      "comment" : "Apple Watch title before the iPhone sent anything.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No habits"
+          }
+        }
+      }
+    },
+    "Nessuno" : {
+      "comment" : "Suono choice: the notifications play no sound.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Niente previsto oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing due today"
+          }
+        }
+      }
+    },
+    "Nuovo giorno" : {
+      "comment" : "Apple Watch title when the grid it has is from a day gone by.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New day"
+          }
+        }
+      }
+    },
+    "Orari automatici" : {
+      "comment" : "Promemoria choice: at the hour the habit is usually done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic times"
+          }
+        }
+      }
+    },
+    "Orari personalizzati" : {
+      "comment" : "Promemoria choice: at times the user picks.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom times"
+          }
+        }
+      }
+    },
+    "Passi" : {
+      "comment" : "Apple Health measure: step count.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steps"
+          }
+        }
+      }
+    },
+    "Piani saliti" : {
+      "comment" : "Apple Health measure, as Health names it: flights climbed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flights Climbed"
+          }
+        }
+      }
+    },
+    "Predefinito" : {
+      "comment" : "Suono choice: the iOS notification sound.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default"
+          }
+        }
+      }
+    },
+    "Punto" : {
+      "comment" : "A notification sound bundled in Sbu Habits: one short tone.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full stop"
+          }
+        }
+      }
+    },
+    "Saltata oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skipped today"
+          }
+        }
+      }
+    },
+    "Segna come fatta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as done"
+          }
+        }
+      }
+    },
+    "Serie piena" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full streak"
+          }
+        }
+      }
+    },
+    "Sonno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep"
+          }
+        }
+      }
+    },
+    "Tempo alla luce del giorno" : {
+      "comment" : "Apple Health measure, as Health names it: time in daylight.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time in Daylight"
+          }
+        }
+      }
+    },
+    "collegata a Salute" : {
+      "comment" : "VoiceOver value, at the end: Salute marks this habit (the heart before its title).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "linked to Health"
+          }
+        }
+      }
+    },
+    "giorni" : {
+      "comment" : "Unit after the Serie piena figure.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "days"
+          }
+        }
+      }
+    },
+    "giorno" : {
+      "comment" : "Unit after the Serie piena figure.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "day"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

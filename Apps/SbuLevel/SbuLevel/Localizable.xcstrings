@@ -1,69 +1,424 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-    "Appoggia l'iPhone su una superficie in bolla e tocca Calibra. La calibrazione resta su questo iPhone." : {
+    "Annulla" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Place your iPhone on a level surface and tap Calibrate. The calibration stays on this iPhone." } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
       }
     },
-    "Azzera calibrazione" : {
+    "Appoggia l'iPhone sul lato da calibrare e tocca Misura. Non serve una superficie in bolla." : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset calibration" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place your iPhone on the side to calibrate and tap Measure. The surface doesn't need to be level."
+          }
+        }
+      }
+    },
+    "Appoggia l'iPhone sullo stesso lato della prima misura." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place your iPhone on the same side as the first reading."
+          }
+        }
+      }
+    },
+    "Blocca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock"
+          }
+        }
+      }
+    },
+    "Bordo destro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right edge"
+          }
+        }
+      }
+    },
+    "Bordo inferiore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bottom edge"
+          }
+        }
+      }
+    },
+    "Bordo sinistro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left edge"
+          }
+        }
+      }
+    },
+    "Bordo superiore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top edge"
+          }
+        }
       }
     },
     "Calibra" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calibrate" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calibrate"
+          }
+        }
+      }
+    },
+    "Calibra un altro lato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calibrate another side"
+          }
+        }
       }
     },
     "Calibrata" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calibrated" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calibrated"
+          }
+        }
       }
     },
     "Calibrazione" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calibration" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calibration"
+          }
+        }
+      }
+    },
+    "Durante la misura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "While measuring"
+          }
+        }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Gira l'iPhone di 180° sullo stesso punto, sullo stesso lato, e tocca Misura." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn your iPhone 180° on the same spot, on the same side, and tap Measure."
+          }
+        }
+      }
+    },
+    "Il lato si riconosce da come appoggi l'iPhone: un bordo, oppure il retro per la bolla." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The side follows how you place your iPhone: on an edge, or on its back for the bubble."
+          }
+        }
+      }
+    },
+    "Il lato torna alla lettura del sensore senza correzioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The side goes back to the sensor reading without corrections."
+          }
+        }
       }
     },
     "In bolla" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Level" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level"
+          }
+        }
       }
     },
     "In piano" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Lying flat" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lying flat"
+          }
+        }
       }
     },
     "Inclinazione" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tilt" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tilt"
+          }
+        }
+      }
+    },
+    "L'iPhone si è mosso: la misura ricomincia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your iPhone moved: measuring starts over."
+          }
+        }
+      }
+    },
+    "Lato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Side"
+          }
+        }
+      }
+    },
+    "Le due misure si compensano: l'errore del sensore è corretto anche se la superficie non è in bolla." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The two readings balance out: the sensor error is corrected even if the surface isn't level."
+          }
+        }
+      }
+    },
+    "Lettura bloccata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading locked"
+          }
+        }
+      }
+    },
+    "Lettura bloccata, %@°" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading locked, %@°"
+          }
+        }
+      }
+    },
+    "Lettura sbloccata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading unlocked"
+          }
+        }
+      }
+    },
+    "Lo schermo non si spegne mentre l'app è aperta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The screen stays on while the app is open."
+          }
+        }
+      }
+    },
+    "Misura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measure"
+          }
+        }
+      }
+    },
+    "Misura in corso: tieni fermo l'iPhone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measuring: keep your iPhone still"
+          }
+        }
       }
     },
     "Non calibrata" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not calibrated" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not calibrated"
+          }
+        }
+      }
+    },
+    "Ogni lato si calibra a parte, in due misure. La calibrazione resta su questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each side is calibrated on its own, in two readings. The calibration stays on this iPhone."
+          }
+        }
+      }
+    },
+    "Passo 1 di 2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 1 of 2"
+          }
+        }
+      }
+    },
+    "Passo 2 di 2" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step 2 of 2"
+          }
+        }
+      }
+    },
+    "Piano" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flat"
+          }
+        }
+      }
+    },
+    "Ripristina calibrazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset calibration"
+          }
+        }
+      }
+    },
+    "Risultato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Result"
+          }
+        }
+      }
+    },
+    "Sblocca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock"
+          }
+        }
       }
     },
     "Sbu Level" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Level" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Level"
+          }
+        }
+      }
+    },
+    "Schermo sempre acceso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep screen on"
+          }
+        }
       }
     },
     "Sensore di movimento non disponibile" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Motion sensor unavailable" } }
-      }
-    },
-    "Stato" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motion sensor unavailable"
+          }
+        }
       }
     },
     "Sul bordo" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "On its edge" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On its edge"
+          }
+        }
+      }
+    },
+    "Tutti i lati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All sides"
+          }
+        }
       }
     }
   },

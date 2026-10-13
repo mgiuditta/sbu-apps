@@ -15,7 +15,10 @@ final class PlayerModel {
         didSet {
             guard category != oldValue else { return }
             defaults.set(category.rawValue, forKey: Self.lastCategoryKey)
-            index = 0
+            // The same sound stays on screen (and playing) if the new list has it.
+            let previous = items(in: oldValue)
+            let previousID = previous.indices.contains(index) ? previous[index].id : nil
+            index = items.firstIndex { $0.id == previousID } ?? 0
         }
     }
     /// The page on screen, an index of `items`. Remembered for the next launch.
@@ -61,6 +64,10 @@ final class PlayerModel {
     }
 
     var items: [PlayerItem] {
+        items(in: category)
+    }
+
+    private func items(in category: PlayerCategory) -> [PlayerItem] {
         switch category {
         case .sounds: visibleSounds.map(PlayerItem.sound)
         case .group(let group): visibleSounds.filter { $0.category == group }.map(PlayerItem.sound)

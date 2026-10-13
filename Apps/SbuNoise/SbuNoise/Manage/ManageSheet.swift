@@ -10,6 +10,8 @@ struct ManageSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var query = ""
     @State private var group: SoundCategory?
+    /// Reordering works on the whole list: Modifica clears the search and the filter.
+    @State private var editMode = EditMode.inactive
 
     var body: some View {
         NavigationStack {
@@ -18,10 +20,6 @@ struct ManageSheet: View {
                     Section {
                         ForEach(results) { sound in
                             row(sound)
-                        }
-                    } footer: {
-                        if results.isEmpty {
-                            Text("Nessun suono trovato.")
                         }
                     }
                 } else {
@@ -45,18 +43,26 @@ struct ManageSheet: View {
                 }
             }
             .listStyle(.insetGrouped)
+            .overlay {
+                if isFiltering && results.isEmpty {
+                    ContentUnavailableView.search(text: query)
+                }
+            }
+            .environment(\.editMode, $editMode)
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Cerca un suono"))
             .navigationTitle("Gestisci")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Fine") { dismiss() }
+                // While reordering only one Fine shows: the one that ends the reordering.
+                if !editMode.isEditing {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Fine") { dismiss() }
+                    }
                 }
                 ToolbarItemGroup(placement: .primaryAction) {
                     GroupFilter(selection: $group)
-                    if !isFiltering {
-                        EditButton()
-                    }
+                    Button(editMode.isEditing ? "Fine" : "Modifica", action: toggleEditing)
+                        .fontWeight(editMode.isEditing ? .semibold : .regular)
                 }
             }
         }
@@ -101,6 +107,14 @@ struct ManageSheet: View {
             .tint(SbuTheme.accentNoise)
         }
         .accessibilityHint(isHidden ? Text("Lo rimette nel player.") : Text("Lo riproduce."))
+    }
+
+    private func toggleEditing() {
+        if !editMode.isEditing {
+            query = ""
+            group = nil
+        }
+        withAnimation { editMode = editMode.isEditing ? .inactive : .active }
     }
 
     private func play(_ sound: Sound) {

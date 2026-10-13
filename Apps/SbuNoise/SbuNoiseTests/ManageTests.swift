@@ -49,6 +49,16 @@ struct ManageTests {
         #expect(model.current?.id == "noise.white")
     }
 
+    @Test func changingListKeepsTheSoundOnScreenIfTheNewListHasIt() {
+        let model = model(sounds: Sound.catalog)
+        model.playItem(withID: "water.ocean")
+        model.category = .group(.water)
+        #expect(model.current?.id == "water.ocean")
+        #expect(model.isPlaying, "The same sound keeps playing")
+        model.category = .group(.rain)
+        #expect(model.index == 0, "A list without it starts at its first sound")
+    }
+
     @Test func aTapInGestisciPlaysTheSound() {
         let model = model()
         model.category = .mixes

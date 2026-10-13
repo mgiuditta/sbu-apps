@@ -9,13 +9,13 @@ struct SoundCreditsView: View {
     var body: some View {
         List {
             Section {
-                Text("Le registrazioni vengono da Freesound e sono in pubblico dominio (CC0). I rumori e gli altri suoni sono creati da Sbu Noise.")
+                Text("Le registrazioni vengono da Freesound e sono in pubblico dominio (CC0): tagliate e chiuse in un loop senza stacchi. I rumori e gli altri suoni sono creati da Sbu Noise.")
                     .font(SbuTheme.footnote)
                     .foregroundStyle(SbuTheme.inkMuted)
             }
             ForEach(recorded, id: \.sound.id) { entry in
                 Section {
-                    SoundCreditRows(credit: entry.credit)
+                    SoundCreditRows(credit: entry.credit, showsNote: false)
                 } header: {
                     Text(entry.sound.name)
                 }

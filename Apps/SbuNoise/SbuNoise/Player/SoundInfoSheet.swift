@@ -9,10 +9,12 @@ struct SoundInfoSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Fonte") {
+                Section {
                     LabeledContent("Gruppo") {
                         Text(sound.category.title)
                     }
+                }
+                Section("Fonte") {
                     switch sound.source {
                     case .generated:
                         Text("Generato in tempo reale")

@@ -5,6 +5,8 @@ import SwiftUI
 /// selectable text: the app opens no web page of others.
 struct SoundCreditRows: View {
     let credit: SoundCredit
+    /// The sentence on what CC0 means and what was done; Crediti says it once at the top.
+    var showsNote = true
 
     var body: some View {
         LabeledContent("Registrazione", value: credit.title)
@@ -15,9 +17,11 @@ struct SoundCreditRows: View {
             .foregroundStyle(SbuTheme.inkMuted)
             .textSelection(.enabled)
             .accessibilityLabel(Text("Pagina della fonte: \(credit.page)"))
-        Text("Registrazione in pubblico dominio (CC0), tagliata e chiusa in un loop senza stacchi.")
-            .font(SbuTheme.footnote)
-            .foregroundStyle(SbuTheme.inkMuted)
+        if showsNote {
+            Text("Registrazione in pubblico dominio (CC0), tagliata e chiusa in un loop senza stacchi.")
+                .font(SbuTheme.footnote)
+                .foregroundStyle(SbuTheme.inkMuted)
+        }
     }
 }
 

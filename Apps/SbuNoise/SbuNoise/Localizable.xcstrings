@@ -421,16 +421,6 @@
         }
       }
     },
-    "Nessun timer" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Timers"
-          }
-        }
-      }
-    },
     "Nessuna" : {
       "localizations" : {
         "en" : {
@@ -576,7 +566,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "White noise"
+            "value" : "White Noise"
           }
         }
       }
@@ -586,7 +576,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Blue noise"
+            "value" : "Blue Noise"
           }
         }
       }
@@ -596,7 +586,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Brown noise"
+            "value" : "Brown Noise"
           }
         }
       }
@@ -606,7 +596,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pink noise"
+            "value" : "Pink Noise"
           }
         }
       }
@@ -616,7 +606,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Violet noise"
+            "value" : "Violet Noise"
           }
         }
       }
@@ -1001,16 +991,6 @@
         }
       }
     },
-    "Aggiungi un timer per fermare il suono, o una sveglia per svegliarti." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a timer to stop the sound, or an alarm to wake you up."
-          }
-        }
-      }
-    },
     "Autore" : {
       "localizations" : {
         "en" : {
@@ -1076,7 +1056,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Made by Sbu Noise, looping without gaps"
+            "value" : "Made by Sbu Noise as a seamless loop"
           }
         }
       }
@@ -1166,7 +1146,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The sound stops earlier: the alarm only comes as a notification."
+            "value" : "The sound stops before the alarm, so the alarm only comes as a notification."
           }
         }
       }
@@ -1176,7 +1156,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The sound stops earlier: the alarm only comes as a system alarm, without the fade."
+            "value" : "The sound stops before the alarm, so only a system alarm rings, without the fade."
           }
         }
       }
@@ -1186,7 +1166,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The alarm rings if Noise stays open with a sound playing. Otherwise a notification arrives."
+            "value" : "The alarm rings if Noise stays open with a sound playing. Otherwise you get a notification."
           }
         }
       }
@@ -1196,37 +1176,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The alarm rings if Noise stays open with a sound playing. Otherwise a system alarm rings."
-          }
-        }
-      }
-    },
-    "Le notifiche di Sbu Noise sono spente: se l'app non è aperta, la sveglia non suona. Accendile in Impostazioni." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sbu Noise notifications are off: if the app is not open, the alarm does not ring. Turn them on in Settings."
-          }
-        }
-      }
-    },
-    "Le registrazioni vengono da Freesound e sono in pubblico dominio (CC0). I rumori e gli altri suoni sono creati da Sbu Noise." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The recordings come from Freesound and are in the public domain (CC0). The noises and the other sounds are made by Sbu Noise."
-          }
-        }
-      }
-    },
-    "Le sveglie di Sbu Noise sono spente in Impostazioni: se l'app non è aperta, la sveglia non suona." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sbu Noise alarms are off in Settings: if the app is not open, the alarm does not ring."
+            "value" : "The alarm rings if Noise stays open with a sound playing. Otherwise a system alarm goes off."
           }
         }
       }
@@ -1276,7 +1226,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Edit the alarm"
+            "value" : "Edits the alarm"
           }
         }
       }
@@ -1351,16 +1301,6 @@
         }
       }
     },
-    "Nessun suono trovato." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No sounds found."
-          }
-        }
-      }
-    },
     "Nessuna sveglia" : {
       "localizations" : {
         "en" : {
@@ -1426,7 +1366,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Public domain recording (CC0), trimmed and closed into a loop without gaps."
+            "value" : "Public domain recording (CC0), trimmed into a seamless loop."
           }
         }
       }
@@ -1837,6 +1777,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wind in the Pines"
+          }
+        }
+      }
+    },
+    "Aggiungi un timer per fermare il suono, o una sveglia per il mattino." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a timer to stop the sound, or an alarm for the morning."
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Le notifiche di Sbu Noise sono spente: se l'app non è aperta, la sveglia non suona." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Noise notifications are off: if the app isn't open, the alarm won't ring."
+          }
+        }
+      }
+    },
+    "Le registrazioni vengono da Freesound e sono in pubblico dominio (CC0): tagliate e chiuse in un loop senza stacchi. I rumori e gli altri suoni sono creati da Sbu Noise." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The recordings come from Freesound and are in the public domain (CC0), trimmed into seamless loops. The noises and the other sounds are made by Sbu Noise."
+          }
+        }
+      }
+    },
+    "Le sveglie di Sbu Noise sono spente: se l'app non è aperta, la sveglia non suona." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Noise alarms are off: if the app isn't open, the alarm won't ring."
+          }
+        }
+      }
+    },
+    "Modifica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Nessun timer né sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Timers or Alarms"
+          }
+        }
+      }
+    },
+    "Timer e sveglie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timers and Alarms"
           }
         }
       }

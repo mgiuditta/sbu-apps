@@ -25,9 +25,9 @@ nonisolated enum AlarmWarning: Hashable, Sendable {
     var message: LocalizedStringResource {
         switch self {
         case .notificationsDenied:
-            "Le notifiche di Sbu Noise sono spente: se l'app non è aperta, la sveglia non suona. Accendile in Impostazioni."
+            "Le notifiche di Sbu Noise sono spente: se l'app non è aperta, la sveglia non suona."
         case .systemAlarmsDenied:
-            "Le sveglie di Sbu Noise sono spente in Impostazioni: se l'app non è aperta, la sveglia non suona."
+            "Le sveglie di Sbu Noise sono spente: se l'app non è aperta, la sveglia non suona."
         case .soundStopsBefore(.notifications):
             "Il suono si ferma prima: la sveglia arriva solo come notifica."
         case .soundStopsBefore(.systemAlarm):

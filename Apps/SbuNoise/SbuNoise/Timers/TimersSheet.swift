@@ -11,6 +11,8 @@ struct TimersSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var editingTimer: SoundTimer?
     @State private var editingAlarm: SoundAlarm?
+    /// A swipe to delete waits for this confirmation.
+    @State private var deleting: Deletion?
 
     var body: some View {
         NavigationStack {
@@ -20,7 +22,7 @@ struct TimersSheet: View {
                         ForEach(alarms.alarms) { alarm in
                             AlarmRow(alarm: alarm, soundName: soundName(alarm), isOn: isOn(alarm)) { editingAlarm = alarm }
                         }
-                        .onDelete(perform: deleteAlarms)
+                        .onDelete { offsets in deleting = offsets.first.map { .alarm(alarms.alarms[$0].id) } }
                         ForEach(listWarnings, id: \.self) { warning in
                             AlarmWarningRow(warning: warning)
                         }
@@ -35,16 +37,16 @@ struct TimersSheet: View {
                         ForEach(timers.timers) { timer in
                             TimerRow(timer: timer, isOn: isOn(timer)) { editingTimer = timer }
                         }
-                        .onDelete { timers.delete(at: $0) }
+                        .onDelete { offsets in deleting = offsets.first.map { .timer(timers.timers[$0].id) } }
                     }
                 }
             }
             .overlay {
                 if timers.timers.isEmpty && alarms.alarms.isEmpty {
-                    ContentUnavailableView("Nessun timer", systemImage: "timer", description: Text("Aggiungi un timer per fermare il suono, o una sveglia per svegliarti."))
+                    ContentUnavailableView("Nessun timer né sveglia", systemImage: "timer", description: Text("Aggiungi un timer per fermare il suono, o una sveglia per il mattino."))
                 }
             }
-            .navigationTitle("Timer")
+            .navigationTitle("Timer e sveglie")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -56,6 +58,9 @@ struct TimersSheet: View {
                         Button("Nuova sveglia", systemImage: "alarm") { editingAlarm = SoundAlarm() }
                     }
                 }
+            }
+            .confirmationDialog(deletionTitle, isPresented: isConfirmingDeletion, titleVisibility: .visible) {
+                Button(deletionTitle, role: .destructive, action: confirmDeletion)
             }
             .sheet(item: $editingTimer) { timer in
                 let isNew = !timers.timers.contains { $0.id == timer.id }
@@ -85,8 +90,21 @@ struct TimersSheet: View {
         (Sound.alarmTones + sounds).first { $0.id == alarm.soundID }?.name ?? Sound.alarmTones[0].name
     }
 
-    private func deleteAlarms(at offsets: IndexSet) {
-        for index in offsets { alarms.delete(alarms.alarms[index].id) }
+    private var deletionTitle: LocalizedStringKey {
+        if case .alarm = deleting { "Elimina sveglia" } else { "Elimina timer" }
+    }
+
+    private var isConfirmingDeletion: Binding<Bool> {
+        Binding { deleting != nil } set: { if !$0 { deleting = nil } }
+    }
+
+    private func confirmDeletion() {
+        switch deleting {
+        case .timer(let id): timers.delete(id)
+        case .alarm(let id): alarms.delete(id)
+        case nil: break
+        }
+        deleting = nil
     }
 
     /// Turning a timer on starts its countdown, so the switch goes through the model.

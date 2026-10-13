@@ -52,12 +52,25 @@ final class AlarmsModel {
         permission = backup.permission
         player.ringingStopRequested = { [weak self] in self?.stop() }
         refresh()
+        observeClockChanges()
+    }
+
+    /// Midnight, a new time zone or a clock set by hand: the next alarm is computed again.
+    /// ponytail: the observer lives as long as the app, so its token is never removed.
+    private func observeClockChanges() {
+        NotificationCenter.default.addObserver(forName: UIApplication.significantTimeChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.refresh() }
+        }
     }
 
     /// A system alarm from iOS 26, notifications before.
     static func makeBackup() -> any AlarmBackup {
         // UI tests run without the system permission prompt.
-        if ProcessInfo.processInfo.environment["SBU_NOISE_BACKUP"] == "silent" { return SilentBackup() }
+        switch ProcessInfo.processInfo.environment["SBU_NOISE_BACKUP"] {
+        case "silent": return SilentBackup()
+        case "denied": return SilentBackup(permission: .denied)
+        default: break
+        }
         if #available(iOS 26, *) { return SystemAlarmBackup() }
         return NotificationBackup()
     }

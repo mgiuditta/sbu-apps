@@ -26,17 +26,14 @@ struct PlayerPage: View {
                 .foregroundStyle(SbuTheme.inkMuted)
                 .accessibilityHidden(true)
             Spacer(minLength: 0)
-            HStack(alignment: .lastTextBaseline, spacing: 0) {
-                Text(item.name)
-                    .font(SbuTheme.numberFont(size: nameSize))
-                    .tracking(SbuTheme.statTracking)
-                    // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
-                    .padding(.trailing, -SbuTheme.statTracking)
-                    .foregroundStyle(SbuTheme.ink)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-                SbuFullStop(fontSize: nameSize)
-            }
+            // The full stop inside the text: on a name that wraps it follows the last word.
+            (Text(item.name).tracking(SbuTheme.statTracking)
+                + InlineFullStop.text(fontSize: nameSize, tracking: SbuTheme.statTracking))
+                .font(SbuTheme.numberFont(size: nameSize))
+                .foregroundStyle(SbuTheme.ink)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityLabel(Text(item.name))
             .accessibilityAddTraits(.isHeader)
             Text("\(Text(category.title)) · \(position) di \(count)")
                 .font(SbuTheme.footnote)

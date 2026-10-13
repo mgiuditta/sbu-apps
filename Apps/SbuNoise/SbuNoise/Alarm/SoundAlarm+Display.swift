@@ -4,7 +4,7 @@ nonisolated extension SoundAlarm {
     /// The time of day as the row shows it: "7:00".
     func title(calendar: Calendar = .current) -> String {
         (calendar.date(bySettingHour: hour, minute: minute, second: 0, of: .now) ?? .now)
-            .formatted(date: .omitted, time: .shortened)
+            .formatted(.dateTime.hour().minute())
     }
 
     /// "Mai", "Ogni giorno" or the weekdays, as for a clock timer.

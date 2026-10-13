@@ -57,7 +57,7 @@ final class NotificationBackup: AlarmBackup {
     private static func requests(for plan: AlarmPlan) -> [UNNotificationRequest] {
         let content = UNMutableNotificationContent()
         content.title = String(localized: "Sveglia")
-        content.body = String(localized: "Sono le \(plan.date.formatted(date: .omitted, time: .shortened)). Tocca per fermarla.")
+        content.body = String(localized: "Sono le \(plan.date.formatted(.dateTime.hour().minute())). Tocca per fermarla.")
         content.sound = UNNotificationSound(named: UNNotificationSoundName(Sound.alarmNotificationSoundName))
         content.interruptionLevel = .timeSensitive
         content.categoryIdentifier = categoryID

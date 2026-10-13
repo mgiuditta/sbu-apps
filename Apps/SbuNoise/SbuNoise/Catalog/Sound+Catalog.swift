@@ -15,7 +15,7 @@ extension Sound {
         // Acqua
         Sound(id: "water.ocean", name: "Mare", systemImage: "water.waves", category: .water, source: .loop("water.ocean", credit: SoundCredit(title: "Ocean-waves-binaural.WAV", author: "L.Finck", page: "https://freesound.org/people/L.Finck/sounds/636552/"))),
         Sound(id: "water.surf", name: "Onde", systemImage: "beach.umbrella", category: .water, source: .loop("water.surf", credit: SoundCredit(title: "Ocean waves white noisy BAHAMAS 180520.wav", author: "TRP", page: "https://freesound.org/people/TRP/sounds/573179/"))),
-        Sound(id: "water.stream", name: "Ruscello", systemImage: "drop.triangle", category: .water, source: .loop("water.stream", credit: SoundCredit(title: "stream2.wav", author: "gluckose", page: "https://freesound.org/people/gluckose/sounds/333987/"))),
+        Sound(id: "water.stream", name: "Ruscello", systemImage: "humidity", category: .water, source: .loop("water.stream", credit: SoundCredit(title: "stream2.wav", author: "gluckose", page: "https://freesound.org/people/gluckose/sounds/333987/"))),
         Sound(id: "water.river", name: "Fiume", systemImage: "water.waves.and.arrow.down", category: .water, source: .loop("water.river", credit: SoundCredit(title: "Saliouse river murmur 1", author: "bruno.auzet", page: "https://freesound.org/people/bruno.auzet/sounds/730154/"))),
         Sound(id: "water.waterfall", name: "Cascata", systemImage: "mountain.2", category: .water, source: .loop("water.waterfall", credit: SoundCredit(title: "Hidden waterfall.WAV", author: "BassmanJourney", page: "https://freesound.org/people/BassmanJourney/sounds/632107/"))),
         Sound(id: "water.drops", name: "Gocce", systemImage: "drop", category: .water, source: .loop("water.drops", credit: nil)),

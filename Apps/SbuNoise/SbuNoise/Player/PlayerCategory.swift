@@ -45,7 +45,7 @@ nonisolated enum PlayerCategory: Hashable, Identifiable, Sendable {
 
     var systemImage: String {
         switch self {
-        case .sounds: "waveform"
+        case .sounds: "list.bullet"
         case .favorites: "heart"
         case .mixes: "square.stack.3d.up"
         case .group(let category): category.systemImage

@@ -39,7 +39,21 @@ targets:
         # container, outside Documents so it stays hidden (ADR-0008). App only, not the widget.
         com.apple.developer.icloud-container-identifiers: [iCloud.dev.sbu.habits]
         com.apple.developer.ubiquity-container-identifiers: [iCloud.dev.sbu.habits]
-        com.apple.developer.icloud-services: [CloudDocuments]
+        # Abitudini condivise (ADR-0009): the same container's CloudKit, one zone per shared habit
+        # in the owner's private database, read by the people invited from their shared database.
+        com.apple.developer.icloud-services: [CloudDocuments, CloudKit]
+        # The silent notification iCloud sends when a shared habit changes; no server of ours.
+        aps-environment: development
+    info:
+      path: SbuHabits/Info.plist
+      properties:
+        # The version and build from the project settings, as without a plist of our own.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # Opens the app from an invitation to an Abitudine condivisa.
+        CKSharingSupported: true
+        # Wakes the app for iCloud's silent notification, to refresh the Abitudini condivise.
+        UIBackgroundModes: [remote-notification]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits
@@ -52,6 +66,7 @@ targets:
         # Required with HealthKit even though Sbu Habits never writes to Salute.
         INFOPLIST_KEY_NSHealthUpdateUsageDescription: "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati restano su questo iPhone."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.
         TARGETED_DEVICE_FAMILY: "1"

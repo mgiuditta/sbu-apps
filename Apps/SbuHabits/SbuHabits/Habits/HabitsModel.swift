@@ -24,6 +24,8 @@ final class HabitsModel {
 
     /// Called after every change this iPhone saves, so Sincronizza con iCloud can send it.
     @ObservationIgnored var didSave: (@MainActor () -> Void)?
+    /// Called after every change this iPhone saves, so the Abitudini condivise can send it.
+    @ObservationIgnored var didSaveForSharing: (@MainActor () -> Void)?
 
     @ObservationIgnored private let store: HabitsStore
     @ObservationIgnored private let now: () -> Date
@@ -49,7 +51,12 @@ final class HabitsModel {
 
     /// Today's grid in pages of six, with Aggiungi last while a habit can still be added.
     var homePages: HomePages {
-        HomePages(todayHabits: todayHabits, habitCount: habits.count, isAddEnabled: isUnreadable == false)
+        homePages(shared: [])
+    }
+
+    /// Today's grid with the Abitudini condivise received after the user's own habits.
+    func homePages(shared: [ReceivedHabit]) -> HomePages {
+        HomePages(todayHabits: todayHabits, habitCount: habits.count, isAddEnabled: isUnreadable == false, shared: shared)
     }
 
     /// Below the limit of `HomePages.habitLimit` habits, and the file is readable.
@@ -148,6 +155,7 @@ final class HabitsModel {
         dropTimerOfDeletedHabit()
         didChange()
         didSave?()
+        didSaveForSharing?()
     }
 
     /// Takes the habits as Sincronizza con iCloud merged them: saves them for the widget, then
@@ -384,6 +392,7 @@ final class HabitsModel {
         try? store.save(file)
         didChange()
         didSave?()
+        didSaveForSharing?()
     }
 
     /// After every change, saved here or merged from iCloud: the widgets, the reminders, and

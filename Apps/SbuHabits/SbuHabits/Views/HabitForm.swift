@@ -7,15 +7,18 @@ struct HabitForm: View {
 
     let model: HabitsModel
     let habit: Habit
+    /// Offers Condividi in the form.
+    let sharing: HabitSharing?
 
-    init(model: HabitsModel, editing habit: Habit) {
+    init(model: HabitsModel, editing habit: Habit, sharing: HabitSharing? = nil) {
         self.model = model
         self.habit = habit
+        self.sharing = sharing
     }
 
     var body: some View {
         NavigationStack {
-            HabitFormScreen(model: model, editing: habit, close: close)
+            HabitFormScreen(model: model, editing: habit, sharing: sharing, close: close)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Annulla", action: close)
@@ -31,13 +34,13 @@ struct HabitForm: View {
 
 #Preview("Light") {
     let model = HabitsModel.preview
-    HabitForm(model: model, editing: model.habits[0])
+    HabitForm(model: model, editing: model.habits[0], sharing: .preview(model: model))
         .tint(SbuTheme.accentHabits)
 }
 
 #Preview("Dark") {
     let model = HabitsModel.preview
-    HabitForm(model: model, editing: model.habits[1])
+    HabitForm(model: model, editing: model.habits[1], sharing: .preview(model: model, isAvailable: false))
         .tint(SbuTheme.accentHabits)
         .preferredColorScheme(.dark)
 }

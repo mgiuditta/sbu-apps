@@ -264,6 +264,24 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         }
     }
 
+    // MARK: - Sharing
+
+    /// The habit as an Abitudine condivisa shows it to other people: title, symbol, the goal and
+    /// schedule history, the log with its hours, the skips and the first day. Never the reminders,
+    /// the notification settings, the notes, the countdown or which Salute measure marks it.
+    var sharedCopy: Habit {
+        var copy = self
+        copy.reminders = []
+        copy.remindsAutomatically = false
+        copy.notificationStyle = NotificationStyle()
+        copy.health = nil
+        copy.timerMinutes = nil
+        copy.notes = [:]
+        copy.noteDates = [:]
+        copy.modifiedAt = nil
+        return copy
+    }
+
     // MARK: - Merge
 
     /// The same habit with its settings only: no marks, skips or notes. Two copies whose

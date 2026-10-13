@@ -1,14 +1,18 @@
 /// The tool screen's grid in pages, as Streaks lays it out: six places a page (two columns,
-/// three rows), today's habits in the user's order, then Aggiungi as the last place.
+/// three rows), today's habits in the user's order, then the Abitudini condivise received, then
+/// Aggiungi as the last place.
 ///
 /// At most 24 habits, four full pages. Aggiungi takes a place only while a habit can still be
 /// added: at 24 it goes, so the grid never grows a fifth page that holds a lone button. The
 /// limit counts every habit, those not expected today included, since they come back on
-/// their days.
+/// their days. The Abitudini condivise received are someone else's: they never count toward the
+/// limit, and show every day, being the only way to open them.
 nonisolated struct HomePages: Equatable, Sendable {
     /// One place of the grid.
     enum Slot: Hashable, Sendable {
         case habit(Habit)
+        /// An Abitudine condivisa someone else shares: read only.
+        case shared(ReceivedHabit)
         /// The ring with a plus that opens the form.
         case add
     }
@@ -29,9 +33,10 @@ nonisolated struct HomePages: Equatable, Sendable {
     ///   - todayHabits: The habits the grid shows today, already in order (`TodayGrid`).
     ///   - habitCount: Every habit saved, today's and the others.
     ///   - isAddEnabled: `false` when nothing can be added anyway, such as an unreadable file.
-    init(todayHabits: [Habit], habitCount: Int, isAddEnabled: Bool = true) {
+    ///   - shared: The Abitudini condivise received, after the user's own.
+    init(todayHabits: [Habit], habitCount: Int, isAddEnabled: Bool = true, shared: [ReceivedHabit] = []) {
         canAdd = isAddEnabled && habitCount < Self.habitLimit
-        let slots = todayHabits.map(Slot.habit) + (canAdd ? [.add] : [])
+        let slots = todayHabits.map(Slot.habit) + shared.map(Slot.shared) + (canAdd ? [.add] : [])
         let pages = stride(from: 0, to: slots.count, by: Self.pageSize).map {
             Array(slots[$0..<min($0 + Self.pageSize, slots.count)])
         }
@@ -53,6 +58,7 @@ extension HomePages.Slot: Identifiable {
     var id: String {
         switch self {
         case .habit(let habit): habit.id.uuidString
+        case .shared(let received): "shared-" + received.key
         case .add: "add"
         }
     }

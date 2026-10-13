@@ -10,6 +10,8 @@ struct MainView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let model: HabitsModel
+    /// The Abitudini condivise received, shown after the user's own habits.
+    var received: ReceivedHabits?
     let present: (HabitSheet) -> Void
 
     /// The page of the grid on screen; `nil` while a swipe is between two.
@@ -33,7 +35,7 @@ struct MainView: View {
     var body: some View {
         // Walks back through the whole log: once per render.
         let fullStreak = model.fullStreak
-        let pages = model.homePages
+        let pages = model.homePages(shared: received?.habits ?? [])
         SbuToolField(
             "Serie piena",
             value: fullStreak,
@@ -41,7 +43,7 @@ struct MainView: View {
             unit: Self.unit(for: fullStreak),
             context: context
         ) {
-            HabitGrid(model: model, pages: pages, page: $page, add: add, edit: edit, writeNote: writeNote)
+            HabitGrid(model: model, pages: pages, page: $page, add: add, edit: edit, writeNote: writeNote, openShared: openShared)
                 // All the free height goes to the rings, none to the tool screen's spacer.
                 .layoutPriority(1)
         } pills: {
@@ -96,13 +98,17 @@ struct MainView: View {
         present(.note(habit, model.today))
     }
 
+    private func openShared(_ habit: ReceivedHabit) {
+        present(.shared(habit))
+    }
+
     private func showStatistics() {
         present(.statistics)
     }
 }
 
 #Preview("Light") {
-    MainView(model: .preview) { _ in }
+    MainView(model: .preview, received: .preview) { _ in }
         .background(SbuTheme.surface)
         .tint(SbuTheme.accentHabits)
 }

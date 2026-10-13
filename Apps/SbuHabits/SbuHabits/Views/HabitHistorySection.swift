@@ -8,7 +8,8 @@ struct HabitHistorySection: View {
     let streak: Int
     let today: LogicalDay
     let firstWeekday: Int
-    let openNote: (LogicalDay) -> Void
+    /// Opens a day's Nota del giorno; `nil` for an Abitudine condivisa received, read only.
+    let openNote: ((LogicalDay) -> Void)?
 
     /// The notes, newest first.
     private var notes: [(day: LogicalDay, text: String)] {
@@ -41,10 +42,12 @@ struct HabitHistorySection: View {
                 .padding(SbuTheme.space4)
                 .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
 
-                Text("Tocca un giorno per scriverne la nota.")
-                    .font(SbuTheme.footnote)
-                    .foregroundStyle(SbuTheme.inkMuted)
-                    .padding(.horizontal, SbuTheme.space4)
+                if openNote != nil {
+                    Text("Tocca un giorno per scriverne la nota.")
+                        .font(SbuTheme.footnote)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                        .padding(.horizontal, SbuTheme.space4)
+                }
             }
 
             if notes.isEmpty == false {
@@ -61,7 +64,7 @@ struct HabitHistorySection: View {
                                     .accessibilityHidden(true)
                             }
                             Button {
-                                openNote(note.day)
+                                openNote?(note.day)
                             } label: {
                                 NoteRow(day: note.day, text: note.text)
                                     .frame(maxWidth: .infinity, alignment: .leading)

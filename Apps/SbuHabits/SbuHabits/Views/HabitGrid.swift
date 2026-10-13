@@ -18,6 +18,8 @@ struct HabitGrid: View {
     let edit: (Habit) -> Void
     /// Opens today's Nota del giorno.
     var writeNote: (Habit) -> Void = { _ in }
+    /// Opens an Abitudine condivisa received.
+    var openShared: (ReceivedHabit) -> Void = { _ in }
 
     @ScaledMetric(relativeTo: .title2) private var columnRingSide = SbuTheme.space12 * 2
 
@@ -76,6 +78,10 @@ struct HabitGrid: View {
                 writeNote: { writeNote(habit) },
                 startTimer: { startTimer(for: habit) }
             )
+        case .shared(let received):
+            SharedHabitCell(display: SharedHabitDisplay(received, now: .now), maxRingSide: maxRingSide, rowCaptions: rowCaptions) {
+                openShared(received)
+            }
         case .add:
             AddHabitCell(maxRingSide: maxRingSide, rowCaptions: rowCaptions, add: add)
         }
@@ -84,6 +90,7 @@ struct HabitGrid: View {
     private func caption(of slot: HomePages.Slot) -> SlotCaption {
         switch slot {
         case .habit(let habit): HabitCell.caption(of: habit, hasNote: hasNote(habit))
+        case .shared(let received): SharedHabitCell.caption(of: SharedHabitDisplay(received, now: .now))
         case .add: AddHabitCell.caption
         }
     }

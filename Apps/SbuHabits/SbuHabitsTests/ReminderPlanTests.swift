@@ -41,7 +41,7 @@ struct ReminderPlanTests {
 
     @Test func aHabitDoneOrSkippedTodayIsNotRemindedToday() {
         var done = habit()
-        done.mark(on: today)
+        done.mark(on: today, hour: 9)
         var skipped = habit()
         skipped.toggleSkip(on: today)
 

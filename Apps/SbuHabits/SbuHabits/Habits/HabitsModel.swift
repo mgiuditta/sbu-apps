@@ -156,7 +156,7 @@ final class HabitsModel {
             totals[measure] = try? await health.total(of: measure, in: interval)
         }
         // The habits may have changed while Salute answered: mark the ones there are now.
-        if HealthMarking.mark(&habits, totals: totals, on: day) {
+        if HealthMarking.mark(&habits, totals: totals, on: day, hour: calendar.component(.hour, from: now())) {
             save()
         }
     }
@@ -183,7 +183,8 @@ final class HabitsModel {
     /// Adds one time today; a habit already done today stays as it is. For an Abitudine da
     /// evitare, one more time given in.
     func markDone(_ habit: Habit) {
-        update(habit) { $0.mark(on: today) }
+        let hour = calendar.component(.hour, from: now())
+        update(habit) { $0.mark(on: today, hour: hour) }
     }
 
     /// Takes back today's last mark.

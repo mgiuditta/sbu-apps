@@ -33,7 +33,7 @@ struct MarkHabitIntent: AppIntent {
         try store.update { file in
             let today = LogicalDay(now, startHour: file.startHour, calendar: calendar)
             if let index = file.habits.firstIndex(where: { $0.id.uuidString == habitID }) {
-                file.habits[index].mark(on: today)
+                file.habits[index].mark(on: today, hour: calendar.component(.hour, from: now))
             }
             saved = file
         }

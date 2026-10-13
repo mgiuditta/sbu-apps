@@ -72,7 +72,7 @@ struct SkipTests {
     @Test func markingASkippedDayTakesTheSkipBack() {
         var habit = habit(done: [], skipped: [0])
 
-        habit.mark(on: today)
+        habit.mark(on: today, hour: 9)
 
         #expect(habit.isSkipped(on: today) == false)
         #expect(habit.isDone(on: today))

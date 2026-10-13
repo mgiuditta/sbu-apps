@@ -3,15 +3,17 @@
 /// and never takes a mark back, so marks by hand still count.
 nonisolated enum HealthMarking {
     /// Marks the habits whose measure reached the goal on `day`.
-    /// - Parameter totals: Each linked measure's total on `day`; a measure missing is left alone.
+    /// - Parameters:
+    ///   - totals: Each linked measure's total on `day`; a measure missing is left alone.
+    ///   - hour: The hour on the clock now, 0 to 23, kept with the marks.
     /// - Returns: Whether any habit changed.
-    static func mark(_ habits: inout [Habit], totals: [HealthMeasure: Double], on day: LogicalDay) -> Bool {
+    static func mark(_ habits: inout [Habit], totals: [HealthMeasure: Double], on day: LogicalDay, hour: Int) -> Bool {
         var changed = false
         for index in habits.indices {
             let habit = habits[index]
             guard let link = habit.health, let total = totals[link.measure], link.isReached(by: total),
                   isOpen(habit, on: day) else { continue }
-            habits[index].log[day] = habit.timesPerDay(on: day)
+            habits[index].fill(on: day, hour: hour)
             changed = true
         }
         return changed

@@ -47,7 +47,7 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
     /// Values the form could have produced: a file edited by hand or crafted is refused, not
     /// trusted, since it replaces everything and is read again on every launch.
     static func isPlausible(_ habit: Habit) -> Bool {
-        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped
+        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped + habit.markHours.keys
         let schedules = [habit.schedule] + habit.earlier.map(\.schedule)
         let times = [habit.timesPerDay] + habit.earlier.map(\.timesPerDay)
         let limits = ([habit.limit] + habit.earlier.map(\.limit)).compactMap { $0 }
@@ -62,6 +62,8 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
             // A Salute goal the form offers (NaN never is), and only on a habit to do.
             && habit.health.map { $0.measure.goalRange.contains($0.goal) && habit.limit == nil } ?? true
             && habit.log.values.allSatisfy { (0...maxCount).contains($0) }
+            // Never more hours than marks: days from before hours existed may have fewer.
+            && habit.markHours.allSatisfy { day, hours in hours.count <= habit.count(on: day) && hours.allSatisfy((0..<24).contains) }
             && habit.reminders.allSatisfy { (0..<24).contains($0.hour) && (0..<60).contains($0.minute) }
             && schedules.allSatisfy { schedule in
                 switch schedule {

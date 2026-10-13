@@ -18,37 +18,59 @@ struct OwnerEmojiPicker: View {
             Text("Scegli un'icona per chi la condivide")
                 .font(SbuTheme.subheadline)
                 .foregroundStyle(SbuTheme.inkMuted)
-                .padding(.horizontal, SbuTheme.space4)
 
             ScrollView(.horizontal) {
                 HStack(spacing: SbuTheme.space3) {
                     ForEach(options, id: \.self) { option in
-                        Button {
+                        OptionButton(option: option, isSelected: option == selection) {
                             select(option)
-                        } label: {
-                            OwnerBadge(emoji: option, side: SbuTheme.controlRound)
-                                .overlay {
-                                    if option == selection {
-                                        Circle()
-                                            .strokeBorder(.tint, lineWidth: SbuTheme.space1)
-                                    }
-                                }
                         }
-                        .buttonStyle(.plain)
-                        .accessibilityLabel(label(of: option))
-                        .accessibilityAddTraits(option == selection ? .isSelected : [])
                     }
                 }
                 .padding(.horizontal, SbuTheme.space4)
+                // Room for the ring of the one picked.
+                .padding(.vertical, SbuTheme.space1)
             }
             .scrollIndicators(.hidden)
+            // Edge to edge under the finger; the first icon lines up with the screen's margin.
+            .padding(.horizontal, -SbuTheme.space4)
         }
-        .padding(.vertical, SbuTheme.space4)
-        .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
     }
+}
 
-    private func label(of option: String?) -> Text {
-        option.map { Text(verbatim: $0) } ?? Text("Persona")
+/// One icon of the row: the emoji, or the person symbol, on raised paper.
+private struct OptionButton: View {
+    let option: String?
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Label {
+                if let option {
+                    Text(verbatim: option)
+                } else {
+                    Text("Persona")
+                }
+            } icon: {
+                if let option {
+                    Text(verbatim: option)
+                } else {
+                    Image(systemName: OwnerEmoji.personSymbol)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                }
+            }
+        }
+        .labelStyle(.iconOnly)
+        .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRound))
+        .overlay {
+            if isSelected {
+                Circle()
+                    .strokeBorder(.tint, lineWidth: SbuTheme.space1)
+                    .accessibilityHidden(true)
+            }
+        }
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 

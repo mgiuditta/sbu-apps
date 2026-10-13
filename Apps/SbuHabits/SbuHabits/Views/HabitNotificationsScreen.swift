@@ -14,6 +14,7 @@ struct HabitNotificationsScreen: View {
             .listRowBackground(Color.clear)
 
             RemindersSection(rows: $reminders)
+                .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)

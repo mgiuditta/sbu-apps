@@ -21,6 +21,7 @@ struct HabitTitleSection: View {
                 .accessibilityLabel("Caratteri")
                 .accessibilityValue(Text("\(title.count) di \(Habit.maxTitleLength)"))
         }
+        .listRowBackground(SbuTheme.surfaceRaised)
     }
 
     private func limit() {

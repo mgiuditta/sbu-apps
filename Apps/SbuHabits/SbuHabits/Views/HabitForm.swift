@@ -81,6 +81,7 @@ struct HabitForm: View {
                         HabitFormRow(title: "Giorni", systemImage: "calendar", value: draft.daysSummary())
                     }
                 }
+                .listRowBackground(SbuTheme.surfaceRaised)
 
                 if draft.hasReminders || showsHealth {
                     Section {
@@ -95,6 +96,7 @@ struct HabitForm: View {
                             }
                         }
                     }
+                    .listRowBackground(SbuTheme.surfaceRaised)
                 }
 
                 if habit != nil {

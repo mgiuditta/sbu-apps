@@ -22,6 +22,7 @@ struct HabitKindScreen: View {
             } footer: {
                 HabitKindFooter(kind: draft.kind, linksHealth: draft.linksHealth)
             }
+            .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)

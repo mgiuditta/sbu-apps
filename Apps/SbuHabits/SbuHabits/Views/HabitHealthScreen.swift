@@ -8,6 +8,7 @@ struct HabitHealthScreen: View {
     var body: some View {
         Form {
             HealthSection(isOn: $draft.linksHealth, measure: $draft.healthMeasure, goal: $draft.healthGoal)
+                .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)

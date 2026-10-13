@@ -39,6 +39,7 @@ struct HabitDaysScreen: View {
             } footer: {
                 HabitDaysFooter(scheduleKind: draft.scheduleKind, hasNoWeekdays: draft.weekdays.isEmpty)
             }
+            .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)

@@ -16,6 +16,7 @@ struct HabitsImportTests {
         #"{"version": 1, "habits": []}"#,
         #"{"version": 0, "habits": [], "startHour": 2}"#,
         #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {"20001": 1}}]}"#,
+        #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Acqua", "symbol": "drop", "timesPerDay": 8, "createdOn": 20000, "log": {"20001": 3}, "markHours": {"20001": [9, 14]}}]}"#,
     ])
     func validFilesAreAccepted(json: String) {
         #expect(throws: Never.self) { try HabitsImport(data: Data(json.utf8)) }
@@ -48,6 +49,9 @@ struct HabitsImportTests {
         #""createdOn": 20000, "health": {"measure": "steps", "goal": 1e300}"#,
         #""createdOn": 20000, "limit": 2, "health": {"measure": "steps", "goal": 8000}"#,
         #""createdOn": 20000, "log": {"20001": 9223372036854775807}"#, // one more mark overflows
+        #""createdOn": 20000, "log": {"20001": 1}, "markHours": {"20001": [24]}"#,
+        #""createdOn": 20000, "log": {"20001": 1}, "markHours": {"20001": [8, 9]}"#, // more hours than marks
+        #""createdOn": 20000, "log": {"20001": 1}, "markHours": {"5": []}"#,
         #""createdOn": 20000, "earlier": [{"until": 20000, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,
         #""createdOn": 20000, "earlier": [{"until": 20005, "timesPerDay": 1, "schedule": {"everyDay": {}}}, {"until": 20002, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,
     ])

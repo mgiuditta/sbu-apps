@@ -122,7 +122,7 @@ struct HealthTests {
         _ = habit.update(title: "Palestra", symbol: "figure.walk", timesPerDay: 1, schedule: .weekdays([today.weekday % 7 + 1]), health: HealthLink(measure: .steps, goal: 8_000), from: today - 7)
         var habits = [habit]
 
-        #expect(HealthMarking.mark(&habits, totals: [.steps: 9_000], on: today) == false)
+        #expect(HealthMarking.mark(&habits, totals: [.steps: 9_000], on: today, hour: 9) == false)
         #expect(habits[0].count(on: today) == 0)
     }
 
@@ -132,7 +132,7 @@ struct HealthTests {
         _ = habit.update(title: "Corsa", symbol: "figure.walk", timesPerDay: 1, schedule: .timesPerWeek(3), health: HealthLink(measure: .steps, goal: 8_000), from: today)
         var habits = [habit]
 
-        #expect(HealthMarking.mark(&habits, totals: [.steps: 9_000], on: today))
+        #expect(HealthMarking.mark(&habits, totals: [.steps: 9_000], on: today, hour: 9))
         #expect(habits[0].isDone(on: today))
     }
 

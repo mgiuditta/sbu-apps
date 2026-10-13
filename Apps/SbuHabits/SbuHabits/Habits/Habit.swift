@@ -28,6 +28,10 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     let createdOn: LogicalDay
     /// How many times it was done on each logical day; missing days are zero.
     var log: [LogicalDay: Int] = [:]
+    /// The hour of the day, 0 to 23 on the clock where it happened, of each time marked on a
+    /// logical day, oldest first: a mark at 01:00 that counts for the day before keeps hour 1.
+    /// Marks saved before hours existed have none, so a day may hold fewer hours than its count.
+    private(set) var markHours: [LogicalDay: [Int]] = [:]
     /// Days skipped with Salta oggi, for example when ill: neutral for every Serie.
     var skipped: Set<LogicalDay> = []
     /// Times of day to be reminded, only on expected days and only while not done.
@@ -45,8 +49,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day, schedules, limits, skips, reminders, edits and Salute existed:
-    // yes/no, every day, to do, nothing skipped, no reminders, never edited, marked by hand.
+    // Files saved before times per day, schedules, limits, skips, reminders, edits, Salute and mark hours
+    // existed: yes/no, every day, to do, nothing skipped, no reminders, never edited, marked by hand, no hours.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -57,6 +61,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         limit = try container.decodeIfPresent(Int.self, forKey: .limit)
         createdOn = try container.decode(LogicalDay.self, forKey: .createdOn)
         log = try container.decode([LogicalDay: Int].self, forKey: .log)
+        markHours = try container.decodeIfPresent([LogicalDay: [Int]].self, forKey: .markHours) ?? [:]
         skipped = try container.decodeIfPresent(Set<LogicalDay>.self, forKey: .skipped) ?? []
         reminders = try container.decodeIfPresent([ReminderTime].self, forKey: .reminders) ?? []
         earlier = try container.decodeIfPresent([HabitSettings].self, forKey: .earlier) ?? []
@@ -141,23 +146,41 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
 
     /// Adds one time on `day`, and takes back a skip; a habit to do already done stays as it is,
     /// an Abitudine da evitare counts every time the user gave in, over the Limite too.
-    mutating func mark(on day: LogicalDay) {
+    /// - Parameter hour: The hour on the clock when it was marked, 0 to 23.
+    mutating func mark(on day: LogicalDay, hour: Int) {
         guard limit(on: day) != nil || isDone(on: day) == false else { return }
         skipped.remove(day)
         log[day, default: 0] += 1
+        markHours[day, default: []].append(hour)
     }
 
-    /// Takes back the last time marked on `day`.
+    /// Marks every time left on `day` at once, as Salute does when the goal is reached.
+    /// - Parameter hour: The hour on the clock when it was marked, 0 to 23.
+    mutating func fill(on day: LogicalDay, hour: Int) {
+        let left = timesPerDay(on: day) - count(on: day)
+        guard left > 0 else { return }
+        log[day] = timesPerDay(on: day)
+        markHours[day, default: []].append(contentsOf: repeatElement(hour, count: left))
+    }
+
+    /// Takes back the last time marked on `day`, with its hour.
     mutating func undoLast(on day: LogicalDay) {
+        guard count(on: day) > 0 else { return }
         let left = count(on: day) - 1
         log[day] = left > 0 ? left : nil
+        // The last mark is the newest: if any mark that day has an hour, it does.
+        _ = markHours[day]?.popLast()
+        if markHours[day]?.isEmpty == true {
+            markHours[day] = nil
+        }
     }
 
-    /// Skips `day`, clearing its marks, or takes the skip back.
+    /// Skips `day`, clearing its marks and their hours, or takes the skip back.
     mutating func toggleSkip(on day: LogicalDay) {
         if skipped.remove(day) == nil {
             skipped.insert(day)
             log[day] = nil
+            markHours[day] = nil
         }
     }
 

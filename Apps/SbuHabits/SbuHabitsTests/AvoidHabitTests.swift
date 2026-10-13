@@ -65,7 +65,7 @@ struct AvoidHabitTests {
     @Test func markingCountsEveryTimeGivenInPastTheLimit() {
         var habit = coffee(limit: 1, given: [:])
         for _ in 0..<3 {
-            habit.mark(on: today)
+            habit.mark(on: today, hour: 9)
         }
         let progress = HabitProgress(of: habit, today: today, firstWeekday: 2)
 

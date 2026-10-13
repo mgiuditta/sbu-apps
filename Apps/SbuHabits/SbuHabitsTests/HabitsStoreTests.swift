@@ -39,5 +39,6 @@ struct HabitsStoreTests {
         #expect(habit.timesPerDay == 1)
         #expect(habit.schedule == .everyDay)
         #expect(habit.isDone(on: LogicalDay(ordinal: 20_001)))
+        #expect(habit.markHours.isEmpty)
     }
 }

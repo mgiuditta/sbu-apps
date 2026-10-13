@@ -22,6 +22,7 @@ Add the habits you want to build and hold one down when you do it. At the top yo
 - Reminders only on due days and only if you have not done it yet, also at the time you usually do it
 - Interactive widgets: mark from the Home Screen
 - Widgets for a habit's streak, completion, weekdays and calendar
+- Apple Watch: mark habits from your wrist with a tap, see your full streak and add the complication to your watch face. Your Watch gets its data only from your iPhone
 - Statistics with your best streak, completion over time and history, to share as an image
 - Export and import your data as a file, saved where you choose
 - Sync through your own iCloud, off until you turn it on

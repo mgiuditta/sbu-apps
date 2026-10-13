@@ -9,6 +9,7 @@ struct SbuHabitsApp: App {
     @State private var sync: HabitsSync
     @State private var sharing: HabitSharing
     @State private var received: ReceivedHabits
+    @State private var watch: WatchLink
 
     init() {
         let model = HabitsModel()
@@ -21,6 +22,8 @@ struct SbuHabitsApp: App {
         AppDelegate.received = received
         // The Live Activity's Pausa and Riprendi run here, also with the app in the background.
         TimerControl.reloadApp = { model.reload() }
+        // At every launch too: a tap on the Apple Watch can wake the app in the background.
+        _watch = State(initialValue: WatchLink.live(model: model))
         _model = State(initialValue: model)
         _sync = State(initialValue: sync)
         _sharing = State(initialValue: HabitSharing.live(model: model))

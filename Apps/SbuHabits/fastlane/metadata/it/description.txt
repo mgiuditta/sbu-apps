@@ -22,6 +22,7 @@ Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alt
 - Promemoria solo nei giorni previsti e solo se non l'hai ancora fatta, anche all'ora in cui di solito la fai
 - Widget interattivi: segni dalla schermata Home
 - Widget per la serie, il completamento, i giorni della settimana e il calendario di un'abitudine
+- Apple Watch: segna le abitudini dal polso con un tocco, vedi la Serie piena e aggiungi la complicazione al quadrante. Il Watch riceve i dati solo dal tuo iPhone
 - Statistiche con la serie migliore, il completamento nel tempo e lo storico, da condividere come immagine
 - Esporta e importa i tuoi dati in un file, salvato dove scegli tu
 - Sincronizzazione sul tuo iCloud, spenta finché non la attivi

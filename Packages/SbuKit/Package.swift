@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "SbuKit",
     defaultLocalization: "it",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v17), .watchOS(.v10)],
     products: [
         .library(name: "SbuKit", targets: ["SbuKit"]),
     ],

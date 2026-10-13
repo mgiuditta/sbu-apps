@@ -33,10 +33,10 @@ def number(value: str) -> str:
 
 
 def colorset(hex_light: str, hex_dark: str) -> dict:
-    def entry(hex_value: str, dark: bool) -> dict:
+    def entry(hex_value: str, dark: bool, idiom: str = "universal") -> dict:
         h = hex_value.lstrip("#")
         item = {
-            "idiom": "universal",
+            "idiom": idiom,
             "color": {
                 "color-space": "srgb",
                 "components": {
@@ -51,8 +51,9 @@ def colorset(hex_light: str, hex_dark: str) -> dict:
             item["appearances"] = [{"appearance": "luminosity", "value": "dark"}]
         return item
 
+    # watchOS ignores the dark appearance and always runs dark: the watch idiom takes the dark value.
     return {
-        "colors": [entry(hex_light, False), entry(hex_dark, True)],
+        "colors": [entry(hex_light, False), entry(hex_dark, True), entry(hex_dark, False, "watch")],
         "info": {"author": "xcode", "version": 1},
     }
 

@@ -1,8 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// The form's link to Salute: the measure that marks the habit done by itself. Its daily goal
-/// is set on the Obiettivo screen; choosing another measure starts it from that measure's.
+/// The form's link to Salute: the measure that marks the habit done by itself, listed by group
+/// as Salute groups them. Its daily goal is set on the Obiettivo screen; choosing another measure
+/// starts it from that measure's.
 struct HealthSection: View {
     @Binding var isOn: Bool
     @Binding var measure: HealthMeasure
@@ -11,15 +12,6 @@ struct HealthSection: View {
     var body: some View {
         Section {
             Toggle("Collega a Salute", isOn: $isOn)
-
-            if isOn {
-                Picker("Misura", selection: $measure) {
-                    ForEach(HealthMeasure.allCases) { measure in
-                        Text(measure.title)
-                            .tag(measure)
-                    }
-                }
-            }
         } header: {
             Text("Salute")
         } footer: {
@@ -29,6 +21,27 @@ struct HealthSection: View {
         }
         .onChange(of: measure) {
             goal = measure.defaultGoal
+        }
+
+        if isOn {
+            // One list of choices in sections: each group's picker checks the measure only
+            // when it is one of its own.
+            ForEach(HealthMeasureGroup.allCases) { group in
+                Section {
+                    Picker(selection: $measure) {
+                        ForEach(group.measures) { measure in
+                            Text(measure.title)
+                                .tag(measure)
+                        }
+                    } label: {
+                        Text(group.title)
+                    }
+                    .pickerStyle(.inline)
+                    .labelsHidden()
+                } header: {
+                    Text(group.title)
+                }
+            }
         }
     }
 }

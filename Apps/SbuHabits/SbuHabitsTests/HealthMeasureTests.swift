@@ -47,10 +47,59 @@ struct HealthMeasureTests {
         (.mindfulMinutes, 10, "10 min", "10 min"),
         (.walkingRunningDistance, 5_500, "5,5 km", "5.5 km"),
         (.activeEnergy, 400, "400 kcal", "400 kcal"),
+        (.cyclingDistance, 12_000, "12 km", "12 km"),
+        (.swimmingDistance, 1_500, "1500 m", "1,500 m"),
+        (.flightsClimbed, 1, "1 piano", "1 flight"),
+        (.flightsClimbed, 10, "10 piani", "10 flights"),
+        (.exerciseMinutes, 30, "30 min", "30 min"),
+        (.standMinutes, 60, "60 min", "60 min"),
+        (.timeInDaylight, 45, "45 min", "45 min"),
+        (.sleep, 480, "8 h", "8 hr"),
+        (.sleep, 450, "7 h e 30 min", "7 hr, 30 min"),
+        (.activityRings, 1, "1 anello", "1 ring"),
+        (.activityRings, 3, "3 anelli", "3 rings"),
     ])
     func goalsReadInTheUsersUnits(measure: HealthMeasure, amount: Double, italian: String, american: String) {
         #expect(measure.formatted(amount, locale: Locale(identifier: "it_IT")) == italian)
         #expect(measure.formatted(amount, locale: Locale(identifier: "en_US")) == american)
+    }
+
+    @Test(arguments: [
+        (HealthMeasure.cyclingDistance, 1_000.0...200_000, 1_000.0, 10_000.0),
+        (.swimmingDistance, 100...10_000, 100, 1_000),
+        (.flightsClimbed, 1...100, 1, 10),
+        (.exerciseMinutes, 5...240, 5, 30),
+        (.standMinutes, 5...600, 5, 60),
+        (.timeInDaylight, 5...480, 5, 30),
+        (.sleep, 240...720, 30, 480),
+        (.activityRings, 1...3, 1, 3),
+    ])
+    func theNewMeasuresOfferTheirGoals(measure: HealthMeasure, range: ClosedRange<Double>, step: Double, start: Double) {
+        #expect(measure.goalRange == range)
+        #expect(measure.goalStep == step)
+        #expect(measure.defaultGoal == start)
+    }
+
+    @Test(arguments: HealthMeasure.allCases)
+    func everyMeasureHasTheNameSaluteUsesInBothLanguages(measure: HealthMeasure) {
+        var title = measure.title
+        title.locale = Locale(identifier: "it_IT")
+        let italian = String(localized: title)
+        title.locale = Locale(identifier: "en_US")
+        #expect(italian != String(localized: title), "\(italian) has no English")
+    }
+
+    @Test(arguments: HealthMeasure.allCases)
+    func aGoalOutsideTheRangeIsKeptInside(measure: HealthMeasure) {
+        #expect(HealthLink(measure: measure, goal: 0).goal == measure.goalRange.lowerBound)
+        #expect(HealthLink(measure: measure, goal: 1_000_000).goal == measure.goalRange.upperBound)
+    }
+
+    @Test(arguments: HealthMeasure.allCases)
+    func aLinkSurvivesTheFile(measure: HealthMeasure) throws {
+        let link = HealthLink(measure: measure, goal: measure.defaultGoal)
+        let decoded = try JSONDecoder().decode(HealthLink.self, from: JSONEncoder().encode(link))
+        #expect(decoded == link)
     }
 
     @Test func stepsReadAsAGroupedNumber() {

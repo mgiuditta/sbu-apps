@@ -178,6 +178,14 @@ nonisolated struct HabitDraft: Equatable, Sendable {
             case .mindfulMinutes: "Meditare \(amount)"
             case .walkingRunningDistance: "Camminare o correre \(amount)"
             case .activeEnergy: "Bruciare \(amount)"
+            case .cyclingDistance: "Pedalare \(amount)"
+            case .swimmingDistance: "Nuotare \(amount)"
+            case .flightsClimbed: "Salire \(amount)"
+            case .exerciseMinutes: "Fare esercizio \(amount)"
+            case .standMinutes: "Stare in piedi \(amount)"
+            case .timeInDaylight: "Stare alla luce \(amount)"
+            case .sleep: "Dormire \(amount)"
+            case .activityRings: "Chiudere \(amount)"
             }
         } else {
             title = HabitSymbol.named(symbol)?.name ?? "Abitudine"

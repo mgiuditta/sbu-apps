@@ -30,6 +30,14 @@ struct HabitDraftTests {
         (.mindfulMinutes, 10, "Meditare 10 min", "Meditate 10 min"),
         (.walkingRunningDistance, 5_000, "Camminare o correre 5 km", "Walk or run 5 km"),
         (.activeEnergy, 400, "Bruciare 400 kcal", "Burn 400 kcal"),
+        (.cyclingDistance, 10_000, "Pedalare 10 km", "Cycle 10 km"),
+        (.swimmingDistance, 1_000, "Nuotare 1000 m", "Swim 1,000 m"),
+        (.flightsClimbed, 10, "Salire 10 piani", "Climb 10 flights"),
+        (.exerciseMinutes, 30, "Fare esercizio 30 min", "Exercise 30 min"),
+        (.standMinutes, 60, "Stare in piedi 60 min", "Stand 60 min"),
+        (.timeInDaylight, 30, "Stare alla luce 30 min", "Spend 30 min in daylight"),
+        (.sleep, 480, "Dormire 8 h", "Sleep 8 hr"),
+        (.activityRings, 3, "Chiudere 3 anelli", "Close 3 rings"),
     ])
     func aLinkedHabitIsTitledByItsGoal(measure: HealthMeasure, goal: Double, italian: String, english: String) {
         let linked = draft {

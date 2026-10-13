@@ -5,7 +5,7 @@ final class PlayerFlowTests: XCTestCase {
     @MainActor
     func testPlayNextInfoAndAudit() throws {
         let app = XCUIApplication()
-        app.launchArguments = ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-lastSoundID", "noise.white"]
+        app.launchArguments = ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-lastSoundID", "noise.white", "-lastCategory", "sounds"]
         app.launchEnvironment["SBU_NOISE_FILE"] = "ui-\(UUID().uuidString).json"
         app.launch()
 

@@ -73,7 +73,7 @@ final class TimersModel {
     }
 
     private func commit() {
-        try? store.save(NoiseFile(timers: timers))
+        try? store.update { $0.timers = timers }
         schedule()
     }
 

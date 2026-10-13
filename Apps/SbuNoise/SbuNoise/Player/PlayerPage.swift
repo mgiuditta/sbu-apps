@@ -1,10 +1,10 @@
 import SbuKit
 import SwiftUI
 
-/// One page of the player: the sound's symbol where the original shows a photo, then its name as
-/// the screen's figure, closed by the full stop.
-struct SoundPage: View {
-    let sound: Sound
+/// One page of the player: the sound's or mix's symbol where the original shows a photo, then its
+/// name as the screen's figure, closed by the full stop.
+struct PlayerPage: View {
+    let item: PlayerItem
     let position: Int
     let count: Int
 
@@ -14,13 +14,13 @@ struct SoundPage: View {
     var body: some View {
         VStack(spacing: SbuTheme.space4) {
             Spacer(minLength: 0)
-            Image(systemName: sound.systemImage)
+            Image(systemName: item.systemImage)
                 .font(.system(size: symbolSize, weight: .medium))
                 .foregroundStyle(SbuTheme.inkMuted)
                 .accessibilityHidden(true)
             Spacer(minLength: 0)
             HStack(alignment: .lastTextBaseline, spacing: 0) {
-                Text(sound.name)
+                Text(item.name)
                     .font(SbuTheme.numberFont(size: nameSize))
                     .tracking(SbuTheme.statTracking)
                     // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
@@ -31,7 +31,12 @@ struct SoundPage: View {
                 SbuFullStop(fontSize: nameSize)
             }
             .accessibilityAddTraits(.isHeader)
-            Text("Suoni · \(position) di \(count)")
+            Group {
+                switch item {
+                case .sound: Text("Suoni · \(position) di \(count)")
+                case .mix: Text("Mix · \(position) di \(count)")
+                }
+            }
                 .font(SbuTheme.footnote)
                 .foregroundStyle(SbuTheme.inkMuted)
         }
@@ -40,12 +45,12 @@ struct SoundPage: View {
 }
 
 #Preview("Light") {
-    SoundPage(sound: Sound.generated[2], position: 3, count: 5)
+    PlayerPage(item: .sound(Sound.generated[2]), position: 3, count: 5)
         .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
-    SoundPage(sound: Sound.generated[2], position: 3, count: 5)
+    PlayerPage(item: .mix(Mix(name: "Temporale", soundIDs: ["noise.pink"])), position: 1, count: 2)
         .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

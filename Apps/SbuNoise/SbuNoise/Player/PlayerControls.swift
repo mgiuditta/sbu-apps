@@ -5,6 +5,7 @@ import SwiftUI
 /// and the audio output.
 struct PlayerControls: View {
     let model: PlayerModel
+    /// The sound's source, or the Mix Pad for a mix.
     let showInfo: () -> Void
 
     var body: some View {
@@ -18,8 +19,13 @@ struct PlayerControls: View {
                 Spacer()
                 ControlButton("Successivo", systemImage: "forward.fill") { model.step(1) }
                 Spacer()
-                ControlButton("Informazioni", systemImage: "info.circle", action: showInfo)
+                if case .mix = model.current {
+                    ControlButton("Modifica il mix", systemImage: "slider.horizontal.3", action: showInfo)
+                } else {
+                    ControlButton("Informazioni", systemImage: "info.circle", action: showInfo)
+                }
             }
+            .disabled(model.current == nil)
             HStack(spacing: SbuTheme.space3) {
                 SystemVolumeSlider()
                     .frame(height: SbuTheme.controlRoundSm)
@@ -55,12 +61,12 @@ private struct FavoriteButton: View {
     let model: PlayerModel
 
     var body: some View {
-        let isFavorite = model.isFavorite(model.current)
+        let isFavorite = model.current.map(model.isFavorite) ?? false
         ControlButton(
             isFavorite ? "Togli dai preferiti" : "Aggiungi ai preferiti",
             systemImage: isFavorite ? "heart.fill" : "heart"
         ) {
-            model.toggleFavorite(model.current)
+            if let current = model.current { model.toggleFavorite(current) }
         }
         .sensoryFeedback(.selection, trigger: isFavorite)
     }

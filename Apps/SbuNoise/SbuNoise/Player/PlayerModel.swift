@@ -1,42 +1,79 @@
 import Foundation
 import Observation
 
-/// What the player shows and plays: the current sound in its list, play/pause and favorites.
+/// What the player shows and plays: the current sound or mix in its category, play/pause,
+/// favorites, and the mix being edited on the Mix Pad.
 @Observable
 final class PlayerModel {
     static let lastSoundKey = "lastSoundID"
+    static let lastCategoryKey = "lastCategory"
 
     let sounds: [Sound]
-    /// The page on screen; always a valid index of `sounds`. Remembered for the next launch.
+    let library: Library
+
+    var category: PlayerCategory {
+        didSet {
+            guard category != oldValue else { return }
+            defaults.set(category.rawValue, forKey: Self.lastCategoryKey)
+            index = 0
+        }
+    }
+    /// The page on screen, an index of `items`. Remembered for the next launch.
     var index: Int {
         didSet {
-            defaults.set(current.id, forKey: Self.lastSoundKey)
+            if let current { defaults.set(current.id, forKey: Self.lastSoundKey) }
             if isPlaying { start() }
         }
     }
     private(set) var isPlaying = false
     /// ponytail: in memory only; saved to the file with the favorites category.
     private(set) var favorites: Set<String> = []
+    /// The mix open on the Mix Pad: it plays instead of the page while you change it.
+    @ObservationIgnored private var draft: Mix?
     /// Set when a call or an alarm stops the sound, so it comes back when the system allows.
     @ObservationIgnored private var resumesAfterInterruption = false
+    /// Moves the layers that have variance while a mix plays.
+    @ObservationIgnored private var wandering: Task<Void, Never>?
+    /// When the mix started: the Mix Pad draws the wandering sounds on the same clock.
+    @ObservationIgnored private(set) var wanderStart = Date.now
 
     @ObservationIgnored private let engine = SoundEngine()
     @ObservationIgnored private let defaults: UserDefaults
-    private static let layerID = "player"
+    private static let soundLayerID = "player"
 
-    var current: Sound { sounds[index] }
-
-    /// Opens on the sound played last, or the first one.
-    init(sounds: [Sound] = Sound.generated, defaults: UserDefaults = .standard) {
+    /// Opens on the category and the sound or mix played last, or the first sound.
+    init(sounds: [Sound] = Sound.generated, library: Library = Library(), defaults: UserDefaults = .standard) {
         self.sounds = sounds
+        self.library = library
         self.defaults = defaults
+        category = defaults.string(forKey: Self.lastCategoryKey).flatMap(PlayerCategory.init) ?? .sounds
+        index = 0
         let last = defaults.string(forKey: Self.lastSoundKey)
-        index = sounds.firstIndex { $0.id == last } ?? 0
+        index = items.firstIndex { $0.id == last } ?? 0
     }
 
-    /// The previous or next sound; the buttons wrap at the ends of the list, the swipe stops there.
+    var items: [PlayerItem] {
+        switch category {
+        case .sounds: sounds.map(PlayerItem.sound)
+        case .mixes: library.mixes.map(PlayerItem.mix)
+        }
+    }
+
+    /// `nil` only in an empty category (no mixes yet).
+    var current: PlayerItem? {
+        let items = items
+        return items.indices.contains(index) ? items[index] : nil
+    }
+
+    func sound(withID id: String) -> Sound? {
+        sounds.first { $0.id == id }
+    }
+
+    /// The previous or next item; the buttons wrap at the ends of the list, the swipe stops there.
     func step(_ offset: Int) {
-        index = (index + offset + sounds.count) % sounds.count
+        let count = items.count
+        guard count > 0 else { return }
+        index = (index + offset + count) % count
     }
 
     func togglePlayback() {
@@ -66,40 +103,124 @@ final class PlayerModel {
         }
     }
 
-    func isFavorite(_ sound: Sound) -> Bool {
-        favorites.contains(sound.id)
+    func isFavorite(_ item: PlayerItem) -> Bool {
+        favorites.contains(item.id)
     }
 
-    func toggleFavorite(_ sound: Sound) {
-        if favorites.remove(sound.id) == nil { favorites.insert(sound.id) }
+    func toggleFavorite(_ item: PlayerItem) {
+        if favorites.remove(item.id) == nil { favorites.insert(item.id) }
     }
 
     /// Fades the sound out over `duration`, then pauses it. If the sound was restarted meanwhile
-    /// (a new node at full volume) the user's choice wins and it keeps playing.
+    /// (the output back at full volume) the user's choice wins and it keeps playing.
     func fadeOut(over duration: Duration) async {
         guard isPlaying else { return }
-        await engine.fade(Self.layerID, to: 0, over: duration)
+        await engine.fadeOutput(to: 0, over: duration)
         if Task.isCancelled {
-            engine.setVolume(1, for: Self.layerID)
-        } else if (engine.volume(for: Self.layerID) ?? 0) < 0.01 {
+            engine.outputVolume = 1
+        } else if engine.outputVolume < 0.01 {
             pause()
         }
     }
 
+    // MARK: Mix Pad
+
+    /// Plays `mix` while the Mix Pad changes it: new or removed sounds rebuild the layers, the rest
+    /// only moves their settings.
+    func preview(_ mix: Mix) {
+        let sameLayers = draft?.layers.map(\.id) == mix.layers.map(\.id)
+        draft = mix
+        if isPlaying && sameLayers {
+            apply(mix)
+        } else {
+            start()
+        }
+    }
+
+    /// Back to the page after the Mix Pad, playing it if the mix was playing.
+    func endPreview() {
+        guard draft != nil else { return }
+        draft = nil
+        if isPlaying { start() }
+    }
+
+    /// Saves the mix from the Mix Pad and plays it from its page in Mix.
+    func saveAndPlay(_ mix: Mix) {
+        library.save(mix)
+        draft = nil
+        category = .mixes
+        index = library.mixes.firstIndex { $0.id == mix.id } ?? 0
+        start()
+    }
+
+    /// Deletes a mix, staying on a valid page.
+    func delete(_ mix: Mix) {
+        let wasPlaying = isPlaying && current?.id == mix.id.uuidString
+        draft = nil
+        library.delete(mix.id)
+        if wasPlaying { pause() }
+        index = min(index, max(0, items.count - 1))
+    }
+
+    // MARK: Playback
+
     private func pause() {
-        engine.remove(Self.layerID)
+        wandering?.cancel()
+        engine.removeAll()
         isPlaying = false
         resumesAfterInterruption = false
     }
 
     private func start() {
         resumesAfterInterruption = false
+        wandering?.cancel()
+        engine.replaceAll()
+        engine.outputVolume = 1
         do {
-            try engine.addNoise(current.noise, id: Self.layerID)
+            if let mix = draft ?? current.flatMap(Self.mix) {
+                try play(mix)
+            } else if case .sound(let sound) = current {
+                try engine.addNoise(sound.noise, id: Self.soundLayerID)
+            } else {
+                return pause()
+            }
             isPlaying = true
         } catch {
             // A failed start (another app holds the audio, a call in progress) leaves the player paused.
-            isPlaying = false
+            pause()
         }
+    }
+
+    private func play(_ mix: Mix) throws {
+        for layer in mix.layers {
+            guard let sound = sound(withID: layer.soundID) else { continue }
+            try engine.addNoise(sound.noise, id: layer.id.uuidString)
+        }
+        wanderStart = .now
+        apply(mix)
+        // ponytail: 20 updates a second for every mix, even with no variance; cheap next to the audio.
+        wandering = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .milliseconds(50))
+                guard let self, let mix = self.draft ?? self.current.flatMap(Self.mix) else { return }
+                self.apply(mix)
+            }
+        }
+    }
+
+    /// Sets each layer's pan, volume and pitch for where it is now on its path.
+    private func apply(_ mix: Mix) {
+        let time = Date.now.timeIntervalSince(wanderStart)
+        for (offset, layer) in mix.layers.enumerated() {
+            let id = layer.id.uuidString
+            let point = MixSpace.position(of: layer, at: time, phase: Double(offset))
+            engine.setPan(MixSpace.pan(at: point), for: id)
+            engine.setVolume(Float(layer.volume) * MixSpace.gain(at: point), for: id)
+            engine.setPitch(Float(layer.pitch), for: id)
+        }
+    }
+
+    private static func mix(_ item: PlayerItem) -> Mix? {
+        if case .mix(let mix) = item { mix } else { nil }
     }
 }

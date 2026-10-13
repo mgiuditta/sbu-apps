@@ -37,6 +37,13 @@ nonisolated struct NoiseStore: Sendable {
         try JSONEncoder().encode(file).write(to: url, options: .atomic)
     }
 
+    /// Reads, changes and writes the file in one go, so each model writes only its own part.
+    func update(_ change: (inout NoiseFile) -> Void) throws {
+        var file = try load()
+        change(&file)
+        try save(file)
+    }
+
     private struct Header: Decodable {
         let version: Int
     }

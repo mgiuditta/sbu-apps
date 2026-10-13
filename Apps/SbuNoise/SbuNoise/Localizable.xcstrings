@@ -1,6 +1,26 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "a destra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "right"
+          }
+        }
+      }
+    },
+    "a sinistra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "left"
+          }
+        }
+      }
+    },
     "Aggiungi" : {
       "localizations" : {
         "en" : {
@@ -21,12 +41,32 @@
         }
       }
     },
+    "Aggiungi suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Sound"
+          }
+        }
+      }
+    },
     "Aggiungi un timer per fermare il suono a un'ora o dopo un po'." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add a timer to stop the sound at a set time or after a while."
+          }
+        }
+      }
+    },
+    "al centro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "center"
           }
         }
       }
@@ -41,12 +81,102 @@
         }
       }
     },
+    "Apre volume, tono e varianza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens volume, pitch and variance"
+          }
+        }
+      }
+    },
+    "Avanti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "Categorie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categories"
+          }
+        }
+      }
+    },
+    "Con la varianza il suono si muove da solo attorno al suo posto; la velocità dice quanto in fretta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With variance the sound moves around its place by itself; speed sets how fast."
+          }
+        }
+      }
+    },
     "Crea" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create"
+          }
+        }
+      }
+    },
+    "Crea un mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a Mix"
+          }
+        }
+      }
+    },
+    "davanti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in front"
+          }
+        }
+      }
+    },
+    "Davanti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front"
+          }
+        }
+      }
+    },
+    "dietro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "behind"
+          }
+        }
+      }
+    },
+    "Dietro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
           }
         }
       }
@@ -77,6 +207,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Duration"
+          }
+        }
+      }
+    },
+    "Elimina dal mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from Mix"
+          }
+        }
+      }
+    },
+    "Elimina mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Mix"
           }
         }
       }
@@ -131,6 +281,16 @@
         }
       }
     },
+    "Fino a %lld suoni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up to %lld sounds."
+          }
+        }
+      }
+    },
     "Fonte" : {
       "localizations" : {
         "en" : {
@@ -181,12 +341,78 @@
         }
       }
     },
+    "Metti insieme fino a cinque suoni e scegli dove sentirli." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put up to five sounds together and choose where you hear them."
+          }
+        }
+      }
+    },
     "Minuti" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Minutes"
+          }
+        }
+      }
+    },
+    "Mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mixes"
+          }
+        }
+      }
+    },
+    "Mix %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mix %lld"
+          }
+        }
+      }
+    },
+    "Mix Pad" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mix Pad"
+          }
+        }
+      }
+    },
+    "Mix · %lld di %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mixes · %1$lld of %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mix · %1$lld di %2$lld"
+          }
+        }
+      }
+    },
+    "Modifica il mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Mix"
           }
         }
       }
@@ -211,6 +437,16 @@
         }
       }
     },
+    "Nessun mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Mixes"
+          }
+        }
+      }
+    },
     "Nessun timer" : {
       "localizations" : {
         "en" : {
@@ -227,6 +463,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "None"
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Nuovo mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Mix"
           }
         }
       }
@@ -291,12 +547,42 @@
         }
       }
     },
+    "Rinomina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "Rinomina il mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename Mix"
+          }
+        }
+      }
+    },
     "Ripeti" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Repeat"
+          }
+        }
+      }
+    },
+    "Ripristina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
           }
         }
       }
@@ -371,12 +657,32 @@
         }
       }
     },
+    "Salva il mix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save Mix"
+          }
+        }
+      }
+    },
     "Sbu Noise" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Noise"
+          }
+        }
+      }
+    },
+    "Scegli i suoni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Sounds"
           }
         }
       }
@@ -401,12 +707,62 @@
         }
       }
     },
+    "Sposta a destra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move Right"
+          }
+        }
+      }
+    },
+    "Sposta a sinistra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move Left"
+          }
+        }
+      }
+    },
+    "Sposta avanti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move Forward"
+          }
+        }
+      }
+    },
+    "Sposta indietro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move Back"
+          }
+        }
+      }
+    },
     "Successivo" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next"
+          }
+        }
+      }
+    },
+    "Suoni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sounds"
           }
         }
       }
@@ -423,6 +779,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suoni · %1$lld di %2$lld"
+          }
+        }
+      }
+    },
+    "Suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound"
           }
         }
       }
@@ -457,12 +823,52 @@
         }
       }
     },
+    "Tono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pitch"
+          }
+        }
+      }
+    },
     "Uscita audio" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Audio output"
+          }
+        }
+      }
+    },
+    "Varianza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variance"
+          }
+        }
+      }
+    },
+    "Velocità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed"
+          }
+        }
+      }
+    },
+    "Volume" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume"
           }
         }
       }

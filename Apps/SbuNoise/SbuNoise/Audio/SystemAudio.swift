@@ -56,7 +56,7 @@ final class SystemAudio {
     private func updateNowPlaying() {
         withObservationTracking {
             MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-                MPMediaItemPropertyTitle: String(localized: model.current.name),
+                MPMediaItemPropertyTitle: model.current?.name ?? "Sbu Noise",
                 MPMediaItemPropertyArtist: "Sbu Noise",
                 MPMediaItemPropertyArtwork: artwork,
                 // A sound with no end: no progress bar and no skip by seconds.

@@ -4,7 +4,7 @@ import Testing
 
 struct TimersModelTests {
     private let store = NoiseStore(url: .temporaryDirectory.appending(path: "TimersModelTests-\(UUID().uuidString)/noise.json"))
-    private let player = PlayerModel(defaults: UserDefaults(suiteName: UUID().uuidString)!)
+    private let player = PlayerModel(library: Library(store: .temporary), defaults: UserDefaults(suiteName: UUID().uuidString)!)
     private let start = Date(timeIntervalSince1970: 1_000_000)
 
     private func model() -> TimersModel {

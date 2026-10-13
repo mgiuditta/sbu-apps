@@ -1,14 +1,16 @@
 import AVFAudio
 
-/// Plays sounds as layers on one `AVAudioEngine`: one node per layer, each with its own volume and
-/// pan, mixed by the engine's main mixer.
+/// Plays sounds as layers on one `AVAudioEngine`: one source per layer through its own pitch unit,
+/// with its own volume and pan, mixed by the engine's main mixer. Fades move the whole output.
 ///
 /// Recordings loop from a buffer held in memory (`.loops`), so the jump back to the start happens
 /// inside the engine with no I/O; the seam itself is crossfaded when the file is made. Noises are
 /// generated forever by an `AVAudioSourceNode` and never loop.
 final class SoundEngine {
     private let engine = AVAudioEngine()
-    private var layers: [String: AVAudioNode & AVAudioMixing] = [:]
+    /// Each layer's chain: source → pitch unit → its own mixer, which carries volume and pan into
+    /// the main mixer (an `AVAudioUnit` is not `AVAudioMixing`).
+    private var layers: [String: (source: AVAudioNode, pitch: AVAudioUnitTimePitch, mixer: AVAudioMixerNode)] = [:]
 
     /// The ids of the layers playing now.
     var layerIDs: Set<String> { Set(layers.keys) }
@@ -29,41 +31,59 @@ final class SoundEngine {
     }
 
     func setVolume(_ volume: Float, for id: String) {
-        layers[id]?.volume = volume
+        layers[id]?.mixer.volume = volume
     }
 
     /// - Parameter pan: -1 is full left, 1 full right.
     func setPan(_ pan: Float, for id: String) {
-        layers[id]?.pan = pan
+        layers[id]?.mixer.pan = pan
+    }
+
+    /// - Parameter cents: -1200...1200; 0 bypasses the pitch unit.
+    func setPitch(_ cents: Float, for id: String) {
+        guard let unit = layers[id]?.pitch else { return }
+        unit.pitch = cents
+        unit.bypass = cents == 0
     }
 
     func volume(for id: String) -> Float? {
-        layers[id]?.volume
+        layers[id]?.mixer.volume
     }
 
-    /// Moves a layer's volume to `target` over `duration`, in small steps; returns when done or cancelled.
-    func fade(_ id: String, to target: Float, over duration: Duration) async {
-        guard let node = layers[id] else { return }
-        let ramp = VolumeRamp(from: node.volume, to: target, duration: duration)
+    /// The volume of everything together, which fades move.
+    var outputVolume: Float {
+        get { engine.mainMixerNode.outputVolume }
+        set { engine.mainMixerNode.outputVolume = newValue }
+    }
+
+    /// Moves the output volume to `target` over `duration`, in small steps; returns when done or cancelled.
+    func fadeOutput(to target: Float, over duration: Duration) async {
+        let ramp = VolumeRamp(from: outputVolume, to: target, duration: duration)
         let clock = ContinuousClock()
         let start = clock.now
         while !Task.isCancelled {
             let elapsed = clock.now - start
-            node.volume = ramp.volume(after: elapsed)
+            outputVolume = ramp.volume(after: elapsed)
             if elapsed >= duration { return }
             try? await Task.sleep(for: .milliseconds(20))
         }
     }
 
+    /// Removes every layer, stops the engine and releases the audio session.
+    func removeAll() {
+        replaceAll()
+        stop()
+    }
+
+    /// Removes every layer but keeps the engine and the session running, before adding new layers.
+    func replaceAll() {
+        for id in layers.keys { detach(id) }
+    }
+
+    /// Removes a layer; the last one out stops the engine and releases the session.
     func remove(_ id: String) {
-        guard let node = layers.removeValue(forKey: id) else { return }
-        (node as? AVAudioPlayerNode)?.stop()
-        engine.detach(node)
-        if layers.isEmpty {
-            engine.stop()
-            // Lets the music or podcast this sound interrupted carry on.
-            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
-        }
+        detach(id)
+        if layers.isEmpty { stop() }
     }
 
     /// Starts the engine again after the hardware stopped it (`AVAudioEngineConfigurationChange`);
@@ -84,11 +104,30 @@ final class SoundEngine {
         return buffer
     }
 
-    private func add(_ node: AVAudioNode & AVAudioMixing, id: String, format: AVAudioFormat) throws {
-        remove(id)
-        engine.attach(node)
-        engine.connect(node, to: engine.mainMixerNode, format: format)
-        layers[id] = node
+    private func detach(_ id: String) {
+        guard let layer = layers.removeValue(forKey: id) else { return }
+        (layer.source as? AVAudioPlayerNode)?.stop()
+        engine.detach(layer.source)
+        engine.detach(layer.pitch)
+        engine.detach(layer.mixer)
+    }
+
+    private func stop() {
+        engine.stop()
+        // Lets the music or podcast this sound interrupted carry on.
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+    }
+
+    private func add(_ node: AVAudioNode, id: String, format: AVAudioFormat) throws {
+        detach(id)
+        let pitch = AVAudioUnitTimePitch()
+        pitch.bypass = true
+        let mixer = AVAudioMixerNode()
+        for unit in [node, pitch, mixer] { engine.attach(unit) }
+        engine.connect(node, to: pitch, format: format)
+        engine.connect(pitch, to: mixer, format: format)
+        engine.connect(mixer, to: engine.mainMixerNode, format: format)
+        layers[id] = (node, pitch, mixer)
         if !engine.isRunning {
             // `.playback` keeps playing locked and in the background, and is not mixable, so the
             // lock screen and Control Center show this app as the one playing.

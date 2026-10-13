@@ -391,22 +391,6 @@
         }
       }
     },
-    "Mix · %lld di %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mixes · %1$lld of %2$lld"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mix · %1$lld di %2$lld"
-          }
-        }
-      }
-    },
     "Modifica il mix" : {
       "localizations" : {
         "en" : {
@@ -767,22 +751,6 @@
         }
       }
     },
-    "Suoni · %lld di %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sounds · %1$lld of %2$lld"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suoni · %1$lld di %2$lld"
-          }
-        }
-      }
-    },
     "Suono" : {
       "localizations" : {
         "en" : {
@@ -969,6 +937,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Play or pause the Sbu Noise sound."
+          }
+        }
+      }
+    },
+    "%@ · %lld di %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ · %2$lld of %3$lld"
+          }
+        }
+      }
+    },
+    "Nessun preferito" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Favorites"
+          }
+        }
+      }
+    },
+    "Preferiti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorites"
+          }
+        }
+      }
+    },
+    "Tocca il cuore sotto un suono o un mix per ritrovarlo qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the heart under a sound or a mix to find it here."
           }
         }
       }

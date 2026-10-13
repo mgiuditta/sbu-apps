@@ -21,19 +21,11 @@ struct MainView: View {
             }
             let items = model.items
             if items.isEmpty {
-                ContentUnavailableView {
-                    Label("Nessun mix", systemImage: "square.stack.3d.up")
-                } description: {
-                    Text("Metti insieme fino a cinque suoni e scegli dove sentirli.")
-                } actions: {
-                    Button("Crea un mix") { isCreatingMix = true }
-                        .frame(minHeight: SbuTheme.controlRoundSm)
-                        .contentShape(.rect)
-                }
+                EmptyCategoryView(category: model.category) { isCreatingMix = true }
             } else {
                 TabView(selection: $model.index) {
                     ForEach(items.indices, id: \.self) { index in
-                        PlayerPage(item: items[index], position: index + 1, count: items.count)
+                        PlayerPage(item: items[index], category: model.category, position: index + 1, count: items.count)
                             .tag(index)
                     }
                 }
@@ -56,8 +48,10 @@ struct MainView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Menu("Categorie", systemImage: "line.3.horizontal") {
                     Picker("Categorie", selection: $model.category) {
-                        Label("Suoni", systemImage: "waveform").tag(PlayerCategory.sounds)
-                        Label("Mix", systemImage: "square.stack.3d.up").tag(PlayerCategory.mixes)
+                        ForEach(PlayerCategory.allCases) { category in
+                            Label { Text(category.title) } icon: { Image(systemName: category.systemImage) }
+                                .tag(category)
+                        }
                     }
                 }
             }

@@ -22,12 +22,13 @@ final class PlayerModel {
     var index: Int {
         didSet {
             if let current { defaults.set(current.id, forKey: Self.lastSoundKey) }
-            if isPlaying { start() }
+            // Only a different sound restarts: the same one on a new page keeps playing.
+            if isPlaying && current?.id != playingID { start() }
         }
     }
     private(set) var isPlaying = false
-    /// ponytail: in memory only; saved to the file with the favorites category.
-    private(set) var favorites: Set<String> = []
+    /// The page item playing now, to tell a new page from the same item moved to another index.
+    @ObservationIgnored private var playingID: String?
     /// The mix open on the Mix Pad: it plays instead of the page while you change it.
     @ObservationIgnored private var draft: Mix?
     /// Set when a call or an alarm stops the sound, so it comes back when the system allows.
@@ -55,8 +56,15 @@ final class PlayerModel {
     var items: [PlayerItem] {
         switch category {
         case .sounds: sounds.map(PlayerItem.sound)
+        case .favorites: library.favorites.compactMap { item(withID: $0) }
         case .mixes: library.mixes.map(PlayerItem.mix)
         }
+    }
+
+    /// The sound or mix with this id, wherever it is.
+    func item(withID id: String) -> PlayerItem? {
+        if let sound = sound(withID: id) { return .sound(sound) }
+        return library.mixes.first { $0.id.uuidString == id }.map(PlayerItem.mix)
     }
 
     /// `nil` only in an empty category (no mixes yet).
@@ -127,11 +135,20 @@ final class PlayerModel {
     }
 
     func isFavorite(_ item: PlayerItem) -> Bool {
-        favorites.contains(item.id)
+        library.isFavorite(item.id)
     }
 
+    /// In Preferiti the item leaves the list: the player moves to its neighbor.
     func toggleFavorite(_ item: PlayerItem) {
-        if favorites.remove(item.id) == nil { favorites.insert(item.id) }
+        keepingSelection { library.toggleFavorite(item.id) }
+    }
+
+    /// Changes the lists, then shows the same item on its new page, or the nearest page if it left.
+    private func keepingSelection(_ change: () -> Void) {
+        let selectedID = current?.id
+        change()
+        let items = items
+        index = items.firstIndex { $0.id == selectedID } ?? min(index, max(0, items.count - 1))
     }
 
     /// Fades the sound out over `duration`, then pauses it. If the sound was restarted meanwhile
@@ -180,9 +197,8 @@ final class PlayerModel {
     func delete(_ mix: Mix) {
         let wasPlaying = isPlaying && current?.id == mix.id.uuidString
         draft = nil
-        library.delete(mix.id)
         if wasPlaying { pause() }
-        index = min(index, max(0, items.count - 1))
+        keepingSelection { library.delete(mix.id) }
     }
 
     // MARK: Playback
@@ -191,11 +207,13 @@ final class PlayerModel {
         wandering?.cancel()
         engine.removeAll()
         isPlaying = false
+        playingID = nil
         resumesAfterInterruption = false
     }
 
     private func start() {
         resumesAfterInterruption = false
+        playingID = current?.id
         wandering?.cancel()
         engine.replaceAll()
         engine.outputVolume = 1

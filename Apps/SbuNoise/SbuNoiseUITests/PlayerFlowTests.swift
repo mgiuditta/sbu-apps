@@ -26,7 +26,15 @@ final class PlayerFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Generato in tempo reale"].waitForExistence(timeout: 2))
         try audit(app)
         app.buttons["Fine"].tap()
-        app.buttons["Pausa"].tap()
+
+        app.buttons["Categorie"].tap()
+        app.buttons["Preferiti"].tap()
+        XCTAssertTrue(app.staticTexts["Preferiti · 1 di 1"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["Rumore rosa"].exists)
+        app.buttons["Togli dai preferiti"].tap()
+        XCTAssertTrue(app.staticTexts["Nessun preferito"].waitForExistence(timeout: 2))
+        sleep(1)
+        try audit(app)
     }
 
     /// Contrast comes from the tokens (checked by sync_tokens.py) and the figure is sized with

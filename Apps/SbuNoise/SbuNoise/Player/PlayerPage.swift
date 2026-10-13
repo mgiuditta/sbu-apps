@@ -5,6 +5,7 @@ import SwiftUI
 /// name as the screen's figure, closed by the full stop.
 struct PlayerPage: View {
     let item: PlayerItem
+    let category: PlayerCategory
     let position: Int
     let count: Int
 
@@ -31,12 +32,7 @@ struct PlayerPage: View {
                 SbuFullStop(fontSize: nameSize)
             }
             .accessibilityAddTraits(.isHeader)
-            Group {
-                switch item {
-                case .sound: Text("Suoni · \(position) di \(count)")
-                case .mix: Text("Mix · \(position) di \(count)")
-                }
-            }
+            Text("\(Text(category.title)) · \(position) di \(count)")
                 .font(SbuTheme.footnote)
                 .foregroundStyle(SbuTheme.inkMuted)
         }
@@ -45,12 +41,12 @@ struct PlayerPage: View {
 }
 
 #Preview("Light") {
-    PlayerPage(item: .sound(Sound.generated[2]), position: 3, count: 5)
+    PlayerPage(item: .sound(Sound.generated[2]), category: .sounds, position: 3, count: 5)
         .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
-    PlayerPage(item: .mix(Mix(name: "Temporale", soundIDs: ["noise.pink"])), position: 1, count: 2)
+    PlayerPage(item: .mix(Mix(name: "Temporale", soundIDs: ["noise.pink"])), category: .favorites, position: 1, count: 2)
         .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

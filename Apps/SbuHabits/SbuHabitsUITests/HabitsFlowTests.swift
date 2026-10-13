@@ -9,11 +9,17 @@ final class HabitsFlowTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    /// - Parameter iCloud: Makes iCloud look signed in; the app still never syncs a test file.
+    /// - Parameters:
+    ///   - iCloud: Makes iCloud look signed in; the app still never syncs a test file.
+    ///   - defaultTextSize: Runs at the default text size whatever the iPhone's, for what only
+    ///     exists there, such as the grid's pages.
     @MainActor
-    private func launch(iCloud: Bool = false) -> XCUIApplication {
+    private func launch(iCloud: Bool = false, defaultTextSize: Bool = false) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
+        if defaultTextSize {
+            app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]
+        }
         app.launchEnvironment["SBU_HABITS_FILE"] = file
         if iCloud {
             app.launchEnvironment["SBU_HABITS_ICLOUD"] = "available"
@@ -28,7 +34,7 @@ final class HabitsFlowTests: XCTestCase {
         if timesPerDay > 1 {
             app.openFormRow("Obiettivo")
             for _ in 1..<timesPerDay {
-                app.steppers.firstMatch.buttons.element(boundBy: 1).tap() // the "+" half
+                app.tapStepperPlus()
             }
             app.backToForm()
         }
@@ -43,7 +49,7 @@ final class HabitsFlowTests: XCTestCase {
         app.backToForm()
         app.openFormRow("Limite")
         for _ in 0..<limit {
-            app.steppers.firstMatch.buttons.element(boundBy: 1).tap() // the "+" half
+            app.tapStepperPlus()
         }
         app.backToForm()
         app.typeTitleAndAdd(title)
@@ -94,13 +100,18 @@ final class HabitsFlowTests: XCTestCase {
         // The preview reads the title the habit will get: the default symbol's name.
         XCTAssertTrue(app.staticTexts["Acqua"].exists, app.debugDescription)
         try app.auditHabitForm()
+        // Kept with the results, to look at the form's end at every text size the run uses.
+        app.reveal(app.addHabitButton)
+        let shot = XCTAttachment(screenshot: app.screenshot())
+        shot.lifetime = .keepAlways
+        add(shot)
 
         app.openFormRow("Notifiche")
         XCTAssertTrue(app.buttons["Nessun promemoria"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["Acqua"].exists, app.debugDescription)
         try app.auditHabitForm()
         app.backToForm()
-        app.addHabitButton.tap()
+        app.tapButton(app.addHabitButton)
 
         expectValue(habit("Acqua", in: app), "Da fare, 0 giorni")
     }
@@ -208,10 +219,10 @@ final class HabitsFlowTests: XCTestCase {
         let app = launch()
         app.openHabitForm()
         app.openFormRow("Giorni")
-        app.buttons["Un giorno solo"].tap()
+        app.tapButton(app.buttons["Un giorno solo"])
 
-        XCTAssertTrue(app.staticTexts["Compare nella griglia solo quel giorno."].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.datePickers.firstMatch.exists)
+        app.reveal(app.staticTexts["Compare nella griglia solo quel giorno."])
+        app.reveal(app.datePickers.firstMatch)
         try app.auditHabitForm()
         app.backToForm()
         app.typeTitleAndAdd("Dentista")
@@ -259,7 +270,7 @@ final class HabitsFlowTests: XCTestCase {
         field.typeText("Venti pagine")
         expectValue(app.staticTexts["Caratteri"], "12 di 500")
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
         app.buttons["Fine"].tap()
@@ -279,7 +290,7 @@ final class HabitsFlowTests: XCTestCase {
         let note = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Venti pagine e un caffè'")).firstMatch
         XCTAssertTrue(note.waitForExistence(timeout: 5))
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
 
@@ -311,7 +322,7 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
-    func testEditingAndDeletingAHabit() {
+    func testEditingAndDeletingAHabit() throws {
         let app = launch()
         add("Leggere", in: app)
 
@@ -322,7 +333,7 @@ final class HabitsFlowTests: XCTestCase {
         titleField.tap()
         XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         titleField.typeText(" ogni sera")
-        app.buttons["Salva abitudine"].tap()
+        app.tapButton(app.buttons["Salva abitudine"])
         let edited = habit("Leggere ogni sera", in: app)
 
         edited.tap()
@@ -330,10 +341,8 @@ final class HabitsFlowTests: XCTestCase {
         // Elimina sits at the bottom of the form, past the rows.
         XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
         app.collectionViews.firstMatch.swipeUp()
-        app.buttons["Elimina"].firstMatch.tap()
         // The confirmation names the habit it deletes.
-        XCTAssertTrue(app.staticTexts["Eliminare “Leggere ogni sera”?"].waitForExistence(timeout: 5), app.debugDescription)
-        app.buttons["Elimina"].firstMatch.tap()
+        try app.tapAndConfirm(app.buttons["Elimina"].firstMatch, question: "Eliminare “Leggere ogni sera”?")
         XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].waitForExistence(timeout: 5))
     }
 
@@ -368,7 +377,7 @@ final class HabitsFlowTests: XCTestCase {
         nothingYet.swipeRight()
         expectValue(pages, "2 di 3")
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
 
@@ -396,7 +405,7 @@ final class HabitsFlowTests: XCTestCase {
         // Text clipped is left out too: in edit mode the audit measures a row's title against
         // the whole row, reorder handle included, and flags text that shows in full.
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType, .textClipped])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }
@@ -425,15 +434,16 @@ final class HabitsFlowTests: XCTestCase {
         app.openHabitForm()
         app.openFormRow("Salute")
 
-        app.switches["Collega a Salute"].switches.firstMatch.tap()
+        app.toggleSwitch("Collega a Salute")
 
-        XCTAssertTrue(app.staticTexts["Si segna da sola quando arrivi all'obiettivo in Salute. Se neghi l'accesso, la segni tu."].waitForExistence(timeout: 5))
+        app.reveal(app.staticTexts["Si segna da sola quando arrivi all'obiettivo in Salute. Se neghi l'accesso, la segni tu."])
         app.backToForm()
         // The goal has its own row, and the title follows it until you write one.
         let goal = app.formRow("Obiettivo")
+        app.reveal(goal)
         XCTAssertTrue("\(goal.label) \(goal.value as? String ?? "")".contains("passi"), goal.debugDescription)
-        XCTAssertTrue(app.staticTexts["Usa i dati di Salute. Consenti l'accesso se iOS lo chiede."].exists, app.debugDescription)
-        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Camminare 8000 passi'")).firstMatch.exists, app.debugDescription)
+        app.reveal(app.staticTexts["Usa i dati di Salute. Consenti l'accesso se iOS lo chiede."])
+        app.reveal(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Camminare 8000 passi'")).firstMatch)
         try app.auditHabitForm()
 
         app.openFormRow("Obiettivo")
@@ -442,17 +452,19 @@ final class HabitsFlowTests: XCTestCase {
         app.backToForm()
 
         // A habit Salute marks can say so. The box above pushes the row under the bottom button.
-        app.collectionViews.firstMatch.swipeUp()
         app.openFormRow("Notifiche")
-        XCTAssertTrue(app.buttons["Nessun promemoria"].waitForExistence(timeout: 5))
+        app.reveal(app.buttons["Nessun promemoria"])
         // Taller with the Salute section, the screen always has a system row cut by the screen
         // edge or the bar, which the audit reports as clipped text with no element, as in Impostazioni.
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType, .textClipped])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            if issue.isRowCutByTheScreenEdge {
+                return true
+            }
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
-        app.collectionViews.firstMatch.swipeUp()
-        XCTAssertTrue(app.staticTexts["Ti avvisa quando Salute la segna fatta."].waitForExistence(timeout: 5))
+        app.reveal(app.staticTexts["Ti avvisa quando Salute la segna fatta."])
+        app.reveal(app.buttons["Nessuna"])
         XCTAssertTrue(app.buttons["Nessuna"].isSelected)
         app.backToForm()
         // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi abitudine.
@@ -464,30 +476,31 @@ final class HabitsFlowTests: XCTestCase {
         let app = launch()
         app.openHabitForm()
         app.openFormRow("Salute")
-        app.switches["Collega a Salute"].switches.firstMatch.tap()
+        app.toggleSwitch("Collega a Salute")
 
         // Passi is chosen to start with; the groups follow the toggle.
-        XCTAssertTrue(app.buttons["Passi"].waitForExistence(timeout: 5), app.debugDescription)
+        app.reveal(app.buttons["Passi"])
         XCTAssertTrue(app.buttons["Passi"].isSelected)
-        XCTAssertTrue(app.staticTexts["ATTIVITÀ"].exists || app.staticTexts["Attività"].exists, app.debugDescription)
+        app.reveal(app.staticTexts.matching(NSPredicate(format: "label ==[c] 'Attività'")).firstMatch)
         try app.auditHabitForm()
 
         let stand = app.buttons["Minuti in piedi"]
-        stand.tap()
+        app.tapButton(stand)
         XCTAssertTrue(stand.isSelected)
+        app.reveal(app.buttons["Passi"])
         XCTAssertFalse(app.buttons["Passi"].isSelected)
 
         // The last groups are below the screen's edge.
-        app.collectionViews.firstMatch.swipeUp()
-        XCTAssertTrue(app.buttons["Sonno"].waitForExistence(timeout: 5), app.debugDescription)
-        XCTAssertTrue(app.buttons["Acqua"].exists)
+        app.reveal(app.buttons["Sonno"])
+        app.reveal(app.buttons["Acqua"])
         try app.auditHabitForm()
 
-        app.buttons["Anelli Attività"].tap()
+        app.tapButton(app.buttons["Anelli Attività"])
         app.backToForm()
         let goal = app.formRow("Obiettivo")
+        app.reveal(goal)
         XCTAssertTrue("\(goal.label) \(goal.value as? String ?? "")".contains("3 anelli"), goal.debugDescription)
-        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Chiudere 3 anelli'")).firstMatch.exists, app.debugDescription)
+        app.reveal(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Chiudere 3 anelli'")).firstMatch)
         app.cancelNewHabit()
     }
 
@@ -496,7 +509,7 @@ final class HabitsFlowTests: XCTestCase {
         let app = launch()
         app.openHabitForm()
         app.openFormRow("Salute")
-        app.switches["Collega a Salute"].switches.firstMatch.tap()
+        app.toggleSwitch("Collega a Salute")
         app.backToForm()
         app.typeTitleAndAdd("Camminare")
 
@@ -531,10 +544,10 @@ final class HabitsFlowTests: XCTestCase {
     private func addTimed(_ title: String, in app: XCUIApplication) {
         app.openHabitForm()
         app.openFormRow("Tipo")
-        app.buttons["A tempo"].tap()
+        app.tapButton(app.buttons["A tempo"])
         allowNotificationsIfAsked()
         app.backToForm()
-        XCTAssertTrue(app.formRow("Durata").waitForExistence(timeout: 5))
+        app.reveal(app.formRow("Durata"))
         app.typeTitleAndAdd(title)
     }
 
@@ -542,7 +555,7 @@ final class HabitsFlowTests: XCTestCase {
     @MainActor
     private func toggleTimeSensitive(in app: XCUIApplication) -> XCUIElement {
         let toggle = app.switches["Sensibili al tempo"]
-        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        app.reveal(toggle)
         return toggle
     }
 
@@ -559,29 +572,31 @@ final class HabitsFlowTests: XCTestCase {
         app.openHabitForm()
         app.openFormRow("Notifiche")
 
-        app.buttons["Orari automatici"].tap()
+        app.tapButton(app.buttons["Orari automatici"])
         allowNotificationsIfAsked()
-        XCTAssertTrue(app.staticTexts["Ti ricorda all'ora in cui di solito la fai, se oggi non è ancora fatta."].waitForExistence(timeout: 5))
+        app.reveal(app.staticTexts["Ti ricorda all'ora in cui di solito la fai, se oggi non è ancora fatta."])
         let toggle = toggleTimeSensitive(in: app)
         toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         XCTAssertEqual(toggle.value as? String, "1")
         try app.auditHabitForm()
-        app.formRow("Suono").tap()
-        app.buttons["Carta"].tap()
-        XCTAssertTrue(app.formRow("Suono").waitForExistence(timeout: 5))
+        app.tapButton(app.formRow("Suono"))
+        app.tapButton(app.buttons["Carta"])
+        app.reveal(app.formRow("Suono"))
         XCTAssertTrue(soundRowSays("Carta", in: app), app.formRow("Suono").debugDescription)
         app.backToForm()
+        app.reveal(app.formRow("Notifiche"))
         XCTAssertTrue(app.formRow("Notifiche").label.contains("Automatici"), app.formRow("Notifiche").label)
         app.typeTitleAndAdd("Leggere")
 
         habit("Leggere", in: app).tap()
         app.buttons["Modifica"].tap()
-        XCTAssertTrue(app.formRow("Notifiche").waitForExistence(timeout: 5))
+        app.reveal(app.formRow("Notifiche"))
         XCTAssertTrue(app.formRow("Notifiche").label.contains("Automatici"), app.formRow("Notifiche").label)
         app.openFormRow("Notifiche")
-        XCTAssertTrue(app.buttons["Orari automatici"].waitForExistence(timeout: 5))
+        app.reveal(app.buttons["Orari automatici"])
         XCTAssertTrue(app.buttons["Orari automatici"].isSelected)
         XCTAssertEqual(toggleTimeSensitive(in: app).value as? String, "1")
+        app.reveal(app.formRow("Suono"))
         XCTAssertTrue(soundRowSays("Carta", in: app), app.formRow("Suono").debugDescription)
     }
 
@@ -607,7 +622,7 @@ final class HabitsFlowTests: XCTestCase {
 
         // Contrast is left out as on the tool screen.
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
 
@@ -660,15 +675,16 @@ final class HabitsFlowTests: XCTestCase {
         // misreads the iOS 26 glass bar and the ring's decorative track as text contrast.
         // The handler names the element in the failure, which the default message does not.
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }
 
-    /// Six places a page: the seventh habit goes to page 2, reached with a swipe.
+    /// Six places a page: the seventh habit goes to page 2, reached with a swipe. At the
+    /// accessibility text sizes the grid is one column with no pages, so this runs at the default.
     @MainActor
     func testTheSecondPageIsReachedWithASwipeAndPassesTheAccessibilityAudit() throws {
-        let app = launch()
+        let app = launch(defaultTextSize: true)
         for title in ["Uno", "Due", "Tre", "Quattro", "Cinque", "Sei"] {
             add(title, in: app)
         }
@@ -688,7 +704,7 @@ final class HabitsFlowTests: XCTestCase {
         expectValue(sette, "Fatta, 1 giorno")
         // Contrast is left out as on the first page.
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
 
@@ -705,15 +721,16 @@ final class HabitsFlowTests: XCTestCase {
 
         app.buttons["Impostazioni"].tap()
         let export = app.buttons["Esporta"]
-        XCTAssertTrue(export.waitForExistence(timeout: 5))
+        app.reveal(export)
         XCTAssertTrue(export.isEnabled)
+        app.reveal(app.buttons["Importa"])
         XCTAssertTrue(app.buttons["Importa"].isEnabled)
 
         // Contrast is left out as on the tool screen. Dynamic Type too: in the settings sheet the
         // audit flags every text as partially unsupported, system ones included (the Fine button,
         // a plain section footer), so it says nothing about this screen.
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }
@@ -726,15 +743,16 @@ final class HabitsFlowTests: XCTestCase {
 
         app.buttons["Impostazioni"].tap()
         let toggle = app.switches["Sincronizza con iCloud"]
-        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        app.reveal(toggle)
         XCTAssertEqual(toggle.value as? String, "0")
         XCTAssertFalse(toggle.isEnabled)
-        XCTAssertTrue(app.staticTexts["Per sincronizzare, accedi a iCloud e attiva iCloud Drive nelle Impostazioni dell'iPhone."].exists)
+        XCTAssertTrue(app.staticTexts["Per sincronizzare, accedi a iCloud e attiva iCloud Drive nelle Impostazioni dell'iPhone."].waitForExistence(timeout: 5))
+        app.reveal(app.buttons["Esporta"])
         XCTAssertTrue(app.buttons["Esporta"].isEnabled)
 
         // As in testSettingsOfferExportAndImportAndPassTheAccessibilityAudit.
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }
@@ -746,16 +764,16 @@ final class HabitsFlowTests: XCTestCase {
 
         app.buttons["Impostazioni"].tap()
         let toggle = app.switches["Sincronizza con iCloud"]
-        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        app.reveal(toggle)
         XCTAssertEqual(toggle.value as? String, "0")
         XCTAssertTrue(toggle.isEnabled)
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev'")).firstMatch.exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev'")).firstMatch.waitForExistence(timeout: 5))
 
         toggle.switches.firstMatch.tap()
 
         expectValue(toggle, "1")
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }

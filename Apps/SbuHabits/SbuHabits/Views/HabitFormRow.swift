@@ -25,6 +25,10 @@ struct HabitFormRow: View {
                     .accessibilityHidden(true)
             }
         }
+        .font(SbuTheme.body)
+        // Past the second accessibility size a name such as "Obiettivo" no longer fits beside
+        // its symbol on a small iPhone, and iOS would break it in half.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
     }
 }
 

@@ -33,14 +33,66 @@ extension XCUIApplication {
         buttons.matching(NSPredicate(format: "label BEGINSWITH %@", name)).firstMatch
     }
 
+    /// Scrolls the screen's list until `element` is on screen: down first, then back up. At the
+    /// accessibility text sizes a row can be several screens away, and the list only makes the
+    /// rows near the screen.
+    @MainActor
+    func reveal(_ element: XCUIElement) {
+        let list = collectionViews.firstMatch
+        _ = element.waitForExistence(timeout: 2)
+        // The list does not scroll under the keyboard: Return closes it first.
+        let returnKey = buttons["Return"]
+        if element.isHittable == false, keyboards.firstMatch.exists, returnKey.exists {
+            returnKey.tap()
+        }
+        for _ in 0..<10 where isOnScreen(element) == false {
+            list.swipeUp()
+        }
+        for _ in 0..<10 where isOnScreen(element) == false {
+            list.swipeDown()
+        }
+        XCTAssertTrue(isOnScreen(element), debugDescription)
+    }
+
+    /// Hittable, or for text a footer does not make hittable, its centre inside the window.
+    @MainActor
+    private func isOnScreen(_ element: XCUIElement) -> Bool {
+        if element.isHittable {
+            return true
+        }
+        guard element.exists, element.elementType == .staticText else { return false }
+        let frame = element.frame
+        return windows.firstMatch.frame.contains(CGPoint(x: frame.midX, y: frame.midY))
+    }
+
+    /// Taps a button once it is on screen.
+    @MainActor
+    func tapButton(_ button: XCUIElement) {
+        reveal(button)
+        button.tap()
+    }
+
+    /// Flips a named switch once it is on screen.
+    @MainActor
+    func toggleSwitch(_ name: String) {
+        let toggle = switches[name]
+        reveal(toggle)
+        toggle.switches.firstMatch.tap()
+    }
+
+    /// The "+" half of the screen's stepper.
+    @MainActor
+    func tapStepperPlus() {
+        let plus = steppers.firstMatch.buttons.element(boundBy: 1)
+        reveal(plus)
+        plus.tap()
+    }
+
     /// Opens a row's screen, scrolling to the row if the form hides it.
     @MainActor
     func openFormRow(_ name: String) {
         let row = formRow(name)
-        XCTAssertTrue(row.waitForExistence(timeout: 5), debugDescription)
-        for _ in 0..<3 where row.isHittable == false {
-            collectionViews.firstMatch.swipeUp()
-        }
+        reveal(row)
         row.tap()
     }
 
@@ -50,7 +102,8 @@ extension XCUIApplication {
         // The last bar is the pushed screen's: the grid's own sits behind the sheet.
         let bar = navigationBars.allElementsBoundByIndex.last ?? navigationBars.firstMatch
         bar.buttons.element(boundBy: 0).tap()
-        XCTAssertTrue(textFields["Titolo"].waitForExistence(timeout: 5))
+        let form = navigationBars.matching(NSPredicate(format: "identifier IN %@", ["Nuova abitudine", "Modifica abitudine"])).firstMatch
+        XCTAssertTrue(form.waitForExistence(timeout: 5), debugDescription)
     }
 
     /// The form's main button for a new habit. The back button reads "Aggiungi", the title of
@@ -64,9 +117,27 @@ extension XCUIApplication {
     @MainActor
     func typeTitleAndAdd(_ title: String) {
         let field = textFields["Titolo"]
+        reveal(field)
         field.tap()
-        field.typeText(title)
+        field.typeText(title + "\n") // Return closes the keyboard, which would cover the button
+        reveal(addHabitButton)
         addHabitButton.tap()
+    }
+
+    /// Taps a destructive button, then the same-named button of its confirmation. On an iPhone
+    /// the confirmation can be a popover over the button, with the button still reachable, so
+    /// the confirming one is told apart by where it is.
+    @MainActor
+    func tapAndConfirm(_ button: XCUIElement, question: String) throws {
+        reveal(button)
+        let source = button.frame
+        let label = button.label
+        button.tap()
+        XCTAssertTrue(staticTexts[question].waitForExistence(timeout: 5), debugDescription)
+        let confirm = buttons.matching(identifier: label).allElementsBoundByIndex.first { candidate in
+            candidate.frame != source && candidate.isHittable
+        }
+        try XCTUnwrap(confirm, debugDescription).tap()
     }
 
     /// The form's audit. Contrast is left out as on the tool screen. Dynamic Type too: the form
@@ -75,7 +146,10 @@ extension XCUIApplication {
     @MainActor
     func auditHabitForm() throws {
         try performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            if issue.isRowCutByTheScreenEdge {
+                return true
+            }
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }

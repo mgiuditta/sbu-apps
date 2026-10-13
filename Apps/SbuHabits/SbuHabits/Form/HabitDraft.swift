@@ -131,6 +131,12 @@ nonisolated struct HabitDraft: Equatable, Sendable {
         return style
     }
 
+    /// Sensibili al tempo and Suono matter only when something notifies: a reminder, the end of
+    /// a countdown, or the notice that Salute marked the habit.
+    var showsNotificationStyle: Bool {
+        reminderMode != .off || kind == .timed || savedNotificationStyle.announcesHealthMark
+    }
+
     /// A week with no days would never be expected.
     var canSave: Bool {
         scheduleKind != .weekdays || weekdays.isEmpty == false

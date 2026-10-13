@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// A row of Aggiungi abitudine: the symbol in a circle, the heart for a habit linked to Salute,
-/// the title, and in the search results the detail that tells same-titled Modelli apart. The
+/// A row of Aggiungi abitudine: the symbol in a circle, the title with a heart after it for a
+/// habit linked to Salute, and in the search results the detail that tells same-titled Modelli apart. The
 /// navigation link around it adds the chevron.
 struct TemplateRow: View {
     let title: LocalizedStringResource
@@ -11,11 +11,31 @@ struct TemplateRow: View {
     /// The line under the title; it also says the Salute link, so VoiceOver reads it once.
     var detail: LocalizedStringResource?
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     /// The circle grows with the text.
     @ScaledMetric(relativeTo: .body) private var circleSide = SbuTheme.space8
 
+    /// At the accessibility sizes the symbol goes above the title, so the title has the whole
+    /// row and no word breaks in half.
+    private var layout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: SbuTheme.space2))
+            : AnyLayout(HStackLayout(spacing: SbuTheme.space3))
+    }
+
+    /// The heart after the title of a habit linked to Salute; the row's value says it to VoiceOver.
+    private var heart: Text {
+        guard linksHealth else { return Text(verbatim: "") }
+        return Text(verbatim: " ")
+            + Text(Image(systemName: "heart.fill"))
+            .font(SbuTheme.caption)
+            .foregroundStyle(SbuTheme.inkMuted)
+            .accessibilityLabel(Text(verbatim: ""))
+    }
+
     var body: some View {
-        HStack(spacing: SbuTheme.space3) {
+        layout {
             Image(systemName: symbol)
                 .font(SbuTheme.body)
                 .fontWeight(.medium)
@@ -24,16 +44,10 @@ struct TemplateRow: View {
                 .frame(width: circleSide, height: circleSide)
                 .background(SbuTheme.surfaceSunken, in: .circle)
                 .accessibilityHidden(true)
-            if linksHealth {
-                Image(systemName: "heart.fill")
-                    .font(SbuTheme.caption)
-                    .imageScale(.medium)
-                    .foregroundStyle(SbuTheme.inkMuted)
-                    .accessibilityHidden(true)
-            }
             VStack(alignment: .leading, spacing: SbuTheme.space1) {
-                Text(title)
-                    .foregroundStyle(SbuTheme.ink)
+                // The heart follows the title, so every title starts on the same edge.
+                (Text(title).foregroundStyle(SbuTheme.ink) + heart)
+                    .font(SbuTheme.body)
                 if let detail {
                     Text(detail)
                         .font(SbuTheme.subheadline)
@@ -41,6 +55,9 @@ struct TemplateRow: View {
                 }
             }
         }
+        // Past the second accessibility size a long word such as "Personalizzata" no longer fits
+        // the row even alone on its line, and iOS would break it in half.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
         .accessibilityElement(children: .combine)
         .accessibilityValue(linksHealth && detail == nil ? Text("Collegata a Salute") : Text(verbatim: ""))
     }

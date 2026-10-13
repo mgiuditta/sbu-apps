@@ -2,8 +2,8 @@ import SbuKit
 import SwiftUI
 
 /// The form's Notifiche screen, as Streaks lays it out: the habit's ring and title; Promemoria
-/// (none, automatic or custom times); Sensibili al tempo and Suono; and, for a habit Salute
-/// marks, whether a notification says so.
+/// (none, automatic or custom times); for a habit Salute marks, whether a notification says so;
+/// then Sensibili al tempo and Suono, while something notifies.
 struct HabitNotificationsScreen: View {
     @Binding var draft: HabitDraft
     @Binding var reminders: [RemindersSection.Row]
@@ -17,20 +17,6 @@ struct HabitNotificationsScreen: View {
 
             RemindersSection(mode: $draft.reminderMode, rows: $reminders)
                 .listRowBackground(SbuTheme.surfaceRaised)
-
-            Section {
-                Toggle("Sensibili al tempo", isOn: $draft.notificationStyle.isTimeSensitive)
-                Picker("Suono", selection: $draft.notificationStyle.sound) {
-                    ForEach(ReminderSound.allCases, id: \.self) { sound in
-                        Text(sound.title)
-                            .tag(sound)
-                    }
-                }
-                .pickerStyle(.navigationLink)
-            } footer: {
-                Text("Arrivano anche durante una Full immersion che le consente.")
-            }
-            .listRowBackground(SbuTheme.surfaceRaised)
 
             if draft.canAnnounceHealthMark {
                 Section {
@@ -46,6 +32,23 @@ struct HabitNotificationsScreen: View {
                     Text("Quando si segna da sola")
                 } footer: {
                     Text("Ti avvisa quando Salute la segna fatta.")
+                }
+                .listRowBackground(SbuTheme.surfaceRaised)
+            }
+
+            // Only while something notifies: with nothing to say, the two rows would do nothing.
+            if draft.showsNotificationStyle {
+                Section {
+                    Toggle("Sensibili al tempo", isOn: $draft.notificationStyle.isTimeSensitive)
+                    Picker("Suono", selection: $draft.notificationStyle.sound) {
+                        ForEach(ReminderSound.allCases, id: \.self) { sound in
+                            Text(sound.title)
+                                .tag(sound)
+                        }
+                    }
+                    .pickerStyle(.navigationLink)
+                } footer: {
+                    Text("Arrivano anche durante una Full immersion che le consente.")
                 }
                 .listRowBackground(SbuTheme.surfaceRaised)
             }

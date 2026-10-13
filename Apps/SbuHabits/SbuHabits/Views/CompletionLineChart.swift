@@ -49,6 +49,9 @@ struct CompletionLineChart: View {
             .font(SbuTheme.caption)
             .textCase(.uppercase)
             .tracking(SbuTheme.captionTracking)
+            // Spaced capitals: past the first accessibility size a word such as
+            // COMPLETAMENTO no longer fits a small iPhone and breaks in half.
+            .dynamicTypeSize(...DynamicTypeSize.accessibility1)
             .foregroundStyle(SbuTheme.inkMuted)
             .accessibilityElement(children: .combine)
         }

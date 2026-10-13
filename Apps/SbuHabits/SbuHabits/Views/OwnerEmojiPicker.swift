@@ -54,7 +54,10 @@ private struct OptionButton: View {
                 }
             } icon: {
                 if let option {
+                    // A picture in a circle of fixed side: it stays the default size, whole,
+                    // and the Large Content Viewer shows it larger.
                     Text(verbatim: option)
+                        .dynamicTypeSize(.large)
                 } else {
                     Image(systemName: OwnerEmoji.personSymbol)
                         .foregroundStyle(SbuTheme.inkMuted)

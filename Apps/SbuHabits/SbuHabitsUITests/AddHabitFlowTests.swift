@@ -27,10 +27,7 @@ final class AddHabitFlowTests: XCTestCase {
             if issue.auditType == .textClipped, issue.element?.elementType == .searchField {
                 return true
             }
-            // On the iPhone 17 the audit reads Personalizzata's text frame (20 pt) as shorter than
-            // its line, yet the row shows it whole (checked in the failure recording); the Pro Max
-            // passes. The title wraps if it ever needs to.
-            if issue.auditType == .textClipped, issue.element?.label == "Personalizzata" {
+            if issue.isRowCutByTheScreenEdge {
                 return true
             }
             // Bar buttons and the round tabs keep their side: they show in the Large Content
@@ -38,7 +35,7 @@ final class AddHabitFlowTests: XCTestCase {
             if issue.auditType == .dynamicType, ["Chiudi", "Cerca", "Annulla"].contains(issue.element?.label) {
                 return true
             }
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }
@@ -47,7 +44,7 @@ final class AddHabitFlowTests: XCTestCase {
     @MainActor
     private func templateRow(_ title: String, in app: XCUIApplication) -> XCUIElement {
         let row = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", title)).firstMatch
-        XCTAssertTrue(row.waitForExistence(timeout: 5), app.debugDescription)
+        app.reveal(row)
         return row
     }
 
@@ -59,21 +56,26 @@ final class AddHabitFlowTests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Aggiungi"].exists, app.debugDescription)
         XCTAssertTrue(app.buttons["Generale"].isSelected)
         XCTAssertFalse(app.buttons["Salute"].isSelected)
-        XCTAssertTrue(app.staticTexts["Crea un'abitudine"].exists)
+        app.reveal(app.staticTexts["Crea un'abitudine"])
         _ = templateRow("Leggere", in: app)
+        app.reveal(app.buttons["Personalizzata"])
+        // Kept with the results, to look at the rows at every text size the run uses.
+        let shot = XCTAttachment(screenshot: app.screenshot())
+        shot.lifetime = .keepAlways
+        add(shot)
         try audit(app)
 
-        app.buttons["Salute"].tap()
+        app.tapButton(app.buttons["Salute"])
 
         XCTAssertTrue(app.buttons["Salute"].isSelected)
         XCTAssertFalse(app.buttons["Generale"].isSelected)
-        XCTAssertTrue(app.staticTexts["Collegate a Salute: si segnano da sole quando arrivi all'obiettivo."].exists)
+        app.reveal(app.staticTexts["Collegate a Salute: si segnano da sole quando arrivi all'obiettivo."])
         let walk = templateRow("Camminare", in: app)
         XCTAssertEqual(walk.value as? String, "Collegata a Salute", walk.debugDescription)
         try audit(app)
 
-        app.buttons["Da evitare"].tap()
-        XCTAssertTrue(app.staticTexts["Crea un'abitudine da evitare"].waitForExistence(timeout: 5))
+        app.tapButton(app.buttons["Da evitare"])
+        app.reveal(app.staticTexts["Crea un'abitudine da evitare"])
         _ = templateRow("Niente dolci", in: app)
         app.buttons["Chiudi"].tap()
         XCTAssertTrue(app.buttons["Aggiungi"].waitForExistence(timeout: 5))
@@ -106,7 +108,7 @@ final class AddHabitFlowTests: XCTestCase {
         XCTAssertTrue("\(limit.label) \(limit.value as? String ?? "")".contains("Mai"), limit.debugDescription)
         try app.auditHabitForm()
 
-        app.addHabitButton.tap()
+        app.tapButton(app.addHabitButton)
 
         let habit = app.descendants(matching: .any).matching(identifier: "Niente dolci").firstMatch
         XCTAssertTrue(habit.waitForExistence(timeout: 5))
@@ -135,7 +137,7 @@ final class AddHabitFlowTests: XCTestCase {
         XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
         let back = app.navigationBars.allElementsBoundByIndex.last?.buttons.element(boundBy: 0)
         XCTAssertEqual(back?.label, "Aggiungi", back?.debugDescription ?? app.debugDescription)
-        XCTAssertTrue(app.addHabitButton.exists)
+        app.reveal(app.addHabitButton)
     }
 
     @MainActor

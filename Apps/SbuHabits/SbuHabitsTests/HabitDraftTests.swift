@@ -412,4 +412,19 @@ struct HabitDraftTests {
         #expect(draft().healthSummary(locale: Self.italian) == "Non collegata")
         #expect(draft { $0.linksHealth = true }.healthSummary(locale: Self.italian) == "Passi")
     }
+
+    // MARK: Notification style
+
+    @Test func styleRowsShowOnlyWhileSomethingNotifies() {
+        #expect(draft().showsNotificationStyle == false)
+        #expect(draft { $0.reminderMode = .automatic }.showsNotificationStyle)
+        #expect(draft { $0.reminderMode = .custom }.showsNotificationStyle)
+        #expect(draft { $0.kind = .timed }.showsNotificationStyle)
+        #expect(draft {
+            $0.linksHealth = true
+            $0.notificationStyle.announcesHealthMark = true
+        }.showsNotificationStyle)
+        // The notice of Salute's mark counts only while the habit is linked.
+        #expect(draft { $0.notificationStyle.announcesHealthMark = true }.showsNotificationStyle == false)
+    }
 }

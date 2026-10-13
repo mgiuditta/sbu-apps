@@ -25,8 +25,8 @@ Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alt
 - Apple Watch: segna le abitudini dal polso con un tocco, vedi la Serie piena e aggiungi la complicazione al quadrante. Il Watch riceve i dati solo dal tuo iPhone
 - Statistiche con la serie migliore, il completamento nel tempo e lo storico, da condividere come immagine
 - Esporta e importa i tuoi dati in un file, salvato dove scegli tu
-- Sincronizzazione sul tuo iCloud, spenta finché non la attivi
-- Condividi un'abitudine con chi vuoi, tramite iCloud: la vede in sola lettura
+- iCloud resta spento finché non lo attivi: allora le abitudini si sincronizzano sui tuoi dispositivi, tramite il tuo iCloud
+- Condividi un'abitudine con chi vuoi, tramite iCloud e solo quando lo scegli tu: la vede in sola lettura
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: conta i giorni di fila in cui mantieni un'abitudine.

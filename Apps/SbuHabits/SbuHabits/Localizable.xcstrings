@@ -12,6 +12,17 @@
         }
       }
     },
+    "%@, %@: completamento %@, serie migliore %@, completamenti %@." : {
+      "comment" : "Description written into a shared Statistiche image: the habit or every habit, the period, the completion rate, the best streak and the completions.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@: completion %3$@, best streak %4$@, completions %5$@."
+          }
+        }
+      }
+    },
     "%lld al giorno" : {
       "comment" : "Value of the Limite row: most times a day.",
       "localizations" : {

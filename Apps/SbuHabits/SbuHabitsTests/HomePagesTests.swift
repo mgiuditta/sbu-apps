@@ -93,4 +93,41 @@ struct HomePagesTests {
         #expect(model.habits.count == HomePages.habitLimit)
         #expect(model.homePages.canAdd == false)
     }
+
+    // MARK: - Abitudini condivise received
+
+    private func received(_ count: Int) -> [ReceivedHabit] {
+        (0..<count).map { index in
+            ReceivedHabit(key: "k\(index)", snapshot: SharedHabitSnapshot(habit: Habit(title: "Condivisa \(index)", symbol: "figure.run", createdOn: today - 3), startHour: 0))
+        }
+    }
+
+    @Test func sharedHabitsComeAfterTheUsersOwnAndBeforeAggiungi() {
+        let own = habits(2)
+        let shared = received(2)
+
+        let pages = HomePages(todayHabits: own, habitCount: own.count, shared: shared)
+
+        #expect(pages.allSlots == own.map(HomePages.Slot.habit) + shared.map(HomePages.Slot.shared) + [.add])
+    }
+
+    @Test(arguments: [0, 1, 5])
+    func sharedHabitsNeverCountTowardTheLimit(sharedCount: Int) {
+        let own = habits(HomePages.habitLimit - 1)
+
+        let pages = HomePages(todayHabits: own, habitCount: own.count, shared: received(sharedCount))
+
+        #expect(pages.canAdd)
+        #expect(pages.allSlots.count == own.count + sharedCount + 1)
+    }
+
+    @Test func theModelPlacesTheSharedHabitsInItsGrid() {
+        let model = HabitsModel(store: store())
+        model.add(title: "Leggere", symbol: "book")
+        let shared = received(1)
+
+        #expect(model.homePages(shared: shared).allSlots == [.habit(model.habits[0]), .shared(shared[0]), .add])
+        // Never in the Serie piena: it counts only the user's habits.
+        #expect(model.fullStreak == Streak.full(of: model.habits, today: model.today))
+    }
 }

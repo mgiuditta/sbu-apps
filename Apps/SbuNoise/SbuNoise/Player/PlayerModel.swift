@@ -74,6 +74,18 @@ final class PlayerModel {
         if favorites.remove(sound.id) == nil { favorites.insert(sound.id) }
     }
 
+    /// Fades the sound out over `duration`, then pauses it. If the sound was restarted meanwhile
+    /// (a new node at full volume) the user's choice wins and it keeps playing.
+    func fadeOut(over duration: Duration) async {
+        guard isPlaying else { return }
+        await engine.fade(Self.layerID, to: 0, over: duration)
+        if Task.isCancelled {
+            engine.setVolume(1, for: Self.layerID)
+        } else if (engine.volume(for: Self.layerID) ?? 0) < 0.01 {
+            pause()
+        }
+    }
+
     private func pause() {
         engine.remove(Self.layerID)
         isPlaying = false

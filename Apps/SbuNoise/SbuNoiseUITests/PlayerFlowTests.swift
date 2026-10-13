@@ -6,6 +6,7 @@ final class PlayerFlowTests: XCTestCase {
     func testPlayNextInfoAndAudit() throws {
         let app = XCUIApplication()
         app.launchArguments = ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-lastSoundID", "noise.white"]
+        app.launchEnvironment["SBU_NOISE_FILE"] = "ui-\(UUID().uuidString).json"
         app.launch()
 
         XCTAssertTrue(app.staticTexts["Rumore bianco"].waitForExistence(timeout: 5))

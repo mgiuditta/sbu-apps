@@ -5,12 +5,17 @@ import SwiftUI
 /// bottom bar of actions that open sheets over the player rather than switching tabs.
 struct MainView: View {
     let model: PlayerModel
+    let timers: TimersModel
 
     @State private var infoSound: Sound?
+    @State private var isShowingTimers = false
 
     var body: some View {
         @Bindable var model = model
         VStack(spacing: 0) {
+            if let next = timers.next {
+                TimerStatusLine(date: next.date) { isShowingTimers = true }
+            }
             TabView(selection: $model.index) {
                 ForEach(model.sounds.indices, id: \.self) { index in
                     SoundPage(sound: model.sounds[index], position: index + 1, count: model.sounds.count)
@@ -30,7 +35,7 @@ struct MainView: View {
                 Spacer()
                 Button("Gestisci", systemImage: "square.grid.2x2") {}.disabled(true)
                 Spacer()
-                Button("Timer", systemImage: "clock") {}.disabled(true)
+                Button("Timer", systemImage: "clock") { isShowingTimers = true }
                 Spacer()
                 Button("Dormi", systemImage: "moon") {}.disabled(true)
             }
@@ -38,16 +43,19 @@ struct MainView: View {
         .sheet(item: $infoSound) { sound in
             SoundInfoSheet(sound: sound)
         }
+        .sheet(isPresented: $isShowingTimers) {
+            TimersSheet(timers: timers)
+        }
     }
 }
 
 #Preview("Light") {
-    NavigationStack { MainView(model: PlayerModel()) }
+    NavigationStack { MainView(model: PlayerModel(), timers: .preview) }
         .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
-    NavigationStack { MainView(model: PlayerModel()) }
+    NavigationStack { MainView(model: PlayerModel(), timers: .preview) }
         .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

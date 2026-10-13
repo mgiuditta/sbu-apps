@@ -4,10 +4,11 @@ import SwiftUI
 /// The app inside the standard Sbu shell.
 struct RootView: View {
     let model: PlayerModel
+    let timers: TimersModel
 
     var body: some View {
         SbuAppShell("Sbu Noise", slug: "noise", accent: SbuTheme.accentNoise, appIcon: Image(.appIconArtwork)) {
-            MainView(model: model)
+            MainView(model: model, timers: timers)
         } settings: {
             EmptyView()
         }
@@ -15,10 +16,10 @@ struct RootView: View {
 }
 
 #Preview("Light") {
-    RootView(model: PlayerModel())
+    RootView(model: PlayerModel(), timers: .preview)
 }
 
 #Preview("Dark") {
-    RootView(model: PlayerModel())
+    RootView(model: PlayerModel(), timers: .preview)
         .preferredColorScheme(.dark)
 }

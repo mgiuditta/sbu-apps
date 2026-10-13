@@ -1778,6 +1778,17 @@
         }
       }
     },
+    "Troppo pochi giorni per la linea" : {
+      "comment" : "In the Statistiche, in place of the completion line when the period has a single point.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Too few days for a line"
+          }
+        }
+      }
+    },
     "condivisa da un'altra persona" : {
       "comment" : "VoiceOver value of a grid ring that someone else shares with the user, after its state and streak. Lowercase, agreeing with 'abitudine' (feminine).",
       "localizations" : {
@@ -7166,7 +7177,7 @@
       }
     },
     "Nessun completamento in questo periodo." : {
-      "comment" : "In the Statistiche, in place of the curve by hour when nothing was completed in the period.",
+      "comment" : "In the Statistiche, in place of the weekday bars and the curve by hour when nothing was completed in the period.",
       "localizations" : {
         "en" : {
           "stringUnit" : {

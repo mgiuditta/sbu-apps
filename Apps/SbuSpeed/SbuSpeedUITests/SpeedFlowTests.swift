@@ -10,7 +10,11 @@ final class SpeedFlowTests: XCTestCase {
     @MainActor
     private func launch() -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES"]
+        app.launchArguments += [
+            "-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES",
+            // Whatever an earlier run chose: km/h and no limit.
+            "-unit", "kilometersPerHour", "-speedLimit", "",
+        ]
         app.launch()
         return app
     }
@@ -22,11 +26,34 @@ final class SpeedFlowTests: XCTestCase {
         let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Velocità'")).firstMatch
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("52"), figure.label)
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Massima'")).firstMatch.exists)
+        XCTAssertTrue(app.descendants(matching: .any)["Massima"].exists)
+        XCTAssertEqual(app.descendants(matching: .any)["Durata"].value as? String, "16 minuti e 10 secondi")
         XCTAssertTrue(app.buttons["Azzera viaggio"].isEnabled)
 
         // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,
         // and the audit misreads the iOS 26 glass bar and the dial's decorative track.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+    }
+
+    @MainActor
+    func testLandscapePutsTheTripBesideTheFigureAndPassesTheAccessibilityAudit() throws {
+        let app = launch()
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Velocità'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        let duration = app.descendants(matching: .any)["Durata"]
+        XCTAssertTrue(duration.waitForExistence(timeout: 5))
+        // Beside, not under: the trip starts right of the figure.
+        XCTAssertGreaterThan(duration.frame.minX, figure.frame.maxX)
+        // The pill stays on screen, after the rotation settles.
+        let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: app.buttons["Azzera viaggio"])
+        XCTAssertEqual(XCTWaiter.wait(for: [hittable], timeout: 5), .completed)
+
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
             return true
@@ -58,7 +85,7 @@ final class SpeedFlowTests: XCTestCase {
         let app = launch()
 
         app.buttons["Impostazioni"].tap()
-        XCTAssertTrue(app.staticTexts["La distanza segue la velocità: chilometri con km/h, miglia con mph."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["La distanza segue la velocità: chilometri, miglia o miglia nautiche."].waitForExistence(timeout: 5))
 
         // Dynamic Type is left out as in Sbu Habits: in the settings sheet the audit flags every
         // text as partially unsupported, system ones included.

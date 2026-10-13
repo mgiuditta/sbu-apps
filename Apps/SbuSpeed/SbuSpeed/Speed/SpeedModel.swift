@@ -45,6 +45,12 @@ final class SpeedModel {
         return unit.fullScale(containing: highest)
     }
 
+    /// How much of the dial the current speed fills: 0 without a speed, up to 1 at full scale.
+    var dialFraction: Double {
+        guard let speed else { return 0 }
+        return min(1, unit.value(ofMetersPerSecond: speed) / dialFullScale)
+    }
+
     /// The speed on screen is above the limit.
     var isOverLimit: Bool {
         guard let speed, let speedLimit else { return false }

@@ -104,6 +104,21 @@ struct SpeedModelTests {
         #expect(model.dialFullScale == 120)
     }
 
+    @Test(arguments: [
+        // 5 m/s is 18 km/h on the 60 scale; 100 m/s is 360 km/h, past the 300 scale.
+        (Optional(5.0), 0.3),
+        (100, 1),
+        (nil, 0),
+    ])
+    func dialFractionIsTheSpeedOverTheScale(metersPerSecond: Double?, expected: Double) async {
+        let events: [SpeedEvent] = metersPerSecond.map { [.access(.granted), .sample(.fix(at: 0, speed: $0))] } ?? []
+        let model = model(events)
+
+        await model.run()
+
+        #expect(abs(model.dialFraction - expected) < 0.001)
+    }
+
     @Test func dialHoldsTheLimit() {
         let model = model(locale: "it_IT")
 
@@ -160,6 +175,30 @@ struct SpeedModelTests {
 
         #expect(first.speedLimit == SpeedLimit(value: 30, unit: .milesPerHour))
         #expect(model(locale: "it_IT").speedLimit == SpeedLimit(value: 30, unit: .milesPerHour))
+    }
+
+    @Test func knotsAreSavedWithTheLimitInKnots() {
+        let first = model(locale: "it_IT")
+        first.speedLimit = SpeedLimit(value: 50, unit: .kilometersPerHour)
+
+        first.unit = .knots
+
+        let second = model(locale: "it_IT")
+        #expect(second.unit == .knots)
+        #expect(second.speedLimit == SpeedLimit(value: 25, unit: .knots))
+    }
+
+    @Test func dialAndLimitAlertWorkInKnots() async {
+        // 10 knots is 5.14 m/s: 6 m/s reads 12 kn, over the limit.
+        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 6))])
+        model.unit = .knots
+        model.speedLimit = SpeedLimit(value: 10, unit: .knots)
+
+        await model.run()
+
+        #expect(model.isOverLimit)
+        #expect(model.limitAlerts == 1)
+        #expect(model.dialFullScale == 30)
     }
 
     @Test func turningTheLimitOffIsSaved() {

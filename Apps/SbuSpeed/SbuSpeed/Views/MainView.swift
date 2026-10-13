@@ -4,64 +4,28 @@ import SwiftUI
 import UIKit
 
 /// The tool screen: the speed as the figure, the dial, the trip, and Azzera viaggio.
+/// In portrait the trip sits under the dial; in landscape, as in a car mount, it sits beside the figure.
 struct MainView: View {
     let model: SpeedModel
 
-    @Environment(\.openURL) private var openURL
-    @State private var isConfirmingReset = false
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     /// The system sound played once when the speed goes over the limit.
     private static let limitSound: SystemSoundID = 1005
 
-    private var context: LocalizedStringKey {
-        if model.isOverLimit, let limit = model.speedLimit {
-            return "Oltre il limite di \(limit.text())"
-        }
-        return switch model.status {
-        case .needsAccess: "Consenti la posizione"
-        case .denied: "Posizione non consentita"
-        case .approximate: "Serve la posizione esatta"
-        case .searching: "Cerco il segnale GPS"
-        case .still: "Fermo"
-        case .moving: "In movimento"
-        }
-    }
-
-    private var gaugeFraction: Double {
-        guard let speed = model.speed else { return 0 }
-        return model.unit.value(ofMetersPerSecond: speed) / model.dialFullScale
-    }
+    /// An iPhone on its side: little height, so the trip moves beside the figure.
+    private var isLandscape: Bool { verticalSizeClass == .compact }
 
     var body: some View {
-        SbuToolField(
-            "Velocità",
-            value: model.speed,
-            format: SpeedFigureStyle(unit: model.unit),
-            unit: model.unit.symbol,
-            context: context,
-            contextSystemImage: model.isOverLimit ? "exclamationmark.triangle" : nil,
-            contextTone: model.isOverLimit ? .danger : .neutral
-        ) {
-            VStack(spacing: SbuTheme.space6) {
-                SpeedGauge(fraction: gaugeFraction)
-                    .frame(maxWidth: 240)
-
-                TripSummary(trip: model.trip, unit: model.unit)
-            }
-        } pills: {
-            if model.status.needsSettings {
-                Button("Apri Impostazioni", action: openSettings)
-                    .buttonStyle(SbuFieldPillStyle())
+        Group {
+            // At accessibility text sizes the screen is not tall enough: then everything scrolls.
+            if dynamicTypeSize.isAccessibilitySize {
+                ScrollView {
+                    layout
+                }
             } else {
-                // A pill like the others, not a full-width red button: a rare action stays light.
-                Button("Azzera viaggio") {
-                    isConfirmingReset = true
-                }
-                .buttonStyle(SbuFieldPillStyle())
-                .disabled(model.trip.isEmpty)
-                .confirmationDialog("Azzera viaggio", isPresented: $isConfirmingReset, titleVisibility: .visible) {
-                    Button("Azzera viaggio", role: .destructive, action: model.resetTrip)
-                }
+                layout
             }
         }
         // A speedometer is read at a glance: the screen stays on while it is shown.
@@ -74,14 +38,27 @@ struct MainView: View {
         }
     }
 
-    private func playLimitSound() {
-        AudioServicesPlaySystemSound(Self.limitSound)
+    /// One tree for both orientations: turning the iPhone keeps the field and its open dialog.
+    private var layout: some View {
+        HStack(spacing: 0) {
+            SpeedToolField(model: model) {
+                if !isLandscape {
+                    // First call on the height left: the dial grows to its full size before the gap above the pills.
+                    DialAndTrip(model: model)
+                        .layoutPriority(1)
+                }
+            }
+
+            if isLandscape {
+                DialAndTrip(model: model)
+                    .padding(SbuTheme.space4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
     }
 
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            openURL(url)
-        }
+    private func playLimitSound() {
+        AudioServicesPlaySystemSound(Self.limitSound)
     }
 }
 
@@ -96,4 +73,10 @@ struct MainView: View {
         .background(SbuTheme.surface)
         .tint(SbuTheme.accentSpeed)
         .preferredColorScheme(.dark)
+}
+
+#Preview("Landscape", traits: .landscapeLeft) {
+    MainView(model: SpeedModel())
+        .background(SbuTheme.surface)
+        .tint(SbuTheme.accentSpeed)
 }

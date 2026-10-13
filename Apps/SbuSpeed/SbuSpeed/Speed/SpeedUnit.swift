@@ -4,6 +4,7 @@ import Foundation
 nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendable {
     case kilometersPerHour
     case milesPerHour
+    case knots
 
     var id: Self { self }
 
@@ -11,6 +12,7 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
         switch self {
         case .kilometersPerHour: .kilometersPerHour
         case .milesPerHour: .milesPerHour
+        case .knots: .knots
         }
     }
 
@@ -18,10 +20,20 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
         switch self {
         case .kilometersPerHour: .kilometers
         case .milesPerHour: .miles
+        case .knots: .nauticalMiles
         }
     }
 
-    /// Short symbol next to the figure: "km/h" or "mph".
+    /// The unit's name in settings: "Nodi" says more than "kn" to whom has never used it.
+    var name: LocalizedStringResource {
+        switch self {
+        case .kilometersPerHour: "Chilometri orari"
+        case .milesPerHour: "Miglia orarie"
+        case .knots: "Nodi"
+        }
+    }
+
+    /// Short symbol next to the figure: "km/h", "mph" or "kn".
     var symbol: String { speed.symbol }
 
     /// The possible tops of the dial in this unit, smallest first, like the scales of car speedometers.
@@ -29,6 +41,7 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
         switch self {
         case .kilometersPerHour: [60, 120, 200, 300]
         case .milesPerHour: [40, 80, 130, 200]
+        case .knots: [30, 60, 110, 160]
         }
     }
 
@@ -38,7 +51,7 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
         return scales.first { $0 >= value } ?? scales[scales.count - 1]
     }
 
-    /// km/h where the metric system is used, mph in the US and the UK.
+    /// km/h where the metric system is used, mph in the US and the UK. Knots are only a choice: no region drives in them.
     static func preferred(for locale: Locale) -> SpeedUnit {
         locale.measurementSystem == .metric ? .kilometersPerHour : .milesPerHour
     }
@@ -59,7 +72,7 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
             .formatted(.measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0))).locale(locale))
     }
 
-    /// A distance in metres, in km or mi to one decimal: "12,4 km".
+    /// A distance in metres, in km, mi or nautical miles to one decimal: "12,4 km".
     func distanceText(meters: Double, locale: Locale = .autoupdatingCurrent) -> String {
         Measurement(value: meters, unit: UnitLength.meters)
             .converted(to: length)

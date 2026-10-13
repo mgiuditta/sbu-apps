@@ -9,8 +9,9 @@ struct SpeedLimitTests {
     @Test(arguments: [
         (SpeedUnit.kilometersPerHour, [30, 50, 70, 90, 110, 130]),
         (.milesPerHour, [20, 30, 40, 50, 60, 70, 80]),
+        (.knots, [5, 10, 15, 20, 25, 30]),
     ])
-    func presetsAreTheUsualRoadLimits(unit: SpeedUnit, expected: [Int]) {
+    func presetsAreTheUsualLimits(unit: SpeedUnit, expected: [Int]) {
         let presets = SpeedLimit.presets(for: unit)
 
         #expect(presets.map(\.value) == expected)
@@ -37,6 +38,12 @@ struct SpeedLimitTests {
         (SpeedLimit(value: 30, unit: .milesPerHour), .kilometersPerHour, 50),
         (SpeedLimit(value: 70, unit: .milesPerHour), .kilometersPerHour, 110),
         (SpeedLimit(value: 90, unit: .kilometersPerHour), .kilometersPerHour, 90),
+        // 50 km/h is 27 kn, 130 km/h is 70 kn: beyond the presets, the highest one.
+        (SpeedLimit(value: 50, unit: .kilometersPerHour), .knots, 25),
+        (SpeedLimit(value: 130, unit: .kilometersPerHour), .knots, 30),
+        (SpeedLimit(value: 10, unit: .knots), .kilometersPerHour, 30),
+        (SpeedLimit(value: 10, unit: .knots), .milesPerHour, 20),
+        (SpeedLimit(value: 30, unit: .milesPerHour), .knots, 25),
     ])
     func convertsToTheNearestPresetOfTheOtherUnit(limit: SpeedLimit, unit: SpeedUnit, expected: Int) {
         #expect(limit.converted(to: unit) == SpeedLimit(value: expected, unit: unit))
@@ -45,6 +52,7 @@ struct SpeedLimitTests {
     @Test(arguments: [
         (SpeedLimit(value: 50, unit: .kilometersPerHour), "50 km/h"),
         (SpeedLimit(value: 30, unit: .milesPerHour), "30 mph"),
+        (SpeedLimit(value: 5, unit: .knots), "5 kn"),
     ])
     func textCarriesTheUnit(limit: SpeedLimit, expected: String) {
         #expect(limit.text(locale: Locale(identifier: "en_US")).withPlainSpaces == expected)

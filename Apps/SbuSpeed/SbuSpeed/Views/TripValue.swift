@@ -5,6 +5,8 @@ import SwiftUI
 struct TripValue: View {
     let label: LocalizedStringKey
     let value: String
+    /// What VoiceOver reads instead of `value`, when the value on screen reads badly aloud, like a clock.
+    var spokenValue: String?
 
     @ScaledMetric(relativeTo: .title2) private var valueSize = SbuTheme.statSmallSize
 
@@ -22,7 +24,9 @@ struct TripValue: View {
         .foregroundStyle(SbuTheme.inkMuted)
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label)
+        .accessibilityValue(spokenValue ?? value)
     }
 }
 

@@ -6836,6 +6836,184 @@
           }
         }
       }
+    },
+    "%lld giorni fatti" : {
+      "comment" : "VoiceOver, calendar widget: days of this month done.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld day done"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days done"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorno fatto"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorni fatti"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld giorni mancati" : {
+      "comment" : "VoiceOver, calendar widget: days of this month missed.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld day missed"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days missed"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorno mancato"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorni mancati"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld giorni saltati" : {
+      "comment" : "VoiceOver, calendar widget: days of this month skipped.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld day skipped"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days skipped"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorno saltato"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorni saltati"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Questo mese" : {
+      "comment" : "VoiceOver label of the calendar widget's dots.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This month"
+          }
+        }
+      }
+    },
+    "La serie di un'abitudine, in grande." : {
+      "comment" : "Widget gallery: description of the streak widget.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit's streak, large."
+          }
+        }
+      }
+    },
+    "Il completamento di un'abitudine nel tempo." : {
+      "comment" : "Widget gallery: description of the completion line widget.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit's completion over time."
+          }
+        }
+      }
+    },
+    "I completamenti di un'abitudine per giorno della settimana." : {
+      "comment" : "Widget gallery: description of the weekday bars widget.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit's completions by day of the week."
+          }
+        }
+      }
+    },
+    "Il mese di un'abitudine, giorno per giorno." : {
+      "comment" : "Widget gallery: description of the calendar widget.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit's month, day by day."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -20,14 +20,12 @@ struct HabitsWidgetView: View {
     var body: some View {
         Group {
             if entry.habits.isEmpty {
-                Text("Aggiungi un'abitudine nell'app")
-                    .font(SbuTheme.footnote)
-                    .foregroundStyle(SbuTheme.inkMuted)
-                    .multilineTextAlignment(.center)
+                WidgetEmptyText()
             } else {
                 HabitsWidgetGrid(
                     slots: WidgetSlots(entry.habits, progress: entry.progress, capacity: layout.columns * layout.rows),
                     progress: entry.progress,
+                    streaks: entry.streaks,
                     columns: layout.columns,
                     rows: layout.rows,
                     showsTitles: family != .systemSmall

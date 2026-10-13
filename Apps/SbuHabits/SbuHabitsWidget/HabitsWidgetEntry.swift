@@ -6,6 +6,8 @@ struct HabitsWidgetEntry: TimelineEntry {
     let date: Date
     let habits: [Habit]
     let progress: [UUID: HabitProgress]
+    /// Each habit's Serie, which VoiceOver reads with its ring.
+    let streaks: [UUID: Int]
 
     /// Stand-in habits for the gallery and the placeholder.
     static var sample: HabitsWidgetEntry {
@@ -19,7 +21,8 @@ struct HabitsWidgetEntry: TimelineEntry {
         return HabitsWidgetEntry(
             date: .now,
             habits: habits,
-            progress: Dictionary(uniqueKeysWithValues: habits.map { ($0.id, HabitProgress(of: $0, today: today, firstWeekday: 2)) })
+            progress: Dictionary(uniqueKeysWithValues: habits.map { ($0.id, HabitProgress(of: $0, today: today, firstWeekday: 2)) }),
+            streaks: [water.id: 4, reading.id: 12]
         )
     }
 }

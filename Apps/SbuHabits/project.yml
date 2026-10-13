@@ -69,6 +69,11 @@ targets:
       - SbuHabits/Views/HabitRing.swift
       - SbuHabits/Views/HabitRingFace.swift
       - SbuHabits/Views/HabitsWidgetGrid.swift
+      - SbuHabits/Views/SlotCaption.swift
+      # The one-habit widgets: the ring, the Serie, the line, the weekday bars and the calendar.
+      - SbuHabits/Views/Widgets
+      - path: SbuHabits/Statistics
+        excludes: [StatisticsCache.swift]
       - SbuHabits/Localizable.xcstrings
     dependencies:
       - package: SbuKit

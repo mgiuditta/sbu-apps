@@ -31,7 +31,8 @@ struct HabitsTimelineProvider: AppIntentTimelineProvider {
         return HabitsWidgetEntry(
             date: now,
             habits: habits,
-            progress: Dictionary(uniqueKeysWithValues: habits.map { ($0.id, HabitProgress(of: $0, today: today, firstWeekday: calendar.firstWeekday)) })
+            progress: Dictionary(uniqueKeysWithValues: habits.map { ($0.id, HabitProgress(of: $0, today: today, firstWeekday: calendar.firstWeekday)) }),
+            streaks: Dictionary(uniqueKeysWithValues: habits.map { ($0.id, Streak.current(of: $0, today: today, firstWeekday: calendar.firstWeekday)) })
         )
     }
 }

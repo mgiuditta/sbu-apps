@@ -25,8 +25,8 @@ Add the habits you want to build and hold one down when you do it. At the top yo
 - Apple Watch: mark habits from your wrist with a tap, see your full streak and add the complication to your watch face. Your Watch gets its data only from your iPhone
 - Statistics with your best streak, completion over time and history, to share as an image
 - Export and import your data as a file, saved where you choose
-- Sync through your own iCloud, off until you turn it on
-- Share a habit with anyone you like, through iCloud: they see it read only
+- iCloud stays off until you turn it on: then your habits sync across your devices, through your own iCloud
+- Share a habit with anyone you like, through iCloud and only when you choose: they see it read only
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it counts the days in a row you keep a habit.

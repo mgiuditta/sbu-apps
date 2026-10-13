@@ -9,6 +9,8 @@ category: UtilitiesApplication
 originale:
   name: Speedometer 55 Pro. GPS kit.
   appStoreId: 530829008
+  price: 3.99
+  checked: 2026-10-12
 figure:
   it: { value: "52 km/h", label: Velocità }
   en: { value: "32 mph", label: Speed }

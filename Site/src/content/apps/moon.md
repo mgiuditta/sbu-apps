@@ -9,6 +9,8 @@ category: UtilitiesApplication
 originale:
   name: My Moon Phase Pro
   appStoreId: 1104649303
+  price: 3.99
+  checked: 2026-10-12
 figure:
   it: { value: "68%", label: Illuminazione }
   en: { value: "68%", label: Illumination }

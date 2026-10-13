@@ -9,6 +9,8 @@ category: HealthApplication
 originale:
   name: Streaks
   appStoreId: 963034692
+  price: 6.99
+  checked: 2026-10-12
 figure:
   it: { value: "12", label: Serie piena }
   en: { value: "12", label: Full streak }

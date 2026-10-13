@@ -23,6 +23,19 @@ platform :ios do
     sh("python3", File.expand_path("../../../Tools/make_screenshots.py", __dir__), "__LOWER__")
   end
 
+  # The App Store Connect API can't create apps, so this lane logs in with the Apple ID in
+  # FASTLANE_USER: 2FA the first time, then the session cached in ~/.fastlane/spaceship.
+  desc "Register the bundle ID and create the App Store Connect record, Italian primary language"
+  lane :create_app do
+    produce(
+      username: ENV.fetch("FASTLANE_USER"),
+      app_name: "Sbu __NAME__",
+      language: "Italian",
+      sku: "dev.sbu.__LOWER__",
+      platform: "ios"
+    )
+  end
+
   desc "Build and upload to TestFlight"
   lane :beta do
     api_key

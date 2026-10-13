@@ -3,6 +3,7 @@ import '../styles/global.css';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import logoSvg from '../../../Design/logos/sbu-logo.svg?raw';
 import { localePath, ui, type Locale } from '../i18n';
+import { allEngravings } from '../lib/apps';
 
 interface Props {
   locale: Locale;
@@ -15,14 +16,15 @@ interface Props {
   /** Link preview, 1200x630 from Tools/make_og.py. Defaults to the home's. */
   image?: string;
   noindex?: boolean;
-  /** `stage`: the home. The header floats over a full-screen main, which brings its own width. */
-  layout?: 'page' | 'stage';
+  /** `wide`: the home. Header, main and footer use the wide frame instead of the reading column. */
+  layout?: 'page' | 'wide';
   /** One engraving behind the page, in `line`. Off where the page already shows its own (the app page). */
   backdrop?: boolean;
 }
 
 const { locale, path, alternates, title, description, jsonLd = [], image = `/og/home-${locale}.png`, noindex = false, layout = 'page', backdrop = true } = Astro.props;
-const stage = layout === 'stage';
+const wide = layout === 'wide';
+const frame = wide ? 'frame' : 'page';
 const t = ui[locale];
 const site = Astro.site!;
 const absolute = (target: Locale) => new URL(localePath(target, path), site).href;
@@ -46,19 +48,23 @@ const footer = [
   { href: localePath(locale, 'livella'), label: t.nav.levelTool },
   { href: localePath(locale, 'abbonamenti'), label: t.nav.subscriptionCost },
 ];
+// The footer keeps the free tools apart from the pages about Sbu.
+const tools = new Set([localePath(locale, 'livella'), localePath(locale, 'abbonamenti')]);
 const here = localePath(locale, path);
 // The sheet lists the header's links first, then the footer's others.
 const more = footer.filter((item) => !nav.some((top) => top.href === item.href));
 // One instrument per page, the same on every visit: picked by the path, not at random.
-const engravings = Object.values(import.meta.glob<string>('../../../Design/icons/source/*.png', { query: '?url', import: 'default', eager: true }));
-const engraving = backdrop && !stage && engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
+const engravings = await allEngravings(640);
+const engraving = backdrop && !wide && engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
 ---
 <!doctype html>
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content={stage ? 'width=device-width, initial-scale=1, viewport-fit=cover' : 'width=device-width, initial-scale=1'} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    {/* Every page opens on a Bricolage title: fetched with the HTML, so the title is not drawn twice. */}
+    <link rel="preload" href="/fonts/BricolageGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={absolute(locale)} />}
     {!noindex && alternates.map((alt) => <link rel="alternate" hreflang={alt} href={absolute(alt)} />)}
@@ -84,8 +90,8 @@ const engraving = backdrop && !stage && engravings[[...path].reduce((sum, c) => 
   <body class="min-h-dvh text-ink">
     <a href="#main" class="sr-only focus:not-sr-only">{t.skip}</a>
     {engraving && <div class="backdrop" style={`--engraving: url(${engraving})`} aria-hidden="true"></div>}
-    <header class:list={[stage ? 'stage-bar' : 'bar']}>
-      <div class:list={['flex items-center justify-between gap-4', !stage && 'page py-4']}>
+    <header class="bar">
+      <div class:list={['flex items-center justify-between gap-4 py-4', frame]}>
         <a href={localePath(locale, '')} class="py-2 text-brand">
           <Fragment set:html={logo} />
           <span class="sr-only">sbu.dev</span>
@@ -96,7 +102,7 @@ const engraving = backdrop && !stage && engravings[[...path].reduce((sum, c) => 
               {nav.map((item) => (
                 <li>
                   {/* The label rolls up letter by letter on hover; screen readers get it whole. */}
-                  <a href={item.href} class:list={['roll', stage ? 'text-ink-muted' : 'text-ink']} aria-current={item.href === here ? 'page' : undefined}>
+                  <a href={item.href} class="roll text-ink" aria-current={item.href === here ? 'page' : undefined}>
                     <span class="sr-only">{item.label}</span>
                     <span aria-hidden="true">{[...item.label].map((c, i) => <span style={`--i: ${i}`} data-c={c}>{c}</span>)}</span>
                   </a>
@@ -141,16 +147,23 @@ const engraving = backdrop && !stage && engravings[[...path].reduce((sum, c) => 
       document.querySelector('[data-menu-open]')!.addEventListener('click', () => sheet.showModal());
       document.querySelector('[data-menu-close]')!.addEventListener('click', () => sheet.close());
     </script>
-    <main id="main" class:list={[!stage && 'page pb-12']}>
+    <main id="main" class:list={[frame, 'pb-12']}>
       <slot />
     </main>
     <footer class="border-t border-line">
       {/* text-footnote on the children, not here: on .page it would shrink the 70ch column. */}
-      <div class="page flex flex-col gap-2 py-8 text-ink-muted">
-        <ul class="flex flex-wrap gap-4 text-footnote">
-          {footer.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      <div class:list={[frame, 'site-footer py-8 text-ink-muted']}>
+        <a href={localePath(locale, '')} class="self-start py-2 text-brand">
+          <Fragment set:html={logo} />
+          <span class="sr-only">sbu.dev</span>
+        </a>
+        <ul class="flex flex-col gap-2 text-footnote" aria-label={t.footerTools}>
+          {footer.filter((item) => tools.has(item.href)).map((item) => <li><a href={item.href} aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>)}
         </ul>
-        <p class="text-footnote">{t.footerNote}</p>
+        <ul class="flex flex-col gap-2 text-footnote" aria-label={t.footerSite}>
+          {footer.filter((item) => !tools.has(item.href)).map((item) => <li><a href={item.href} aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>)}
+        </ul>
+        <p class="site-footer-note text-footnote">{t.footerNote}</p>
       </div>
     </footer>
   </body>

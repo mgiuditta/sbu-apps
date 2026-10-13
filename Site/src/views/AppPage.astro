@@ -3,7 +3,7 @@ import FreeBadge from '../components/FreeBadge.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ToolFieldShot from '../components/ToolFieldShot.astro';
 import Base from '../layouts/Base.astro';
-import { capitalize, localePath, ui } from '../i18n';
+import { capitalize, formatDate, formatPrice, localePath, ui } from '../i18n';
 import { text, type App } from '../lib/apps';
 import { breadcrumbs, faqPage } from '../lib/jsonld';
 import type { Route } from '../lib/routes';
@@ -13,6 +13,7 @@ const { locale, path, alternates, app, alternatives } = Astro.props;
 const t = ui[locale];
 const listing = text(app, locale);
 const faq = app.faq[locale];
+const originale = app.originale;
 const alternative = alternatives.find((entry) => entry.app.slug === app.slug && entry.locale === locale);
 const site = Astro.site!;
 const url = new URL(localePath(locale, path), site).href;
@@ -53,11 +54,19 @@ const jsonLd = [
         <PageTitle text={listing.name} accent={app.accent} size="hero" />
         <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
         {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
+        {originale?.price !== undefined && (
+          /* The paid app this one remakes, and its public price: a fact, dated in the footnote below. */
+          <p class="instead">
+            <span class="text-ink-muted">{t.insteadOf} {originale.name}</span>
+            <span class="text-ink-muted tabular-nums line-through">{formatPrice(originale.price, locale)}</span>
+            <span class="font-[var(--text-headline--font-weight)] tabular-nums"><span class="sr-only">{listing.name}: </span>{formatPrice(0, locale)}</span>
+          </p>
+        )}
         <p class="flex flex-wrap items-center gap-3">
           {app.storeUrl ? (
             <a href={app.storeUrl} class="cta">{t.appStore}</a>
           ) : (
-            <span class="rounded-pill border border-line px-3 py-1 text-subheadline text-ink-muted">{t.comingSoon}</span>
+            <span class="text-headline text-ink-muted">{t.comingSoon}</span>
           )}
           <span class="text-footnote text-ink-muted">{t.requires}</span>
         </p>
@@ -98,6 +107,7 @@ const jsonLd = [
       {alternative && <li><a href={localePath(locale, `alternatives/${alternative.slug}`)}>{t.alternativeLink(app.originale?.name ?? '')}</a></li>}
       <li><a href={localePath(locale, `privacy/${app.slug}`)}>{t.privacyLink(listing.name)}</a></li>
     </ul>
+    {originale?.checked && <p class="text-footnote text-ink-muted">{t.priceSource(formatDate(originale.checked, locale))}</p>}
   </article>
 </Base>
 
@@ -122,6 +132,8 @@ const jsonLd = [
     background: var(--sbu-ink);
     mask: var(--engraving) center / contain no-repeat luminance;
   }
+
+  .instead { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--spacing-1) var(--spacing-3); }
 
   .cta {
     display: inline-block;

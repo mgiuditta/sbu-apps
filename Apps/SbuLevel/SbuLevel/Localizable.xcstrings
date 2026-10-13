@@ -221,6 +221,16 @@
         }
       }
     },
+    "La superficie è troppo inclinata o l'iPhone si è mosso. Riprova su una superficie stabile." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The surface is too steep or your iPhone moved. Try again on a steady surface."
+          }
+        }
+      }
+    },
     "Lato" : {
       "localizations" : {
         "en" : {

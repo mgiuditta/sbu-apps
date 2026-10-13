@@ -145,12 +145,12 @@ struct LevelReadingTests {
 
     /// The offset of each edge is subtracted: a sensor that reads `error` too far reads level once calibrated.
     @Test(arguments: Edge.allCases, [0.7, -0.7])
-    func eachEdgeOffsetIsAppliedWithTheRightSign(edge: Edge, error: Double) {
-        let calibration = Calibration.none.calibrating(
+    func eachEdgeOffsetIsAppliedWithTheRightSign(edge: Edge, error: Double) throws {
+        let calibration = try #require(Calibration.none.calibrating(
             .edge(edge),
             first: .standing(rotatedBy: edge.restingRotation + error),
             second: .standing(rotatedBy: edge.restingRotation + error)
-        )
+        ))
 
         let level = LevelReading(gravity: .standing(rotatedBy: edge.restingRotation + error), calibration: calibration)
         let tilted = LevelReading(gravity: .standing(rotatedBy: edge.restingRotation + error + 3), calibration: calibration)

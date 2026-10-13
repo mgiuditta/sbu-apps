@@ -9,6 +9,7 @@ struct CalibrationNoticeRow: View {
         switch notice {
         case .moved: "L'iPhone si è mosso: la misura ricomincia."
         case .wrongSide: "Appoggia l'iPhone sullo stesso lato della prima misura."
+        case .implausible: "La superficie è troppo inclinata o l'iPhone si è mosso. Riprova su una superficie stabile."
         }
     }
 
@@ -22,6 +23,7 @@ struct CalibrationNoticeRow: View {
     List {
         CalibrationNoticeRow(notice: .moved)
         CalibrationNoticeRow(notice: .wrongSide)
+        CalibrationNoticeRow(notice: .implausible)
     }
 }
 
@@ -29,6 +31,7 @@ struct CalibrationNoticeRow: View {
     List {
         CalibrationNoticeRow(notice: .moved)
         CalibrationNoticeRow(notice: .wrongSide)
+        CalibrationNoticeRow(notice: .implausible)
     }
     .preferredColorScheme(.dark)
 }

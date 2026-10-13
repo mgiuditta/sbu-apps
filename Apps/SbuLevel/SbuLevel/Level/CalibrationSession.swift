@@ -15,6 +15,9 @@ nonisolated struct CalibrationSession: Equatable, Sendable {
         case moved
         /// The second reading is on a different side than the first.
         case wrongSide
+        /// The two readings give an implausible result: the surface is too steep or the iPhone
+        /// moved. Nothing is saved and the calibration starts again from the first step.
+        case implausible
     }
 
     private(set) var step = Step.first
@@ -90,10 +93,15 @@ nonisolated struct CalibrationSession: Equatable, Sendable {
             target = current
             step = .second
         case .second:
-            if let first, let target {
-                result = base.calibrating(target, first: first, second: mean)
+            if let first, let target, let calibrated = base.calibrating(target, first: first, second: mean) {
+                result = calibrated
+                step = .done
+            } else {
+                notice = .implausible
+                first = nil
+                target = nil
+                step = .first
             }
-            step = .done
         case .done:
             break
         }

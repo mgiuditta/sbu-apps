@@ -75,6 +75,29 @@ struct LevelModelTests {
         #expect(model.reading.isLevel)
     }
 
+    /// The first build's one-step calibration made a real iPhone read 9,2° flat on a table.
+    @Test func aCalibrationFromTheFirstBuildIsNotApplied() {
+        defaults.set(Data(#"{"flatX":-0.14916,"edge":43.0747,"flatY":-0.07201}"#.utf8), forKey: "calibration")
+
+        let model = makeModel()
+        model.update(with: Gravity(x: 0, y: 0, z: -1))
+
+        #expect(model.isCalibrated == false)
+        #expect(model.reading.displayedAngle == 0)
+        #expect(model.reading.isLevel)
+    }
+
+    @Test func anImplausibleCalibrationLeavesTheSavedOneAlone() {
+        let model = makeModel()
+        calibrate(model, first: .standing(rotatedBy: 1), second: .standing(rotatedBy: 1))
+
+        calibrate(model, first: .standing(rotatedBy: 8), second: .standing(rotatedBy: 6))
+
+        #expect(model.calibrationSession?.notice == .implausible)
+        #expect(abs(model.calibration.bottom - 1) < 1e-9)
+        #expect(LevelModel(defaults: defaults).calibration == model.calibration)
+    }
+
     @Test func endingTheCalibrationClosesTheSession() {
         let model = makeModel()
         model.startCalibration()

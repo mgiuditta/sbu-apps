@@ -9,9 +9,9 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
-    private func launch() -> XCUIApplication {
+    private func launch(gravity: String = "") -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES"]
+        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES", "-FIXED_GRAVITY", gravity]
         app.launch()
         return app
     }
@@ -70,7 +70,8 @@ final class LevelFlowTests: XCTestCase {
 
     @MainActor
     func testTwoStepCalibrationThenResetInSettings() throws {
-        let app = launch()
+        // 0,6° off on the bottom edge: within what a calibration accepts.
+        let app = launch(gravity: "nearlyLevel")
         let calibrate = app.buttons["Calibra"]
         XCTAssertTrue(calibrate.waitForExistence(timeout: 5))
 
@@ -102,6 +103,26 @@ final class LevelFlowTests: XCTestCase {
         XCTAssertTrue(side.waitForExistence(timeout: 5))
         side.tap()
         XCTAssertTrue(reset.waitForNonExistence(timeout: 5))
+    }
+
+    /// The screenshot tilt is 32,4°: as a sensor error it is impossible, so nothing is saved.
+    @MainActor
+    func testAnImplausibleCalibrationIsRefusedAndStartsOver() {
+        let app = launch()
+        app.buttons["Calibra"].tap()
+        let measure = app.buttons["Misura"]
+        XCTAssertTrue(measure.waitForExistence(timeout: 5))
+
+        measure.tap()
+        let secondStep = app.staticTexts.matching(NSPredicate(format: "label ==[c] 'Passo 2 di 2'")).firstMatch
+        XCTAssertTrue(secondStep.waitForExistence(timeout: 5))
+        measure.tap()
+
+        let notice = app.staticTexts["La superficie è troppo inclinata o l'iPhone si è mosso. Riprova su una superficie stabile."]
+        XCTAssertTrue(notice.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label ==[c] 'Passo 1 di 2'")).firstMatch.exists)
+        XCTAssertTrue(app.buttons["Annulla"].exists)
+        XCTAssertFalse(app.buttons["Fine"].exists)
     }
 
     @MainActor

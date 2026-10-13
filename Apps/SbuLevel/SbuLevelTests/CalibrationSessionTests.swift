@@ -84,4 +84,21 @@ struct CalibrationSessionTests {
         #expect(abs(result.flatX - 0.01) < 1e-12)
         #expect(abs(result.flatY - 0.01) < 1e-12)
     }
+
+    @Test func anImplausibleResultIsNotSavedAndStartsOver() {
+        var session = CalibrationSession()
+        session.startCapture()
+        feed(&session, .standing(rotatedBy: 6))
+        session.startCapture()
+        // 6° then 4°: a 5° sensor error, more than any real sensor has.
+        feed(&session, .standing(rotatedBy: 4))
+
+        #expect(session.result == nil)
+        #expect(session.notice == .implausible)
+        #expect(session.step == .first)
+        #expect(session.target == nil)
+
+        session.startCapture()
+        #expect(session.notice == nil)
+    }
 }

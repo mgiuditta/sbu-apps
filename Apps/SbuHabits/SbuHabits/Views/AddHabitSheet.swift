@@ -33,7 +33,7 @@ struct AddHabitSheet: View {
                     ContentUnavailableView.search(text: query)
                 }
             }
-            .navigationTitle("Aggiungi abitudine")
+            .navigationTitle("Aggiungi")
             .navigationBarTitleDisplayMode(.inline)
             .modifier(RevealedSearch(isPresented: $isSearching, text: $query, prompt: Text("Cerca un modello")))
             .onChange(of: isSearching, clearQuery)

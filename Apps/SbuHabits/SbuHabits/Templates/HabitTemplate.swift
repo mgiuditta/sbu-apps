@@ -79,6 +79,13 @@ nonisolated struct HabitTemplate: Identifiable, Sendable {
         return draft
     }
 
+    /// The line under the title in the search results, where Modelli of different tabs meet:
+    /// it tells "Leggere" to do from "Leggere" A tempo, and "Meditare" with Salute from the
+    /// timed one.
+    var detail: LocalizedStringResource {
+        health == nil ? kind.title : "Collegata a Salute"
+    }
+
     /// The catalog entry for an id, if it is one.
     static func withID(_ id: String) -> HabitTemplate? {
         index[id]

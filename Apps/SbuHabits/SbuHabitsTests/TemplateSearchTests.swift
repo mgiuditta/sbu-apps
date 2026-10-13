@@ -44,4 +44,12 @@ struct TemplateSearchTests {
         #expect(sections.map(\.category) == [.health, .timed])
         #expect(sections[1].templates.map(\.id) == ["timed.meditate"])
     }
+
+    @Test(arguments: ["leggere", "meditare"])
+    func sameTitledResultsSayDifferentDetails(query: String) {
+        let details = TemplateSearch.filter(HabitTemplate.all, matching: query).map(\.detail.key)
+
+        #expect(details.count == 2)
+        #expect(Set(details).count == 2)
+    }
 }

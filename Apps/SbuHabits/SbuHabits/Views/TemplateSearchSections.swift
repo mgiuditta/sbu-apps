@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The Modelli a search finds, in every tab, under the tab's name.
+/// The Modelli a search finds, in every tab, under the tab's name; each row says its kind, so
+/// the same title in two tabs reads apart.
 struct TemplateSearchSections: View {
     let sections: [TemplateSearch.Section]
 
@@ -10,7 +11,7 @@ struct TemplateSearchSections: View {
             Section {
                 ForEach(section.templates) { template in
                     NavigationLink(value: AddHabitRoute.template(template.id)) {
-                        TemplateRow(title: template.title, symbol: template.symbol, linksHealth: template.health != nil)
+                        TemplateRow(title: template.title, symbol: template.symbol, linksHealth: template.health != nil, detail: template.detail)
                     }
                 }
             } header: {

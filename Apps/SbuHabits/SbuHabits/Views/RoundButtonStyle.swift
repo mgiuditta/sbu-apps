@@ -3,7 +3,8 @@ import SwiftUI
 
 /// A round icon button of a fixed side from the design tokens: filled in the accent with
 /// `onAccent` for the one main action, raised paper with `ink` for the others. Use it with a
-/// labelled `Button` and `.labelStyle(.iconOnly)`, so VoiceOver reads the label.
+/// labelled `Button` and `.labelStyle(.iconOnly)`, so VoiceOver reads the label. A button can be
+/// drawn smaller than it is touched, as play on a small ring: the hit area keeps `side`.
 struct RoundButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
@@ -11,14 +12,26 @@ struct RoundButtonStyle: ButtonStyle {
     let side: CGFloat
     /// Filled in the accent: the screen's main action.
     var isProminent = false
+    /// The side of the circle drawn, when smaller than the side touched; `nil` draws `side`.
+    var drawnSide: CGFloat?
 
-    /// The symbol's text style, growing with the side.
+    private var circleSide: CGFloat {
+        min(drawnSide ?? side, side)
+    }
+
+    /// The symbol's text style, growing with the circle drawn.
     private var symbolFont: Font {
-        switch side {
+        switch circleSide {
         case SbuTheme.controlRoundLg...: SbuTheme.largeTitle
         case SbuTheme.controlRound...: SbuTheme.title2
-        default: SbuTheme.body
+        case SbuTheme.controlRoundSm...: SbuTheme.body
+        default: SbuTheme.caption
         }
+    }
+
+    /// Past these text sizes the symbol would spill out of the circle drawn.
+    private var largestTextSize: DynamicTypeSize {
+        circleSide < SbuTheme.controlRoundSm ? .large : .xxxLarge
     }
 
     private var foreground: AnyShapeStyle {
@@ -37,10 +50,12 @@ struct RoundButtonStyle: ButtonStyle {
             .fontWeight(.medium)
             .imageScale(.medium)
             // The side is fixed: past the largest text sizes the symbol would spill out.
-            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+            .dynamicTypeSize(...largestTextSize)
             .foregroundStyle(foreground)
-            .frame(width: side, height: side)
+            .frame(width: circleSide, height: circleSide)
             .background(background, in: .circle)
+            // Touched on the whole side, however small the circle drawn.
+            .frame(width: side, height: side)
             .contentShape(.circle)
             // As SbuButton does.
             .opacity(configuration.isPressed ? 0.7 : 1)
@@ -60,6 +75,8 @@ struct RoundButtonStyle: ButtonStyle {
 private struct RoundButtonStylePreview: View {
     var body: some View {
         HStack(spacing: SbuTheme.space6) {
+            Button("Avvia", systemImage: "play.fill") {}
+                .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRoundSm, isProminent: true, drawnSide: SbuTheme.controlRoundXs))
             Button("Avvia", systemImage: "play.fill") {}
                 .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRoundSm, isProminent: true))
             Button("Annulla", systemImage: "xmark") {}

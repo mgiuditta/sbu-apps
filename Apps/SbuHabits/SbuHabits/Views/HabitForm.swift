@@ -219,8 +219,8 @@ struct HabitForm: View {
                     RemindersSection(rows: $reminders)
                 }
 
-                Section("Simbolo") {
-                    SymbolPicker(selection: $symbol)
+                Section {
+                    SymbolField(selection: $symbol)
                 }
 
                 if habit != nil {

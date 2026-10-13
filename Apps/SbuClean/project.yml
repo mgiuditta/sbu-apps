@@ -23,6 +23,12 @@ targets:
     sources: [SbuClean]
     dependencies:
       - package: SbuKit
+      - target: SbuCleanWidget
+    entitlements:
+      path: SbuClean/SbuClean.entitlements
+      properties:
+        # Shared with the widget: the space you can free from the last scan.
+        com.apple.security.application-groups: [group.dev.sbu.clean]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.clean
@@ -38,6 +44,39 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+  SbuCleanWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuCleanWidget
+      # The widget shares the figure, the storage reading and the snapshot with the app.
+      - SbuClean/Clean/SpaceFigure.swift
+      - SbuClean/Clean/DeviceStorage.swift
+      - SbuClean/Clean/WidgetSnapshot.swift
+      - SbuClean/Store/StoredFile.swift
+      - SbuClean/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuCleanWidget/SbuCleanWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.clean]
+    info:
+      path: SbuCleanWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Clean
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.clean.widget
+        TARGETED_DEVICE_FAMILY: "1"
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES

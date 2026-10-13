@@ -11,7 +11,7 @@ enum AppLaunch {
 
     static func makeModel() -> CleanModel {
         guard isDemo else {
-            return CleanModel(library: PhotoKitLibrary())
+            return CleanModel(library: PhotoKitLibrary(), publish: WidgetPublisher.publish)
         }
 
         let directory = URL.temporaryDirectory.appending(path: "demo-\(UUID().uuidString)", directoryHint: .isDirectory)

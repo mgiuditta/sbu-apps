@@ -40,6 +40,8 @@ final class CleanModel {
     @ObservationIgnored let grouper: SimilarityGrouper
     @ObservationIgnored private let now: @Sendable () -> Date
     @ObservationIgnored private let readStorage: @Sendable () -> DeviceStorage?
+    @ObservationIgnored private let publish: @Sendable (WidgetSnapshot) -> Void
+    @ObservationIgnored private var lastPublished: Int64?
 
     /// How many photos are analysed at once.
     private static let scanWidth = 3
@@ -55,17 +57,20 @@ final class CleanModel {
     ///   - grouper: The duplicate and similar thresholds.
     ///   - now: The clock, for Recenti and Accadde oggi.
     ///   - readStorage: Reads the iPhone's capacity.
+    ///   - publish: Hands the space you can free to the widget; nothing by default.
     init(
         library: any PhotoLibrary,
         directory: URL? = nil,
         grouper: SimilarityGrouper = SimilarityGrouper(),
         now: @escaping @Sendable () -> Date = { .now },
-        readStorage: @escaping @Sendable () -> DeviceStorage? = { DeviceStorage.current() }
+        readStorage: @escaping @Sendable () -> DeviceStorage? = { DeviceStorage.current() },
+        publish: @escaping @Sendable (WidgetSnapshot) -> Void = { _ in }
     ) {
         self.library = library
         self.grouper = grouper
         self.now = now
         self.readStorage = readStorage
+        self.publish = publish
         stateFile = StoredFile(name: "state.json", directory: directory)
         sizesFile = StoredFile(name: "sizes.plist", format: .binary, directory: directory)
         analysesFile = StoredFile(name: "analyses.plist", format: .binary, directory: directory)
@@ -116,9 +121,19 @@ final class CleanModel {
         }
         hasLoaded = true
         await measureSizes()
+        publishFreeableSpace()
         if !scan.isRunning {
             startScan()
         }
+    }
+
+    /// Tells the widget the space you can free, when it changed.
+    func publishFreeableSpace() {
+        let bytes = freeableBytes
+        guard bytes != lastPublished else { return }
+
+        lastPublished = bytes
+        publish(WidgetSnapshot(freeableBytes: bytes, date: now()))
     }
 
     /// Reads the user's albums.
@@ -232,6 +247,7 @@ final class CleanModel {
         }
         pruneGroups()
         storage = readStorage()
+        publishFreeableSpace()
         return DeletionResult(count: ids.count, bytes: bytes, totalBytes: state.freed.totalBytes, totalCount: state.freed.totalCount)
     }
 
@@ -321,6 +337,7 @@ final class CleanModel {
         await Self.write(analyses, to: analysesFile)
         await regroup()
         scan = Task.isCancelled ? .cancelled : .finished
+        publishFreeableSpace()
     }
 
     private func regroup() async {

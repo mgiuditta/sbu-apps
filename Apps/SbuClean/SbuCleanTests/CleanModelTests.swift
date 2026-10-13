@@ -180,4 +180,21 @@ struct CleanModelTests {
         #expect(model.state.trash.isEmpty)
         #expect(model.itemsByID["film"] != nil)
     }
+
+    @Test func theWidgetHearsTheSpaceYouCanFreeOnceAndAfterADeletion() async throws {
+        let published = PublishedSnapshots()
+        let fake = library()
+        let model = CleanModel(library: fake, directory: directory, now: { Fixture.date(10, 13) }, readStorage: { nil }, publish: published.append)
+        await model.reload()
+        await model.waitForScan()
+
+        #expect(published.values.last?.freeableBytes == 4_000_000)
+        let count = published.values.count
+        model.publishFreeableSpace()
+        #expect(published.values.count == count)
+
+        model.moveToTrash(["film"])
+        _ = try await model.deleteTrash()
+        #expect(published.values.last?.freeableBytes == 4_000_000)
+    }
 }

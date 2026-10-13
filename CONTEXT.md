@@ -101,6 +101,10 @@ _Avoid_: abitudine automatica, sincronizzata, integrazione
 Un'abitudine da fare con una durata: il play sull'anello apre il Timer, e quando il conto alla rovescia finisce si segna da sola, una volta al giorno, sul giorno logico in cui è partito. Un timer alla volta; regge background e chiusura dell'app. Non si collega a Salute e non è mai un'**Abitudine da evitare**.
 _Avoid_: abitudine cronometrata, countdown
 
+**Nota del giorno** (_Daily note_):
+Un breve testo che scrivi su un'abitudine per un giorno, oggi o un giorno passato: una nota per abitudine per giorno, riscrivibile. Un testo vuoto non è una nota. Salta oggi la lascia dov'è; eliminare l'abitudine elimina le sue note. Viaggia con Esporta e Importa, mai con un'**Abitudine condivisa**.
+_Avoid_: diario, commento, memo
+
 **Abitudine condivisa** (_Shared habit_):
 Un'abitudine che il proprietario condivide via iCloud con altre persone: loro la vedono in sola lettura, con storico e statistiche, e scelgono un'emoji per il proprietario. Non si segna, non entra nella loro **Serie piena** né nei loro widget; sparisce quando il proprietario smette di condividerla o la elimina.
 _Avoid_: abitudine di gruppo, abitudine sincronizzata, sfida

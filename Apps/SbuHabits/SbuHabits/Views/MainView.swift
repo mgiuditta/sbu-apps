@@ -31,7 +31,7 @@ struct MainView: View {
             unit: Self.unit(for: fullStreak),
             context: context
         ) {
-            HabitGrid(model: model, edit: edit)
+            HabitGrid(model: model, edit: edit, writeNote: writeNote)
         } pills: {
             Button("Aggiungi", action: add)
                 .buttonStyle(SbuFieldPillStyle())
@@ -73,6 +73,10 @@ struct MainView: View {
 
     private func edit(_ habit: Habit) {
         present(.edit(habit))
+    }
+
+    private func writeNote(_ habit: Habit) {
+        present(.note(habit, model.today))
     }
 
     private func showStatistics() {

@@ -21,6 +21,8 @@ struct HabitsExportTests {
         var reading = Habit(title: "Leggere", symbol: "book", createdOn: start)
         _ = reading.update(title: "Leggere", symbol: "book", timesPerDay: 1, schedule: .everyDay, timerMinutes: 20, from: start)
         reading.mark(on: start + 1, hour: 22)
+        reading.setNote("Venti pagine\nPoi a letto", on: start + 1)
+        reading.setNote("Saltata, influenza", on: start + 2)
         var books = Habit(title: "Biblioteca", symbol: "books.vertical", schedule: .timesPerMonth(2), createdOn: start)
         books.log = [start + 5: 1]
         var dentist = Habit(title: "Dentista", symbol: "pills", schedule: .oneDay(start + 9), createdOn: start)
@@ -36,6 +38,7 @@ struct HabitsExportTests {
         #expect(read == Self.sample)
         #expect(read.habits[0].markHours == [LogicalDay(ordinal: 20_004): [7, 13]])
         #expect(read.habits[3].timerMinutes == 20)
+        #expect(read.habits[3].note(on: LogicalDay(ordinal: 20_001)) == "Venti pagine\nPoi a letto")
         #expect(read.habits[4].schedule == .timesPerMonth(2))
         #expect(read.habits[5].schedule == .oneDay(LogicalDay(ordinal: 20_009)))
     }

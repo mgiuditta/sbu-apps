@@ -224,6 +224,82 @@ final class HabitsFlowTests: XCTestCase {
         expectValue(leggere, "Da fare, 0 giorni")
     }
 
+    /// The text field of the Nota del giorno: a field on more lines may surface as a text view.
+    @MainActor
+    private func noteField(in app: XCUIApplication) -> XCUIElement {
+        let field = app.descendants(matching: .any).matching(NSPredicate(
+            format: "label == 'Nota' AND (elementType == %d OR elementType == %d)",
+            XCUIElement.ElementType.textField.rawValue,
+            XCUIElement.ElementType.textView.rawValue
+        )).firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        return field
+    }
+
+    @MainActor
+    func testANoteOfTheDayIsWrittenShownAndEdited() throws {
+        let app = launch()
+        add("Leggere", in: app)
+        let leggere = habit("Leggere", in: app)
+
+        leggere.tap()
+        app.buttons["Scrivi nota"].tap()
+        let field = noteField(in: app)
+        XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
+        field.typeText("Venti pagine")
+        expectValue(app.staticTexts["Caratteri"], "12 di 500")
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+        app.buttons["Fine"].tap()
+        expectValue(leggere, "Da fare, 0 giorni, con nota")
+
+        leggere.tap()
+        app.buttons["Modifica nota"].tap()
+        let reopened = noteField(in: app)
+        XCTAssertEqual(reopened.value as? String, "Venti pagine")
+        reopened.tap()
+        reopened.typeText(" e un caffè")
+        app.buttons["Fine"].tap()
+        expectValue(leggere, "Da fare, 0 giorni, con nota")
+
+        app.buttons["Statistiche"].tap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggere'")).firstMatch.tap()
+        let note = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Venti pagine e un caffè'")).firstMatch
+        XCTAssertTrue(note.waitForExistence(timeout: 5))
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+
+        note.tap()
+        XCTAssertEqual(noteField(in: app).value as? String, "Venti pagine e un caffè")
+        app.buttons["Annulla"].tap()
+        XCTAssertTrue(note.waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testClearingANoteRemovesIt() {
+        let app = launch()
+        add("Leggere", in: app)
+        let leggere = habit("Leggere", in: app)
+        leggere.tap()
+        app.buttons["Scrivi nota"].tap()
+        noteField(in: app).typeText("Ciao")
+        app.buttons["Fine"].tap()
+        expectValue(leggere, "Da fare, 0 giorni, con nota")
+
+        leggere.tap()
+        app.buttons["Modifica nota"].tap()
+        let field = noteField(in: app)
+        field.tap()
+        field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 4))
+        app.buttons["Fine"].tap()
+
+        expectValue(leggere, "Da fare, 0 giorni")
+    }
+
     @MainActor
     func testEditingAndDeletingAHabit() {
         let app = launch()

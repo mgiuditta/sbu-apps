@@ -1738,6 +1738,127 @@
           }
         }
       }
+    },
+    "Nota del giorno" : {
+      "comment" : "Title of the sheet that edits the note of a habit on one day.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily note"
+          }
+        }
+      }
+    },
+    "Com'è andata" : {
+      "comment" : "Placeholder of the daily note text field.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How did it go"
+          }
+        }
+      }
+    },
+    "Nota" : {
+      "comment" : "VoiceOver label of the daily note text field.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note"
+          }
+        }
+      }
+    },
+    "Caratteri" : {
+      "comment" : "VoiceOver label of the character count under the daily note.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Characters"
+          }
+        }
+      }
+    },
+    "Oggi" : {
+      "comment" : "The day of the daily note when it is today.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
+    },
+    "Scrivi nota" : {
+      "comment" : "Habit menu: opens today's empty note.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write note"
+          }
+        }
+      }
+    },
+    "Modifica nota" : {
+      "comment" : "Habit menu: opens today's note.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit note"
+          }
+        }
+      }
+    },
+    "con nota" : {
+      "comment" : "VoiceOver value, after the state: the day has a note.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "with a note"
+          }
+        }
+      }
+    },
+    "Apre la nota del giorno" : {
+      "comment" : "VoiceOver hint on a day of the history grid.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens the day's note"
+          }
+        }
+      }
+    },
+    "Tocca un giorno per scriverne la nota." : {
+      "comment" : "Footer under the history grid of a habit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a day to write its note."
+          }
+        }
+      }
+    },
+    "Note" : {
+      "comment" : "Section of a habit's page listing its daily notes.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

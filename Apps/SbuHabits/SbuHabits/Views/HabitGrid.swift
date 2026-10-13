@@ -8,6 +8,8 @@ struct HabitGrid: View {
 
     let model: HabitsModel
     let edit: (Habit) -> Void
+    /// Opens today's Nota del giorno.
+    var writeNote: (Habit) -> Void = { _ in }
 
     var body: some View {
         let habits = model.todayHabits
@@ -44,10 +46,12 @@ struct HabitGrid: View {
             habit: habit,
             progress: model.progress(of: habit),
             streak: model.streak(of: habit),
+            hasNote: habit.note(on: model.today) != nil,
             markDone: { model.markDone(habit) },
             undoLast: { model.undoLast(habit) },
             toggleSkip: { model.toggleSkip(habit) },
             edit: { edit(habit) },
+            writeNote: { writeNote(habit) },
             startTimer: { startTimer(for: habit) }
         )
     }

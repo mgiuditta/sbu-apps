@@ -2,7 +2,8 @@ import SbuKit
 import SwiftUI
 
 /// One secondary line under the moon: a label on the left, its value on the right, read as one
-/// element. At accessibility text sizes the value goes under the label.
+/// element. When they don't fit on one line, as at accessibility text sizes, the value goes under
+/// the label.
 struct MoonFactRow: View {
     private let label: LocalizedStringKey
     private let value: Text
@@ -14,28 +15,50 @@ struct MoonFactRow: View {
         self.value = value
     }
 
-    private var layout: AnyLayout {
-        dynamicTypeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(alignment: .leading, spacing: SbuTheme.space1))
-            : AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: SbuTheme.space4))
-    }
-
     var body: some View {
-        layout {
-            Text(label)
-                .font(SbuTheme.footnote)
-
-            if dynamicTypeSize.isAccessibilitySize == false {
-                Spacer(minLength: 0)
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                stacked
+            } else {
+                // Side by side while both fit on one line each; never a value broken over two lines.
+                ViewThatFits(in: .horizontal) {
+                    sideBySide
+                    stacked
+                }
             }
-
-            value
-                .font(SbuTheme.subheadline)
-                .monospacedDigit()
         }
         .foregroundStyle(SbuTheme.inkMuted)
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .combine)
+    }
+
+    private var labelText: some View {
+        Text(label)
+            .font(SbuTheme.footnote)
+    }
+
+    private var valueText: some View {
+        value
+            .font(SbuTheme.subheadline)
+            .monospacedDigit()
+    }
+
+    private var sideBySide: some View {
+        HStack(alignment: .firstTextBaseline, spacing: SbuTheme.space4) {
+            labelText
+                .fixedSize()
+            Spacer(minLength: 0)
+            valueText
+                .fixedSize()
+        }
+    }
+
+    private var stacked: some View {
+        VStack(alignment: .leading, spacing: SbuTheme.space1) {
+            labelText
+            valueText
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

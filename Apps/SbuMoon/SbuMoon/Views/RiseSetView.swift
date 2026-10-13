@@ -12,7 +12,9 @@ struct RiseSetView: View {
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
             if let times, let placeName {
-                RiseSetRows(riseSet: times.riseSet, timeZone: times.timeZone)
+                RiseSetRows(riseSet: times.riseSet)
+                    // Text(_:format:) takes the clock from the environment, not from the format.
+                    .environment(\.timeZone, times.timeZone)
 
                 if times.isOtherTimeZone {
                     Text("Ora locale di \(placeName)")
@@ -55,19 +57,12 @@ private struct PlacePill: View {
 /// The two rows, or one when the moon stays on one side of the horizon all day.
 private struct RiseSetRows: View {
     let riseSet: MoonRiseSet
-    let timeZone: TimeZone
-
-    private var format: Date.FormatStyle {
-        var format = Date.FormatStyle.dateTime.hour().minute()
-        format.timeZone = timeZone
-        return format
-    }
 
     var body: some View {
         switch riseSet {
         case let .crosses(rise, set):
-            MoonFactRow("Sorge", value: time(rise, missing: "Non sorge oggi"))
-            MoonFactRow("Tramonta", value: time(set, missing: "Non tramonta oggi"))
+            MoonFactRow("Sorge", value: time(rise))
+            MoonFactRow("Tramonta", value: time(set))
         case .aboveAllDay:
             MoonFactRow("Sorgere e tramonto", value: Text("Sopra l'orizzonte tutto il giorno"))
         case .belowAllDay:
@@ -75,11 +70,12 @@ private struct RiseSetRows: View {
         }
     }
 
-    private func time(_ date: Date?, missing: LocalizedStringKey) -> Text {
+    /// The time, or that there is none on the day shown, which need not be today.
+    private func time(_ date: Date?) -> Text {
         if let date {
-            Text(date, format: format)
+            Text(date, format: .dateTime.hour().minute())
         } else {
-            Text(missing)
+            Text("Non in questo giorno")
         }
     }
 }

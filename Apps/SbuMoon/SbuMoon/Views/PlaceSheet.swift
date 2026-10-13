@@ -26,26 +26,14 @@ struct PlaceSheet: View {
                     )
                 }
 
-                Section("Città") {
-                    ForEach(cities) { city in
-                        Button {
-                            choose(city)
-                        } label: {
-                            HStack(spacing: SbuTheme.space2) {
-                                Text(verbatim: city.name())
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                                if places.city == city {
-                                    Image(systemName: "checkmark")
-                                        .fontWeight(.medium)
-                                        .imageScale(.medium)
-                                        .foregroundStyle(.tint)
-                                        .accessibilityHidden(true)
-                                }
+                // No header over an empty list: the search's own message says nothing matched.
+                if cities.isEmpty == false {
+                    Section("Città") {
+                        ForEach(cities) { city in
+                            CityRow(city: city, isSelected: places.city == city) {
+                                choose(city)
                             }
                         }
-                        .tint(SbuTheme.ink)
-                        .accessibilityAddTraits(places.city == city ? .isSelected : [])
                     }
                 }
             }

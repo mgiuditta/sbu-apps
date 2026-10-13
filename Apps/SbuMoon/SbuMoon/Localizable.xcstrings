@@ -196,7 +196,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Read once, to the nearest kilometre. It stays on this iPhone."
+            "value" : "Read once, accurate to about a kilometer. It stays on this iPhone."
           }
         }
       }
@@ -272,25 +272,16 @@
         }
       }
     },
-    "Non sorge oggi" : {
+    "Non in questo giorno" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Doesn't rise today"
+            "value" : "Not on this day"
           }
         }
-      }
-    },
-    "Non tramonta oggi" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Doesn't set today"
-          }
-        }
-      }
+      },
+      "comment" : "Value of Sorge or Tramonta when the moon does not rise or set on the day shown."
     },
     "Oggi" : {
       "localizations" : {
@@ -369,7 +360,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pick another day"
+            "value" : "Choose another day"
           }
         }
       }

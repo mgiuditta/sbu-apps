@@ -9,6 +9,8 @@ category: UtilitiesApplication
 originale:
   name: Clinometer
   appStoreId: 286215117
+  price: 1.99
+  checked: 2026-10-12
 figure:
   it: { value: "2,4°", label: Inclinazione }
   en: { value: "2.4°", label: Tilt }

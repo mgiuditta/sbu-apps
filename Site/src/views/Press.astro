@@ -6,7 +6,7 @@ import Base from '../layouts/Base.astro';
 import logo from '../../../Design/logos/sbu-logo.svg?url';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import { capitalize, localePath, ui } from '../i18n';
-import { text } from '../lib/apps';
+import { iconThumb, text } from '../lib/apps';
 import { breadcrumbs } from '../lib/jsonld';
 import { SUPPORT_EMAIL } from '../lib/pages';
 import type { Route } from '../lib/routes';
@@ -81,13 +81,13 @@ const copy = {
   },
 }[locale];
 
-const entries = [
+const entries = await Promise.all([
   ...apps.map((app) => {
     const listing = text(app, locale);
     return { slug: app.slug, name: listing.name, line: `${capitalize(listing.oneThing)}.`, icon: app.icon, live: app.status === 'live', page: localePath(locale, `apps/${app.slug}`) };
   }),
   ...upcoming.map((app) => ({ slug: app.slug, name: app.name, line: app.teaser[locale], icon: app.icon, live: false, page: undefined })),
-];
+].map(async (entry) => ({ ...entry, thumb: await iconThumb(entry.slug) })));
 const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, path]])];
 ---
 <Base locale={locale} path={path} alternates={alternates} title={`${copy.title} · sbu.dev`} description={copy.description} jsonLd={jsonLd}>
@@ -123,7 +123,7 @@ const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, 
       <ul class="rows">
         {entries.map((entry) => (
           <li class="app">
-            <img src={entry.icon} alt="" width="48" height="48" class="rounded-icon size-12" loading="lazy" />
+            <img src={entry.thumb} alt="" width="48" height="48" class="rounded-icon size-12" loading="lazy" />
             <div class="flex flex-col gap-1">
               <p class="text-headline">{entry.page ? <a href={entry.page} class="text-ink">{entry.name}</a> : entry.name}{!entry.live && <span class="text-footnote text-ink-muted"> · {t.comingSoon}</span>}</p>
               <p class="text-subheadline text-ink-muted">{entry.line}</p>

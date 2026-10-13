@@ -33,6 +33,11 @@ export const ui = {
     checked: (date: string) => `Dati dell’App Store verificati il ${date}.`,
     footerNote: 'Questo sito non usa cookie né statistiche. I suoi script girano solo nel tuo browser e non inviano niente.',
     readPost: 'Leggi',
+    footerTools: 'Strumenti gratuiti',
+    footerSite: 'Sbu',
+    insteadOf: 'Invece di',
+    /** Where the Originale's price comes from, on the home and the app page. */
+    priceSource: (date: string) => `Prezzo una tantum sull’App Store italiano, verificato il ${date}.`,
   },
   en: {
     siteDescription: 'Free iPhone apps that each do one thing. No subscription, no account, no ads.',
@@ -59,11 +64,26 @@ export const ui = {
     checked: (date: string) => `App Store facts checked on ${date}.`,
     footerNote: 'This site uses no cookies or analytics. Its scripts run only in your browser and send nothing.',
     readPost: 'Read',
+    footerTools: 'Free tools',
+    footerSite: 'Sbu',
+    insteadOf: 'Instead of',
+    priceSource: (date: string) => `One-time price on the Italian App Store, checked on ${date}.`,
   },
 } as const;
 
 export function formatDate(date: Date, locale: Locale): string {
   return new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(date);
+}
+
+/** A price in euros as the App Store writes it in that locale: "1,99 €", "€1.99"; whole amounts without cents. */
+export function formatPrice(value: number, locale: Locale): string {
+  const digits = Number.isInteger(value) ? 0 : 2;
+  return new Intl.NumberFormat(locale === 'it' ? 'it-IT' : 'en-IE', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(value);
 }
 
 export function capitalize(text: string): string {

@@ -19,18 +19,9 @@ struct CalibrationSheet: View {
 
     var body: some View {
         NavigationStack {
+            // One section, so that Misura fits a half-height sheet on the smallest iPhone.
             Form {
-                Section {
-                    LabeledContent("Lato") {
-                        Text(side.name)
-                            .foregroundStyle(SbuTheme.inkMuted)
-                    }
-                } footer: {
-                    Text("Il lato si riconosce da come appoggi l'iPhone: un bordo, oppure il retro per la bolla.")
-                }
-                .listRowBackground(SbuTheme.surfaceRaised)
-
-                CalibrationStepSection(session: session, measure: model.captureCalibrationStep, calibrateAnother: model.startCalibration)
+                CalibrationStepSection(session: session, side: side, measure: model.captureCalibrationStep, calibrateAnother: model.startCalibration)
                     .listRowBackground(SbuTheme.surfaceRaised)
             }
             .scrollContentBackground(.hidden)

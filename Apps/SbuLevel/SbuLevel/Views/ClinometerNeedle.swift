@@ -32,9 +32,13 @@ struct ClinometerNeedle: View {
             zero.addLine(to: DialPoint.at(start, radius: radius - SbuTheme.space12, around: center))
             context.stroke(zero, with: .color(SbuTheme.inkMuted), lineWidth: SbuTheme.hairline)
 
+            // The needle breaks where the 0°, 45° and 90° marks sit, so it never strikes through one,
+            // and picks up again across the ticks to point at the exact degree.
             var hand = Path()
             hand.move(to: center)
-            hand.addLine(to: DialPoint.at(needle, radius: reach, around: center))
+            hand.addLine(to: DialPoint.at(needle, radius: radius - SbuTheme.space12, around: center))
+            hand.move(to: DialPoint.at(needle, radius: radius - SbuTheme.space4, around: center))
+            hand.addLine(to: DialPoint.at(needle, radius: radius, around: center))
             context.stroke(hand, with: .color(SbuTheme.ink), style: StrokeStyle(lineWidth: SbuTheme.hairline * 2, lineCap: .round))
 
             let hub = SbuTheme.space2

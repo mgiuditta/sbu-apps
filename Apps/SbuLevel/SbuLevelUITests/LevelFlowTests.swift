@@ -12,6 +12,8 @@ final class LevelFlowTests: XCTestCase {
     private func launch(gravity: String = "") -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES", "-FIXED_GRAVITY", gravity]
+        // Every test starts uncalibrated: a string where the calibration data goes reads as none.
+        app.launchArguments += ["-calibration", "none"]
         app.launch()
         return app
     }

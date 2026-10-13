@@ -11,12 +11,12 @@
         }
       }
     },
-    "Appoggia l'iPhone sul lato da calibrare e tocca Misura. Non serve una superficie in bolla." : {
+    "Appoggia l'iPhone sul lato da calibrare, un bordo o il retro, e tocca Misura. Non serve una superficie in bolla." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Place your iPhone on the side to calibrate and tap Measure. The surface doesn't need to be level."
+            "value" : "Rest your iPhone on the side to calibrate, an edge or its back, and tap Measure. The surface doesn't need to be level."
           }
         }
       }
@@ -167,16 +167,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The side you pick goes back to the raw sensor reading."
-          }
-        }
-      }
-    },
-    "Il lato si riconosce da come appoggi l'iPhone: un bordo, oppure il retro per la bolla." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The side is detected from how your iPhone rests: on an edge, or on its back for the bubble."
           }
         }
       }

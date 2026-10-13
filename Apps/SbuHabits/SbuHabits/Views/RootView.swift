@@ -15,6 +15,7 @@ struct RootView: View {
             MainView(model: model, present: present)
         } settings: {
             StartOfDaySection(model: model)
+            HabitOrderSection(model: model)
             DataSection(model: model)
         }
         .sheet(item: $sheet) { sheet in

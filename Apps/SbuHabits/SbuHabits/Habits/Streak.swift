@@ -25,23 +25,40 @@ nonisolated enum Streak {
     /// Days in a row, up to today, on which every habit expected that day was done.
     static func full(of habits: [Habit], today: LogicalDay) -> Int {
         guard let firstDay = habits.map(\.createdOn).min() else { return 0 }
-        return countBack(from: today, to: firstDay) { day in
-            let verdicts = habits.filter { $0.createdOn <= day }.map { verdict(of: $0, on: day, today: today) }
-            for result in [Day.missed, .pending, .done] where verdicts.contains(result) {
-                return result
+        return countBack(from: today, to: firstDay) { fullVerdict(of: habits, on: $0, today: today) }
+    }
+
+    /// The longest Serie piena from `first` on: days in a row, up to today, on which every habit
+    /// expected that day was done. Days before `first` never count, so a run that started before
+    /// it counts from `first`.
+    static func bestFull(of habits: [Habit], today: LogicalDay, from first: LogicalDay) -> Int {
+        guard let firstDay = habits.map(\.createdOn).min() else { return 0 }
+        var best = 0
+        var run = 0
+        var day = max(first, firstDay)
+        while day <= today {
+            switch fullVerdict(of: habits, on: day, today: today) {
+            case .done: run += 1
+            case .missed: run = 0
+            case .neutral, .pending: break
             }
-            return .neutral
+            best = max(best, run)
+            day = day + 1
         }
+        return best
     }
 
     /// The longest Serie the habit ever had, in days or, for a weekly or monthly habit, in weeks
     /// or months.
-    static func best(of habit: Habit, today: LogicalDay, firstWeekday: Int) -> Int {
+    /// - Parameter first: The first day that counts, for the best Serie of a period: a day before
+    ///   it never counts, nor a week or month that ended before it. `nil` counts from the start.
+    static func best(of habit: Habit, today: LogicalDay, firstWeekday: Int, from first: LogicalDay? = nil) -> Int {
         var best = 0
         var run = 0
+        let first = max(first ?? habit.createdOn, habit.createdOn)
         if let period = habit.schedule.period {
             let thisStart = period.start(of: today, firstWeekday: firstWeekday)
-            var start = period.start(of: habit.createdOn, firstWeekday: firstWeekday)
+            var start = period.start(of: first, firstWeekday: firstWeekday)
             while start <= thisStart {
                 let lastDay = start == thisStart ? today : period.end(of: start, firstWeekday: firstWeekday)
                 switch result(of: habit, period: period, endingOn: lastDay, firstWeekday: firstWeekday) {
@@ -55,7 +72,7 @@ nonisolated enum Streak {
             }
             return best
         }
-        var day = habit.createdOn
+        var day = first
         while day <= today {
             switch verdict(of: habit, on: day, today: today) {
             case .done: run += 1
@@ -91,6 +108,15 @@ nonisolated enum Streak {
         let progress = HabitProgress(of: habit, today: lastDay, firstWeekday: firstWeekday)
         if progress.goal == 0 { return .neutral }
         return progress.isComplete ? .done : .missed
+    }
+
+    /// How a day counts for the Serie piena: missed if any habit expected that day was missed.
+    private static func fullVerdict(of habits: [Habit], on day: LogicalDay, today: LogicalDay) -> Day {
+        let verdicts = habits.filter { $0.createdOn <= day }.map { verdict(of: $0, on: day, today: today) }
+        for result in [Day.missed, .pending, .done] where verdicts.contains(result) {
+            return result
+        }
+        return .neutral
     }
 
     /// How a day of a daily habit counts.

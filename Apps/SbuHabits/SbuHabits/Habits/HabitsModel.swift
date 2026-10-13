@@ -187,7 +187,7 @@ final class HabitsModel {
         }
     }
 
-    /// Moves habits in the Statistiche list; the grid follows the same order.
+    /// Moves habits in Ordine delle abitudini; the grid and the Statistiche follow the same order.
     func move(fromOffsets source: IndexSet, toOffset destination: Int) {
         let moving = source.map { habits[$0] }
         var rest = habits.indices.filter { source.contains($0) == false }.map { habits[$0] }

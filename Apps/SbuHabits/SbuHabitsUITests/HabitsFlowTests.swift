@@ -271,7 +271,7 @@ final class HabitsFlowTests: XCTestCase {
         expectValue(leggere, "Da fare, 0 giorni, con nota")
 
         app.buttons["Statistiche"].tap()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggere'")).firstMatch.tap()
+        app.buttons["statistics-Leggere"].tap()
         let note = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Venti pagine e un caffè'")).firstMatch
         XCTAssertTrue(note.waitForExistence(timeout: 5))
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
@@ -332,15 +332,67 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
-    func testStatisticsShowAHabitsPage() {
+    func testStatisticsChangePeriodAndTurnToAHabitsPage() throws {
         let app = launch()
         add("Leggere", in: app)
+        add("Camminare", in: app)
         habit("Leggere", in: app).press(forDuration: 1)
 
         app.buttons["Statistiche"].tap()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggere'")).firstMatch.tap()
+        XCTAssertTrue(app.staticTexts["Tutte le abitudini"].waitForExistence(timeout: 5))
+        let pages = app.descendants(matching: .any)["statistics-pages"]
+        expectValue(pages, "1 di 3")
+        // Leggere done today, Camminare not yet: today is not over, so only Leggere counts.
+        let figure = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Completamento'")).firstMatch
+        XCTAssertTrue(figure.label.contains("100%"), figure.label)
 
-        XCTAssertTrue(app.staticTexts["Serie migliore: 1"].waitForExistence(timeout: 5))
+        let period = app.buttons["Periodo"]
+        expectValue(period, "Dall'inizio")
+        period.tap()
+        app.buttons["Ultimi 7 giorni"].tap()
+        expectValue(period, "Ultimi 7 giorni")
+
+        app.buttons["statistics-Camminare"].tap()
+        expectValue(pages, "3 di 3")
+        XCTAssertTrue(app.staticTexts["STORICO"].waitForExistence(timeout: 5))
+        // Camminare is still to do today: nothing to count yet.
+        let nothingYet = app.staticTexts["Niente previsto in questo periodo"].firstMatch
+        XCTAssertTrue(nothingYet.exists)
+
+        nothingYet.swipeRight()
+        expectValue(pages, "2 di 3")
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+
+        app.buttons["Chiudi"].tap()
+        XCTAssertTrue(habit("Leggere", in: app).waitForExistence(timeout: 5))
+    }
+
+    /// The order of the habits lives in Impostazioni, as in Streaks: the list is always ready to drag.
+    @MainActor
+    func testSettingsReorderTheHabits() throws {
+        let app = launch()
+        add("Leggere", in: app)
+        add("Camminare", in: app)
+
+        app.buttons["Impostazioni"].tap()
+        let order = app.buttons["Ordine delle abitudini"]
+        XCTAssertTrue(order.waitForExistence(timeout: 5))
+        order.tap()
+
+        let leggere = app.cells.containing(.staticText, identifier: "Leggere").firstMatch
+        let camminare = app.cells.containing(.staticText, identifier: "Camminare").firstMatch
+        XCTAssertTrue(leggere.waitForExistence(timeout: 5))
+        XCTAssertLessThan(leggere.frame.minY, camminare.frame.minY)
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Riordina'")).firstMatch.exists)
+        // Text clipped is left out too: in edit mode the audit measures a row's title against
+        // the whole row, reorder handle included, and flags text that shows in full.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType, .textClipped])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
     }
 
     @MainActor

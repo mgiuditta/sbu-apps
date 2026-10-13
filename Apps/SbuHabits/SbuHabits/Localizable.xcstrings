@@ -5782,6 +5782,279 @@
           }
         }
       }
+    },
+    "Ultimi 7 giorni" : {
+      "comment" : "Period of the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 7 days"
+          }
+        }
+      }
+    },
+    "Ultimi 30 giorni" : {
+      "comment" : "Period of the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 30 days"
+          }
+        }
+      }
+    },
+    "Ultimo anno" : {
+      "comment" : "Period of the Statistiche: the last 365 days.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last year"
+          }
+        }
+      }
+    },
+    "Dall'inizio" : {
+      "comment" : "Period of the Statistiche: since the first habit began.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All time"
+          }
+        }
+      }
+    },
+    "Periodo" : {
+      "comment" : "VoiceOver label of the period button in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Period"
+          }
+        }
+      }
+    },
+    "Mostra le sue statistiche" : {
+      "comment" : "VoiceOver hint of a habit's symbol in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows its statistics"
+          }
+        }
+      }
+    },
+    "Condividi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
+          }
+        }
+      }
+    },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Tutte le abitudini" : {
+      "comment" : "Title of the first Statistiche page.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All habits"
+          }
+        }
+      }
+    },
+    "Completamento" : {
+      "comment" : "Caption over the completion rate in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completion"
+          }
+        }
+      }
+    },
+    "Niente previsto in questo periodo" : {
+      "comment" : "In the Statistiche, when no habit was expected in the period.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing expected in this period"
+          }
+        }
+      }
+    },
+    "Serie migliore" : {
+      "comment" : "Caption under the completion rate in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best streak"
+          }
+        }
+      }
+    },
+    "Completamenti" : {
+      "comment" : "Caption and section title in the Statistiche: times habits were done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completions"
+          }
+        }
+      }
+    },
+    "Completamento nel tempo" : {
+      "comment" : "VoiceOver label of the line chart in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completion over time"
+          }
+        }
+      }
+    },
+    "Completamenti per giorno della settimana" : {
+      "comment" : "VoiceOver label of the weekday bars in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completions by weekday"
+          }
+        }
+      }
+    },
+    "Completamenti per ora" : {
+      "comment" : "VoiceOver label of the hour curve in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completions by hour"
+          }
+        }
+      }
+    },
+    "Ora" : {
+      "comment" : "Axis of the hour curve in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hour"
+          }
+        }
+      }
+    },
+    "Le abitudini da evitare non hanno la curva per ora." : {
+      "comment" : "In place of the hour curve on the Statistiche page of a habit to avoid.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habits to avoid have no curve by hour."
+          }
+        }
+      }
+    },
+    "Nessun orario in questo periodo: i segni più vecchi non hanno l'ora." : {
+      "comment" : "In place of the hour curve when no mark in the period has its hour.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No times in this period: older marks have no time."
+          }
+        }
+      }
+    },
+    "Ordine delle abitudini" : {
+      "comment" : "Settings row and screen to reorder the habits.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habit order"
+          }
+        }
+      }
+    },
+    "Trascina un'abitudine per spostarla." : {
+      "comment" : "Footer of the habit order screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag a habit to move it."
+          }
+        }
+      }
+    },
+    "La griglia e le Statistiche seguono quest'ordine." : {
+      "comment" : "Footer of the habit order row in Settings.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The grid and Statistics follow this order."
+          }
+        }
+      }
+    },
+    "Giorni" : {
+      "comment" : "Axis of the completion line's audio graph in the Statistiche.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days"
+          }
+        }
+      }
+    },
+    "Minimo %@, massimo %@" : {
+      "comment" : "VoiceOver value of the completion line: its lowest and highest rate.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lowest %1$@, highest %2$@"
+          }
+        }
+      }
+    },
+    "Più completamenti alle %@" : {
+      "comment" : "VoiceOver value of the hour curve: the hour with the most completions.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most completions at %@"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

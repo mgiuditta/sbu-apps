@@ -127,6 +127,24 @@ _Avoid_: flashcard, nota
 Un gruppo di **Carte** con le sue impostazioni di ripasso; può contenere sottomazzi.
 _Avoid_: collezione, cartella
 
+### Sbu Noise
+
+**Suono** (_Sound_):
+Una voce del catalogo che si ascolta in loop, generata o registrata; appartiene a una sola **Categoria**.
+_Avoid_: traccia, brano, sample
+
+**Suono generato** (_Generated sound_):
+Un **Suono** prodotto in tempo reale dal codice dell'app, senza file e senza ripetizione.
+_Avoid_: suono sintetico, rumore (da solo)
+
+**Registrazione** (_Recording_):
+Un **Suono** che viene da un file CC0 nel bundle, ripetuto in loop senza stacchi.
+_Avoid_: sample, audio, campione
+
+**Categoria** (_Category_):
+Il gruppo di **Suoni** nel catalogo: Rumori, Pioggia, Acqua, Natura, Casa, Viaggio, Relax.
+_Avoid_: sezione, scheda, il menu ☰ (che elenca Suoni, Mix, Playlist, Preferiti)
+
 ## Relationships
 
 - Un **Candidato** ha al più uno **Spec**, scritto prima di decidere

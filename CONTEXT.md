@@ -109,6 +109,10 @@ _Avoid_: diario, commento, memo
 Un'abitudine che il proprietario condivide via iCloud con altre persone: loro la vedono in sola lettura, con storico e statistiche, e scelgono un'emoji per il proprietario. Non si segna, non entra nella loro **Serie piena** né nei loro widget; sparisce quando il proprietario smette di condividerla o la elimina.
 _Avoid_: abitudine di gruppo, abitudine sincronizzata, sfida
 
+**Sincronizzazione iCloud** (_iCloud sync_):
+Le tue abitudini, con storico, salti, note, promemoria e inizio della giornata, uguali su tutti i tuoi dispositivi attraverso il tuo iCloud, mai attraverso sbu.dev. Spenta finché non la attivi in Dati; attivandola, i dati dei due lati si uniscono senza domande. Quando due dispositivi cambiano la stessa cosa: per i segni di un giorno vale il numero più alto, Salta oggi vale se uno dei due ha saltato, per impostazioni, ordine, inizio della giornata e note vale la modifica più recente, e un'abitudine eliminata resta eliminata. Ogni dispositivo pianifica le sue notifiche. Esporta e Importa restano. Non è un'**Abitudine condivisa**: riguarda solo te.
+_Avoid_: backup, cloud, account
+
 **Modello** (_Template_):
 Un'abitudine pronta che scegli quando ne aggiungi una, raccolta in una delle cinque categorie (Generale, Salute, Alimentazione, A tempo, Da evitare): ti dà già titolo, simbolo, tipo, obiettivo e giorni, e tu li confermi o li cambi prima di aggiungerla. Ogni categoria ha anche la Personalizzata, che parte vuota come dice la categoria. Una volta aggiunta, l'abitudine è una come le altre e non ricorda da quale Modello viene.
 _Avoid_: preset, suggerimento, abitudine predefinita

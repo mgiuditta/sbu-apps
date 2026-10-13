@@ -25,12 +25,13 @@ struct SystemEventTests {
     }
 
     @Test(arguments: [
-        (AVAudioSession.RouteChangeReason.oldDeviceUnavailable, true),
-        (.newDeviceAvailable, false),
-        (.categoryChange, false),
+        (AVAudioSession.RouteChangeReason.oldDeviceUnavailable, SystemEvent?.some(.outputLost)),
+        (.newDeviceAvailable, .configurationChanged),
+        (.categoryChange, nil),
+        (.override, nil),
     ])
-    func onlyALostOutputMatters(reason: AVAudioSession.RouteChangeReason, isEvent: Bool) {
+    func lostAndNewOutputsMatter(reason: AVAudioSession.RouteChangeReason, event: SystemEvent?) {
         let info: [AnyHashable: Any] = [AVAudioSessionRouteChangeReasonKey: reason.rawValue]
-        #expect((SystemEvent(routeChange: info) == .outputLost) == isEvent)
+        #expect(SystemEvent(routeChange: info) == event)
     }
 }

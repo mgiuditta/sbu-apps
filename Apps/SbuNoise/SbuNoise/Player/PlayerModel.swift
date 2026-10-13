@@ -231,13 +231,13 @@ final class PlayerModel {
         }
     }
 
-    /// Sets each layer's pan, volume and pitch for where it is now on its path.
+    /// Sets each layer's position, volume and pitch for where it is now on its path.
     private func apply(_ mix: Mix) {
         let time = Date.now.timeIntervalSince(wanderStart)
         for (offset, layer) in mix.layers.enumerated() {
             let id = layer.id.uuidString
             let point = MixSpace.position(of: layer, at: time, phase: Double(offset))
-            engine.setPan(MixSpace.pan(at: point), for: id)
+            engine.setPosition(point, for: id)
             engine.setVolume(Float(layer.volume) * MixSpace.gain(at: point), for: id)
             engine.setPitch(Float(layer.pitch), for: id)
         }

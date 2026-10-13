@@ -1,3 +1,4 @@
+import AVFAudio
 import Foundation
 import Testing
 @testable import SbuNoise
@@ -36,9 +37,34 @@ struct MixTests {
 }
 
 struct MixSpaceTests {
+    /// Left stays left, and the top of the pad (negative y) is in front of the listener (negative z).
+    @Test(arguments: [
+        (MixPoint(x: -1, y: 0), AVAudio3DPoint(x: -1, y: 0, z: 0)),
+        (MixPoint(x: 0.5, y: -0.5), AVAudio3DPoint(x: 0.5, y: 0, z: -0.5)),
+        (MixPoint(x: 0, y: 1), AVAudio3DPoint(x: 0, y: 0, z: 1)),
+        (.center, AVAudio3DPoint(x: 0, y: 0, z: 0)),
+    ])
+    func aPlaceOnThePadIsADirectionAroundTheListener(point: MixPoint, expected: AVAudio3DPoint) {
+        let position = MixSpace.position3D(at: point)
+        #expect(position.x == expected.x && position.y == expected.y && position.z == expected.z)
+    }
+
     @Test(arguments: [(-2, -1), (-0.5, -0.5), (0, 0), (0.7, 0.7), (5, 1)] as [(Double, Float)])
     func panFollowsLeftAndRight(x: Double, pan: Float) {
         #expect(MixSpace.pan(at: MixPoint(x: x, y: 0.3)) == pan)
+    }
+
+    @Test(arguments: [
+        ([AVAudioSession.Port.headphones], true),
+        ([.bluetoothA2DP], true),
+        ([.bluetoothLE], true),
+        ([.builtInSpeaker], false),
+        ([.builtInReceiver], false),
+        ([.HDMI, .airPlay], false),
+        ([], false),
+    ])
+    func onlyHeadphonesHearFrontAndBack(outputs: [AVAudioSession.Port], hears: Bool) {
+        #expect(MixSpace.hearsFrontAndBack(on: outputs) == hears)
     }
 
     @Test(arguments: [(0, 1), (0.5, 2.0 / 3), (1, 1.0 / 3), (2, 1.0 / 3)] as [(Double, Float)])

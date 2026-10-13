@@ -1,1 +1,1 @@
-speedometer,speed,gps,mph,kmh,odometer,bike,running,car,boat,distance,trip
+speedometer,speed,gps,mph,kmh,knots,odometer,bike,running,car,boat,distance,trip

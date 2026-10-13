@@ -1,1 +1,1 @@
-tachimetro,velocità,gps,kmh,contachilometri,bici,corsa,auto,moto,barca,distanza,media
+tachimetro,velocità,gps,kmh,nodi,contachilometri,bici,corsa,auto,moto,barca,distanza,media

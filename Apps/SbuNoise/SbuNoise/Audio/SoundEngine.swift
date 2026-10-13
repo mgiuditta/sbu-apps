@@ -1,16 +1,29 @@
 import AVFAudio
 
 /// Plays sounds as layers on one `AVAudioEngine`: one source per layer through its own pitch unit,
-/// with its own volume and pan, mixed by the engine's main mixer. Fades move the whole output.
+/// with its own volume and place around the listener. In headphones the layers go through one
+/// environment node that renders the place with HRTF, so behind is heard behind; on a speaker they
+/// go straight to the main mixer with a stereo pan. Fades move the whole output.
 ///
 /// Recordings loop from a buffer held in memory (`.loops`), so the jump back to the start happens
 /// inside the engine with no I/O; the seam itself is crossfaded when the file is made. Noises are
 /// generated forever by an `AVAudioSourceNode` and never loop.
 final class SoundEngine {
     private let engine = AVAudioEngine()
-    /// Each layer's chain: source → pitch unit → its own mixer, which carries volume and pan into
-    /// the main mixer (an `AVAudioUnit` is not `AVAudioMixing`).
+    /// Each layer's chain: source → pitch unit → its own mixer, which carries volume, pan and
+    /// position into the environment or the main mixer (an `AVAudioUnit` is not `AVAudioMixing`).
     private var layers: [String: (source: AVAudioNode, pitch: AVAudioUnitTimePitch, mixer: AVAudioMixerNode)] = [:]
+    private let environment = AVAudioEnvironmentNode()
+    /// Whether the layers go through the environment (HRTF); follows the output in use (`followRoute`).
+    private(set) var isSpatial = false
+
+    init() {
+        engine.attach(environment)
+        // ponytail: distance is the layer's volume (`MixSpace.gain`), so the environment never
+        // attenuates: every point of the pad is well inside the reference distance.
+        environment.distanceAttenuationParameters.referenceDistance = 100
+        environment.distanceAttenuationParameters.maximumDistance = 1_000
+    }
 
     /// The ids of the layers playing now.
     var layerIDs: Set<String> { Set(layers.keys) }
@@ -37,9 +50,24 @@ final class SoundEngine {
         layers[id]?.mixer.volume = volume
     }
 
-    /// - Parameter pan: -1 is full left, 1 full right.
-    func setPan(_ pan: Float, for id: String) {
-        layers[id]?.mixer.pan = pan
+    /// Where the layer sits around the listener.
+    func setPosition(_ point: MixPoint, for id: String) {
+        guard let mixer = layers[id]?.mixer else { return }
+        // Both are kept: only the one of the current connection is heard.
+        mixer.position = MixSpace.position3D(at: point)
+        mixer.pan = MixSpace.pan(at: point)
+    }
+
+    /// Moves every layer into the environment (HRTF) or straight to the main mixer (stereo pan).
+    func setSpatial(_ spatial: Bool) {
+        guard spatial != isSpatial else { return }
+        isSpatial = spatial
+        for layer in layers.values { connectOutput(of: layer.mixer) }
+    }
+
+    /// HRTF only in headphones: on a speaker it colors the sound and front and back are not heard.
+    func followRoute() {
+        setSpatial(MixSpace.hearsFrontAndBack(on: AVAudioSession.sharedInstance().currentRoute.outputs.map(\.portType)))
     }
 
     /// - Parameter cents: -1200...1200; 0 bypasses the pitch unit.
@@ -102,11 +130,12 @@ final class SoundEngine {
         if layers.isEmpty { stop() }
     }
 
-    /// Starts the engine again after the hardware stopped it (`AVAudioEngineConfigurationChange`);
-    /// the layers keep their nodes and connections.
+    /// Follows a new output and starts the engine again if the hardware stopped it
+    /// (`AVAudioEngineConfigurationChange`); the layers keep their nodes and connections.
     func restart() {
-        guard !layers.isEmpty, !engine.isRunning else { return }
-        try? engine.start()
+        guard !layers.isEmpty else { return }
+        followRoute()
+        if !engine.isRunning { try? engine.start() }
     }
 
     /// Reads a whole audio file into memory, ready for `addLoop`. `AVAudioFile` drops the AAC
@@ -142,14 +171,31 @@ final class SoundEngine {
         for unit in [node, pitch, mixer] { engine.attach(unit) }
         engine.connect(node, to: pitch, format: format)
         engine.connect(pitch, to: mixer, format: format)
-        // Stereo out of each layer: a mono connection into the main mixer reached only the left
-        // ear on wired EarPods. The layer's mixer centers the mono sound; its pan is then a balance.
-        let stereo = AVAudioFormat(standardFormatWithSampleRate: format.sampleRate, channels: 2)
-        engine.connect(mixer, to: engine.mainMixerNode, format: stereo)
         layers[id] = (node, pitch, mixer)
         if !engine.isRunning {
             try activateSession()
+            // Stereo out of the environment: a mono connection into the main mixer reached only
+            // the left ear on wired EarPods.
+            let stereo = AVAudioFormat(standardFormatWithSampleRate: format.sampleRate, channels: 2)
+            engine.connect(environment, to: engine.mainMixerNode, format: stereo)
+            isSpatial = MixSpace.hearsFrontAndBack(on: AVAudioSession.sharedInstance().currentRoute.outputs.map(\.portType))
+            connectOutput(of: mixer)
             try engine.start()
+        } else {
+            connectOutput(of: mixer)
+        }
+    }
+
+    /// Mono into the environment, which only places mono sources (a stereo recording is mixed down
+    /// by the layer's mixer); stereo into the main mixer, where a mono connection reached only the
+    /// left ear on wired EarPods and the layer's pan is a balance.
+    private func connectOutput(of mixer: AVAudioMixerNode) {
+        let sampleRate = mixer.inputFormat(forBus: 0).sampleRate
+        if isSpatial {
+            engine.connect(mixer, to: environment, format: AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1))
+            mixer.renderingAlgorithm = .HRTFHQ
+        } else {
+            engine.connect(mixer, to: engine.mainMixerNode, format: AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2))
         }
     }
 

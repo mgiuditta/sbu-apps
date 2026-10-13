@@ -1,14 +1,28 @@
-import Foundation
+import AVFAudio
 
 /// How a place on the Mix Pad sounds, and how a sound with variance wanders over time.
 ///
-/// ponytail: stereo pan plus a quieter sound further away; front and back only change the distance.
-/// `AVAudioEnvironmentNode` (HRTF) if front and back must be heard in headphones.
+/// A place is a direction around the listener, rendered in 3D in headphones and as a stereo pan on
+/// a speaker, plus a quieter sound further away.
 nonisolated enum MixSpace {
-    /// Left -1 to right 1.
+    /// The point in the environment's space: x to the right, z behind (the listener faces -z, the
+    /// top of the pad), at ear height.
+    static func position3D(at point: MixPoint) -> AVAudio3DPoint {
+        AVAudio3DPoint(x: Float(point.x), y: 0, z: Float(point.y))
+    }
+
+    /// Left -1 to right 1, for a speaker.
     static func pan(at point: MixPoint) -> Float {
         Float(min(1, max(-1, point.x)))
     }
+
+    /// Headphones, where each ear has its own driver and HRTF places a sound in front or behind;
+    /// not a speaker, where HRTF only colors the sound.
+    static func hearsFrontAndBack(on outputs: [AVAudioSession.Port]) -> Bool {
+        outputs.contains(where: headphones.contains)
+    }
+
+    private static let headphones: Set<AVAudioSession.Port> = [.headphones, .bluetoothA2DP, .bluetoothLE, .bluetoothHFP]
 
     /// Full at the listener, a third at the edge of the pad and beyond.
     static func gain(at point: MixPoint) -> Float {

@@ -31,6 +31,8 @@ struct HourChart: View {
                         .font(SbuTheme.caption)
                         .foregroundStyle(SbuTheme.inkMuted)
                         .fixedSize()
+                        // Past the first accessibility size 18:00 runs past the chart's edge.
+                        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                 }
             }
         }

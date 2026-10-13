@@ -47,6 +47,8 @@ struct SharedHabitCell: View {
             if isShowingNotice {
                 Text("Condivisa da un'altra persona: solo da vedere")
                     .font(SbuTheme.footnote)
+                    // Over the ring of a cell: past the first accessibility size it would not fit.
+                    .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                     .foregroundStyle(SbuTheme.ink)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, SbuTheme.space3)

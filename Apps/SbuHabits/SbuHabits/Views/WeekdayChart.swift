@@ -25,6 +25,8 @@ struct WeekdayChart: View {
                         Text(calendar.veryShortStandaloneWeekdaySymbols[weekday - 1])
                             .font(SbuTheme.caption)
                             .foregroundStyle(SbuTheme.inkMuted)
+                            // As the hour curve's labels, which sit beside these.
+                            .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                     }
                 }
             }

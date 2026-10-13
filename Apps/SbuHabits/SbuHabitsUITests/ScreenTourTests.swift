@@ -88,8 +88,13 @@ final class ScreenTourTests: XCTestCase {
         let remove = button("Rimuovi", "Remove")
         tap(remove)
         shot("10-shared-remove-confirm")
-        // Away from the confirmation, without removing.
-        app.navigationBars.firstMatch.tap()
+        // Away from the confirmation, without removing: the alert's Annulla, or outside the bubble.
+        let cancel = app.alerts.buttons[isEnglish ? "Cancel" : "Annulla"]
+        if cancel.exists {
+            cancel.tap()
+        } else {
+            app.navigationBars.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        }
         tap(button("Fine", "Done"))
     }
 
@@ -104,18 +109,20 @@ final class ScreenTourTests: XCTestCase {
             shot("12-add-tab-\(index + 1)")
         }
         tap(button("Cerca", "Search"))
-        app.typeText("zzzz")
+        let search = app.searchFields.firstMatch
+        guard search.waitForExistence(timeout: 5) else { return }
+        search.tap()
+        search.typeText("zzzz")
         shot("13-add-search-empty")
-        app.searchFields.firstMatch.buttons.firstMatch.tap()
-        app.typeText(isEnglish ? "read" : "leggere")
+        search.buttons.firstMatch.tap()
+        search.typeText(isEnglish ? "read" : "leggere")
         shot("14-add-search-results")
-        tapFirstExisting([button("Annulla", "Cancel"), app.buttons["Close"], app.buttons["Chiudi"]])
+        // The form, from the first result.
+        tap(app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", isEnglish ? "Read" : "Leggere")).firstMatch)
     }
 
     @MainActor
     private func tourForm() {
-        tap(button("Generale", "General"))
-        tap(button("Personalizzata", "Custom"))
         shot("15-form")
         scrollDown(times: 3, named: "15-form")
         for (index, row) in [("Tipo", "Type"), ("Obiettivo", "Goal"), ("Giorni", "Days"), ("Notifiche", "Notifications"), ("Salute", "Health")].enumerated() {
@@ -132,6 +139,10 @@ final class ScreenTourTests: XCTestCase {
         shot("17-symbol-picker")
         tapFirstExisting([button("Annulla", "Cancel"), button("Fine", "Done"), button("Chiudi", "Close")])
         back()
+        shot("17-back-to-search")
+        // The search's own close, then the sheet's.
+        tapFirstExisting([button("Chiudi", "Close")])
+        shot("17-search-closed")
         tapFirstExisting([button("Chiudi", "Close")])
     }
 
@@ -140,8 +151,9 @@ final class ScreenTourTests: XCTestCase {
         let add = button("Aggiungi", "Add")
         reveal(add)
         tap(add)
+        shot("18-add-reopened")
         tap(button("A tempo", "Timed"))
-        let reading = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", isEnglish ? "Read" : "Leggere")).firstMatch
+        let reading = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", isEnglish ? "Play an instrument" : "Suonare uno strumento")).firstMatch
         reveal(reading)
         tap(reading)
         allowNotificationsIfAsked()
@@ -231,12 +243,11 @@ final class ScreenTourTests: XCTestCase {
     @MainActor
     private func scrollDown(times: Int, named name: String) {
         let list = app.collectionViews.firstMatch.exists ? app.collectionViews.firstMatch : app.scrollViews.firstMatch
-        guard list.exists else { return }
-        for step in 1...times {
+        for step in 1...times where list.exists {
             list.swipeUp()
             shot("\(name)-\(step)")
         }
-        for _ in 1...times {
+        for _ in 1...times where list.exists {
             list.swipeDown()
         }
     }

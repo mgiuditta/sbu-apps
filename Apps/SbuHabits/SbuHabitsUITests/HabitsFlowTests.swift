@@ -377,6 +377,11 @@ final class HabitsFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Usa i dati di Salute. Consenti l'accesso se iOS lo chiede."].exists, app.debugDescription)
         XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Camminare 8000 passi'")).firstMatch.exists, app.debugDescription)
         try app.auditHabitForm()
+
+        app.openFormRow("Obiettivo")
+        XCTAssertTrue(app.staticTexts["Obiettivo al giorno"].waitForExistence(timeout: 5))
+        try app.auditHabitForm()
+        app.backToForm()
         // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi abitudine.
         app.navigationBars.buttons["Annulla"].tap()
     }

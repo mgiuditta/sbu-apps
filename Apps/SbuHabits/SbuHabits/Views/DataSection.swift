@@ -13,9 +13,12 @@ struct DataSection: View {
     var body: some View {
         let export = HabitsExport(file: model.file, date: .now)
         Section {
-            ShareLink("Esporta", item: export, preview: SharePreview(export.fileName))
+            // Words only: the audit finds Importa's title clipped at larger text beside its symbol.
+            ShareLink(item: export, preview: SharePreview(export.fileName)) {
+                Text("Esporta")
+            }
 
-            Button("Importa", systemImage: "square.and.arrow.down", action: chooseFile)
+            Button("Importa", action: chooseFile)
                 .fileImporter(isPresented: $isImporting, allowedContentTypes: [.json], onCompletion: check)
                 .sheet(item: $candidate) { candidate in
                     ImportReviewView(model: model, candidate: candidate)

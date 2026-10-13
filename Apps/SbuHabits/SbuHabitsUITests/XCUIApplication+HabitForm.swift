@@ -50,12 +50,7 @@ extension XCUIApplication {
     /// Annulla included, as partially supported.
     @MainActor
     func auditHabitForm() throws {
-        let titles = ["Nuova abitudine", "Modifica abitudine", "Tipo", "Obiettivo", "Limite", "Durata", "Giorni", "Notifiche", "Salute"]
         try performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            // The inline title fits; the audit reads the glass bar's edge as clipping it.
-            if issue.auditType == .textClipped, titles.contains(issue.element?.label ?? "") {
-                return true
-            }
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
             return true
         }

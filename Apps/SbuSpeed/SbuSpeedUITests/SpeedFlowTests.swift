@@ -10,7 +10,11 @@ final class SpeedFlowTests: XCTestCase {
     @MainActor
     private func launch() -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES"]
+        app.launchArguments += [
+            "-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES",
+            // Whatever an earlier run chose: km/h and no limit.
+            "-unit", "kilometersPerHour", "-speedLimit", "",
+        ]
         app.launch()
         return app
     }
@@ -81,7 +85,7 @@ final class SpeedFlowTests: XCTestCase {
         let app = launch()
 
         app.buttons["Impostazioni"].tap()
-        XCTAssertTrue(app.staticTexts["La distanza segue la velocità: chilometri con km/h, miglia con mph, miglia nautiche con i nodi."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["La distanza segue la velocità: chilometri, miglia o miglia nautiche."].waitForExistence(timeout: 5))
 
         // Dynamic Type is left out as in Sbu Habits: in the settings sheet the audit flags every
         // text as partially unsupported, system ones included.

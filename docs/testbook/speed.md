@@ -1,82 +1,38 @@
 # Sbu Speed 1.0: test book
 
-Prova manuale su iPhone reale, prima dell'invio. Ramo `app/speed-1.0`. Spunta ogni caso; se qualcosa non torna, annota il numero del caso e cosa hai visto.
+Prova su iPhone reale, ramo `app/speed-1.0`. Ogni caso ha un esito netto: passa o non passa. Se non passa, annota il numero e cosa hai visto.
 
-Il simulatore ha già verificato: unità e conversioni (test unitari), durata formattata, layout verticale e orizzontale a testo normale, XXXL e AX5, tema scuro, inglese, un viaggio simulato a 20 nodi (velocità, massima, distanza 0,1 nmi, durata 20 secondi). Non ha verificato: GPS vero, vibrazione e suono, schermo acceso a lungo, rotazione in un supporto vero, VoiceOver a voce.
+Il simulatore ha già controllato, su iPhone 17 e iPhone SE (3ª gen.), in chiaro, scuro, italiano, inglese, testo standard, XXXL e AX5: tutte le schermate, la richiesta di permesso, lo stato negato, la conferma di azzeramento, le Impostazioni con i menu, il superamento del limite, l'orizzontale; un viaggio simulato a 20 nodi (20 kn, 0,1 nmi, 20 secondi). Qui sotto resta quello che solo un iPhone vero può dire.
 
-Prima di iniziare: installa la build del ramo, Impostazioni iPhone in italiano, testo a dimensione standard, tema chiaro.
+Prima di iniziare: build del ramo installata, iPhone in italiano con regione Italia, testo standard, tema chiaro, suoneria attiva, volume a metà. Se l'app era già installata, cancellala e reinstallala.
 
-## 1. Primo avvio
+## A. Solo su iPhone vero (in ordine)
 
-- [ ] **1.1 Permesso posizione.** Precondizione: app mai aperta (o rimossa e reinstallata). Passi: apri Sbu Speed. Atteso: la riga sotto la cifra dice "Consenti la posizione", poi compare la richiesta di sistema con il testo "Sbu Speed usa la posizione solo mentre è aperta…". Tocca "Consenti mentre usi l'app".
-- [ ] **1.2 Ricerca segnale.** Passi: resta all'aperto. Atteso: la cifra è un trattino e la riga dice "Cerco il segnale GPS", poi compare la velocità e la riga diventa "Fermo".
-- [ ] **1.3 Unità della regione.** Atteso: con regione Italia la velocità è in km/h. In Impostazioni → Unità la scelta è "km/h".
-- [ ] **1.4 Viaggio vuoto.** Atteso: Massima 0 km/h, Media 0 km/h, Distanza 0,0 km, Durata 0:00:00. "Azzera viaggio" è disattivato.
+1. [ ] **Permesso al primo avvio.** Apri Sbu Speed. Atteso: compare subito la richiesta di sistema con il testo "Sbu Speed usa la posizione solo mentre è aperta, per leggere la tua velocità. La posizione resta su questo iPhone." Sotto la cifra, dietro la richiesta, c'è "Consenti la posizione". Tocca "Consenti mentre usi l'app".
+2. [ ] **Primo fix.** All'aperto, fermo. Atteso: entro 30 secondi la riga passa da "Cerco il segnale GPS" a "Fermo" e la cifra da "–" a "0". Massima "0 km/h", Media "0 km/h", Distanza "0,0 km", Durata "0:00:00"; "Azzera viaggio" è grigio e non risponde al tocco.
+3. [ ] **Velocità in auto.** Da passeggero, a velocità costante di 50 km/h sul tachimetro dell'auto. Atteso: la cifra segna tra 45 e 50 (il tachimetro delle auto segna in eccesso di qualche km/h); riga "In movimento"; l'arco si riempie fino a circa 5/6 della scala da 60.
+4. [ ] **Scala del quadrante.** Supera i 60 km/h. Atteso: l'arco si riduce di colpo (la scala passa a 120) e non torna alla scala da 60 quando rallenti, perché la massima la tiene.
+5. [ ] **Massima.** Atteso: "Massima" è la velocità più alta letta sulla cifra (al km/h, o 1 in più per arrotondamento) e non scende quando rallenti.
+6. [ ] **Soste.** Fermati a un semaforo per almeno 30 secondi. Atteso: Durata si ferma (i secondi non avanzano), Media non cambia, Distanza non cambia, riga "Fermo". Ripartendo, Durata riprende a contare.
+7. [ ] **Distanza.** Percorri un tratto noto di almeno 5 km (cartello o Mappe). Atteso: la Distanza aumenta di quel valore con uno scarto massimo del 3% (5 km: tra 4,9 e 5,2).
+8. [ ] **Durata.** Fai partire il cronometro dell'iPhone quando ti metti in moto e guida 3 minuti senza fermarti. Atteso: Durata aumenta di 3 minuti, con uno scarto massimo di 5 secondi.
+9. [ ] **Limite: avviso.** Impostazioni → Limite di velocità → Limite: "30 km/h". Supera i 30 km/h. Atteso: nello stesso istante la riga diventa "Oltre il limite di 30 km/h" in rosso con il triangolo, la cifra resta nera, l'iPhone vibra una volta e suona una volta.
+10. [ ] **Limite: niente ripetizioni.** Resta tra 29 e 33 km/h per 30 secondi. Atteso: nessun altro suono né vibrazione. Scendi sotto i 27 km/h e torna sopra 30: un solo nuovo avviso.
+11. [ ] **Limite in silenzioso.** Interruttore silenzioso attivo (o modalità Silenzioso), supera il limite. Atteso: vibra, nessun suono.
+12. [ ] **Schermo acceso.** Blocco automatico a 30 secondi, lascia l'app aperta senza toccarla per 2 minuti. Atteso: lo schermo resta acceso. Torna alla Home e aspetta 30 secondi: lo schermo si spegne come sempre.
+13. [ ] **Orizzontale nel supporto.** Blocco rotazione spento. Metti l'iPhone in orizzontale nel supporto dell'auto, prima con il tasto laterale in alto, poi in basso. Atteso in entrambi i versi: a sinistra "VELOCITÀ", la cifra, la riga di stato e "Azzera viaggio"; a destra il quadrante e i quattro valori due per due; niente tagliato, niente sotto l'isola dinamica o gli angoli. Da passeggero: la cifra si legge a colpo d'occhio a un braccio di distanza.
+14. [ ] **Rientro dopo una pausa.** Durante un viaggio, vai alla Home per 2 minuti mentre l'auto si muove, poi riapri. Atteso: la Distanza non aggiunge i km fatti mentre l'app era chiusa (il viaggio conta solo con l'app aperta) e riprende a contare subito.
+15. [ ] **Viaggio salvato.** Chiudi l'app dal multitasking e riaprila. Atteso: Massima, Media, Distanza e Durata sono identiche a prima di chiuderla.
+16. [ ] **Nodi in barca o in auto.** Impostazioni → Unità → Velocità: "Nodi". Atteso: la cifra mostra "kn"; a 50 km/h legge 27 kn (±1); Distanza in "nmi" (10 km = 5,4 nmi). Limite → le scelte sono Nessuno, 5, 10, 15, 20, 25, 30 kn. Se il limite era 30 km/h ora è "15 kn".
+17. [ ] **Permesso negato.** Impostazioni iPhone → Privacy e sicurezza → Localizzazione → Sbu Speed → "Mai". Torna nell'app. Atteso: cifra "–", riga "Posizione non consentita", pill "Apri Impostazioni" che apre la pagina di Sbu Speed nelle Impostazioni. Rimetti "Mentre usi l'app": la velocità torna senza riaprire l'app e il viaggio è intatto.
+18. [ ] **Posizione approssimativa.** Nella stessa pagina spegni "Posizione esatta". Atteso: riga "Serve la posizione esatta", pill "Apri Impostazioni". Riaccendila: la velocità torna.
+19. [ ] **VoiceOver.** Attiva VoiceOver e scorri da sinistra a destra. Atteso, in quest'ordine: "Sbu Speed", "Impostazioni, pulsante", "Velocità, 52, km/h, In movimento" (con la tua velocità), "Massima, 87 km/h", "Media, …", "Distanza, …", "Durata, 16 minuti e 10 secondi" (a parole, non "zero due punti sedici"), "Azzera viaggio, pulsante". Il quadratino colorato e l'arco non vengono letti.
+20. [ ] **Azzera viaggio.** Tocca "Azzera viaggio". Atteso: compare un riquadro con "Azzera viaggio", il testo "Il viaggio riparte da zero." e il pulsante rosso "Azzera viaggio". Tocca fuori: non cambia nulla. Ripeti e conferma: i quattro valori tornano a "0 km/h", "0 km/h", "0,0 km", "0:00:00" e il pulsante diventa grigio.
 
-## 2. Permessi negati
+## B. Aspetto (veloce, il simulatore li ha già visti)
 
-- [ ] **2.1 Posizione negata.** Passi: Impostazioni iPhone → Privacy → Localizzazione → Sbu Speed → Mai. Torna nell'app. Atteso: trattino, riga "Posizione non consentita", al posto di "Azzera viaggio" c'è "Apri Impostazioni" che apre la pagina dell'app in Impostazioni.
-- [ ] **2.2 Posizione approssimativa.** Passi: rimetti "Mentre usi l'app" ma spegni "Posizione esatta". Atteso: riga "Serve la posizione esatta" e pill "Apri Impostazioni".
-- [ ] **2.3 Ritorno.** Passi: riaccendi "Posizione esatta". Atteso: la velocità torna senza riaprire l'app; il viaggio di prima è ancora lì.
-
-## 3. Velocità e viaggio (in auto, da passeggero, o in bici)
-
-- [ ] **3.1 Cifra.** Passi: muoviti. Atteso: la cifra grande segue la velocità del tachimetro dell'auto (il GPS di solito segna 2–5 km/h meno del tachimetro, è normale), riga "In movimento", l'arco del quadrante si riempie nel colore dell'app.
-- [ ] **3.2 Massima.** Atteso: "Massima" resta al valore più alto raggiunto anche quando rallenti.
-- [ ] **3.3 Media.** Passi: fermati a un semaforo per un minuto. Atteso: la media non scende durante la sosta.
-- [ ] **3.4 Distanza.** Passi: fai un tratto di cui conosci la lunghezza (almeno 2 km). Atteso: la distanza è vicina, a una cifra decimale.
-- [ ] **3.5 Durata (nuova).** Atteso: "Durata" conta i secondi solo mentre ti muovi (formato ore:minuti:secondi, ad esempio 0:12:34); al semaforo si ferma, poi riparte.
-- [ ] **3.6 Viaggio salvato.** Passi: chiudi l'app dal multitasking e riaprila. Atteso: Massima, Media, Distanza e Durata sono quelle di prima e continuano a salire.
-- [ ] **3.7 Azzera viaggio.** Passi: tocca "Azzera viaggio". Atteso: compare una conferma con "Azzera viaggio" in rosso; annulla e il viaggio resta; ripeti e conferma: tutti e quattro i valori tornano a zero.
-- [ ] **3.8 Quadrante adattivo.** Atteso: sotto i 60 km/h l'arco è pieno a 60; oltre, la scala sale a 120, 200, 300 e non torna indietro finché la massima del viaggio la tiene.
-- [ ] **3.9 Schermo acceso.** Passi: lascia l'app aperta senza toccarla per più del blocco automatico. Atteso: lo schermo non si spegne. Andando alla Home, l'iPhone torna a bloccarsi come sempre.
-
-## 4. Nodi (nuovo)
-
-- [ ] **4.1 Scelta.** Passi: Impostazioni → Unità → Velocità: "kn". Atteso: il piè di pagina dice "La distanza segue la velocità: chilometri con km/h, miglia con mph, miglia nautiche con i nodi." Chiudi: la cifra è in "kn", Massima e Media in kn, Distanza in "nmi" (ad esempio "6,7 nmi").
-- [ ] **4.2 Conversione.** Atteso: 50 km/h corrispondono a circa 27 kn (1 kn = 1,852 km/h). Controlla con un'app di navigazione o un calcolo veloce.
-- [ ] **4.3 Persistenza.** Passi: chiudi e riapri l'app. Atteso: resta in nodi.
-- [ ] **4.4 Limiti in nodi.** Passi: Impostazioni → Limite di velocità → Limite. Atteso: le scelte sono Nessuno, 5, 10, 15, 20, 25, 30 kn.
-- [ ] **4.5 Limite che segue l'unità.** Passi: in km/h scegli 50 km/h, poi passa a kn. Atteso: il limite diventa 25 kn. Torna a km/h: diventa 50 km/h.
-- [ ] **4.6 Ritorno a km/h e mph.** Atteso: tutte e tre le unità si scelgono e la distanza segue (km, mi, nmi).
-
-## 5. Limite di velocità
-
-- [ ] **5.1 Superamento.** Precondizione: limite a 30 km/h (o 20 mph, o 10 kn in barca). Passi: superalo. Atteso: la riga sotto la cifra diventa "Oltre il limite di 30 km/h" in rosso con il triangolo; la cifra resta nera; l'iPhone vibra e suona una volta.
-- [ ] **5.2 Niente ripetizioni.** Passi: resta intorno al limite. Atteso: nessun altro suono finché non scendi di almeno 3 unità sotto il limite e lo superi di nuovo.
-- [ ] **5.3 Silenzioso.** Passi: interruttore silenzioso attivo. Atteso: vibra senza suono (comportamento di sistema).
-
-## 6. Orizzontale (nuovo)
-
-- [ ] **6.1 Rotazione.** Precondizione: blocco rotazione spento in Centro di Controllo. Passi: gira l'iPhone in orizzontale, sia a sinistra sia a destra. Atteso: la cifra con "Velocità", la riga di stato e "Azzera viaggio" stanno a sinistra; il quadrante e i quattro valori del viaggio (due per due) a destra. Niente è tagliato, niente esce dallo schermo, l'isola dinamica non copre nulla.
-- [ ] **6.2 Nel supporto.** Passi: metti l'iPhone nel supporto dell'auto in orizzontale e guida (da passeggero, o guardando solo a semaforo fermo). Atteso: la cifra si legge a colpo d'occhio, i valori si aggiornano.
-- [ ] **6.3 Rotazione con la conferma aperta.** Passi: tocca "Azzera viaggio" e, con la conferma aperta, ruota. Atteso: niente si rompe; la conferma resta o si chiude senza azzerare.
-- [ ] **6.4 Impostazioni in orizzontale.** Passi: tocca l'ingranaggio in orizzontale. Atteso: il foglio si apre e scorre; tutto leggibile.
-- [ ] **6.5 Ritorno in verticale.** Atteso: il layout verticale è come prima (cifra, quadrante, viaggio due per due, pill in basso).
-
-## 7. Testo grande
-
-- [ ] **7.1 XXXL.** Passi: Impostazioni iPhone → Schermo e luminosità → Dimensioni testo al massimo (senza "Caratteri più grandi"). Atteso: in verticale e in orizzontale tutto sta nello schermo senza scorrere, niente tagliato.
-- [ ] **7.2 Accessibilità al massimo.** Passi: Accessibilità → Schermo e dimensione testo → Testo più grande, attivo e al massimo. Atteso: la schermata scorre; il quadrante sparisce (è solo un disegno); i quattro valori sono uno sotto l'altro; scorrendo si arriva ad "Azzera viaggio". In orizzontale idem: si scorre fino in fondo.
-- [ ] **7.3 Durata a testo grande.** Atteso: "0:16:10" non va a capo a metà.
-
-## 8. VoiceOver
-
-- [ ] **8.1 Cifra.** Passi: attiva VoiceOver, scorri. Atteso: legge "Velocità, 52 km/h, In movimento" (il quadratino e il quadrante non vengono letti).
-- [ ] **8.2 Viaggio.** Atteso: ogni valore si legge come etichetta e valore, ad esempio "Massima, 87 chilometri orari"; la Durata si legge a parole: "Durata, 16 minuti e 10 secondi", non "zero due punti sedici".
-- [ ] **8.3 Nodi.** Atteso: in nodi legge "nodi" e "miglia nautiche".
-- [ ] **8.4 Orizzontale.** Atteso: in orizzontale l'ordine è cifra, Azzera viaggio, poi il viaggio (o comunque logico, senza salti strani).
-
-## 9. Tema scuro
-
-- [ ] **9.1** Passi: attiva il tema scuro. Atteso: fondo nero caldo, cifra chiara, quadratino e arco nel verde dell'app, testi secondari grigi leggibili, sia in verticale sia in orizzontale.
-
-## 10. Inglese
-
-- [ ] **10.1** Passi: lingua iPhone in inglese, regione Stati Uniti, reinstalla l'app (o cancella i dati). Atteso: unità iniziale mph; etichette "Top", "Average", "Distance", "Time"; pill "Reset trip".
-- [ ] **10.2** Atteso: in Impostazioni "Distance follows speed: kilometres with km/h, miles with mph, nautical miles with knots."; con i nodi i valori sono "kn" e "nmi"; la durata VoiceOver è "16 minutes, 10 seconds".
-
-## 11. Impostazioni e promessa
-
-- [ ] **11.1** Atteso: in Impostazioni ci sono Unità, Limite di velocità, Privacy (apre sbu.dev in Safari), Licenze (con Bricolage Grotesque), le pill della promessa e il piede sbu.dev.
-- [ ] **11.2 Nessuna rete.** Passi: modalità aereo con GPS acceso. Atteso: l'app funziona uguale (il GPS non richiede rete).
+21. [ ] **Tema scuro**, in verticale e in orizzontale: fondo nero caldo, cifra chiara, quadratino e arco nel verde dell'app, avviso del limite rosso leggibile.
+22. [ ] **Testo AX5** (Accessibilità → Schermo e dimensione testo → Testo più grande al massimo): la schermata scorre fino ad "Azzera viaggio", il quadrante sparisce, i quattro valori sono uno sotto l'altro, nessuna parola tagliata. In orizzontale idem.
+23. [ ] **Inglese** (lingua iPhone inglese, regione Stati Uniti, app reinstallata): unità iniziale mph; etichette "TOP", "AVERAGE", "DISTANCE", "TIME"; riga "Stopped" da fermo; pill "Reset trip"; in Impostazioni il piè di pagina "Distance follows speed: kilometres, miles or nautical miles."
+24. [ ] **Impostazioni**: Privacy apre sbu.dev in Safari; Licenze elenca Bricolage Grotesque; in basso le pill della promessa e "Parte di sbu.dev".
+25. [ ] **Modalità aereo** con la posizione accesa: l'app funziona uguale (il GPS non usa la rete).

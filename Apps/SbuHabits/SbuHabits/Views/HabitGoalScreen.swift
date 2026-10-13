@@ -36,8 +36,8 @@ struct HabitGoalScreen: View {
                             }
                         }
                         .pickerStyle(.inline)
-                    } header: {
-                        Text("Durata")
+                        // The screen's title already says Durata, as Tipo and Giorni do.
+                        .labelsHidden()
                     } footer: {
                         Text("Avvia il timer dall'anello: alla fine si segna da sola.")
                     }

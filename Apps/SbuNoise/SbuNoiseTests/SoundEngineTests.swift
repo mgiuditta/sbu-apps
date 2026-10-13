@@ -18,3 +18,25 @@ struct SoundEngineTests {
         engine.outputVolume = 1
     }
 }
+
+struct SoundEngineStereoTests {
+    @Test func aSoundInTheCenterIsHeardInBothEars() async throws {
+        let engine = SoundEngine()
+        try engine.addNoise(.pink, id: "a")
+        let levels = await engine.outputLevels(over: .milliseconds(500))
+        engine.removeAll()
+        try #require(levels.count == 2)
+        #expect(levels[0] > 0)
+        #expect(abs(levels[0] - levels[1]) / max(levels[0], levels[1]) < 0.2, "left \(levels[0]) right \(levels[1])")
+    }
+
+    @Test func panMovesTheSoundToOneSide() async throws {
+        let engine = SoundEngine()
+        try engine.addNoise(.pink, id: "a")
+        engine.setPan(-1, for: "a")
+        let levels = await engine.outputLevels(over: .milliseconds(500))
+        engine.removeAll()
+        try #require(levels.count == 2)
+        #expect(levels[0] > 4 * levels[1], "left \(levels[0]) right \(levels[1])")
+    }
+}

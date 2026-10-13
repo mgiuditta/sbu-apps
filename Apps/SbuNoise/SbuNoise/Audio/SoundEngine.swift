@@ -70,6 +70,19 @@ final class SoundEngine {
     }
 
     /// Removes every layer, stops the engine and releases the audio session.
+    /// Left and right loudness of the output over `duration`: tells whether a sound is heard in both ears.
+    func outputLevels(over duration: Duration) async -> [Float] {
+        let mixer = engine.mainMixerNode
+        let meter = await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                continuation.resume(returning: ChannelMeter.install(on: mixer))
+            }
+        }
+        try? await Task.sleep(for: duration)
+        mixer.removeTap(onBus: 0)
+        return meter.levels
+    }
+
     func removeAll() {
         replaceAll()
         stop()

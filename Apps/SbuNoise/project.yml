@@ -29,11 +29,15 @@ targets:
       properties:
         # The Noise file and what is playing, shared with the widgets and the control.
         com.apple.security.application-groups: [group.dev.sbu.noise]
+        # The alarm's backup notifications break through Focus (decision #407).
+        com.apple.developer.usernotifications.time-sensitive: true
     info:
       path: SbuNoise/Info.plist
       properties:
         # Keeps the sound playing with the screen locked and in the background.
         UIBackgroundModes: [audio]
+        # iOS 26 system alarm as the alarm's backup; English in InfoPlist.xcstrings.
+        NSAlarmKitUsageDescription: "Sbu Noise usa una sveglia di sistema come riserva, se all'ora della sveglia l'app non è aperta."
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     settings:
@@ -45,6 +49,8 @@ targets:
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        # AlarmKit exists from iOS 26 only: on iOS 17-25 the app must still launch.
+        OTHER_LDFLAGS: ["$(inherited)", "-weak_framework", "AlarmKit"]
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -125,7 +131,7 @@ schemes:
       targets:
         - SbuNoiseTests
         - name: SbuNoiseUITests
-          skippedTests: [SnapshotTests]
+          skippedTests: [SnapshotTests, ScreenTourTests]
   SbuNoiseSnapshots:
     build:
       targets:

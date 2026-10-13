@@ -7,7 +7,7 @@ struct PlaybackCommandTests {
     private let library = Library(store: .temporary)
 
     private func model() -> PlayerModel {
-        PlayerModel(library: library, defaults: defaults)
+        PlayerModel(sounds: Sound.generated, library: library, defaults: defaults)
     }
 
     @Test func playWithNoItemPlaysTheSoundOnScreen() {

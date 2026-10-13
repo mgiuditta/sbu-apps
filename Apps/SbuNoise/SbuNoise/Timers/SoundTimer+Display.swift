@@ -8,7 +8,7 @@ nonisolated extension SoundTimer {
             Duration.seconds(minutes * 60).formatted(.units(allowed: [.hours, .minutes], width: .abbreviated))
         case .clock(let hour, let minute):
             (calendar.date(bySettingHour: hour, minute: minute, second: 0, of: .now) ?? .now)
-                .formatted(date: .omitted, time: .shortened)
+                .formatted(.dateTime.hour().minute())
         }
     }
 

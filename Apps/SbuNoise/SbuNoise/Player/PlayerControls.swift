@@ -41,6 +41,9 @@ private struct ControlButton: View {
     let systemImage: String
     let action: () -> Void
 
+    /// Off in an empty list (no favorites or mixes yet): drawn muted, so it does not look dead.
+    @Environment(\.isEnabled) private var isEnabled
+
     init(_ title: LocalizedStringKey, systemImage: String, action: @escaping () -> Void) {
         self.title = title
         self.systemImage = systemImage
@@ -51,7 +54,7 @@ private struct ControlButton: View {
         Button(title, systemImage: systemImage, action: action)
             .labelStyle(.iconOnly)
             .font(.title3.weight(.medium))
-            .foregroundStyle(SbuTheme.ink)
+            .foregroundStyle(isEnabled ? SbuTheme.ink : SbuTheme.line)
             .frame(width: SbuTheme.controlRoundSm, height: SbuTheme.controlRoundSm)
             .contentShape(.rect)
     }
@@ -76,13 +79,15 @@ private struct PlayButton: View {
     let isPlaying: Bool
     let action: () -> Void
 
+    @Environment(\.isEnabled) private var isEnabled
+
     var body: some View {
         Button(isPlaying ? "Pausa" : "Riproduci", systemImage: isPlaying ? "pause.fill" : "play.fill", action: action)
             .labelStyle(.iconOnly)
             .font(.title.weight(.medium))
-            .foregroundStyle(SbuTheme.onAccent)
+            .foregroundStyle(isEnabled ? SbuTheme.onAccent : SbuTheme.inkMuted)
             .frame(width: SbuTheme.controlRoundLg, height: SbuTheme.controlRoundLg)
-            .background(.tint, in: .circle)
+            .background(isEnabled ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.line), in: .circle)
             .contentShape(.circle)
     }
 }

@@ -5,6 +5,7 @@ import SwiftUI
 /// name as the screen's figure, closed by the full stop.
 struct PlayerPage: View {
     let item: PlayerItem
+    let category: PlayerCategory
     let position: Int
     let count: Int
 
@@ -14,29 +15,27 @@ struct PlayerPage: View {
     var body: some View {
         VStack(spacing: SbuTheme.space4) {
             Spacer(minLength: 0)
+            // The symbol gives way first: with the largest text the name and the position must fit.
             Image(systemName: item.systemImage)
-                .font(.system(size: symbolSize, weight: .medium))
+                .resizable()
+                .fontWeight(.medium)
+                .scaledToFit()
+                .frame(maxWidth: symbolSize, maxHeight: symbolSize)
+                .frame(minHeight: 0)
+                .layoutPriority(-1)
                 .foregroundStyle(SbuTheme.inkMuted)
                 .accessibilityHidden(true)
             Spacer(minLength: 0)
-            HStack(alignment: .lastTextBaseline, spacing: 0) {
-                Text(item.name)
-                    .font(SbuTheme.numberFont(size: nameSize))
-                    .tracking(SbuTheme.statTracking)
-                    // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
-                    .padding(.trailing, -SbuTheme.statTracking)
-                    .foregroundStyle(SbuTheme.ink)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-                SbuFullStop(fontSize: nameSize)
-            }
+            // The full stop inside the text: on a name that wraps it follows the last word.
+            (Text(item.name).tracking(SbuTheme.statTracking)
+                + InlineFullStop.text(fontSize: nameSize, tracking: SbuTheme.statTracking))
+                .font(SbuTheme.numberFont(size: nameSize))
+                .foregroundStyle(SbuTheme.ink)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityLabel(Text(item.name))
             .accessibilityAddTraits(.isHeader)
-            Group {
-                switch item {
-                case .sound: Text("Suoni · \(position) di \(count)")
-                case .mix: Text("Mix · \(position) di \(count)")
-                }
-            }
+            Text("\(Text(category.title)) · \(position) di \(count)")
                 .font(SbuTheme.footnote)
                 .foregroundStyle(SbuTheme.inkMuted)
         }
@@ -45,12 +44,12 @@ struct PlayerPage: View {
 }
 
 #Preview("Light") {
-    PlayerPage(item: .sound(Sound.generated[2]), position: 3, count: 5)
+    PlayerPage(item: .sound(Sound.generated[2]), category: .sounds, position: 3, count: 5)
         .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
-    PlayerPage(item: .mix(Mix(name: "Temporale", soundIDs: ["noise.pink"])), position: 1, count: 2)
+    PlayerPage(item: .mix(Mix(name: "Temporale", soundIDs: ["noise.pink"])), category: .favorites, position: 1, count: 2)
         .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

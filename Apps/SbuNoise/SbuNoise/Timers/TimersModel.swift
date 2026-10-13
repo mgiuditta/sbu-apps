@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import UIKit
 
 /// The timers, saved in the Noise file, and the one task that waits for the next of them to fade
 /// the sound out and stop it.
@@ -20,6 +21,10 @@ final class TimersModel {
         timers = (try? store.load().timers) ?? []
         followPlayback()
         schedule()
+        // Midnight, a new time zone or a clock set by hand: a clock timer is computed again.
+        NotificationCenter.default.addObserver(forName: UIApplication.significantTimeChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.schedule() }
+        }
     }
 
     /// The timer that stops the sound next, with the moment it is silent.

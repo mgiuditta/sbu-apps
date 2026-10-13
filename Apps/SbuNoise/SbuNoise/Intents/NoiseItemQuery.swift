@@ -10,7 +10,7 @@ nonisolated struct NoiseItemQuery: EnumerableEntityQuery {
         try await allEntities().filter { identifiers.contains($0.id) }
     }
 
-    static func entities(sounds: [Sound] = Sound.generated, mixes: [Mix]) -> [NoiseItemEntity] {
+    static func entities(sounds: [Sound] = Sound.catalog, mixes: [Mix]) -> [NoiseItemEntity] {
         sounds.map { NoiseItemEntity(.sound($0)) } + mixes.map { NoiseItemEntity(.mix($0)) }
     }
 }

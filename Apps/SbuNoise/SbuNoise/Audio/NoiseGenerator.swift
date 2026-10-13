@@ -2,8 +2,11 @@
 ///
 /// White is a 64-bit xorshift mapped to [-1, 1]. Pink is Paul Kellet's refined filter
 /// (±0.05 dB above 9.2 Hz at 44.1 kHz). Brown is a leaky integrator of white. Blue and violet are
-/// the first difference of pink and white. Each color has its own gain, so switching color keeps
-/// the loudness (RMS) about the same.
+/// the first difference of pink and white. Each color has its own gain, so every color plays at
+/// −18 LUFS (EBU R128), the loudness of every loop in the catalog: switching sound or mixing
+/// them needs no volume change. Gains measured with an EBU R128 meter, then raised by 1.2 dB:
+/// the mono noise loses that much more than a stereo loop on its way through the layer's mixer
+/// (SoundEngineTests.aNoiseAndALoopReachTheOutputAlike).
 nonisolated struct NoiseGenerator: Sendable {
     let color: NoiseColor
     private var state: UInt64
@@ -17,25 +20,25 @@ nonisolated struct NoiseGenerator: Sendable {
         state = seed == 0 ? 1 : seed
     }
 
-    /// The next sample: about 0.18 RMS for every color, always within [-1, 1].
+    /// The next sample, always within [-1, 1].
     mutating func next() -> Float {
         let sample: Float
         switch color {
         case .white:
-            sample = white() * 0.312
+            sample = white() * 0.1246
         case .pink:
-            sample = nextPink() * 0.104
+            sample = nextPink() * 0.0614
         case .brown:
             let w = white()
             brown = (brown + 0.02 * w) / 1.02
-            sample = brown * 3.14
+            sample = brown * 2.18
         case .blue:
             let p = nextPink()
-            sample = (p - previous) * 0.172
+            sample = (p - previous) * 0.0671
             previous = p
         case .violet:
             let w = white()
-            sample = (w - previous) * 0.22
+            sample = (w - previous) * 0.0858
             previous = w
         }
         return min(max(sample, -1), 1)

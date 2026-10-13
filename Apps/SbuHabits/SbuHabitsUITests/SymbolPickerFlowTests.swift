@@ -32,7 +32,7 @@ final class SymbolPickerFlowTests: XCTestCase {
     @MainActor
     func testSearchingAndPickingASymbol() throws {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
+        app.openHabitForm()
         let titleField = app.textFields["Titolo"]
         XCTAssertTrue(titleField.waitForExistence(timeout: 5))
         titleField.tap()
@@ -77,7 +77,7 @@ final class SymbolPickerFlowTests: XCTestCase {
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Corsa"), row.debugDescription)
 
         // The habit keeps it: it shows again when you edit it.
-        app.buttons["Aggiungi abitudine"].tap()
+        app.addHabitButton.tap()
         let habit = app.descendants(matching: .any).matching(identifier: "Correre").firstMatch
         XCTAssertTrue(habit.waitForExistence(timeout: 5))
         habit.tap()
@@ -89,7 +89,7 @@ final class SymbolPickerFlowTests: XCTestCase {
     @MainActor
     func testASearchWithNoMatchSaysSo() {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
+        app.openHabitForm()
         scrollToSymbolRow(in: app).tap()
         let search = app.searchFields["Cerca un simbolo"]
         XCTAssertTrue(search.waitForExistence(timeout: 5))

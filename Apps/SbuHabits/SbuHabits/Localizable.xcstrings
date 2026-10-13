@@ -2136,7 +2136,7 @@
       }
     },
     "Giorni" : {
-      "comment" : "Form row and screen: the habit's schedule.",
+      "comment" : "Axis of the completion line's audio graph in the Statistiche.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5783,6 +5783,149 @@
         }
       }
     },
+    "Generale" : {
+      "comment" : "Tab of Aggiungi abitudine: habits to do by hand.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "Alimentazione" : {
+      "comment" : "Tab of Aggiungi abitudine: eating and drinking.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Food"
+          }
+        }
+      }
+    },
+    "Le abitudini da fare: le segni tu, una o più volte al giorno." : {
+      "comment" : "Explanation of the Generale tab of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habits to do: you mark them yourself, once or more a day."
+          }
+        }
+      }
+    },
+    "Collegate a Salute: si segnano da sole quando arrivi all'obiettivo." : {
+      "comment" : "Explanation of the Salute tab of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linked to Health: they mark themselves when you reach the goal."
+          }
+        }
+      }
+    },
+    "Quello che mangi e bevi. L'acqua la legge Salute, il resto lo segni tu." : {
+      "comment" : "Explanation of the Alimentazione tab of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What you eat and drink. Health reads your water, you mark the rest."
+          }
+        }
+      }
+    },
+    "Parte un conto alla rovescia: l'abitudine è fatta quando arriva a zero." : {
+      "comment" : "Explanation of the A tempo tab of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A countdown starts: the habit is done when it reaches zero."
+          }
+        }
+      }
+    },
+    "Segni ogni volta che cedi. Il giorno è fatto se resti entro il limite." : {
+      "comment" : "Explanation of the Da evitare tab of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You mark each time you give in. The day is done if you stay within the limit."
+          }
+        }
+      }
+    },
+    "Crea un'abitudine" : {
+      "comment" : "Header over the templates of the Generale tab.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a habit"
+          }
+        }
+      }
+    },
+    "Crea un'abitudine Salute" : {
+      "comment" : "Header over the templates of the Salute tab.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a Health habit"
+          }
+        }
+      }
+    },
+    "Crea un'abitudine di alimentazione" : {
+      "comment" : "Header over the templates of the Alimentazione tab.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a food habit"
+          }
+        }
+      }
+    },
+    "Crea un'abitudine a tempo" : {
+      "comment" : "Header over the templates of the A tempo tab.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a timed habit"
+          }
+        }
+      }
+    },
+    "Crea un'abitudine da evitare" : {
+      "comment" : "Header over the templates of the Da evitare tab.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a habit to avoid"
+          }
+        }
+      }
+    },
+    "Personalizzata" : {
+      "comment" : "Row of Aggiungi abitudine that opens the empty form of the tab.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
     "Ultimi 7 giorni" : {
       "comment" : "Period of the Statistiche.",
       "localizations" : {
@@ -5865,6 +6008,479 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
+          }
+        }
+      }
+    },
+    "Cerca" : {
+      "comment" : "Button that shows the search of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
+    },
+    "Cerca un modello" : {
+      "comment" : "Prompt of the search field of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search templates"
+          }
+        }
+      }
+    },
+    "Categorie" : {
+      "comment" : "VoiceOver name of the row of tabs of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categories"
+          }
+        }
+      }
+    },
+    "Scrivere il diario" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write in your journal"
+          }
+        }
+      }
+    },
+    "Studiare una lingua" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn a language"
+          }
+        }
+      }
+    },
+    "Prendere le medicine" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take your medicine"
+          }
+        }
+      }
+    },
+    "Lavarsi i denti" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brush your teeth"
+          }
+        }
+      }
+    },
+    "Andare a letto presto" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to bed early"
+          }
+        }
+      }
+    },
+    "Chiamare la famiglia" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Call your family"
+          }
+        }
+      }
+    },
+    "Riordinare casa" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidy up the house"
+          }
+        }
+      }
+    },
+    "Annaffiare le piante" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water the plants"
+          }
+        }
+      }
+    },
+    "Fare yoga" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do yoga"
+          }
+        }
+      }
+    },
+    "Correre" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run"
+          }
+        }
+      }
+    },
+    "Fare un'escursione" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go hiking"
+          }
+        }
+      }
+    },
+    "Andare in bici" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride a bike"
+          }
+        }
+      }
+    },
+    "Allenarsi" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Work out"
+          }
+        }
+      }
+    },
+    "Bruciare calorie" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Burn calories"
+          }
+        }
+      }
+    },
+    "Meditare" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditate"
+          }
+        }
+      }
+    },
+    "Respirare con calma" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathe slowly"
+          }
+        }
+      }
+    },
+    "Mangiare verdura" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eat vegetables"
+          }
+        }
+      }
+    },
+    "Fare colazione" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Have breakfast"
+          }
+        }
+      }
+    },
+    "Cucinare a casa" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cook at home"
+          }
+        }
+      }
+    },
+    "Mangiare pesce" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eat fish"
+          }
+        }
+      }
+    },
+    "Prendere le vitamine" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take your vitamins"
+          }
+        }
+      }
+    },
+    "Mangiare senza schermi" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eat without screens"
+          }
+        }
+      }
+    },
+    "Fare la spesa" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go grocery shopping"
+          }
+        }
+      }
+    },
+    "Pesarsi" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weigh yourself"
+          }
+        }
+      }
+    },
+    "Suonare uno strumento" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play an instrument"
+          }
+        }
+      }
+    },
+    "Fare stretching" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stretch"
+          }
+        }
+      }
+    },
+    "Studiare" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Study"
+          }
+        }
+      }
+    },
+    "Scrivere" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write"
+          }
+        }
+      }
+    },
+    "Fare una passeggiata" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a walk"
+          }
+        }
+      }
+    },
+    "Fare le pulizie" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean up"
+          }
+        }
+      }
+    },
+    "Disegnare" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Draw"
+          }
+        }
+      }
+    },
+    "Niente sigarette" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No cigarettes"
+          }
+        }
+      }
+    },
+    "Meno caffè" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Less coffee"
+          }
+        }
+      }
+    },
+    "Niente dolci" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sweets"
+          }
+        }
+      }
+    },
+    "Meno alcol" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Less alcohol"
+          }
+        }
+      }
+    },
+    "Niente telefono a letto" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No phone in bed"
+          }
+        }
+      }
+    },
+    "Niente social" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No social media"
+          }
+        }
+      }
+    },
+    "Niente cibo da asporto" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No takeout"
+          }
+        }
+      }
+    },
+    "Niente spese inutili" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No impulse buys"
+          }
+        }
+      }
+    },
+    "Niente snack" : {
+      "comment" : "Title of a habit template of Aggiungi abitudine.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No snacks"
           }
         }
       }
@@ -6019,17 +6635,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The grid and Statistics follow this order."
-          }
-        }
-      }
-    },
-    "Giorni" : {
-      "comment" : "Axis of the completion line's audio graph in the Statistiche.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Days"
           }
         }
       }

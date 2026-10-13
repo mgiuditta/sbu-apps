@@ -43,7 +43,9 @@ struct MainView: View {
         HStack(spacing: 0) {
             SpeedToolField(model: model) {
                 if !isLandscape {
+                    // First call on the height left: the dial grows to its full size before the gap above the pills.
                     DialAndTrip(model: model)
+                        .layoutPriority(1)
                 }
             }
 

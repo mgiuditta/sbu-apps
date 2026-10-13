@@ -1551,6 +1551,93 @@
           }
         }
       }
+    },
+    "A tempo" : {
+      "comment" : "Form toggle: the habit is done when a countdown ends.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timed"
+          }
+        }
+      }
+    },
+    "Durata" : {
+      "comment" : "Form picker: the length of the countdown.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duration"
+          }
+        }
+      }
+    },
+    "Avvia il timer dall'anello: alla fine si segna da sola." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start the timer from the ring: when it ends, the habit marks itself done."
+          }
+        }
+      }
+    },
+    "Avvia %@" : {
+      "comment" : "Play button on a timed habit; the habit title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start %@"
+          }
+        }
+      }
+    },
+    "Pausa" : {
+      "comment" : "Timer button.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        }
+      }
+    },
+    "Riprendi" : {
+      "comment" : "Timer button.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume"
+          }
+        }
+      }
+    },
+    "Segna fatta" : {
+      "comment" : "Timer button: ends the countdown and marks the habit done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark done"
+          }
+        }
+      }
+    },
+    "Tempo rimanente" : {
+      "comment" : "VoiceOver label of the Timer countdown.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time left"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

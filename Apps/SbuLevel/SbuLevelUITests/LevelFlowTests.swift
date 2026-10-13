@@ -138,4 +138,20 @@ final class LevelFlowTests: XCTestCase {
         // every text as partially unsupported, system ones included.
         try audit(app, excluding: [.contrast, .dynamicType])
     }
+
+    @MainActor
+    func testCalibraInSettingsOpensTheCalibration() {
+        let app = launch(gravity: "nearlyLevel")
+        app.buttons["Impostazioni"].tap()
+        let row = app.collectionViews.buttons["Calibra"]
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+
+        row.tap()
+
+        let firstStep = app.staticTexts.matching(NSPredicate(format: "label ==[c] 'Passo 1 di 2'")).firstMatch
+        XCTAssertTrue(firstStep.waitForExistence(timeout: 5))
+        app.buttons["Annulla"].tap()
+        XCTAssertTrue(firstStep.waitForNonExistence(timeout: 5))
+        XCTAssertTrue(app.switches["Schermo sempre acceso"].exists)
+    }
 }

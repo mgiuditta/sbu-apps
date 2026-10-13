@@ -22,7 +22,11 @@ struct CalibrationSection: View {
 
             // Without a motion sensor there is nothing to measure: no dead row.
             if model.isMotionAvailable {
+                // The sheet hangs on the row: on the Section it would be copied onto every row.
                 Button("Calibra", action: calibrate)
+                    .sheet(isPresented: $isCalibrating, onDismiss: model.endCalibration) {
+                        CalibrationSheet(model: model)
+                    }
             }
 
             // A plain row, not a full-width button: a rare action should not outweigh the page.
@@ -50,9 +54,6 @@ struct CalibrationSection: View {
             Text("Calibrazione")
         } footer: {
             Text("Ogni lato si calibra a parte, in due misure. La calibrazione resta su questo iPhone.")
-        }
-        .sheet(isPresented: $isCalibrating, onDismiss: model.endCalibration) {
-            CalibrationSheet(model: model)
         }
     }
 

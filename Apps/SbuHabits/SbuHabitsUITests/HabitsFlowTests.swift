@@ -407,9 +407,9 @@ final class HabitsFlowTests: XCTestCase {
         }
 
         let camminare = habit("Camminare", in: app)
-        expectValue(camminare, "Da fare, 0 giorni")
+        expectValue(camminare, "Da fare, 0 giorni, collegata a Salute")
         camminare.press(forDuration: 1)
-        expectValue(camminare, "Fatta, 1 giorno")
+        expectValue(camminare, "Fatta, 1 giorno, collegata a Salute")
     }
 
     /// iOS asks for notifications the first time on this simulator, over the app: allow them.
@@ -512,6 +512,39 @@ final class HabitsFlowTests: XCTestCase {
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
             return true
         }
+    }
+
+    /// Six places a page: the seventh habit goes to page 2, reached with a swipe.
+    @MainActor
+    func testTheSecondPageIsReachedWithASwipeAndPassesTheAccessibilityAudit() throws {
+        let app = launch()
+        for title in ["Uno", "Due", "Tre", "Quattro", "Cinque", "Sei"] {
+            add(title, in: app)
+        }
+        let dots = app.descendants(matching: .any)["Pagina"]
+        XCTAssertTrue(dots.waitForExistence(timeout: 5))
+        expectValue(dots, "1 di 2")
+        // Every habit stays in the accessibility tree, the ones on other pages too.
+        XCTAssertTrue(app.buttons["Aggiungi"].exists)
+
+        app.scrollViews.firstMatch.swipeLeft()
+
+        expectValue(dots, "2 di 2")
+        add("Sette", in: app)
+        let sette = habit("Sette", in: app)
+        XCTAssertTrue(sette.isHittable)
+        sette.press(forDuration: 1)
+        expectValue(sette, "Fatta, 1 giorno")
+        // Contrast is left out as on the first page.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+
+        app.scrollViews.firstMatch.swipeRight()
+
+        expectValue(dots, "1 di 2")
+        XCTAssertTrue(habit("Uno", in: app).isHittable)
     }
 
     @MainActor

@@ -36,6 +36,16 @@ final class HabitsModel {
     /// The habits expected today, in the grid's order.
     var todayHabits: [Habit] { TodayGrid.habits(habits, on: today, firstWeekday: calendar.firstWeekday) }
 
+    /// Today's grid in pages of six, with Aggiungi last while a habit can still be added.
+    var homePages: HomePages {
+        HomePages(todayHabits: todayHabits, habitCount: habits.count, isAddEnabled: isUnreadable == false)
+    }
+
+    /// Below the limit of `HomePages.habitLimit` habits, and the file is readable.
+    var canAdd: Bool {
+        isUnreadable == false && habits.count < HomePages.habitLimit
+    }
+
     /// Whether the form can offer Collega a Salute.
     var isHealthAvailable: Bool { health.isAvailable }
 
@@ -126,7 +136,9 @@ final class HabitsModel {
     ///   - limit: The Limite of an Abitudine da evitare, `nil` for a habit to do.
     ///   - health: The Salute measure and goal that mark it done; call `connectHealth(_:)` after.
     ///   - timerMinutes: The countdown of an Abitudine a tempo, `nil` for one that is not timed.
+    /// Past `HomePages.habitLimit` habits nothing is added.
     func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil) {
+        guard habits.count < HomePages.habitLimit else { return }
         var habit = Habit(title: "", symbol: symbol, limit: limit, createdOn: today)
         guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, timerMinutes: timerMinutes, from: today) else { return }
         habits.append(habit)

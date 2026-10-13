@@ -1,158 +1,110 @@
 # Test book: Sbu Level 1.0
 
-Prova manuale su iPhone reale, branch `app/level-1.0`. Il simulatore non ha il sensore di movimento: tutto ciò che riguarda angoli veri, calibrazione e schermo acceso si verifica solo qui.
+Prova manuale su iPhone reale, branch `app/level-1.0`. Ogni controllo ha un risultato esatto: passa o non passa, senza interpretazioni. I numeri sono in italiano (virgola decimale).
 
-Cosa serve: un tavolo, una porta con stipite, un oggetto con un angolo noto di 45° (squadra da disegno, o un foglio A4 piegato lungo la diagonale di un quadrato), una superficie leggermente inclinata (un libro sotto una gamba di un tagliere), una cover tolta se sporge dai bordi.
+Come legge il quadrante, come Clinometer: 0° quando il bordo inferiore o superiore è in bolla, 90° quando lo è un bordo laterale. La lancetta punta sempre verso l'alto. "In bolla" compare esattamente quando la cifra mostra 0,0 (o 90,0 su un bordo laterale).
 
-Come leggere il quadrante: 0° quando il bordo inferiore (o superiore) è in bolla, 90° quando è in bolla un bordo laterale, come in Clinometer. La lancetta punta sempre verso l'alto.
+Cosa serve: un tavolo stabile, uno stipite di porta, una squadra da disegno a 45° (o un foglio quadrato piegato sulla diagonale), un libro spesso 2–3 cm, una matita. Togli la cover se sporge dai bordi.
 
-## 1. Primo avvio
+## A. Solo su iPhone reale (sensore, vibrazione, schermo)
 
-Precondizioni: app installata da zero (cancellala prima, se c'era).
+1. **Aggiornamento dalla build precedente.** Installa sopra la build che leggeva 9,2° sul tavolo, senza cancellare l'app. Appoggia l'iPhone sul retro, sul tavolo.
+   - [ ] La cifra è tra 0,0° e 0,5°, non 9,2°.
+   - [ ] Impostazioni → Calibrazione: tutte e cinque le righe dicono "Non calibrato" e la riga "Ripristina calibrazione" non c'è.
 
-1. Apri l'app con l'iPhone in mano, verticale.
-- [ ] Nessuna richiesta di permessi (il sensore di movimento non ne chiede).
-- [ ] Titolo "Sbu Level", sopra "INCLINAZIONE", la cifra al decimo con "°" e il quadratino in accento, sotto "Sul bordo".
-- [ ] Quadrante con tacche, 0° in alto e in basso, 90° ai lati, 45° in diagonale; lancetta nera verso l'alto e spicchio grigio tra 0° e la lancetta.
-- [ ] In basso le pillole "Calibra" e "Blocca" (lucchetto aperto).
+2. **Bordo inferiore in bolla.** iPhone in piedi sul bordo inferiore, sul tavolo, tenuto dritto con un dito.
+   - [ ] La cifra è tra 0,0° e 0,5°. Contesto "Sul bordo", oppure "In bolla" se legge 0,0.
+   - [ ] Quando la cifra arriva a 0,0 senti una sola vibrazione e il contesto dice "In bolla".
 
-## 2. Clinometro 0–90° (il bug dei ±45° è risolto)
+3. **Da 0 a 90 senza salti (il vecchio errore dei ±45°).** Dal punto 2, ruota l'iPhone lentamente in senso orario, restando sul piano dello schermo, fino a farlo poggiare sul bordo laterale.
+   - [ ] La cifra sale con continuità: passa per 30, 45, 60, 75 e arriva tra 89,5° e 90,0°. Non scende mai, in nessun punto (prima a 60° si leggeva 30°).
+   - [ ] Sul bordo laterale a 90,0 il contesto dice "In bolla".
+   - [ ] Ripeti in senso antiorario fino all'altro bordo laterale: stesso risultato.
 
-Precondizioni: nessuna calibrazione (Impostazioni → Calibrazione: tutti "Non calibrata").
+4. **Bordo superiore.** Capovolgi l'iPhone sul bordo superiore.
+   - [ ] La cifra è tra 0,0° e 0,5°; la lancetta punta verso lo 0° in basso nel quadrante e lo spicchio grigio parte da lì.
 
-1. Appoggia il bordo inferiore sul tavolo, iPhone in piedi.
-- [ ] Legge circa 0,0° e "In bolla"; una vibrazione quando arriva a 0,0.
-2. Inclina lentamente l'iPhone verso destra fino a metterlo sul bordo destro, guardando la cifra.
-- [ ] La cifra sale con continuità da 0 a 90 senza saltare: a metà strada passa per 45, poi 60, 70, 80. Non torna mai indietro verso 30 (prima 60° si leggeva 30°).
-- [ ] Sul bordo destro appoggiato al tavolo legge circa 90,0° e "In bolla".
-3. Ripeti verso sinistra fino al bordo sinistro.
-- [ ] Stesso comportamento, circa 90,0° sul bordo sinistro.
-4. Capovolgi l'iPhone sul bordo superiore.
-- [ ] Circa 0,0°, "In bolla"; la lancetta punta verso lo 0° in basso e lo spicchio parte da lì.
-5. Tieni l'iPhone fermo attorno a 45° (a metà tra due bordi) e muovilo di un grado avanti e indietro.
-- [ ] La cifra cambia in modo continuo, niente salti né sfarfallio.
+5. **Nessun sfarfallio sulla diagonale.** Tieni l'iPhone a circa 45° tra due bordi e oscillalo di ±2°.
+   - [ ] Cifra e lancetta si muovono con continuità; nessun salto di valore.
 
-## 3. Angoli noti
+6. **Stipite verticale.** Appoggia un bordo laterale contro lo stipite di una porta, con l'iPhone in verticale.
+   - [ ] Legge 0,0° ± 0,3° (lo stipite è verticale, quindi il bordo inferiore è in bolla). Annota: ____
 
-1. Stipite della porta: appoggia il bordo destro (o sinistro) dell'iPhone, in verticale, contro lo stipite.
-- [ ] Legge 0,0° ± 0,2° (lo stipite è verticale, quindi il bordo inferiore è in bolla). Annota il valore: ___
-2. Pavimento: appoggia il bordo inferiore a terra.
-- [ ] 0,0° ± 0,2°. Annota: ___
-3. Oggetto a 45°: appoggia il bordo inferiore sull'ipotenusa della squadra posata sul tavolo.
-- [ ] 45,0° ± 0,5°. Annota: ___
-4. Stesso oggetto, bordo destro sull'ipotenusa (iPhone in orizzontale).
-- [ ] 45,0° ± 0,5° (sul bordo laterale il quadrante legge l'angolo dal verticale: 90 − 45 = 45).
-5. Una rampa o un tetto di cui conosci la pendenza, se ce l'hai.
-- [ ] Il valore torna con quello noto. Annota: ___
+7. **Angolo noto di 45°.** Squadra posata sul tavolo, bordo inferiore dell'iPhone sull'ipotenusa.
+   - [ ] Legge 45,0° ± 0,5°. Annota: ____
+   - [ ] Con il bordo laterale sull'ipotenusa (iPhone in orizzontale) legge ancora 45,0° ± 0,5° (90 − 45).
 
-## 4. Passaggio bolla ↔ clinometro
+8. **Passaggio alla bolla con isteresi.** Dal bordo inferiore, abbassa lentamente l'iPhone verso il tavolo, schermo in su.
+   - [ ] Sotto i 40° circa di inclinazione dello schermo il quadrante sfuma nella bolla (cerchio pieno), le etichette 0°/45°/90° spariscono.
+   - [ ] Rialzandolo di 5–8° resta bolla; torna quadrante solo oltre i 50° circa. Nessun va e vieni vicino alla soglia.
 
-1. Appoggia l'iPhone sul tavolo, schermo in su.
-- [ ] Il quadrante passa con una dissolvenza alla bolla (cerchio nero), le etichette 0°/45°/90° spariscono, contesto "In piano" o "In bolla".
-2. Solleva piano il lato superiore: verso i 45° rispetto al tavolo passa a clinometro. Ora riabbassalo di poco.
-- [ ] Il cambio avviene una volta sola: vicino alla soglia la vista non sfarfalla tra bolla e quadrante (tiene la modalità per circa 5° oltre la soglia).
-3. In piano, inclina verso destra.
-- [ ] La bolla va verso sinistra (lato alto), come una livella vera.
+9. **Bolla.** iPhone sul retro, sul tavolo. Infila il libro sotto il lato destro.
+   - [ ] La bolla va a sinistra (lato alto). Contesto "In piano".
+   - [ ] Togli il libro: la cifra torna sotto 0,5°.
 
-## 5. Blocco della lettura
+10. **Calibrazione su una superficie inclinata (bordo).** Libro sotto un lato del tagliere: inclinazione di 1–3°. Fai un segno a matita. Bordo inferiore sul segno, tocca "Calibra".
+    - [ ] Foglio a metà schermo: titolo "Calibrazione", "Passo 1 di 2", riga "Lato: Bordo inferiore", pulsante "Misura" visibile senza scorrere.
+    - Tocca "Misura" senza toccare l'iPhone.
+    - [ ] Barra "Misura in corso: tieni fermo l'iPhone" per circa 1 secondo, poi "Passo 2 di 2".
+    - Gira l'iPhone di 180° (lo schermo guarda dall'altra parte), stesso bordo, stesso segno, tocca "Misura".
+    - [ ] Dopo circa 1 secondo: in cima "Calibrata" con spunta verde, pulsante "Fine" in alto a destra.
+    - Tocca "Fine". Rimettilo sul segno nel verso del passo 1, poi in quello del passo 2.
+    - [ ] Le due letture differiscono al massimo di 0,1° (sono la pendenza del tagliere).
 
-1. Metti l'iPhone su un bordo a un angolo qualsiasi, tocca "Blocca".
-- [ ] La pillola diventa "Sblocca" con lucchetto chiuso e fondo più scuro, in grassetto (lo stato si capisce senza colore).
-- [ ] Sotto la cifra: lucchetto + "Lettura bloccata".
-2. Muovi l'iPhone in ogni direzione, anche in piano.
-- [ ] Cifra, lancetta e bolla restano ferme. Nessuna vibrazione anche passando per lo 0.
-3. Tocca "Sblocca".
-- [ ] La cifra torna a seguire l'iPhone.
+11. **Calibrazione rifiutata.** Apri "Calibra", tocca "Misura" con l'iPhone sul bordo inferiore, poi al passo 2 alzalo di circa 10° prima di toccare "Misura".
+    - [ ] Avviso con triangolo: "La superficie è troppo inclinata o l'iPhone si è mosso. Riprova su una superficie stabile." Il foglio torna a "Passo 1 di 2". In Impostazioni la calibrazione di quel lato non cambia.
 
-## 6. Schermo sempre acceso
+12. **Movimento durante la misura.** Tocca "Misura" e muovi l'iPhone durante la barra.
+    - [ ] Avviso: "L'iPhone si è mosso: la misura ricomincia." La barra riparte da zero.
 
-Precondizioni: Impostazioni iOS → Schermo e luminosità → Blocco automatico a 30 secondi.
+13. **Lato sbagliato al passo 2.** Passo 1 sul bordo inferiore, passo 2 appoggiato sul bordo destro.
+    - [ ] Avviso: "Appoggia l'iPhone sullo stesso lato della prima misura." Non passa a "Calibrata" finché non torni sul bordo inferiore.
 
-1. Apri l'app e lasciala ferma 2 minuti senza toccarla.
-- [ ] Lo schermo non si spegne.
-2. Impostazioni dell'app → "Schermo sempre acceso" spento, chiudi le impostazioni, aspetta 1 minuto.
-- [ ] Lo schermo si spegne dopo i 30 secondi.
-3. Riaccendilo, torna nell'app, riaccendi l'interruttore. Vai alla Home e aspetta 1 minuto.
-- [ ] Fuori dall'app lo schermo si spegne normalmente.
-- [ ] Riaprendo l'app l'interruttore è ancora acceso (si ricorda la scelta).
+14. **Calibrazione del piano.** iPhone sul retro, sul tagliere inclinato. Calibra, gira di 180° sul posto, calibra.
+    - [ ] "Lato: Piano", poi "Calibrata". Dopo, nei due versi la cifra differisce al massimo di 0,1°.
 
-## 7. Calibrazione in due passi
+15. **Schermo sempre acceso.** Impostazioni iOS → Blocco automatico: 30 secondi. Apri l'app e non toccarla per 2 minuti.
+    - [ ] Lo schermo resta acceso.
+    - Impostazioni dell'app → spegni "Schermo sempre acceso", chiudi e aspetta 40 secondi.
+    - [ ] Lo schermo si spegne.
+    - Riaccendi l'interruttore, vai alla Home e aspetta 40 secondi.
+    - [ ] Fuori dall'app lo schermo si spegne. Riaprendo l'app l'interruttore è ancora acceso.
 
-Precondizioni: superficie leggermente inclinata (1–3°, per esempio un tagliere con un libro sotto un lato). Segna con una matita il punto dove appoggi l'iPhone.
+16. **Blocco.** Sul bordo a circa 20°, tocca "Blocca".
+    - [ ] La pillola diventa "Sblocca" con lucchetto chiuso, fondo più scuro e testo in grassetto. Sotto la cifra: lucchetto e "Lettura bloccata".
+    - Muovi l'iPhone ovunque, anche fino a 0,0.
+    - [ ] Cifra e lancetta restano ferme; nessuna vibrazione.
+    - Tocca "Sblocca".
+    - [ ] La cifra torna a seguire l'iPhone.
 
-1. Appoggia il bordo inferiore sulla superficie, sul segno. Tocca "Calibra".
-- [ ] Si apre un foglio a metà schermo: "Lato: Bordo inferiore", "Passo 1 di 2", "Misura". Il quadrante resta visibile sopra.
-2. Tocca "Misura" senza toccare l'iPhone.
-- [ ] Barra di avanzamento "Misura in corso: tieni fermo l'iPhone" per circa un secondo, poi "Passo 2 di 2".
-3. Gira l'iPhone di 180° (lo schermo ora guarda dall'altra parte), stesso bordo, stesso punto. Tocca "Misura".
-- [ ] Dopo un secondo: "Risultato", spunta verde e "Calibrata", pulsante "Fine".
-4. Tocca "Fine". Rimetti l'iPhone sulla superficie inclinata nel verso del passo 1, poi in quello del passo 2.
-- [ ] Le due letture sono uguali (la pendenza della superficie), con al massimo 0,1° di differenza. Prima di calibrare potevano differire.
-5. Ripeti per bordo destro, bordo sinistro, bordo superiore e per il piano (iPhone appoggiato sul retro, giro di 180° sul tavolo).
-- [ ] Il lato nel foglio si riconosce da solo ogni volta ("Bordo destro", "Piano", ecc.).
-6. Durante un passo, tocca "Misura" e muovi l'iPhone.
-- [ ] Avviso in arancione con triangolo: "L'iPhone si è mosso: la misura ricomincia." La barra riparte da zero.
-7. Al passo 2 appoggia l'iPhone su un altro lato.
-- [ ] Avviso: "Appoggia l'iPhone sullo stesso lato della prima misura." Non prosegue finché non torni sul lato giusto.
-8. Apri "Calibra" e tocca "Annulla" al passo 2.
-- [ ] Il foglio si chiude, la calibrazione di quel lato non cambia.
+## B. Impostazioni e stato
 
-## 8. Impostazioni: stato e ripristino per lato
+17. **Ripristino per lato.** Con almeno due lati calibrati (punti 10 e 14): Impostazioni → "Ripristina calibrazione".
+    - [ ] Conferma con titolo "Ripristina calibrazione", testo "Il lato scelto torna alla lettura del sensore, senza correzioni.", un pulsante rosso per ogni lato calibrato e "Tutti i lati".
+    - Scegli "Bordo inferiore".
+    - [ ] Solo "Bordo inferiore" diventa "Non calibrato"; "Piano" resta "Calibrato".
+    - [ ] Chiudi l'app dal multitasking e riaprila: lo stato è lo stesso.
 
-1. Apri Impostazioni (ingranaggio).
-- [ ] Sezione "Durante la misura" con "Schermo sempre acceso".
-- [ ] Sezione "Calibrazione" con Piano, Bordo inferiore, Bordo destro, Bordo superiore, Bordo sinistro e accanto "Calibrata" o "Non calibrata".
-- [ ] Riga "Calibra" (apre lo stesso foglio del punto 7) e, solo se almeno un lato è calibrato, "Ripristina calibrazione" in rosso.
-2. Tocca "Ripristina calibrazione".
-- [ ] Conferma con titolo "Ripristina calibrazione", un pulsante per ogni lato calibrato e "Tutti i lati" se sono più di uno.
-3. Scegli un solo lato.
-- [ ] Solo quel lato torna "Non calibrata"; gli altri restano.
-4. Chiudi e riapri l'app.
-- [ ] Le calibrazioni rimaste sono ancora lì.
+18. **Calibra da Impostazioni.** Impostazioni → riga "Calibra".
+    - [ ] Si apre lo stesso foglio di calibrazione, sopra le Impostazioni; "Annulla" lo chiude e torni alle Impostazioni.
 
-## 9. Aggiornamento da una build precedente
+## C. Accessibilità, aspetto, lingua
 
-Precondizioni: una build precedente (TestFlight 1.0 build 1) già calibrata con il vecchio "Calibra" a un passo.
+19. **VoiceOver.** Attiva VoiceOver.
+    - [ ] La cifra si legge come un solo elemento: "Inclinazione, <valore> gradi, Sul bordo" (o "In bolla"/"In piano"). Il quadrante non viene letto.
+    - [ ] Doppio tocco su "Blocca": annuncia "Lettura bloccata, <valore>°". Su "Sblocca": "Lettura sbloccata".
+    - [ ] Nel foglio di calibrazione si raggiungono "Lato", il passo, "Misura" e, alla fine, "Calibrata".
 
-1. Installa sopra questa build senza cancellare l'app.
-- [ ] Le letture sono uguali a prima: la vecchia calibrazione vale per tutti e quattro i bordi finché non ricalibri.
-- [ ] In Impostazioni i lati risultano "Calibrata".
+20. **Testo più grande.** Accessibilità → Testo più grande al massimo.
+    - [ ] Cifra, "INCLINAZIONE" e contesto interi. Le pillole sono una sopra l'altra con parole intere. Il quadrante è più piccolo, etichette leggibili.
+    - [ ] Il foglio di calibrazione si apre a tutto schermo; scorrendo si arriva a "Misura".
 
-## 10. Testo grande
+21. **Tema scuro.** 
+    - [ ] Fondo nero caldo, cifra e lancetta chiare, spicchio visibile, quadratino in accento; foglio e Impostazioni leggibili.
 
-1. Impostazioni iOS → Accessibilità → Schermo e dimensione testo → Testo più grande, massimo.
-- [ ] Cifra, "INCLINAZIONE" e contesto grandi e interi; il quadrante si rimpicciolisce ma resta leggibile (le etichette del quadrante smettono di crescere oltre una certa misura, di proposito).
-- [ ] Le pillole "Calibra" e "Blocca" stanno una sopra l'altra, parole intere.
-- [ ] Il foglio di calibrazione si apre a tutto schermo e si scorre fino a "Misura".
-- [ ] Impostazioni leggibili, niente testo tagliato.
+22. **Inglese.** Impostazioni iOS → App → Sbu Level → Lingua → English.
+    - [ ] Cifra con il punto (32.4). "TILT", "On its edge", "Calibrate", "Lock"/"Unlock", "Reading locked".
+    - [ ] Foglio: "Side", "Step 1 of 2", "Measure", "Calibrated", "Calibrate another side". Impostazioni: "While measuring", "Keep screen on", "Bottom edge", "Calibrated"/"Not calibrated", "Reset calibration", "All sides".
 
-## 11. VoiceOver
-
-1. Attiva VoiceOver, apri l'app.
-- [ ] La cifra si legge come un elemento solo: "Inclinazione, 32,4 gradi, Sul bordo" (o simile). Il quadrante non viene letto.
-- [ ] "Calibra" e "Blocca" sono pulsanti.
-2. Tocca due volte "Blocca".
-- [ ] VoiceOver annuncia "Lettura bloccata, <valore>°". Il pulsante ora dice "Sblocca", selezionato.
-3. Tocca due volte "Sblocca".
-- [ ] Annuncia "Lettura sbloccata".
-4. Fai una calibrazione con VoiceOver.
-- [ ] Si arriva a "Misura", il passo e gli avvisi si leggono; "Calibrata" alla fine.
-
-## 12. Tema scuro
-
-1. Attiva il tema scuro.
-- [ ] Fondo nero caldo, cifra e lancetta chiare, spicchio visibile ma discreto, quadratino in accento.
-- [ ] Foglio di calibrazione e Impostazioni leggibili.
-
-## 13. Inglese
-
-1. Impostazioni iOS → App → Sbu Level → Lingua → English.
-- [ ] "TILT", "On its edge", "Calibrate", "Lock"/"Unlock", "Reading locked".
-- [ ] Foglio: "Side", "Step 1 of 2", "Measure", "Calibrated", "Calibrate another side".
-- [ ] Impostazioni: "While measuring", "Keep screen on", "Bottom edge" ecc., "Reset calibration", "All sides".
-- [ ] La cifra usa il punto decimale (32.4).
-
-## 14. Sensore assente
-
-Non verificabile su iPhone (tutti hanno il sensore). Nel simulatore senza dati finti si vede "Sensore di movimento non disponibile" e le pillole sono disattivate.
-- [ ] Solo da controllare a vista se capita su un dispositivo strano.
+23. **iPhone piccolo** (se ne hai uno: SE o mini).
+    - [ ] Schermata principale senza nulla tagliato; nel foglio di calibrazione "Misura" è visibile senza scorrere ai passi 1 e 2.

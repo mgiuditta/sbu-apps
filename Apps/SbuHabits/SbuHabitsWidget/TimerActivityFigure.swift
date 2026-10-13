@@ -1,8 +1,12 @@
 import SbuKit
 import SwiftUI
 
-/// The time left, the activity's one figure, closed by the full stop as on the Timer: counted by
-/// the system while it runs, still while paused, "Fatta" once done.
+/// The time left, the activity's one figure: counted by the system while it runs, still while
+/// paused, "Fatta" once done.
+///
+/// The full stop comes only with "Fatta": the system's countdown takes the width of its longest
+/// reading, so a square after it would float away from the last digit, and a countdown still
+/// open has nothing to close yet. Done, the activity closes with its full stop, as Sbu does.
 struct TimerActivityFigure: View {
     @ScaledMetric(relativeTo: .largeTitle) private var size = SbuTheme.statSize
 
@@ -14,12 +18,13 @@ struct TimerActivityFigure: View {
                 .font(SbuTheme.numberFont(size: size))
                 .tracking(SbuTheme.statTracking)
                 // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
-                .padding(.trailing, -SbuTheme.statTracking)
+                .padding(.trailing, face.isDone ? -SbuTheme.statTracking : 0)
                 .foregroundStyle(SbuTheme.ink)
                 .lineLimit(1)
-                .minimumScaleFactor(0.5)
 
-            SbuFullStop(fontSize: size)
+            if face.isDone {
+                SbuFullStop(fontSize: size)
+            }
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(face.isDone ? Text("Fatta") : Text("Tempo rimanente"))
@@ -27,12 +32,8 @@ struct TimerActivityFigure: View {
 
     @ViewBuilder private var figure: some View {
         if let countdown = face.countdown {
+            // Never `fixedSize()` here: the Live Activity then fails to draw at all.
             Text(timerInterval: countdown, countsDown: true)
-                .monospacedDigit()
-                // The system's countdown takes the width of its longest reading: hug the start so the
-                // full stop stays close to the last digit.
-                .multilineTextAlignment(.leading)
-                .fixedSize()
         } else if let remaining = face.remaining {
             Text(remaining, format: face.clock)
                 .accessibilityValue(Text(remaining, format: TimerFormat.spoken))

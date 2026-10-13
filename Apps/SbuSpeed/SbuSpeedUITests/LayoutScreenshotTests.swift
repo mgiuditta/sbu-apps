@@ -17,12 +17,30 @@ final class LayoutScreenshotTests: XCTestCase {
             XCUIDevice.shared.orientation = orientation
             // Let the rotation settle before the screenshot.
             Thread.sleep(forTimeInterval: 1.5)
-            let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-            attachment.name = "\(name)-\(orientation == .portrait ? "portrait" : "landscape")"
-            attachment.lifetime = .keepAlways
-            add(attachment)
+            add(screenshot(named: "\(name)-\(orientation == .portrait ? "portrait" : "landscape")"))
         }
         XCUIDevice.shared.orientation = .portrait
+    }
+
+    /// The tool screen and the settings in English, with knots: run it with the simulator in dark mode too.
+    @MainActor
+    func testEnglishWithKnots() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-FASTLANE_SNAPSHOT", "YES", "-unit", "knots"]
+        app.launch()
+        XCTAssertTrue(app.buttons["Reset trip"].waitForExistence(timeout: 5))
+        add(screenshot(named: "english-knots-main"))
+
+        app.buttons["Settings"].tap()
+        XCTAssertTrue(app.staticTexts["Distance follows speed: kilometres with km/h, miles with mph, nautical miles with knots."].waitForExistence(timeout: 5))
+        add(screenshot(named: "english-knots-settings"))
+    }
+
+    private func screenshot(named name: String) -> XCTAttachment {
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        return attachment
     }
 
     @MainActor

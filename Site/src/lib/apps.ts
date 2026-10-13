@@ -1,9 +1,36 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n';
 
 const icons = import.meta.glob<string>('../../../Design/icons/*.png', { query: '?url', import: 'default', eager: true });
 // The engraving alone, as an ink mask (white = ink): the app page draws it in `ink`, so it follows the theme.
-const engravings = import.meta.glob<string>('../../../Design/icons/source/*.png', { query: '?url', import: 'default', eager: true });
+const engravings = import.meta.glob<ImageMetadata>('../../../Design/icons/source/*.png', { import: 'default', eager: true });
+
+/** The ink mask as a small WebP: the 1024px originals weigh up to 950 kB. Luminance masking works on any image. */
+async function engraving(slug: string, width: number): Promise<string | undefined> {
+  const source = engravings[`../../../Design/icons/source/sbu-${slug}.png`];
+  return source ? (await getImage({ src: source, width, format: 'webp' })).src : undefined;
+}
+
+/** Every engraving in one size, for pages that pick one (the backdrop). */
+export async function allEngravings(width: number): Promise<string[]> {
+  return Promise.all(Object.values(engravings).map(async (src) => (await getImage({ src, width, format: 'webp' })).src));
+}
+
+const RESEARCH = resolve(process.cwd(), '..', 'research');
+
+/** The Originale's price in the content file must match the public listing saved by Tools/discover.py. */
+function checkPrice(slug: string, originale: { appStoreId: number; price?: number }) {
+  const meta = resolve(RESEARCH, String(originale.appStoreId), 'meta.json');
+  if (originale.price === undefined || !existsSync(meta)) return;
+  const listed = JSON.parse(readFileSync(meta, 'utf8')) as { price?: number; currency?: string };
+  if (listed.currency === 'EUR' && listed.price !== originale.price) {
+    throw new Error(`apps/${slug}: originale.price ${originale.price} but research/${originale.appStoreId}/meta.json says ${listed.price}`);
+  }
+}
 
 function icon(slug: string): string | undefined {
   return icons[`../../../Design/icons/sbu-${slug}.png`];
@@ -22,12 +49,15 @@ export async function getApps() {
       const png = icon(app.id);
       if (!listing) return undefined;
       if (!png) throw new Error(`Missing Design/icons/sbu-${app.id}.png`);
+      if (app.data.originale) checkPrice(app.id, app.data.originale);
       return {
         slug: app.id,
         ...app.data,
         listing: listing.data,
         icon: png,
-        engraving: engravings[`../../../Design/icons/source/sbu-${app.id}.png`],
+        engraving: await engraving(app.id, 640),
+        /** The same engraving small, for lists. */
+        mark: await engraving(app.id, 192),
         storeUrl: app.data.status === 'live' && app.data.appStoreId ? `https://apps.apple.com/app/id${app.data.appStoreId}` : undefined,
       };
     }),
@@ -39,9 +69,9 @@ export async function getApps() {
 export async function getUpcoming() {
   const apps = await getCollection('apps');
   const listed = new Set((await getCollection('listings')).map((listing) => listing.id));
-  return apps
+  const upcoming = await Promise.all(apps
     .filter((app) => !listed.has(app.data.app))
-    .map((app) => {
+    .map(async (app) => {
       const png = icon(app.id);
       if (!png) throw new Error(`Missing Design/icons/sbu-${app.id}.png`);
       if (!app.data.teaser) throw new Error(`apps/${app.id}: an app without a listing needs a teaser`);
@@ -53,9 +83,10 @@ export async function getUpcoming() {
         name: app.data.app.replace(/^Sbu/, 'Sbu '),
         teaser: app.data.teaser,
         icon: png,
+        mark: await engraving(app.id, 192),
       };
-    })
-    .sort((a, b) => a.order - b.order);
+    }));
+  return upcoming.sort((a, b) => a.order - b.order);
 }
 
 export type UpcomingApp = Awaited<ReturnType<typeof getUpcoming>>[number];

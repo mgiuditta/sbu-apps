@@ -22,12 +22,27 @@ final class SymbolPickerFlowTests: XCTestCase {
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Simbolo'")).firstMatch
     }
 
+    /// The Simbolo row, at the end of the form: scrolls down until it is there.
+    @MainActor
+    private func scrollToSymbolRow(in app: XCUIApplication) -> XCUIElement {
+        let row = symbolRow(in: app)
+        XCTAssertTrue(app.navigationBars.buttons["Annulla"].waitForExistence(timeout: 5))
+        for _ in 0..<6 where row.isHittable == false {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(row.isHittable, app.debugDescription)
+        return row
+    }
+
     @MainActor
     func testSearchingAndPickingASymbol() throws {
         let app = launch()
         app.buttons["Aggiungi"].firstMatch.tap()
-        let row = symbolRow(in: app)
-        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        let titleField = app.textFields["Titolo"]
+        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
+        titleField.tap()
+        titleField.typeText("Correre")
+        let row = scrollToSymbolRow(in: app)
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Acqua"), row.debugDescription)
 
         row.tap()
@@ -63,17 +78,16 @@ final class SymbolPickerFlowTests: XCTestCase {
         app.buttons["Corsa"].tap()
 
         XCTAssertTrue(search.waitForNonExistence(timeout: 5))
+        _ = scrollToSymbolRow(in: app)
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Corsa"), row.debugDescription)
 
         // The habit keeps it: it shows again when you edit it.
-        app.textFields["Titolo"].tap()
-        app.textFields["Titolo"].typeText("Correre")
         app.navigationBars.buttons["Aggiungi"].tap()
         let habit = app.descendants(matching: .any).matching(identifier: "Correre").firstMatch
         XCTAssertTrue(habit.waitForExistence(timeout: 5))
         habit.tap()
         app.buttons["Modifica"].tap()
-        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        _ = scrollToSymbolRow(in: app)
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Corsa"), row.debugDescription)
     }
 
@@ -81,7 +95,7 @@ final class SymbolPickerFlowTests: XCTestCase {
     func testASearchWithNoMatchSaysSo() {
         let app = launch()
         app.buttons["Aggiungi"].firstMatch.tap()
-        symbolRow(in: app).tap()
+        scrollToSymbolRow(in: app).tap()
         let search = app.searchFields["Cerca un simbolo"]
         XCTAssertTrue(search.waitForExistence(timeout: 5))
 

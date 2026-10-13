@@ -23,7 +23,7 @@ final class SnapshotTests: XCTestCase {
         XCTAssertEqual(XCTWaiter.wait(for: [hittable], timeout: 5), .completed)
         walking.tap()
         button("Modifica", "Edit", in: app).tap()
-        XCTAssertTrue(element("Collega a Salute", "Link to Health", in: app).exists)
+        XCTAssertTrue(element("Usa i dati di Salute. Consenti l'accesso se iOS lo chiede.", "Uses data from Health. Allow access if iOS asks.", in: app).exists)
         snapshot("03-health")
     }
 

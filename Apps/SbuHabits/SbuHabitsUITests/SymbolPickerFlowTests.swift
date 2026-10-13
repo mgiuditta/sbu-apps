@@ -17,18 +17,13 @@ final class SymbolPickerFlowTests: XCTestCase {
         return app
     }
 
-    @MainActor
-    private func symbolRow(in app: XCUIApplication) -> XCUIElement {
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Simbolo'")).firstMatch
-    }
-
-    /// The Simbolo row, at the end of the form: scrolls down until it is there.
+    /// The round "…" on the form's ring, with the chosen symbol as its value.
     @MainActor
     private func scrollToSymbolRow(in app: XCUIApplication) -> XCUIElement {
-        let row = symbolRow(in: app)
-        XCTAssertTrue(app.navigationBars.buttons["Annulla"].waitForExistence(timeout: 5))
-        for _ in 0..<6 where row.isHittable == false {
-            app.collectionViews.firstMatch.swipeUp()
+        let row = app.buttons["Cambia simbolo"]
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        for _ in 0..<3 where row.isHittable == false {
+            app.collectionViews.firstMatch.swipeDown()
         }
         XCTAssertTrue(row.isHittable, app.debugDescription)
         return row
@@ -82,7 +77,7 @@ final class SymbolPickerFlowTests: XCTestCase {
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Corsa"), row.debugDescription)
 
         // The habit keeps it: it shows again when you edit it.
-        app.navigationBars.buttons["Aggiungi"].tap()
+        app.buttons["Aggiungi abitudine"].tap()
         let habit = app.descendants(matching: .any).matching(identifier: "Correre").firstMatch
         XCTAssertTrue(habit.waitForExistence(timeout: 5))
         habit.tap()

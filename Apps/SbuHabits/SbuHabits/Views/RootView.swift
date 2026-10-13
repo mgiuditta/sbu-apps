@@ -21,7 +21,7 @@ struct RootView: View {
             Group {
                 switch sheet {
                 case .add:
-                    HabitForm(model: model)
+                    AddHabitSheet(model: model)
                 case .edit(let habit):
                     HabitForm(model: model, editing: habit)
                 case .note(let habit, let day):

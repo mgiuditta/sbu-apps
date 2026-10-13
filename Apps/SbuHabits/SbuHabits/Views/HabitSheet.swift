@@ -2,6 +2,7 @@ import Foundation
 
 /// The one sheet RootView shows at a time.
 enum HabitSheet: Identifiable {
+    /// Aggiungi abitudine: the Modelli and Personalizzata, then the form.
     case add
     case edit(Habit)
     /// The Nota del giorno of a habit on a day.

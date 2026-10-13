@@ -8,8 +8,11 @@ Dati solo sul dispositivo.
 Appoggia l'iPhone su una superficie e la bolla ti dice se è in piano. Mettilo su un bordo e diventa un clinometro: leggi l'angolo al decimo di grado.
 
 - Inclinazione in gradi, una cifra grande e leggibile
-- Livella a bolla in piano, clinometro sul bordo, si sceglie da sola
-- Calibrazione su una superficie di riferimento, salvata sull'iPhone
+- Clinometro da 0° a 90° con quadrante e lancetta, su tutti e quattro i bordi
+- Livella a bolla in piano, si sceglie da sola
+- Blocca la lettura e leggila dopo
+- Calibrazione in due misure per ogni lato, anche su una superficie non in bolla
+- Schermo sempre acceso mentre misuri
 - Vibrazione quando sei esattamente in bolla
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 

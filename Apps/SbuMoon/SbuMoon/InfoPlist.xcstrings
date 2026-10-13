@@ -1,0 +1,42 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "The app's name under its icon.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Moon"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Moon"
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "comment" : "The location permission prompt. Asked once, when the user taps Usa la mia posizione; nothing leaves the device.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Moon uses your location once, when you ask, to work out moonrise and moonset. Your location stays on this iPhone."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Moon usa la posizione una volta, quando la chiedi, per calcolare il sorgere e il tramonto della luna. La posizione resta su questo iPhone."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

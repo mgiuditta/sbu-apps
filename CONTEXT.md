@@ -89,6 +89,10 @@ _Avoid_: soglia, tetto, obiettivo
 Un'abitudine da fare collegata a una misura di Salute con un obiettivo al giorno: si segna da sola quando il totale del giorno logico raggiunge l'obiettivo, e conta una volta al giorno. Salute aggiunge soltanto: non toglie mai un segno, e puoi sempre segnarla a mano (se neghi l'accesso, la segni sempre tu). Sbu Habits legge da Salute e non scrive mai; un'**Abitudine da evitare** non si collega.
 _Avoid_: abitudine automatica, sincronizzata, integrazione
 
+**Abitudine condivisa** (_Shared habit_):
+Un'abitudine che il proprietario condivide via iCloud con altre persone: loro la vedono in sola lettura, con storico e statistiche, e scelgono un'emoji per il proprietario. Non si segna, non entra nella loro **Serie piena** né nei loro widget; sparisce quando il proprietario smette di condividerla o la elimina.
+_Avoid_: abitudine di gruppo, abitudine sincronizzata, sfida
+
 ### Sbu Cards
 
 **Nota** (_Note_):

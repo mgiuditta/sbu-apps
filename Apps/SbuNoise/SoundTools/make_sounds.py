@@ -21,6 +21,7 @@ Needs numpy and ffmpeg (decoding the MP3 previews); encodes with macOS afconvert
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -32,9 +33,10 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "SbuNoise", "Sounds")
 RATE = 44_100
-# The generated noises play at about 0.18 RMS (NoiseGenerator): recordings land near it.
-TARGET_RMS_DB = -19.0
-PEAK = 0.79  # -2 dBFS: room for the AAC overshoot
+# Every loop, and every generated noise (NoiseGenerator's gains), sits at the same integrated
+# loudness (EBU R128), so moving between sounds or mixing them needs no volume change.
+TARGET_LUFS = -18.0
+PEAK = 0.63  # -4 dBFS: room for the AAC overshoot on sharp transients (ticks, crackles)
 # Frames of the loop's own end and start added before and after it. AAC cannot rebuild the very
 # first and last samples of a file exactly (its frames overlap their neighbours), which would
 # tick at the seam; the padding takes that error, and SoundEngine.loadLoop skips it.
@@ -53,17 +55,17 @@ def main():
         if args.only and sound["id"] not in args.only:
             continue
         if sound["kind"] == "recording":
-            audio = recording(sound, args.cache)
+            audio = recording(sound, args.cache, sound.get("lufs", TARGET_LUFS))
         else:
             audio = SYNTHS[sound["synth"]](sound["seconds"], np.random.default_rng(sound.get("seed", 1)))
-            audio = normalize(audio)
+            audio = normalize(audio, sound.get("lufs", TARGET_LUFS))
         encode(audio, os.path.join(OUT, sound["id"] + ".caf"), sound.get("format", "aac"))
         print(f'{sound["id"]}: {len(audio) / RATE:.0f} s')
 
 
 # MARK: Recordings
 
-def recording(sound, cache):
+def recording(sound, cache, target):
     path = os.path.join(cache, sound["id"] + ".mp3")
     if not os.path.exists(path):
         request = urllib.request.Request(sound["preview"], headers={"User-Agent": "sbu-noise make_sounds"})
@@ -78,7 +80,11 @@ def recording(sound, cache):
         sys.exit(f'{sound["id"]}: the source is too short for start {sound["start"]} + {sound["seconds"]} s')
     if sound.get("widen"):
         window = widen(window, sound["widen"])
-    return normalize(loop(window, length))
+    if sound.get("lowpass"):
+        # Softens needle-sharp transients (clock ticks) that AAC would push past full scale.
+        from scipy.signal import butter, sosfiltfilt
+        window = sosfiltfilt(butter(4, sound["lowpass"], fs=RATE, output="sos"), window, axis=0)
+    return normalize(loop(window, length), target)
 
 
 def decode(path):
@@ -237,15 +243,36 @@ SYNTHS = {"wind": wind, "air_conditioner": air_conditioner, "airplane": airplane
 
 # MARK: Output
 
-def normalize(audio):
+def loudness(audio):
+    """Integrated loudness in LUFS (EBU R128), measured by ffmpeg."""
+    with tempfile.TemporaryDirectory() as folder:
+        path = os.path.join(folder, "measure.wav")
+        pcm = (np.clip(audio, -1, 1) * 32767).astype("<i2")
+        with wave.open(path, "wb") as file:
+            file.setnchannels(2)
+            file.setsampwidth(2)
+            file.setframerate(RATE)
+            file.writeframes(pcm.tobytes())
+        report = subprocess.run(["ffmpeg", "-nostats", "-i", path, "-af", "ebur128", "-f", "null", "-"], capture_output=True, text=True).stderr
+    return float(re.findall(r"I:\s+(-?[\d.]+) LUFS", report)[-1])
+
+
+def normalize(audio, target=TARGET_LUFS):
     audio = audio - audio.mean(axis=0)
-    rms = np.sqrt(np.mean(audio ** 2))
-    audio = audio * (10 ** (TARGET_RMS_DB / 20) / rms)
+    # The limiter lowers the loudness a little: measure again and correct, twice.
+    for _ in range(3):
+        audio = audio * 10 ** ((target - loudness(audio)) / 20)
+        audio = limit(audio)
+    return audio
+
+
+def limit(audio):
+    """Soft knee above 0.45, so crackles and wave crests are rounded rather than clipped."""
     peak = np.max(np.abs(audio))
     if peak > PEAK:
-        # Soft knee above 0.6, so crackles and wave crests are rounded rather than clipped.
-        knee = 0.6
+        knee = 0.45
         over = np.abs(audio) > knee
+        audio = audio.copy()
         audio[over] = np.sign(audio[over]) * (knee + (PEAK - knee) * np.tanh((np.abs(audio[over]) - knee) / (PEAK - knee)))
     return audio
 

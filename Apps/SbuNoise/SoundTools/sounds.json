@@ -25,13 +25,13 @@
     {"id": "home.washer", "kind": "recording", "page": "https://freesound.org/people/greatsoundstube/sounds/631894/", "author": "greatsoundstube", "title": "washing machine spin cycle 2.wav", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/631/631894_13885154-hq.mp3", "start": 221, "seconds": 60, "widen": 0.35},
     {"id": "home.dishwasher", "kind": "recording", "page": "https://freesound.org/people/one_moment/sounds/850044/", "author": "one_moment", "title": "Dishwasher", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/850/850044_5078736-hq.mp3", "start": 145, "seconds": 60},
     {"id": "home.cat", "kind": "recording", "page": "https://freesound.org/people/Sadiquecat/sounds/855881/", "author": "Sadiquecat", "title": "Elderly female cat purrr (minette)", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/855/855881_5287430-hq.mp3", "start": 43, "seconds": 60, "widen": 0.3},
-    {"id": "home.clock", "kind": "recording", "page": "https://freesound.org/people/photogtony/sounds/242008/", "author": "photogtony", "title": "Clock Ticking.wav", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/242/242008_4363393-hq.mp3", "start": 151, "seconds": 60, "crossfade": 0.05},
-    {"id": "travel.train", "kind": "recording", "page": "https://freesound.org/people/organicmanpl/sounds/464048/", "author": "organicmanpl", "title": "train", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/464/464048_1083532-hq.mp3", "start": 299, "seconds": 60, "widen": 0.35},
+    {"id": "home.clock", "kind": "recording", "page": "https://freesound.org/people/photogtony/sounds/242008/", "author": "photogtony", "title": "Clock Ticking.wav", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/242/242008_4363393-hq.mp3", "start": 151, "seconds": 60, "crossfade": 0.05, "lufs": -21, "lowpass": 7000},
+    {"id": "travel.train", "kind": "recording", "page": "https://freesound.org/people/organicmanpl/sounds/464048/", "author": "organicmanpl", "title": "train", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/464/464048_1083532-hq.mp3", "start": 330, "seconds": 60, "widen": 0.35},
     {"id": "travel.plane", "kind": "synth", "synth": "airplane", "seconds": 60, "seed": 5},
     {"id": "travel.car", "kind": "recording", "page": "https://freesound.org/people/squareal/sounds/237374/", "author": "squareal", "title": "Car Driving Interior", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/237/237374_1502374-hq.mp3", "start": 7, "seconds": 60},
     {"id": "travel.city", "kind": "recording", "page": "https://freesound.org/people/visionear/sounds/723607/", "author": "visionear", "title": "Ciudad de Mexico DF Colonia Roma Busy Street traffic urban city ambience Ed Larez VSNR", "license": "CC0 1.0", "preview": "https://cdn.freesound.org/previews/723/723607_10869493-hq.mp3", "start": 12, "seconds": 60},
-    {"id": "alarm.chimes", "kind": "synth", "synth": "chimes", "seconds": 16},
-    {"id": "alarm.beeps", "kind": "synth", "synth": "beeps", "seconds": 16},
-    {"id": "alarm.notification", "kind": "synth", "synth": "chimes", "seconds": 24, "format": "ima4"}
+    {"id": "alarm.chimes", "kind": "synth", "synth": "chimes", "seconds": 16, "lufs": -14},
+    {"id": "alarm.beeps", "kind": "synth", "synth": "beeps", "seconds": 16, "lufs": -14},
+    {"id": "alarm.notification", "kind": "synth", "synth": "chimes", "seconds": 24, "format": "ima4", "lufs": -14}
   ]
 }

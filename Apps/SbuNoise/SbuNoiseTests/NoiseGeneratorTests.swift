@@ -9,13 +9,21 @@ struct NoiseGeneratorTests {
         return (0..<Self.count).map { _ in generator.next() }
     }
 
-    @Test(arguments: NoiseColor.allCases)
-    func everyColorHasTheSameLoudnessAndNoClipping(_ color: NoiseColor) {
+    /// The RMS that puts each color at −18 LUFS at the output, like the loops (EBU R128 meter on the
+    /// same filters, plus the mixer's 1.2 dB): the redder colors need more RMS to sound as loud.
+    @Test(arguments: [
+        (NoiseColor.white, Float(0.072)),
+        (.pink, 0.108),
+        (.brown, 0.1252),
+        (.blue, 0.0703),
+        (.violet, 0.0702),
+    ] as [(NoiseColor, Float)])
+    func everyColorHasTheSameLoudnessAndNoClipping(_ color: NoiseColor, rms expected: Float) {
         let x = samples(color)
         let mean = x.reduce(0, +) / Float(x.count)
         let rms = (x.reduce(0) { $0 + $1 * $1 } / Float(x.count)).squareRoot()
         #expect(abs(mean) < 0.02)
-        #expect((0.15...0.21).contains(rms))
+        #expect(abs(rms - expected) / expected < 0.08)
         #expect(x.allSatisfy { (-1...1).contains($0) })
     }
 

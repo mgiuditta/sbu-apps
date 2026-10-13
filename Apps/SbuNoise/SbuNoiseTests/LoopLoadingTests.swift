@@ -38,7 +38,8 @@ struct LoopLoadingTests {
         let format = try #require(AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 1))
         let source = try #require(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames))
         source.frameLength = frames
-        // Silence in the padding, a constant in the loop: linear PCM keeps it exact.
+        // Silence in the padding, a constant in the loop: linear PCM keeps it exact, so the fade
+        // from the trailing padding into the loop's start is visible.
         let samples = try #require(source.floatChannelData?[0])
         for frame in 0..<Int(frames) {
             samples[frame] = (Int64(frame) >= padding && Int64(frame) < Int64(frames) - padding) ? 0.5 : 0
@@ -56,6 +57,8 @@ struct LoopLoadingTests {
         let buffer = try SoundEngine.loadLoop(url, padding: padding)
         #expect(buffer.frameLength == 44_100)
         let loaded = try #require(buffer.floatChannelData?[0])
-        #expect(loaded[0] == 0.5 && loaded[44_099] == 0.5)
+        #expect(loaded[0] == 0, "The loop starts as the continuation of its end")
+        #expect(abs(loaded[512] - 0.25) < 0.001)
+        #expect(loaded[1_024] == 0.5 && loaded[44_099] == 0.5)
     }
 }

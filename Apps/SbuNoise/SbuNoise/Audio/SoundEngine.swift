@@ -114,6 +114,19 @@ final class SoundEngine {
         return meter.levels
     }
 
+    /// Root mean square of each output channel over `duration`: how loud the output is.
+    func outputRMS(over duration: Duration) async -> [Float] {
+        let mixer = engine.mainMixerNode
+        let meter = await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                continuation.resume(returning: ChannelMeter.install(on: mixer))
+            }
+        }
+        try? await Task.sleep(for: duration)
+        mixer.removeTap(onBus: 0)
+        return meter.rms
+    }
+
     func removeAll() {
         replaceAll()
         stop()
@@ -144,16 +157,33 @@ final class SoundEngine {
 
     /// Reads an audio file into memory, ready for `addLoop`, without `padding` frames at each end.
     /// `AVAudioFile` drops the AAC priming and remainder frames, so the buffer holds exactly the
-    /// encoded samples.
+    /// encoded samples. With padding, the loop's first frames are faded in from the padding that
+    /// follows its last frame: that padding is the decoded continuation of the end, so the jump
+    /// back to the start is as smooth as any two neighbouring samples (no codec mismatch there).
     nonisolated static func loadLoop(_ url: URL, padding: AVAudioFramePosition = 0) throws -> AVAudioPCMBuffer {
         let file = try AVAudioFile(forReading: url)
         let length = file.length - 2 * padding
-        guard length > 0, let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(length)) else {
+        guard length > 0, let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(length + padding)) else {
             throw CocoaError(.fileReadCorruptFile)
         }
         file.framePosition = padding
-        try file.read(into: buffer, frameCount: AVAudioFrameCount(length))
+        try file.read(into: buffer, frameCount: AVAudioFrameCount(length + padding))
+        foldSeam(buffer, length: AVAudioFrameCount(length), fade: AVAudioFrameCount(min(padding, 1_024)))
+        buffer.frameLength = AVAudioFrameCount(length)
         return buffer
+    }
+
+    /// Blends the first `fade` frames of the loop with the `fade` frames after `length`: at the
+    /// wrap point the loop starts exactly where its own continuation would.
+    nonisolated static func foldSeam(_ buffer: AVAudioPCMBuffer, length: AVAudioFrameCount, fade: AVAudioFrameCount) {
+        guard fade > 0, buffer.frameLength >= length + fade, let channels = buffer.floatChannelData else { return }
+        for channel in 0..<Int(buffer.format.channelCount) {
+            let samples = channels[channel]
+            for frame in 0..<Int(fade) {
+                let weight = Float(frame) / Float(fade)
+                samples[frame] = samples[frame] * weight + samples[Int(length) + frame] * (1 - weight)
+            }
+        }
     }
 
     private func detach(_ id: String) {

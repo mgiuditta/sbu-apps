@@ -12,15 +12,18 @@ struct CalibrationSection: View {
         Section {
             ForEach(CalibrationTarget.allCases, id: \.self) { target in
                 LabeledContent {
-                    Text(model.calibration.isCalibrated(target) ? "Calibrata" : "Non calibrata")
+                    // "Calibrato": it agrees with the side (lato, bordo, piano).
+                    Text(model.calibration.isCalibrated(target) ? "Calibrato" : "Non calibrato")
                         .foregroundStyle(SbuTheme.inkMuted)
                 } label: {
                     Text(target.name)
                 }
             }
 
-            Button("Calibra", action: calibrate)
-                .disabled(model.isMotionAvailable == false)
+            // Without a motion sensor there is nothing to measure: no dead row.
+            if model.isMotionAvailable {
+                Button("Calibra", action: calibrate)
+            }
 
             // A plain row, not a full-width button: a rare action should not outweigh the page.
             if model.isCalibrated {
@@ -40,7 +43,7 @@ struct CalibrationSection: View {
                             }
                         }
                     } message: {
-                        Text("Il lato torna alla lettura del sensore senza correzioni.")
+                        Text("Il lato scelto torna alla lettura del sensore, senza correzioni.")
                     }
             }
         } header: {

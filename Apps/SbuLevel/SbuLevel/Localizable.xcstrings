@@ -111,6 +111,16 @@
         }
       }
     },
+    "Calibrato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calibrated"
+          }
+        }
+      }
+    },
     "Calibrazione" : {
       "localizations" : {
         "en" : {
@@ -151,22 +161,22 @@
         }
       }
     },
+    "Il lato scelto torna alla lettura del sensore, senza correzioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The side you pick goes back to the raw sensor reading."
+          }
+        }
+      }
+    },
     "Il lato si riconosce da come appoggi l'iPhone: un bordo, oppure il retro per la bolla." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The side follows how you place your iPhone: on an edge, or on its back for the bubble."
-          }
-        }
-      }
-    },
-    "Il lato torna alla lettura del sensore senza correzioni." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The side goes back to the sensor reading without corrections."
+            "value" : "The side is detected from how your iPhone rests: on an edge, or on its back for the bubble."
           }
         }
       }
@@ -291,7 +301,7 @@
         }
       }
     },
-    "Non calibrata" : {
+    "Non calibrato" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -134,4 +134,38 @@ struct LevelModelTests {
 
         #expect(abs(model.liveReading.angle - 20) < 1e-9)
     }
+
+    @Test func withoutASensorTheModelSaysSo() async {
+        let model = LevelModel(defaults: defaults, source: NoSensorSource())
+
+        await model.run()
+
+        #expect(model.isMotionAvailable == false)
+        #expect(model.keepsScreenOn(isActive: true))
+    }
+
+    @Test(arguments: [("flat", LevelMode.flat), ("", .edge)])
+    func aLaunchCanAskForAFixedTilt(value: String, mode: LevelMode) throws {
+        defaults.set(value, forKey: "FIXED_GRAVITY")
+        defaults.set(true, forKey: "FASTLANE_SNAPSHOT")
+
+        let source = try #require(FixedGravitySource.requested(in: defaults))
+
+        #expect(LevelReading(gravity: source.gravity, calibration: .none).mode == mode)
+    }
+
+    @Test func aNormalLaunchUsesTheSensor() {
+        #expect(FixedGravitySource.requested(in: defaults) == nil)
+    }
+}
+
+/// A source with no motion sensor, like the simulator.
+private struct NoSensorSource: GravitySource {
+    var isAvailable: Bool { false }
+
+    func gravityUpdates() -> AsyncStream<Gravity> {
+        AsyncStream { $0.finish() }
+    }
+
+    func stop() {}
 }

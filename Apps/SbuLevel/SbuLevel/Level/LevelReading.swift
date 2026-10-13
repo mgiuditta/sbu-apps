@@ -2,8 +2,6 @@ import Foundation
 
 /// What the level shows for one gravity sample: mode, resting edge, angle and bubble position.
 nonisolated struct LevelReading: Equatable, Sendable {
-    /// Below this deviation the iPhone counts as level: it is what rounds to "0,0" at one decimal.
-    static let levelTolerance = 0.05
     /// Tilt at which the bubble reaches the edge of its circle.
     static let bubbleRange = 10.0
     /// Tilt from flat, in degrees, where lying flat turns into standing on an edge.
@@ -28,7 +26,22 @@ nonisolated struct LevelReading: Equatable, Sendable {
     var bubbleX: Double
     var bubbleY: Double
 
-    var isLevel: Bool { abs(deviation) < Self.levelTolerance }
+    /// The angle as shown: rounded half away from zero to a tenth, never negative, so it reads
+    /// "0,0" and never "-0,0". The figure formats exactly this value.
+    var displayedAngle: Double {
+        abs((angle * 10).rounded(.toNearestOrAwayFromZero) / 10)
+    }
+
+    /// The angle the figure shows when the iPhone is level: 90° on a side edge, 0° otherwise.
+    var levelAngle: Double {
+        switch edge {
+        case .left, .right: 90
+        case .bottom, .top, nil: 0
+        }
+    }
+
+    /// Level when the figure shows the level angle: "In bolla" and the figure always agree.
+    var isLevel: Bool { displayedAngle == levelAngle }
 
     /// What a calibration of this position would set.
     var calibrationTarget: CalibrationTarget {

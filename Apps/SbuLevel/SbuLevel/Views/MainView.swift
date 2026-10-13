@@ -14,9 +14,7 @@ struct MainView: View {
     @State private var isCalibrating = false
 
     private var context: LocalizedStringKey {
-        if model.isMotionAvailable == false {
-            "Sensore di movimento non disponibile"
-        } else if model.isLocked {
+        if model.isLocked {
             "Lettura bloccata"
         } else if model.reading.isLevel {
             "In bolla"
@@ -34,26 +32,36 @@ struct MainView: View {
     }
 
     private var keepsScreenOn: Bool {
-        model.keepsScreenOn(isActive: scenePhase == .active)
+        model.isMotionAvailable && model.keepsScreenOn(isActive: scenePhase == .active)
     }
 
     var body: some View {
-        SbuToolField(
-            "Inclinazione",
-            value: model.reading.angle,
-            format: Self.format,
-            unit: "°",
-            context: context,
-            contextSystemImage: model.isLocked ? "lock.fill" : nil
-        ) {
-            LevelIndicator(reading: model.reading)
-                .frame(maxWidth: 320)
-        } pills: {
-            // Side by side, or stacked with accessibility text sizes, where they would break the words.
-            pillsLayout {
-                LevelPills(isLocked: model.isLocked, calibrate: calibrate, toggleLock: toggleLock)
+        Group {
+            if model.isMotionAvailable {
+                SbuToolField(
+                    "Inclinazione",
+                    value: model.reading.displayedAngle,
+                    format: Self.format,
+                    unit: "°",
+                    context: context,
+                    contextSystemImage: model.isLocked ? "lock.fill" : nil
+                ) {
+                    LevelIndicator(reading: model.reading)
+                        .frame(maxWidth: 320)
+                } pills: {
+                    // Side by side, or stacked with accessibility text sizes, where they would break the words.
+                    pillsLayout {
+                        LevelPills(isLocked: model.isLocked, calibrate: calibrate, toggleLock: toggleLock)
+                    }
+                }
+            } else {
+                // No figure and no controls: a 0,0 or a Calibra here would promise a reading there isn't.
+                SbuToolField("Inclinazione", context: "Sensore di movimento non disponibile") {
+                    EmptyView()
+                } pills: {
+                    EmptyView()
+                }
             }
-            .disabled(model.isMotionAvailable == false)
         }
         .sensoryFeedback(.success, trigger: model.reading.isLevel) { _, isLevel in isLevel }
         .sheet(isPresented: $isCalibrating, onDismiss: model.endCalibration) {
@@ -78,7 +86,7 @@ struct MainView: View {
     private func toggleLock() {
         model.toggleLock()
         let message = if model.isLocked {
-            String(localized: "Lettura bloccata, \(model.reading.angle.formatted(Self.format))°")
+            String(localized: "Lettura bloccata, \(model.reading.displayedAngle.formatted(Self.format))°")
         } else {
             String(localized: "Lettura sbloccata")
         }

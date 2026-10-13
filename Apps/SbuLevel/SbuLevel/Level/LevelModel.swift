@@ -34,7 +34,13 @@ final class LevelModel {
     ///     and UI tests, which run in the simulator without a motion sensor.
     init(defaults: UserDefaults = .standard, source: (any GravitySource)? = nil) {
         self.defaults = defaults
-        self.source = source ?? (defaults.bool(forKey: "FASTLANE_SNAPSHOT") ? FixedGravitySource.screenshot : MotionSource())
+        if let source {
+            self.source = source
+        } else if let fixed = FixedGravitySource.requested(in: defaults) {
+            self.source = fixed
+        } else {
+            self.source = MotionSource()
+        }
         calibration = defaults.data(forKey: Self.calibrationKey)
             .flatMap { try? JSONDecoder().decode(Calibration.self, from: $0) } ?? .none
         keepsScreenAwake = defaults.object(forKey: Self.keepsScreenAwakeKey) as? Bool ?? true

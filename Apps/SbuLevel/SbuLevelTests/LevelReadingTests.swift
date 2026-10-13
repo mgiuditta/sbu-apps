@@ -102,11 +102,63 @@ struct LevelReadingTests {
         #expect(slightly.bubbleY == 0)
     }
 
-    @Test(arguments: [(0.0, true), (0.04, true), (0.05, false), (-0.04, true), (2.4, false)])
-    func levelMeansTheDeviationRoundsToZero(deviation: Double, isLevel: Bool) {
-        let reading = LevelReading(mode: .edge, edge: .bottom, angle: abs(deviation), deviation: deviation, rotation: deviation, bubbleX: 0, bubbleY: 0)
+    /// "In bolla" exactly when the figure shows the level angle, on every edge and flat.
+    @Test(arguments: [
+        (0.0, true), (0.04, true), (-0.04, true), (0.049, true), (0.051, false), (-0.06, false), (2.4, false),
+        (90, true), (89.96, true), (90.04, true), (89.94, false), (-90.04, true), (-89.94, false),
+        (180, true), (179.96, true), (-179.96, true), (179.94, false),
+    ])
+    func levelMeansTheFigureShowsTheLevelAngle(rotation: Double, isLevel: Bool) {
+        let reading = LevelReading(gravity: .standing(rotatedBy: rotation), calibration: .none)
 
         #expect(reading.isLevel == isLevel)
+    }
+
+    @Test(arguments: [0.0, 0.04, 1.5, 3])
+    func levelOnTheBubbleMeansTheFigureShowsZero(tilt: Double) {
+        let reading = LevelReading(gravity: .lying(tiltedBy: tilt), calibration: .none)
+
+        #expect(reading.isLevel == (tilt < 0.05))
+    }
+
+    /// Near zero on either side the figure reads "0,0", never "-0,0"; near 90 it reads "90,0".
+    @Test(arguments: [
+        (0.04, "it_IT", "0,0"), (-0.04, "it_IT", "0,0"), (-0.04, "en_US", "0.0"), (0.0, "it_IT", "0,0"),
+        (-0.06, "it_IT", "0,1"), (89.96, "it_IT", "90,0"), (-89.96, "en_US", "90.0"), (180.04, "it_IT", "0,0"),
+        (-179.96, "it_IT", "0,0"), (32.44, "it_IT", "32,4"), (32.46, "en_US", "32.5"),
+    ])
+    func theFigureNeverShowsMinusZero(rotation: Double, identifier: String, expected: String) {
+        let reading = LevelReading(gravity: .standing(rotatedBy: rotation), calibration: .none)
+        let format = FloatingPointFormatStyle<Double>.number.precision(.fractionLength(1)).locale(Locale(identifier: identifier))
+
+        #expect(reading.displayedAngle.formatted(format) == expected)
+    }
+
+    /// A small tilt of the bubble near zero also reads "0,0".
+    @Test func theBubbleNeverShowsMinusZero() {
+        let reading = LevelReading(gravity: Gravity(x: -0.0005, y: 0.0003, z: -1), calibration: .none)
+        let format = FloatingPointFormatStyle<Double>.number.precision(.fractionLength(1)).locale(Locale(identifier: "it_IT"))
+
+        #expect(reading.displayedAngle.formatted(format) == "0,0")
+        #expect(reading.isLevel)
+    }
+
+    /// The offset of each edge is subtracted: a sensor that reads `error` too far reads level once calibrated.
+    @Test(arguments: Edge.allCases, [0.7, -0.7])
+    func eachEdgeOffsetIsAppliedWithTheRightSign(edge: Edge, error: Double) {
+        let calibration = Calibration.none.calibrating(
+            .edge(edge),
+            first: .standing(rotatedBy: edge.restingRotation + error),
+            second: .standing(rotatedBy: edge.restingRotation + error)
+        )
+
+        let level = LevelReading(gravity: .standing(rotatedBy: edge.restingRotation + error), calibration: calibration)
+        let tilted = LevelReading(gravity: .standing(rotatedBy: edge.restingRotation + error + 3), calibration: calibration)
+
+        #expect(level.isLevel)
+        #expect(abs(level.deviation) < 1e-9)
+        #expect(abs(tilted.deviation - 3) < 1e-9)
+        #expect(abs(abs(tilted.angle - level.angle) - 3) < 1e-9)
     }
 
     @Test func eachEdgeUsesItsOwnOffset() {

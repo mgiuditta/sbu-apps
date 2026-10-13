@@ -17,6 +17,26 @@ nonisolated enum PrincipalPhase: CaseIterable, Sendable {
         }
     }
 
+    /// How the phase is saved in the settings and named in notification identifiers.
+    var storageKey: String {
+        switch self {
+        case .new: "new"
+        case .firstQuarter: "firstQuarter"
+        case .full: "full"
+        case .lastQuarter: "lastQuarter"
+        }
+    }
+
+    /// The phase's name as text, for a notification.
+    var localizedName: String {
+        switch self {
+        case .new: String(localized: "Luna nuova")
+        case .firstQuarter: String(localized: "Primo quarto")
+        case .full: String(localized: "Luna piena")
+        case .lastQuarter: String(localized: "Ultimo quarto")
+        }
+    }
+
     /// The phase shown on the day this instant falls.
     var phase: MoonPhase {
         switch self {

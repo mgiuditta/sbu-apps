@@ -2,11 +2,23 @@ import SbuKit
 import SwiftUI
 
 /// The tool screen: how lit the moon is as the figure, its phase, the moon drawn as it looks,
-/// the next four phases, its age and distance, and the date shown. Swipe to change day.
+/// moonrise and moonset where the user is, the next four phases, its age and distance, and the
+/// date shown. Swipe to change day.
 struct MainView: View {
     let model: MoonModel
+    let places: PlaceModel
 
     @State private var isPickingDate = false
+    @State private var isPickingPlace = false
+
+    /// The name of the place for rise and set, or `nil` before one is chosen.
+    private var placeName: String? {
+        guard let place = places.place else { return nil }
+        if let city = places.city {
+            return city.name()
+        }
+        return place.isCurrentLocation ? String(localized: "La tua posizione") : nil
+    }
 
     var body: some View {
         // Following now, the figure moves with the clock; a picked date stays still.
@@ -27,6 +39,9 @@ struct MainView: View {
         .sheet(isPresented: $isPickingDate) {
             DatePickerSheet(model: model)
         }
+        .sheet(isPresented: $isPickingPlace) {
+            PlaceSheet(places: places)
+        }
     }
 
     private func toolField(for reading: MoonReading) -> some View {
@@ -41,6 +56,9 @@ struct MainView: View {
         ) {
             VStack(spacing: SbuTheme.space6) {
                 MoonDiscView(disc: reading.disc)
+                RiseSetView(times: riseSet(on: reading.date), placeName: placeName) {
+                    isPickingPlace = true
+                }
                 NextPhasesView(phases: reading.upcomingPhases)
                 MoonDetailsView(age: reading.age, distance: reading.distance)
             }
@@ -57,6 +75,12 @@ struct MainView: View {
                     .accessibilityIdentifier("today")
             }
         }
+    }
+
+    /// Rise and set on the day shown: a city's on its own clock, the iPhone's position on the iPhone's.
+    private func riseSet(on date: Date) -> PlaceRiseSet? {
+        guard let place = places.place else { return nil }
+        return PlaceRiseSet(shownDate: date, coordinates: place.coordinates, timeZone: places.city?.zone, deviceCalendar: .current)
     }
 
     /// A horizontal swipe turns the day: to the left the next one, to the right the previous one.
@@ -80,13 +104,13 @@ struct MainView: View {
 }
 
 #Preview("Light") {
-    MainView(model: MoonModel())
+    MainView(model: MoonModel(), places: PlaceModel())
         .background(SbuTheme.surface)
         .tint(SbuTheme.accentMoon)
 }
 
 #Preview("Dark") {
-    MainView(model: MoonModel())
+    MainView(model: MoonModel(), places: PlaceModel())
         .background(SbuTheme.surface)
         .tint(SbuTheme.accentMoon)
         .preferredColorScheme(.dark)

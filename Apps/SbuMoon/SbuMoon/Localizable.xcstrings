@@ -1,109 +1,460 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Avvisi di fase" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phase alerts"
+          }
+        }
+      }
+    },
     "Calcolo" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calculation" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculation"
+          }
+        }
+      }
+    },
+    "Cerca una città" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a city"
+          }
+        }
+      }
+    },
+    "Città" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cities"
+          }
+        }
       }
     },
     "Data" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Date" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
+          }
+        }
       }
     },
     "Distanza dalla Terra" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Distance from Earth" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distance from Earth"
+          }
+        }
       }
     },
     "Età della luna" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Moon age" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moon age"
+          }
+        }
       }
     },
-    "Fasi calcolate su questo iPhone con gli algoritmi di Jean Meeus, senza rete e senza posizione. Gli orari hanno un errore di qualche minuto." : {
+    "Fasi, sorgere e tramonto calcolati su questo iPhone con gli algoritmi di Jean Meeus, senza rete. Gli orari hanno un errore di qualche minuto." : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Phases worked out on this iPhone with Jean Meeus's algorithms, with no network and no location. Times are accurate to within a few minutes." } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phases, moonrise and moonset worked out on this iPhone with Jean Meeus's algorithms, without network. Times can be off by a few minutes."
+          }
+        }
       }
     },
     "Fine" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
       }
     },
     "Fuso orario" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time zone" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time zone"
+          }
+        }
       }
     },
     "Gibbosa calante" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waning gibbous" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waning gibbous"
+          }
+        }
       }
     },
     "Gibbosa crescente" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waxing gibbous" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waxing gibbous"
+          }
+        }
       }
     },
     "Giorno precedente" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous day" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous day"
+          }
+        }
       }
     },
     "Giorno successivo" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next day" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next day"
+          }
+        }
       }
     },
     "Illuminazione" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Illumination" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Illumination"
+          }
+        }
+      }
+    },
+    "La posizione è disattivata per Sbu Moon. Attivala nelle Impostazioni dell'iPhone, o scegli una città." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location is off for Sbu Moon. Turn it on in the iPhone's Settings, or choose a city."
+          }
+        }
+      }
+    },
+    "La tua posizione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your location"
+          }
+        }
+      }
+    },
+    "Le notifiche di Sbu Moon sono disattivate: gli avvisi non arrivano. Attivale nelle Impostazioni dell'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications for Sbu Moon are off, so alerts won't arrive. Turn them on in the iPhone's Settings."
+          }
+        }
+      }
+    },
+    "Letta una volta, con la precisione di un chilometro. Resta su questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read once, accurate to about a kilometer. It stays on this iPhone."
+          }
+        }
       }
     },
     "Luna calante" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waning crescent" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waning crescent"
+          }
+        }
       }
     },
     "Luna crescente" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Waxing crescent" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waxing crescent"
+          }
+        }
       }
     },
     "Luna nuova" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "New moon" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New moon"
+          }
+        }
       }
     },
     "Luna piena" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Full moon" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full moon"
+          }
+        }
       }
+    },
+    "Luogo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place"
+          }
+        }
+      }
+    },
+    "Luogo: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place: %@"
+          }
+        }
+      },
+      "comment" : "VoiceOver label of the place pill: the city or 'Your location'."
+    },
+    "Mostra sorgere e tramonto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show moonrise and moonset"
+          }
+        }
+      }
+    },
+    "Non in questo giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not on this day"
+          }
+        }
+      },
+      "comment" : "Value of Sorge or Tramonta when the moon does not rise or set on the day shown."
     },
     "Oggi" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
+    },
+    "Oggi alle %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today at %@."
+          }
+        }
+      },
+      "comment" : "Phase alert body: the phase happens today at this time."
+    },
+    "Ora dell'avviso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alert time"
+          }
+        }
+      }
+    },
+    "Ora locale di %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ local time"
+          }
+        }
+      },
+      "comment" : "Under moonrise and moonset when the chosen city's clock differs from the iPhone's: the city's name."
+    },
+    "Posizione non trovata. Riprova all'aperto, o scegli una città." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location not found. Try again outdoors, or choose a city."
+          }
+        }
       }
     },
     "Primo quarto" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "First quarter" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First quarter"
+          }
+        }
       }
     },
     "Sbu Moon" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Moon" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Moon"
+          }
+        }
       }
     },
     "Scegli un altro giorno" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pick another day" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose another day"
+          }
+        }
       }
+    },
+    "Scegli un altro luogo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose another place"
+          }
+        }
+      }
+    },
+    "Sopra l'orizzonte tutto il giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Above the horizon all day"
+          }
+        }
+      }
+    },
+    "Sorge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rises"
+          }
+        }
+      },
+      "comment" : "Moonrise time label."
+    },
+    "Sorgere e tramonto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moonrise and moonset"
+          }
+        }
+      }
+    },
+    "Sotto l'orizzonte tutto il giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Below the horizon all day"
+          }
+        }
+      }
+    },
+    "Ti avvisa il giorno della fase, all'ora che scegli." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You get an alert on the day of the phase, at the time you choose."
+          }
+        }
+      }
+    },
+    "Tramonta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sets"
+          }
+        }
+      },
+      "comment" : "Moonset time label."
     },
     "Ultimo quarto" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last quarter" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last quarter"
+          }
+        }
+      }
+    },
+    "Usa la mia posizione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use my location"
+          }
+        }
       }
     }
   },

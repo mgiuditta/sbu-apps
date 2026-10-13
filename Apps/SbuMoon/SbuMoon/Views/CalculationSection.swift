@@ -12,7 +12,7 @@ struct CalculationSection: View {
         } header: {
             Text("Calcolo")
         } footer: {
-            Text("Fasi calcolate su questo iPhone con gli algoritmi di Jean Meeus, senza rete e senza posizione. Gli orari hanno un errore di qualche minuto.")
+            Text("Fasi, sorgere e tramonto calcolati su questo iPhone con gli algoritmi di Jean Meeus, senza rete. Gli orari hanno un errore di qualche minuto.")
         }
     }
 }

@@ -17,6 +17,9 @@ struct HabitCell: View {
     /// The smallest ring with room for the Serie under the symbol: on a smaller one, as on a
     /// short iPhone's full page, the number would cover the symbol, so the ring goes without it.
     private static let minRingSideForStreak = SbuTheme.space8 * 2
+    /// Play's drawn side as a fraction of the ring's: on a small ring a full `controlRoundSm`
+    /// would cover the symbol and the top of the title.
+    private static let playToRing = 0.4
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -101,6 +104,7 @@ struct HabitCell: View {
                         let ring = proxy[anchor]
                         // On the ring's stroke, at the bottom right, as Streaks does.
                         let offset = Self.playOffset(inRingOfSide: ring.width)
+                        // Drawn with the ring, touched on a full controlRoundSm.
                         Button(action: startTimer) {
                             Label {
                                 Text("Avvia \(habit.title)")
@@ -109,7 +113,7 @@ struct HabitCell: View {
                             }
                         }
                         .labelStyle(.iconOnly)
-                            .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRoundSm, isProminent: true))
+                            .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRoundSm, isProminent: true, drawnSide: Self.playSide(inRingOfSide: ring.width)))
                             .position(x: ring.midX + offset, y: ring.midY + offset)
                     }
                 }
@@ -182,8 +186,14 @@ struct HabitCell: View {
     /// or with play on the ring, up to just before play, so play never covers its digits.
     private func streakRoom(inRingOfSide side: CGFloat) -> CGFloat {
         guard showsPlay else { return side }
-        let playLeadingEdge = side / 2 + Self.playOffset(inRingOfSide: side) - SbuTheme.controlRoundSm / 2
+        let playLeadingEdge = side / 2 + Self.playOffset(inRingOfSide: side) - Self.playSide(inRingOfSide: side) / 2
         return max(playLeadingEdge - SbuTheme.space1, 0)
+    }
+
+    /// The side play is drawn at: in proportion to the ring, from `controlRoundXs` up to
+    /// `controlRoundSm`, the side it is always touched at.
+    static func playSide(inRingOfSide side: CGFloat) -> CGFloat {
+        min(max(side * playToRing, SbuTheme.controlRoundXs), SbuTheme.controlRoundSm)
     }
 
     /// How far play sits right of and below the ring's centre: on the stroke, at the bottom right.

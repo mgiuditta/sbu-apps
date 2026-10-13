@@ -95,6 +95,8 @@ public extension SbuTheme {
 
     // MARK: - Size
 
+    /// Il lato più piccolo a cui si disegna il play sull'anello di Sbu Habits, sugli anelli piccoli (iPhone SE). Solo il disegno: l'area di tocco resta control-round-sm.
+    static let controlRoundXs: CGFloat = 24
     /// Bottone tondo più piccolo, il minimo che si tocca: il play sull'anello della home di Sbu Habits.
     static let controlRoundSm: CGFloat = 44
     /// Bottone tondo secondario di una schermata a tutto schermo: Annulla, Segna fatta.
@@ -131,6 +133,7 @@ extension SbuTheme {
         "radius-pill": radiusPill,
         "radius-icon": radiusIcon,
         "hairline": hairline,
+        "control-round-xs": controlRoundXs,
         "control-round-sm": controlRoundSm,
         "control-round": controlRound,
         "control-round-lg": controlRoundLg,

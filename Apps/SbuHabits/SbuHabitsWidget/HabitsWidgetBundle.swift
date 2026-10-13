@@ -10,5 +10,6 @@ struct HabitsWidgetBundle: WidgetBundle {
         RateWidget()
         WeekdaysWidget()
         CalendarWidget()
+        TimerLiveActivity()
     }
 }

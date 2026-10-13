@@ -12,6 +12,7 @@ struct TimedHabitTests {
     private let store = HabitsStore(url: .temporaryDirectory.appending(path: "TimedHabitTests-\(UUID().uuidString).json"))
     private let timerStore = HabitTimerStore(defaults: UserDefaults(suiteName: "TimedHabitTests-\(UUID().uuidString)")!, key: "timer")
     private let plans = PlanLog()
+    private let activities = ActivityLog()
 
     /// Monday 12 October 2026 at `hour`:`minute`.
     private func date(_ hour: Int, _ minute: Int = 0) -> Date {
@@ -19,7 +20,7 @@ struct TimedHabitTests {
     }
 
     private func model(_ clock: TestClock) -> HabitsModel {
-        HabitsModel(store: store, now: { clock.now }, calendar: calendar, scheduleReminders: plans.record, health: FakeHealth(), timerStore: timerStore)
+        HabitsModel(store: store, now: { clock.now }, calendar: calendar, scheduleReminders: plans.record, health: FakeHealth(), timerStore: timerStore, followTimer: activities.record)
     }
 
     private func timedModel(_ clock: TestClock, minutes: Int = 20) -> HabitsModel {
@@ -194,6 +195,83 @@ struct TimedHabitTests {
 
         #expect(model.timer == nil)
         #expect(timerStore.load() == nil)
+    }
+
+    // MARK: - The Live Activity
+
+    @Test func startingStartsTheActivityWithTheHabitsSymbol() throws {
+        let model = timedModel(TestClock(date(9)))
+
+        model.startTimer(for: model.habits[0])
+
+        let timer = try #require(model.timer)
+        #expect(activities.last == .start(timer, symbol: "book"))
+    }
+
+    @Test func pausingAndResumingMoveTheActivity() throws {
+        let clock = TestClock(date(9))
+        let model = timedModel(clock)
+        model.startTimer(for: model.habits[0])
+        clock.advance(by: 60)
+
+        model.toggleTimerPause()
+        let paused = try #require(model.timer)
+        #expect(activities.last == .follow(paused))
+
+        clock.advance(by: 60)
+        model.toggleTimerPause()
+        let resumed = try #require(model.timer)
+        #expect(activities.last == .follow(resumed))
+    }
+
+    @Test func cancellingOrDeletingEndsTheActivityAtOnce() {
+        let model = timedModel(TestClock(date(9)))
+        model.startTimer(for: model.habits[0])
+        model.cancelTimer()
+        #expect(activities.last == .end(isDone: false))
+
+        model.startTimer(for: model.habits[0])
+        model.delete(model.habits[0])
+        #expect(activities.last == .end(isDone: false))
+    }
+
+    @Test(arguments: [false, true])
+    func theEndOrSegnaFattaEndsTheActivityDone(bySegnaFatta: Bool) {
+        let clock = TestClock(date(9))
+        let model = timedModel(clock)
+        model.startTimer(for: model.habits[0])
+
+        if bySegnaFatta {
+            model.markTimerDone()
+        } else {
+            clock.advance(by: 20 * 60)
+            model.finishTimerIfEnded()
+        }
+
+        #expect(activities.last == .end(isDone: true))
+    }
+
+    @Test func aRelaunchFollowsTheSavedTimerOrEndsWhatIsLeft() throws {
+        let clock = TestClock(date(9))
+        let model = timedModel(clock)
+        #expect(activities.last == .end(isDone: false))
+
+        model.startTimer(for: model.habits[0])
+        _ = self.model(clock)
+
+        let timer = try #require(model.timer)
+        #expect(activities.last == .follow(timer))
+    }
+
+    @Test func aRelaunchAfterTheEndEndsTheActivityDone() {
+        let clock = TestClock(date(9))
+        let model = timedModel(clock)
+        model.startTimer(for: model.habits[0])
+
+        clock.advance(by: 30 * 60)
+        _ = self.model(clock)
+
+        #expect(activities.last == .end(isDone: true))
     }
 
     // MARK: - The plan

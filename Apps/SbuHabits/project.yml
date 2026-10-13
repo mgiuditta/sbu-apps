@@ -67,6 +67,8 @@ targets:
         INFOPLIST_KEY_NSHealthUpdateUsageDescription: "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati restano su questo iPhone."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        # The running countdown on the Lock Screen and in the Dynamic Island.
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.
         TARGETED_DEVICE_FAMILY: "1"
@@ -89,6 +91,8 @@ targets:
       - SbuHabits/Views/HabitRing.swift
       - SbuHabits/Views/HabitRingFace.swift
       - SbuHabits/Views/HabitsWidgetGrid.swift
+      # The Live Activity's Pausa and Riprendi, as the Timer draws them.
+      - SbuHabits/Views/RoundButtonStyle.swift
       - SbuHabits/Views/SlotCaption.swift
       # The one-habit widgets: the ring, the Serie, the line, the weekday bars and the calendar.
       - SbuHabits/Views/Widgets

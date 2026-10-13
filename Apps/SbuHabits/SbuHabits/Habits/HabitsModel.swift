@@ -34,6 +34,7 @@ final class HabitsModel {
     @ObservationIgnored private let health: any HealthReading
     @ObservationIgnored private let timerStore: HabitTimerStore
     @ObservationIgnored private let announceHealthMarks: @MainActor ([Habit]) -> Void
+    @ObservationIgnored private let followTimer: @MainActor (TimerActivityUpdate) -> Void
     /// The measures Salute is followed for, `nil` until `observeHealth()`.
     @ObservationIgnored private var observedMeasures: Set<HealthMeasure>?
 
@@ -77,6 +78,7 @@ final class HabitsModel {
     ///   - health: Where linked habits read their totals; tests pass a fake.
     ///   - timerStore: Where the running countdown is kept; tests pass their own.
     ///   - announceHealthMarks: Receives the habits Salute just marked done that ask to say so.
+    ///   - followTimer: Receives every change of the countdown, for its Live Activity.
     init(
         store: HabitsStore = .shared,
         now: @escaping () -> Date = Date.init,
@@ -84,7 +86,8 @@ final class HabitsModel {
         scheduleReminders: @escaping @MainActor ([PlannedReminder]) -> Void = ReminderScheduler.replace,
         health: any HealthReading = HealthKitReader(),
         timerStore: HabitTimerStore = .shared,
-        announceHealthMarks: @escaping @MainActor ([Habit]) -> Void = ReminderScheduler.announceHealthMarks
+        announceHealthMarks: @escaping @MainActor ([Habit]) -> Void = ReminderScheduler.announceHealthMarks,
+        followTimer: @escaping @MainActor (TimerActivityUpdate) -> Void = TimerActivity.apply
     ) {
         self.store = store
         self.now = now
@@ -93,6 +96,7 @@ final class HabitsModel {
         self.health = health
         self.timerStore = timerStore
         self.announceHealthMarks = announceHealthMarks
+        self.followTimer = followTimer
         today = LogicalDay(now(), calendar: calendar)
         reload()
     }
@@ -126,6 +130,8 @@ final class HabitsModel {
         if let timer, timer.isFinished(at: now()) {
             finish(timer)
         } else {
+            // At launch too: the Live Activity left from before follows the saved countdown, or goes.
+            followTimer(timer.map { .follow($0) } ?? .end(isDone: false))
             planReminders()
         }
     }
@@ -181,7 +187,7 @@ final class HabitsModel {
     /// A countdown whose habit another iPhone deleted.
     private func dropTimerOfDeletedHabit() {
         if let timer, habits.contains(where: { $0.id == timer.habitID }) == false {
-            setTimer(nil)
+            setTimer(nil, .end(isDone: false))
         }
     }
 
@@ -285,7 +291,7 @@ final class HabitsModel {
         file.forgetOldDeletions(now: now())
         deleted = file.deleted
         if timer?.habitID == habit.id {
-            setTimer(nil)
+            setTimer(nil, .end(isDone: false))
         }
         save()
     }
@@ -297,7 +303,7 @@ final class HabitsModel {
     func startTimer(for habit: Habit) {
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
         guard let started = HabitTimer(habit: habit, day: today, now: now()) else { return }
-        setTimer(started)
+        setTimer(started, .start(started, symbol: habit.symbol))
         planReminders()
     }
 
@@ -309,13 +315,13 @@ final class HabitsModel {
         } else {
             timer.resume(at: now())
         }
-        setTimer(timer)
+        setTimer(timer, .follow(timer))
         planReminders()
     }
 
     /// Throws the countdown away, leaving the habit as it is.
     func cancelTimer() {
-        setTimer(nil)
+        setTimer(nil, .end(isDone: false))
         planReminders()
     }
 
@@ -338,7 +344,7 @@ final class HabitsModel {
     /// Marks the timer's habit done on the day it was started, with the hour it ended at (by
     /// default its end date), then forgets the timer.
     private func finish(_ timer: HabitTimer, at end: Date? = nil) {
-        setTimer(nil)
+        setTimer(nil, .end(isDone: true))
         let hour = calendar.component(.hour, from: end ?? timer.endDate ?? now())
         if let index = habits.firstIndex(where: { $0.id == timer.habitID }) {
             habits[index].mark(on: timer.day, hour: hour)
@@ -346,9 +352,11 @@ final class HabitsModel {
         save()
     }
 
-    private func setTimer(_ timer: HabitTimer?) {
+    /// Keeps `timer` and saves it, and tells its Live Activity with `update`.
+    private func setTimer(_ timer: HabitTimer?, _ update: TimerActivityUpdate) {
         self.timer = timer
         timerStore.save(timer)
+        followTimer(update)
     }
 
     /// Adds one time today; a habit already done today stays as it is. For an Abitudine da

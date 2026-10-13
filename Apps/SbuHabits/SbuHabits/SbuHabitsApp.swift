@@ -19,6 +19,8 @@ struct SbuHabitsApp: App {
         let received = ReceivedHabits.live()
         // Before any silent notification or invitation, which can launch the app in the background.
         AppDelegate.received = received
+        // The Live Activity's Pausa and Riprendi run here, also with the app in the background.
+        TimerControl.reloadApp = { model.reload() }
         _model = State(initialValue: model)
         _sync = State(initialValue: sync)
         _sharing = State(initialValue: HabitSharing.live(model: model))

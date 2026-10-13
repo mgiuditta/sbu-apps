@@ -3215,6 +3215,17 @@
         }
       }
     },
+    "Metti in pausa il timer" : {
+      "comment" : "Title of the intent behind Pausa on the timer's Live Activity.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause the timer"
+          }
+        }
+      }
+    },
     "Microfono" : {
       "localizations" : {
         "en" : {
@@ -4331,6 +4342,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rest"
+          }
+        }
+      }
+    },
+    "Riprendi il timer" : {
+      "comment" : "Title of the intent behind Riprendi on the timer's Live Activity.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume the timer"
           }
         }
       }

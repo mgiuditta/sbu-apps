@@ -23,7 +23,7 @@ nonisolated enum HealthMarking {
         let schedule = habit.schedule(on: day)
         return habit.limit(on: day) == nil
             && day >= habit.createdOn
-            && (schedule.isWeekly || schedule.includes(day))
+            && (schedule.isCounted || schedule.includes(day))
             && habit.isSkipped(on: day) == false
             && habit.isDone(on: day) == false
     }

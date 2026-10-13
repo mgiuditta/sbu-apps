@@ -117,8 +117,9 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// Applies the form's fields from `today` on, trimmed and kept in range. Past days keep the
     /// goal and schedule they had: changing them never rewrites the past.
     /// - Returns: `false`, changing nothing, when the title is blank or no weekday is chosen.
-    /// An Abitudine da evitare keeps its kind: it takes `limit`, has no reminders, no weekly schedule
-    /// and no link to Salute. A habit linked to Salute is done once a day, when the goal is reached.
+    /// An Abitudine da evitare keeps its kind: it takes `limit`, has no reminders, no schedule
+    /// counted in weeks or months, is never an Attività di un giorno and has no link to Salute.
+    /// A habit linked to Salute is done once a day, when the goal is reached.
     /// An Abitudine a tempo is done once a day, when its countdown of `timerMinutes` ends; it is
     /// never linked to Salute, and a link wins over the timer.
     mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil, from today: LogicalDay) -> Bool {
@@ -132,13 +133,18 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         let newTimer = newLimit == nil && newHealth == nil ? timerMinutes.map { Self.clamp($0, to: Self.timerMinutesRange) } : nil
         let newSchedule: Schedule
         let newTimes: Int
-        if newLimit != nil, schedule.isWeekly {
-            // A limit is per day: an Abitudine da evitare is never weekly.
+        if newLimit != nil, schedule.isCounted || schedule.isOneDay {
+            // A limit is per day, and kept every day: an Abitudine da evitare is never counted in
+            // weeks or months, nor an Attività di un giorno.
             newSchedule = .everyDay
             newTimes = 1
         } else if case .timesPerWeek(let times) = schedule {
             newSchedule = .timesPerWeek(Self.clamp(times, to: Schedule.timesPerWeekRange))
             // A weekly habit counts days, so it is done once a day.
+            newTimes = 1
+        } else if case .timesPerMonth(let times) = schedule {
+            newSchedule = .timesPerMonth(Self.clamp(times, to: Schedule.timesPerMonthRange))
+            // So does a monthly one.
             newTimes = 1
         } else {
             newSchedule = schedule

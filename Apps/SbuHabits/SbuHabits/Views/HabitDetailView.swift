@@ -8,10 +8,10 @@ struct HabitDetailView: View {
 
     private var unit: String {
         let streak = model.streak(of: habit)
-        let word = if habit.schedule.isWeekly {
-            streak == 1 ? String(localized: "settimana") : String(localized: "settimane")
-        } else {
-            streak == 1 ? String(localized: "giorno") : String(localized: "giorni")
+        let word = switch habit.schedule.period {
+        case .week: streak == 1 ? String(localized: "settimana") : String(localized: "settimane")
+        case .month: streak == 1 ? String(localized: "mese") : String(localized: "mesi")
+        case nil: streak == 1 ? String(localized: "giorno") : String(localized: "giorni")
         }
         return " " + word
     }

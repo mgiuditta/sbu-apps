@@ -18,6 +18,8 @@ struct HabitsImportTests {
         #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {"20001": 1}}]}"#,
         #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Acqua", "symbol": "drop", "timesPerDay": 8, "createdOn": 20000, "log": {"20001": 3}, "markHours": {"20001": [9, 14]}}]}"#,
         #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "timerMinutes": 180}]}"#,
+        #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Biblioteca", "symbol": "book", "schedule": {"timesPerMonth": {"_0": 27}}, "createdOn": 20000, "log": {}}]}"#,
+        #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Dentista", "symbol": "pills", "schedule": {"oneDay": {"_0": 20010}}, "createdOn": 20000, "log": {}}]}"#,
     ])
     func validFilesAreAccepted(json: String) {
         #expect(throws: Never.self) { try HabitsImport(data: Data(json.utf8)) }
@@ -30,7 +32,7 @@ struct HabitsImportTests {
         (#"{"version": 1}"#, .damaged),
         (#"{"version": 1, "habits": [{"title": "Leggere"}]}"#, .damaged),
         (#"[1, 2, 3]"#, .damaged),
-        (#"{"version": 2, "habits": []}"#, .newerVersion),
+        (#"{"version": 3, "habits": []}"#, .newerVersion),
         (#"{"version": 99, "somethingNew": true}"#, .newerVersion),
     ])
     func invalidFilesSayWhatIsWrong(json: String, failure: HabitsImport.Failure) {
@@ -45,6 +47,11 @@ struct HabitsImportTests {
         #""createdOn": 20000, "limit": -1"#,
         #""createdOn": 20000, "schedule": {"weekdays": {"_0": [0, 9]}}"#,
         #""createdOn": 20000, "schedule": {"timesPerWeek": {"_0": 40}}"#,
+        #""createdOn": 20000, "schedule": {"timesPerMonth": {"_0": 0}}"#,
+        #""createdOn": 20000, "schedule": {"timesPerMonth": {"_0": 28}}"#,
+        #""createdOn": 20000, "limit": 2, "schedule": {"timesPerMonth": {"_0": 3}}"#, // an Abitudine da evitare is never monthly
+        #""createdOn": 20000, "schedule": {"oneDay": {"_0": 9223372036854775807}}"#, // a day past the end
+        #""createdOn": 20000, "limit": 0, "schedule": {"oneDay": {"_0": 20001}}"#,
         #""createdOn": 20000, "reminders": [{"hour": 99, "minute": 0}]"#,
         #""createdOn": 9223372036854775807"#, // a day past the end overflows
         #""createdOn": 20000, "health": {"measure": "steps", "goal": 1e300}"#,

@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import UIKit
 
 /// The app's one model: the library as the cleaner sees it, the user's decisions, the bin,
 /// the duplicate and similar groups, and the space all this frees.
@@ -309,6 +310,12 @@ final class CleanModel {
         let total = pending.count
         scan = .running(done: 0, total: total)
         let library = library
+        // Going to the background, the scan gets the time iOS grants to finish work; when it
+        // runs out, the scan stops and saves what it has, and the next one goes on from there.
+        let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "Sbu Clean scan") { [weak self] in
+            self?.cancelScan()
+        }
+        defer { UIApplication.shared.endBackgroundTask(backgroundTask) }
 
         var done = 0
         await withTaskGroup(of: (String, ImageAnalysis?).self) { group in

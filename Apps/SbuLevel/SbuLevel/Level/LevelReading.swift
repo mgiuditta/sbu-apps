@@ -1,72 +1,113 @@
 import Foundation
 
-/// What the level shows for one gravity sample: mode, angle and bubble position.
+/// What the level shows for one gravity sample: mode, resting edge, angle and bubble position.
 nonisolated struct LevelReading: Equatable, Sendable {
-    /// Below this angle the iPhone counts as level: it is what rounds to "0,0" at one decimal.
-    static let levelTolerance = 0.05
     /// Tilt at which the bubble reaches the edge of its circle.
     static let bubbleRange = 10.0
+    /// Tilt from flat, in degrees, where lying flat turns into standing on an edge.
+    static let modeThreshold = 45.0
+    /// How far past a threshold the current mode or edge holds, so the view does not flicker on it.
+    static let hysteresis = 5.0
 
     /// A level iPhone lying flat.
-    static let level = LevelReading(mode: .flat, angle: 0, bubbleX: 0, bubbleY: 0)
+    static let level = LevelReading(mode: .flat, edge: nil, angle: 0, deviation: 0, rotation: 0, bubbleX: 0, bubbleY: 0)
 
     var mode: LevelMode
-    /// Signed angle in degrees: tilt from horizontal (flat) or from the nearest right angle (edge).
+    /// The edge resting on the surface; `nil` when flat.
+    var edge: Edge?
+    /// The angle shown, 0...90. Flat: tilt from horizontal. Edge: the dial reading, 0° when the
+    /// bottom or top edge is level and 90° when a side edge is.
     var angle: Double
+    /// Signed degrees from level: of the surface when flat, of the resting edge when standing.
+    var deviation: Double
+    /// Calibrated device rotation in degrees (see `Gravity.rotation`); zero when flat.
+    var rotation: Double
     /// Bubble offset in -1...1, screen axes (x right, y down). Zero in edge mode.
     var bubbleX: Double
     var bubbleY: Double
 
-    /// The angle shown to the user, never negative.
-    var magnitude: Double { abs(angle) }
+    /// The angle as shown: rounded half away from zero to a tenth, never negative, so it reads
+    /// "0,0" and never "-0,0". The figure formats exactly this value.
+    var displayedAngle: Double {
+        abs((angle * 10).rounded(.toNearestOrAwayFromZero) / 10)
+    }
 
-    var isLevel: Bool { magnitude < Self.levelTolerance }
+    /// The angle the figure shows when the iPhone is level: 90° on a side edge, 0° otherwise.
+    var levelAngle: Double {
+        switch edge {
+        case .left, .right: 90
+        case .bottom, .top, nil: 0
+        }
+    }
 
-    init(mode: LevelMode, angle: Double, bubbleX: Double, bubbleY: Double) {
+    /// Level when the figure shows the level angle: "In bolla" and the figure always agree.
+    var isLevel: Bool { displayedAngle == levelAngle }
+
+    /// What a calibration of this position would set.
+    var calibrationTarget: CalibrationTarget {
+        edge.map(CalibrationTarget.edge) ?? .flat
+    }
+
+    init(mode: LevelMode, edge: Edge?, angle: Double, deviation: Double, rotation: Double, bubbleX: Double, bubbleY: Double) {
         self.mode = mode
+        self.edge = edge
         self.angle = angle
+        self.deviation = deviation
+        self.rotation = rotation
         self.bubbleX = bubbleX
         self.bubbleY = bubbleY
     }
 
     /// Creates the reading for a gravity sample with a calibration applied.
-    init(gravity: Gravity, calibration: Calibration) {
-        switch Self.mode(for: gravity) {
+    /// - Parameter previous: The reading before this one; its mode and edge hold near the thresholds.
+    init(gravity: Gravity, calibration: Calibration, previous: LevelReading? = nil) {
+        switch Self.mode(for: gravity, previous: previous?.mode) {
         case .flat:
             let x = gravity.x - calibration.flatX
             let y = gravity.y - calibration.flatY
-            let range = sin(Self.bubbleRange * .pi / 180)
+            let range = sin(Angles.radians(fromDegrees: Self.bubbleRange))
+            let tilt = Angles.degrees(fromRadians: asin(min(1, (x * x + y * y).squareRoot())))
             // The bubble floats to the high side, away from gravity.
             self.init(
                 mode: .flat,
-                angle: asin(min(1, (x * x + y * y).squareRoot())) * 180 / .pi,
+                edge: nil,
+                angle: tilt,
+                deviation: tilt,
+                rotation: 0,
                 bubbleX: Self.clamped(-x / range),
                 bubbleY: Self.clamped(y / range)
             )
         case .edge:
+            let edge = Self.edge(for: gravity.rotation, previous: previous?.edge)
+            let rotation = Angles.normalized(gravity.rotation - calibration.offset(for: edge))
             self.init(
                 mode: .edge,
-                angle: Self.wrapped(Self.edgeDeviation(for: gravity) - calibration.edge),
+                edge: edge,
+                angle: DialGeometry.value(at: DialGeometry.needlePosition(rotation: rotation)),
+                deviation: edge.deviation(of: rotation),
+                rotation: rotation,
                 bubbleX: 0,
                 bubbleY: 0
             )
         }
     }
 
-    /// Flat when the screen faces up or down within 45°.
-    static func mode(for gravity: Gravity) -> LevelMode {
-        abs(gravity.z) >= (0.5).squareRoot() ? .flat : .edge
+    /// Flat when the screen faces up or down within 45°; past that, the previous mode holds for 5° more.
+    static func mode(for gravity: Gravity, previous: LevelMode? = nil) -> LevelMode {
+        let threshold = switch previous {
+        case .flat: modeThreshold + hysteresis
+        case .edge: modeThreshold - hysteresis
+        case nil: modeThreshold
+        }
+        return gravity.tiltFromFlat < threshold ? .flat : .edge
     }
 
-    /// Angle in degrees between the iPhone's edges and the nearest horizontal or vertical.
-    static func edgeDeviation(for gravity: Gravity) -> Double {
-        let rotation = atan2(gravity.x, -gravity.y) * 180 / .pi
-        return wrapped(rotation)
-    }
-
-    /// Folds an angle into -45..<45 around the nearest right angle.
-    private static func wrapped(_ degrees: Double) -> Double {
-        degrees - 90 * (degrees / 90).rounded()
+    /// The edge closest to level; the previous edge holds until it is 50° away from level.
+    static func edge(for rotation: Double, previous: Edge? = nil) -> Edge {
+        if let previous, abs(previous.deviation(of: rotation)) <= 45 + hysteresis {
+            return previous
+        }
+        return Edge.nearest(to: rotation)
     }
 
     private static func clamped(_ value: Double) -> Double {

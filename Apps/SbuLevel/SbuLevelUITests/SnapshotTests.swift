@@ -7,6 +7,8 @@ final class SnapshotTests: XCTestCase {
     func testScreenshots() {
         let app = XCUIApplication()
         setupSnapshot(app)
+        // The screenshot shows the sensor as it comes, whatever an earlier run calibrated.
+        app.launchArguments += ["-calibration", "none"]
         app.launch()
 
         snapshot("01-main")

@@ -9,31 +9,119 @@ struct LevelModelTests {
         defaults = try #require(UserDefaults(suiteName: "LevelModelTests-\(UUID().uuidString)"))
     }
 
-    @Test func calibratingMakesTheCurrentPositionReadZero() {
-        let model = LevelModel(defaults: defaults)
-        model.update(with: Gravity(x: 0.05, y: -0.998, z: 0))
-        #expect(model.reading.isLevel == false)
+    private func makeModel() -> LevelModel {
+        LevelModel(defaults: defaults, source: FixedGravitySource(gravity: .standing(rotatedBy: 0)))
+    }
 
-        model.calibrate()
+    /// Runs one two-step calibration: `first` and then `second`, each held steady for a second.
+    private func calibrate(_ model: LevelModel, first: Gravity, second: Gravity) {
+        model.startCalibration()
+        model.captureCalibrationStep()
+        for _ in 0..<StableSampler.sampleCount { model.update(with: first) }
+        model.captureCalibrationStep()
+        for _ in 0..<StableSampler.sampleCount { model.update(with: second) }
+    }
+
+    @Test func lockFreezesTheShownReading() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 12))
+
+        model.toggleLock()
+        model.update(with: .standing(rotatedBy: 40))
+
+        #expect(model.isLocked)
+        #expect(abs(model.reading.angle - 12) < 1e-9)
+        #expect(abs(model.liveReading.angle - 40) < 1e-9)
+    }
+
+    @Test func unlockingFollowsTheSensorAgain() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 12))
+        model.toggleLock()
+        model.update(with: .standing(rotatedBy: 40))
+
+        model.toggleLock()
+
+        #expect(model.isLocked == false)
+        #expect(abs(model.reading.angle - 40) < 1e-9)
+    }
+
+    @Test func aLockedReadingDoesNotTurnLevel() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 5))
+        model.toggleLock()
+
+        model.update(with: .standing(rotatedBy: 0))
+
+        #expect(model.reading.isLevel == false)
+    }
+
+    @Test func twoStepCalibrationIsSavedForThatSide() {
+        let model = makeModel()
+
+        calibrate(model, first: .standing(rotatedBy: 3), second: .standing(rotatedBy: -1))
+
+        #expect(model.calibrationSession?.step == .done)
+        #expect(abs(model.calibration.bottom - 1) < 1e-9)
+        #expect(model.calibration.calibratedTargets == [.edge(.bottom)])
+        #expect(LevelModel(defaults: defaults).calibration == model.calibration)
+    }
+
+    @Test func calibrationAppliesToTheLiveReadingAtOnce() {
+        let model = makeModel()
+
+        calibrate(model, first: .standing(rotatedBy: 1), second: .standing(rotatedBy: 1))
 
         #expect(model.reading.isLevel)
-        #expect(model.isCalibrated)
     }
 
-    @Test func calibrationIsSavedOnTheDevice() {
-        let first = LevelModel(defaults: defaults)
-        first.update(with: Gravity(x: 0.05, y: -0.998, z: 0))
-        first.calibrate()
+    /// The first build's one-step calibration made a real iPhone read 9,2° flat on a table.
+    @Test func aCalibrationFromTheFirstBuildIsNotApplied() {
+        defaults.set(Data(#"{"flatX":-0.14916,"edge":43.0747,"flatY":-0.07201}"#.utf8), forKey: "calibration")
 
-        let second = LevelModel(defaults: defaults)
+        let model = makeModel()
+        model.update(with: Gravity(x: 0, y: 0, z: -1))
 
-        #expect(second.calibration == first.calibration)
+        #expect(model.isCalibrated == false)
+        #expect(model.reading.displayedAngle == 0)
+        #expect(model.reading.isLevel)
     }
 
-    @Test func resetClearsTheCalibration() {
-        let model = LevelModel(defaults: defaults)
-        model.update(with: Gravity(x: 0.05, y: -0.998, z: 0))
-        model.calibrate()
+    @Test func anImplausibleCalibrationLeavesTheSavedOneAlone() {
+        let model = makeModel()
+        calibrate(model, first: .standing(rotatedBy: 1), second: .standing(rotatedBy: 1))
+
+        calibrate(model, first: .standing(rotatedBy: 8), second: .standing(rotatedBy: 6))
+
+        #expect(model.calibrationSession?.notice == .implausible)
+        #expect(abs(model.calibration.bottom - 1) < 1e-9)
+        #expect(LevelModel(defaults: defaults).calibration == model.calibration)
+    }
+
+    @Test func endingTheCalibrationClosesTheSession() {
+        let model = makeModel()
+        model.startCalibration()
+
+        model.endCalibration()
+
+        #expect(model.calibrationSession == nil)
+        #expect(model.isCalibrated == false)
+    }
+
+    @Test func resettingOneSideKeepsTheOthers() {
+        let model = makeModel()
+        calibrate(model, first: .standing(rotatedBy: 1), second: .standing(rotatedBy: 1))
+        calibrate(model, first: .standing(rotatedBy: 91), second: .standing(rotatedBy: 91))
+
+        model.resetCalibration(.edge(.bottom))
+
+        #expect(model.calibration.calibratedTargets == [.edge(.right)])
+        #expect(LevelModel(defaults: defaults).calibration.calibratedTargets == [.edge(.right)])
+    }
+
+    @Test func resettingEverythingClearsTheCalibration() {
+        let model = makeModel()
+        calibrate(model, first: .standing(rotatedBy: 1), second: .standing(rotatedBy: 1))
 
         model.resetCalibration()
 
@@ -41,11 +129,66 @@ struct LevelModelTests {
         #expect(LevelModel(defaults: defaults).isCalibrated == false)
     }
 
-    @Test func calibratingWithoutASampleDoesNothing() {
-        let model = LevelModel(defaults: defaults)
+    @Test func screenStaysOnByDefaultOnlyInTheForeground() {
+        let model = makeModel()
 
-        model.calibrate()
-
-        #expect(model.isCalibrated == false)
+        #expect(model.keepsScreenAwake)
+        #expect(model.keepsScreenOn(isActive: true))
+        #expect(model.keepsScreenOn(isActive: false) == false)
     }
+
+    @Test func turningScreenAlwaysOnOffIsSaved() {
+        let model = makeModel()
+
+        model.keepsScreenAwake = false
+
+        #expect(model.keepsScreenOn(isActive: true) == false)
+        #expect(LevelModel(defaults: defaults).keepsScreenAwake == false)
+    }
+
+    @Test func runReadsTheInjectedSource() async throws {
+        let model = LevelModel(defaults: defaults, source: FixedGravitySource(gravity: .standing(rotatedBy: 20)))
+        let task = Task { await model.run() }
+        defer { task.cancel() }
+
+        for _ in 0..<100 where model.liveReading.mode == .flat {
+            try await Task.sleep(for: .milliseconds(20))
+        }
+
+        #expect(abs(model.liveReading.angle - 20) < 1e-9)
+    }
+
+    @Test func withoutASensorTheModelSaysSo() async {
+        let model = LevelModel(defaults: defaults, source: NoSensorSource())
+
+        await model.run()
+
+        #expect(model.isMotionAvailable == false)
+        #expect(model.keepsScreenOn(isActive: true))
+    }
+
+    @Test(arguments: [("flat", LevelMode.flat), ("", .edge)])
+    func aLaunchCanAskForAFixedTilt(value: String, mode: LevelMode) throws {
+        defaults.set(value, forKey: "FIXED_GRAVITY")
+        defaults.set(true, forKey: "FASTLANE_SNAPSHOT")
+
+        let source = try #require(FixedGravitySource.requested(in: defaults))
+
+        #expect(LevelReading(gravity: source.gravity, calibration: .none).mode == mode)
+    }
+
+    @Test func aNormalLaunchUsesTheSensor() {
+        #expect(FixedGravitySource.requested(in: defaults) == nil)
+    }
+}
+
+/// A source with no motion sensor, like the simulator.
+private struct NoSensorSource: GravitySource {
+    var isAvailable: Bool { false }
+
+    func gravityUpdates() -> AsyncStream<Gravity> {
+        AsyncStream { $0.finish() }
+    }
+
+    func stop() {}
 }

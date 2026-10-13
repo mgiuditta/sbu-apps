@@ -74,8 +74,16 @@ I giorni previsti di fila in cui un'abitudine è stata fatta; i giorni non previ
 _Avoid_: streak, catena
 
 **Serie piena** (_Full streak_):
-I giorni di fila in cui tutte le abitudini previste quel giorno sono state fatte; le abitudini settimanali non vi entrano. È la **Cifra** di Sbu Habits.
+I giorni di fila in cui tutte le abitudini previste quel giorno sono state fatte; le abitudini settimanali e mensili non vi entrano, un'**Attività di un giorno** solo nel suo giorno. È la **Cifra** di Sbu Habits.
 _Avoid_: serie totale, giornata perfetta
+
+**Volte al mese** (_Times a month_):
+Un'abitudine da fare in un numero di giorni qualsiasi del mese di calendario, da 1 a 27: conta i giorni fatti dal primo all'ultimo del mese, e la sua **Serie** conta i mesi di fila con l'obiettivo raggiunto. Il mese in corso non la interrompe finché non finisce; ogni giorno saltato abbassa l'obiettivo di quel mese di uno. Come le Volte a settimana, non entra nella **Serie piena** e non è mai un'**Abitudine da evitare**.
+_Avoid_: mensile fisso, giorno del mese
+
+**Attività di un giorno** (_One-day task_):
+Un'abitudine da fare prevista in un solo giorno scelto, oggi o più avanti: compare nella griglia e nei widget solo quel giorno, ha promemoria solo quel giorno, e quel giorno entra nella **Serie piena** come ogni abitudine prevista (saltarla la lascia neutra). Negli altri giorni è neutra; passato il suo giorno resta in Statistiche con il suo storico finché non la elimini. Non è mai un'**Abitudine da evitare**.
+_Avoid_: evento, promemoria, to-do
 
 **Abitudine da evitare** (_Habit to avoid_):
 Un'abitudine da tenere entro un **Limite**: segni ogni volta che cedi, e un giorno è fatto se a fine giornata sei rimasto entro il Limite. Oggi non conta finché non finisce, ma superare il Limite interrompe subito la **Serie**. Il tipo si sceglie alla creazione e non cambia; non ha promemoria né programmazione a settimana.

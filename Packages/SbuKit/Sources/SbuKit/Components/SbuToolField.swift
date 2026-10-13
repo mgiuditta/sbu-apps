@@ -138,6 +138,8 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
     }
 }
 
+// The previews run inside the iOS shell.
+#if os(iOS)
 #Preview("Light") {
     SbuToolFieldPreview()
 }
@@ -198,3 +200,4 @@ private struct SbuToolFieldPreview: View {
         }
     }
 }
+#endif

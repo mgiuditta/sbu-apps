@@ -1,3 +1,6 @@
+// iOS only: the shell, the settings and list rows have no place on Apple Watch.
+#if os(iOS)
+
 import SwiftUI
 
 /// The standard frame of a Sbu app: a NavigationStack with the app's tool screen on `surface`,
@@ -128,3 +131,5 @@ private struct SbuAppShellPreview: View {
         }
     }
 }
+
+#endif

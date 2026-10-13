@@ -1,3 +1,6 @@
+// iOS only: the shell, the settings and list rows have no place on Apple Watch.
+#if os(iOS)
+
 import SwiftUI
 
 /// The settings sheet of `SbuAppShell`: app header, app sections, the privacy page, then the sbu.dev promise.
@@ -125,3 +128,5 @@ private struct SbuSettingsPreview: View {
         }
     }
 }
+
+#endif

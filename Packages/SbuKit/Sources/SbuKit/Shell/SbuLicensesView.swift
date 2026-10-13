@@ -1,3 +1,6 @@
+// iOS only: the shell, the settings and list rows have no place on Apple Watch.
+#if os(iOS)
+
 import SwiftUI
 
 /// Settings → Licenze: the notices of the third-party fonts SbuKit ships, as their licences ask.
@@ -45,3 +48,5 @@ struct SbuLicensesView: View {
     }
     .preferredColorScheme(.dark)
 }
+
+#endif

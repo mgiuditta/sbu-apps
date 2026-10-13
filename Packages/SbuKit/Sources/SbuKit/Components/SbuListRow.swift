@@ -1,3 +1,6 @@
+// iOS only: the shell, the settings and list rows have no place on Apple Watch.
+#if os(iOS)
+
 import SwiftUI
 
 /// A row of an `.insetGrouped` list: icon, title and subtitle on the left, figure and status on the right.
@@ -114,3 +117,5 @@ private struct SbuListRowPreview: View {
         .background(SbuTheme.surface)
     }
 }
+
+#endif

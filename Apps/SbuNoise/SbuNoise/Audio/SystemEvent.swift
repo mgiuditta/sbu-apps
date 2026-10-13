@@ -16,15 +16,12 @@ nonisolated enum SystemEvent: Equatable, Sendable {
     /// The engine stopped because the hardware changed (a new output, a sample rate change).
     case configurationChanged
 
-    /// Reads an `AVAudioSession.interruptionNotification`. A stale "began" for an app that was
-    /// suspended is no event: the audio already stopped long ago.
+    /// Reads an `AVAudioSession.interruptionNotification`.
     init?(interruption info: [AnyHashable: Any]) {
         guard let raw = info[AVAudioSessionInterruptionTypeKey] as? UInt,
               let type = AVAudioSession.InterruptionType(rawValue: raw) else { return nil }
         switch type {
         case .began:
-            let reason = (info[AVAudioSessionInterruptionReasonKey] as? UInt).flatMap(AVAudioSession.InterruptionReason.init)
-            guard reason != .appWasSuspended else { return nil }
             self = .interruptionBegan
         case .ended:
             let options = AVAudioSession.InterruptionOptions(rawValue: info[AVAudioSessionInterruptionOptionKey] as? UInt ?? 0)

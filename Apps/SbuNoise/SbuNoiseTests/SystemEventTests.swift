@@ -10,14 +10,6 @@ struct SystemEventTests {
         #expect(SystemEvent(interruption: info) == .interruptionBegan)
     }
 
-    @Test func staleInterruptionOfASuspendedAppIsIgnored() {
-        let info: [AnyHashable: Any] = [
-            AVAudioSessionInterruptionTypeKey: Kind.began.rawValue,
-            AVAudioSessionInterruptionReasonKey: AVAudioSession.InterruptionReason.appWasSuspended.rawValue,
-        ]
-        #expect(SystemEvent(interruption: info) == nil)
-    }
-
     @Test(arguments: [true, false])
     func interruptionEndsWithTheSystemAdvice(shouldResume: Bool) {
         let options: AVAudioSession.InterruptionOptions = shouldResume ? .shouldResume : []

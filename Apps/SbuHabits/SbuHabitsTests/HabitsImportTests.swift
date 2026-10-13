@@ -21,6 +21,9 @@ struct HabitsImportTests {
         #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Biblioteca", "symbol": "book", "schedule": {"timesPerMonth": {"_0": 27}}, "createdOn": 20000, "log": {}}]}"#,
         #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Dentista", "symbol": "pills", "schedule": {"oneDay": {"_0": 20010}}, "createdOn": 20000, "log": {}}]}"#,
         #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "notes": {"20001": "Venti pagine\nPoi a letto"}}]}"#,
+        #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "remindsAutomatically": true, "notificationStyle": {"isTimeSensitive": true, "sound": "punto"}}]}"#,
+        // A sound from a later version plays iOS's own instead of refusing the file.
+        #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "notificationStyle": {"sound": "nuovo"}}]}"#,
     ])
     func validFilesAreAccepted(json: String) {
         #expect(throws: Never.self) { try HabitsImport(data: Data(json.utf8)) }
@@ -54,6 +57,9 @@ struct HabitsImportTests {
         #""createdOn": 20000, "schedule": {"oneDay": {"_0": 9223372036854775807}}"#, // a day past the end
         #""createdOn": 20000, "limit": 0, "schedule": {"oneDay": {"_0": 20001}}"#,
         #""createdOn": 20000, "reminders": [{"hour": 99, "minute": 0}]"#,
+        #""createdOn": 20000, "reminders": [{"hour": 9, "minute": 0}], "remindsAutomatically": true"#, // automatic replaces the times
+        #""createdOn": 20000, "limit": 2, "remindsAutomatically": true"#, // an Abitudine da evitare has no reminders
+        #""createdOn": 20000, "notificationStyle": {"announcesHealthMark": true}"#, // only Salute marks by itself
         #""createdOn": 9223372036854775807"#, // a day past the end overflows
         #""createdOn": 20000, "health": {"measure": "steps", "goal": 1e300}"#,
         #""createdOn": 20000, "limit": 2, "health": {"measure": "steps", "goal": 8000}"#,

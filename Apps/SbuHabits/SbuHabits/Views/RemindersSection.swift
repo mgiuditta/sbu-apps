@@ -15,6 +15,10 @@ struct RemindersSection: View {
 
     @State private var isDenied = false
 
+    private var showsDenied: Bool {
+        mode != .off && isDenied
+    }
+
     var body: some View {
         Section {
             Picker("Promemoria", selection: $mode) {
@@ -37,12 +41,15 @@ struct RemindersSection: View {
         } header: {
             Text("Promemoria")
         } footer: {
-            VStack(alignment: .leading, spacing: SbuTheme.space2) {
-                if mode == .automatic {
-                    Text("Ti ricorda all'ora in cui di solito la fai, se oggi non è ancora fatta.")
-                }
-                if mode != .off && isDenied {
-                    Text("Attiva le notifiche di Sbu Habits nelle Impostazioni di iOS.")
+            // Nothing at all when there is nothing to say: an empty footer is an unnamed element.
+            if mode == .automatic || showsDenied {
+                VStack(alignment: .leading, spacing: SbuTheme.space2) {
+                    if mode == .automatic {
+                        Text("Ti ricorda all'ora in cui di solito la fai, se oggi non è ancora fatta.")
+                    }
+                    if showsDenied {
+                        Text("Attiva le notifiche di Sbu Habits nelle Impostazioni di iOS.")
+                    }
                 }
             }
         }

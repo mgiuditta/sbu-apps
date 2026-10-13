@@ -1,45 +1,63 @@
 import SbuKit
 import SwiftUI
 
-/// A grid of the curated habit symbols; the chosen one sits on the accent.
+/// The sheet that chooses a habit's symbol: every symbol of the catalog by category, with a
+/// search in Italian and English. Choosing one closes the sheet; the chosen one sits on the accent.
 struct SymbolPicker: View {
+    @Environment(\.dismiss) private var dismiss
+
     @Binding var selection: String
 
+    @State private var query = ""
+    /// The cells grow with Dynamic Type, so fewer fit on a row.
+    @ScaledMetric(relativeTo: .title2) private var cellWidth = SbuTheme.space12
+
     var body: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: SbuTheme.space12), spacing: SbuTheme.space2)], spacing: SbuTheme.space2) {
-            ForEach(HabitSymbol.all) { symbol in
-                SymbolButton(symbol: symbol, isSelected: symbol.id == selection) {
-                    selection = symbol.id
+        let sections = SymbolSearch.sections(of: HabitSymbol.all, matching: query)
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: cellWidth), spacing: SbuTheme.space2)], spacing: SbuTheme.space2, pinnedViews: .sectionHeaders) {
+                    ForEach(sections, id: \.category) { section in
+                        Section {
+                            ForEach(section.symbols) { symbol in
+                                SymbolButton(symbol: symbol, isSelected: symbol.id == selection) {
+                                    choose(symbol)
+                                }
+                            }
+                        } header: {
+                            SymbolSectionHeader(title: section.category.title)
+                        }
+                    }
+                }
+                .padding(.horizontal, SbuTheme.space4)
+                .padding(.bottom, SbuTheme.space4)
+            }
+            .scrollDismissesKeyboard(.immediately)
+            .overlay {
+                if sections.isEmpty {
+                    ContentUnavailableView.search(text: query)
+                }
+            }
+            .background(SbuTheme.surface)
+            .navigationTitle("Simbolo")
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Cerca un simbolo"))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Annulla", action: cancel)
                 }
             }
         }
-        .padding(.vertical, SbuTheme.space2)
+        .presentationDetents([.medium, .large])
     }
-}
 
-private struct SymbolButton: View {
-    let symbol: HabitSymbol
-    let isSelected: Bool
-    let select: () -> Void
+    private func choose(_ symbol: HabitSymbol) {
+        selection = symbol.id
+        dismiss()
+    }
 
-    var body: some View {
-        Button(action: select) {
-            Label {
-                Text(symbol.name)
-            } icon: {
-                Image(systemName: symbol.id)
-                    .fontWeight(.medium)
-                    .imageScale(.medium)
-            }
-            .labelStyle(.iconOnly)
-            .font(SbuTheme.title2)
-            .frame(maxWidth: .infinity, minHeight: SbuTheme.space12) // at least the 44pt tap target
-            .foregroundStyle(isSelected ? SbuTheme.onAccent : SbuTheme.ink)
-            .background(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(.clear), in: .rect(cornerRadius: SbuTheme.radiusMd))
-            .contentShape(.rect(cornerRadius: SbuTheme.radiusMd))
-        }
-        .buttonStyle(.plain)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    private func cancel() {
+        dismiss()
     }
 }
 
@@ -56,9 +74,10 @@ private struct SymbolPickerPreview: View {
     @State private var selection = "book"
 
     var body: some View {
-        Form {
-            SymbolPicker(selection: $selection)
-        }
-        .tint(SbuTheme.accentHabits)
+        Color.clear
+            .sheet(isPresented: .constant(true)) {
+                SymbolPicker(selection: $selection)
+            }
+            .tint(SbuTheme.accentHabits)
     }
 }

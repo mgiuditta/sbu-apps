@@ -64,6 +64,110 @@
     .stage-bar { position: relative; }
   }
 
+  /* Every other page: the header stays on top, on the same paper. A hairline draws in once the page scrolls under it. */
+  .bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--sbu-surface);
+    border-bottom: var(--sbu-hairline) solid transparent;
+  }
+  @supports (animation-timeline: scroll()) {
+    .bar { animation: rule linear both; animation-timeline: scroll(root); animation-range: 0 var(--spacing-12); }
+    @keyframes rule { to { border-bottom-color: var(--sbu-line); } }
+  }
+
+  /* The header nav from 40rem up; below, a Menu button opens the sheet. */
+  .narrow { display: none; }
+  @media (max-width: 40rem) {
+    .wide { display: none; }
+    .narrow { display: inline; }
+  }
+
+  /* Text roll: the word is a window one line tall; each letter's twin waits under it and the letters roll up
+     in turn on hover. */
+  .roll { text-decoration: none; }
+  .roll > [aria-hidden] { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  .roll [data-c] { display: inline-block; position: relative; white-space: pre; }
+  .roll [data-c]::after { content: attr(data-c); position: absolute; top: 100%; left: 0; }
+  .roll:hover [data-c], .roll:focus-visible [data-c] { translate: 0 -100%; }
+  .roll[aria-current="page"] > [aria-hidden] { text-decoration: underline; }
+  @media (prefers-reduced-motion: no-preference) {
+    .roll [data-c] { transition: translate 0.35s cubic-bezier(.6, 0, .2, 1) calc(var(--i) * 18ms); }
+  }
+
+  /* The phone menu: a full sheet of paper. */
+  .sheet {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    padding:
+      env(safe-area-inset-top)
+      max(var(--spacing-4), env(safe-area-inset-right))
+      env(safe-area-inset-bottom)
+      max(var(--spacing-4), env(safe-area-inset-left));
+    background: var(--sbu-surface);
+    color: var(--sbu-ink);
+    overflow: hidden auto;
+  }
+  .sheet::backdrop { background: var(--sbu-surface); }
+  .sheet-link {
+    display: block;
+    padding-block: var(--spacing-1);
+    font-family: var(--font-display);
+    font-size: var(--text-display-title);
+    line-height: var(--text-display-title--line-height);
+    font-weight: var(--text-display-title--font-weight);
+    letter-spacing: var(--text-display-title--letter-spacing);
+    color: var(--sbu-ink);
+    text-decoration: none;
+  }
+  .sheet a[aria-current="page"] { text-decoration: underline; }
+  .sheet-engraving {
+    position: absolute;
+    inset: auto calc(var(--spacing-12) * -1) calc(var(--spacing-12) * -1) auto;
+    z-index: -1;
+    width: calc(var(--spacing-12) * 7);
+    aspect-ratio: 1;
+    background: var(--sbu-line);
+    mask: var(--engraving) center / contain no-repeat luminance;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Each line is printed in turn, the same rising reveal as the app page's engraving. */
+    .sheet[open] li { animation: print 0.5s cubic-bezier(.4, 0, .2, 1) calc(var(--i) * 45ms) both; }
+    .sheet[open] .sheet-engraving { animation: print 1.2s cubic-bezier(.4, 0, .2, 1) both; }
+    @keyframes print { from { clip-path: inset(0 0 100% 0); translate: 0 var(--spacing-2); } to { clip-path: inset(0); translate: 0; } }
+  }
+
+  /* One engraving behind the page, in `line`: present, never louder than the text. On a wide screen it
+     sits in the margin beside the reading column; it drifts up a little slower than the page. */
+  .backdrop {
+    position: fixed;
+    z-index: -1;
+    right: calc(var(--spacing-12) * -1);
+    bottom: calc(var(--spacing-12) * -1);
+    width: calc(var(--spacing-12) * 7);
+    aspect-ratio: 1;
+    background: var(--sbu-line);
+    mask: var(--engraving) center / contain no-repeat luminance;
+    pointer-events: none;
+  }
+  @media (min-width: 64rem) {
+    .backdrop { top: calc(var(--spacing-12) * 2); bottom: auto; right: 0; width: calc((100vw - 70ch) / 2); max-width: calc(var(--spacing-12) * 10); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .backdrop { animation: drift linear both; animation-timeline: scroll(root); }
+      @keyframes drift { from { translate: 0 0; rotate: 0deg; } to { translate: 0 calc(var(--spacing-12) * -3); rotate: -4deg; } }
+    }
+  }
+  @media (forced-colors: active), print {
+    .backdrop, .sheet-engraving { display: none; }
+  }
+
   .prose > * + * { margin-top: var(--spacing-4); }
   .prose h2 {
     margin-top: var(--spacing-8);

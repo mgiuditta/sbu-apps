@@ -17,9 +17,11 @@ interface Props {
   noindex?: boolean;
   /** `stage`: the home. The header floats over a full-screen main, which brings its own width. */
   layout?: 'page' | 'stage';
+  /** One engraving behind the page, in `line`. Off where the page already shows its own (the app page). */
+  backdrop?: boolean;
 }
 
-const { locale, path, alternates, title, description, jsonLd = [], image = `/og/home-${locale}.png`, noindex = false, layout = 'page' } = Astro.props;
+const { locale, path, alternates, title, description, jsonLd = [], image = `/og/home-${locale}.png`, noindex = false, layout = 'page', backdrop = true } = Astro.props;
 const stage = layout === 'stage';
 const t = ui[locale];
 const site = Astro.site!;
@@ -44,6 +46,12 @@ const footer = [
   { href: localePath(locale, 'livella'), label: t.nav.levelTool },
   { href: localePath(locale, 'abbonamenti'), label: t.nav.subscriptionCost },
 ];
+const here = localePath(locale, path);
+// The sheet lists the header's links first, then the footer's others.
+const more = footer.filter((item) => !nav.some((top) => top.href === item.href));
+// One instrument per page, the same on every visit: picked by the path, not at random.
+const engravings = Object.values(import.meta.glob<string>('../../../Design/icons/source/*.png', { query: '?url', import: 'default', eager: true }));
+const engraving = backdrop && !stage && engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
 ---
 <!doctype html>
 <html lang={locale}>
@@ -72,28 +80,67 @@ const footer = [
     <meta name="twitter:card" content="summary_large_image" />
     {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
   </head>
-  <body class="min-h-dvh bg-surface text-ink">
+  {/* No background here: html carries the paper, so the backdrop at z-index -1 sits on it, under the page. */}
+  <body class="min-h-dvh text-ink">
     <a href="#main" class="sr-only focus:not-sr-only">{t.skip}</a>
-    <header
-      class:list={[
-        'flex flex-wrap items-center justify-between gap-4',
-        stage ? 'stage-bar' : 'page py-4',
-      ]}
-    >
-      <a href={localePath(locale, '')} class="py-2 text-brand">
-        <Fragment set:html={logo} />
-        <span class="sr-only">sbu.dev</span>
-      </a>
+    {engraving && <div class="backdrop" style={`--engraving: url(${engraving})`} aria-hidden="true"></div>}
+    <header class:list={[stage ? 'stage-bar' : 'bar']}>
+      <div class:list={['flex items-center justify-between gap-4', !stage && 'page py-4']}>
+        <a href={localePath(locale, '')} class="py-2 text-brand">
+          <Fragment set:html={logo} />
+          <span class="sr-only">sbu.dev</span>
+        </a>
+        <div class="flex items-center gap-4 text-subheadline">
+          <nav aria-label={t.navLabel} class="wide">
+            <ul class="flex items-center gap-4">
+              {nav.map((item) => (
+                <li>
+                  {/* The label rolls up letter by letter on hover; screen readers get it whole. */}
+                  <a href={item.href} class:list={['roll', stage ? 'text-ink-muted' : 'text-ink']} aria-current={item.href === here ? 'page' : undefined}>
+                    <span class="sr-only">{item.label}</span>
+                    <span aria-hidden="true">{[...item.label].map((c, i) => <span style={`--i: ${i}`} data-c={c}>{c}</span>)}</span>
+                  </a>
+                </li>
+              ))}
+              {alternates.includes(other) && (
+                <li><a href={localePath(other, path)} hreflang={other} lang={other} class="text-ink-muted no-underline hover:underline">{t.otherLocale.label}</a></li>
+              )}
+            </ul>
+          </nav>
+          <ul class="flex items-center gap-4"><slot name="nav-end" /></ul>
+          <button type="button" class="narrow text-ink" data-menu-open aria-haspopup="dialog">{t.menu}</button>
+        </div>
+      </div>
+    </header>
+    {/* The phone's menu: one sheet of paper over the page, its links set large and printed in one by one. */}
+    <dialog class="sheet" data-menu aria-label={t.navLabel}>
+      {engraving && <div class="sheet-engraving" style={`--engraving: url(${engraving})`} aria-hidden="true"></div>}
+      <div class="flex items-center justify-between gap-4 py-4">
+        <span class="py-2 text-brand"><Fragment set:html={logo} /></span>
+        <button type="button" class="text-subheadline text-ink" data-menu-close>{t.close}</button>
+      </div>
       <nav aria-label={t.navLabel}>
-        <ul class="flex flex-wrap items-center gap-4 text-subheadline">
-          {nav.map((item) => <li><a href={item.href} class:list={['no-underline hover:underline', stage ? 'text-ink-muted hover:text-ink' : 'text-ink']}>{item.label}</a></li>)}
+        <ul class="flex flex-col gap-2">
+          {nav.map((item, i) => (
+            <li style={`--i: ${i}`}><a href={item.href} class="sheet-link" aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+        <ul class="mt-8 flex flex-col gap-3 text-body">
+          {more.map((item, i) => (
+            <li style={`--i: ${nav.length + i}`}><a href={item.href} class="text-ink-muted" aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>
+          ))}
           {alternates.includes(other) && (
-            <li><a href={localePath(other, path)} hreflang={other} lang={other} class="text-ink-muted">{t.otherLocale.label}</a></li>
+            <li style={`--i: ${nav.length + more.length}`}><a href={localePath(other, path)} hreflang={other} lang={other} class="text-ink-muted">{t.otherLocale.label}</a></li>
           )}
-          <slot name="nav-end" />
         </ul>
       </nav>
-    </header>
+    </dialog>
+    <script>
+      // A native modal dialog: Esc, focus trap and the page made inert come with it.
+      const sheet = document.querySelector<HTMLDialogElement>('[data-menu]')!;
+      document.querySelector('[data-menu-open]')!.addEventListener('click', () => sheet.showModal());
+      document.querySelector('[data-menu-close]')!.addEventListener('click', () => sheet.close());
+    </script>
     <main id="main" class:list={[!stage && 'page pb-12']}>
       <slot />
     </main>

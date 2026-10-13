@@ -86,6 +86,86 @@ struct HabitDraftTests {
         #expect(draft { $0.title = typed }.resolvedTitle(locale: Self.italian) == resolved)
     }
 
+    // MARK: Salute symbol
+
+    @Test(arguments: [
+        (HealthMeasure.steps, "figure.walk"),
+        (.water, "drop"),
+        (.mindfulMinutes, "figure.mind.and.body"),
+        (.walkingRunningDistance, "figure.run"),
+        (.activeEnergy, "flame"),
+        (.cyclingDistance, "bicycle"),
+        (.swimmingDistance, "figure.pool.swim"),
+        (.flightsClimbed, "figure.stairs"),
+        (.exerciseMinutes, "dumbbell"),
+        (.standMinutes, "figure.stand"),
+        (.timeInDaylight, "sun.max"),
+        (.sleep, "bed.double"),
+        (.activityRings, "target"),
+    ])
+    func eachMeasureHasItsNaturalSymbol(measure: HealthMeasure, symbol: String) {
+        #expect(measure.symbol == symbol)
+    }
+
+    @Test(arguments: HealthMeasure.allCases)
+    func aMeasuresSymbolIsInTheCatalogue(measure: HealthMeasure) {
+        #expect(HabitSymbol.named(measure.symbol) != nil)
+    }
+
+    @Test(arguments: HealthMeasure.allCases)
+    func linkingAHabitWithTheDefaultSymbolTakesTheMeasuresSymbol(measure: HealthMeasure) {
+        let linked = draft {
+            $0.healthMeasure = measure
+            $0.linksHealth = true
+        }
+
+        #expect(linked.symbol == measure.symbol)
+    }
+
+    @Test func changingTheMeasureFollowsWithTheSymbolItGave() {
+        let linked = draft {
+            $0.linksHealth = true
+            $0.healthMeasure = .sleep
+        }
+
+        #expect(linked.symbol == "bed.double")
+    }
+
+    @Test func aSymbolYouPickedStays() {
+        let linked = draft {
+            $0.symbol = "book"
+            $0.linksHealth = true
+            $0.healthMeasure = .sleep
+        }
+
+        #expect(linked.symbol == "book")
+    }
+
+    @Test func aSymbolPickedAfterLinkingStaysWhenTheMeasureChanges() {
+        let linked = draft {
+            $0.linksHealth = true
+            $0.symbol = "book"
+            $0.healthMeasure = .sleep
+        }
+
+        #expect(linked.symbol == "book")
+    }
+
+    @Test func anEditedHabitKeepsItsSymbol() {
+        let reading = Habit(title: "Leggere", symbol: "book", createdOn: today)
+        var edited = HabitDraft(habit: reading, today: today, calendar: calendar)
+
+        edited.linksHealth = true
+
+        #expect(edited.symbol == "book")
+    }
+
+    @Test func withoutALinkTheSymbolStays() {
+        let habit = draft { $0.healthMeasure = .sleep }
+
+        #expect(habit.symbol == HabitSymbol.all[0].id)
+    }
+
     // MARK: Kinds and rows
 
     @Test(arguments: [

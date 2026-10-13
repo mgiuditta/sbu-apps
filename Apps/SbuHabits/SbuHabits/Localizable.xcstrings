@@ -265,6 +265,47 @@
         }
       }
     },
+    "%lld volte" : {
+      "comment" : "Giorni, Volte a settimana or Volte al mese: the stepper under the choice, which already names the week or the month.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld time"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld times"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volta"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld volte a settimana" : {
       "comment" : "Value of the Giorni row: times a week.",
       "localizations" : {
@@ -1774,6 +1815,17 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "Troppo pochi giorni per la linea" : {
+      "comment" : "In the Statistiche, in place of the completion line when the period has a single point.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Too few days for a line"
           }
         }
       }
@@ -7166,7 +7218,7 @@
       }
     },
     "Nessun completamento in questo periodo." : {
-      "comment" : "In the Statistiche, in place of the curve by hour when nothing was completed in the period.",
+      "comment" : "In the Statistiche, in place of the weekday bars and the curve by hour when nothing was completed in the period.",
       "localizations" : {
         "en" : {
           "stringUnit" : {

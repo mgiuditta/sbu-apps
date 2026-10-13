@@ -15,7 +15,7 @@ struct RootView: View {
     @State private var isShowingTimer = false
 
     var body: some View {
-        SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
+        SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content, dataLocation: dataLocation) {
             // The gear sits at the bottom of the tool screen, as in Streaks.
             MainView(model: model, received: received, present: present)
         } settings: {
@@ -75,6 +75,11 @@ struct RootView: View {
         }
         // A countdown that ends with the app open.
         .sensoryFeedback(.success, trigger: model.timersEnded)
+    }
+
+    /// With Sincronizza con iCloud on, the data also goes to the user's other devices.
+    private var dataLocation: SbuDataLocation {
+        sync.isEnabled ? .yourDevices : .thisDevice
     }
 
     private func present(_ sheet: HabitSheet) {

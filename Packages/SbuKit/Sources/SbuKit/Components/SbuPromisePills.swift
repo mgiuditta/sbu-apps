@@ -1,17 +1,27 @@
 import SwiftUI
 
 /// The four promise pills of `SbuFreeBadge`. The wording is fixed: same sentences as the App Store listing.
+/// Only the data pill follows `dataLocation`, so an app syncing through the user's iCloud stays truthful.
 struct SbuPromisePills: View {
-    static let promises: [LocalizedStringResource] = [
-        LocalizedStringResource("Nessun account", bundle: .atURL(SbuTheme.bundle.bundleURL)),
-        LocalizedStringResource("Nessuna pubblicità", bundle: .atURL(SbuTheme.bundle.bundleURL)),
-        LocalizedStringResource("Nessun acquisto in-app", bundle: .atURL(SbuTheme.bundle.bundleURL)),
-        LocalizedStringResource("Dati solo su questo iPhone", bundle: .atURL(SbuTheme.bundle.bundleURL)),
-    ]
+    var dataLocation: SbuDataLocation = .thisDevice
+
+    /// The four promises, in order; the last one says where the data stays.
+    static func promises(dataLocation: SbuDataLocation) -> [LocalizedStringResource] {
+        let data: LocalizedStringResource = switch dataLocation {
+        case .thisDevice: LocalizedStringResource("Dati solo su questo iPhone", bundle: .atURL(SbuTheme.bundle.bundleURL))
+        case .yourDevices: LocalizedStringResource("Dati solo sui tuoi dispositivi", bundle: .atURL(SbuTheme.bundle.bundleURL))
+        }
+        return [
+            LocalizedStringResource("Nessun account", bundle: .atURL(SbuTheme.bundle.bundleURL)),
+            LocalizedStringResource("Nessuna pubblicità", bundle: .atURL(SbuTheme.bundle.bundleURL)),
+            LocalizedStringResource("Nessun acquisto in-app", bundle: .atURL(SbuTheme.bundle.bundleURL)),
+            data,
+        ]
+    }
 
     var body: some View {
         SbuFlowLayout(spacing: SbuTheme.space2) {
-            ForEach(Self.promises, id: \.key) { promise in
+            ForEach(Self.promises(dataLocation: dataLocation), id: \.key) { promise in
                 HStack(spacing: SbuTheme.space1) {
                     Circle()
                         .fill(SbuTheme.success)

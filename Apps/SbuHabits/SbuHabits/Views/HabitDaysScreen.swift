@@ -27,11 +27,12 @@ struct HabitDaysScreen: View {
                     WeekdayPicker(selection: $draft.weekdays)
                 case .timesPerWeek:
                     Stepper(value: $draft.timesPerWeek, in: Schedule.timesPerWeekRange) {
-                        LabeledContent("Volte a settimana", value: draft.timesPerWeek, format: .number)
+                        // The choice above already says "a settimana".
+                        Text("\(draft.timesPerWeek) volte")
                     }
                 case .timesPerMonth:
                     Stepper(value: $draft.timesPerMonth, in: Schedule.timesPerMonthRange) {
-                        LabeledContent("Volte al mese", value: draft.timesPerMonth, format: .number)
+                        Text("\(draft.timesPerMonth) volte")
                     }
                 case .oneDay:
                     DatePicker("Giorno", selection: $draft.oneDay, in: oneDayRange, displayedComponents: .date)

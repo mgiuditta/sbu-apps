@@ -3,7 +3,8 @@ import SwiftUI
 
 /// Completamenti on a Statistiche page: the bars by weekday next to the curve by hour, one above
 /// the other at accessibility text sizes. A habit to avoid has no curve: its marks are times
-/// given in. Days marked before hours were saved have none, and the curve says so.
+/// given in. Days marked before hours were saved have none, and the curve says so. With no
+/// completions in the period both charts would be empty: one box says so instead.
 struct CompletionsSection: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -26,29 +27,36 @@ struct CompletionsSection: View {
                 .foregroundStyle(SbuTheme.inkMuted)
                 .accessibilityAddTraits(.isHeader)
 
-            layout {
-                WeekdayChart(weekdays: statistics.weekdays)
-                    .frame(height: height)
-
-                Group {
-                    if isAvoided {
-                        EmptyHours(text: "Le abitudini da evitare non hanno la curva per ora.")
-                    } else if statistics.completions == 0 {
-                        // Nothing done yet: there are no older marks to explain.
-                        EmptyHours(text: "Nessun completamento in questo periodo.")
-                    } else if statistics.hasHours {
-                        HourChart(hours: statistics.hours)
-                    } else {
-                        EmptyHours(text: "Nessun orario in questo periodo: i segni più vecchi non hanno l'ora.")
-                    }
-                }
-                .frame(minHeight: height)
+            if statistics.completions == 0 {
+                // Bare weekday letters and an empty curve would say the same thing twice.
+                EmptyHours(text: "Nessun completamento in questo periodo.")
+                    .frame(minHeight: height)
+            } else {
+                charts
             }
+        }
+    }
+
+    private var charts: some View {
+        layout {
+            WeekdayChart(weekdays: statistics.weekdays)
+                .frame(height: height)
+
+            Group {
+                if isAvoided {
+                    EmptyHours(text: "Le abitudini da evitare non hanno la curva per ora.")
+                } else if statistics.hasHours {
+                    HourChart(hours: statistics.hours)
+                } else {
+                    EmptyHours(text: "Nessun orario in questo periodo: i segni più vecchi non hanno l'ora.")
+                }
+            }
+            .frame(minHeight: height)
         }
     }
 }
 
-/// The place of the hour curve when there is none, saying why.
+/// The place of a chart when there is none, saying why.
 private struct EmptyHours: View {
     let text: LocalizedStringKey
 

@@ -10,6 +10,7 @@ struct SbuSettingsView<Settings: View>: View {
     let appName: LocalizedStringKey
     let appIcon: Image
     let slug: String
+    var dataLocation: SbuDataLocation = .thisDevice
     @ViewBuilder let settings: Settings
 
     private var version: String {
@@ -78,7 +79,7 @@ struct SbuSettingsView<Settings: View>: View {
                 Section {
                 } footer: {
                     VStack(alignment: .leading, spacing: SbuTheme.space3) {
-                        SbuFreeBadge(style: .pills)
+                        SbuFreeBadge(style: .pills, dataLocation: dataLocation)
                         SbuFreeBadge(style: .footer)
                     }
                 }

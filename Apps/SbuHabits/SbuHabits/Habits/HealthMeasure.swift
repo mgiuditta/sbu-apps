@@ -50,6 +50,26 @@ nonisolated enum HealthMeasure: String, CaseIterable, Identifiable, Codable, Sen
         }
     }
 
+    /// The catalogue symbol that stands for the measure, the one its Salute template uses: a
+    /// habit newly linked to it takes this symbol while it still has the default one.
+    var symbol: String {
+        switch self {
+        case .steps: "figure.walk"
+        case .water: "drop"
+        case .mindfulMinutes: "figure.mind.and.body"
+        case .walkingRunningDistance: "figure.run"
+        case .activeEnergy: "flame"
+        case .cyclingDistance: "bicycle"
+        case .swimmingDistance: "figure.pool.swim"
+        case .flightsClimbed: "figure.stairs"
+        case .exerciseMinutes: "dumbbell"
+        case .standMinutes: "figure.stand"
+        case .timeInDaylight: "sun.max"
+        case .sleep: "bed.double"
+        case .activityRings: "target"
+        }
+    }
+
     /// The goals the form offers.
     var goalRange: ClosedRange<Double> {
         switch self {

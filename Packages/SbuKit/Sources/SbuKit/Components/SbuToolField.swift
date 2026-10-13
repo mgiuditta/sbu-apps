@@ -118,6 +118,9 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
                 }
             }
             .multilineTextAlignment(.center)
+            // Never squeezed by an indicator that takes all the height, such as a grid or a
+            // scroll view: the context line keeps all its lines.
+            .fixedSize(horizontal: false, vertical: true)
             .accessibilityElement(children: .combine)
 
             indicator

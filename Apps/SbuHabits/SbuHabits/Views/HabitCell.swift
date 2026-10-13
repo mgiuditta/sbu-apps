@@ -136,6 +136,10 @@ struct HabitCell: View {
                             .fontWeight(.semibold)
                             .monospacedDigit()
                             .foregroundStyle(SbuTheme.inkMuted)
+                            // Larger text makes the ring smaller and the symbol bigger: past the
+                            // default size the number would cover the symbol. VoiceOver reads it
+                            // in the cell's value, and the Statistiche show it at any size.
+                            .dynamicTypeSize(...DynamicTypeSize.large)
                             .contentTransition(.numericText(value: Double(streak)))
                             .opacity(streak > 0 ? 1 : 0)
                             .animation(reduceMotion ? nil : .snappy, value: streak)

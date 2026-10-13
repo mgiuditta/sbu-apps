@@ -1,14 +1,10 @@
 ---
-// The home is one screen: the title closed by the full stop, the apps as engraved icons below it.
-// The colour comes from the icons: each one closes with its own full stop, the page keeps only its own.
-// Without JavaScript it is a page of links. With it, the full stop becomes a dot you can drag:
-// drop it on an app (or click the name) and the page turns into that app for a moment.
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-import PromiseChips from '../components/PromiseChips.astro';
+// The home is a bill. Each row is an App Sbu next to the paid app it remakes and that app's public price;
+// the sum of those prices is the page's one figure, struck out, because with Sbu it is 0 €.
+// Then the queue of announced apps, the six promises and the free tools. No script: CSS only.
 import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
-import { localePath, ui } from '../i18n';
+import { capitalize, formatDate, formatPrice, localePath, ui } from '../i18n';
 import { text } from '../lib/apps';
 import type { Route } from '../lib/routes';
 
@@ -19,70 +15,73 @@ const copy = {
   it: {
     title: 'sbu.dev · App gratuite per iPhone che fanno una cosa sola',
     hero: 'Sbu fa una cosa sola',
-    appsLabel: 'Le app',
-    hintGrab: 'Prendi il punto',
-    hintRest: ' e posalo su un’app.',
-    tilt: 'Attiva inclinazione',
-    back: 'Torna',
-    download: (name: string) => `Scarica ${name}`,
+    lede: 'App per iPhone che rifanno da zero un’app a pagamento, una per volta. Gratis, senza account, senza pubblicità.',
+    notPaid: 'Non paghi',
+    figureLabel: (count: number) => (count === 1 ? 'Quanto costa l’app a pagamento che Sbu rifà.' : `Quanto costano le ${count} app a pagamento che Sbu rifà.`),
+    withSbu: 'Con Sbu',
+    bill: 'Il conto',
+    billLede: 'Ogni riga è un’app Sbu e l’app a pagamento che rifà da zero, con un codice e una grafica nuovi.',
+    columns: { app: 'App Sbu', originale: 'Invece di', price: 'Costa', sbu: 'Sbu' },
+    total: 'Totale',
+    live: 'Sull’App Store',
+    pricesSource: (date: string) => `Prezzi una tantum sull’App Store italiano, verificati il ${date}. I nomi delle app sono dei rispettivi proprietari.`,
+    queue: 'In coda',
+    queueLede: 'App annunciate, ancora senza scheda. Arrivano in quest’ordine.',
+    promises: 'Sei promesse, in ogni app',
+    promisesClose: 'Se un’app ne viola una, non esce.',
     principles: 'Leggi i principi',
-    days: 'giorni',
-    habits: ['Acqua', 'Leggere', 'Camminare'],
-    habitsLabel: 'Abitudini di oggi',
-    strings: {
-      flat: 'In piano.',
-      right: 'Pende a destra.',
-      left: 'Pende a sinistra.',
-      habitsIdle: 'Porta il punto dentro un anello per segnarlo.',
-      habitsFull: 'Giornata piena. La serie sale.',
-    },
+    tools: 'Nel browser, senza app',
+    level: { title: 'Livella online', line: 'Appoggia il telefono e leggi l’inclinazione al decimo di grado.' },
+    subscriptions: { title: 'Quanto spendi in abbonamenti', line: 'Scrivi gli abbonamenti che paghi e guarda il totale dell’anno.' },
   },
   en: {
     title: 'sbu.dev · Free iPhone apps that each do one thing',
     hero: 'Sbu does one thing',
-    appsLabel: 'Apps',
-    hintGrab: 'Grab the dot',
-    hintRest: ' and drop it on an app.',
-    tilt: 'Turn on tilt',
-    back: 'Back',
-    download: (name: string) => `Download ${name}`,
+    lede: 'iPhone apps that each remake one paid app from scratch. Free, no account, no ads.',
+    notPaid: 'You don’t pay',
+    figureLabel: (count: number) => (count === 1 ? 'What the paid app Sbu remakes costs.' : `What the ${count} paid apps Sbu remakes cost.`),
+    withSbu: 'With Sbu',
+    bill: 'The bill',
+    billLede: 'Each row is a Sbu app and the paid app it remakes from scratch, with new code and new design.',
+    columns: { app: 'Sbu app', originale: 'Instead of', price: 'Costs', sbu: 'Sbu' },
+    total: 'Total',
+    live: 'On the App Store',
+    pricesSource: (date: string) => `One-time prices on the Italian App Store, checked on ${date}. App names belong to their owners.`,
+    queue: 'Next up',
+    queueLede: 'Announced apps, with no page yet. They come in this order.',
+    promises: 'Six promises, in every app',
+    promisesClose: 'If an app breaks one, it does not ship.',
     principles: 'Read the principles',
-    days: 'days',
-    habits: ['Water', 'Reading', 'Walking'],
-    habitsLabel: 'Today’s habits',
-    strings: {
-      flat: 'Lying flat.',
-      right: 'Leans right.',
-      left: 'Leans left.',
-      habitsIdle: 'Drop the dot in a ring to mark it.',
-      habitsFull: 'Full day. The streak goes up.',
-    },
+    tools: 'In your browser, no app',
+    level: { title: 'Bubble level online', line: 'Lay your phone down and read the tilt to a tenth of a degree.' },
+    subscriptions: { title: 'What your subscriptions cost', line: 'Write down the subscriptions you pay and see the yearly total.' },
   },
 }[locale];
 
-// Apps with their own little demo on the home; any other listed app gets the engraving scene.
-const demos = new Set(['level', 'habits']);
-const short = (name: string) => name.replace(/^Sbu /, '');
-const listed = apps.map((app) => {
+const rows = apps.map((app) => {
   const listing = text(app, locale);
-  const kicker = `${listing.name} · ${listing.subtitle.charAt(0).toLowerCase()}${listing.subtitle.slice(1)}`;
   return {
-    app,
+    slug: app.slug,
+    accent: app.accent,
     name: listing.name,
-    kicker,
-    line: `${listing.oneThing.charAt(0).toUpperCase()}${listing.oneThing.slice(1)}.`,
-    page: localePath(locale, `apps/${app.slug}`),
-    // A live app goes to the App Store; until then the button goes to its page.
-    cta: app.storeUrl ? { href: app.storeUrl, label: copy.download(listing.name) } : { href: localePath(locale, `apps/${app.slug}`), label: t.backToApp(listing.name) },
+    line: `${capitalize(listing.oneThing)}.`,
+    href: localePath(locale, `apps/${app.slug}`),
+    live: app.status === 'live',
+    mark: app.mark,
+    originale: app.originale,
   };
 });
-// The engravings are 1024px PNGs; the grid gets small WebP copies, the plate scene the original.
-const engravings = import.meta.glob<ImageMetadata>('../../../Design/icons/*.png', { import: 'default', eager: true });
-const engraving = (slug: string) => engravings[`../../../Design/icons/sbu-${slug}.png`];
-const level = listed.find((entry) => entry.app.slug === 'level');
-const habits = listed.find((entry) => entry.app.slug === 'habits');
+const priced = rows.filter((row) => row.originale?.price !== undefined);
+const total = priced.reduce((sum, row) => sum + row.originale!.price!, 0);
+// The oldest check is the one the whole bill can promise.
+const checked = priced.map((row) => row.originale!.checked!).sort((a, b) => +a - +b)[0];
+const zero = formatPrice(0, locale);
 const words = copy.hero.split(' ');
-const ringLength = 106.8; // 2πr for r = 17 in the ring's 40-unit viewBox.
+const markOf = (slug: string) => apps.find((app) => app.slug === slug)?.mark ?? upcoming.find((app) => app.slug === slug)?.mark;
+const tools = [
+  { href: localePath(locale, 'livella'), accent: 'accent-level', mark: markOf('level'), ...copy.level },
+  { href: localePath(locale, 'abbonamenti'), accent: 'accent-subscriptions', mark: markOf('subscriptions'), ...copy.subscriptions },
+];
 
 const site = Astro.site!.href;
 const jsonLd = [
@@ -90,790 +89,329 @@ const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription },
 ];
 ---
-<Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd} layout="stage">
-  <li slot="nav-end" data-tilt-item hidden>
-    <button type="button" data-tilt class="text-ink-muted hover:text-ink">{copy.tilt}</button>
-  </li>
-
-  <div class="punto" data-punto data-locale={locale} data-strings={JSON.stringify(copy.strings)}>
-    <section class="punto-scene" data-scene="home">
-      <div class="punto-home">
-        <h1 class="punto-title" data-title>
-          {words.map((word, index) =>
-            index < words.length - 1 ? (
-              <><span class="punto-word">{word}</span>{' '}</>
-            ) : (
-              <span class="punto-word">{word}<span class="punto-slot" data-slot aria-hidden="true"></span></span>
-            ),
-          )}
-        </h1>
-        <ul class="punto-apps" aria-label={copy.appsLabel} data-apps>
-          {listed.map((entry) => (
-            <li>
-              <a
-                href={entry.page}
-                class="punto-app"
-                data-app={entry.app.slug}
-                data-scene-id={demos.has(entry.app.slug) ? entry.app.slug : 'plate'}
-                data-name={entry.name}
-                data-line={entry.line}
-                data-plate={entry.app.icon}
-                data-cta-href={entry.cta.href}
-                data-cta-label={entry.cta.label}
-                data-soon={entry.app.status !== 'live' ? '' : undefined}
-                style={`--c: var(--sbu-${entry.app.accent})`}
-              >
-                <Image class="punto-icon" src={engraving(entry.app.slug)} alt="" width={72} densities={[1, 2]} format="webp" loading="eager" />
-                <span class="punto-name"><span class="sr-only">Sbu </span>{short(entry.name)}</span>
-                <span class="punto-line">{entry.line}</span>
-                {entry.app.status !== 'live' && <span class="punto-soon">{t.comingSoon}</span>}
-              </a>
-            </li>
-          ))}
-          {upcoming.map((app) => (
-            <li>
-              {/* Upgraded to a button by the script; without it, a name and "In arrivo". */}
-              <span
-                class="punto-app is-soon"
-                data-app={app.slug}
-                data-scene-id="plate"
-                data-name={app.name}
-                data-line={app.teaser[locale]}
-                data-plate={app.icon}
-                data-soon=""
-                style={`--c: var(--sbu-${app.accent})`}
-              >
-                <Image class="punto-icon" src={engraving(app.slug)} alt="" width={72} densities={[1, 2]} format="webp" loading="eager" />
-                <span class="punto-name"><span class="sr-only">Sbu </span>{short(app.name)}</span>
-                <span class="punto-line">{app.teaser[locale]}</span>
-                <span class="punto-soon">{t.comingSoon}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <p class="punto-hint" data-hint hidden><b>{copy.hintGrab}</b>{copy.hintRest}</p>
-    </section>
-
-    {level && (
-      <section class="punto-scene" data-scene="level" aria-labelledby="scene-level" style={`--c: var(--sbu-${level.app.accent})`} hidden>
-        <div class="punto-sc">
-          <h2 id="scene-level" class="punto-kick" tabindex="-1">{level.kicker}</h2>
-          <p class="punto-fig"><span data-degrees>0°</span><span class="punto-slot" data-slot aria-hidden="true"></span></p>
-          <div class="punto-vial" data-vial aria-hidden="true"></div>
-          <p class="punto-ctx" data-level-status aria-live="polite">{copy.strings.flat}</p>
-          <div class="punto-actions">
-            <a class="punto-btn" href={level.cta.href}>{level.cta.label}</a>
-            {level.app.status !== 'live' && <span class="punto-tag">{t.comingSoon}</span>}
-            <button type="button" class="punto-btn is-ghost" data-back>{copy.back}</button>
-          </div>
-        </div>
-      </section>
+<Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd} layout="wide">
+  <section class="hero">
+    <div class="hero-words">
+      {/* The page title, closed by the full stop: the only square on the page. */}
+      <h1 class="hero-title">
+        {words.map((word, index) =>
+          index < words.length - 1 ? (
+            <><span class="hero-word" style={`--i: ${index}`}>{word}</span>{' '}</>
+          ) : (
+            <span class="hero-word whitespace-nowrap" style={`--i: ${index}`}>{word}<span aria-hidden="true" class="full-stop hero-stop" style={`--i: ${words.length}`}></span></span>
+          ),
+        )}
+      </h1>
+      <p class="hero-lede">{copy.lede}</p>
+    </div>
+    {priced.length > 0 && (
+      <figure class="hero-figure">
+        {/* The Cifra: one per page, in ink. Struck out because it is the price you don't pay. */}
+        <p class="figure"><span class="sr-only">{copy.notPaid}: </span><s class="struck">{formatPrice(total, locale)}</s></p>
+        <figcaption class="flex flex-col gap-1">
+          <span class="text-subheadline text-ink-muted">{copy.figureLabel(priced.length)}</span>
+          <span class="text-headline">{copy.withSbu}: <span class="tabular-nums">{zero}</span>.</span>
+        </figcaption>
+      </figure>
     )}
-
-    {habits && (
-      <section class="punto-scene" data-scene="habits" aria-labelledby="scene-habits" style={`--c: var(--sbu-${habits.app.accent})`} hidden>
-        <div class="punto-sc">
-          <h2 id="scene-habits" class="punto-kick" tabindex="-1">{habits.kicker}</h2>
-          <p class="punto-fig is-medium"><span data-streak>9</span><span class="punto-unit"> {copy.days}</span><span class="punto-slot" data-slot aria-hidden="true"></span></p>
-          <ul class="punto-rings" aria-label={copy.habitsLabel}>
-            {copy.habits.map((name) => (
-              <li>
-                <button type="button" class="punto-ring" data-ring aria-pressed="false">
-                  <svg viewBox="0 0 40 40" aria-hidden="true">
-                    <circle class="punto-ring-track" cx="20" cy="20" r="17" fill="none" stroke-width="2.5" />
-                    <circle class="punto-ring-fill" cx="20" cy="20" r="17" fill="none" stroke-width="2.5" stroke-dasharray={ringLength} stroke-dashoffset={ringLength} />
-                  </svg>
-                  <span>{name}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <p class="punto-ctx" data-habits-status aria-live="polite">{copy.strings.habitsIdle}</p>
-          <div class="punto-actions">
-            <a class="punto-btn" href={habits.cta.href}>{habits.cta.label}</a>
-            {habits.app.status !== 'live' && <span class="punto-tag">{t.comingSoon}</span>}
-            <button type="button" class="punto-btn is-ghost" data-back>{copy.back}</button>
-          </div>
-        </div>
-      </section>
-    )}
-
-    <section class="punto-scene" data-scene="plate" aria-labelledby="scene-plate" hidden>
-      <div class="punto-sc">
-        <img class="punto-plate" data-plate-img alt="" width="1024" height="1024" />
-        <h2 id="scene-plate" class="punto-fig is-small" tabindex="-1"><span data-plate-name></span><span class="punto-slot" data-slot aria-hidden="true"></span></h2>
-        <p class="punto-ctx" data-plate-line></p>
-        <div class="punto-actions">
-          <a class="punto-btn" data-plate-cta hidden></a>
-          <span class="punto-tag" data-plate-soon>{t.comingSoon}</span>
-          <button type="button" class="punto-btn is-ghost" data-back>{copy.back}</button>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  {/* Below the fold: what every app promises, for readers who scroll and for search engines. */}
-  <section aria-labelledby="promises-title" class="page flex flex-col gap-4 py-12">
-    <h2 id="promises-title" class="text-title-2">{t.promisesLabel}</h2>
-    <PromiseChips promises={t.promises} label={t.promisesLabel} />
-    <p><a href={localePath(locale, 'principi')}>{copy.principles}</a></p>
   </section>
 
-  <div class="punto-wipe" data-wipe aria-hidden="true" hidden></div>
-  <div class="punto-dot" data-dot aria-hidden="true" hidden></div>
+  <section aria-labelledby="bill" class="section">
+    <h2 id="bill" class="section-title">{copy.bill}</h2>
+    <p class="section-lede">{copy.billLede}</p>
+    <div class="bill">
+      <div class="bill-row bill-head" aria-hidden="true">
+        <span></span>
+        <span>{copy.columns.app}</span>
+        <span>{copy.columns.originale}</span>
+        <span class="num">{copy.columns.price}</span>
+        <span class="num">{copy.columns.sbu}</span>
+      </div>
+      <ol class="bill-rows">
+        {rows.map((row) => (
+          <li class="bill-row is-app" style={`--c: var(--sbu-${row.accent})`}>
+            {row.mark ? <span class="engraving" style={`--engraving: url(${row.mark})`} aria-hidden="true"></span> : <span></span>}
+            <div class="bill-app">
+              {/* The name is the row's link; its ::after stretches over the row, so the whole row is the target. */}
+              <h3 class="text-headline"><a href={row.href} class="bill-link">{row.name}</a></h3>
+              <p class="text-subheadline text-ink-muted">{row.line}</p>
+              <p class="text-footnote text-ink-muted">{row.live ? copy.live : t.comingSoon}</p>
+            </div>
+            <p class="bill-was">
+              {row.originale?.price !== undefined && (
+                <>
+                  <span class="bill-originale"><span class="label">{copy.columns.originale} </span>{row.originale.name}</span>
+                  <span class="num text-ink-muted"><span class="sr-only">{copy.columns.price} </span>{formatPrice(row.originale.price, locale)}</span>
+                </>
+              )}
+            </p>
+            <p class="num bill-sbu"><span class="sr-only">{copy.columns.sbu}: </span>{zero}</p>
+          </li>
+        ))}
+      </ol>
+      {priced.length > 0 && (
+        <p class="bill-row bill-total">
+          <span></span>
+          <span class="text-headline">{copy.total}</span>
+          <span class="bill-was">
+            <span class="bill-originale"></span>
+            <span class="num text-ink-muted"><span class="sr-only">{copy.columns.price} </span>{formatPrice(total, locale)}</span>
+          </span>
+          <span class="num bill-sbu"><span class="sr-only">{copy.columns.sbu}: </span>{zero}</span>
+        </p>
+      )}
+    </div>
+    {checked && <p class="text-footnote text-ink-muted">{copy.pricesSource(formatDate(checked, locale))}</p>}
+  </section>
+
+  {upcoming.length > 0 && (
+    <section aria-labelledby="queue" class="section">
+      <h2 id="queue" class="section-title">{copy.queue}</h2>
+      <p class="section-lede">{copy.queueLede}</p>
+      <ol class="queue">
+        {upcoming.map((app, index) => (
+          <li class="queue-item">
+            <span class="queue-n tabular-nums" aria-hidden="true">{index + 1}</span>
+            {app.mark && <span class="engraving" style={`--engraving: url(${app.mark})`} aria-hidden="true"></span>}
+            <h3 class="text-headline">{app.name}</h3>
+            <p class="text-subheadline text-ink-muted">{app.teaser[locale]}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  <section aria-labelledby="promises" class="section">
+    <h2 id="promises" class="section-title">{copy.promises}</h2>
+    <ul class="promises">
+      {t.promises.map((promise) => <li>{promise}</li>)}
+    </ul>
+    <p class="text-ink-muted">{copy.promisesClose} <a href={localePath(locale, 'principi')}>{copy.principles}</a></p>
+  </section>
+
+  <section aria-labelledby="tools" class="section">
+    <h2 id="tools" class="section-title">{copy.tools}</h2>
+    <ul class="tools">
+      {tools.map((tool) => (
+        <li class="tool" style={`--c: var(--sbu-${tool.accent})`}>
+          {tool.mark && <span class="engraving" style={`--engraving: url(${tool.mark})`} aria-hidden="true"></span>}
+          <h3 class="text-title-2"><a href={tool.href} class="bill-link">{tool.title}</a></h3>
+          <p class="text-ink-muted">{tool.line}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
 </Base>
 
-<style is:global>
-  /* Sizes are the design system's, scaled with the viewport: the home title is display-hero
-     at its smallest and 2.6 times that on a wide screen. Colors are only --sbu-* tokens. */
-  .punto {
-    --title-size: clamp(var(--text-display-hero), 10.5vw, calc(var(--text-display-hero) * 2.6));
-    --dot-held: var(--spacing-8);
-    --ease: cubic-bezier(.2, .8, .2, 1);
-    position: relative;
+<style>
+  /* Only design tokens: sizes are multiples of the type and spacing steps, colors are --sbu-*. */
+  .hero {
     display: grid;
-    min-height: 100svh;
+    gap: var(--spacing-12);
+    padding-block: var(--spacing-8) var(--spacing-12);
   }
-
-  .punto-scene {
-    grid-area: 1 / 1;
-    display: grid;
-    place-items: center;
-    padding:
-      calc(var(--spacing-12) * 2 + env(safe-area-inset-top))
-      max(var(--spacing-6), env(safe-area-inset-right))
-      calc(var(--spacing-12) * 2.5 + env(safe-area-inset-bottom))
-      max(var(--spacing-6), env(safe-area-inset-left));
+  @media (min-width: 60rem) {
+    .hero {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: end;
+      padding-block: var(--spacing-12) calc(var(--spacing-12) * 2);
+    }
   }
-  /* On a phone the header is in the flow above (global.css .stage-bar): no room to keep for it. */
-  @media (max-width: 40rem) {
-    .punto-scene { padding-top: var(--spacing-8); }
-  }
-  .punto-scene[data-scene="level"] { touch-action: none; }
-
-  /* Home */
-  /* Full width, or the centring grid sizes it to the app grid's widest row and it overflows a phone. */
-  .punto-home { display: grid; justify-items: center; width: 100%; }
-  .punto-title {
-    margin: 0;
-    max-width: 11ch;
+  .hero-words { display: grid; gap: var(--spacing-6); }
+  .hero-title {
     font-family: var(--font-display);
     font-weight: var(--text-display-hero--font-weight);
-    font-size: var(--title-size);
+    /* display-hero at its smallest, up to twice that on a wide screen. */
+    font-size: clamp(var(--text-display-hero), 9vw, calc(var(--text-display-hero) * 2));
     line-height: 1; /* display-hero: 56px on 56px */
-    letter-spacing: -.04em; /* display-hero's -2px at 56px, kept as a ratio when it grows */
-    text-align: center;
+    letter-spacing: -.035em; /* display-hero's -2px at 56px, kept as a ratio when it grows */
     text-wrap: balance;
   }
-  .punto-word { display: inline-block; }
-  .punto-slot {
-    display: inline-block;
-    width: var(--sbu-mark-size);
-    height: var(--sbu-mark-size);
-    margin-inline-start: var(--sbu-mark-gap);
-    vertical-align: baseline;
-    background: currentColor;
-  }
-  /* With the script on, the dot is the full stop and the slot only holds its place. */
-  .punto-on .punto-slot { background: transparent; }
-
-  /* The apps: engraved icons in a grid, two columns on a phone, three from a tablet up. */
-  .punto-apps {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-6) var(--spacing-5);
-    width: 100%;
-    max-width: calc(var(--spacing-12) * 14);
-    margin-top: clamp(var(--spacing-8), 6vh, var(--spacing-12));
-    transition: opacity .6s ease .1s;
-  }
-  @media (min-width: 40rem) {
-    .punto-apps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  }
-  .punto-app {
-    display: grid;
-    justify-items: center;
-    align-content: start;
-    gap: var(--spacing-1);
-    width: 100%;
-    height: 100%;
-    padding: var(--spacing-2);
-    color: var(--sbu-ink);
-    text-align: center;
-    text-decoration: none;
-  }
-  button.punto-app { font: inherit; background: none; border: 0; cursor: pointer; }
-  .punto-icon {
-    width: calc(var(--spacing-12) * 1.5);
-    height: auto;
-    margin-bottom: var(--spacing-2);
-    border-radius: var(--radius-icon);
-    outline: var(--sbu-hairline) solid var(--sbu-line);
-    transition: transform .3s var(--ease);
-  }
-  .punto-name {
-    font-family: var(--font-display);
-    font-size: var(--text-headline);
-    font-weight: var(--text-display-title--font-weight);
-    letter-spacing: -.01em;
-    text-decoration: underline transparent calc(var(--sbu-hairline) * 3);
-    text-underline-offset: .25em;
-    transition: color .25s, text-decoration-color .25s;
-  }
-  .punto-line { max-width: 22ch; font-size: var(--text-footnote); line-height: var(--text-footnote--line-height); color: var(--sbu-ink-muted); }
-  .punto-soon { font-size: var(--text-caption); color: var(--sbu-ink-muted); }
-  a.punto-app:hover .punto-name, button.punto-app:hover .punto-name, .punto-app:focus-visible .punto-name, .punto-app.is-hot .punto-name { text-decoration-color: var(--c); }
-  a.punto-app:hover .punto-icon, button.punto-app:hover .punto-icon, .punto-app.is-hot .punto-icon { transform: translateY(-2px); }
-  .punto-app.is-hot .punto-name { color: var(--c); }
-  /* Engravings are ink on paper: inverted onto the dark surface, like the plate. */
-  @media (prefers-color-scheme: dark) {
-    .punto-icon { filter: invert(1) hue-rotate(180deg) brightness(.94); }
-  }
-
-  .punto-hint {
-    position: absolute;
-    inset: auto var(--spacing-6) calc(var(--spacing-6) + env(safe-area-inset-bottom));
-    margin: 0;
-    text-align: center;
-    font-size: var(--text-subheadline);
-    color: var(--sbu-ink-muted);
-    transition: opacity .4s;
-  }
-  .punto-hint b { color: var(--sbu-ink); font-weight: var(--text-headline--font-weight); }
-  .punto-hint.is-gone { opacity: 0; }
-
-  /* Intro: the words are revealed one by one as the dot writes them. */
-  .is-intro .punto-word { clip-path: inset(-20% 100% -20% -5%); }
-  .is-intro .punto-apps, .is-intro .punto-hint { opacity: 0; }
-
-  /* The dot */
-  .punto-dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 20;
-    width: var(--spacing-6);
-    height: var(--spacing-6);
-    background: var(--acc, var(--sbu-ink));
-    cursor: grab;
-    touch-action: none;
-    will-change: transform;
-    transition: background-color .3s, opacity .2s;
-  }
-  .punto-dot::after { content: ""; position: absolute; inset: calc(var(--spacing-3) * -1); }
-  .punto-dot.is-held { cursor: grabbing; }
-  /* Three beats after the intro to say "take me", then still. */
-  .punto-dot.is-calling { animation: punto-call 2.4s ease-in-out 3; }
-  @keyframes punto-call {
-    0%, 70%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--acc) 40%, transparent); }
-    85% { box-shadow: 0 0 0 var(--spacing-2) transparent; }
-  }
-
-  .punto-wipe {
-    position: fixed;
-    inset: 0;
-    z-index: 15;
-    pointer-events: none;
-    background: var(--wipe, var(--sbu-ink));
-    clip-path: inset(50% 50% 50% 50%);
-  }
-
-  /* Scenes */
-  .punto-sc {
-    display: grid;
-    gap: var(--spacing-5);
-    justify-items: center;
-    width: min(calc(var(--spacing-12) * 19), 100%);
-    text-align: center;
-  }
-  /* Scene headings take focus when a scene opens, only so screen readers start there. */
-  .punto-scene [tabindex="-1"]:focus { outline: none; }
-
-  .punto-kick {
-    margin: 0;
-    font-size: var(--text-caption);
-    font-weight: var(--text-caption--font-weight);
-    letter-spacing: var(--text-caption--letter-spacing);
-    text-transform: uppercase;
+  .hero-word { display: inline-block; }
+  .hero-lede {
+    max-width: 36ch;
+    font-size: var(--text-title-2);
+    line-height: var(--text-title-2--line-height);
     color: var(--sbu-ink-muted);
   }
-  .punto-fig {
-    margin: 0;
+
+  /* The figure, measured on its own column so it never overflows. */
+  .hero-figure { display: grid; gap: var(--spacing-3); container-type: inline-size; }
+  .figure {
     font-family: var(--font-display);
     font-weight: var(--text-stat-hero--font-weight);
-    font-size: clamp(var(--text-stat-hero), 16vw, calc(var(--text-stat-hero) * 3.4));
+    font-size: clamp(var(--text-stat-hero), 24cqi, calc(var(--text-stat-hero) * 2.25));
     line-height: 1;
     letter-spacing: -.04em;
     font-variant-numeric: tabular-nums;
-    color: var(--sbu-ink);
+    white-space: nowrap;
   }
-  /* The streak changes once, from 9 to 10: proportional figures, so the 1 is not the slab tabular one. */
-  .punto-fig.is-medium { font-variant-numeric: normal; font-size: clamp(var(--text-stat-hero), 11vw, calc(var(--text-stat-hero) * 2.3)); }
-  .punto-fig.is-small { font-size: clamp(var(--text-display-title), 8vw, calc(var(--text-display-hero) * 1.85)); }
-  .punto-unit {
-    font-family: var(--font-sans);
-    font-weight: var(--text-body--font-weight);
-    font-size: clamp(var(--text-headline), 2vw, var(--text-title-2));
-    letter-spacing: 0;
-    color: var(--sbu-ink-muted);
-  }
-  .punto-ctx {
-    margin: 0;
-    min-height: 1.4em;
-    font-size: clamp(var(--text-body), 1.6vw, var(--text-title-2));
-    color: var(--sbu-ink-muted);
-  }
-  .punto-vial {
-    position: relative;
-    width: 100%;
-    height: calc(var(--sbu-hairline) * 2);
-    margin-block: var(--spacing-6);
-    background: var(--sbu-line);
-  }
-  .punto-vial::before {
+  .struck { position: relative; text-decoration: none; }
+  /* The strike is a rule of ink across the figure, a little thicker than the hairline so it reads at size. */
+  .struck::after {
     content: "";
     position: absolute;
-    inset: calc(var(--spacing-5) * -1) auto;
-    left: 50%;
-    width: calc(var(--sbu-hairline) * 2);
-    margin-left: calc(var(--sbu-hairline) * -1);
-    background: var(--sbu-line);
-    transition: background .3s;
-  }
-  .punto-vial.is-flat::before { background: var(--c); }
-
-  .punto-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--spacing-3); }
-  .punto-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--spacing-3) var(--spacing-5);
-    border: var(--sbu-hairline) solid transparent;
-    border-radius: var(--radius-lg);
-    background: var(--c, var(--sbu-ink));
-    color: var(--sbu-on-accent);
-    font: inherit;
-    font-size: var(--text-subheadline);
-    font-weight: var(--text-headline--font-weight);
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .punto-btn.is-ghost { background: transparent; border-color: var(--sbu-line); color: var(--sbu-ink); }
-  .punto-tag {
-    padding: var(--spacing-1) var(--spacing-3);
-    border: var(--sbu-hairline) solid var(--sbu-line);
-    border-radius: var(--radius-pill);
-    font-size: var(--text-subheadline);
-    color: var(--sbu-ink-muted);
+    inset: 52% calc(var(--spacing-1) * -1) auto;
+    height: max(var(--spacing-1), .06em);
+    background: currentColor;
+    transform-origin: left center;
   }
 
-  .punto-rings { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(var(--spacing-5), 4vw, var(--spacing-12)); }
-  .punto-ring {
+  .section {
+    display: grid;
+    gap: var(--spacing-4);
+    padding-block: var(--spacing-12);
+    border-top: var(--sbu-hairline) solid var(--sbu-line);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--text-display-title);
+    line-height: var(--text-display-title--line-height);
+    font-weight: var(--text-display-title--font-weight);
+    letter-spacing: var(--text-display-title--letter-spacing);
+  }
+  .section-lede { max-width: 60ch; color: var(--sbu-ink-muted); }
+
+  /* The bill. On a phone: engraving, then the app and its 0 €, then what it replaces under it. */
+  .bill { margin-top: var(--spacing-4); }
+  .bill-row {
+    --mark: calc(var(--spacing-12) * 1.25);
     position: relative;
     display: grid;
-    place-items: center;
-    width: clamp(calc(var(--spacing-12) * 2), 14vw, calc(var(--spacing-12) * 3));
+    grid-template-columns: var(--mark) minmax(0, 1fr) auto;
+    grid-template-areas: "mark app sbu" "mark was was";
+    column-gap: var(--spacing-4);
+    row-gap: var(--spacing-2);
+    align-items: baseline;
+    padding-block: var(--spacing-4);
+    border-bottom: var(--sbu-hairline) solid var(--sbu-line);
+  }
+  .bill-row > :nth-child(1) { grid-area: mark; align-self: start; }
+  .bill-row > :nth-child(2) { grid-area: app; }
+  .bill-row > :nth-child(3) { grid-area: was; }
+  .bill-row > :nth-child(4) { grid-area: sbu; }
+  .bill-head { display: none; }
+  .bill-app { display: grid; gap: var(--spacing-1); }
+  .bill-was { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--spacing-1) var(--spacing-4); font-size: var(--text-subheadline); line-height: var(--text-subheadline--line-height); }
+  .bill-was:empty { display: none; }
+  .bill-was > .num { margin-inline-start: auto; }
+  .label { color: var(--sbu-ink-muted); }
+  .num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bill-sbu { font-weight: var(--text-headline--font-weight); }
+  .bill-total { border-bottom: 0; }
+  .bill-total .bill-sbu, .bill-total .bill-was .num {
+    font-size: var(--text-stat-small);
+    line-height: var(--text-stat-small--line-height);
+    font-weight: var(--text-stat-small--font-weight);
+  }
+  .bill-total .bill-was .num { text-decoration: line-through; text-decoration-thickness: calc(var(--sbu-hairline) * 2); }
+
+  @media (min-width: 48rem) {
+    .bill-row {
+      grid-template-columns: var(--mark) minmax(0, 5fr) minmax(0, 3fr) minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-areas: none;
+    }
+    .bill-row > :nth-child(n) { grid-area: auto; }
+    .bill-was { display: contents; }
+    .bill-was:empty { display: block; }
+    .bill-row.is-app > .bill-was:empty { grid-column: 3 / span 2; }
+    .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .bill-head {
+      display: grid;
+      padding-block: var(--spacing-2);
+      font-size: var(--text-caption);
+      line-height: var(--text-caption--line-height);
+      font-weight: var(--text-caption--font-weight);
+      letter-spacing: var(--text-caption--letter-spacing);
+      text-transform: uppercase;
+      color: var(--sbu-ink-muted);
+    }
+  }
+
+  /* The engraving as an ink mask: it follows the theme, and takes the app's accent when you pick the row. */
+  .engraving {
+    display: block;
+    width: 100%;
     aspect-ratio: 1;
-    padding: 0;
-    border: 0;
-    border-radius: var(--radius-pill);
-    background: none;
-    font: inherit;
-    cursor: pointer;
+    background: var(--sbu-ink);
+    mask: var(--engraving) center / contain no-repeat luminance;
+    transition: background-color .25s;
   }
-  .punto-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
-  .punto-ring-track { stroke: var(--sbu-line); transition: stroke .3s; }
-  .punto-ring-fill { stroke: var(--c); stroke-linecap: round; transition: stroke-dashoffset .6s var(--ease); }
-  .punto-ring span { font-size: var(--text-subheadline); color: var(--sbu-ink-muted); }
-  .punto-ring[aria-pressed="true"] span { color: var(--sbu-ink); font-weight: var(--text-headline--font-weight); }
-  .punto-ring.is-hot .punto-ring-track { stroke: var(--c); }
+  .bill-link { color: inherit; text-decoration: underline transparent calc(var(--sbu-hairline) * 2); text-underline-offset: var(--spacing-1); transition: text-decoration-color .25s; }
+  .bill-link::after { content: ""; position: absolute; inset: 0; }
+  .bill-link:focus-visible { outline: none; }
+  .is-app:has(.bill-link:focus-visible), .tool:has(.bill-link:focus-visible) {
+    outline: calc(var(--sbu-hairline) * 2) solid var(--sbu-focus);
+    outline-offset: calc(var(--sbu-hairline) * 2);
+  }
+  .is-app:hover .engraving, .is-app:focus-within .engraving,
+  .tool:hover .engraving, .tool:focus-within .engraving { background: var(--c); }
+  .is-app:hover .bill-link, .is-app:focus-within .bill-link,
+  .tool:hover .bill-link, .tool:focus-within .bill-link { text-decoration-color: var(--c); }
 
-  /* The engravings are ink on paper: multiplied in light, inverted onto the dark surface. */
-  .punto-plate { width: min(calc(var(--spacing-12) * 8), 70vw, 40svh); height: auto; border-radius: var(--radius-icon); mix-blend-mode: multiply; }
-  @media (prefers-color-scheme: dark) {
-    .punto-plate { filter: invert(1) hue-rotate(180deg) brightness(.94); mix-blend-mode: screen; }
+  /* The queue: a grid of small entries, numbered in the order they come. */
+  .queue {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(var(--spacing-12) * 4.5), 1fr));
+    gap: var(--spacing-8) var(--spacing-6);
+    margin-top: var(--spacing-4);
+  }
+  .queue-item {
+    display: grid;
+    grid-template-columns: var(--spacing-6) var(--spacing-12) minmax(0, 1fr);
+    grid-template-areas: "n mark name" "n mark line";
+    column-gap: var(--spacing-3);
+    align-items: start;
+  }
+  .queue-item > .queue-n { grid-area: n; font-size: var(--text-subheadline); color: var(--sbu-ink-muted); }
+  .queue-item > .engraving { grid-area: mark; }
+  .queue-item > h3 { grid-area: name; }
+  .queue-item > p { grid-area: line; }
+
+  /* The promises: six sentences set large, two columns from a tablet up. */
+  .promises {
+    display: grid;
+    gap: var(--spacing-2) var(--spacing-8);
+    margin-block: var(--spacing-4);
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-title-2), 4vw, var(--text-display-title));
+    line-height: 1.15;
+    font-weight: var(--text-display-title--font-weight);
+    letter-spacing: -.02em;
+  }
+  @media (min-width: 48rem) {
+    .promises { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
-  .punto-on body { overflow-x: clip; }
+  /* The free tools: two entries side by side, each led by the engraving of the app it hands you to. */
+  .tools { display: grid; gap: var(--spacing-8); margin-top: var(--spacing-4); }
+  @media (min-width: 48rem) {
+    .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .tool { position: relative; display: grid; gap: var(--spacing-2); justify-items: start; }
+  .tool .engraving { width: calc(var(--spacing-12) * 3); margin-bottom: var(--spacing-2); }
 
-  @media (prefers-reduced-motion: reduce) {
-    .punto-apps, .punto-hint, .punto-name, .punto-icon, .punto-ring-fill { transition: none; }
-    .punto-dot { transition: none; }
-    .punto-dot.is-calling { animation: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    /* The title is set word by word, then the full stop is stamped on the baseline, then the figure is struck. */
+    .hero-word { animation: set .7s cubic-bezier(.2, .8, .2, 1) calc(var(--i) * 90ms) both; }
+    .hero-stop { animation: stamp .3s cubic-bezier(.3, 1.4, .5, 1) calc(var(--i) * 90ms + 250ms) both; transform-origin: left bottom; }
+    .hero-lede, .hero-figure { animation: set .7s cubic-bezier(.2, .8, .2, 1) 500ms both; }
+    .struck::after { animation: strike .5s cubic-bezier(.6, 0, .2, 1) 1.1s both; }
+    @keyframes set { from { opacity: 0; translate: 0 var(--spacing-4); } }
+    @keyframes stamp { from { scale: 0; } }
+    @keyframes strike { from { scale: 0 1; } }
+
+    /* Where the browser has scroll timelines, each row of the bill is written in as it enters the screen. */
+    @supports (animation-timeline: view()) {
+      .bill-rows > li, .bill-total, .queue-item, .promises > li {
+        animation: set linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+      }
+    }
   }
   @media (forced-colors: active) {
-    .punto-dot, .punto-slot { forced-color-adjust: none; background: CanvasText; }
-    .punto-on .punto-slot { background: transparent; }
-    .punto-wipe { display: none; }
+    .engraving { forced-color-adjust: none; background: CanvasText; }
+    .struck::after { background: CanvasText; }
   }
 </style>
-
-<script>
-  type Strings = { flat: string; right: string; left: string; habitsIdle: string; habitsFull: string };
-  type Point = { x: number; y: number };
-
-  const root = document.querySelector<HTMLElement>('[data-punto]');
-  if (root) start(root);
-
-  function start(root: HTMLElement) {
-    const html = document.documentElement;
-    const strings = JSON.parse(root.dataset.strings ?? '{}') as Strings;
-    const number = new Intl.NumberFormat(root.dataset.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const one = <T extends Element>(selector: string, scope: ParentNode = root) => scope.querySelector<T>(selector)!;
-    const all = <T extends Element>(selector: string, scope: ParentNode = root) => [...scope.querySelectorAll<T>(selector)];
-
-    const dot = one<HTMLElement>('[data-dot]', document);
-    const wipe = one<HTMLElement>('[data-wipe]', document);
-    const hint = one<HTMLElement>('[data-hint]');
-    const title = one<HTMLElement>('[data-title]');
-    const words = all<HTMLElement>('.punto-word', title);
-    const appList = one<HTMLElement>('[data-apps]');
-    const scenes = new Map(all<HTMLElement>('[data-scene]').map((scene) => [scene.dataset.scene!, scene]));
-    const vial = root.querySelector<HTMLElement>('[data-vial]');
-    const rings = all<HTMLButtonElement>('[data-ring]');
-
-    html.classList.add('punto-on');
-    dot.hidden = false;
-    hint.hidden = false;
-
-    // Apps that are not out yet were plain names: they become buttons that open their scene.
-    for (const soon of all<HTMLElement>('span.punto-app')) {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = soon.className;
-      button.setAttribute('style', soon.getAttribute('style') ?? '');
-      Object.assign(button.dataset, soon.dataset);
-      button.append(...soon.childNodes);
-      soon.replaceWith(button);
-    }
-    const triggers = all<HTMLElement>('.punto-app', appList);
-
-    // State. Positions are page coordinates, so the dot stays put when the page scrolls.
-    let scene = 'home';
-    let held = false;
-    let intro = !reduce;
-    let busy = false;
-    let opener: HTMLElement | null = null;
-    let pos: Point = { x: 0, y: 0 };
-    let vel: Point = { x: 0, y: 0 };
-    let goal: Point = { x: 0, y: 0 };
-    let pointer: Point = { x: scrollX + innerWidth / 2, y: scrollY + innerHeight / 2 };
-    let keyTilt: number | null = null;
-    let gravity: Point = { x: 0, y: 0 };
-    let tiltOn = false;
-    const heldSize = parseFloat(getComputedStyle(root).getPropertyValue('--dot-held')) || 32;
-
-    const page = (rect: DOMRect) => ({
-      left: rect.left + scrollX,
-      right: rect.right + scrollX,
-      top: rect.top + scrollY,
-      bottom: rect.bottom + scrollY,
-      width: rect.width,
-      height: rect.height,
-    });
-    const slot = () => page(one<HTMLElement>('[data-slot]', scenes.get(scene)!).getBoundingClientRect());
-    const rest = () => {
-      const r = slot();
-      return { x: r.left + r.width / 2, y: r.top + r.height / 2, size: r.width };
-    };
-    const under = (element: Element, margin = 10) => {
-      const r = page(element.getBoundingClientRect());
-      return pos.x > r.left - margin && pos.x < r.right + margin && pos.y > r.top - margin && pos.y < r.bottom + margin;
-    };
-    const hovered = () => (scene === 'home' ? triggers.find((trigger) => under(trigger)) : undefined);
-    const accent = (trigger?: HTMLElement) => (trigger ? trigger.style.getPropertyValue('--c') : 'var(--sbu-ink)');
-    const settle = () => {
-      const r = rest();
-      pos = { x: r.x, y: r.y };
-      goal = { ...pos };
-      vel = { x: 0, y: 0 };
-    };
-
-    // Dragging
-    dot.addEventListener('pointerdown', (event) => {
-      if (busy) return;
-      held = true;
-      dot.classList.add('is-held');
-      dot.classList.remove('is-calling');
-      dot.setPointerCapture(event.pointerId);
-      hint.classList.add('is-gone');
-      pointer = { x: event.pageX, y: event.pageY };
-      event.preventDefault();
-    });
-    addEventListener('pointermove', (event) => {
-      pointer = { x: event.pageX, y: event.pageY };
-      keyTilt = null;
-    }, { passive: true });
-    const release = () => {
-      if (!held) return;
-      held = false;
-      dot.classList.remove('is-held');
-      drop();
-    };
-    addEventListener('pointerup', release);
-    addEventListener('pointercancel', release);
-
-    function drop() {
-      if (scene === 'home') {
-        const trigger = hovered();
-        if (trigger) open(trigger);
-      } else if (scene === 'habits') {
-        const ring = rings.find((candidate) => under(candidate, 0));
-        if (ring) mark(ring);
-      }
-    }
-
-    // Tilt: on a phone the page is the instrument. iOS asks first, from a button.
-    const onTilt = (event: DeviceOrientationEvent) => {
-      if (event.gamma == null || event.beta == null) return;
-      tiltOn = true;
-      gravity = { x: clamp(event.gamma / 30), y: clamp((event.beta - 40) / 30) };
-    };
-    type PermissionRequest = { requestPermission?: () => Promise<PermissionState> };
-    const orientation = (globalThis as { DeviceOrientationEvent?: PermissionRequest }).DeviceOrientationEvent;
-    // Only where it means something: a touch screen whose browser asks first (iOS Safari).
-    if (orientation?.requestPermission && matchMedia('(pointer: coarse)').matches) {
-      const item = one<HTMLElement>('[data-tilt-item]', document);
-      item.hidden = false;
-      one<HTMLButtonElement>('[data-tilt]', document).addEventListener('click', () => {
-        orientation.requestPermission!()
-          .then((state) => {
-            if (state !== 'granted') return;
-            addEventListener('deviceorientation', onTilt);
-            item.hidden = true;
-          })
-          .catch(() => {});
-      });
-    } else if (orientation && !orientation.requestPermission) {
-      addEventListener('deviceorientation', onTilt);
-    }
-
-    // Opening an app: a square in its accent grows from the dot, then shrinks onto the new full stop.
-    const clipFrom = (center: Point, size: number) => {
-      const x = center.x - scrollX;
-      const y = center.y - scrollY;
-      return `inset(${y - size / 2}px ${innerWidth - x - size / 2}px ${innerHeight - y - size / 2}px ${x - size / 2}px)`;
-    };
-    const full = 'inset(0px 0px 0px 0px)';
-    const easing = 'cubic-bezier(.7, 0, .2, 1)';
-
-    function transition(color: string, swap: () => void) {
-      if (reduce || busy) {
-        swap();
-        settle();
-        return;
-      }
-      busy = true;
-      wipe.style.setProperty('--wipe', color);
-      wipe.hidden = false;
-      const from = clipFrom(pos, heldSize);
-      dot.style.opacity = '0';
-      wipe.animate([{ clipPath: from }, { clipPath: full }], { duration: 520, easing, fill: 'forwards' }).finished.then(() => {
-        swap();
-        requestAnimationFrame(() => {
-          settle();
-          const r = rest();
-          wipe.animate([{ clipPath: full }, { clipPath: clipFrom(r, Math.max(10, r.size)) }], { duration: 560, easing, fill: 'forwards' }).finished.then(() => {
-            wipe.hidden = true;
-            dot.style.opacity = '';
-            busy = false;
-          });
-        });
-      });
-    }
-
-    function show(name: string) {
-      // Only one scene exists at a time, for the eye, the keyboard and screen readers.
-      scenes.forEach((element, key) => (element.hidden = key !== name));
-      scene = name;
-    }
-
-    function open(trigger: HTMLElement) {
-      if (busy || scene !== 'home') return;
-      opener = trigger;
-      transition(accent(trigger), () => {
-        const target = trigger.dataset.sceneId!;
-        if (target === 'plate') fillPlate(trigger);
-        triggers.forEach((other) => other.classList.remove('is-hot'));
-        scrollTo(0, 0);
-        show(target);
-        dot.style.setProperty('--acc', accent(trigger));
-        const heading = scenes.get(target)!.querySelector<HTMLElement>('[tabindex="-1"]');
-        heading?.focus({ preventScroll: true });
-      });
-    }
-
-    function back() {
-      if (busy || scene === 'home') return;
-      transition('var(--sbu-ink)', () => {
-        show('home');
-        dot.style.setProperty('--acc', 'var(--sbu-ink)');
-        opener?.focus({ preventScroll: true });
-      });
-    }
-
-    function fillPlate(trigger: HTMLElement) {
-      const plate = scenes.get('plate')!;
-      plate.style.setProperty('--c', accent(trigger));
-      one<HTMLImageElement>('[data-plate-img]', plate).src = trigger.dataset.plate ?? '';
-      one<HTMLElement>('[data-plate-name]', plate).textContent = trigger.dataset.name ?? '';
-      one<HTMLElement>('[data-plate-line]', plate).textContent = trigger.dataset.line ?? '';
-      one<HTMLElement>('[data-plate-soon]', plate).hidden = trigger.dataset.soon === undefined;
-      const cta = one<HTMLAnchorElement>('[data-plate-cta]', plate);
-      cta.hidden = !trigger.dataset.ctaHref;
-      if (trigger.dataset.ctaHref) {
-        cta.href = trigger.dataset.ctaHref;
-        cta.textContent = trigger.dataset.ctaLabel ?? '';
-      }
-    }
-
-    // A plain click opens the scene; cmd-click, ctrl-click and middle-click still go to the app page.
-    for (const trigger of triggers) {
-      trigger.addEventListener('click', (event) => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-        event.preventDefault();
-        open(trigger);
-      });
-    }
-    all<HTMLElement>('[data-back]').forEach((button) => button.addEventListener('click', back));
-    addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') back();
-      if (scene === 'level' && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
-        keyTilt = clamp((keyTilt ?? 0) + (event.key === 'ArrowLeft' ? -0.1 : 0.1));
-        event.preventDefault();
-      }
-    });
-
-    // Habits: three rings; all three done and the streak goes from 9 to 10.
-    const streak = root.querySelector<HTMLElement>('[data-streak]');
-    const habitsStatus = root.querySelector<HTMLElement>('[data-habits-status]');
-    function mark(ring: HTMLButtonElement) {
-      const done = ring.getAttribute('aria-pressed') !== 'true';
-      ring.setAttribute('aria-pressed', String(done));
-      one<SVGCircleElement>('.punto-ring-fill', ring).style.strokeDashoffset = done ? '0' : '';
-      const allDone = rings.every((candidate) => candidate.getAttribute('aria-pressed') === 'true');
-      if (streak) streak.textContent = allDone ? '10' : '9';
-      setText(habitsStatus, allDone ? strings.habitsFull : strings.habitsIdle);
-    }
-    rings.forEach((ring) => ring.addEventListener('click', () => mark(ring)));
-
-    // Intro: the dot writes the title word by word, then lands on the baseline.
-    const finishIntro = () => {
-      if (!intro) return;
-      intro = false;
-      words.forEach((word) => {
-        word.style.transition = '';
-        word.style.clipPath = '';
-      });
-      root.classList.remove('is-intro');
-      dot.classList.add('is-calling');
-    };
-    if (intro) {
-      root.classList.add('is-intro');
-      const first = page(words[0].getBoundingClientRect());
-      pos = { x: first.left - 40, y: first.top + first.height * 0.78 };
-      goal = { ...pos };
-      let index = 0;
-      const next = () => {
-        if (!intro) return;
-        if (index >= words.length) return finishIntro();
-        const word = words[index++];
-        const r = page(word.getBoundingClientRect());
-        word.style.transition = 'clip-path .3s cubic-bezier(.4, 0, .2, 1)';
-        word.style.clipPath = 'inset(-20% -5% -20% -5%)';
-        goal = { x: r.right + 10, y: r.top + r.height * 0.78 };
-        setTimeout(next, 300);
-      };
-      setTimeout(next, 350);
-      addEventListener('pointerdown', finishIntro, { once: true });
-      addEventListener('keydown', finishIntro, { once: true });
-      setTimeout(finishIntro, 4000);
-    } else {
-      settle();
-    }
-
-    // Every frame: where the dot wants to be, a spring to get there, and what it does to the page.
-    let last = performance.now();
-    let levelText = '';
-    function frame(now: number) {
-      const steps = Math.min(4, Math.max(1, Math.round((now - last) / (1000 / 60))));
-      last = now;
-      const r = rest();
-      if (intro) {
-        // goal is set by the intro
-      } else if (held) {
-        goal = { ...pointer };
-      } else if (scene === 'level' && vial) {
-        const v = page(vial.getBoundingClientRect());
-        const pull = keyTilt ?? (tiltOn ? gravity.x : clamp((pointer.x - scrollX - innerWidth / 2) / (innerWidth / 2)));
-        goal = { x: v.left + v.width / 2 - pull * (v.width / 2 - 20), y: v.top + 1 };
-      } else {
-        goal = { x: r.x + (tiltOn ? gravity.x * 6 : 0), y: r.y };
-      }
-
-      if (reduce) {
-        pos = { ...goal };
-        vel = { x: 0, y: 0 };
-      } else {
-        const k = held ? 0.32 : 0.09;
-        const damping = held ? 0.58 : 0.8;
-        for (let i = 0; i < steps; i++) {
-          vel = { x: (vel.x + (goal.x - pos.x) * k) * damping, y: (vel.y + (goal.y - pos.y) * k) * damping };
-          pos = { x: pos.x + vel.x, y: pos.y + vel.y };
-        }
-      }
-
-      const size = scene === 'level' || held ? heldSize : Math.max(10, r.size);
-      const stretch = reduce ? 0 : Math.min(0.35, Math.hypot(vel.x, vel.y) / 60);
-      const angle = Math.atan2(vel.y, vel.x);
-      dot.style.width = dot.style.height = `${size}px`;
-      dot.style.transform = `translate(${pos.x - size / 2}px, ${pos.y - size / 2}px) rotate(${angle}rad) scale(${1 + stretch}, ${1 - stretch * 0.6})`;
-
-      if (scene === 'home' && !intro) {
-        // The title leans away from the dot, like liquid in a vial.
-        if (!reduce) {
-          for (const word of words) {
-            const w = page(word.getBoundingClientRect());
-            const dx = w.left + w.width / 2 - pos.x;
-            const dy = w.top + w.height / 2 - pos.y;
-            const distance = Math.hypot(dx, dy) || 1;
-            const push = Math.max(0, 1 - distance / 420) * 26;
-            const gx = tiltOn ? gravity.x * 18 : 0;
-            const gy = tiltOn ? gravity.y * 10 : 0;
-            const turn = (tiltOn ? gravity.x * 3 : 0) + (dx / distance) * push * 0.08;
-            word.style.transform = `translate(${(dx / distance) * push + gx}px, ${(dy / distance) * push + gy}px) rotate(${turn}deg)`;
-          }
-        }
-        const hot = held ? hovered() : undefined;
-        triggers.forEach((trigger) => trigger.classList.toggle('is-hot', trigger === hot));
-        dot.style.setProperty('--acc', accent(hot));
-      }
-
-      if (scene === 'level' && vial) {
-        const v = page(vial.getBoundingClientRect());
-        const offset = (pos.x - (v.left + v.width / 2)) / (v.width / 2 - 20);
-        const degrees = Math.abs(offset) < 0.02 ? 0 : offset * 12;
-        const flat = Math.abs(degrees) < 0.3;
-        one<HTMLElement>('[data-degrees]').textContent = `${number.format(Math.abs(degrees))}°`;
-        vial.classList.toggle('is-flat', flat);
-        const text = flat ? strings.flat : degrees > 0 ? strings.right : strings.left;
-        if (text !== levelText) {
-          levelText = text;
-          setText(root.querySelector('[data-level-status]'), text);
-        }
-      }
-      if (scene === 'habits') rings.forEach((ring) => ring.classList.toggle('is-hot', held && under(ring, 0)));
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-
-  function clamp(value: number) {
-    return Math.max(-1, Math.min(1, value));
-  }
-
-  function setText(element: Element | null, text: string) {
-    if (element && element.textContent !== text) element.textContent = text;
-  }
-</script>

@@ -128,8 +128,8 @@ function privacy(locale: Locale, app?: string, permissions: string[] = [], conne
     heading: it ? 'Questo sito' : 'This site',
     paragraphs: [
       it
-        ? 'sbu.dev non usa cookie né statistiche. L’unico script muove il punto della home, gira nel tuo browser e non invia niente. Il server che lo ospita riceve il tuo indirizzo IP per consegnarti le pagine, come ogni server web.'
-        : 'sbu.dev uses no cookies or analytics. The only script moves the dot on the home page, runs in your browser and sends nothing. The server that hosts it receives your IP address to deliver the pages, like any web server.',
+        ? 'sbu.dev non usa cookie né statistiche. I suoi script aprono il menu sul telefono e fanno i calcoli degli strumenti, come la livella: girano nel tuo browser e non inviano niente. Il server che lo ospita riceve il tuo indirizzo IP per consegnarti le pagine, come ogni server web.'
+        : 'sbu.dev uses no cookies or analytics. Its scripts open the menu on your phone and run the tools, like the level: they run in your browser and send nothing. The server that hosts it receives your IP address to deliver the pages, like any web server.',
     ],
   });
   if (app) {

@@ -35,8 +35,6 @@ struct AddHabitSheet: View {
             }
             .navigationTitle("Aggiungi abitudine")
             .navigationBarTitleDisplayMode(.inline)
-            // The form's back button is a plain chevron: its title would repeat Aggiungi abitudine.
-            .toolbarRole(.editor)
             .modifier(RevealedSearch(isPresented: $isSearching, text: $query, prompt: Text("Cerca un modello")))
             .onChange(of: isSearching, clearQuery)
             .toolbar {

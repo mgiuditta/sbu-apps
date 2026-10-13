@@ -2,10 +2,11 @@
 @import "./tokens.css";
 
 /* Bricolage Grotesque: display titles and the Cifra. Design/fonts has only the Bold cut, so it also
-   serves the 800 the display tokens ask for, instead of a synthesized bold. */
+   serves the 800 the display tokens ask for, instead of a synthesized bold. public/fonts holds the same
+   cut as WOFF2 (38 kB instead of 91), preloaded by Base.astro; OFL.txt sits next to it. */
 @font-face {
   font-family: "Bricolage Grotesque";
-  src: url("../../../Design/fonts/BricolageGrotesque-Bold.ttf") format("truetype");
+  src: url("/fonts/BricolageGrotesque-Bold.woff2") format("woff2");
   font-weight: 700 800;
   font-display: swap;
 }
@@ -48,20 +49,22 @@
     padding-inline: var(--spacing-4);
   }
 
-  /* The home's header floats over its full-screen stage, clear of the notch and the rounded corners. */
-  .stage-bar {
-    position: absolute;
-    inset: 0 0 auto;
-    z-index: 10;
-    padding:
-      calc(var(--spacing-4) + env(safe-area-inset-top))
-      max(var(--spacing-6), env(safe-area-inset-right))
-      0
-      max(var(--spacing-6), env(safe-area-inset-left));
+  /* The home's frame: wide enough for the ledger's columns. No layout width token either, so it is
+     counted in the largest spacing step, like the other wide measures of the site. */
+  .frame {
+    max-width: calc(var(--spacing-12) * 25);
+    margin-inline: auto;
+    padding-inline: var(--spacing-4);
   }
-  /* On a phone the nav wraps to two or three lines: in the flow, it pushes the title down instead of sitting on it. */
-  @media (max-width: 40rem) {
-    .stage-bar { position: relative; }
+  @media (min-width: 48rem) {
+    .frame { padding-inline: var(--spacing-8); }
+  }
+
+  /* Footer: the logo, the free tools, the pages about Sbu, then the note. One column on a phone. */
+  .site-footer { display: grid; gap: var(--spacing-6); }
+  @media (min-width: 40rem) {
+    .site-footer { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
+    .site-footer-note { grid-column: 1 / -1; }
   }
 
   /* Every other page: the header stays on top, on the same paper. A hairline draws in once the page scrolls under it. */

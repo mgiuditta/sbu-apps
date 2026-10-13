@@ -13,13 +13,13 @@ figure:
   it: { value: "3,2 GB", label: Spazio liberabile }
   en: { value: "3.2 GB", label: Space you can free }
 teaser:
-  it: Libera spazio nelle Foto, senza pagare per eliminare.
-  en: Free up space in Photos, without paying to delete.
+  it: Spazio libero in Foto, una decisione alla volta.
+  en: Space back in Photos, one decision at a time.
 permissions:
   it:
-    - Foto, per vedere la libreria e trovare doppioni, screenshot e video pesanti. Sbu Clean analizza le foto sull'iPhone, non scarica niente da iCloud e non manda niente a nessuno. Elimina solo quello che confermi, e iOS lo chiede una seconda volta.
+    - Foto, per vedere la libreria e trovare doppioni, screenshot e video pesanti. Sbu Clean analizza le foto sull'iPhone e non manda niente a nessuno. Scarica da iCloud l'originale di una foto o di un video solo quando lo chiedi tu, per guardarlo o comprimerlo. Elimina solo quello che confermi, e iOS lo chiede una seconda volta.
   en:
-    - Photos, to see your library and find duplicates, screenshots and heavy videos. Sbu Clean analyses photos on your iPhone, downloads nothing from iCloud and sends nothing to anyone. It deletes only what you confirm, and iOS asks a second time.
+    - Photos, to see your library and find duplicates, screenshots and heavy videos. Sbu Clean analyses photos on your iPhone and sends nothing to anyone. It downloads an original from iCloud only when you ask, to watch or compress it. It deletes only what you confirm, and iOS asks a second time.
 faq:
   it:
     - q: Sbu Clean è davvero gratis?
@@ -29,7 +29,7 @@ faq:
     - q: Come sceglie la foto migliore tra i doppioni?
       a: Preferisce le foto che hai segnato come preferite o modificato, poi quella con il volto venuto meglio, poi la più nitida. È un suggerimento, già selezionato ma da confermare. Puoi cambiarlo con un tocco, e niente si elimina senza la revisione del cestino.
     - q: Le mie foto escono dall'iPhone?
-      a: No. Sbu Clean le analizza sull'iPhone con Vision e non si collega a nessun server.
+      a: No. Sbu Clean le analizza sull'iPhone con Vision e non le manda a nessun server.
   en:
     - q: Is Sbu Clean really free?
       a: Yes. No subscription, no in-app purchases, no ads and no daily limits. Delete as many photos as you like.
@@ -38,5 +38,5 @@ faq:
     - q: How does it pick the best of the duplicates?
       a: It prefers photos you marked as favourite or edited, then the one where the face came out best, then the sharpest. It's a suggestion, preselected for you to confirm. You can change it with a tap, and nothing is deleted without the bin's review.
     - q: Do my photos leave my iPhone?
-      a: No. Sbu Clean analyses them on your iPhone with Vision and connects to no server.
+      a: No. Sbu Clean analyses them on your iPhone with Vision and sends them to no server.
 ---

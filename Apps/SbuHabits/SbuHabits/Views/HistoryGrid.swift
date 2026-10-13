@@ -122,7 +122,11 @@ private struct HistoryCell: View {
                 Color.clear
             }
         }
-        .frame(width: side, height: side)
+        // As large as the text size asks, never wider than its column: at accessibility sizes
+        // seven fixed circles would overlap their neighbours.
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .aspectRatio(1, contentMode: .fit)
+        .frame(maxWidth: side)
         .frame(maxWidth: .infinity)
         .contentShape(.rect)
     }

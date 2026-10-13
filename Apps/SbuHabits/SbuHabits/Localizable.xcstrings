@@ -638,7 +638,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Altra %lld abitudine"
+                  "value" : "Un'altra abitudine"
                 }
               },
               "other" : {
@@ -656,7 +656,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld more habit"
+                  "value" : "One more habit"
                 }
               },
               "other" : {
@@ -731,12 +731,12 @@
         }
       }
     },
-    "Annulla ultima" : {
+    "Annulla l'ultimo segno" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Undo last"
+            "value" : "Undo last mark"
           }
         }
       }
@@ -832,12 +832,12 @@
         }
       }
     },
-    "Attiva le notifiche di Sbu Habits nelle Impostazioni di iOS." : {
+    "Attiva le notifiche di Sbu Habits nelle Impostazioni dell'iPhone." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Turn on notifications for Sbu Habits in iOS Settings."
+            "value" : "Turn on notifications for Sbu Habits in your iPhone's Settings."
           }
         }
       }
@@ -1533,7 +1533,7 @@
         }
       }
     },
-    "Chiudere" : {
+    "Lucchetto" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1738,23 +1738,42 @@
       }
     },
     "Condivisa con %lld persone" : {
-      "comment" : "Value of the Condividi row in the habit form: how many people the habit is shared with, two or more.",
+      "comment" : "Value of the Condividi row in the habit form: how many people the habit is shared with.",
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shared with %lld people"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Shared with %lld person"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Shared with %lld people"
+                }
+              }
+            }
           }
-        }
-      }
-    },
-    "Condivisa con 1 persona" : {
-      "comment" : "Value of the Condividi row in the habit form: the habit is shared with one person.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shared with 1 person"
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Condivisa con %lld persona"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Condivisa con %lld persone"
+                }
+              }
+            }
           }
         }
       }
@@ -2062,6 +2081,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Eliminare “%@”?" : {
+      "comment" : "Title of the confirmation before deleting a habit: the habit's title, as the user wrote it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete “%@”?"
           }
         }
       }
@@ -2437,24 +2467,24 @@
         }
       }
     },
-    "Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev, e si uniscono a quelli degli altri tuoi dispositivi. Esporta e Importa restano." : {
+    "Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev, e si uniscono a quelli degli altri tuoi dispositivi. Esporta e Importa funzionano come sempre." : {
       "comment" : "Footer of the iCloud switch: where the data goes, and that Export and Import are still there.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your habits and their history go to your iCloud, never to sbu.dev, and merge with those on your other devices. Export and Import stay."
+            "value" : "Your habits and their history go to your iCloud, never to sbu.dev, and merge with those on your other devices. Export and Import work as always."
           }
         }
       }
     },
-    "Non riesco a condividere l'abitudine" : {
+    "Abitudine non condivisa" : {
       "comment" : "Alert title: preparing the iCloud share of a habit failed.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Can't share the habit"
+            "value" : "Habit not shared"
           }
         }
       }
@@ -2492,13 +2522,13 @@
         }
       }
     },
-    "Questa abitudine è condivisa con te. Vedi i suoi progressi e le statistiche." : {
+    "Chi la condivide la segna. Tu vedi i progressi e le statistiche." : {
       "comment" : "Info box on the screen of a habit someone else shares with the user.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This habit is shared with you. See its progress and statistics."
+            "value" : "The person sharing it marks it. You see its progress and statistics."
           }
         }
       }
@@ -2514,13 +2544,24 @@
         }
       }
     },
-    "Scegli un'icona per chi la condivide" : {
+    "Rimuovere “%@”?" : {
+      "comment" : "Title of the confirmation before removing a habit someone shares with you from this iPhone: the habit's title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove “%@”?"
+          }
+        }
+      }
+    },
+    "Scegli un'emoji per chi la condivide" : {
       "comment" : "Above the row of emoji the user picks from to mark the owner of a shared habit.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Choose an icon for the person sharing it"
+            "value" : "Choose an emoji for the person sharing it"
           }
         }
       }
@@ -2536,13 +2577,13 @@
         }
       }
     },
-    "Smetti di vederla su questo iPhone. Chi la condivide non perde niente." : {
+    "Se la rimuovi, sparisce da questo iPhone. Chi la condivide non perde niente." : {
       "comment" : "Under Rimuovi on the screen of a shared habit: what removing it does.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You stop seeing it on this iPhone. The person sharing it loses nothing."
+            "value" : "If you remove it, it disappears from this iPhone. The person sharing it loses nothing."
           }
         }
       }
@@ -3504,22 +3545,22 @@
         }
       }
     },
-    "Non riesco a leggere le abitudini salvate" : {
+    "Le abitudini salvate non si aprono. Non vanno perse." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your saved habits can't be read"
+            "value" : "Your saved habits won't open. They aren't lost."
           }
         }
       }
     },
-    "Non saltare oggi" : {
+    "Annulla il salto di oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Don't skip today"
+            "value" : "Undo today's skip"
           }
         }
       }
@@ -4134,16 +4175,6 @@
         }
       }
     },
-    "Programmazione" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Schedule"
-          }
-        }
-      }
-    },
     "Promemoria" : {
       "localizations" : {
         "en" : {
@@ -4326,7 +4357,7 @@
         }
       }
     },
-    "Ripetere" : {
+    "Ripetizione" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4505,16 +4536,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wave"
-          }
-        }
-      }
-    },
-    "Salva" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save"
           }
         }
       }
@@ -4782,42 +4803,12 @@
         }
       }
     },
-    "Serie migliore: %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Best streak: %lld"
-          }
-        }
-      }
-    },
     "Serie piena" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Full streak"
-          }
-        }
-      }
-    },
-    "settimana" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "week"
-          }
-        }
-      }
-    },
-    "settimane" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "weeks"
           }
         }
       }
@@ -4872,7 +4863,7 @@
         }
       }
     },
-    "Smettere" : {
+    "Basta" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5101,7 +5092,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Halt"
+            "value" : "Stop sign"
           }
         }
       }
@@ -5787,13 +5778,13 @@
         }
       }
     },
-    "Ho ceduto" : {
+    "Segna che hai ceduto" : {
       "comment" : "VoiceOver action: one more time an avoided habit happened today.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I gave in"
+            "value" : "Mark that you gave in"
           }
         }
       }
@@ -5825,7 +5816,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kind"
+            "value" : "Type"
           }
         }
       }
@@ -5857,7 +5848,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Export creates a file with your habits and their history. You keep it wherever you want. Import replaces the current data with a file's."
+            "value" : "Export creates a file with your habits and their history. You save it wherever you want. Import replaces the current data with a file's."
           }
         }
       }
@@ -5906,12 +5897,12 @@
         }
       }
     },
-    "Le abitudini e lo storico su questo iPhone lasciano il posto a quelli del file." : {
+    "Le abitudini e lo storico del file prendono il posto di quelli attuali." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The habits and history on this iPhone give way to the file's."
+            "value" : "The file's habits and history take the place of the current ones."
           }
         }
       }
@@ -5933,7 +5924,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The file is not from Sbu Habits"
+            "value" : "The file isn't from Sbu Habits"
           }
         }
       }
@@ -5955,7 +5946,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The file does not open"
+            "value" : "The file won't open"
           }
         }
       }
@@ -6006,7 +5997,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saving did not work. Try again: your current data stays as it is."
+            "value" : "Saving didn't work. Try again: your current data stays as it is."
           }
         }
       }
@@ -6033,17 +6024,6 @@
         }
       }
     },
-    "Misura" : {
-      "comment" : "Picker: which Apple Health measure the habit follows.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Measure"
-          }
-        }
-      }
-    },
     "Obiettivo al giorno" : {
       "comment" : "Stepper label: the Health total that marks the habit done.",
       "localizations" : {
@@ -6055,13 +6035,13 @@
         }
       }
     },
-    "Si segna da sola quando Salute arriva all'obiettivo. Se neghi l'accesso, la segni tu." : {
+    "Si segna da sola quando arrivi all'obiettivo in Salute. Se neghi l'accesso, la segni tu." : {
       "comment" : "Footer under the Health link in the habit form.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "It marks itself done when Health reaches the goal. If you deny access, you mark it yourself."
+            "value" : "It marks itself done when you reach the goal in Health. If you deny access, you mark it yourself."
           }
         }
       }
@@ -6186,17 +6166,6 @@
         }
       }
     },
-    "Segna fatta" : {
-      "comment" : "Timer button: ends the countdown and marks the habit done.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mark done"
-          }
-        }
-      }
-    },
     "Tempo rimanente" : {
       "comment" : "VoiceOver label of the Timer countdown.",
       "localizations" : {
@@ -6244,26 +6213,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "mese" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "month"
-          }
-        }
-      }
-    },
-    "mesi" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "months"
           }
         }
       }
@@ -6329,13 +6278,13 @@
         }
       }
     },
-    "Com'è andata" : {
+    "Com'è andata?" : {
       "comment" : "Placeholder of the daily note text field.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "How did it go"
+            "value" : "How did it go?"
           }
         }
       }
@@ -6478,7 +6427,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You have %lld habits, the most there can be. To add another, delete one."
+            "value" : "You have %lld habits, the maximum. To add another, delete one."
           }
         }
       }
@@ -6591,13 +6540,13 @@
         }
       }
     },
-    "Crea un'abitudine Salute" : {
+    "Crea un'abitudine collegata a Salute" : {
       "comment" : "Header over the templates of the Salute tab.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create a Health habit"
+            "value" : "Create a habit linked to Health"
           }
         }
       }
@@ -6875,17 +6824,6 @@
         }
       }
     },
-    "Fare un'escursione" : {
-      "comment" : "Title of a habit template of Aggiungi abitudine.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Go hiking"
-          }
-        }
-      }
-    },
     "Andare in bici" : {
       "comment" : "Title of a habit template of Aggiungi abitudine.",
       "localizations" : {
@@ -6904,17 +6842,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Work out"
-          }
-        }
-      }
-    },
-    "Bruciare calorie" : {
-      "comment" : "Title of a habit template of Aggiungi abitudine.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Burn calories"
           }
         }
       }
@@ -7233,7 +7160,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nothing expected in this period"
+            "value" : "Nothing due in this period"
           }
         }
       }

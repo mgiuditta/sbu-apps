@@ -10,7 +10,7 @@ struct SharedHabitInfoBox: View {
                 .imageScale(.medium)
                 .foregroundStyle(SbuTheme.inkMuted)
                 .accessibilityHidden(true)
-            Text("Questa abitudine è condivisa con te. Vedi i suoi progressi e le statistiche.")
+            Text("Chi la condivide la segna. Tu vedi i progressi e le statistiche.")
                 .foregroundStyle(SbuTheme.ink)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

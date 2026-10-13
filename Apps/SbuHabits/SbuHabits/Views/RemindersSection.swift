@@ -48,7 +48,7 @@ struct RemindersSection: View {
                         Text("Ti ricorda all'ora in cui di solito la fai, se oggi non è ancora fatta.")
                     }
                     if showsDenied {
-                        Text("Attiva le notifiche di Sbu Habits nelle Impostazioni di iOS.")
+                        Text("Attiva le notifiche di Sbu Habits nelle Impostazioni dell'iPhone.")
                     }
                 }
             }

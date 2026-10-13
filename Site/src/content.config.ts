@@ -35,6 +35,11 @@ const apps = defineCollection({
     originale: z.object({ name: z.string(), appStoreId: z.number() }).optional(),
     figure: localized(z.object({ value: z.string(), label: z.string() })).optional(),
     permissions: localized(z.array(z.string())).default({ it: [], en: [] }),
+    /**
+     * For an app that may reach the user's own iCloud or devices (ADR-0007/0008/0009): the end of the
+     * privacy page's first sentence, in place of "e non si collega a nessun server.".
+     */
+    connections: localized(z.string()).optional(),
     faq: localized(faq).default({ it: [], en: [] }),
     /** One line for an app with no listing yet: the home's "In arrivo" scene. Ignored once the listing exists. */
     teaser: localized(z.string()).optional(),

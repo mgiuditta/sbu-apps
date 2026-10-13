@@ -3,10 +3,12 @@ import SwiftUI
 /// A full-width 50pt button in one of the three Sbu roles.
 ///
 /// Labels are infinitive verbs ("Aggiungi abbonamento"). Use one primary per screen, at the
-/// bottom. The destructive role asks for confirmation before running its action.
+/// bottom. The destructive role asks for confirmation before running its action, and the
+/// confirmation can name what goes ("Eliminare “Leggere”?").
 public struct SbuButton: View {
     private let title: LocalizedStringKey
     private let kind: Kind
+    private let confirmationTitle: LocalizedStringKey?
     private let action: () -> Void
 
     @State private var isConfirming = false
@@ -15,17 +17,20 @@ public struct SbuButton: View {
     /// - Parameters:
     ///   - title: An infinitive verb, such as "Esporta CSV".
     ///   - kind: Primary, secondary or destructive.
+    ///   - confirmationTitle: For `.destructive`, the question above the confirming button,
+    ///     naming what the action removes; `title` when `nil`.
     ///   - action: Runs on tap; for `.destructive`, only after the user confirms.
-    public init(_ title: LocalizedStringKey, kind: Kind = .primary, action: @escaping () -> Void) {
+    public init(_ title: LocalizedStringKey, kind: Kind = .primary, confirmationTitle: LocalizedStringKey? = nil, action: @escaping () -> Void) {
         self.title = title
         self.kind = kind
+        self.confirmationTitle = confirmationTitle
         self.action = action
     }
 
     public var body: some View {
         Button(title, role: kind == .destructive ? .destructive : nil, action: tap)
             .buttonStyle(SbuButtonStyle(kind: kind))
-            .confirmationDialog(title, isPresented: $isConfirming, titleVisibility: .visible) {
+            .confirmationDialog(confirmationTitle ?? title, isPresented: $isConfirming, titleVisibility: .visible) {
                 Button(title, role: .destructive, action: action)
             }
     }

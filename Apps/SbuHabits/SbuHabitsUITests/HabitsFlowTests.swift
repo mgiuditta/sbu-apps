@@ -145,7 +145,7 @@ final class HabitsFlowTests: XCTestCase {
         expectValue(acqua, "3 di 3, 1 giorno")
 
         acqua.tap()
-        app.buttons["Annulla ultima"].tap()
+        app.buttons["Annulla l'ultimo segno"].tap()
         expectValue(acqua, "2 di 3, 0 giorni")
     }
 
@@ -230,7 +230,7 @@ final class HabitsFlowTests: XCTestCase {
         expectValue(leggere, "Saltata oggi, 0 giorni")
 
         leggere.tap()
-        app.buttons["Non saltare oggi"].tap()
+        app.buttons["Annulla il salto di oggi"].tap()
         expectValue(leggere, "Da fare, 0 giorni")
     }
 
@@ -331,7 +331,9 @@ final class HabitsFlowTests: XCTestCase {
         XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
         app.collectionViews.firstMatch.swipeUp()
         app.buttons["Elimina"].firstMatch.tap()
-        app.buttons["Elimina"].firstMatch.tap() // the confirmation
+        // The confirmation names the habit it deletes.
+        XCTAssertTrue(app.staticTexts["Eliminare “Leggere ogni sera”?"].waitForExistence(timeout: 5), app.debugDescription)
+        app.buttons["Elimina"].firstMatch.tap()
         XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].waitForExistence(timeout: 5))
     }
 
@@ -413,7 +415,7 @@ final class HabitsFlowTests: XCTestCase {
         expectValue(caffe, "Da evitare, limite superato, 2 su 1, 0 giorni")
 
         caffe.tap()
-        app.buttons["Annulla ultima"].tap()
+        app.buttons["Annulla l'ultimo segno"].tap()
         expectValue(caffe, "Da evitare, 1 su 1, 0 giorni")
     }
 
@@ -425,7 +427,7 @@ final class HabitsFlowTests: XCTestCase {
 
         app.switches["Collega a Salute"].switches.firstMatch.tap()
 
-        XCTAssertTrue(app.staticTexts["Si segna da sola quando Salute arriva all'obiettivo. Se neghi l'accesso, la segni tu."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Si segna da sola quando arrivi all'obiettivo in Salute. Se neghi l'accesso, la segni tu."].waitForExistence(timeout: 5))
         app.backToForm()
         // The goal has its own row, and the title follows it until you write one.
         let goal = app.formRow("Obiettivo")
@@ -623,9 +625,9 @@ final class HabitsFlowTests: XCTestCase {
         addTimed("Meditare", in: app)
         app.buttons["Avvia Meditare"].tap()
         allowNotificationsIfAsked()
-        XCTAssertTrue(app.buttons["Segna fatta"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Segna come fatta"].waitForExistence(timeout: 5))
 
-        app.buttons["Segna fatta"].tap()
+        app.buttons["Segna come fatta"].tap()
 
         expectValue(habit("Meditare", in: app), "Fatta, 10 minuti, 1 giorno")
         XCTAssertFalse(app.buttons["Avvia Meditare"].exists)

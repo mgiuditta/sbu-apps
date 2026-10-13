@@ -41,7 +41,7 @@ nonisolated enum HabitTemplateCategory: CaseIterable, Hashable, Sendable {
     var header: LocalizedStringResource {
         switch self {
         case .general: "Crea un'abitudine"
-        case .health: "Crea un'abitudine Salute"
+        case .health: "Crea un'abitudine collegata a Salute"
         case .eating: "Crea un'abitudine di alimentazione"
         case .timed: "Crea un'abitudine a tempo"
         case .toAvoid: "Crea un'abitudine da evitare"

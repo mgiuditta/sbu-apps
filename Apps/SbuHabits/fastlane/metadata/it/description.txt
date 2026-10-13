@@ -7,21 +7,25 @@ Dati solo sul dispositivo.
 
 Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alto vedi la Serie piena: i giorni di fila in cui hai fatto tutto.
 
-- Tutte le abitudini che vuoi, senza limiti
+- Fino a 24 abitudini, su quattro pagine
+- Modelli pronti in cinque categorie, oppure un'abitudine tutta tua
 - Sì o no, oppure più volte al giorno: 8 bicchieri d'acqua
-- Ogni giorno, in giorni scelti, oppure N volte a settimana
+- Ogni giorno, in giorni scelti, N volte a settimana o al mese, oppure un giorno solo
+- Abitudini a tempo: avvii il timer dall'anello e alla fine si segnano da sole; il conto alla rovescia resta sulla schermata di blocco
 - Abitudini da evitare con un limite al giorno: quando cedi, la tieni premuta
-- Collega un'abitudine a Salute: passi, acqua, minuti di consapevolezza, distanza camminata + corsa, energia attiva
+- Collega un'abitudine a Salute: passi, acqua, sonno, anelli Attività, distanze, minuti di esercizio e di consapevolezza, e altro
 - Si segna da sola quando arrivi all'obiettivo del giorno, anche ad app chiusa
-- Salute in sola lettura: Sbu Habits non scrive mai e i dati restano sull'iPhone
+- Salute in sola lettura: Sbu Habits non scrive mai e i dati di Salute restano sull'iPhone
+- Una nota per ogni giorno, per ricordare com'è andata
 - Salta oggi quando sei malato, senza perdere la serie
 - Inizio della giornata per chi fa i turni di notte
-- Promemoria solo nei giorni previsti e solo se non l'hai ancora fatta
-- Widget interattivo: segni dalla schermata Home
-- Statistiche con la serie migliore e le ultime 26 settimane
+- Promemoria solo nei giorni previsti e solo se non l'hai ancora fatta, anche all'ora in cui di solito la fai
+- Widget interattivi: segni dalla schermata Home
+- Widget per la serie, il completamento, i giorni della settimana e il calendario di un'abitudine
+- Statistiche con la serie migliore, il completamento nel tempo e lo storico, da condividere come immagine
 - Esporta e importa i tuoi dati in un file, salvato dove scegli tu
 - Sincronizzazione sul tuo iCloud, spenta finché non la attivi
-- Condividi un'abitudine con chi vuoi, tramite iCloud
+- Condividi un'abitudine con chi vuoi, tramite iCloud: la vede in sola lettura
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: conta i giorni di fila in cui mantieni un'abitudine.

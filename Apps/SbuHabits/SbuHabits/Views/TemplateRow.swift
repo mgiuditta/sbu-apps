@@ -2,11 +2,14 @@ import SbuKit
 import SwiftUI
 
 /// A row of Aggiungi abitudine: the symbol in a circle, the heart for a habit linked to Salute,
-/// the title. The navigation link around it adds the chevron.
+/// the title, and in the search results the detail that tells same-titled Modelli apart. The
+/// navigation link around it adds the chevron.
 struct TemplateRow: View {
     let title: LocalizedStringResource
     let symbol: String
     var linksHealth = false
+    /// The line under the title; it also says the Salute link, so VoiceOver reads it once.
+    var detail: LocalizedStringResource?
 
     /// The circle grows with the text.
     @ScaledMetric(relativeTo: .body) private var circleSide = SbuTheme.space8
@@ -28,11 +31,18 @@ struct TemplateRow: View {
                     .foregroundStyle(SbuTheme.inkMuted)
                     .accessibilityHidden(true)
             }
-            Text(title)
-                .foregroundStyle(SbuTheme.ink)
+            VStack(alignment: .leading, spacing: SbuTheme.space1) {
+                Text(title)
+                    .foregroundStyle(SbuTheme.ink)
+                if let detail {
+                    Text(detail)
+                        .font(SbuTheme.subheadline)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                }
+            }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityValue(linksHealth ? Text("Collegata a Salute") : Text(verbatim: ""))
+        .accessibilityValue(linksHealth && detail == nil ? Text("Collegata a Salute") : Text(verbatim: ""))
     }
 }
 

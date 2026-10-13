@@ -19,7 +19,7 @@ struct MainView: View {
 
     private var context: LocalizedStringKey? {
         if model.isUnreadable {
-            "Non riesco a leggere le abitudini salvate"
+            "Le abitudini salvate non si aprono. Non vanno perse."
         } else if model.habits.isEmpty {
             "Aggiungi la prima abitudine"
         } else if model.todayHabits.isEmpty {

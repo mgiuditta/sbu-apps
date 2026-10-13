@@ -325,7 +325,7 @@ final class HabitsModel {
         planReminders()
     }
 
-    /// Ends the countdown now and marks its habit done, as Segna fatta does.
+    /// Ends the countdown now and marks its habit done, as Segna come fatta does.
     func markTimerDone() {
         guard let timer else { return }
         finish(timer, at: now())

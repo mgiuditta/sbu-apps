@@ -97,7 +97,7 @@ struct DailyNoteEditor: View {
     }
 
     private var field: some View {
-        TextField("Com'è andata", text: $text, axis: .vertical)
+        TextField("Com'è andata?", text: $text, axis: .vertical)
             .font(SbuTheme.body)
             .foregroundStyle(SbuTheme.ink)
             .lineLimit(6...)

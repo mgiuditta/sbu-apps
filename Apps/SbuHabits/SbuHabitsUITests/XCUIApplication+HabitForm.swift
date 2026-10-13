@@ -53,11 +53,11 @@ extension XCUIApplication {
         XCTAssertTrue(textFields["Titolo"].waitForExistence(timeout: 5))
     }
 
-    /// The form's main button for a new habit. The back button to Aggiungi abitudine reads the
-    /// same words, as every back button reads the screen it goes back to.
+    /// The form's main button for a new habit. The back button reads "Aggiungi", the title of
+    /// the sheet it goes back to, so VoiceOver tells the two apart.
     @MainActor
     var addHabitButton: XCUIElement {
-        buttons.matching(NSPredicate(format: "label == 'Aggiungi abitudine' AND identifier != 'BackButton'")).firstMatch
+        buttons["Aggiungi abitudine"].firstMatch
     }
 
     /// Types the title, then adds the habit.

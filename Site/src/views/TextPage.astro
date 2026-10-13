@@ -10,7 +10,7 @@ import type { Route } from '../lib/routes';
 type Props = Route & { app?: App };
 const { locale, path, alternates, view, app } = Astro.props;
 const name = app ? text(app, locale).name : undefined;
-const page = pages[view as keyof typeof pages](locale, name, app?.permissions[locale] ?? []);
+const page = pages[view as keyof typeof pages](locale, name, app?.permissions[locale] ?? [], app?.connections?.[locale]);
 const site = Astro.site!;
 const jsonLd = [
   breadcrumbs(site, locale, [['sbu.dev', ''], [page.title, path]]),

@@ -13,7 +13,7 @@ struct ShareHabitSection: View {
 
     private var value: String {
         guard let count = sharing.participantCount(of: habit), count > 0 else { return "" }
-        return count == 1 ? String(localized: "Condivisa con 1 persona") : String(localized: "Condivisa con \(count) persone")
+        return String(localized: "Condivisa con \(count) persone")
     }
 
     private var footer: LocalizedStringKey {
@@ -37,7 +37,7 @@ struct ShareHabitSection: View {
             Text(footer)
         }
         .listRowBackground(SbuTheme.surfaceRaised)
-        .alert("Non riesco a condividere l'abitudine", isPresented: $isShowingFailure) {
+        .alert("Abitudine non condivisa", isPresented: $isShowingFailure) {
             // No actions: the system adds its own OK.
         } message: {
             Text("Controlla la connessione e riprova.")

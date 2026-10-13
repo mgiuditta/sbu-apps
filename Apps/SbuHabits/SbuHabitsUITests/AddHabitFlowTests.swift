@@ -56,7 +56,7 @@ final class AddHabitFlowTests: XCTestCase {
         let app = launch()
         app.openAddHabit()
 
-        XCTAssertTrue(app.staticTexts["Aggiungi abitudine"].exists)
+        XCTAssertTrue(app.navigationBars["Aggiungi"].exists, app.debugDescription)
         XCTAssertTrue(app.buttons["Generale"].isSelected)
         XCTAssertFalse(app.buttons["Salute"].isSelected)
         XCTAssertTrue(app.staticTexts["Crea un'abitudine"].exists)
@@ -111,6 +111,31 @@ final class AddHabitFlowTests: XCTestCase {
         let habit = app.descendants(matching: .any).matching(identifier: "Niente dolci").firstMatch
         XCTAssertTrue(habit.waitForExistence(timeout: 5))
         XCTAssertTrue((habit.value as? String ?? "").hasPrefix("Da evitare"), habit.debugDescription)
+    }
+
+    @MainActor
+    func testSameTitledResultsReadApartAndTheFormsBackButtonIsNotItsMainButton() {
+        let app = launch()
+        app.openAddHabit()
+        app.buttons["Cerca"].tap()
+        let search = app.searchFields["Cerca un modello"]
+        XCTAssertTrue(search.waitForExistence(timeout: 5))
+
+        search.typeText("leggere\n")
+
+        let rows = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggere'"))
+        XCTAssertTrue(rows.firstMatch.waitForExistence(timeout: 5), app.debugDescription)
+        let labels = rows.allElementsBoundByIndex.map(\.label)
+        XCTAssertEqual(labels.count, 2, app.debugDescription)
+        XCTAssertEqual(Set(labels).count, 2, "\(labels)")
+        XCTAssertTrue(labels.contains { $0.contains("A tempo") }, "\(labels)")
+
+        rows.firstMatch.tap()
+
+        XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
+        let back = app.navigationBars.allElementsBoundByIndex.last?.buttons.element(boundBy: 0)
+        XCTAssertEqual(back?.label, "Aggiungi", back?.debugDescription ?? app.debugDescription)
+        XCTAssertTrue(app.addHabitButton.exists)
     }
 
     @MainActor

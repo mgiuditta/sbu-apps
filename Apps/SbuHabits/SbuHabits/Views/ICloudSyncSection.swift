@@ -40,7 +40,7 @@ struct ICloudSyncSection: View {
         } else if sync.isNewerOnICloud {
             "Su iCloud ci sono dati di una versione più recente di Sbu Habits. Aggiorna l'app per sincronizzare."
         } else {
-            "Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev, e si uniscono a quelli degli altri tuoi dispositivi. Esporta e Importa restano."
+            "Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev, e si uniscono a quelli degli altri tuoi dispositivi. Esporta e Importa funzionano come sempre."
         }
     }
 }

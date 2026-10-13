@@ -15,7 +15,7 @@ struct OwnerEmojiPicker: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space3) {
-            Text("Scegli un'icona per chi la condivide")
+            Text("Scegli un'emoji per chi la condivide")
                 .font(SbuTheme.subheadline)
                 .foregroundStyle(SbuTheme.inkMuted)
 

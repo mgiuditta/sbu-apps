@@ -8,13 +8,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sbu Habits reads from Health only the measures you link, to mark your habits. Your data stays on this iPhone."
+            "value" : "Sbu Habits reads from Health only the measures you link, to mark your habits. Your Health data stays on this iPhone."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sbu Habits legge da Salute solo le misure che colleghi, per segnare le tue abitudini. I dati restano su questo iPhone."
+            "value" : "Sbu Habits legge da Salute solo le misure che colleghi, per segnare le tue abitudini. I dati di Salute restano su questo iPhone."
           }
         }
       }
@@ -26,13 +26,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sbu Habits never writes to Health. It only reads the measures you link, and your data stays on this iPhone."
+            "value" : "Sbu Habits never writes to Health. It only reads the measures you link, and your Health data stays on this iPhone."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati restano su questo iPhone."
+            "value" : "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati di Salute restano su questo iPhone."
           }
         }
       }

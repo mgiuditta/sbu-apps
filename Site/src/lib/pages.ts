@@ -100,18 +100,23 @@ const support: Record<Locale, TextPage> = {
   },
 };
 
-function privacy(locale: Locale, app?: string, permissions: string[] = []): TextPage {
+/**
+ * @param connections For one app that may reach the user's own iCloud or devices: the end of the
+ * first sentence, in place of "and it connects to no server.".
+ */
+function privacy(locale: Locale, app?: string, permissions: string[] = [], connections?: string): TextPage {
   const it = locale === 'it';
   const subject = app ?? (it ? 'Le app Sbu' : 'Sbu apps');
+  const servers = connections ?? (it ? 'e non si collegano a nessun server.' : 'and they connect to no server.');
   const sections: Section[] = [
     {
       paragraphs: it
         ? [
-            `${subject} non raccolgono e non inviano dati personali. Non hanno account, statistiche, pubblicità o strumenti di tracciamento, e non si collegano a nessun server.`,
+            `${subject} non raccolgono e non inviano dati personali. Non hanno account, statistiche, pubblicità o strumenti di tracciamento, ${servers}`,
             'Quello che inserisci resta sul tuo iPhone e nei backup che fai tu, su iCloud o sul computer.',
           ]
         : [
-            `${subject} collect and send no personal data. There are no accounts, analytics, ads or tracking tools, and they connect to no server.`,
+            `${subject} collect and send no personal data. There are no accounts, analytics, ads or tracking tools, ${servers}`,
             'What you enter stays on your iPhone and in the backups you make, on iCloud or on your computer.',
           ],
     },
@@ -136,7 +141,9 @@ function privacy(locale: Locale, app?: string, permissions: string[] = []): Text
   }
   return {
     title: app ? `${it ? 'Privacy di' : 'Privacy:'} ${app}` : 'Privacy',
-    description: it ? `${subject}: nessun dato raccolto, tutto resta sul tuo iPhone.` : `${subject}: no data collected, everything stays on your iPhone.`,
+    description: connections
+      ? it ? `${subject}: nessun dato raccolto, niente passa da sbu.dev.` : `${subject}: no data collected, nothing goes through sbu.dev.`
+      : it ? `${subject}: nessun dato raccolto, tutto resta sul tuo iPhone.` : `${subject}: no data collected, everything stays on your iPhone.`,
     sections,
   };
 }
@@ -145,5 +152,5 @@ export const pages = {
   principles: (locale: Locale) => principles[locale],
   support: (locale: Locale) => support[locale],
   privacy: (locale: Locale) => privacy(locale),
-  appPrivacy: (locale: Locale, app?: string, permissions: string[] = []) => privacy(locale, app, permissions),
+  appPrivacy: (locale: Locale, app?: string, permissions: string[] = [], connections?: string) => privacy(locale, app, permissions, connections),
 };

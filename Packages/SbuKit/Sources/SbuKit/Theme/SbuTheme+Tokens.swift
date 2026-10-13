@@ -93,6 +93,15 @@ public extension SbuTheme {
     /// Separatori di lista in `line`.
     static let hairline: CGFloat = 1
 
+    // MARK: - Size
+
+    /// Bottone tondo più piccolo, il minimo che si tocca: il play sull'anello della home di Sbu Habits.
+    static let controlRoundSm: CGFloat = 44
+    /// Bottone tondo secondario di una schermata a tutto schermo: Annulla, Segna fatta.
+    static let controlRound: CGFloat = 56
+    /// Il bottone tondo principale, pieno nell'accento: Pausa / Riprendi del Timer.
+    static let controlRoundLg: CGFloat = 84
+
     // MARK: - Mark
 
     /// Il punto fermo: lato del quadrato rispetto alla dimensione del font della cifra o del titolo che chiude. Sta sulla linea di base.
@@ -122,6 +131,9 @@ extension SbuTheme {
         "radius-pill": radiusPill,
         "radius-icon": radiusIcon,
         "hairline": hairline,
+        "control-round-sm": controlRoundSm,
+        "control-round": controlRound,
+        "control-round-lg": controlRoundLg,
         "mark-size": markSize,
         "mark-gap": markGap,
     ]

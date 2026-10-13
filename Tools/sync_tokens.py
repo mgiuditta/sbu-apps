@@ -142,6 +142,7 @@ def main() -> None:
         ("Spacing", tokens["spacing"]["tokens"]),
         ("Radius", tokens["radius"]["tokens"]),
         ("Stroke", tokens["stroke"]["tokens"]),
+        ("Size", tokens["size"]["tokens"]),
         ("Mark", tokens["mark"]["tokens"]),
     ]
 

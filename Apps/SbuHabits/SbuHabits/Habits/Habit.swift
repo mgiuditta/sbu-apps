@@ -9,6 +9,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     static let timesPerDayRange = 1...20
     /// The range the form offers for the Limite: 0 is "never".
     static let limitRange = 0...20
+    /// The lengths, in minutes, the form offers for the countdown of an Abitudine a tempo.
+    static let timerMinutesRange = 1...180
 
     let id: UUID
     var title: String
@@ -38,6 +40,10 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     var reminders: [ReminderTime] = []
     /// The Salute measure that marks it done by itself, only for a habit to do.
     private(set) var health: HealthLink?
+    /// The length in minutes of the countdown that marks an Abitudine a tempo done, `nil` for a
+    /// habit that is not timed. Only for a habit to do, never linked to Salute; done once a day.
+    /// Not kept per day like the goal: it never changes whether a past day was done.
+    private(set) var timerMinutes: Int?
 
     init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, createdOn: LogicalDay) {
         self.id = id
@@ -49,8 +55,9 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.createdOn = createdOn
     }
 
-    // Files saved before times per day, schedules, limits, skips, reminders, edits, Salute and mark hours
-    // existed: yes/no, every day, to do, nothing skipped, no reminders, never edited, marked by hand, no hours.
+    // Files saved before times per day, schedules, limits, skips, reminders, edits, Salute, mark hours and
+    // timers existed: yes/no, every day, to do, nothing skipped, no reminders, never edited, marked by hand,
+    // no hours, not timed.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -66,6 +73,12 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         reminders = try container.decodeIfPresent([ReminderTime].self, forKey: .reminders) ?? []
         earlier = try container.decodeIfPresent([HabitSettings].self, forKey: .earlier) ?? []
         health = try container.decodeIfPresent(HealthLink.self, forKey: .health)
+        timerMinutes = try container.decodeIfPresent(Int.self, forKey: .timerMinutes)
+    }
+
+    /// The countdown of an Abitudine a tempo, `nil` for a habit that is not timed.
+    var timerDuration: Duration? {
+        timerMinutes.map { .seconds($0 * 60) }
     }
 
     /// The schedule that applied on `day`.
@@ -106,7 +119,9 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// - Returns: `false`, changing nothing, when the title is blank or no weekday is chosen.
     /// An Abitudine da evitare keeps its kind: it takes `limit`, has no reminders, no weekly schedule
     /// and no link to Salute. A habit linked to Salute is done once a day, when the goal is reached.
-    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, from today: LogicalDay) -> Bool {
+    /// An Abitudine a tempo is done once a day, when its countdown of `timerMinutes` ends; it is
+    /// never linked to Salute, and a link wins over the timer.
+    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil, from today: LogicalDay) -> Bool {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxTitleLength))
         guard title.isEmpty == false, schedule != .weekdays([]) else { return false }
         self.title = title
@@ -114,6 +129,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         let newLimit = self.limit.map { Self.clamp(limit ?? $0, to: Self.limitRange) }
         self.reminders = newLimit == nil ? Array(Set(reminders)).sorted() : []
         let newHealth = newLimit == nil ? health.map { HealthLink(measure: $0.measure, goal: $0.goal) } : nil
+        let newTimer = newLimit == nil && newHealth == nil ? timerMinutes.map { Self.clamp($0, to: Self.timerMinutesRange) } : nil
         let newSchedule: Schedule
         let newTimes: Int
         if newLimit != nil, schedule.isWeekly {
@@ -126,8 +142,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
             newTimes = 1
         } else {
             newSchedule = schedule
-            // Salute marks the whole day at once.
-            newTimes = newHealth == nil ? Self.clamp(timesPerDay, to: Self.timesPerDayRange) : 1
+            // Salute marks the whole day at once, and so does the end of a countdown.
+            newTimes = newHealth == nil && newTimer == nil ? Self.clamp(timesPerDay, to: Self.timesPerDayRange) : 1
         }
         // Keep the old rules for the days before today, once per day of edits.
         if (newSchedule, newTimes, newLimit) != (self.schedule, self.timesPerDay, self.limit), today > createdOn, earlier.last?.until != today {
@@ -137,6 +153,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.timesPerDay = newTimes
         self.limit = newLimit
         self.health = newHealth
+        self.timerMinutes = newTimer
         return true
     }
 

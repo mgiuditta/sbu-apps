@@ -14,16 +14,25 @@ struct HabitRing: View {
     let filled: Double
     /// Draws the fill in `danger`: only ever with the cross, never color alone.
     let isOverLimit: Bool
+    /// The symbol's text style: larger for the Timer's big ring.
+    let symbolFont: Font
 
-    init(symbol: String, segments: Int, filled: Double, isOverLimit: Bool = false) {
+    init(symbol: String, segments: Int, filled: Double, isOverLimit: Bool = false, symbolFont: Font = SbuTheme.title2) {
         self.symbol = symbol
         self.segments = segments
         self.filled = filled
         self.isOverLimit = isOverLimit
+        self.symbolFont = symbolFont
     }
 
     init(face: HabitRingFace, isHolding: Bool = false) {
         self.init(symbol: face.symbol, segments: face.segments, filled: face.filled(isHolding: isHolding), isOverLimit: face.isOverLimit)
+    }
+
+    /// The accent from the environment's tint, or `danger` over the Limite. Never `.tint(nil)`:
+    /// that drops the app's tint, and inside a full-screen cover it falls back to system blue.
+    private var fillStyle: AnyShapeStyle {
+        isOverLimit ? AnyShapeStyle(SbuTheme.danger) : AnyShapeStyle(.tint)
     }
 
     private var lineCap: CGLineCap {
@@ -42,13 +51,12 @@ struct HabitRing: View {
 
                 Circle()
                     .trim(from: range.lowerBound, to: range.lowerBound + (range.upperBound - range.lowerBound) * fill)
-                    .stroke(.tint, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
+                    .stroke(fillStyle, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
             }
             .rotationEffect(.degrees(-90))
-            .tint(isOverLimit ? SbuTheme.danger : nil)
 
             Image(systemName: symbol)
-                .font(SbuTheme.title2)
+                .font(symbolFont)
                 .fontWeight(.medium)
                 .imageScale(.medium)
                 .foregroundStyle(SbuTheme.ink)

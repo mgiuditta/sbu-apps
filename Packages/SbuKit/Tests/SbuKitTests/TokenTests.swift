@@ -30,6 +30,7 @@ struct TokenTests {
         let spacing: MetricGroup
         let radius: MetricGroup
         let stroke: MetricGroup
+        let size: MetricGroup
         let mark: MetricGroup
     }
 
@@ -56,7 +57,7 @@ struct TokenTests {
     }
 
     @Test func metricsMatchTokenValues() {
-        for token in tokens.spacing.tokens + tokens.radius.tokens + tokens.stroke.tokens + tokens.mark.tokens {
+        for token in tokens.spacing.tokens + tokens.radius.tokens + tokens.stroke.tokens + tokens.size.tokens + tokens.mark.tokens {
             let expected = token.value.hasSuffix("%")
                 ? (Double(token.value.dropLast()) ?? .nan) / 100
                 : Double(token.value.replacing("px", with: "")) ?? .nan

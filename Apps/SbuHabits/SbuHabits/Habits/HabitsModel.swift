@@ -12,12 +12,17 @@ final class HabitsModel {
     private(set) var startHour = 0
     /// The saved file could not be read: nothing is written, so it is never lost.
     private(set) var isUnreadable = false
+    /// The countdown of an Abitudine a tempo, while one runs or is paused: one at a time.
+    private(set) var timer: HabitTimer?
+    /// Countdowns that ran to their end with the app open, for the success haptic.
+    private(set) var timersEnded = 0
 
     @ObservationIgnored private let store: HabitsStore
     @ObservationIgnored private let now: () -> Date
     @ObservationIgnored private let calendar: Calendar
     @ObservationIgnored private let scheduleReminders: @MainActor ([PlannedReminder]) -> Void
     @ObservationIgnored private let health: any HealthReading
+    @ObservationIgnored private let timerStore: HabitTimerStore
     /// The measures Salute is followed for, `nil` until `observeHealth()`.
     @ObservationIgnored private var observedMeasures: Set<HealthMeasure>?
 
@@ -42,18 +47,21 @@ final class HabitsModel {
     /// - Parameters:
     ///   - scheduleReminders: Receives the full reminder plan after every change; tests pass their own.
     ///   - health: Where linked habits read their totals; tests pass a fake.
+    ///   - timerStore: Where the running countdown is kept; tests pass their own.
     init(
         store: HabitsStore = .shared,
         now: @escaping () -> Date = Date.init,
         calendar: Calendar = .current,
         scheduleReminders: @escaping @MainActor ([PlannedReminder]) -> Void = ReminderScheduler.replace,
-        health: any HealthReading = HealthKitReader()
+        health: any HealthReading = HealthKitReader(),
+        timerStore: HabitTimerStore = .shared
     ) {
         self.store = store
         self.now = now
         self.calendar = calendar
         self.scheduleReminders = scheduleReminders
         self.health = health
+        self.timerStore = timerStore
         today = LogicalDay(now(), calendar: calendar)
         reload()
     }
@@ -73,7 +81,7 @@ final class HabitsModel {
     }
 
     /// Reads the file again and recomputes today, for when the app comes back to the foreground
-    /// or a new day starts.
+    /// or a new day starts. A countdown that ended meanwhile marks its habit done.
     func reload() {
         do {
             let file = try store.load()
@@ -85,7 +93,12 @@ final class HabitsModel {
             isUnreadable = true
         }
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
-        planReminders()
+        timer = timerStore.load()
+        if let timer, timer.isFinished(at: now()) {
+            finish(timer)
+        } else {
+            planReminders()
+        }
     }
 
     /// Replaces every habit, its history and the start of the day with an imported file, then
@@ -112,15 +125,16 @@ final class HabitsModel {
     /// - Parameters:
     ///   - limit: The Limite of an Abitudine da evitare, `nil` for a habit to do.
     ///   - health: The Salute measure and goal that mark it done; call `connectHealth(_:)` after.
-    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil) {
+    ///   - timerMinutes: The countdown of an Abitudine a tempo, `nil` for one that is not timed.
+    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil) {
         var habit = Habit(title: "", symbol: symbol, limit: limit, createdOn: today)
-        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, from: today) else { return }
+        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, timerMinutes: timerMinutes, from: today) else { return }
         habits.append(habit)
         save()
     }
 
-    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil) {
-        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, from: today) }
+    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil) {
+        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, timerMinutes: timerMinutes, from: today) }
     }
 
     /// Asks to read `measure` from Salute, the first time a habit is linked to it, then marks
@@ -174,10 +188,74 @@ final class HabitsModel {
         Streak.best(of: habit, today: today, firstWeekday: calendar.firstWeekday)
     }
 
-    /// Removes the habit and its whole log.
+    /// Removes the habit and its whole log, and its countdown.
     func delete(_ habit: Habit) {
         habits.removeAll { $0.id == habit.id }
+        if timer?.habitID == habit.id {
+            setTimer(nil)
+        }
         save()
+    }
+
+    // MARK: - Timer
+
+    /// Starts the countdown of an Abitudine a tempo, for today. It replaces any other countdown:
+    /// one at a time.
+    func startTimer(for habit: Habit) {
+        today = LogicalDay(now(), startHour: startHour, calendar: calendar)
+        guard let started = HabitTimer(habit: habit, day: today, now: now()) else { return }
+        setTimer(started)
+        planReminders()
+    }
+
+    /// Pauses a running countdown, or resumes a paused one; the notification at the end follows.
+    func toggleTimerPause() {
+        guard var timer else { return }
+        if timer.isRunning {
+            timer.pause(at: now())
+        } else {
+            timer.resume(at: now())
+        }
+        setTimer(timer)
+        planReminders()
+    }
+
+    /// Throws the countdown away, leaving the habit as it is.
+    func cancelTimer() {
+        setTimer(nil)
+        planReminders()
+    }
+
+    /// Ends the countdown now and marks its habit done, as Segna fatta does.
+    func markTimerDone() {
+        guard let timer else { return }
+        finish(timer, at: now())
+    }
+
+    /// Marks the habit done if the countdown has run to its end, as it does on screen. Returns
+    /// whether it ended.
+    @discardableResult
+    func finishTimerIfEnded() -> Bool {
+        guard let timer, timer.isFinished(at: now()) else { return false }
+        finish(timer)
+        timersEnded += 1
+        return true
+    }
+
+    /// Marks the timer's habit done on the day it was started, with the hour it ended at (by
+    /// default its end date), then forgets the timer.
+    private func finish(_ timer: HabitTimer, at end: Date? = nil) {
+        setTimer(nil)
+        let hour = calendar.component(.hour, from: end ?? timer.endDate ?? now())
+        if let index = habits.firstIndex(where: { $0.id == timer.habitID }) {
+            habits[index].mark(on: timer.day, hour: hour)
+        }
+        save()
+    }
+
+    private func setTimer(_ timer: HabitTimer?) {
+        self.timer = timer
+        timerStore.save(timer)
     }
 
     /// Adds one time today; a habit already done today stays as it is. For an Abitudine da
@@ -218,6 +296,6 @@ final class HabitsModel {
 
     /// Plans every reminder again: marking a habit done drops today's.
     private func planReminders() {
-        scheduleReminders(ReminderPlan.reminders(for: habits, now: now(), startHour: startHour, calendar: calendar))
+        scheduleReminders(ReminderPlan.reminders(for: habits, timer: timer, now: now(), startHour: startHour, calendar: calendar))
     }
 }

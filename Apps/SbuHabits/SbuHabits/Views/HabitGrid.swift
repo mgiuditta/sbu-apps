@@ -47,8 +47,17 @@ struct HabitGrid: View {
             markDone: { model.markDone(habit) },
             undoLast: { model.undoLast(habit) },
             toggleSkip: { model.toggleSkip(habit) },
-            edit: { edit(habit) }
+            edit: { edit(habit) },
+            startTimer: { startTimer(for: habit) }
         )
+    }
+
+    private func startTimer(for habit: Habit) {
+        model.startTimer(for: habit)
+        // The end comes as a notification when the app is away; iOS asks only the first time.
+        Task {
+            _ = await ReminderScheduler.requestAuthorization()
+        }
     }
 }
 

@@ -22,7 +22,7 @@ struct MarkHabitIntent: AppIntent {
     func perform() async throws -> some IntentResult {
         let file = try Self.mark(habitID, in: .shared, now: .now)
         // Done today: its reminders for today go.
-        await ReminderScheduler.replace(with: ReminderPlan.reminders(for: file.habits, now: .now, startHour: file.startHour, calendar: .current))
+        await ReminderScheduler.replace(with: ReminderPlan.reminders(for: file.habits, timer: HabitTimerStore.shared.load(), now: .now, startHour: file.startHour, calendar: .current))
         WidgetCenter.shared.reloadAllTimelines()
         return .result()
     }

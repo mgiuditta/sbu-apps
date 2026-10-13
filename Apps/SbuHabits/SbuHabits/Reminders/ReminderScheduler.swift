@@ -16,10 +16,16 @@ enum ReminderScheduler {
         let calendar = Calendar.current
         for reminder in reminders {
             let content = UNMutableNotificationContent()
-            content.title = reminder.title
-            content.body = String(localized: "Da fare oggi")
+            if reminder.endsTimer {
+                // Default interruption level: time sensitive needs an entitlement the app does not have.
+                content.body = String(localized: "\(reminder.title): fatto", comment: "The countdown of a timed habit ended. The habit's title, then 'done'.")
+            } else {
+                content.title = reminder.title
+                content.body = String(localized: "Da fare oggi")
+            }
             content.sound = .default
-            let parts = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: reminder.date)
+            // To the second: a countdown ends at any second of the minute.
+            let parts = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: reminder.date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
             // ponytail: a reminder iOS refuses is skipped; the next change plans it again.
             center.add(UNNotificationRequest(identifier: reminder.id, content: content, trigger: trigger))

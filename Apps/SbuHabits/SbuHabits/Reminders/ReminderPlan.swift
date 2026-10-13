@@ -1,7 +1,8 @@
 import Foundation
 
 /// Which reminders to schedule: only on days a habit is expected, never for a habit already
-/// done or skipped today, soonest first, within the limit iOS keeps pending.
+/// done or skipped today, soonest first, within the limit iOS keeps pending. A running countdown
+/// comes first, at its end, and takes one place of the limit.
 nonisolated enum ReminderPlan {
     /// iOS keeps at most 64 pending local notifications per app.
     static let limit = 64
@@ -9,7 +10,15 @@ nonisolated enum ReminderPlan {
     /// back, and the widget on every timeline, so reminders keep coming without opening the app.
     static let days = 30
 
-    static func reminders(for habits: [Habit], now: Date, startHour: Int, calendar: Calendar) -> [PlannedReminder] {
+    /// The id of the notification at the end of the countdown: one timer at a time, so one id.
+    static let timerID = "timer"
+
+    /// - Parameter timer: The countdown saved, if any; only a running one, still ahead, is planned.
+    static func reminders(for habits: [Habit], timer: HabitTimer? = nil, now: Date, startHour: Int, calendar: Calendar) -> [PlannedReminder] {
+        var timerEnd: [PlannedReminder] = []
+        if let timer, let end = timer.endDate, end > now {
+            timerEnd = [PlannedReminder(id: timerID, habitID: timer.habitID, title: timer.title, date: end, endsTimer: true)]
+        }
         let today = LogicalDay(now, startHour: startHour, calendar: calendar)
         var planned: [PlannedReminder] = []
         for offset in 0..<days {
@@ -22,7 +31,7 @@ nonisolated enum ReminderPlan {
                 }
             }
         }
-        return Array(planned.sorted { $0.date < $1.date }.prefix(limit))
+        return timerEnd + planned.sorted { $0.date < $1.date }.prefix(limit - timerEnd.count)
     }
 
     private static func isExpected(_ habit: Habit, on day: LogicalDay, today: LogicalDay, calendar: Calendar) -> Bool {

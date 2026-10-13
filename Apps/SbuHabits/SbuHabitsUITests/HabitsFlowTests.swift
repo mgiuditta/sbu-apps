@@ -297,6 +297,91 @@ final class HabitsFlowTests: XCTestCase {
         expectValue(camminare, "Fatta, 1 giorno")
     }
 
+    /// iOS asks for notifications the first time on this simulator, over the app: allow them.
+    @MainActor
+    private func allowNotificationsIfAsked() {
+        let alert = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.firstMatch
+        if alert.waitForExistence(timeout: 3) {
+            alert.buttons.element(boundBy: 1).tap()
+        }
+    }
+
+    @MainActor
+    private func addTimed(_ title: String, in app: XCUIApplication) {
+        app.buttons["Aggiungi"].firstMatch.tap()
+        let titleField = app.textFields["Titolo"]
+        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
+        titleField.tap()
+        titleField.typeText(title)
+        app.switches["A tempo"].switches.firstMatch.tap()
+        allowNotificationsIfAsked()
+        XCTAssertTrue(app.buttons["Durata"].waitForExistence(timeout: 5) || app.staticTexts["Durata"].exists)
+        app.navigationBars.buttons["Aggiungi"].tap()
+    }
+
+    @MainActor
+    func testATimedHabitRunsItsTimerPausesAndCancels() throws {
+        let app = launch()
+        addTimed("Leggere", in: app)
+        let leggere = habit("Leggere", in: app)
+        expectValue(leggere, "Da fare, 10 minuti, 0 giorni")
+
+        app.buttons["Avvia Leggere"].tap()
+        allowNotificationsIfAsked()
+
+        let left = app.descendants(matching: .any)["Tempo rimanente"]
+        XCTAssertTrue(left.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Leggere"].exists || app.otherElements["Leggere"].exists)
+        app.buttons["Pausa"].tap()
+        XCTAssertTrue(app.buttons["Riprendi"].waitForExistence(timeout: 5))
+        let paused = left.value as? String
+        // Paused, the time left stays put.
+        Thread.sleep(forTimeInterval: 1.5)
+        XCTAssertEqual(left.value as? String, paused)
+
+        // Contrast is left out as on the tool screen.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+
+        app.buttons["Riprendi"].tap()
+        XCTAssertTrue(app.buttons["Pausa"].waitForExistence(timeout: 5))
+        app.buttons["Annulla"].tap()
+
+        XCTAssertTrue(left.waitForNonExistence(timeout: 5))
+        expectValue(leggere, "Da fare, 10 minuti, 0 giorni")
+    }
+
+    @MainActor
+    func testSegnaFattaEndsTheTimerAndMarksTheHabit() {
+        let app = launch()
+        addTimed("Meditare", in: app)
+        app.buttons["Avvia Meditare"].tap()
+        allowNotificationsIfAsked()
+        XCTAssertTrue(app.buttons["Segna fatta"].waitForExistence(timeout: 5))
+
+        app.buttons["Segna fatta"].tap()
+
+        expectValue(habit("Meditare", in: app), "Fatta, 10 minuti, 1 giorno")
+        XCTAssertFalse(app.buttons["Avvia Meditare"].exists)
+    }
+
+    @MainActor
+    func testARunningTimerSurvivesARelaunch() {
+        var app = launch()
+        addTimed("Leggere", in: app)
+        app.buttons["Avvia Leggere"].tap()
+        allowNotificationsIfAsked()
+        XCTAssertTrue(app.buttons["Pausa"].waitForExistence(timeout: 5))
+
+        app.terminate()
+        app = launch()
+
+        XCTAssertTrue(app.buttons["Pausa"].waitForExistence(timeout: 5))
+        app.buttons["Annulla"].tap()
+    }
+
     @MainActor
     func testToolScreenPassesTheAccessibilityAudit() throws {
         let app = launch()

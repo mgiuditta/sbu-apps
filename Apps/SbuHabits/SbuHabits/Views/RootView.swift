@@ -6,6 +6,8 @@ struct RootView: View {
     let model: HabitsModel
 
     @State private var sheet: HabitSheet?
+    /// Follows the model: the Timer stays on screen while a countdown runs or is paused.
+    @State private var isShowingTimer = false
 
     var body: some View {
         SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(.appIconArtwork)) {
@@ -27,6 +29,15 @@ struct RootView: View {
             }
             .tint(SbuTheme.accentHabits)
         }
+        .fullScreenCover(isPresented: $isShowingTimer) {
+            TimerView(model: model)
+                .tint(SbuTheme.accentHabits)
+        }
+        .onChange(of: model.timer != nil, initial: true) { _, hasTimer in
+            isShowingTimer = hasTimer
+        }
+        // A countdown that ends with the app open.
+        .sensoryFeedback(.success, trigger: model.timersEnded)
     }
 
     private func present(_ sheet: HabitSheet) {

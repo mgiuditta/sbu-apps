@@ -3,7 +3,8 @@ import Testing
 @testable import SbuHabits
 
 struct HabitsExportTests {
-    /// A file with every kind of data a habit keeps: log, mark hours, skips, reminders, an edit, a Limite.
+    /// A file with every kind of data a habit keeps: log, mark hours, skips, reminders, an edit, a
+    /// Limite, a countdown.
     static let sample: HabitsFile = {
         let start = LogicalDay(ordinal: 20_000)
         var water = Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: start)
@@ -17,7 +18,10 @@ struct HabitsExportTests {
         coffee.log = [start + 1: 3]
         coffee.mark(on: start + 2, hour: 23)
         let gym = Habit(title: "Palestra", symbol: "dumbbell", schedule: .timesPerWeek(3), createdOn: start)
-        return HabitsFile(habits: [water, coffee, gym], startHour: 4)
+        var reading = Habit(title: "Leggere", symbol: "book", createdOn: start)
+        _ = reading.update(title: "Leggere", symbol: "book", timesPerDay: 1, schedule: .everyDay, timerMinutes: 20, from: start)
+        reading.mark(on: start + 1, hour: 22)
+        return HabitsFile(habits: [water, coffee, gym, reading], startHour: 4)
     }()
 
     @Test func anExportReadsBackAsTheSameData() throws {
@@ -27,6 +31,7 @@ struct HabitsExportTests {
 
         #expect(read == Self.sample)
         #expect(read.habits[0].markHours == [LogicalDay(ordinal: 20_004): [7, 13]])
+        #expect(read.habits[3].timerMinutes == 20)
     }
 
     @Test func theFileSaysItsFormatVersion() throws {

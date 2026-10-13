@@ -26,6 +26,9 @@ final class HabitsModel {
     @ObservationIgnored var didSave: (@MainActor () -> Void)?
     /// Called after every change this iPhone saves, so the Abitudini condivise can send it.
     @ObservationIgnored var didSaveForSharing: (@MainActor () -> Void)?
+    /// Called after every change, saved here or merged, and after every reload, so the Apple
+    /// Watch gets today's grid again: a new day, or a mark from the widget, shows there too.
+    @ObservationIgnored var didUpdateForWatch: (@MainActor () -> Void)?
 
     @ObservationIgnored private let store: HabitsStore
     @ObservationIgnored private let now: () -> Date
@@ -134,6 +137,7 @@ final class HabitsModel {
             followTimer(timer.map { .follow($0) } ?? .end(isDone: false))
             planReminders()
         }
+        didUpdateForWatch?()
     }
 
     /// Replaces every habit, its history and the start of the day with an imported file, then
@@ -371,6 +375,15 @@ final class HabitsModel {
         update(habit) { $0.undoLast(on: today) }
     }
 
+    /// Applies a tap on the Apple Watch with the same rules as one here: a mark on the logical day
+    /// and at the hour it happened there, or the last mark of that day taken back. Never a day
+    /// still to come, nor a habit deleted meanwhile.
+    func apply(_ action: WatchAction) {
+        today = LogicalDay(now(), startHour: startHour, calendar: calendar)
+        guard isUnreadable == false, WatchMarking.apply(action, to: &habits, today: today) else { return }
+        save()
+    }
+
     /// Skips today, or takes the skip back.
     func toggleSkip(_ habit: Habit) {
         update(habit) { $0.toggleSkip(on: today) }
@@ -411,6 +424,7 @@ final class HabitsModel {
         if let observedMeasures, observedMeasures != linkedMeasures {
             observeHealth()
         }
+        didUpdateForWatch?()
     }
 
     /// Plans every reminder again: marking a habit done drops today's.

@@ -28,6 +28,23 @@ nonisolated enum Streak {
         return countBack(from: today, to: firstDay) { fullVerdict(of: habits, on: $0, today: today) }
     }
 
+    /// The Serie piena up to yesterday, as today sees it: what today adds to or breaks. The
+    /// Apple Watch gets it from the iPhone with today's habits only, and counts today itself.
+    static func fullBeforeToday(of habits: [Habit], today: LogicalDay) -> Int {
+        guard let firstDay = habits.map(\.createdOn).min() else { return 0 }
+        return countBack(from: today - 1, to: firstDay) { fullVerdict(of: habits, on: $0, today: today) }
+    }
+
+    /// The Serie piena from the one up to yesterday and today's habits: today done adds one,
+    /// a Limite gone over today breaks it, anything else leaves it.
+    static func full(of habits: [Habit], today: LogicalDay, before: Int) -> Int {
+        switch fullVerdict(of: habits, on: today, today: today) {
+        case .done: before + 1
+        case .missed: 0
+        case .neutral, .pending: before
+        }
+    }
+
     /// The longest Serie piena from `first` on: days in a row, up to today, on which every habit
     /// expected that day was done. Days before `first` never count, so a run that started before
     /// it counts from `first`.

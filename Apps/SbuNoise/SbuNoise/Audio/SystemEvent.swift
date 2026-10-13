@@ -13,7 +13,7 @@ nonisolated enum SystemEvent: Equatable, Sendable {
     /// The output in use went away (headphones unplugged, Bluetooth out of range): pause, never
     /// carry on through the speaker.
     case outputLost
-    /// The engine stopped because the hardware changed (a new output, a sample rate change).
+    /// The hardware changed (a new output, a sample rate change): the engine may have stopped.
     case configurationChanged
 
     /// Reads an `AVAudioSession.interruptionNotification`.
@@ -31,10 +31,14 @@ nonisolated enum SystemEvent: Equatable, Sendable {
         }
     }
 
-    /// Reads an `AVAudioSession.routeChangeNotification`; only a lost output matters.
+    /// Reads an `AVAudioSession.routeChangeNotification`: a lost output pauses, a new one (headphones
+    /// plugged in) changes how the mix is rendered.
     init?(routeChange info: [AnyHashable: Any]) {
-        guard let raw = info[AVAudioSessionRouteChangeReasonKey] as? UInt,
-              AVAudioSession.RouteChangeReason(rawValue: raw) == .oldDeviceUnavailable else { return nil }
-        self = .outputLost
+        guard let raw = info[AVAudioSessionRouteChangeReasonKey] as? UInt else { return nil }
+        switch AVAudioSession.RouteChangeReason(rawValue: raw) {
+        case .oldDeviceUnavailable: self = .outputLost
+        case .newDeviceAvailable: self = .configurationChanged
+        default: return nil
+        }
     }
 }

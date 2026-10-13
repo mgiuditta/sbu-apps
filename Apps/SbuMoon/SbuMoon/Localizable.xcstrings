@@ -323,6 +323,17 @@
         }
       }
     },
+    "Ora locale di %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ local time"
+          }
+        }
+      },
+      "comment" : "Under moonrise and moonset when the chosen city's clock differs from the iPhone's: the city's name."
+    },
     "Posizione non trovata. Riprova all'aperto, o scegli una città." : {
       "localizations" : {
         "en" : {

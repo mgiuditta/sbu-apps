@@ -12,12 +12,12 @@ struct MainView: View {
     @State private var isPickingPlace = false
 
     /// The name of the place for rise and set, or `nil` before one is chosen.
-    private var placeName: Text? {
+    private var placeName: String? {
         guard let place = places.place else { return nil }
         if let city = places.city {
-            return Text(verbatim: city.name())
+            return city.name()
         }
-        return place.isCurrentLocation ? Text("La tua posizione") : nil
+        return place.isCurrentLocation ? String(localized: "La tua posizione") : nil
     }
 
     var body: some View {
@@ -56,7 +56,7 @@ struct MainView: View {
         ) {
             VStack(spacing: SbuTheme.space6) {
                 MoonDiscView(disc: reading.disc)
-                RiseSetView(riseSet: riseSet(on: reading.date), placeName: placeName) {
+                RiseSetView(times: riseSet(on: reading.date), placeName: placeName) {
                     isPickingPlace = true
                 }
                 NextPhasesView(phases: reading.upcomingPhases)
@@ -77,10 +77,10 @@ struct MainView: View {
         }
     }
 
-    /// Rise and set on the day shown, in the iPhone's time zone like every other time on screen.
-    private func riseSet(on date: Date) -> MoonRiseSet? {
+    /// Rise and set on the day shown: a city's on its own clock, the iPhone's position on the iPhone's.
+    private func riseSet(on date: Date) -> PlaceRiseSet? {
         guard let place = places.place else { return nil }
-        return MoonHorizon.riseSet(on: date, at: place.coordinates, calendar: .current)
+        return PlaceRiseSet(shownDate: date, coordinates: place.coordinates, timeZone: places.city?.zone, deviceCalendar: .current)
     }
 
     /// A horizontal swipe turns the day: to the left the next one, to the right the previous one.

@@ -5,6 +5,8 @@ import SwiftUI
 struct CalibrationSection: View {
     let model: LevelModel
 
+    @State private var isConfirmingReset = false
+
     var body: some View {
         Section {
             LabeledContent("Stato") {
@@ -12,10 +14,16 @@ struct CalibrationSection: View {
                     .foregroundStyle(SbuTheme.inkMuted)
             }
 
-            SbuButton("Azzera calibrazione", kind: .destructive, action: model.resetCalibration)
-                .disabled(model.isCalibrated == false)
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
+            // A plain row, not a full-width button: a rare action should not outweigh the page.
+            if model.isCalibrated {
+                Button("Azzera calibrazione", role: .destructive) {
+                    isConfirmingReset = true
+                }
+                .foregroundStyle(SbuTheme.danger)
+                .confirmationDialog("Azzera calibrazione", isPresented: $isConfirmingReset, titleVisibility: .visible) {
+                    Button("Azzera calibrazione", role: .destructive, action: model.resetCalibration)
+                }
+            }
         } header: {
             Text("Calibrazione")
         } footer: {

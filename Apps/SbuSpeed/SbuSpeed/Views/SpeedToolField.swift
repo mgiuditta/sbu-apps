@@ -49,6 +49,8 @@ struct SpeedToolField<Indicator: View>: View {
                 .disabled(model.trip.isEmpty)
                 .confirmationDialog("Azzera viaggio", isPresented: $isConfirmingReset, titleVisibility: .visible) {
                     Button("Azzera viaggio", role: .destructive, action: model.resetTrip)
+                } message: {
+                    Text("Il viaggio riparte da zero.")
                 }
             }
         }

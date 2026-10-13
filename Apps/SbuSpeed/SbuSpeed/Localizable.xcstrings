@@ -31,6 +31,16 @@
         }
       }
     },
+    "Chilometri orari": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometres per hour"
+          }
+        }
+      }
+    },
     "Consenti la posizione": {
       "localizations": {
         "en": {
@@ -66,7 +76,17 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Still"
+            "value": "Stopped"
+          }
+        }
+      }
+    },
+    "Il viaggio riparte da zero.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The trip starts again from zero."
           }
         }
       }
@@ -81,12 +101,12 @@
         }
       }
     },
-    "La distanza segue la velocità: chilometri con km/h, miglia con mph, miglia nautiche con i nodi.": {
+    "La distanza segue la velocità: chilometri, miglia o miglia nautiche.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distance follows speed: kilometres with km/h, miles with mph, nautical miles with knots."
+            "value": "Distance follows speed: kilometres, miles or nautical miles."
           }
         }
       }
@@ -131,12 +151,32 @@
         }
       }
     },
+    "Miglia orarie": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Miles per hour"
+          }
+        }
+      }
+    },
     "Nessuno": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "None"
+          }
+        }
+      }
+    },
+    "Nodi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Knots"
           }
         }
       }

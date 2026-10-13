@@ -62,9 +62,9 @@ targets:
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.healthcare-fitness
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         # Italian source; the English one is in InfoPlist.xcstrings.
-        INFOPLIST_KEY_NSHealthShareUsageDescription: "Sbu Habits legge da Salute solo le misure che colleghi, per segnare le tue abitudini. I dati restano su questo iPhone."
+        INFOPLIST_KEY_NSHealthShareUsageDescription: "Sbu Habits legge da Salute solo le misure che colleghi, per segnare le tue abitudini. I dati di Salute restano su questo iPhone."
         # Required with HealthKit even though Sbu Habits never writes to Salute.
-        INFOPLIST_KEY_NSHealthUpdateUsageDescription: "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati restano su questo iPhone."
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: "Sbu Habits non scrive niente in Salute. Legge solo le misure che colleghi, e i dati di Salute restano su questo iPhone."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         # The running countdown on the Lock Screen and in the Dynamic Island.

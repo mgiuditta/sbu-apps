@@ -16,7 +16,7 @@ struct HealthSection: View {
             Text("Salute")
         } footer: {
             if isOn {
-                Text("Si segna da sola quando Salute arriva all'obiettivo. Se neghi l'accesso, la segni tu.")
+                Text("Si segna da sola quando arrivi all'obiettivo in Salute. Se neghi l'accesso, la segni tu.")
             }
         }
         .onChange(of: measure) {

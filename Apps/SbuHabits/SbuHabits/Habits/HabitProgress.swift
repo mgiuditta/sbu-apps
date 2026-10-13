@@ -5,7 +5,7 @@ nonisolated struct HabitProgress: Equatable, Sendable {
     let done: Int
     /// Zero when every day of a weekly or monthly habit's period was skipped: nothing was asked.
     let goal: Int
-    /// Times marked today, which Annulla ultima can take back.
+    /// Times marked today, which Annulla l'ultimo segno can take back.
     let marksToday: Int
     /// Whether a hold takes a mark back instead of adding one.
     let holdUndoes: Bool

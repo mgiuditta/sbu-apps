@@ -44,7 +44,7 @@ struct HabitCell: View {
     }
 
     private var skipTitle: LocalizedStringKey {
-        progress.isSkippedToday ? "Non saltare oggi" : "Salta oggi"
+        progress.isSkippedToday ? "Annulla il salto di oggi" : "Salta oggi"
     }
 
     private var noteTitle: LocalizedStringKey {
@@ -149,7 +149,7 @@ struct HabitCell: View {
             return new >= progress.goal ? .success : .impact(weight: new > old ? .medium : .light)
         }
         .confirmationDialog(habit.title, isPresented: $isShowingMenu, titleVisibility: .visible) {
-            Button("Annulla ultima", action: undoLast)
+            Button("Annulla l'ultimo segno", action: undoLast)
                 .disabled(progress.marksToday == 0)
             Button(skipTitle, action: toggleSkip)
             Button(noteTitle, action: writeNote)
@@ -160,12 +160,12 @@ struct HabitCell: View {
         .accessibilityValue(accessibilityValue)
         .accessibilityActions {
             if progress.limit != nil {
-                Button("Ho ceduto", action: markDone)
+                Button("Segna che hai ceduto", action: markDone)
             } else if progress.holdUndoes == false {
                 Button("Segna come fatta", action: markDone)
             }
             if progress.marksToday > 0 {
-                Button("Annulla ultima", action: undoLast)
+                Button("Annulla l'ultimo segno", action: undoLast)
             }
             Button(skipTitle, action: toggleSkip)
             Button(noteTitle, action: writeNote)

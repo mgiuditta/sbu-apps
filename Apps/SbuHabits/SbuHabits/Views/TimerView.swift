@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The Timer of an Abitudine a tempo, full screen: the habit and its length at the top, its ring
 /// filling as time goes by, the time left as the screen's one figure, then Annulla, Pausa or
-/// Riprendi, and Segna fatta. At the end the habit is marked and the screen closes.
+/// Riprendi, and Segna come fatta. At the end the habit is marked and the screen closes.
 struct TimerView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -125,7 +125,7 @@ struct TimerView: View {
 
             Spacer()
 
-            Button("Segna fatta", systemImage: "checkmark", action: markDone)
+            Button("Segna come fatta", systemImage: "checkmark", action: markDone)
                 .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRound))
         }
         .labelStyle(.iconOnly)

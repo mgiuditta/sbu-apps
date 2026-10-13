@@ -113,7 +113,7 @@ final class SharedHabitsFlowTests: XCTestCase {
         cell("Correre", in: app).tap()
 
         XCTAssertTrue(app.navigationBars["Abitudine condivisa"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Questa abitudine è condivisa con te. Vedi i suoi progressi e le statistiche."].exists)
+        XCTAssertTrue(app.staticTexts["Chi la condivide la segna. Tu vedi i progressi e le statistiche."].exists)
         XCTAssertTrue(app.buttons["Persona"].isSelected)
         let emoji = app.buttons["😎"]
         emoji.tap()
@@ -139,6 +139,7 @@ final class SharedHabitsFlowTests: XCTestCase {
         }
 
         remove.tap()
+        XCTAssertTrue(app.staticTexts["Rimuovere “Correre”?"].waitForExistence(timeout: 5), app.debugDescription)
         app.buttons["Rimuovi"].firstMatch.tap() // the confirmation
 
         XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].waitForExistence(timeout: 5))

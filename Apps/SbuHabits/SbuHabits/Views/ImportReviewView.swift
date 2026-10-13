@@ -36,7 +36,7 @@ struct ImportReviewView: View {
                 Section {
                     SbuButton("Sostituisci i dati attuali", kind: .destructive, action: replace)
                 } footer: {
-                    Text("Le abitudini e lo storico su questo iPhone lasciano il posto a quelli del file.")
+                    Text("Le abitudini e lo storico del file prendono il posto di quelli attuali.")
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)

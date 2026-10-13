@@ -69,11 +69,11 @@ struct SharedHabitScreen: View {
 
                 HabitHistorySection(habit: display.habit, streak: display.streak, today: display.today, firstWeekday: Calendar.current.firstWeekday, openNote: nil)
 
-                SbuButton("Rimuovi", kind: .destructive) {
+                SbuButton("Rimuovi", kind: .destructive, confirmationTitle: "Rimuovere “\(display.habit.title)”?") {
                     remove(received)
                 }
 
-                Text("Smetti di vederla su questo iPhone. Chi la condivide non perde niente.")
+                Text("Se la rimuovi, sparisce da questo iPhone. Chi la condivide non perde niente.")
                     .font(SbuTheme.footnote)
                     .foregroundStyle(SbuTheme.inkMuted)
                     .frame(maxWidth: .infinity, alignment: .leading)

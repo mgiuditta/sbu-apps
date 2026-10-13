@@ -108,9 +108,9 @@ struct HabitFormScreen: View {
                 ShareHabitSection(sharing: sharing, habit: habit)
             }
 
-            if habit != nil {
+            if let habit {
                 Section {
-                    SbuButton("Elimina", kind: .destructive, action: delete)
+                    SbuButton("Elimina", kind: .destructive, confirmationTitle: "Eliminare “\(habit.title)”?", action: delete)
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)

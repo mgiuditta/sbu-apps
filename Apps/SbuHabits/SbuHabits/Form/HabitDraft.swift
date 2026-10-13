@@ -20,8 +20,12 @@ nonisolated struct HabitDraft: Equatable, Sendable {
     var timesPerMonth: Int
     /// The day of an Attività di un giorno, at noon.
     var oneDay: Date
-    var linksHealth: Bool
-    var healthMeasure: HealthMeasure
+    var linksHealth: Bool {
+        didSet { followHealthSymbol(replacing: nil) }
+    }
+    var healthMeasure: HealthMeasure {
+        didSet { followHealthSymbol(replacing: oldValue.symbol) }
+    }
     var healthGoal: Double
     var timerMinutes: Int
     /// Orari personalizzati keeps its times in the form while another mode is chosen.
@@ -192,6 +196,13 @@ nonisolated struct HabitDraft: Equatable, Sendable {
         }
         title.locale = locale
         return String(String(localized: title).prefix(Habit.maxTitleLength))
+    }
+
+    /// Linking to a measure gives the habit the measure's symbol while the symbol is still the
+    /// default one, or the one the previous measure gave it: never a symbol you picked.
+    private mutating func followHealthSymbol(replacing previous: String?) {
+        guard linksHealth, symbol == HabitSymbol.all[0].id || symbol == previous else { return }
+        symbol = healthMeasure.symbol
     }
 
     /// An Abitudine da evitare keeps only the schedules it can have.

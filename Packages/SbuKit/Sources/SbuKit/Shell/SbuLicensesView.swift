@@ -5,10 +5,11 @@ import SwiftUI
 /// Today only Bricolage Grotesque, under the SIL Open Font License 1.1. The notice is shown as
 /// written, in English, copyright line first.
 struct SbuLicensesView: View {
-    /// The OFL notice bundled next to the font, or empty if the file is missing.
+    /// The OFL notice bundled next to the font, its paragraphs reflowed to the screen's width,
+    /// or empty if the file is missing.
     private let notice: String = {
         guard let url = SbuFont.licenseURL else { return "" }
-        return (try? String(contentsOf: url, encoding: .utf8)) ?? ""
+        return SbuLicenseText.reflowed((try? String(contentsOf: url, encoding: .utf8)) ?? "")
     }()
 
     var body: some View {

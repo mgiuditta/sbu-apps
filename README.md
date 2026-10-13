@@ -56,6 +56,7 @@ Specs come only from public App Store data. Nothing here decompiles or extracts 
 |---|---|---|
 | [Sbu Level](Apps/SbuLevel) | `accent-level` | Clinometer + bubble level |
 | [Sbu Habits](Apps/SbuHabits) | `accent-habits` | Streaks |
+| [Sbu Noise](Apps/SbuNoise) | `accent-noise` | White Noise |
 | [Sbu Moon](Apps/SbuMoon) | `accent-moon` | My Moon Phase Pro - Alerts |
 | [Sbu Speed](Apps/SbuSpeed) | `accent-speed` | Speedometer 55 Pro. GPS kit. |
 

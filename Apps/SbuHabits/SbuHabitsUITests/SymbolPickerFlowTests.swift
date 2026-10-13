@@ -41,7 +41,7 @@ final class SymbolPickerFlowTests: XCTestCase {
         let titleField = app.textFields["Titolo"]
         XCTAssertTrue(titleField.waitForExistence(timeout: 5))
         titleField.tap()
-        titleField.typeText("Correre")
+        titleField.typeText("Correre\n")
         let row = scrollToSymbolRow(in: app)
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Acqua"), row.debugDescription)
 

@@ -24,6 +24,15 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
         }
     }
 
+    /// The unit's name in settings: "Nodi" says more than "kn" to whom has never used it.
+    var name: LocalizedStringResource {
+        switch self {
+        case .kilometersPerHour: "Chilometri orari"
+        case .milesPerHour: "Miglia orarie"
+        case .knots: "Nodi"
+        }
+    }
+
     /// Short symbol next to the figure: "km/h", "mph" or "kn".
     var symbol: String { speed.symbol }
 

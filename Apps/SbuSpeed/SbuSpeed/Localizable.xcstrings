@@ -71,12 +71,12 @@
         }
       }
     },
-    "La distanza segue la velocità: chilometri con km/h, miglia con mph.": {
+    "La distanza segue la velocità: chilometri con km/h, miglia con mph, miglia nautiche con i nodi.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distance follows speed: kilometres with km/h, miles with mph."
+            "value": "Distance follows speed: kilometres with km/h, miles with mph, nautical miles with knots."
           }
         }
       }

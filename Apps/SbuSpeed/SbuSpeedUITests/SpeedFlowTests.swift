@@ -58,7 +58,7 @@ final class SpeedFlowTests: XCTestCase {
         let app = launch()
 
         app.buttons["Impostazioni"].tap()
-        XCTAssertTrue(app.staticTexts["La distanza segue la velocità: chilometri con km/h, miglia con mph."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["La distanza segue la velocità: chilometri con km/h, miglia con mph, miglia nautiche con i nodi."].waitForExistence(timeout: 5))
 
         // Dynamic Type is left out as in Sbu Habits: in the settings sheet the audit flags every
         // text as partially unsupported, system ones included.

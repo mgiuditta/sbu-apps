@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// Settings section to choose km/h or mph.
+/// Settings section to choose km/h, mph or knots.
 struct UnitSection: View {
     @Bindable var model: SpeedModel
 
@@ -16,7 +16,7 @@ struct UnitSection: View {
         } header: {
             Text("Unità")
         } footer: {
-            Text("La distanza segue la velocità: chilometri con km/h, miglia con mph.")
+            Text("La distanza segue la velocità: chilometri con km/h, miglia con mph, miglia nautiche con i nodi.")
         }
     }
 }

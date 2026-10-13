@@ -6,11 +6,14 @@ nonisolated struct SpeedLimit: Codable, Hashable, Sendable {
     var value: Int
     var unit: SpeedUnit
 
-    /// The limits offered in settings: the usual road limits in each unit.
+    /// The limits offered in settings: the usual road limits in km/h and mph,
+    /// the usual limits on the water in knots (harbours, coastal strips).
     static func presets(for unit: SpeedUnit) -> [SpeedLimit] {
         let values = switch unit {
         case .kilometersPerHour: [30, 50, 70, 90, 110, 130]
         case .milesPerHour: [20, 30, 40, 50, 60, 70, 80]
+        // From 5 up: the alarm re-arms 3 units below the limit, which a 3 kn limit could never reach.
+        case .knots: [5, 10, 15, 20, 25, 30]
         }
         return values.map { SpeedLimit(value: $0, unit: unit) }
     }

@@ -145,6 +145,14 @@ _Avoid_: sample, audio, campione
 Il gruppo di **Suoni** nel catalogo: Rumori, Pioggia, Acqua, Natura, Casa, Viaggio, Relax.
 _Avoid_: sezione, scheda, il menu ☰ (che elenca Suoni, Mix, Playlist, Preferiti)
 
+**Mix** (_Mix_):
+Fino a 5 **Suoni** che suonano insieme, ciascuno con posizione, volume e tono propri; si salva con un nome.
+_Avoid_: preset, scena, combinazione
+
+**Playlist** (_Playlist_):
+L'unica sequenza di **Suoni** e **Mix**, ciascuno per una durata, uno dopo l'altro.
+_Avoid_: coda, scaletta
+
 **Sveglia** (_Alarm_):
 L'ora a cui Noise ti sveglia con un suono che entra in dissolvenza; suona dentro l'app finché un **Suono** è in riproduzione.
 _Avoid_: allarme, timer (il timer ferma o avvia un suono, non sveglia)

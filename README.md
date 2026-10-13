@@ -30,7 +30,7 @@ python3 Tools/discover.py                           # 1. top-paid IT + US -> res
 .venv/bin/python Tools/spec.py 357421934            # 2. listing + screenshots + 1-3★ reviews -> research/<app-id>/spec.json
 Tools/new_app.sh Noise accent-noise noise           # 3. Apps/SbuNoise: project, dev.sbu.noise, SbuKit, icon, fastlane
 cd Apps/SbuNoise && fastlane test                   # 4. build the app from spec.json, run the tests
-fastlane snapshot && fastlane frameit && fastlane beta   # 5. App Store screenshots, frames, TestFlight
+fastlane snapshot && fastlane frames && fastlane beta    # 5. App Store screenshots, panorama (Tools/make_screenshots.py), TestFlight
 ```
 
 Between 3 and 4 you write the app: start from `MainView.swift`, put strings in `Localizable.xcstrings` (Italian source, English translation), and fill the placeholders in `fastlane/metadata/{it,en-US}`. `new_app.sh` arguments: an English noun, an `accent-*` token not used by a nearby category, and the instrument the icon engraves, in English (needs `GEMINI_API_KEY`).

@@ -7,7 +7,7 @@
 #   subject       the instrument the icon engraves, in English: "an old iron padlock, closed" (needs GEMINI_API_KEY)
 #
 # Creates Apps/Sbu<Name> (XcodeGen project, bundle id dev.sbu.<name>, SbuKit dependency,
-# generated icon, fastlane lanes test/snapshot/frameit/beta/release), the site entry Site/src/content/apps/<name>.md,
+# generated icon, fastlane lanes test/snapshot/frames/beta/release), the site entry Site/src/content/apps/<name>.md,
 # and generates the Xcode project.
 set -euo pipefail
 
@@ -27,15 +27,13 @@ for tool in xcodegen fastlane python3; do
   command -v "$tool" >/dev/null || { echo "missing $tool (brew install $tool)" >&2; exit 69; }
 done
 
-# Token values come only from Design/tokens.json.
-read -r accent_hex surface_hex ink_hex < <(python3 - "$root/Design/tokens.json" "$accent" <<'PY'
+# The accent must be a token in Design/tokens.json.
+python3 - "$root/Design/tokens.json" "$accent" <<'PY'
 import json, sys
 colors = {t["name"]: t["value"]["light"] for t in json.load(open(sys.argv[1]))["color"]["tokens"]}
 if not sys.argv[2].startswith("accent-") or sys.argv[2] not in colors:
     sys.exit("unknown accent token: " + sys.argv[2])
-print(colors[sys.argv[2]], colors["surface"], colors["ink"])
 PY
-)
 accent_swift=$(python3 -c 'import sys; h, *t = sys.argv[1].split("-"); print(h + "".join(p.title() for p in t))' "$accent")
 
 mkdir -p "$root/Apps"
@@ -45,8 +43,7 @@ find "$dest" -depth -name '*__NAME__*' | while read -r path; do
   mv "$path" "$(dirname "$path")/$(basename "$path" | sed "s/__NAME__/$name/g")"
 done
 find "$dest" -type f \( -name '*.swift' -o -name '*.yml' -o -name '*.json' -o -name '*.xcstrings' -o -name '*.txt' -o -name '*.strings' -o -name 'Fastfile' -o -name 'Appfile' -o -name 'Snapfile' \) -print0 |
-  xargs -0 sed -i '' -e "s/__NAME__/$name/g" -e "s/__LOWER__/$lower/g" -e "s/__ACCENT__/$accent_swift/g" \
-    -e "s/__ACCENT_HEX__/$accent_hex/g" -e "s/__INK_HEX__/$ink_hex/g"
+  xargs -0 sed -i '' -e "s/__NAME__/$name/g" -e "s/__LOWER__/$lower/g" -e "s/__ACCENT__/$accent_swift/g"
 
 # Icon: engraved instrument on paper, light/dark/tinted in AppIcon.appiconset, light/dark for SbuAppIconView.
 assets="$root/Apps/Sbu$name/Sbu$name/Assets.xcassets"
@@ -61,9 +58,6 @@ PY
 python3 "$root/Tools/make_icons.py" "$lower" --generate \
   --appiconset "$assets/AppIcon.appiconset" --artwork "$assets/AppIconArtwork.imageset"
 
-# frameit background: plain light `surface`.
-python3 -c 'import sys; from PIL import Image; Image.new("RGB", (1320, 2868), sys.argv[1]).save(sys.argv[2])' \
-  "$surface_hex" "$dest/fastlane/frame-background.png"
 
 # fastlane's SnapshotHelper.swift for the UI test target.
 tmp=$(mktemp -d)

@@ -73,3 +73,19 @@ schemes:
         SbuNoise: all
     test:
       targets: [SbuNoiseUITests]
+schemes:
+  SbuNoise:
+    build:
+      targets:
+        SbuNoise: all
+    test:
+      targets:
+        - SbuNoiseTests
+        - name: SbuNoiseUITests
+          skippedTests: [SnapshotTests]
+  SbuNoiseSnapshots:
+    build:
+      targets:
+        SbuNoise: all
+    test:
+      targets: [SbuNoiseUITests]

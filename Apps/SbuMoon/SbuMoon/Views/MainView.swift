@@ -32,8 +32,11 @@ struct MainView: View {
     private func toolField(for reading: MoonReading) -> some View {
         SbuToolField(
             "Illuminazione",
-            value: reading.illumination,
-            format: .percent.precision(.fractionLength(0)),
+            // The percent sign is the unit, in SF like Level's degree: Bricolage's "%" dips below
+            // the baseline and would leave the full stop looking raised.
+            value: reading.illumination * 100,
+            format: .number.precision(.fractionLength(0)),
+            unit: "%",
             context: reading.phase.name
         ) {
             VStack(spacing: SbuTheme.space6) {

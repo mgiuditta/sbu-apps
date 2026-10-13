@@ -92,8 +92,8 @@ struct MoonReadingTests {
 
     @Test(arguments: ["it_IT", "en_US"])
     func illuminationIsAWholePercent(identifier: String) {
-        let format = FloatingPointFormatStyle<Double>.Percent.percent.precision(.fractionLength(0)).locale(Locale(identifier: identifier))
+        let format = FloatingPointFormatStyle<Double>.number.precision(.fractionLength(0)).locale(Locale(identifier: identifier))
 
-        #expect(0.6786.formatted(format) == "68%")
+        #expect((0.6786 * 100).formatted(format) == "68")
     }
 }

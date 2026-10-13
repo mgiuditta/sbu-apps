@@ -53,7 +53,7 @@ Zero bug di UI prima del passo 8.
 ## Da costruire per reggere il ritmo
 
 - CI: un job per ogni `Apps/*` (matrice), non una voce scritta a mano per app.
-- `new_app.sh`: creare anche l'app su App Store Connect (`fastlane produce`), oggi è un passo manuale.
+- ~~`new_app.sh`: creare anche l'app su App Store Connect~~: fatto, lane `create_app` (Apple ID in `FASTLANE_USER`, la API non crea app).
 - Un token `accent-*` nuovo in `Design/tokens.json` per ogni app che non ne ha uno.
 
 ## Coda: le prossime 25

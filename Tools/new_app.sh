@@ -88,8 +88,15 @@ category: UtilitiesApplication
 EOF
 fi
 
+# App Store Connect record. Not fatal: without FASTLANE_USER, or if 2FA needs a terminal, run the lane later.
+asc_step="cd Apps/Sbu$name && FASTLANE_USER=<apple-id> fastlane create_app"
+if [[ -n ${FASTLANE_USER:-} ]] && (cd "$dest" && FASTLANE_SKIP_UPDATE_CHECK=1 fastlane create_app); then
+  asc_step="App Store Connect record created."
+fi
+
 cat <<EOF
 Created Apps/Sbu$name (dev.sbu.$lower, $accent).
+$asc_step
 Next:
   1. Write the app in Apps/Sbu$name/Sbu$name (start from MainView.swift), strings in Localizable.xcstrings.
   2. Fill fastlane/metadata/{it,en-US}: subtitle and the __FEATURES__/__ONE_THING__ placeholders.

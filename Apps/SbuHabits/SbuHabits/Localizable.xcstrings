@@ -7165,6 +7165,17 @@
         }
       }
     },
+    "Nessun completamento in questo periodo." : {
+      "comment" : "In the Statistiche, in place of the curve by hour when nothing was completed in the period.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No completions in this period."
+          }
+        }
+      }
+    },
     "Serie migliore" : {
       "comment" : "Caption under the completion rate in the Statistiche.",
       "localizations" : {

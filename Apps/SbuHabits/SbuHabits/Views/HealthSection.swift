@@ -11,9 +11,8 @@ struct HealthSection: View {
 
     var body: some View {
         Section {
+            // No header: the screen's title already says Salute.
             Toggle("Collega a Salute", isOn: $isOn)
-        } header: {
-            Text("Salute")
         } footer: {
             if isOn {
                 Text("Si segna da sola quando arrivi all'obiettivo in Salute. Se neghi l'accesso, la segni tu.")

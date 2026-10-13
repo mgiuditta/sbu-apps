@@ -41,8 +41,10 @@ struct HabitGrid: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 0) {
                     ForEach(pages.pages.indices, id: \.self) { index in
-                        HabitPage(slots: pages.pages[index]) { slot, row in
-                            cell(for: slot, maxRingSide: .infinity, rowCaptions: row.map(caption(of:)))
+                        // Every caption of the page sizes each place's caption: the rings of a page stay even.
+                        let captions = pages.pages[index].map(caption(of:))
+                        HabitPage(slots: pages.pages[index]) { slot in
+                            cell(for: slot, maxRingSide: .infinity, pageCaptions: captions)
                         }
                         // Pages run edge to edge under the finger, the rings keep the margins.
                         .padding(.horizontal, SbuTheme.space4)
@@ -61,7 +63,7 @@ struct HabitGrid: View {
     }
 
     @ViewBuilder
-    private func cell(for slot: HomePages.Slot, maxRingSide: CGFloat, rowCaptions: [SlotCaption] = []) -> some View {
+    private func cell(for slot: HomePages.Slot, maxRingSide: CGFloat, pageCaptions: [SlotCaption] = []) -> some View {
         switch slot {
         case .habit(let habit):
             HabitCell(
@@ -70,7 +72,7 @@ struct HabitGrid: View {
                 streak: model.streak(of: habit),
                 hasNote: hasNote(habit),
                 maxRingSide: maxRingSide,
-                rowCaptions: rowCaptions,
+                pageCaptions: pageCaptions,
                 markDone: { model.markDone(habit) },
                 undoLast: { model.undoLast(habit) },
                 toggleSkip: { model.toggleSkip(habit) },
@@ -79,11 +81,11 @@ struct HabitGrid: View {
                 startTimer: { startTimer(for: habit) }
             )
         case .shared(let received):
-            SharedHabitCell(display: SharedHabitDisplay(received, now: .now), maxRingSide: maxRingSide, rowCaptions: rowCaptions) {
+            SharedHabitCell(display: SharedHabitDisplay(received, now: .now), maxRingSide: maxRingSide, pageCaptions: pageCaptions) {
                 openShared(received)
             }
         case .add:
-            AddHabitCell(maxRingSide: maxRingSide, rowCaptions: rowCaptions, add: add)
+            AddHabitCell(maxRingSide: maxRingSide, pageCaptions: pageCaptions, add: add)
         }
     }
 

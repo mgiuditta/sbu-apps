@@ -6,15 +6,15 @@ import SwiftUI
 struct AddHabitCell: View {
     /// The ring's largest side: `.infinity` on a page of the grid, where the place sets it.
     var maxRingSide = CGFloat.infinity
-    /// The captions of the cell's row in the grid, so the rings of a row stay even.
-    var rowCaptions: [SlotCaption] = []
+    /// The captions of the cell's page in the grid, so the rings of a page stay even.
+    var pageCaptions: [SlotCaption] = []
     let add: () -> Void
 
     static let caption = SlotCaption(title: Text("Aggiungi"))
 
     var body: some View {
         Button(action: add) {
-            RingSlot(maxRingSide: maxRingSide, caption: Self.caption, rowCaptions: rowCaptions) {
+            RingSlot(maxRingSide: maxRingSide, caption: Self.caption, pageCaptions: pageCaptions) {
                 ZStack {
                     Circle()
                         .stroke(SbuTheme.line, lineWidth: SbuTheme.space2)

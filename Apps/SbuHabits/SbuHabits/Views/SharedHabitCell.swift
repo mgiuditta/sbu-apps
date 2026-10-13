@@ -13,8 +13,8 @@ struct SharedHabitCell: View {
     let display: SharedHabitDisplay
     /// The ring's largest side: `.infinity` on a page of the grid, where the place sets it.
     var maxRingSide = CGFloat.infinity
-    /// The captions of the cell's row in the grid, so the rings of a row stay even.
-    var rowCaptions: [SlotCaption] = []
+    /// The captions of the cell's page in the grid, so the rings of a page stay even.
+    var pageCaptions: [SlotCaption] = []
     let open: () -> Void
 
     @State private var isShowingNotice = false
@@ -29,7 +29,7 @@ struct SharedHabitCell: View {
     }
 
     var body: some View {
-        RingSlot(maxRingSide: maxRingSide, caption: Self.caption(of: display), rowCaptions: rowCaptions) {
+        RingSlot(maxRingSide: maxRingSide, caption: Self.caption(of: display), pageCaptions: pageCaptions) {
             HabitRing(face: display.face)
         }
         .overlayPreferenceValue(RingBoundsKey.self) { anchor in

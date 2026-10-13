@@ -33,6 +33,9 @@ struct CompletionsSection: View {
                 Group {
                     if isAvoided {
                         EmptyHours(text: "Le abitudini da evitare non hanno la curva per ora.")
+                    } else if statistics.completions == 0 {
+                        // Nothing done yet: there are no older marks to explain.
+                        EmptyHours(text: "Nessun completamento in questo periodo.")
                     } else if statistics.hasHours {
                         HourChart(hours: statistics.hours)
                     } else {

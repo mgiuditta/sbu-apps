@@ -14,6 +14,9 @@ struct HabitCell: View {
     private static let holdDuration = 0.5
     /// Where the Serie sits in the ring, as a fraction of its side from the top: under the symbol.
     private static let streakPosition = 0.75
+    /// The smallest ring with room for the Serie under the symbol: on a smaller one, as on a
+    /// short iPhone's full page, the number would cover the symbol, so the ring goes without it.
+    private static let minRingSideForStreak = SbuTheme.space8 * 2
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -24,8 +27,8 @@ struct HabitCell: View {
     var hasNote = false
     /// The ring's largest side: `.infinity` on a page of the grid, where the place sets it.
     var maxRingSide = CGFloat.infinity
-    /// The captions of the cell's row in the grid, so the rings of a row stay even.
-    var rowCaptions: [SlotCaption] = []
+    /// The captions of the cell's page in the grid, so the rings of a page stay even.
+    var pageCaptions: [SlotCaption] = []
     let markDone: () -> Void
     let undoLast: () -> Void
     let toggleSkip: () -> Void
@@ -97,7 +100,7 @@ struct HabitCell: View {
                     GeometryReader { proxy in
                         let ring = proxy[anchor]
                         // On the ring's stroke, at the bottom right, as Streaks does.
-                        let offset = ring.width / 2 * (0.5).squareRoot()
+                        let offset = Self.playOffset(inRingOfSide: ring.width)
                         Button(action: startTimer) {
                             Label {
                                 Text("Avvia \(habit.title)")
@@ -114,13 +117,14 @@ struct HabitCell: View {
     }
 
     private var cell: some View {
-        RingSlot(maxRingSide: maxRingSide, caption: Self.caption(of: habit, hasNote: hasNote), rowCaptions: rowCaptions) {
+        RingSlot(maxRingSide: maxRingSide, caption: Self.caption(of: habit, hasNote: hasNote), pageCaptions: pageCaptions) {
             HabitRing(face: face, isHolding: isHolding)
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
                 .overlay {
                     // The Serie alone, no unit, inside the ring as in Streaks: "giorni" belongs to
-                    // the figure, and weeks read in VoiceOver. Hidden at zero.
+                    // the figure, and weeks read in VoiceOver. Hidden at zero and on a ring too small for it.
                     GeometryReader { proxy in
+                        let room = streakRoom(inRingOfSide: proxy.size.width)
                         Text(streak, format: .number)
                             .font(SbuTheme.footnote)
                             .fontWeight(.semibold)
@@ -131,9 +135,10 @@ struct HabitCell: View {
                             // in the cell's value, and the Statistiche show it at any size.
                             .dynamicTypeSize(...DynamicTypeSize.large)
                             .contentTransition(.numericText(value: Double(streak)))
-                            .opacity(streak > 0 ? 1 : 0)
+                            .opacity(streak > 0 && proxy.size.width >= Self.minRingSideForStreak ? 1 : 0)
                             .animation(reduceMotion ? nil : .snappy, value: streak)
-                            .position(x: proxy.size.width / 2, y: proxy.size.height * Self.streakPosition)
+                            .frame(width: room, alignment: showsPlay ? .trailing : .center)
+                            .position(x: room / 2, y: proxy.size.height * Self.streakPosition)
                     }
                     .accessibilityHidden(true)
                 }
@@ -171,6 +176,19 @@ struct HabitCell: View {
             Button(noteTitle, action: writeNote)
             Button("Modifica", action: edit)
         }
+    }
+
+    /// The width, from the ring's leading edge, the Serie is laid out in: the whole ring, centred,
+    /// or with play on the ring, up to just before play, so play never covers its digits.
+    private func streakRoom(inRingOfSide side: CGFloat) -> CGFloat {
+        guard showsPlay else { return side }
+        let playLeadingEdge = side / 2 + Self.playOffset(inRingOfSide: side) - SbuTheme.controlRoundSm / 2
+        return max(playLeadingEdge - SbuTheme.space1, 0)
+    }
+
+    /// How far play sits right of and below the ring's centre: on the stroke, at the bottom right.
+    private static func playOffset(inRingOfSide side: CGFloat) -> CGFloat {
+        side / 2 * (0.5).squareRoot()
     }
 
     private func toggle() {

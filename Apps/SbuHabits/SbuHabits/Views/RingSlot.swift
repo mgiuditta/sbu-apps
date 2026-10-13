@@ -4,14 +4,14 @@ import SwiftUI
 /// One place of the tool screen's grid, as Streaks draws it: a ring as large as the place
 /// allows, with its caption under it.
 ///
-/// The caption's room is as tall as the tallest caption of its row, so the rings of a row stay
-/// the same size whatever their titles, without reserving lines no one in the row needs.
+/// The caption's room is as tall as the tallest caption of its page, so the rings of a page stay
+/// the same size whatever their titles, without reserving lines no one on the page needs.
 struct RingSlot<Ring: View>: View {
     /// The ring's largest side: `.infinity` on a page, where the place sets it.
     let maxRingSide: CGFloat
     let caption: SlotCaption
-    /// The captions of the whole row, this one included; empty in the single column.
-    var rowCaptions: [SlotCaption] = []
+    /// The captions of the whole page, this one included; empty in the single column.
+    var pageCaptions: [SlotCaption] = []
     @ViewBuilder let ring: Ring
 
     var body: some View {
@@ -23,8 +23,8 @@ struct RingSlot<Ring: View>: View {
 
             ZStack(alignment: .top) {
                 // Invisible, they only make the room as tall as the row's tallest caption.
-                ForEach(rowCaptions.indices, id: \.self) { index in
-                    rowCaptions[index]
+                ForEach(pageCaptions.indices, id: \.self) { index in
+                    pageCaptions[index]
                         .hidden()
                 }
                 caption
@@ -51,10 +51,10 @@ private struct RingSlotPreview: View {
 
     var body: some View {
         HStack(spacing: SbuTheme.space3) {
-            RingSlot(maxRingSide: .infinity, caption: captions[0], rowCaptions: captions) {
+            RingSlot(maxRingSide: .infinity, caption: captions[0], pageCaptions: captions) {
                 HabitRing(symbol: "book", segments: 1, filled: 1)
             }
-            RingSlot(maxRingSide: .infinity, caption: captions[1], rowCaptions: captions) {
+            RingSlot(maxRingSide: .infinity, caption: captions[1], pageCaptions: captions) {
                 HabitRing(symbol: "dog", segments: 1, filled: 0)
             }
         }

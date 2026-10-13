@@ -6,6 +6,7 @@ import SwiftUI
 /// 06:00 and 18:00 under it.
 struct HourChart: View {
     @Environment(\.calendar) private var calendar
+    @Environment(\.locale) private var locale
 
     /// 24 counts, index 0 for 00:00–00:59.
     let hours: [Int]
@@ -24,9 +25,13 @@ struct HourChart: View {
         .chartXScale(domain: 0...23)
         .chartXAxis {
             AxisMarks(values: [6, 18]) { value in
-                AxisValueLabel(time(at: value.as(Int.self) ?? 0).formatted(.dateTime.hour(.twoDigits(amPM: .abbreviated)).minute(.twoDigits)))
-                    .font(SbuTheme.caption)
-                    .foregroundStyle(SbuTheme.inkMuted)
+                AxisValueLabel {
+                    // Whole, at any text size: Charts would otherwise cut 18:00 short at the edge.
+                    Text(time(at: value.as(Int.self) ?? 0), format: axisFormat)
+                        .font(SbuTheme.caption)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                        .fixedSize()
+                }
             }
         }
         .chartYAxis(.hidden)
@@ -36,6 +41,17 @@ struct HourChart: View {
         .accessibilityLabel(Text("Completamenti per ora"))
         .accessibilityValue(summary)
         .accessibilityChartDescriptor(HourChartDescriptor(hours: hours, calendar: calendar))
+    }
+
+    /// 06:00 and 18:00 on a 24-hour clock; 6 AM and 6 PM on a 12-hour one, where "6:00 PM"
+    /// would not fit beside the chart's trailing edge.
+    private var axisFormat: Date.FormatStyle {
+        switch locale.hourCycle {
+        case .oneToTwelve, .zeroToEleven:
+            .dateTime.hour(.defaultDigits(amPM: .abbreviated)).locale(locale)
+        default:
+            .dateTime.hour(.twoDigits(amPM: .omitted)).minute(.twoDigits).locale(locale)
+        }
     }
 
     /// The hour with the most completions.

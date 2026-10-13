@@ -7,21 +7,25 @@ Data stays on your device.
 
 Add the habits you want to build and hold one down when you do it. At the top you see your full streak: the days in a row you did everything.
 
-- As many habits as you want, no limits
+- Up to 24 habits, on four pages
+- Ready-made templates in five categories, or a habit all your own
 - Yes or no, or several times a day: 8 glasses of water
-- Every day, on chosen days, or N times a week
+- Every day, on chosen days, N times a week or a month, or one day only
+- Timed habits: start the timer from the ring and the habit marks itself done at the end; the countdown stays on the Lock Screen
 - Habits to avoid with a daily limit: when you give in, hold it down
-- Link a habit to Health: steps, water, mindful minutes, walking + running distance, active energy
+- Link a habit to Health: steps, water, sleep, Activity rings, distances, exercise and mindful minutes, and more
 - It marks itself done when you reach the daily goal, even with the app closed
-- Health is read only: Sbu Habits never writes to it and the data stays on your iPhone
+- Health is read only: Sbu Habits never writes to it and your Health data stays on your iPhone
+- A note for each day, to remember how it went
 - Skip today when you are ill, without losing your streak
 - Start of the day for night shifts
-- Reminders only on due days, and only if you have not done it yet
-- Interactive widget: mark from the Home Screen
-- Statistics with your best streak and the last 26 weeks
+- Reminders only on due days and only if you have not done it yet, also at the time you usually do it
+- Interactive widgets: mark from the Home Screen
+- Widgets for a habit's streak, completion, weekdays and calendar
+- Statistics with your best streak, completion over time and history, to share as an image
 - Export and import your data as a file, saved where you choose
 - Sync through your own iCloud, off until you turn it on
-- Share a habit with anyone you like, through iCloud
+- Share a habit with anyone you like, through iCloud: they see it read only
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it counts the days in a row you keep a habit.

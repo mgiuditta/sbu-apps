@@ -1,9 +1,11 @@
 import SbuKit
 import SwiftUI
 
-/// The form's Notifiche screen: the habit's ring and title, then its reminder times.
+/// The form's Notifiche screen, as Streaks lays it out: the habit's ring and title; Promemoria
+/// (none, automatic or custom times); Sensibili al tempo and Suono; and, for a habit Salute
+/// marks, whether a notification says so.
 struct HabitNotificationsScreen: View {
-    let draft: HabitDraft
+    @Binding var draft: HabitDraft
     @Binding var reminders: [RemindersSection.Row]
 
     var body: some View {
@@ -13,13 +15,55 @@ struct HabitNotificationsScreen: View {
             }
             .listRowBackground(Color.clear)
 
-            RemindersSection(rows: $reminders)
+            RemindersSection(mode: $draft.reminderMode, rows: $reminders)
                 .listRowBackground(SbuTheme.surfaceRaised)
+
+            Section {
+                Toggle("Sensibili al tempo", isOn: $draft.notificationStyle.isTimeSensitive)
+                Picker("Suono", selection: $draft.notificationStyle.sound) {
+                    ForEach(ReminderSound.allCases, id: \.self) { sound in
+                        Text(sound.title)
+                            .tag(sound)
+                    }
+                }
+                .pickerStyle(.navigationLink)
+            } footer: {
+                Text("Arrivano anche durante una Full immersion che le consente.")
+            }
+            .listRowBackground(SbuTheme.surfaceRaised)
+
+            if draft.canAnnounceHealthMark {
+                Section {
+                    Picker("Quando si segna da sola", selection: $draft.notificationStyle.announcesHealthMark) {
+                        Text("Nessuna")
+                            .tag(false)
+                        Text("Notifica")
+                            .tag(true)
+                    }
+                    .pickerStyle(.inline)
+                    .labelsHidden()
+                } header: {
+                    Text("Quando si segna da sola")
+                } footer: {
+                    Text("Ti avvisa quando Salute la segna fatta.")
+                }
+                .listRowBackground(SbuTheme.surfaceRaised)
+            }
         }
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .navigationTitle("Notifiche")
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: draft.notificationStyle.sound) { _, sound in
+            ReminderSoundPlayer.play(sound)
+        }
+        .onChange(of: draft.notificationStyle.announcesHealthMark) { _, announces in
+            if announces {
+                Task {
+                    _ = await ReminderScheduler.requestAuthorization()
+                }
+            }
+        }
     }
 }
 
@@ -33,11 +77,17 @@ struct HabitNotificationsScreen: View {
 }
 
 private struct HabitNotificationsScreenPreview: View {
-    @State private var reminders = [RemindersSection.Row(time: .now)]
+    @State private var draft: HabitDraft = {
+        var draft = HabitDraft(habit: nil, today: LogicalDay(.now))
+        draft.linksHealth = true
+        draft.reminderMode = .automatic
+        return draft
+    }()
+    @State private var reminders: [RemindersSection.Row] = []
 
     var body: some View {
         NavigationStack {
-            HabitNotificationsScreen(draft: HabitDraft(habit: nil, today: LogicalDay(.now)), reminders: $reminders)
+            HabitNotificationsScreen(draft: $draft, reminders: $reminders)
         }
         .tint(SbuTheme.accentHabits)
     }

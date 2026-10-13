@@ -56,7 +56,17 @@ nonisolated extension HabitDraft {
         linksHealth ? Self.resolve(healthMeasure.title, locale) : Self.resolve("Non collegata", locale)
     }
 
-    /// The Notifiche row: "Nessuna", the one time ("9:00"), or "3 promemoria".
+    /// The Notifiche row: "Nessuna", "Automatici", the one time ("09:00"), or "3 promemoria".
+    /// - Parameter times: The Orari personalizzati, read only in that mode.
+    func remindersSummary(times: [Date], calendar: Calendar = .current, locale: Locale = .current) -> String {
+        switch reminderMode {
+        case .off: Self.resolve("Nessuna", locale)
+        case .automatic: Self.resolve("Automatici", locale)
+        case .custom: Self.remindersSummary(times, calendar: calendar, locale: locale)
+        }
+    }
+
+    /// Orari personalizzati: "Nessuna", the one time ("09:00"), or "3 promemoria".
     static func remindersSummary(_ times: [Date], calendar: Calendar = .current, locale: Locale = .current) -> String {
         switch times.count {
         case 0:

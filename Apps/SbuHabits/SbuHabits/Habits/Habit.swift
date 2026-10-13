@@ -36,8 +36,13 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     private(set) var markHours: [LogicalDay: [Int]] = [:]
     /// Days skipped with Salta oggi, for example when ill: neutral for every Serie.
     var skipped: Set<LogicalDay> = []
-    /// Times of day to be reminded, only on expected days and only while not done.
+    /// Times of day to be reminded, only on expected days and only while not done: the Orari
+    /// personalizzati. Empty while it reminds automatically.
     var reminders: [ReminderTime] = []
+    /// Orari automatici: one reminder a day at the hour it is usually done, from `markHours`.
+    private(set) var remindsAutomatically = false
+    /// How its notifications come: time sensitive, the sound, a word when Salute marks it.
+    private(set) var notificationStyle = NotificationStyle()
     /// The Salute measure that marks it done by itself, only for a habit to do.
     private(set) var health: HealthLink?
     /// The length in minutes of the countdown that marks an Abitudine a tempo done, `nil` for a
@@ -74,10 +79,29 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         markHours = try container.decodeIfPresent([LogicalDay: [Int]].self, forKey: .markHours) ?? [:]
         skipped = try container.decodeIfPresent(Set<LogicalDay>.self, forKey: .skipped) ?? []
         reminders = try container.decodeIfPresent([ReminderTime].self, forKey: .reminders) ?? []
+        // Before Orari automatici, times meant Orari personalizzati and none, no reminders.
+        remindsAutomatically = try container.decodeIfPresent(Bool.self, forKey: .remindsAutomatically) ?? false
+        notificationStyle = try container.decodeIfPresent(NotificationStyle.self, forKey: .notificationStyle) ?? NotificationStyle()
         earlier = try container.decodeIfPresent([HabitSettings].self, forKey: .earlier) ?? []
         health = try container.decodeIfPresent(HealthLink.self, forKey: .health)
         timerMinutes = try container.decodeIfPresent(Int.self, forKey: .timerMinutes)
         notes = try container.decodeIfPresent([LogicalDay: String].self, forKey: .notes) ?? [:]
+    }
+
+    /// Nessun promemoria, Orari automatici or Orari personalizzati.
+    var reminderMode: ReminderMode {
+        if remindsAutomatically { return .automatic }
+        return reminders.isEmpty ? .off : .custom
+    }
+
+    /// The times to remind on an expected day: its own, the one `AutomaticReminder` reads from
+    /// the marks up to `today`, or none.
+    func reminderTimes(through today: LogicalDay, startHour: Int) -> [ReminderTime] {
+        switch reminderMode {
+        case .off: []
+        case .automatic: [AutomaticReminder.time(from: markHours, through: today, startHour: startHour)]
+        case .custom: reminders
+        }
     }
 
     /// The countdown of an Abitudine a tempo, `nil` for a habit that is not timed.
@@ -126,14 +150,20 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// A habit linked to Salute is done once a day, when the goal is reached.
     /// An Abitudine a tempo is done once a day, when its countdown of `timerMinutes` ends; it is
     /// never linked to Salute, and a link wins over the timer.
-    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil, from today: LogicalDay) -> Bool {
+    /// Reminding automatically drops the `reminders` times; only a habit linked to Salute keeps
+    /// the word when it marks itself, and an Abitudine da evitare keeps no notification setting.
+    mutating func update(title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], remindsAutomatically: Bool = false, notificationStyle: NotificationStyle = NotificationStyle(), health: HealthLink? = nil, timerMinutes: Int? = nil, from today: LogicalDay) -> Bool {
         let title = String(title.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxTitleLength))
         guard title.isEmpty == false, schedule != .weekdays([]) else { return false }
         self.title = title
         self.symbol = symbol
         let newLimit = self.limit.map { Self.clamp(limit ?? $0, to: Self.limitRange) }
-        self.reminders = newLimit == nil ? Array(Set(reminders)).sorted() : []
         let newHealth = newLimit == nil ? health.map { HealthLink(measure: $0.measure, goal: $0.goal) } : nil
+        self.remindsAutomatically = newLimit == nil && remindsAutomatically
+        self.reminders = newLimit == nil && remindsAutomatically == false ? Array(Set(reminders)).sorted() : []
+        var style = newLimit == nil ? notificationStyle : NotificationStyle()
+        style.announcesHealthMark = style.announcesHealthMark && newHealth != nil
+        self.notificationStyle = style
         let newTimer = newLimit == nil && newHealth == nil ? timerMinutes.map { Self.clamp($0, to: Self.timerMinutesRange) } : nil
         let newSchedule: Schedule
         let newTimes: Int

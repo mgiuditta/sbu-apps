@@ -87,7 +87,7 @@ struct HabitForm: View {
                     Section {
                         if draft.hasReminders {
                             NavigationLink(value: HabitFormRoute.notifications) {
-                                HabitFormRow(title: "Notifiche", systemImage: "bell", value: HabitDraft.remindersSummary(reminders.map(\.time)))
+                                HabitFormRow(title: "Notifiche", systemImage: "bell", value: draft.remindersSummary(times: reminders.map(\.time)))
                             }
                         }
                         if showsHealth {
@@ -150,7 +150,7 @@ struct HabitForm: View {
         case .days:
             HabitDaysScreen(draft: $draft, oneDayRange: oneDayRange)
         case .notifications:
-            HabitNotificationsScreen(draft: draft, reminders: $reminders)
+            HabitNotificationsScreen(draft: $draft, reminders: $reminders)
         case .health:
             HabitHealthScreen(draft: $draft)
         }
@@ -161,7 +161,7 @@ struct HabitForm: View {
     }
 
     private func confirm() {
-        let times = reminders.map { row in
+        let times: [ReminderTime] = draft.reminderMode != .custom ? [] : reminders.map { row in
             let parts = Calendar.current.dateComponents([.hour, .minute], from: row.time)
             return ReminderTime(hour: parts.hour ?? 0, minute: parts.minute ?? 0)
         }
@@ -169,9 +169,9 @@ struct HabitForm: View {
         let schedule = draft.schedule()
         let link = draft.healthLink
         if let habit {
-            model.edit(habit, title: title, symbol: draft.symbol, timesPerDay: draft.timesPerDay, schedule: schedule, limit: draft.savedLimit, reminders: times, health: link, timerMinutes: draft.savedTimerMinutes)
+            model.edit(habit, title: title, symbol: draft.symbol, timesPerDay: draft.timesPerDay, schedule: schedule, limit: draft.savedLimit, reminders: times, remindsAutomatically: draft.reminderMode == .automatic, notificationStyle: draft.savedNotificationStyle, health: link, timerMinutes: draft.savedTimerMinutes)
         } else {
-            model.add(title: title, symbol: draft.symbol, timesPerDay: draft.timesPerDay, schedule: schedule, limit: draft.savedLimit, reminders: times, health: link, timerMinutes: draft.savedTimerMinutes)
+            model.add(title: title, symbol: draft.symbol, timesPerDay: draft.timesPerDay, schedule: schedule, limit: draft.savedLimit, reminders: times, remindsAutomatically: draft.reminderMode == .automatic, notificationStyle: draft.savedNotificationStyle, health: link, timerMinutes: draft.savedTimerMinutes)
         }
         if let link {
             // Outlives the form: iOS asks for Salute over the grid, then the habit marks itself.

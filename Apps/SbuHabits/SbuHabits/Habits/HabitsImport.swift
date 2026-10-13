@@ -72,6 +72,10 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
             // Notes the editor could have saved: trimmed, never blank, never too long.
             && habit.notes.values.allSatisfy(DailyNote.isPlausible)
             && habit.reminders.allSatisfy { (0..<24).contains($0.hour) && (0..<60).contains($0.minute) }
+            // Orari automatici replace the times, and an Abitudine da evitare has no reminders.
+            && (habit.remindsAutomatically == false || (habit.reminders.isEmpty && habit.limit == nil))
+            // The word when Salute marks it, only on a habit Salute marks.
+            && (habit.notificationStyle.announcesHealthMark == false || habit.health != nil)
             && schedules.allSatisfy { schedule in
                 switch schedule {
                 case .everyDay: true

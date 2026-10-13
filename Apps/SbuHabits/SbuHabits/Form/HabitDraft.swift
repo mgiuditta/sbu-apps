@@ -24,6 +24,9 @@ nonisolated struct HabitDraft: Equatable, Sendable {
     var healthMeasure: HealthMeasure
     var healthGoal: Double
     var timerMinutes: Int
+    /// Orari personalizzati keeps its times in the form while another mode is chosen.
+    var reminderMode: ReminderMode
+    var notificationStyle: NotificationStyle
 
     /// A new habit's draft, or `habit`'s settings.
     init(habit: Habit?, today: LogicalDay, calendar: Calendar = .current) {
@@ -57,6 +60,8 @@ nonisolated struct HabitDraft: Equatable, Sendable {
         healthMeasure = measure
         healthGoal = habit?.health?.goal ?? measure.defaultGoal
         timerMinutes = habit?.timerMinutes ?? 10
+        reminderMode = habit?.reminderMode ?? .off
+        notificationStyle = habit?.notificationStyle ?? NotificationStyle()
     }
 
     func schedule(in calendar: Calendar = .current) -> Schedule {
@@ -104,6 +109,18 @@ nonisolated struct HabitDraft: Equatable, Sendable {
     /// An Abitudine da evitare has no reminders.
     var hasReminders: Bool {
         kind != .toAvoid
+    }
+
+    /// Only a habit Salute marks can say so.
+    var canAnnounceHealthMark: Bool {
+        healthLink != nil
+    }
+
+    /// The style to save: the word when Salute marks it only while it is linked.
+    var savedNotificationStyle: NotificationStyle {
+        var style = notificationStyle
+        style.announcesHealthMark = style.announcesHealthMark && canAnnounceHealthMark
+        return style
     }
 
     /// A week with no days would never be expected.

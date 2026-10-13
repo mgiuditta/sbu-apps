@@ -2,7 +2,8 @@ import Foundation
 
 /// Which reminders to schedule: only on days a habit is expected, never for a habit already
 /// done or skipped today, soonest first, within the limit iOS keeps pending. A running countdown
-/// comes first, at its end, and takes one place of the limit.
+/// comes first, at its end, and takes one place of the limit. Orari automatici are read again
+/// from the marks every time the plan is made, so they follow the habit as it moves.
 nonisolated enum ReminderPlan {
     /// iOS keeps at most 64 pending local notifications per app.
     static let limit = 64
@@ -14,24 +15,32 @@ nonisolated enum ReminderPlan {
     static let timerID = "timer"
 
     /// - Parameter timer: The countdown saved, if any; only a running one, still ahead, is planned.
+    ///   Its end is always Time Sensitive: the user started it and waits for it. It plays its
+    ///   habit's sound.
     static func reminders(for habits: [Habit], timer: HabitTimer? = nil, now: Date, startHour: Int, calendar: Calendar) -> [PlannedReminder] {
         var timerEnd: [PlannedReminder] = []
         if let timer, let end = timer.endDate, end > now {
-            timerEnd = [PlannedReminder(id: timerID, habitID: timer.habitID, title: timer.title, date: end, endsTimer: true)]
+            let sound = habits.first { $0.id == timer.habitID }?.notificationStyle.sound ?? .standard
+            timerEnd = [PlannedReminder(id: timerID, habitID: timer.habitID, title: timer.title, date: end, endsTimer: true, isTimeSensitive: true, sound: sound)]
         }
         let today = LogicalDay(now, startHour: startHour, calendar: calendar)
         var planned: [PlannedReminder] = []
-        for offset in 0..<days {
-            let day = today + offset
-            for habit in habits where habit.reminders.isEmpty == false && isExpected(habit, on: day, today: today, calendar: calendar) {
-                for time in habit.reminders {
+        for habit in habits {
+            let times = habit.reminderTimes(through: today, startHour: startHour)
+            guard times.isEmpty == false else { continue }
+            let style = habit.notificationStyle
+            for offset in 0..<days {
+                let day = today + offset
+                guard isExpected(habit, on: day, today: today, calendar: calendar) else { continue }
+                for time in times {
                     let date = moment(of: time, on: day, startHour: startHour, calendar: calendar)
                     guard date > now else { continue }
-                    planned.append(PlannedReminder(id: "\(habit.id)-\(day.ordinal)-\(time.hour)-\(time.minute)", habitID: habit.id, title: habit.title, date: date))
+                    planned.append(PlannedReminder(id: "\(habit.id)-\(day.ordinal)-\(time.hour)-\(time.minute)", habitID: habit.id, title: habit.title, date: date, isTimeSensitive: style.isTimeSensitive, sound: style.sound))
                 }
             }
         }
-        return timerEnd + planned.sorted { $0.date < $1.date }.prefix(limit - timerEnd.count)
+        // Equal dates keep the habits' order, so the same plan always keeps the same 64.
+        return timerEnd + planned.enumerated().sorted { ($0.element.date, $0.offset) < ($1.element.date, $1.offset) }.map(\.element).prefix(limit - timerEnd.count)
     }
 
     private static func isExpected(_ habit: Habit, on day: LogicalDay, today: LogicalDay, calendar: Calendar) -> Bool {

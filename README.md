@@ -35,7 +35,7 @@ fastlane snapshot && fastlane frames && fastlane beta    # 5. App Store screensh
 
 Between 3 and 4 you write the app: start from `MainView.swift`, put strings in `Localizable.xcstrings` (Italian source, English translation), and fill the placeholders in `fastlane/metadata/{it,en-US}`. `new_app.sh` arguments: an English noun, an `accent-*` token not used by a nearby category, and the instrument the icon engraves, in English (needs `GEMINI_API_KEY`).
 
-`fastlane release` uploads build, metadata and framed screenshots without submitting. `beta` and `release` read `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_PATH` and `SBU_TEAM_ID`.
+`new_app.sh` also creates the App Store Connect record when `FASTLANE_USER` (Apple ID) is set: the API key cannot create apps, so `fastlane create_app` logs in with the Apple ID, 2FA once, then the cached session. `fastlane release` uploads build, metadata and framed screenshots without submitting. `beta` and `release` read `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_PATH` and `SBU_TEAM_ID`.
 
 ## Tools
 

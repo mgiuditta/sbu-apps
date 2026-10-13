@@ -6,16 +6,19 @@ on:
   pull_request:
 
 jobs:
-  build:
+  kit:
     runs-on: macos-26
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - &checkout
+        uses: actions/checkout@v4
 
-      - name: Select Xcode
+      - &xcode
+        name: Select Xcode
         run: sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)" && xcodebuild -version
 
-      - name: Pick a simulator
+      - &simulator
+        name: Pick a simulator
         run: |
           id=$(xcrun simctl list devices available -j | python3 -c '
           import json, sys
@@ -30,27 +33,34 @@ jobs:
         working-directory: Packages/SbuKit
         run: xcodebuild test -scheme SbuKit -destination "$DESTINATION"
 
-      - name: SbuLevel
-        working-directory: Apps/SbuLevel
+  # Every Apps/Sbu* folder, so a new app is tested without touching this file.
+  list:
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{ steps.apps.outputs.apps }}
+    steps:
+      - *checkout
+      - id: apps
+        run: echo "apps=$(ls -d Apps/Sbu* | xargs -n1 basename | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+
+  app:
+    needs: list
+    runs-on: macos-26
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        app: ${{ fromJSON(needs.list.outputs.apps) }}
+    name: ${{ matrix.app }}
+    defaults:
+      run:
+        working-directory: Apps/${{ matrix.app }}
+    steps:
+      - *checkout
+      - *xcode
+      - *simulator
+      - name: Test
         run: |
           brew install xcodegen
           xcodegen generate
-          xcodebuild test -project SbuLevel.xcodeproj -scheme SbuLevel -destination "$DESTINATION"
-
-      - name: SbuHabits
-        working-directory: Apps/SbuHabits
-        run: |
-          xcodegen generate
-          xcodebuild test -project SbuHabits.xcodeproj -scheme SbuHabits -destination "$DESTINATION"
-
-      - name: SbuMoon
-        working-directory: Apps/SbuMoon
-        run: |
-          xcodegen generate
-          xcodebuild test -project SbuMoon.xcodeproj -scheme SbuMoon -destination "$DESTINATION"
-
-      - name: SbuSpeed
-        working-directory: Apps/SbuSpeed
-        run: |
-          xcodegen generate
-          xcodebuild test -project SbuSpeed.xcodeproj -scheme SbuSpeed -destination "$DESTINATION"
+          xcodebuild test -project ${{ matrix.app }}.xcodeproj -scheme ${{ matrix.app }} -destination "$DESTINATION"

@@ -4,7 +4,8 @@ import SwiftUI
 
 /// The completion rate over the period, as in Streaks: an accent line over flat sunken paper,
 /// the first day, the number of days and Oggi under it. Each point reads its days and its rate
-/// to VoiceOver, and the chart plays as an audio graph.
+/// to VoiceOver, and the chart plays as an audio graph. With nothing expected the box stays
+/// empty, as the figure already says so; with one point it says there is no line to draw.
 struct CompletionLineChart: View {
     @Environment(\.calendar) private var calendar
 
@@ -12,19 +13,22 @@ struct CompletionLineChart: View {
 
     @ScaledMetric(relativeTo: .body) private var height = SbuTheme.space12 * 3
 
-    /// The area of the one point of a line that has no other, as a marker of `space2` across.
-    private let pointArea = SbuTheme.space2 * SbuTheme.space2
-
     var body: some View {
         VStack(spacing: SbuTheme.space2) {
-            if statistics.line.isEmpty {
-                Text("Niente previsto in questo periodo")
+            if statistics.canDrawLine {
+                chart
+            } else if statistics.line.isEmpty {
+                // "Niente previsto in questo periodo" is under the figure already.
+                emptyBox
+                    .accessibilityHidden(true)
+            } else {
+                Text("Troppo pochi giorni per la linea")
                     .font(SbuTheme.footnote)
                     .foregroundStyle(SbuTheme.inkMuted)
+                    .multilineTextAlignment(.center)
+                    .padding(SbuTheme.space3)
                     .frame(maxWidth: .infinity, minHeight: height)
                     .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusMd))
-            } else {
-                chart
             }
 
             ViewThatFits(in: .horizontal) {
@@ -60,11 +64,6 @@ struct CompletionLineChart: View {
                 .foregroundStyle(.tint)
                 .lineStyle(StrokeStyle(lineWidth: SbuTheme.hairline * 2, lineCap: .round, lineJoin: .round))
                 .interpolationMethod(.monotone)
-            if statistics.line.count == 1 {
-                PointMark(x: .value("Giorno", point.index), y: .value("Completamento", point.rate))
-                    .foregroundStyle(.tint)
-                    .symbolSize(pointArea)
-            }
         }
         .chartXScale(domain: 0...max(statistics.lineLength - 1, 1))
         .chartYScale(domain: 0...1)
@@ -77,6 +76,12 @@ struct CompletionLineChart: View {
         .accessibilityLabel(Text("Completamento nel tempo"))
         .accessibilityValue(summary)
         .accessibilityChartDescriptor(CompletionLineDescriptor(points: statistics.line, calendar: calendar))
+    }
+
+    private var emptyBox: some View {
+        SbuTheme.surfaceSunken
+            .frame(maxWidth: .infinity, minHeight: height)
+            .clipShape(.rect(cornerRadius: SbuTheme.radiusMd))
     }
 
     /// The lowest and the highest point.

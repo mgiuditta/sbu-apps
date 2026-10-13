@@ -249,6 +249,27 @@ struct HabitStatisticsTests {
         #expect(line.map(\.rate) == [0.5, 1])
     }
 
+    @Test(arguments: [
+        (Schedule.everyDay, StatisticsPeriod.week, true),
+        (.timesPerWeek(3), .week, false), // one week, judged once: a single point
+        (.timesPerWeek(3), .month, true),
+    ])
+    func aLineNeedsTwoPoints(schedule: Schedule, period: StatisticsPeriod, canDraw: Bool) {
+        let reading = habit(schedule, age: 60, log: done([0, 1, 2, 8, 9]))
+
+        let statistics = statistics(reading, period)
+
+        #expect(statistics.canDrawLine == canDraw)
+        #expect(statistics.canDrawLine == (statistics.line.count >= 2))
+    }
+
+    @Test func aNewHabitWithNothingExpectedHasNoLine() {
+        let new = habit(.timesPerWeek(3), age: 0)
+
+        #expect(statistics(new).line.isEmpty)
+        #expect(statistics(new).canDrawLine == false)
+    }
+
     // MARK: - Weekdays and hours
 
     @Test func theWeekdayBarsStartOnTheFirstDayOfTheUsersWeek() {

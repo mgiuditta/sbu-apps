@@ -39,6 +39,9 @@ nonisolated struct HabitStatistics: Equatable, Sendable {
         return (dayCount + size - 1) / size
     }
 
+    /// The line has at least two points: one alone is a dot, not a line.
+    var canDrawLine: Bool { line.count >= 2 }
+
     /// Some mark in the period has its hour.
     var hasHours: Bool { hours.contains { $0 > 0 } }
 

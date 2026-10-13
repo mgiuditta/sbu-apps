@@ -15,6 +15,13 @@ async function engraving(slug: string, width: number): Promise<string | undefine
   return source ? (await getImage({ src: source, width, format: 'webp' })).src : undefined;
 }
 
+const iconImages = import.meta.glob<ImageMetadata>('../../../Design/icons/*.png', { import: 'default', eager: true });
+
+/** The app icon at 48pt for lists (2x), as WebP. The full PNG stays the download. */
+export async function iconThumb(slug: string): Promise<string> {
+  return (await getImage({ src: iconImages[`../../../Design/icons/sbu-${slug}.png`], width: 96, format: 'webp' })).src;
+}
+
 /** Every engraving in one size, for pages that pick one (the backdrop). */
 export async function allEngravings(width: number): Promise<string[]> {
   return Promise.all(Object.values(engravings).map(async (src) => (await getImage({ src, width, format: 'webp' })).src));

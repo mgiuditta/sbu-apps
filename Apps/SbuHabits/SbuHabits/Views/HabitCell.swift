@@ -78,20 +78,10 @@ struct HabitCell: View {
     static func caption(of habit: Habit, hasNote: Bool) -> SlotCaption {
         SlotCaption(
             title: Text(habit.title),
-            kindSymbol: kindSymbol(of: habit),
+            kindSymbol: HabitKindMark.symbol(of: habit),
             hasNote: hasNote,
             detail: habit.timerDuration.map { Text($0, format: TimerFormat.length) }
         )
-    }
-
-    private static func kindSymbol(of habit: Habit) -> String? {
-        if habit.health != nil {
-            "heart.fill"
-        } else if habit.limit != nil {
-            "nosign"
-        } else {
-            nil
-        }
     }
 
     /// Play only while the timed habit still asks for something today.

@@ -33,6 +33,12 @@ nonisolated struct HabitStatistics: Equatable, Sendable {
     /// Days counted, today included.
     var dayCount: Int { today.ordinal - firstDay.ordinal + 1 }
 
+    /// How many stretches of days the line spans, points or not: its last one ends today.
+    var lineLength: Int {
+        let size = (dayCount + Self.linePoints - 1) / Self.linePoints
+        return (dayCount + size - 1) / size
+    }
+
     /// Some mark in the period has its hour.
     var hasHours: Bool { hours.contains { $0 > 0 } }
 

@@ -1,38 +1,62 @@
 import SbuKit
 import SwiftUI
 
-/// Statistiche: every habit with its Serie, in the grid's order, reordered by dragging.
+/// Statistiche, as Streaks lays them out: the period at the top, the habits' symbols, then pages
+/// that swipe sideways, every habit first and then one per habit in the grid's order; at the
+/// bottom Condividi, the pages and Chiudi.
+///
+/// The pager draws only the pages in view, and their numbers are kept until the habits, the
+/// period or today change: only a page on show walks its history.
 struct StatisticsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let model: HabitsModel
 
+    @State private var period = StatisticsPeriod.all
+    /// The page on show: 0 for every habit, then one per habit.
+    @State private var page = 0
+    @State private var cache = StatisticsCache()
+
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(model.habits) { habit in
-                    NavigationLink(value: habit.id) {
-                        StatisticsRow(habit: habit, streak: model.streak(of: habit))
-                    }
-                }
-                .onMove(perform: model.move)
+        let habits = model.habits
+        VStack(spacing: 0) {
+            VStack(spacing: SbuTheme.space4) {
+                PeriodMenu(period: $period)
+                    .padding(.horizontal, SbuTheme.space4)
+
+                HabitSymbolRow(habits: habits, page: page, select: turn(to:))
             }
-            .listStyle(.insetGrouped)
-            .navigationTitle("Statistiche")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(for: UUID.self) { id in
-                if let habit = model.habits.first(where: { $0.id == id }) {
-                    HabitDetailView(model: model, habit: habit)
+            .padding(.top, SbuTheme.space6)
+            .padding(.bottom, SbuTheme.space2)
+
+            TabView(selection: $page) {
+                ForEach(0...habits.count, id: \.self) { index in
+                    CachedStatisticsPage(
+                        model: model,
+                        habit: index == 0 ? nil : habits[index - 1],
+                        habits: habits,
+                        period: period,
+                        cache: cache,
+                        isCurrent: index == page
+                    )
+                    .tag(index)
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Fine", action: close)
-                }
-                ToolbarItem(placement: .topBarLeading) {
-                    EditButton()
-                }
-            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+
+            StatisticsBar(symbols: habits.map(\.symbol), page: page, turn: turn(to:), close: close)
+                .padding(.horizontal, SbuTheme.space4)
+                .padding(.vertical, SbuTheme.space2)
+        }
+        .background(SbuTheme.surface)
+    }
+
+    /// Turns to a page from a symbol or the page indicator, sliding unless Reduce Motion is on.
+    private func turn(to page: Int) {
+        guard (0...model.habits.count).contains(page) else { return }
+        withAnimation(reduceMotion ? nil : .snappy) {
+            self.page = page
         }
     }
 
@@ -41,23 +65,23 @@ struct StatisticsView: View {
     }
 }
 
-private struct StatisticsRow: View {
-    let habit: Habit
-    let streak: Int
+/// A page that works out its numbers only when drawn, from the cache when it can: the pager
+/// creates every page, but draws only the ones in view.
+private struct CachedStatisticsPage: View {
+    let model: HabitsModel
+    let habit: Habit?
+    let habits: [Habit]
+    let period: StatisticsPeriod
+    let cache: StatisticsCache
+    let isCurrent: Bool
 
     var body: some View {
-        LabeledContent {
-            Text(habit.schedule.streakText(streak))
-                .monospacedDigit()
-        } label: {
-            Label {
-                Text(habit.title)
-            } icon: {
-                Image(systemName: habit.symbol)
-                    .fontWeight(.medium)
-                    .imageScale(.medium)
-            }
-        }
+        StatisticsPage(
+            model: model,
+            habit: habit,
+            statistics: cache.statistics(of: habit, in: habits, period: period, today: model.today, firstWeekday: model.firstWeekday),
+            isCurrent: isCurrent
+        )
     }
 }
 

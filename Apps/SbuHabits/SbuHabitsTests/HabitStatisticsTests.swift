@@ -228,6 +228,18 @@ struct HabitStatisticsTests {
         #expect(line.first?.firstDay == today - (days - 1))
     }
 
+    @Test(arguments: [
+        (StatisticsPeriod.week, 7),
+        (.month, 30),
+        (.year, 29),
+    ])
+    func theLineSpansEveryStretchEvenWithoutPoints(period: StatisticsPeriod, length: Int) {
+        // Nothing done or expected yet would leave no point: the span stays the period's.
+        let reading = habit(age: 400)
+
+        #expect(statistics(reading, period).lineLength == length)
+    }
+
     @Test func aStretchWithNothingExpectedHasNoPointAndKeepsItsPlace() {
         let days = [CompletionTally(done: 1, missed: 1), .zero, CompletionTally(done: 1, missed: 0)]
 

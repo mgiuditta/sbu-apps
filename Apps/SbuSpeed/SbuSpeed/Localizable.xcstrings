@@ -86,7 +86,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The trip starts again from zero."
+            "value": "The trip starts over from zero."
           }
         }
       }

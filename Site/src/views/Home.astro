@@ -246,6 +246,10 @@ const jsonLd = [
       calc(var(--spacing-12) * 2.5 + env(safe-area-inset-bottom))
       max(var(--spacing-6), env(safe-area-inset-left));
   }
+  /* On a phone the header is in the flow above (global.css .stage-bar): no room to keep for it. */
+  @media (max-width: 40rem) {
+    .punto-scene { padding-top: var(--spacing-8); }
+  }
   .punto-scene[data-scene="level"] { touch-action: none; }
 
   /* Home */

@@ -59,6 +59,10 @@
       0
       max(var(--spacing-6), env(safe-area-inset-left));
   }
+  /* On a phone the nav wraps to two or three lines: in the flow, it pushes the title down instead of sitting on it. */
+  @media (max-width: 40rem) {
+    .stage-bar { position: relative; }
+  }
 
   .prose > * + * { margin-top: var(--spacing-4); }
   .prose h2 {

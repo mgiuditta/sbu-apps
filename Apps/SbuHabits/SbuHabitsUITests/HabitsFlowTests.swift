@@ -434,6 +434,21 @@ final class HabitsFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Obiettivo al giorno"].waitForExistence(timeout: 5))
         try app.auditHabitForm()
         app.backToForm()
+
+        // A habit Salute marks can say so. The box above pushes the row under the bottom button.
+        app.collectionViews.firstMatch.swipeUp()
+        app.openFormRow("Notifiche")
+        XCTAssertTrue(app.buttons["Nessun promemoria"].waitForExistence(timeout: 5))
+        // Taller with the Salute section, the screen always has a system row cut by the screen
+        // edge or the bar, which the audit reports as clipped text with no element, as in Impostazioni.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType, .textClipped])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+        app.collectionViews.firstMatch.swipeUp()
+        XCTAssertTrue(app.staticTexts["Ti avvisa quando Salute la segna fatta."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Nessuna"].isSelected)
+        app.backToForm()
         // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi abitudine.
         app.navigationBars.buttons["Annulla"].tap()
     }

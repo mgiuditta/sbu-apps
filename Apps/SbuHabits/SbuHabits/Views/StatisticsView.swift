@@ -3,7 +3,7 @@ import SwiftUI
 
 /// Statistiche, as Streaks lays them out: the period at the top, the habits' symbols, then pages
 /// that swipe sideways, every habit first and then one per habit in the grid's order; at the
-/// bottom Condividi, the pages and Chiudi.
+/// bottom Condividi, which shares the page on show as a picture, the pages and Chiudi.
 ///
 /// The pager draws only the pages in view, and their numbers are kept until the habits, the
 /// period or today change: only a page on show walks its history.
@@ -45,11 +45,18 @@ struct StatisticsView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
 
-            StatisticsBar(symbols: habits.map(\.symbol), page: page, turn: turn(to:), close: close)
+            StatisticsBar(symbols: habits.map(\.symbol), page: page, share: share(of: habits), turn: turn(to:), close: close)
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space2)
         }
         .background(SbuTheme.surface)
+    }
+
+    /// The page on show over the period chosen, its numbers from the cache the page filled.
+    private func share(of habits: [Habit]) -> StatisticsShare {
+        let habit = StatisticsShare.habit(on: page, in: habits)
+        let statistics = cache.statistics(of: habit, in: habits, period: period, today: model.today, firstWeekday: model.firstWeekday)
+        return StatisticsShare(page: page, habits: habits, period: period, statistics: statistics)
     }
 
     /// Turns to a page from a symbol or the page indicator, sliding unless Reduce Motion is on.

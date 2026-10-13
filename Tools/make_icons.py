@@ -13,10 +13,13 @@ rebuild without calling a model.
 Usage:
   python3 Tools/make_icons.py level [--appiconset Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIcon.appiconset]
       [--artwork Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIconArtwork.imageset]
+  python3 Tools/make_icons.py habits --watch-appiconset Apps/SbuHabits/SbuHabitsWatch/Assets.xcassets/AppIcon.appiconset
   python3 Tools/make_icons.py level --generate          # new engraving from Gemini (GEMINI_API_KEY)
   python3 Tools/make_icons.py level --from-image raw.png # engraving from an image you supply
 
 Writes Design/icons/sbu-<name>.png (light, 1024, no alpha); with --appiconset also the dark and tinted variants.
+With --watch-appiconset, a watchOS icon: the dark variant shrunk into the square inscribed in the
+circle watchOS masks the icon to, so the engraving and the full stop are never cropped.
 """
 import argparse
 import base64
@@ -36,6 +39,7 @@ CANVAS = 1024
 MARGIN = 0.15  # space around the engraving, as a fraction of its longer side
 STOP_SIDE = 0.085  # full stop side, as a fraction of the canvas
 STOP_INSET = 0.10  # full stop distance from the bottom-right corner
+WATCH_SAFE = 0.70  # watchOS: side of the composed icon, as a fraction of the canvas (inscribed square is 0.707)
 MODEL = "gemini-2.5-flash-image"
 STYLE = (
     "Single subject, centered, filling about 70% of a square frame, generous empty margin. "
@@ -130,8 +134,9 @@ def generate(subject: str) -> Image.Image:
 def compose(mask: Image.Image, line: str, ground: str, stop: str | None) -> Image.Image:
     icon = Image.composite(Image.new("RGB", mask.size, rgb(line)), Image.new("RGB", mask.size, rgb(ground)), mask)
     if stop:
-        side, inset = int(CANVAS * STOP_SIDE), int(CANVAS * STOP_INSET)
-        corner = CANVAS - inset
+        canvas = mask.width
+        side, inset = int(canvas * STOP_SIDE), int(canvas * STOP_INSET)
+        corner = canvas - inset
         ImageDraw.Draw(icon).rectangle([corner - side, corner - side, corner, corner], fill=rgb(stop))
     return icon
 
@@ -148,6 +153,20 @@ def write_appiconset(icons: dict, folder: Path) -> None:
             entry["appearances"] = [{"appearance": "luminosity", "value": variant}]
         images.append(entry)
     (folder / "Contents.json").write_text(json.dumps({"images": images, "info": {"author": "xcode", "version": 1}}, indent=2) + "\n")
+
+
+def write_watch_appiconset(mask: Image.Image, line: str, ground: str, stop: str, folder: Path) -> None:
+    """watchOS crops the icon to a circle: compose inside its safe square, on the same ground."""
+    inner = int(CANVAS * WATCH_SAFE)
+    icon = Image.new("RGB", (CANVAS, CANVAS), rgb(ground))
+    offset = (CANVAS - inner) // 2
+    icon.paste(compose(mask.resize((inner, inner), Image.LANCZOS), line, ground, stop), (offset, offset))
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.glob("*.png"):
+        old.unlink()
+    icon.save(folder / "AppIcon-watch.png")
+    entry = {"filename": "AppIcon-watch.png", "idiom": "universal", "platform": "watchos", "size": "1024x1024"}
+    (folder / "Contents.json").write_text(json.dumps({"images": [entry], "info": {"author": "xcode", "version": 1}}, indent=2) + "\n")
 
 
 def write_artwork(icons: dict, folder: Path) -> None:
@@ -175,6 +194,7 @@ def main() -> None:
     source_group.add_argument("--from-image", type=Path, help="use this image as the engraving")
     parser.add_argument("--appiconset", type=Path, help="also write this AppIcon.appiconset")
     parser.add_argument("--artwork", type=Path, help="also write this AppIconArtwork.imageset")
+    parser.add_argument("--watch-appiconset", type=Path, help="also write this watchOS AppIcon.appiconset (dark, circle-safe)")
     args = parser.parse_args()
 
     specs = json.loads(SPECS.read_text())
@@ -206,6 +226,9 @@ def main() -> None:
     if args.artwork:
         write_artwork(variants, args.artwork)
         print(args.artwork)
+    if args.watch_appiconset:
+        write_watch_appiconset(mask, ink["dark"], ink["light"], accent["dark"], args.watch_appiconset)
+        print(args.watch_appiconset)
 
 
 if __name__ == "__main__":

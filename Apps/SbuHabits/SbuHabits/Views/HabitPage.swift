@@ -8,8 +8,8 @@ struct HabitPage<Cell: View>: View {
     private static var rows: Int { HomePages.pageSize / columns }
 
     let slots: [HomePages.Slot]
-    /// Builds a place from its slot and the slots of its row.
-    @ViewBuilder let cell: (HomePages.Slot, [HomePages.Slot]) -> Cell
+    /// Builds a place from its slot.
+    @ViewBuilder let cell: (HomePages.Slot) -> Cell
 
     var body: some View {
         Grid(horizontalSpacing: SbuTheme.space4, verticalSpacing: SbuTheme.space4) {
@@ -27,17 +27,11 @@ struct HabitPage<Cell: View>: View {
     @ViewBuilder
     private func place(at index: Int) -> some View {
         if slots.indices.contains(index) {
-            cell(slots[index], row(of: index))
+            cell(slots[index])
         } else {
             Color.clear
                 .accessibilityHidden(true)
         }
-    }
-
-    /// The slots on the same row as the place at `index`.
-    private func row(of index: Int) -> [HomePages.Slot] {
-        let start = index - index % Self.columns
-        return Array(slots[start..<min(start + Self.columns, slots.count)])
     }
 }
 
@@ -52,7 +46,7 @@ struct HabitPage<Cell: View>: View {
 
 private struct HabitPagePreview: View {
     var body: some View {
-        HabitPage(slots: [.add]) { _, _ in
+        HabitPage(slots: [.add]) { _ in
             AddHabitCell {}
         }
         .padding(SbuTheme.space4)

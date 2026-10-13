@@ -24,8 +24,8 @@ struct HabitCell: View {
     var hasNote = false
     /// The ring's largest side: `.infinity` on a page of the grid, where the place sets it.
     var maxRingSide = CGFloat.infinity
-    /// The captions of the cell's row in the grid, so the rings of a row stay even.
-    var rowCaptions: [SlotCaption] = []
+    /// The captions of the cell's page in the grid, so the rings of a page stay even.
+    var pageCaptions: [SlotCaption] = []
     let markDone: () -> Void
     let undoLast: () -> Void
     let toggleSkip: () -> Void
@@ -114,7 +114,7 @@ struct HabitCell: View {
     }
 
     private var cell: some View {
-        RingSlot(maxRingSide: maxRingSide, caption: Self.caption(of: habit, hasNote: hasNote), rowCaptions: rowCaptions) {
+        RingSlot(maxRingSide: maxRingSide, caption: Self.caption(of: habit, hasNote: hasNote), pageCaptions: pageCaptions) {
             HabitRing(face: face, isHolding: isHolding)
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
                 .overlay {

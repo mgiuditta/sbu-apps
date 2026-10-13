@@ -23,6 +23,19 @@ targets:
     sources: [SbuNoise]
     dependencies:
       - package: SbuKit
+      - target: SbuNoiseWidget
+    entitlements:
+      path: SbuNoise/SbuNoise.entitlements
+      properties:
+        # The Noise file and what is playing, shared with the widgets and the control.
+        com.apple.security.application-groups: [group.dev.sbu.noise]
+    info:
+      path: SbuNoise/Info.plist
+      properties:
+        # Keeps the sound playing with the screen locked and in the background.
+        UIBackgroundModes: [audio]
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.noise
@@ -36,6 +49,36 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+  SbuNoiseWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuNoiseWidget
+      # What is playing and the play/pause intent, which runs in the app.
+      - SbuNoise/Shared
+      - SbuNoise/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuNoiseWidget/SbuNoiseWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.noise]
+    info:
+      path: SbuNoiseWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Noise
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.noise.widget
+        TARGETED_DEVICE_FAMILY: "1"
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES
@@ -67,6 +110,22 @@ schemes:
         SbuNoise: all
     test:
       targets: [SbuNoiseTests]
+  SbuNoiseSnapshots:
+    build:
+      targets:
+        SbuNoise: all
+    test:
+      targets: [SbuNoiseUITests]
+schemes:
+  SbuNoise:
+    build:
+      targets:
+        SbuNoise: all
+    test:
+      targets:
+        - SbuNoiseTests
+        - name: SbuNoiseUITests
+          skippedTests: [SnapshotTests]
   SbuNoiseSnapshots:
     build:
       targets:

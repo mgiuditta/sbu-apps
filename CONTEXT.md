@@ -157,6 +157,10 @@ _Avoid_: preset, scena, combinazione
 L'unica sequenza di **Suoni** e **Mix**, ciascuno per una durata, uno dopo l'altro.
 _Avoid_: coda, scaletta
 
+**Timer** (_Timer_):
+Ferma il **Suono** a un'ora o dopo una durata, sfumandolo così che taccia proprio in quel momento. Una durata parte quando accendi il timer; se si ripete sempre, riparte a ogni nuovo suono. Un'ora si ripete nei giorni scelti, o vale una volta. Funziona solo finché un suono è in riproduzione.
+_Avoid_: sleep timer, spegnimento automatico
+
 **Sveglia** (_Alarm_):
 L'ora a cui Noise ti sveglia con un suono che entra in dissolvenza; suona dentro l'app finché un **Suono** è in riproduzione.
 _Avoid_: allarme, timer (il timer ferma o avvia un suono, non sveglia)

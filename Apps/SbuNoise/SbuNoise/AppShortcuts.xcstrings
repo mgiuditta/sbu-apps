@@ -1,0 +1,56 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Avvia ${applicationName}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start ${applicationName}"
+          }
+        }
+      }
+    },
+    "Ferma ${applicationName}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop ${applicationName}"
+          }
+        }
+      }
+    },
+    "Metti in pausa ${applicationName}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause ${applicationName}"
+          }
+        }
+      }
+    },
+    "Riproduci ${applicationName}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play ${applicationName}"
+          }
+        }
+      }
+    },
+    "Riproduci ${sound} con ${applicationName}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play ${sound} with ${applicationName}"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

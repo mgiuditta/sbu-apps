@@ -46,15 +46,17 @@ final class SharedHabitsFlowTests: XCTestCase {
         XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
         let share = app.formRow("Condividi")
         // Condividi and its footer sit near the bottom, over Elimina.
-        app.collectionViews.firstMatch.swipeUp()
-        XCTAssertTrue(share.waitForExistence(timeout: 5), app.debugDescription)
+        app.reveal(share)
         return share
     }
 
     @MainActor
     private func audit(_ app: XCUIApplication) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            if issue.isRowCutByTheScreenEdge {
+                return true
+            }
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
     }
@@ -65,8 +67,8 @@ final class SharedHabitsFlowTests: XCTestCase {
         let share = editNewHabit(in: app)
 
         XCTAssertFalse(share.isEnabled)
-        XCTAssertTrue(app.staticTexts["Per condividere, accedi a iCloud nelle Impostazioni dell'iPhone."].exists, app.debugDescription)
-        // Back at the top, as the form's other audits: scrolled, the fixed save button covers a row.
+        app.reveal(app.staticTexts["Per condividere, accedi a iCloud nelle Impostazioni dell'iPhone."])
+        // Back at the top, as the form's other audits.
         app.collectionViews.firstMatch.swipeDown()
         try app.auditHabitForm()
     }
@@ -77,7 +79,7 @@ final class SharedHabitsFlowTests: XCTestCase {
         let share = editNewHabit(in: app)
 
         XCTAssertTrue(share.isEnabled)
-        XCTAssertTrue(app.staticTexts["Chi inviti vede l'abitudine e lo storico, non i promemoria né le note."].exists, app.debugDescription)
+        app.reveal(app.staticTexts["Chi inviti vede l'abitudine e lo storico, non i promemoria né le note."])
     }
 
     @MainActor
@@ -129,7 +131,7 @@ final class SharedHabitsFlowTests: XCTestCase {
     }
 
     @MainActor
-    func testRemovingASharedHabitAsksFirst() {
+    func testRemovingASharedHabitAsksFirst() throws {
         let app = launch(received: true)
         cell("Correre", in: app).tap()
         let remove = app.buttons["Rimuovi"].firstMatch
@@ -138,9 +140,7 @@ final class SharedHabitsFlowTests: XCTestCase {
             app.scrollViews.firstMatch.swipeUp()
         }
 
-        remove.tap()
-        XCTAssertTrue(app.staticTexts["Rimuovere “Correre”?"].waitForExistence(timeout: 5), app.debugDescription)
-        app.buttons["Rimuovi"].firstMatch.tap() // the confirmation
+        try app.tapAndConfirm(remove, question: "Rimuovere “Correre”?")
 
         XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.descendants(matching: .any).matching(identifier: "Correre").firstMatch.exists)

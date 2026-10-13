@@ -11,13 +11,16 @@ struct RoundButtonStyle: ButtonStyle {
     let side: CGFloat
     /// Filled in the accent: the screen's main action.
     var isProminent = false
+    /// The side the finger can hit, when larger than the visible one: 44 pt for a small badge.
+    var touchSide: CGFloat = 0
 
     /// The symbol's text style, growing with the side.
     private var symbolFont: Font {
         switch side {
         case SbuTheme.controlRoundLg...: SbuTheme.largeTitle
         case SbuTheme.controlRound...: SbuTheme.title2
-        default: SbuTheme.body
+        case SbuTheme.controlRoundSm...: SbuTheme.body
+        default: SbuTheme.footnote
         }
     }
 
@@ -41,6 +44,7 @@ struct RoundButtonStyle: ButtonStyle {
             .foregroundStyle(foreground)
             .frame(width: side, height: side)
             .background(background, in: .circle)
+            .frame(width: max(side, touchSide), height: max(side, touchSide))
             .contentShape(.circle)
             // As SbuButton does.
             .opacity(configuration.isPressed ? 0.7 : 1)

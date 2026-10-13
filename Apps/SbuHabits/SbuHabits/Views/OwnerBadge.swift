@@ -7,21 +7,27 @@ struct OwnerBadge: View {
     let emoji: String?
     var side = SbuTheme.controlRoundSm
 
+    /// The small badge of a small ring takes a smaller text style.
+    private var font: Font {
+        side < SbuTheme.controlRoundSm ? SbuTheme.footnote : SbuTheme.body
+    }
+
     var body: some View {
         Group {
             if let emoji {
                 Text(verbatim: emoji)
-                    .font(SbuTheme.body)
+                    .font(font)
             } else {
                 Image(systemName: OwnerEmoji.personSymbol)
-                    .font(SbuTheme.body)
+                    .font(font)
                     .fontWeight(.medium)
                     .imageScale(.medium)
                     .foregroundStyle(SbuTheme.inkMuted)
             }
         }
-        // The side is fixed: past the largest text sizes the symbol would spill out.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+        // A picture in a circle of fixed side, hidden from VoiceOver: it keeps the default
+        // size, or at larger text the emoji would touch the circle's edge.
+        .dynamicTypeSize(.large)
         .frame(width: side, height: side)
         .background(SbuTheme.surfaceRaised, in: .circle)
         .accessibilityHidden(true)
@@ -32,6 +38,7 @@ struct OwnerBadge: View {
     HStack(spacing: SbuTheme.space3) {
         OwnerBadge(emoji: nil)
         OwnerBadge(emoji: "😎")
+        OwnerBadge(emoji: "😎", side: SbuTheme.space8)
     }
     .padding(SbuTheme.space4)
     .background(SbuTheme.surface)

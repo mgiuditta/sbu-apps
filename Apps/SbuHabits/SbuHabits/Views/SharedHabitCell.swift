@@ -37,8 +37,8 @@ struct SharedHabitCell: View {
                 GeometryReader { proxy in
                     let ring = proxy[anchor]
                     // On the ring's stroke, at the bottom right, where a timed habit has play.
-                    let offset = ring.width / 2 * (0.5).squareRoot()
-                    OwnerBadge(emoji: display.ownerEmoji)
+                    let offset = RingBadgeSize.offset(inRingOfSide: ring.width)
+                    OwnerBadge(emoji: display.ownerEmoji, side: RingBadgeSize.side(forRingSide: ring.width))
                         .position(x: ring.midX + offset, y: ring.midY + offset)
                 }
             }

@@ -62,7 +62,7 @@ final class SymbolPickerFlowTests: XCTestCase {
             if issue.auditType == .dynamicType, issue.element?.label == "Annulla" {
                 return true
             }
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
 
@@ -77,7 +77,7 @@ final class SymbolPickerFlowTests: XCTestCase {
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Corsa"), row.debugDescription)
 
         // The habit keeps it: it shows again when you edit it.
-        app.addHabitButton.tap()
+        app.tapButton(app.addHabitButton)
         let habit = app.descendants(matching: .any).matching(identifier: "Correre").firstMatch
         XCTAssertTrue(habit.waitForExistence(timeout: 5))
         habit.tap()

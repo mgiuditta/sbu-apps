@@ -100,7 +100,7 @@ struct HabitCell: View {
                     GeometryReader { proxy in
                         let ring = proxy[anchor]
                         // On the ring's stroke, at the bottom right, as Streaks does.
-                        let offset = Self.playOffset(inRingOfSide: ring.width)
+                        let offset = RingBadgeSize.offset(inRingOfSide: ring.width)
                         Button(action: startTimer) {
                             Label {
                                 Text("Avvia \(habit.title)")
@@ -109,8 +109,9 @@ struct HabitCell: View {
                             }
                         }
                         .labelStyle(.iconOnly)
-                            .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRoundSm, isProminent: true))
-                            .position(x: ring.midX + offset, y: ring.midY + offset)
+                        // Smaller on a small ring, with the same 44 pt to hit.
+                        .buttonStyle(RoundButtonStyle(side: RingBadgeSize.side(forRingSide: ring.width), isProminent: true, touchSide: SbuTheme.controlRoundSm))
+                        .position(x: ring.midX + offset, y: ring.midY + offset)
                     }
                 }
             }
@@ -182,13 +183,8 @@ struct HabitCell: View {
     /// or with play on the ring, up to just before play, so play never covers its digits.
     private func streakRoom(inRingOfSide side: CGFloat) -> CGFloat {
         guard showsPlay else { return side }
-        let playLeadingEdge = side / 2 + Self.playOffset(inRingOfSide: side) - SbuTheme.controlRoundSm / 2
+        let playLeadingEdge = side / 2 + RingBadgeSize.offset(inRingOfSide: side) - RingBadgeSize.side(forRingSide: side) / 2
         return max(playLeadingEdge - SbuTheme.space1, 0)
-    }
-
-    /// How far play sits right of and below the ring's centre: on the stroke, at the bottom right.
-    private static func playOffset(inRingOfSide side: CGFloat) -> CGFloat {
-        side / 2 * (0.5).squareRoot()
     }
 
     private func toggle() {

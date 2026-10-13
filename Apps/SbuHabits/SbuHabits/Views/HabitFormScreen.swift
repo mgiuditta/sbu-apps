@@ -8,6 +8,8 @@ import SwiftUI
 /// and offers Elimina. It lives in a navigation stack: `HabitForm`'s own when editing, Aggiungi
 /// abitudine's when adding, so `close` ends the whole sheet rather than this screen.
 struct HabitFormScreen: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     let model: HabitsModel
     /// The habit to edit, or `nil` to add a new one.
     let habit: Habit?
@@ -108,6 +110,16 @@ struct HabitFormScreen: View {
                 ShareHabitSection(sharing: sharing, habit: habit)
             }
 
+            if dynamicTypeSize.isAccessibilitySize {
+                // At the accessibility sizes a fixed button would cover a good part of the
+                // screen: it closes the form instead, after the last row.
+                Section {
+                    confirmButton
+                }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
+            }
+
             if let habit {
                 Section {
                     SbuButton("Elimina", kind: .destructive, confirmationTitle: "Eliminare “\(habit.title)”?", action: delete)
@@ -119,11 +131,12 @@ struct HabitFormScreen: View {
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .safeAreaInset(edge: .bottom) {
-            SbuButton(confirmTitle, action: confirm)
-                .disabled(draft.canSave == false)
-                .padding(.horizontal, SbuTheme.space4)
-                .padding(.vertical, SbuTheme.space2)
-                .background(SbuTheme.surface)
+            if dynamicTypeSize.isAccessibilitySize == false {
+                confirmButton
+                    .padding(.horizontal, SbuTheme.space4)
+                    .padding(.vertical, SbuTheme.space2)
+                    .background(SbuTheme.surface)
+            }
         }
         .navigationDestination(for: HabitFormRoute.self, destination: screen)
         .navigationTitle(formTitle)
@@ -131,6 +144,11 @@ struct HabitFormScreen: View {
         .task {
             await askForNotifications()
         }
+    }
+
+    private var confirmButton: some View {
+        SbuButton(confirmTitle, action: confirm)
+            .disabled(draft.canSave == false)
     }
 
     /// A row that opens the Tipo screen, or only says the kind when there is no other to choose.

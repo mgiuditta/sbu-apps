@@ -59,7 +59,18 @@ final class SoundEngine {
         guard let node = layers.removeValue(forKey: id) else { return }
         (node as? AVAudioPlayerNode)?.stop()
         engine.detach(node)
-        if layers.isEmpty { engine.stop() }
+        if layers.isEmpty {
+            engine.stop()
+            // Lets the music or podcast this sound interrupted carry on.
+            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        }
+    }
+
+    /// Starts the engine again after the hardware stopped it (`AVAudioEngineConfigurationChange`);
+    /// the layers keep their nodes and connections.
+    func restart() {
+        guard !layers.isEmpty, !engine.isRunning else { return }
+        try? engine.start()
     }
 
     /// Reads a whole audio file into memory, ready for `addLoop`. `AVAudioFile` drops the AAC
@@ -79,7 +90,8 @@ final class SoundEngine {
         engine.connect(node, to: engine.mainMixerNode, format: format)
         layers[id] = node
         if !engine.isRunning {
-            // ponytail: interruptions and route changes come with background audio.
+            // `.playback` keeps playing locked and in the background, and is not mixable, so the
+            // lock screen and Control Center show this app as the one playing.
             try AVAudioSession.sharedInstance().setCategory(.playback)
             try AVAudioSession.sharedInstance().setActive(true)
             try engine.start()

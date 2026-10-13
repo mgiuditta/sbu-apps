@@ -23,6 +23,13 @@ targets:
     sources: [SbuNoise]
     dependencies:
       - package: SbuKit
+    info:
+      path: SbuNoise/Info.plist
+      properties:
+        # Keeps the sound playing with the screen locked and in the background.
+        UIBackgroundModes: [audio]
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.noise

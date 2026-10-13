@@ -17,6 +17,8 @@ final class PlayerModel {
     private(set) var isPlaying = false
     /// ponytail: in memory only; saved to the file with the favorites category.
     private(set) var favorites: Set<String> = []
+    /// Set when a call or an alarm stops the sound, so it comes back when the system allows.
+    @ObservationIgnored private var resumesAfterInterruption = false
 
     @ObservationIgnored private let engine = SoundEngine()
     @ObservationIgnored private let defaults: UserDefaults
@@ -38,11 +40,29 @@ final class PlayerModel {
     }
 
     func togglePlayback() {
-        if isPlaying {
-            engine.remove(Self.layerID)
-            isPlaying = false
-        } else {
-            start()
+        if isPlaying { pause() } else { start() }
+    }
+
+    /// Commands from the lock screen, Control Center, headphones and Siri, and audio session changes.
+    func handle(_ event: SystemEvent) {
+        switch event {
+        case .play: if !isPlaying { start() }
+        // Also during a call: the sound must not come back when it ends.
+        case .pause: pause()
+        case .togglePlayPause: togglePlayback()
+        case .next: step(1)
+        case .previous: step(-1)
+        case .interruptionBegan:
+            guard isPlaying else { return }
+            pause()
+            resumesAfterInterruption = true
+        case .interruptionEnded(let shouldResume):
+            if resumesAfterInterruption && shouldResume { start() }
+            resumesAfterInterruption = false
+        case .outputLost:
+            pause()
+        case .configurationChanged:
+            if isPlaying { engine.restart() }
         }
     }
 
@@ -54,12 +74,19 @@ final class PlayerModel {
         if favorites.remove(sound.id) == nil { favorites.insert(sound.id) }
     }
 
+    private func pause() {
+        engine.remove(Self.layerID)
+        isPlaying = false
+        resumesAfterInterruption = false
+    }
+
     private func start() {
+        resumesAfterInterruption = false
         do {
             try engine.addNoise(current.noise, id: Self.layerID)
             isPlaying = true
         } catch {
-            // ponytail: a failed start leaves the player paused; background audio surfaces errors.
+            // A failed start (another app holds the audio, a call in progress) leaves the player paused.
             isPlaying = false
         }
     }

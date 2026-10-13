@@ -6,8 +6,8 @@ import os
 
 /// The real photo library, through PhotoKit, on the device only.
 ///
-/// Network access stays off: pictures and videos kept only in iCloud show their local
-/// thumbnail and are not downloaded.
+/// Network access stays off, except when the user asks for one video kept only in iCloud (to
+/// watch or compress it): pictures show their local copy and nothing downloads during a scan.
 nonisolated final class PhotoKitLibrary: PhotoLibrary {
     /// The side of the picture Vision analyses.
     private static let analysisSide: CGFloat = 512
@@ -20,22 +20,32 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
         LibraryAccess(status: await PHPhotoLibrary.requestAuthorization(for: .readWrite))
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func fetchItems() async -> [MediaItem] {
         await Self.fetchAll()
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func measure(_ ids: [String]) async -> [String: ItemSize] {
         await Self.sizes(of: ids)
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func albums() async -> [Album] {
         await Self.userAlbums()
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func itemIDs(inAlbum albumID: String) async -> [String] {
         await Self.ids(inAlbum: albumID)
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func image(for id: String, pixelSide: CGFloat) async -> UIImage? {
         guard let asset = Self.asset(id) else { return nil }
 
@@ -46,18 +56,44 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
         return await Self.requestImage(of: asset, side: pixelSide, mode: .fastFormat)
     }
 
+    // Off the main actor, at the scan's low priority. The fast format is the small copy Photos
+    // keeps ready: Vision scales every picture down to a few hundred pixels anyway, and
+    // decoding full-size originals is what made a scan heavy.
+    @concurrent
     func analyze(_ id: String) async -> ImageAnalysis? {
-        guard let image = await image(for: id, pixelSide: Self.analysisSide) else { return nil }
+        guard let asset = Self.asset(id) else { return nil }
 
-        return await Self.analyze(image)
+        var image = await Self.requestImage(of: asset, side: Self.analysisSide, mode: .fastFormat)
+        if image == nil {
+            image = await Self.requestImage(of: asset, side: Self.analysisSide, mode: .highQualityFormat)
+        }
+        guard let cgImage = image?.cgImage else { return nil }
+
+        return ImageAnalyzer.analyze(cgImage)
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func videoURL(for id: String) async -> URL? {
         guard let asset = Self.asset(id) else { return nil }
 
         return await Self.urlAsset(of: asset)?.url
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
+    func downloadVideo(for id: String, progress: @escaping @Sendable (Double) -> Void) async throws -> URL {
+        guard let asset = Self.asset(id) else { throw LibraryError.unavailable }
+
+        let url = await Self.urlAsset(of: asset, allowingDownload: true, progress: progress)?.url
+        try Task.checkCancellation()
+        guard let url else { throw LibraryError.unavailable }
+
+        return url
+    }
+
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func details(for id: String) async -> MediaDetails {
         guard let asset = Self.asset(id) else { return MediaDetails() }
 
@@ -70,6 +106,8 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
         return details
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func delete(_ ids: [String]) async throws {
         do {
             try await PHPhotoLibrary.shared().performChanges {
@@ -80,6 +118,8 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
         }
     }
 
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
     func saveStill(ofLivePhoto id: String) async throws -> String {
         guard let asset = Self.asset(id), let data = await Self.imageData(of: asset) else { throw LibraryError.unavailable }
 
@@ -101,10 +141,19 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
         return newID
     }
 
-    func saveCompressed(video id: String, quality: CompressionQuality) async throws -> String {
-        guard let asset = Self.asset(id), let source = await Self.urlAsset(of: asset)?.url else { throw LibraryError.unavailable }
+    // Off the main actor: callers are views and the main-actor model.
+    @concurrent
+    func saveCompressed(video id: String, quality: CompressionQuality, progress: @escaping @Sendable (CompressionStep) -> Void) async throws -> String {
+        guard let asset = Self.asset(id) else { throw LibraryError.unavailable }
 
-        let output = try await Self.export(source, preset: quality.exportPreset)
+        var source = await Self.urlAsset(of: asset)?.url
+        if source == nil {
+            source = await Self.urlAsset(of: asset, allowingDownload: true) { progress(.downloading($0)) }?.url
+        }
+        try Task.checkCancellation()
+        guard let source else { throw LibraryError.unavailable }
+
+        let output = try await Self.export(source, preset: quality.exportPreset) { progress(.compressing($0)) }
         let date = asset.creationDate
         let location = asset.location
         let isFavorite = asset.isFavorite
@@ -238,24 +287,34 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
         }
     }
 
-    private static func urlAsset(of asset: PHAsset) async -> AVURLAsset? {
+    /// The video's file. With `allowingDownload`, a video kept only in iCloud is downloaded,
+    /// reporting progress; cancelling the task cancels the request.
+    private static func urlAsset(
+        of asset: PHAsset,
+        allowingDownload: Bool = false,
+        progress: (@Sendable (Double) -> Void)? = nil
+    ) async -> AVURLAsset? {
         let options = PHVideoRequestOptions()
-        options.isNetworkAccessAllowed = false
+        options.isNetworkAccessAllowed = allowingDownload
+        if let progress {
+            options.progressHandler = { fraction, _, _, _ in progress(fraction) }
+        }
         options.deliveryMode = .highQualityFormat
         options.version = .current
-        let url: URL? = await withCheckedContinuation { continuation in
-            PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
-                continuation.resume(returning: (avAsset as? AVURLAsset)?.url)
+        let requestID = OSAllocatedUnfairLock<PHImageRequestID?>(initialState: nil)
+        let url: URL? = await withTaskCancellationHandler {
+            await withCheckedContinuation { continuation in
+                let id = PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
+                    continuation.resume(returning: (avAsset as? AVURLAsset)?.url)
+                }
+                requestID.withLock { $0 = id }
+            }
+        } onCancel: {
+            if let id = requestID.withLock({ $0 }) {
+                PHImageManager.default().cancelImageRequest(id)
             }
         }
         return url.map { AVURLAsset(url: $0) }
-    }
-
-    @concurrent
-    private static func analyze(_ image: UIImage) async -> ImageAnalysis? {
-        guard let cgImage = image.cgImage else { return nil }
-
-        return ImageAnalyzer.analyze(cgImage)
     }
 
     private static func cameraMetadata(in data: Data) -> (camera: String?, lens: String?) {
@@ -278,12 +337,21 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
     }
 
     @concurrent
-    private static func export(_ source: URL, preset: String) async throws -> URL {
+    private static func export(_ source: URL, preset: String, progress: @escaping @Sendable (Double) -> Void) async throws -> URL {
         guard let session = AVAssetExportSession(asset: AVURLAsset(url: source), presetName: preset) else { throw LibraryError.unavailable }
 
         let output = URL.temporaryDirectory.appending(path: "\(UUID().uuidString).mp4")
         if #available(iOS 18, *) {
-            try await session.export(to: output, as: .mp4)
+            // The session reports its own states while it exports: AVFoundation documents
+            // reading them from another task, which the compiler cannot see.
+            nonisolated(unsafe) let exporting = session
+            async let finished: Void = exporting.export(to: output, as: .mp4)
+            for await state in session.states(updateInterval: 0.25) {
+                if case .exporting(let exportProgress) = state {
+                    progress(exportProgress.fractionCompleted)
+                }
+            }
+            try await finished
         } else {
             session.outputURL = output
             session.outputFileType = .mp4

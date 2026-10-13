@@ -33,6 +33,7 @@ struct DuplicatesScreen: View {
                 showsBin = true
             }
             .disabled(selected.isEmpty)
+            .accessibilityIdentifier("bottomAction")
         }
         .navigationDestination(isPresented: $showsBin) {
             BinScreen(model: model)

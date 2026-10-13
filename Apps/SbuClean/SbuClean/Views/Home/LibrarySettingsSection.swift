@@ -26,7 +26,7 @@ struct LibrarySettingsSection: View {
         } header: {
             Text("Libreria")
         } footer: {
-            Text("Sbu Clean legge le foto solo su questo iPhone e non scarica niente da iCloud.")
+            Text("Sbu Clean analizza le foto su questo iPhone. Scarica da iCloud un video solo quando lo chiedi tu, per guardarlo o comprimerlo.")
         }
 
         Section {
@@ -40,7 +40,9 @@ struct LibrarySettingsSection: View {
                 Text("Le foto che hai tenuto o messo da parte tornano da vedere. Il cestino e le foto da tenere sempre restano.")
             }
         } footer: {
-            Text("I mesi tornano da finire, come la prima volta.")
+            Text(model.state.kept.isEmpty && model.state.later.isEmpty
+                 ? "Quando avrai tenuto o messo da parte delle foto, potrai rivederle da capo."
+                 : "I mesi tornano da finire, come la prima volta.")
         }
     }
 

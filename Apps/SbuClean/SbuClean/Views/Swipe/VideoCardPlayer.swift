@@ -4,13 +4,24 @@ import SwiftUI
 
 /// A video that plays inside its card, with the system controls, before you decide.
 ///
-/// A video kept only in iCloud is not downloaded: the card shows its frame and says so.
+/// A video kept only in iCloud shows its frame and downloads only when you ask, with its
+/// progress and a way to stop.
 struct VideoCardPlayer: View {
+    private enum Phase: Equatable {
+        case loading
+        case inCloud
+        case downloading
+        case failed
+        case ready
+    }
+
     let item: MediaItem
 
     @Environment(\.photoLibrary) private var library
+    @State private var phase = Phase.loading
     @State private var player: AVPlayer?
-    @State private var isUnavailable = false
+    @State private var progress = TransferProgress()
+    @State private var download: Task<Void, Never>?
 
     var body: some View {
         ZStack {
@@ -18,14 +29,16 @@ struct VideoCardPlayer: View {
                 VideoPlayer(player: player)
             } else {
                 MediaThumbnail(id: item.id, side: 1200, contentMode: .fit)
-                if isUnavailable {
-                    Label("Solo in iCloud: Sbu Clean non scarica i video", systemImage: "icloud")
-                        .font(SbuTheme.footnote)
-                        .foregroundStyle(SbuTheme.ink)
-                        .padding(SbuTheme.space2)
-                        .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusSm))
-                        .padding(SbuTheme.space3)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
+                if phase != .loading {
+                    CloudVideoPanel(
+                        isDownloading: phase == .downloading,
+                        failed: phase == .failed,
+                        fraction: progress.fraction,
+                        download: startDownload,
+                        cancel: cancelDownload
+                    )
+                    .padding(SbuTheme.space3)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
                 }
             }
         }
@@ -34,25 +47,55 @@ struct VideoCardPlayer: View {
         }
         .onDisappear {
             player?.pause()
+            download?.cancel()
         }
     }
 
     private func load() async {
         if let url = await library.videoURL(for: item.id) {
-            player = AVPlayer(url: url)
+            play(url)
         } else {
-            isUnavailable = true
+            phase = .inCloud
         }
+    }
+
+    private func play(_ url: URL) {
+        player = AVPlayer(url: url)
+        phase = .ready
+    }
+
+    private func startDownload() {
+        progress.fraction = 0
+        phase = .downloading
+        let progress = progress
+        download = Task {
+            do {
+                let url = try await library.downloadVideo(for: item.id, progress: progress.report)
+                play(url)
+            } catch is CancellationError {
+                phase = .inCloud
+            } catch {
+                phase = Task.isCancelled ? .inCloud : .failed
+            }
+        }
+    }
+
+    private func cancelDownload() {
+        download?.cancel()
+        download = nil
+        phase = .inCloud
     }
 }
 
 #Preview("Light") {
     VideoCardPlayer(item: MediaItem(id: "video-0", kind: .video))
         .padding()
+        .tint(SbuTheme.accentClean)
 }
 
 #Preview("Dark") {
     VideoCardPlayer(item: MediaItem(id: "video-0", kind: .video))
         .padding()
+        .tint(SbuTheme.accentClean)
         .preferredColorScheme(.dark)
 }

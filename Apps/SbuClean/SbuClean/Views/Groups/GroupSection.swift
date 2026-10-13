@@ -11,7 +11,7 @@ struct GroupSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space2) {
             HStack(alignment: .firstTextBaseline) {
-                Text("\(group.members.count) foto · \(model.bytes(of: group.members).formatted(.byteCount(style: .file)))")
+                Text("\(group.members.count) foto · \(model.bytes(of: group.members).sizeText)")
                     .font(SbuTheme.subheadline)
                     .foregroundStyle(SbuTheme.inkMuted)
                 Spacer(minLength: SbuTheme.space2)

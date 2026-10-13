@@ -28,11 +28,12 @@ struct VideoRow: View {
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Riproduci")
+            .accessibilityIdentifier("video.play")
 
             Button(action: toggle) {
                 HStack {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(item.bytes.formatted(.byteCount(style: .file)))
+                        Text(item.bytes.sizeText)
                             .font(SbuTheme.smallNumberFont(size: amountSize))
                             .foregroundStyle(SbuTheme.ink)
                         Text("\(item.durationText) · \(item.creationDate?.formatted(date: .abbreviated, time: .omitted) ?? "")")

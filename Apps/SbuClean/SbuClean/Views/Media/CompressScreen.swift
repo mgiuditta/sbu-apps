@@ -3,13 +3,16 @@ import SwiftUI
 
 /// The video compressor, laid out as in the Originale: the video to play, the size before and
 /// after, three qualities, and the button that starts. The compressed copy is saved next to the
-/// original, which goes to the bin only if you say so.
+/// original, which goes to the bin only if you say so. A video kept only in iCloud is downloaded
+/// first, because you asked for this one, with its progress and Annulla.
 struct CompressScreen: View {
     let model: CleanModel
     let id: String
 
     @State private var quality = CompressionQuality.medium
-    @State private var isCompressing = false
+    @State private var isRunning = false
+    @State private var progress = TransferProgress()
+    @State private var work: Task<Void, Never>?
     @State private var isDone = false
     @State private var failed = false
     @State private var showsBin = false
@@ -17,6 +20,7 @@ struct CompressScreen: View {
     var body: some View {
         if let item = model.itemsByID[id] {
             let estimate = quality.estimatedBytes(duration: item.duration, originalBytes: item.bytes)
+            let saves = estimate < item.bytes
             ScrollView {
                 VStack(alignment: .leading, spacing: SbuTheme.space4) {
                     VideoCardPlayer(item: item)
@@ -25,7 +29,7 @@ struct CompressScreen: View {
                         .frame(maxWidth: .infinity)
                         .clipShape(.rect(cornerRadius: SbuTheme.radiusLg))
 
-                    SpaceStat(label: "Dopo, circa", bytes: estimate, context: "Prima \(item.bytes.formatted(.byteCount(style: .file))), \(item.durationText)")
+                    SpaceStat(label: "Dopo la compressione", bytes: estimate, context: "Stima. Prima \(item.bytes.sizeText), \(item.durationText)")
 
                     Picker("Qualità", selection: $quality) {
                         Text("Bassa").tag(CompressionQuality.low)
@@ -33,10 +37,17 @@ struct CompressScreen: View {
                         Text("Alta").tag(CompressionQuality.high)
                     }
                     .pickerStyle(.segmented)
+                    .disabled(isRunning)
 
-                    Text("La copia compressa va nella libreria con la stessa data e lo stesso luogo. L'originale resta finché non decidi.")
-                        .font(SbuTheme.footnote)
-                        .foregroundStyle(SbuTheme.inkMuted)
+                    if isRunning {
+                        CompressionProgressView(isDownloading: progress.isDownloading, fraction: progress.fraction, cancel: cancel)
+                    } else {
+                        Text(saves
+                             ? "La copia compressa va nella libreria con la stessa data e lo stesso luogo. L'originale resta finché non decidi."
+                             : "Con questa qualità il video non diventerebbe più leggero. Scegli una qualità più bassa.")
+                            .font(SbuTheme.footnote)
+                            .foregroundStyle(SbuTheme.inkMuted)
+                    }
                 }
                 .padding(SbuTheme.space4)
             }
@@ -44,10 +55,10 @@ struct CompressScreen: View {
             .navigationTitle("Comprimi")
             .navigationBarTitleDisplayMode(.inline)
             .bottomAction {
-                SbuButton(isCompressing ? "Comprimo…" : "Avvia la compressione") {
+                SbuButton("Avvia la compressione") {
                     compress(item)
                 }
-                .disabled(isCompressing || estimate >= item.bytes)
+                .disabled(isRunning || !saves)
             }
             .confirmationDialog("Copia compressa salvata", isPresented: $isDone, titleVisibility: .visible) {
                 Button("Metti l'originale nel cestino") {
@@ -61,11 +72,12 @@ struct CompressScreen: View {
             .alert("Non è stato possibile comprimere", isPresented: $failed) {
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("Il video originale non è cambiato. Se è solo in iCloud, aprilo prima in Foto.")
+                Text("Il video originale non è cambiato. Se è solo in iCloud, controlla la connessione e riprova.")
             }
             .navigationDestination(isPresented: $showsBin) {
                 BinScreen(model: model)
             }
+            .onDisappear(perform: cancel)
         } else {
             Text("Il video non c'è più.")
                 .font(SbuTheme.body)
@@ -74,16 +86,26 @@ struct CompressScreen: View {
     }
 
     private func compress(_ item: MediaItem) {
-        isCompressing = true
-        Task {
+        progress.reset()
+        isRunning = true
+        let progress = progress
+        work = Task {
             do {
-                try await model.compress(item.id, quality: quality)
+                try await model.compress(item.id, quality: quality, progress: progress.report)
+                isRunning = false
                 isDone = true
             } catch {
-                failed = true
+                let cancelled = Task.isCancelled || error is CancellationError
+                isRunning = false
+                failed = !cancelled
             }
-            isCompressing = false
         }
+    }
+
+    private func cancel() {
+        work?.cancel()
+        work = nil
+        isRunning = false
     }
 }
 

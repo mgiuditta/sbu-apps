@@ -85,6 +85,11 @@ nonisolated final class FakeLibrary: PhotoLibrary {
         nil
     }
 
+    func downloadVideo(for id: String, progress: @escaping @Sendable (Double) -> Void) async throws -> URL {
+        progress(1)
+        return URL(filePath: "/dev/null")
+    }
+
     func details(for id: String) async -> MediaDetails {
         MediaDetails()
     }
@@ -103,8 +108,9 @@ nonisolated final class FakeLibrary: PhotoLibrary {
         "still-\(id)"
     }
 
-    func saveCompressed(video id: String, quality: CompressionQuality) async throws -> String {
-        "compressed-\(id)"
+    func saveCompressed(video id: String, quality: CompressionQuality, progress: @escaping @Sendable (CompressionStep) -> Void) async throws -> String {
+        progress(.compressing(1))
+        return "compressed-\(id)"
     }
 
     func changes() -> AsyncStream<Void> {

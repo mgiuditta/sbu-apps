@@ -20,7 +20,7 @@ struct MediaGridScreen: View {
                 SpaceStat(label: "Selezionati", bytes: bytes, context: "\(selection.count) di \(items.count)")
 
                 if items.isEmpty {
-                    Text("Niente qui.")
+                    Text(category == .screenshots ? "Nessuno screenshot nella libreria." : "Nessuna registrazione dello schermo nella libreria.")
                         .font(SbuTheme.body)
                         .foregroundStyle(SbuTheme.inkMuted)
                 } else {
@@ -56,6 +56,7 @@ struct MediaGridScreen: View {
                 showsBin = true
             }
             .disabled(selection.isEmpty)
+            .accessibilityIdentifier("bottomAction")
         }
         .navigationDestination(isPresented: $showsBin) {
             BinScreen(model: model)

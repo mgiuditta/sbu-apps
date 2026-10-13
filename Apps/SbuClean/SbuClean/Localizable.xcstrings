@@ -61,6 +61,46 @@
         }
       }
     },
+    "%lld Live Photo sono solo in iCloud. Aprile nell'app Foto per scaricarle, poi riprova.": {
+      "localizations": {
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Live Photo è solo in iCloud. Aprila nell'app Foto per scaricarla, poi riprova."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Live Photo sono solo in iCloud. Aprile nell'app Foto per scaricarle, poi riprova."
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Live Photo is only in iCloud. Open it in the Photos app to download it, then try again."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Live Photos are only in iCloud. Open them in the Photos app to download them, then try again."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld da vedere": {
       "localizations": {
         "en": {
@@ -760,7 +800,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Access to photos"
+            "value": "Photo access"
           }
         }
       }
@@ -771,6 +811,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Albums"
+          }
+        }
+      }
+    },
+    "Alcune Live Photo non sono convertite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Some Live Photos weren't converted"
           }
         }
       }
@@ -790,7 +840,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scan stopped. Photos already scanned are kept: pick up where you left off."
+            "value": "Scan stopped. Photos already scanned are kept: resume to carry on from there."
           }
         }
       }
@@ -821,6 +871,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "No groups yet: the scan finds them as it goes."
+          }
+        }
+      }
+    },
+    "Annulla": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
           }
         }
       }
@@ -895,7 +955,7 @@
         }
       }
     },
-    "Cerco doppioni e foto simili: %lld di %lld": {
+    "Cerco duplicati e foto simili: %lld di %lld": {
       "localizations": {
         "en": {
           "stringUnit": {
@@ -935,12 +995,22 @@
         }
       }
     },
-    "Comprimo…": {
+    "Comprimo: %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Compressing…"
+            "value": "Compressing: %@"
+          }
+        }
+      }
+    },
+    "Con questa qualità il video non diventerebbe più leggero. Scegli una qualità più bassa.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At this quality the video wouldn't get any lighter. Pick a lower quality."
           }
         }
       }
@@ -991,6 +1061,16 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "Converti in foto fisse": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convert to still photos"
           }
         }
       }
@@ -1135,12 +1215,12 @@
         }
       }
     },
-    "Dopo, circa": {
+    "Dopo la compressione": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "After, about"
+            "value": "After compression"
           }
         }
       }
@@ -1195,12 +1275,12 @@
         }
       }
     },
-    "Elimina %@ %@": {
+    "Elimina %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete %@ %@"
+            "value": "Delete %@"
           }
         }
       }
@@ -1375,12 +1455,52 @@
         }
       }
     },
+    "Hai già visto tutta la libreria.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You've seen your whole library."
+          }
+        }
+      }
+    },
+    "Hai già visto tutte le foto degli ultimi 30 giorni.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You've seen every photo from the last 30 days."
+          }
+        }
+      }
+    },
+    "Hai già visto tutto questo album.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You've seen this whole album."
+          }
+        }
+      }
+    },
+    "Hai già visto tutto questo mese.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You've seen this whole month."
+          }
+        }
+      }
+    },
     "Hai visto tutto qui.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "You have seen everything here."
+            "value": "You've seen everything here."
           }
         }
       }
@@ -1395,22 +1515,12 @@
         }
       }
     },
-    "Il cestino è rimasto com'era. Riprova tra poco.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The bin is as it was. Try again in a moment."
-          }
-        }
-      }
-    },
     "Il cestino è vuoto. Quello che metti nel cestino scorrendo o dai duplicati arriva qui.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The bin is empty. What you put in the bin while swiping or from duplicates ends up here."
+            "value": "The bin is empty. What you put in the bin while swiping or from duplicates shows up here."
           }
         }
       }
@@ -1425,12 +1535,12 @@
         }
       }
     },
-    "Il video originale non è cambiato. Se è solo in iCloud, aprilo prima in Foto.": {
+    "Il video originale non è cambiato. Se è solo in iCloud, controlla la connessione e riprova.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The original video has not changed. If it is only in iCloud, open it in Photos first."
+            "value": "The original video hasn't changed. If it's only in iCloud, check your connection and try again."
           }
         }
       }
@@ -1530,7 +1640,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Photos you kept or set aside become new again. The bin and the photos you always keep stay as they are."
+            "value": "Photos you kept or set aside will come up again. The bin and the photos you always keep stay as they are."
           }
         }
       }
@@ -1715,22 +1825,62 @@
         }
       }
     },
+    "Nessuna foto da vedere": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing to see"
+          }
+        }
+      }
+    },
+    "Nessuna foto da vedere scattata in questo giorno negli anni passati.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing left to see from this day in past years."
+          }
+        }
+      }
+    },
+    "Nessuna registrazione dello schermo nella libreria.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No screen recordings in your library."
+          }
+        }
+      }
+    },
+    "Nessuno screenshot nella libreria.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No screenshots in your library."
+          }
+        }
+      }
+    },
+    "Niente da vedere in questa categoria.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing to see in this category."
+          }
+        }
+      }
+    },
     "Niente da vedere qui.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Nothing to see here."
-          }
-        }
-      }
-    },
-    "Niente qui.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nothing here."
           }
         }
       }
@@ -1765,12 +1915,22 @@
         }
       }
     },
-    "Non tenere più": {
+    "Non hai messo da parte niente. Mentre scorri, tocca Dopo per decidere più tardi.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stop keeping"
+            "value": "Nothing set aside. While swiping, tap Later to decide another time."
+          }
+        }
+      }
+    },
+    "Non è stato eliminato niente. Riprova tra poco.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing was deleted. Try again in a moment."
           }
         }
       }
@@ -1791,6 +1951,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Could not delete"
+          }
+        }
+      }
+    },
+    "Non è stato possibile scaricare il video. Controlla la connessione.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't download the video. Check your connection."
           }
         }
       }
@@ -1825,22 +1995,22 @@
         }
       }
     },
-    "Prima %@, %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Before %@, %@"
-          }
-        }
-      }
-    },
     "Prima %@, dopo %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Before %@, after %@"
+          }
+        }
+      }
+    },
+    "Proponi di nuovo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show again"
           }
         }
       }
@@ -1865,6 +2035,26 @@
         }
       }
     },
+    "Quando avrai tenuto o messo da parte delle foto, potrai rivederle da capo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Once you've kept or set aside some photos, you can go through them again from the start."
+          }
+        }
+      }
+    },
+    "Questo video è solo in iCloud.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This video is only in iCloud."
+          }
+        }
+      }
+    },
     "Recenti": {
       "localizations": {
         "en": {
@@ -1881,6 +2071,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Screen recording, %@, %@"
+          }
+        }
+      }
+    },
+    "Registrazioni": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recordings"
           }
         }
       }
@@ -1925,6 +2125,16 @@
         }
       }
     },
+    "Riprova": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try again"
+          }
+        }
+      }
+    },
     "Risoluzione": {
       "localizations": {
         "en": {
@@ -1955,12 +2165,12 @@
         }
       }
     },
-    "Sbu Clean legge le foto solo su questo iPhone e non scarica niente da iCloud.": {
+    "Sbu Clean analizza le foto su questo iPhone. Scarica da iCloud un video solo quando lo chiedi tu, per guardarlo o comprimerlo.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sbu Clean reads photos only on this iPhone and downloads nothing from iCloud."
+            "value": "Sbu Clean analyses your photos on this iPhone. It downloads a video from iCloud only when you ask, to watch or compress it."
           }
         }
       }
@@ -1970,7 +2180,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sbu Clean cannot see your photos. Allow access in Settings, under Photos."
+            "value": "Sbu Clean can't see your photos. Allow access in Settings, under Photos."
           }
         }
       }
@@ -1981,6 +2191,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sbu Clean saves a still photo with the same date, place and favourite, and puts the Live Photo in the bin. You lose only the motion."
+          }
+        }
+      }
+    },
+    "Scarica da iCloud": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Download from iCloud"
+          }
+        }
+      }
+    },
+    "Scarico da iCloud: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Downloading from iCloud: %@"
           }
         }
       }
@@ -2025,12 +2255,12 @@
         }
       }
     },
-    "Scorri un elemento verso sinistra perché ti venga proposto di nuovo.": {
+    "Scorri un elemento verso sinistra e tocca Proponi di nuovo perché torni nelle code.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Swipe an item left to have it come up again."
+            "value": "Swipe an item left and tap Show again to bring it back to your queues."
           }
         }
       }
@@ -2095,16 +2325,6 @@
         }
       }
     },
-    "Solo in iCloud: Sbu Clean non scarica i video": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Only in iCloud: Sbu Clean does not download videos"
-          }
-        }
-      }
-    },
     "Solo quelle scelte": {
       "localizations": {
         "en": {
@@ -2155,6 +2375,16 @@
         }
       }
     },
+    "Stima. Prima %@, %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimate. Before: %@, %@"
+          }
+        }
+      }
+    },
     "Su %lld foto e video": {
       "localizations": {
         "it": {
@@ -2181,13 +2411,13 @@
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Across %lld photo or video"
+                  "value": "In %lld photo or video"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Across %lld photos and videos"
+                  "value": "In %lld photos and videos"
                 }
               }
             }
@@ -2300,7 +2530,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "It all happens on this iPhone. You can use the rest of the app meanwhile."
+            "value": "It all happens on this iPhone. You can keep using the app in the meantime."
           }
         }
       }

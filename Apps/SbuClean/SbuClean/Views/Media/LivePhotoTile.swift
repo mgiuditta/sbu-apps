@@ -33,7 +33,7 @@ struct LivePhotoTile: View {
                     }
                     .clipShape(.rect(cornerRadius: SbuTheme.radiusMd))
 
-                Text("Prima \(before.formatted(.byteCount(style: .file))), dopo \(after.formatted(.byteCount(style: .file)))")
+                Text("Prima \(before.sizeText), dopo \(after.sizeText)")
                     .font(SbuTheme.caption)
                     .foregroundStyle(SbuTheme.inkMuted)
                     .fixedSize(horizontal: false, vertical: true)

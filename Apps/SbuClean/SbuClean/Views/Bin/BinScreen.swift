@@ -46,13 +46,16 @@ struct BinScreen: View {
         .navigationTitle("Cestino")
         .navigationBarTitleDisplayMode(.inline)
         .bottomAction {
-            SbuButton(
-                "Elimina \(ids.count) elementi",
-                kind: .destructive,
-                confirmationTitle: "Eliminare \(ids.count) elementi dalla libreria Foto?",
-                action: delete
-            )
-            .disabled(ids.isEmpty || isDeleting)
+            if !ids.isEmpty {
+                SbuButton(
+                    "Elimina \(ids.count) elementi",
+                    kind: .destructive,
+                    confirmationTitle: "Eliminare \(ids.count) elementi dalla libreria Foto?",
+                    action: delete
+                )
+                .disabled(isDeleting)
+                .accessibilityIdentifier("bottomAction")
+            }
         }
         .sheet(item: $result) { result in
             DeletionResultSheet(result: result)
@@ -60,7 +63,7 @@ struct BinScreen: View {
         .alert("Non è stato possibile eliminare", isPresented: $failed) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Il cestino è rimasto com'era. Riprova tra poco.")
+            Text("Non è stato eliminato niente. Riprova tra poco.")
         }
         .sensoryFeedback(.success, trigger: result)
     }

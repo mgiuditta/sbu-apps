@@ -15,7 +15,7 @@ struct AccessScreen: View {
 
     var body: some View {
         SbuToolField(
-            "Sbu Clean",
+            "Accesso alle foto",
             context: isDenied
                 ? "Sbu Clean non può vedere le tue foto. Consenti l'accesso in Impostazioni, alla voce Foto."
                 : "Libera spazio nella libreria Foto: scorri, rivedi, elimina. Tutto resta su questo iPhone."
@@ -27,11 +27,17 @@ struct AccessScreen: View {
                 .accessibilityHidden(true)
         } pills: {
             if isDenied {
-                Button("Apri Impostazioni", action: openSettings)
-                    .buttonStyle(SbuFieldPillStyle())
+                Button(action: openSettings) {
+                    Text("Apri Impostazioni")
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .buttonStyle(SbuFieldPillStyle())
             } else {
-                Button("Consenti l'accesso", action: requestAccess)
-                    .buttonStyle(SbuFieldPillStyle())
+                Button(action: requestAccess) {
+                    Text("Consenti l'accesso")
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .buttonStyle(SbuFieldPillStyle())
             }
         }
     }

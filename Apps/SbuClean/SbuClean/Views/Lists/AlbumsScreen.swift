@@ -39,6 +39,8 @@ struct AlbumsScreen: View {
             .listRowBackground(SbuTheme.surfaceRaised)
         }
         .listStyle(.insetGrouped)
+        // The figure starts where it does on the other screens.
+        .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .navigationTitle("Album")

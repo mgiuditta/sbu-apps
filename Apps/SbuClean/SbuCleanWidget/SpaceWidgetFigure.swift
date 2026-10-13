@@ -16,13 +16,13 @@ struct SpaceWidgetFigure: View {
             figure(size: statSize, tracking: SbuTheme.statTracking)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(bytes.formatted(.byteCount(style: .file))))
+        .accessibilityLabel(Text(bytes.sizeText))
     }
 
     private func figure(size: CGFloat, tracking: CGFloat) -> some View {
         let figure = SpaceFigure(bytes: bytes)
         return HStack(alignment: .firstTextBaseline, spacing: 0) {
-            Text(figure.formattedValue)
+            Text(figure.number)
                 .font(SbuTheme.numberFont(size: size))
                 .tracking(tracking)
                 // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.

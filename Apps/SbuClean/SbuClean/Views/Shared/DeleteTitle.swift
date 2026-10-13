@@ -6,7 +6,6 @@ enum DeleteTitle {
     static func forBytes(_ bytes: Int64) -> LocalizedStringKey {
         guard bytes > 0 else { return "Elimina" }
 
-        let figure = SpaceFigure(bytes: bytes)
-        return "Elimina \(figure.formattedValue) \(figure.unit)"
+        return "Elimina \(bytes.sizeText)"
     }
 }

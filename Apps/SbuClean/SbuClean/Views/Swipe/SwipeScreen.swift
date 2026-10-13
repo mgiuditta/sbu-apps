@@ -23,6 +23,9 @@ struct SwipeScreen: View {
     private var context: LocalizedStringKey {
         guard let deck else { return "Preparo la coda" }
 
+        if deck.ids.isEmpty {
+            return "Nessuna foto da vedere"
+        }
         if deck.isDone {
             return "\(deck.ids.count) visti"
         }
@@ -38,7 +41,7 @@ struct SwipeScreen: View {
 
             ZStack {
                 if let deck, deck.isDone {
-                    SwipeDoneView(isEmptyQueue: deck.ids.isEmpty, binCount: model.state.trash.count, reviewBin: reviewBin)
+                    SwipeDoneView(source: source, isEmptyQueue: deck.ids.isEmpty, binCount: model.state.trash.count, reviewBin: reviewBin)
                 } else if let item = currentItem {
                     if let next = deck?.next.flatMap({ model.itemsByID[$0] }) {
                         SwipeCardContent(item: next)

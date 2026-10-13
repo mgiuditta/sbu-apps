@@ -41,7 +41,7 @@ struct GroupKindCard: View {
                             Text("\(groups.reduce(0) { $0 + $1.members.count }) foto in \(groups.count) gruppi")
                                 .font(SbuTheme.headline)
                                 .foregroundStyle(SbuTheme.ink)
-                            Text("\(selected.count) selezionate, \(model.bytes(of: selected).formatted(.byteCount(style: .file)))")
+                            Text("\(selected.count) selezionate, \(model.bytes(of: selected).sizeText)")
                                 .font(SbuTheme.subheadline)
                                 .foregroundStyle(SbuTheme.inkMuted)
                         }
@@ -58,6 +58,7 @@ struct GroupKindCard: View {
                 }
                 .buttonStyle(.plain)
                 .accessibilityElement(children: .combine)
+                .accessibilityIdentifier("card.\(kind.rawValue)")
             } else {
                 Text(model.scan == .finished ? "Nessun gruppo trovato." : "Ancora nessun gruppo: l'analisi li trova man mano.")
                     .font(SbuTheme.subheadline)

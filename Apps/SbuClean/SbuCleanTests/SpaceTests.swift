@@ -5,21 +5,33 @@ import Testing
 struct SpaceTests {
     @Test(arguments: [
         (Int64(0), "0", "MB"),
-        (Int64(350_400_000), "350", "MB"),
-        (Int64(999_000_000), "999", "MB"),
-        (Int64(1_000_000_000), "1.0", "GB"),
-        (Int64(1_260_000_000), "1.3", "GB"),
-        (Int64(23_400_000_000), "23", "GB"),
+        (Int64(900_000), "900", "kB"),
+        (Int64(18_840_000), "18.8", "MB"),
+        (Int64(629_000_000), "629", "MB"),
+        (Int64(1_264_000_000), "1.26", "GB"),
+        (Int64(23_400_000_000), "23.4", "GB"),
     ])
-    func figureUsesMegabytesThenGigabytes(bytes: Int64, number: String, unit: String) {
-        let figure = SpaceFigure(bytes: bytes)
+    func figureSplitsTheSizeAsSettingsWritesIt(bytes: Int64, number: String, unit: String) {
+        let figure = SpaceFigure(bytes: bytes, locale: Locale(identifier: "en_US"))
+        #expect(figure.number == number)
         #expect(figure.unit == unit)
-        #expect(figure.format.locale(Locale(identifier: "en_US")).format(figure.value) == number)
     }
 
     @Test func italianUsesTheDecimalComma() {
-        let figure = SpaceFigure(bytes: 1_260_000_000)
-        #expect(figure.format.locale(Locale(identifier: "it_IT")).format(figure.value) == "1,3")
+        let figure = SpaceFigure(bytes: 18_840_000, locale: Locale(identifier: "it_IT"))
+        #expect(figure.number == "18,8")
+        #expect(Int64(1_264_000_000).sizeText(locale: Locale(identifier: "it_IT")) == "1,26 GB")
+    }
+
+    @Test(arguments: ["it_IT", "en_US"])
+    func zeroIsZeroMegabytesNeverSpelledOut(locale: String) {
+        #expect(Int64(0).sizeText(locale: Locale(identifier: locale)) == "0 MB")
+    }
+
+    @Test func aFigureAndItsRowNeverRoundDifferently() {
+        let locale = Locale(identifier: "it_IT")
+        let figure = SpaceFigure(bytes: 18_840_000, locale: locale)
+        #expect("\(figure.number) \(figure.unit)" == Int64(18_840_000).sizeText(locale: locale))
     }
 
     @Test func freeableCountsEachItemOnceAndNeverWhatIsKeptForever() {

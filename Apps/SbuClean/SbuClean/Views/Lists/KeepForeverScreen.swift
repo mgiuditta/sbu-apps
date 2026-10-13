@@ -28,7 +28,7 @@ struct KeepForeverScreen: View {
                             .foregroundStyle(SbuTheme.ink)
                     }
                     .swipeActions {
-                        Button("Non tenere più", systemImage: "lock.open") {
+                        Button("Proponi di nuovo", systemImage: "arrow.uturn.backward") {
                             model.decide(nil, on: item.id)
                         }
                     }
@@ -36,11 +36,13 @@ struct KeepForeverScreen: View {
             } footer: {
                 Text(items.isEmpty
                      ? "Scorrendo, tocca Tieni sempre: quella foto non ti verrà più proposta."
-                     : "Scorri un elemento verso sinistra perché ti venga proposto di nuovo.")
+                     : "Scorri un elemento verso sinistra e tocca Proponi di nuovo perché torni nelle code.")
             }
             .listRowBackground(SbuTheme.surfaceRaised)
         }
         .listStyle(.insetGrouped)
+        // The figure starts where it does on the other screens.
+        .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .navigationTitle("Da tenere sempre")

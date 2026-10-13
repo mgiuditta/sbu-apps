@@ -15,7 +15,7 @@ struct MediaGridTile: View {
                     SelectionMark(isSelected: isSelected)
                 }
                 .overlay(alignment: .bottomLeading) {
-                    Text(item.kind == .video ? item.durationText : item.bytes.formatted(.byteCount(style: .file)))
+                    Text(item.kind == .video ? item.durationText : item.bytes.sizeText)
                         .font(SbuTheme.caption)
                         .monospacedDigit()
                         .foregroundStyle(SbuTheme.ink)

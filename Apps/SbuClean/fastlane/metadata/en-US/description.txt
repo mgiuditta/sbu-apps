@@ -21,7 +21,7 @@ Free up space in your Photos library without paying to delete. No daily limits, 
 - It tells you plainly that iOS keeps deleted photos for 30 days in Recently Deleted
 - The space freed, in total and in the last cleanup
 - A widget with your iPhone's free space
-- The scan runs on your iPhone and downloads nothing from iCloud
+- The scan runs on your iPhone; a video kept only in iCloud downloads only when you ask
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it frees up space in your Photos library, one decision at a time.

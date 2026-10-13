@@ -70,6 +70,12 @@ struct FixtureGroupingTests {
 
     @Test func copiesTakenOnDifferentDaysAreStillDuplicates() throws {
         var library = try Self.library()
+        // Saved again a year later: the same file, so the same size.
+        for id in ["dup-a", "dup-b"] {
+            if let index = library.items.firstIndex(where: { $0.id == id }) {
+                library.items[index].size = ItemSize(bytes: 123_456)
+            }
+        }
         if let index = library.items.firstIndex(where: { $0.id == "dup-b" }) {
             library.items[index].creationDate = Fixture.date(6, 1, year: 2027)
         }

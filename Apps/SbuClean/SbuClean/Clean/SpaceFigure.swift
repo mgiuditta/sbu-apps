@@ -1,29 +1,34 @@
 import Foundation
 
-/// A number of bytes as the one figure of a screen: a short number and its unit apart.
+/// A number of bytes as the one figure of a screen: the number and its unit apart.
 ///
-/// GB from one gigabyte up, with one decimal under ten; MB below, whole. Units are decimal,
-/// as in Settings → General → iPhone Storage, so the numbers match what iOS shows.
+/// The same text as every other size in the app ("18,8 MB", "1,26 GB"), so a figure and the row
+/// that leads to it never round differently. Units are decimal, as in Settings → General →
+/// iPhone Storage.
 nonisolated struct SpaceFigure: Equatable, Sendable {
-    let value: Double
+    /// The number, already formatted for the locale, such as "18,8".
+    let number: String
+    /// The unit, such as "MB".
     let unit: String
-    let format: FloatingPointFormatStyle<Double>
 
-    init(bytes: Int64) {
-        let gigabytes = Double(bytes) / 1_000_000_000
-        if gigabytes >= 1 {
-            value = gigabytes
-            unit = "GB"
-            format = .number.precision(.fractionLength(gigabytes < 10 ? 1 : 0))
+    init(bytes: Int64, locale: Locale = .current) {
+        let text = bytes.sizeText(locale: locale)
+        if let space = text.lastIndex(where: \.isWhitespace) {
+            number = String(text[..<space])
+            unit = String(text[text.index(after: space)...])
         } else {
-            value = Double(bytes) / 1_000_000
-            unit = "MB"
-            format = .number.precision(.fractionLength(0))
+            number = text
+            unit = ""
         }
     }
 
-    /// The number without its unit, in the current locale.
-    var formattedValue: String {
-        format.format(value)
+    /// Passes the number through, for the components that take a value and a format.
+    let format = VerbatimFormat()
+}
+
+/// A format that returns its text as it is.
+nonisolated struct VerbatimFormat: FormatStyle {
+    func format(_ value: String) -> String {
+        value
     }
 }

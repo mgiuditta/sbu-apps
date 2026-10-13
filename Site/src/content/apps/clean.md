@@ -26,7 +26,7 @@ faq:
       a: Sì. Nessun abbonamento, nessun acquisto in-app, nessuna pubblicità e nessun limite al giorno. Elimini quante foto vuoi.
     - q: Ho eliminato le foto ma lo spazio non è tornato. Perché?
       a: iOS tiene le foto eliminate per 30 giorni nell'album Eliminati di recente, nell'app Foto. Lo spazio torna dopo 30 giorni, o subito se le elimini anche da lì.
-    - q: Come sceglie la foto migliore tra i doppioni?
+    - q: Come sceglie la foto migliore tra i duplicati?
       a: Preferisce le foto che hai segnato come preferite o modificato, poi quella con il volto venuto meglio, poi la più nitida. È un suggerimento, già selezionato ma da confermare. Puoi cambiarlo con un tocco, e niente si elimina senza la revisione del cestino.
     - q: Le mie foto escono dall'iPhone?
       a: No. Sbu Clean le analizza sull'iPhone con Vision e non le manda a nessun server.

@@ -8,8 +8,8 @@ struct MonthsScreen: View {
     let model: CleanModel
 
     var body: some View {
-        let queues = model.queues
-        let byYear = Dictionary(grouping: queues.months(), by: \.month.year)
+        let summary = model.summary
+        let byYear = Dictionary(grouping: summary.months, by: \.month.year)
         List {
             Section {
                 SpaceStat(label: "Nel cestino", bytes: model.trashBytes, context: "\(model.state.trash.count) elementi da rivedere")
@@ -18,9 +18,9 @@ struct MonthsScreen: View {
             }
 
             Section {
-                queueRow(.recent, count: queues.recentItems.count)
+                queueRow(.recent, count: summary.recentCount)
                 queueRow(.random, count: nil)
-                queueRow(.onThisDay, count: queues.onThisDayItems.count)
+                queueRow(.onThisDay, count: summary.onThisDayCount)
                 queueRow(.later, count: model.state.later.count)
             }
             .listRowBackground(SbuTheme.surfaceRaised)
@@ -41,6 +41,8 @@ struct MonthsScreen: View {
             }
         }
         .listStyle(.insetGrouped)
+        // The figure starts where it does on the other screens.
+        .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .navigationTitle("Mese per mese")
@@ -69,6 +71,7 @@ struct MonthsScreen: View {
                 }
             }
         }
+        .accessibilityIdentifier("months.\(source.identifier)")
     }
 }
 

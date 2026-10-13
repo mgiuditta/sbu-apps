@@ -86,6 +86,7 @@ struct CleanModelTests {
         let model = await loadedModel(fake)
         model.decide(.trash, on: "burst-1")
         model.decide(.keepForever, on: "screen")
+        await model.waitForSaves()
 
         let restarted = await loadedModel(fake)
 

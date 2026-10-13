@@ -38,6 +38,7 @@ struct SwipeCard: View {
             .accessibilityAction(named: "Decidi dopo") { decide(.later) }
             .accessibilityAction(named: "Tieni sempre") { decide(.keepForever) }
             .accessibilityAction(named: "Dettagli", showDetails)
+            .accessibilityIdentifier("swipe.card")
     }
 
     private var drag: some Gesture {

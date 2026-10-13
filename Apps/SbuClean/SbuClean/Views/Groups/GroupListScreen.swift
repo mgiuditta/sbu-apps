@@ -32,6 +32,7 @@ struct GroupListScreen: View {
                 showsBin = true
             }
             .disabled(selected.isEmpty)
+            .accessibilityIdentifier("bottomAction")
         }
         .navigationDestination(isPresented: $showsBin) {
             BinScreen(model: model)

@@ -32,7 +32,7 @@ struct StorageBar: View {
     }
 
     private var usage: some View {
-        Text("\(storage.usedBytes.formatted(.byteCount(style: .file))) usati su \(storage.totalBytes.formatted(.byteCount(style: .file)))")
+        Text("\(storage.usedBytes.sizeText) usati su \(storage.totalBytes.sizeText)")
             .foregroundStyle(SbuTheme.inkMuted)
             .fixedSize(horizontal: false, vertical: true)
     }

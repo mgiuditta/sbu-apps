@@ -25,6 +25,54 @@ struct SimilarityGrouperTests {
         #expect(Set(groups.first?.members ?? []) == ["2024", "2026"])
     }
 
+    @Test func copiesFarApartWithDifferentSizesAreNotCompared() {
+        // Comparing every pair of a big library is out of reach: far apart in time, only an
+        // identical size makes two photos candidates.
+        let items = [
+            Fixture.photo("2024", on: Fixture.date(3, 1, year: 2024), bytes: 2_000_000),
+            Fixture.photo("2026", on: Fixture.date(3, 1), bytes: 1_000_000),
+        ]
+        let analyses = [
+            "2024": ImageAnalysis(featurePrint: Fixture.print(axis: 0)),
+            "2026": ImageAnalysis(featurePrint: Fixture.print(axis: 0)),
+        ]
+
+        #expect(grouper.groups(of: items, analyses: analyses).isEmpty)
+    }
+
+    @Test func copiesTheSameDayAreDuplicatesWhateverTheirSize() {
+        let items = [
+            Fixture.photo("morning", on: Fixture.date(3, 1, hour: 8), bytes: 2_000_000),
+            Fixture.photo("evening", on: Fixture.date(3, 1, hour: 20), bytes: 1_000_000),
+        ]
+        let analyses = [
+            "morning": ImageAnalysis(featurePrint: Fixture.print(axis: 0)),
+            "evening": ImageAnalysis(featurePrint: Fixture.print(axis: 0, offset: 0.05)),
+        ]
+
+        #expect(grouper.groups(of: items, analyses: analyses).map(\.kind) == [.duplicate])
+    }
+
+    @Test func aHugeLibraryGroupsQuickly() {
+        // 20,000 photos, one every ten minutes, all different: the windows keep it linear.
+        let start = Fixture.date(1, 1, year: 2020)
+        var items: [MediaItem] = []
+        var analyses: [String: ImageAnalysis] = [:]
+        var generator = SeededGenerator(seed: 3)
+        for index in 0..<20_000 {
+            let id = "photo-\(index)"
+            items.append(Fixture.photo(id, on: start.addingTimeInterval(Double(index) * 600), bytes: Int64(1_000_000 + index)))
+            analyses[id] = ImageAnalysis(featurePrint: (0..<64).map { _ in Float.random(in: -1...1, using: &generator) })
+        }
+
+        let clock = ContinuousClock()
+        let elapsed = clock.measure {
+            _ = grouper.groups(of: items, analyses: analyses)
+        }
+
+        #expect(elapsed < .seconds(10))
+    }
+
     @Test func lookalikesTakenCloseInTimeAreSimilar() {
         let start = Fixture.date(6, 10)
         let items = [

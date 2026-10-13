@@ -12,7 +12,7 @@ struct VideoPreviewSheet: View {
             VideoCardPlayer(item: item)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(SbuTheme.surface)
-                .navigationTitle(Text(item.bytes.formatted(.byteCount(style: .file))))
+                .navigationTitle(Text(item.creationDate?.formatted(date: .abbreviated, time: .omitted) ?? item.bytes.sizeText))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {

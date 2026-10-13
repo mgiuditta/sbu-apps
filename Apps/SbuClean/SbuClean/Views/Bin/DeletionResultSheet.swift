@@ -14,7 +14,7 @@ struct DeletionResultSheet: View {
                 VStack(alignment: .leading, spacing: SbuTheme.space4) {
                     SpaceStat(label: "Spazio liberato", bytes: result.bytes, context: "\(result.count) elementi eliminati")
 
-                    Text("In totale con Sbu Clean: \(result.totalBytes.formatted(.byteCount(style: .file))), \(result.totalCount) elementi.")
+                    Text("In totale con Sbu Clean: \(result.totalBytes.sizeText), \(result.totalCount) elementi.")
                         .font(SbuTheme.subheadline)
                         .foregroundStyle(SbuTheme.inkMuted)
 

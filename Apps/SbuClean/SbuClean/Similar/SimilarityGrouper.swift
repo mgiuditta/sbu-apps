@@ -5,13 +5,21 @@ import Foundation
 /// Thresholds come from the fixture set in `Fixtures/make_fixtures.py`, measured with
 /// revision 2 of the feature print: copies saved again sit under 0.08, bursts and slightly
 /// cropped or brighter copies between 0.03 and 0.22, different pictures above 0.29.
+///
+/// It scales to libraries of tens of thousands of photos: a photo is compared only with the
+/// photos taken within a day of it (sorted by date, so each comparison window is short), and
+/// with the photos of exactly the same file size, which catches a copy saved again much later.
 nonisolated struct SimilarityGrouper: Sendable {
-    /// Two photos closer than this are the same picture, wherever they are in the library.
+    /// Two photos closer than this are the same picture.
     var duplicateDistance: Float = 0.10
     /// Two photos closer than this, taken within `similarWindow`, are similar shots.
     var similarDistance: Float = 0.25
     /// How far apart in time two similar shots can be.
     var similarWindow: TimeInterval = 15 * 60
+    /// How far apart in time two photos are compared as duplicates.
+    var duplicateWindow: TimeInterval = 24 * 3600
+    /// Same-size buckets bigger than this are ordinary sizes, not copies, and are skipped.
+    var maxSameSizeBucket = 50
 
     /// Duplicate groups first, then similar groups, each newest first, best shot first.
     ///
@@ -24,21 +32,37 @@ nonisolated struct SimilarityGrouper: Sendable {
             .filter { $0.kind == .photo && !(analyses[$0.id]?.featurePrint.isEmpty ?? true) }
             .sorted { ($0.creationDate ?? .distantPast) < ($1.creationDate ?? .distantPast) }
         let prints = scanned.map { analyses[$0.id]?.featurePrint ?? [] }
+        let dates = scanned.map { $0.creationDate ?? .distantPast }
 
         var duplicates = UnionFind(count: scanned.count)
         var all = UnionFind(count: scanned.count)
-        for (first, second) in FeatureDistance.pairs(among: prints, within: duplicateDistance) {
-            duplicates.join(first, second)
-            all.join(first, second)
-        }
-        for first in scanned.indices where !scanned[first].isScreenshot {
-            let start = scanned[first].creationDate ?? .distantPast
-            for second in (first + 1)..<scanned.count {
-                let date = scanned[second].creationDate ?? .distantPast
-                guard date.timeIntervalSince(start) <= similarWindow else { break }
-                guard !scanned[second].isScreenshot else { continue }
 
-                if FeatureDistance.between(prints[first], prints[second]) <= similarDistance {
+        // Within a day of each other, sorted by date: short windows, never all pairs.
+        for first in scanned.indices {
+            for second in (first + 1)..<scanned.count {
+                let gap = dates[second].timeIntervalSince(dates[first])
+                guard gap <= duplicateWindow else { break }
+
+                let distance = FeatureDistance.between(prints[first], prints[second])
+                if distance <= duplicateDistance {
+                    duplicates.join(first, second)
+                    all.join(first, second)
+                } else if gap <= similarWindow, distance <= similarDistance,
+                          !scanned[first].isScreenshot, !scanned[second].isScreenshot {
+                    all.join(first, second)
+                }
+            }
+        }
+
+        // The same file saved again at another time has the same size.
+        var bySize: [Int64: [Int]] = [:]
+        for index in scanned.indices where scanned[index].bytes > 0 {
+            bySize[scanned[index].bytes, default: []].append(index)
+        }
+        for bucket in bySize.values where bucket.count > 1 && bucket.count <= maxSameSizeBucket {
+            for (position, first) in bucket.enumerated() {
+                for second in bucket[(position + 1)...] where FeatureDistance.between(prints[first], prints[second]) <= duplicateDistance {
+                    duplicates.join(first, second)
                     all.join(first, second)
                 }
             }

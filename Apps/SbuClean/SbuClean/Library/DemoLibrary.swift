@@ -68,6 +68,7 @@ nonisolated final class DemoLibrary: PhotoLibrary {
         contents.withLock { Array($0.entries.map(\.item.id).filter { $0.hasPrefix("photo") }.prefix(6)) }
     }
 
+    @concurrent
     func image(for id: String, pixelSide: CGFloat) async -> UIImage? {
         guard let entry = entry(id) else { return nil }
 
@@ -82,6 +83,15 @@ nonisolated final class DemoLibrary: PhotoLibrary {
 
     func videoURL(for id: String) async -> URL? {
         nil
+    }
+
+    func downloadVideo(for id: String, progress: @escaping @Sendable (Double) -> Void) async throws -> URL {
+        // The demo has no video files: it pretends a download, then says the video is unavailable.
+        for step in 1...10 {
+            try await Task.sleep(for: .milliseconds(150))
+            progress(Double(step) / 10)
+        }
+        throw LibraryError.unavailable
     }
 
     func details(for id: String) async -> MediaDetails {
@@ -108,7 +118,11 @@ nonisolated final class DemoLibrary: PhotoLibrary {
         return still.item.id
     }
 
-    func saveCompressed(video id: String, quality: CompressionQuality) async throws -> String {
+    func saveCompressed(video id: String, quality: CompressionQuality, progress: @escaping @Sendable (CompressionStep) -> Void) async throws -> String {
+        for step in 1...10 {
+            try await Task.sleep(for: .milliseconds(100))
+            progress(.compressing(Double(step) / 10))
+        }
         guard var entry = entry(id) else { throw LibraryError.unavailable }
 
         let bytes = quality.estimatedBytes(duration: entry.item.duration, originalBytes: entry.item.bytes)

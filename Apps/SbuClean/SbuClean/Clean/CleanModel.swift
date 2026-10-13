@@ -5,51 +5,63 @@ import UIKit
 /// The app's one model: the library as the cleaner sees it, the user's decisions, the bin,
 /// the duplicate and similar groups, and the space all this frees.
 ///
-/// PhotoKit stays behind `PhotoLibrary`, so the model runs in tests on a fake library.
+/// PhotoKit stays behind `PhotoLibrary`, so the model runs in tests on a fake library. Built for
+/// libraries of tens of thousands of items: indexing, summaries, grouping and every file write
+/// run off the main actor, and the scan reports its progress a few times a second, not per photo.
 @Observable
 final class CleanModel {
     let library: any PhotoLibrary
 
     /// Whether the app may read the library.
     private(set) var access: LibraryAccess
-    /// Every photo and video, newest first.
-    private(set) var items: [MediaItem] = []
-    private(set) var itemsByID: [String: MediaItem] = [:]
     /// Whether the library has been read at least once since launch.
     private(set) var hasLoaded = false
-    /// How many items still wait for their size.
-    private(set) var unmeasuredCount = 0
-    /// The user's decisions, saved at every change.
+    /// The user's decisions, saved off the main actor at every change.
     var state: CleanState {
-        didSet { saveState() }
+        didSet { stateDidChange() }
     }
     /// Duplicate and similar groups from the last scan, best shot first.
-    private(set) var groups: [PhotoGroup] = []
+    private(set) var groups: [PhotoGroup] = [] {
+        didSet { refreshSummary() }
+    }
     /// Which group members go to the bin.
-    var groupSelection = GroupSelection()
+    var groupSelection = GroupSelection() {
+        didSet { refreshSummary() }
+    }
     private(set) var scan = ScanState.idle
     private(set) var storage: DeviceStorage?
     /// The user's albums, read when the album list opens.
     private(set) var albums: [Album] = []
+    /// What the home and the timeline show, worked out off the main actor after each change.
+    private(set) var summary = LibrarySummary()
+    private var index = LibraryIndex() {
+        didSet { refreshSummary() }
+    }
 
     @ObservationIgnored private let stateFile: StoredFile<CleanState>
     @ObservationIgnored private let sizesFile: StoredFile<[String: ItemSize]>
-    @ObservationIgnored private let analysesFile: StoredFile<[String: ImageAnalysis]>
-    @ObservationIgnored private var sizes: [String: ItemSize]
-    @ObservationIgnored private var analyses: [String: ImageAnalysis]
+    @ObservationIgnored private let analysisStore: AnalysisStore
+    @ObservationIgnored private var sizes: [String: ItemSize] = [:]
+    @ObservationIgnored private var analyses: [String: ImageAnalysis] = [:]
+    @ObservationIgnored private var cachesLoaded = false
     @ObservationIgnored private var scanTask: Task<Void, Never>?
+    @ObservationIgnored private var summaryTask: Task<Void, Never>?
+    @ObservationIgnored private var pendingSave: Task<Void, Never>?
     @ObservationIgnored let grouper: SimilarityGrouper
     @ObservationIgnored private let now: @Sendable () -> Date
     @ObservationIgnored private let readStorage: @Sendable () -> DeviceStorage?
     @ObservationIgnored private let publish: @Sendable (WidgetSnapshot) -> Void
     @ObservationIgnored private var lastPublished: Int64?
 
-    /// How many photos are analysed at once.
-    private static let scanWidth = 3
+    /// How many photos are analysed at once: two keep the Neural Engine busy without starving
+    /// the screen.
+    private static let scanWidth = 2
     /// How many items are measured per call.
-    private static let measureBatch = 300
-    /// How often the analysis cache is written during a scan.
-    private static let saveEvery = 100
+    private static let measureBatch = 2_000
+    /// How many new analyses make one chunk on disk.
+    private static let saveEvery = 500
+    /// How often the scan's progress reaches the screen.
+    private static let progressInterval: Duration = .milliseconds(250)
 
     /// Creates the model.
     /// - Parameters:
@@ -74,11 +86,25 @@ final class CleanModel {
         self.publish = publish
         stateFile = StoredFile(name: "state.json", directory: directory)
         sizesFile = StoredFile(name: "sizes.plist", format: .binary, directory: directory)
-        analysesFile = StoredFile(name: "analyses.plist", format: .binary, directory: directory)
+        analysisStore = AnalysisStore(directory: directory)
         state = stateFile.load() ?? CleanState()
-        sizes = sizesFile.load() ?? [:]
-        analyses = analysesFile.load() ?? [:]
         access = library.currentAccess()
+    }
+
+    // MARK: - Library
+
+    /// Every photo and video, newest first.
+    var items: [MediaItem] {
+        index.items
+    }
+
+    var itemsByID: [String: MediaItem] {
+        index.byID
+    }
+
+    /// How many items still wait for their size.
+    var unmeasuredCount: Int {
+        index.unmeasuredCount
     }
 
     // MARK: - Loading
@@ -104,16 +130,22 @@ final class CleanModel {
         access = library.currentAccess()
         guard access.canRead else { return }
 
-        storage = readStorage()
-        var fetched = await library.fetchItems()
-        for index in fetched.indices {
-            if let size = sizes[fetched[index].id], size.modified == fetched[index].modificationDate {
-                fetched[index].size = size
-            }
+        if !cachesLoaded {
+            cachesLoaded = true
+            async let loadedSizes = Self.read(sizesFile)
+            async let loadedAnalyses = analysisStore.load()
+            sizes = await loadedSizes ?? [:]
+            analyses = await loadedAnalyses
         }
-        setItems(fetched)
+
+        storage = readStorage()
+        let fetched = await library.fetchItems()
+        index = await Self.makeIndex(fetched, sizes: sizes)
         if access == .full {
-            state.keepOnly(Set(itemsByID.keys))
+            let pruned = await Self.pruned(state, keeping: index.byID)
+            if pruned != state {
+                state = pruned
+            }
         }
         if groups.isEmpty && !analyses.isEmpty {
             await regroup()
@@ -142,45 +174,95 @@ final class CleanModel {
         albums = await library.albums()
     }
 
-    private func setItems(_ newItems: [MediaItem]) {
-        items = newItems
-        itemsByID = Dictionary(newItems.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-        unmeasuredCount = newItems.count { $0.size == nil }
-    }
-
     private func measureSizes() async {
-        let pending = items.filter { $0.size == nil }.map(\.id)
+        let pending = index.items.filter { $0.size == nil }.map(\.id)
         guard !pending.isEmpty else { return }
 
         for start in stride(from: 0, to: pending.count, by: Self.measureBatch) {
             let batch = Array(pending[start..<min(start + Self.measureBatch, pending.count)])
             let measured = await library.measure(batch)
             sizes.merge(measured) { _, new in new }
-            var updated = items
-            for index in updated.indices {
-                if let size = measured[updated[index].id] {
-                    updated[index].size = size
-                }
-            }
-            setItems(updated)
+            index = await Self.apply(measured, to: index)
         }
-        let present = Set(itemsByID.keys)
-        sizes = sizes.filter { present.contains($0.key) }
-        await Self.write(sizes, to: sizesFile)
+        await Self.writeSizes(sizes, keeping: index.byID, to: sizesFile)
     }
 
-    private func saveState() {
-        try? stateFile.save(state)
+    // MARK: - Off the main actor
+
+    @concurrent
+    private nonisolated static func makeIndex(_ items: [MediaItem], sizes: [String: ItemSize]) async -> LibraryIndex {
+        LibraryIndex(items: items, sizes: sizes)
     }
 
     @concurrent
-    private nonisolated static func write<Value: Codable & Sendable>(_ value: Value, to file: StoredFile<Value>) async {
-        try? file.save(value)
+    private nonisolated static func apply(_ measured: [String: ItemSize], to index: LibraryIndex) async -> LibraryIndex {
+        index.applying(measured)
+    }
+
+    @concurrent
+    private nonisolated static func pruned(_ state: CleanState, keeping existing: [String: MediaItem]) async -> CleanState {
+        var pruned = state
+        pruned.keepOnly(Set(existing.keys))
+        return pruned
+    }
+
+    @concurrent
+    private nonisolated static func read<Value: Codable & Sendable>(_ file: StoredFile<Value>) async -> Value? {
+        file.load()
+    }
+
+    @concurrent
+    private nonisolated static func writeSizes(_ sizes: [String: ItemSize], keeping existing: [String: MediaItem], to file: StoredFile<[String: ItemSize]>) async {
+        try? file.save(sizes.filter { existing[$0.key] != nil })
+    }
+
+    @concurrent
+    private nonisolated static func makeSummary(index: LibraryIndex, state: CleanState, groups: [PhotoGroup], selection: GroupSelection, now: Date) async -> LibrarySummary {
+        LibrarySummary(items: index.items, monthOf: index.monthOf, state: state, groups: groups, selection: selection, now: now)
+    }
+
+    /// Works the summary out again off the main actor; a newer change cancels an older one.
+    private func refreshSummary() {
+        summaryTask?.cancel()
+        let index = index
+        let state = state
+        let groups = groups
+        let selection = groupSelection
+        let now = now()
+        summaryTask = Task {
+            let summary = await Self.makeSummary(index: index, state: state, groups: groups, selection: selection, now: now)
+            guard !Task.isCancelled else { return }
+
+            self.summary = summary
+        }
+    }
+
+    /// Waits for the summary to catch up with the last change.
+    func waitForSummary() async {
+        await summaryTask?.value
+    }
+
+    private func stateDidChange() {
+        let state = state
+        let file = stateFile
+        let previous = pendingSave
+        // In order, off the main actor: each save waits for the one before.
+        pendingSave = Task.detached(priority: .utility) {
+            await previous?.value
+            try? file.save(state)
+        }
+        refreshSummary()
+    }
+
+    /// Waits until the decisions are on disk.
+    func waitForSaves() async {
+        await pendingSave?.value
     }
 
     // MARK: - Space
 
     /// What the home promises: the bin, the selected copies, screenshots and recordings.
+    /// Worked out now; the screens read `summary`, which is worked out off the main actor.
     var freeableBytes: Int64 {
         bytes(of: FreeableSpace.ids(items: items, state: state, groups: groups, selection: groupSelection))
     }
@@ -242,7 +324,7 @@ final class CleanModel {
         let deleted = Set(ids)
         state.freed.record(count: ids.count, bytes: bytes, on: now())
         state.forget(deleted)
-        setItems(items.filter { !deleted.contains($0.id) })
+        index = index.removing(deleted)
         for id in deleted {
             analyses[id] = nil
         }
@@ -269,8 +351,8 @@ final class CleanModel {
     }
 
     /// Saves a compressed copy of a video; the original stays until the user decides.
-    func compress(_ id: String, quality: CompressionQuality) async throws {
-        _ = try await library.saveCompressed(video: id, quality: quality)
+    func compress(_ id: String, quality: CompressionQuality, progress: @escaping @Sendable (CompressionStep) -> Void = { _ in }) async throws {
+        _ = try await library.saveCompressed(video: id, quality: quality, progress: progress)
         await reload()
     }
 
@@ -290,7 +372,8 @@ final class CleanModel {
     func startScan() {
         guard !scan.isRunning, access.canRead else { return }
 
-        scanTask = Task {
+        // Below the screen's priority: the scan never competes with a scroll or a swipe.
+        scanTask = Task(priority: .utility) {
             await runScan()
         }
     }
@@ -306,10 +389,12 @@ final class CleanModel {
     }
 
     private func runScan() async {
-        let pending = items.filter { $0.kind == .photo && analyses[$0.id] == nil }.map(\.id)
+        let analysed = analyses
+        let pending = items.filter { $0.kind == .photo && analysed[$0.id] == nil }.map(\.id)
         let total = pending.count
         scan = .running(done: 0, total: total)
         let library = library
+        let store = analysisStore
         // Going to the background, the scan gets the time iOS grants to finish work; when it
         // runs out, the scan stops and saves what it has, and the next one goes on from there.
         let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "Sbu Clean scan") { [weak self] in
@@ -318,38 +403,47 @@ final class CleanModel {
         defer { UIApplication.shared.endBackgroundTask(backgroundTask) }
 
         var done = 0
+        var unsaved: [String: ImageAnalysis] = [:]
+        let clock = ContinuousClock()
+        var lastReport = clock.now
         await withTaskGroup(of: (String, ImageAnalysis?).self) { group in
             var queue = pending.makeIterator()
             for _ in 0..<Self.scanWidth {
                 guard let id = queue.next() else { break }
-                group.addTask { (id, await library.analyze(id)) }
+                group.addTask(priority: .utility) { (id, await library.analyze(id)) }
             }
             while let (id, analysis) = await group.next() {
                 analyses[id] = analysis
+                unsaved[id] = analysis
                 done += 1
-                scan = .running(done: done, total: total)
-                if done.isMultiple(of: Self.saveEvery) {
-                    await Self.write(analyses, to: analysesFile)
+                if clock.now - lastReport >= Self.progressInterval || done == total {
+                    lastReport = clock.now
+                    scan = .running(done: done, total: total)
+                }
+                if unsaved.count >= Self.saveEvery {
+                    await store.append(unsaved)
+                    unsaved = [:]
                 }
                 guard !Task.isCancelled else {
                     group.cancelAll()
                     break
                 }
                 if let next = queue.next() {
-                    group.addTask { (next, await library.analyze(next)) }
+                    group.addTask(priority: .utility) { (next, await library.analyze(next)) }
                 }
             }
         }
 
-        await Self.write(analyses, to: analysesFile)
+        await store.append(unsaved)
+        await store.compact(analyses, keep: Set(itemsByID.keys))
         await regroup()
         scan = Task.isCancelled ? .cancelled : .finished
         publishFreeableSpace()
     }
 
     private func regroup() async {
-        groups = await Self.computeGroups(items: items, analyses: analyses, grouper: grouper)
-        pruneGroups()
+        let fresh = await Self.computeGroups(items: items, analyses: analyses, grouper: grouper)
+        groups = Self.pruning(fresh, existing: itemsByID, keptForever: state.keepForever)
     }
 
     @concurrent
@@ -359,9 +453,16 @@ final class CleanModel {
 
     /// Drops deleted members from the groups, and groups left with one member.
     private func pruneGroups() {
-        groups = groups.compactMap { group in
+        let pruned = Self.pruning(groups, existing: itemsByID, keptForever: state.keepForever)
+        if pruned != groups {
+            groups = pruned
+        }
+    }
+
+    private nonisolated static func pruning(_ groups: [PhotoGroup], existing: [String: MediaItem], keptForever: Set<String>) -> [PhotoGroup] {
+        groups.compactMap { group in
             var pruned = group
-            pruned.members = group.members.filter { itemsByID[$0] != nil && !state.keepForever.contains($0) }
+            pruned.members = group.members.filter { existing[$0] != nil && !keptForever.contains($0) }
             return pruned.members.count > 1 ? pruned : nil
         }
     }

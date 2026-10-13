@@ -17,7 +17,7 @@ struct MediaDetailsSheet: View {
                     if let date = item.creationDate {
                         LabeledContent("Data", value: date.formatted(date: .long, time: .shortened))
                     }
-                    LabeledContent("Dimensione", value: item.bytes.formatted(.byteCount(style: .file)))
+                    LabeledContent("Dimensione", value: item.bytes.sizeText)
                     LabeledContent("Risoluzione") {
                         Text(verbatim: "\(item.pixelWidth.formatted(.number.grouping(.never))) × \(item.pixelHeight.formatted(.number.grouping(.never)))")
                     }

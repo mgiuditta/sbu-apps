@@ -19,7 +19,7 @@ struct StatsScreen: View {
                 if let date = freed.lastDate {
                     LabeledContent("Ultima eliminazione", value: date.formatted(date: .abbreviated, time: .shortened))
                     LabeledContent("Elementi", value: freed.lastCount.formatted())
-                    LabeledContent("Spazio", value: freed.lastBytes.formatted(.byteCount(style: .file)))
+                    LabeledContent("Spazio", value: freed.lastBytes.sizeText)
                 } else {
                     Text("Non hai ancora eliminato niente con Sbu Clean.")
                         .foregroundStyle(SbuTheme.inkMuted)
@@ -29,8 +29,8 @@ struct StatsScreen: View {
 
             if let storage = model.storage {
                 Section {
-                    LabeledContent("Spazio libero", value: storage.availableBytes.formatted(.byteCount(style: .file)))
-                    LabeledContent("Capacità", value: storage.totalBytes.formatted(.byteCount(style: .file)))
+                    LabeledContent("Spazio libero", value: storage.availableBytes.sizeText)
+                    LabeledContent("Capacità", value: storage.totalBytes.sizeText)
                 } header: {
                     Text("iPhone")
                 } footer: {
@@ -40,6 +40,8 @@ struct StatsScreen: View {
             }
         }
         .listStyle(.insetGrouped)
+        // The figure starts where it does on the other screens.
+        .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .navigationTitle("Spazio liberato")

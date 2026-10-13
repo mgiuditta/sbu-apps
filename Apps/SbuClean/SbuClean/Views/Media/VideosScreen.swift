@@ -39,6 +39,8 @@ struct VideosScreen: View {
             .listRowBackground(SbuTheme.surfaceRaised)
         }
         .listStyle(.insetGrouped)
+        // The figure starts where it does on the other screens.
+        .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .navigationTitle("Video")
@@ -50,6 +52,7 @@ struct VideosScreen: View {
                 showsBin = true
             }
             .disabled(selection.isEmpty)
+            .accessibilityIdentifier("bottomAction")
         }
         .sheet(item: $playing) { video in
             VideoPreviewSheet(item: video)

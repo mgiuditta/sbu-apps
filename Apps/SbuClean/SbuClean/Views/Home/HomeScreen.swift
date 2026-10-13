@@ -2,7 +2,8 @@ import SbuKit
 import SwiftUI
 
 /// The dashboard: the space you can free as the one figure, the iPhone's storage, every way to
-/// clean below, the timeline and the bin at the bottom.
+/// clean below, and the swipe and the bin always at hand at the bottom. The page scrolls, so
+/// it works at every text size.
 struct HomeScreen: View {
     let model: CleanModel
 
@@ -14,43 +15,35 @@ struct HomeScreen: View {
             return "Misuro \(model.unmeasuredCount) elementi"
         }
         if case .running(let done, let total) = model.scan {
-            return "Cerco doppioni e foto simili: \(done) di \(total)"
+            return "Cerco duplicati e foto simili: \(done) di \(total)"
         }
-        return "Su \(model.items.count) foto e video"
+        return "Su \(model.summary.itemCount) foto e video"
     }
 
     var body: some View {
-        let figure = SpaceFigure(bytes: model.freeableBytes)
-        SbuToolField("Spazio liberabile", value: figure.value, format: figure.format, unit: figure.unit, context: context) {
-            VStack(spacing: SbuTheme.space3) {
-                if let storage = model.storage {
-                    StorageBar(storage: storage)
-                        .padding(.horizontal, SbuTheme.space4)
+        let figure = SpaceFigure(bytes: model.summary.freeableBytes)
+        ScrollView {
+            SbuToolField("Spazio liberabile", value: figure.number, format: figure.format, unit: figure.unit, context: context) {
+                VStack(spacing: SbuTheme.space6) {
+                    if let storage = model.storage {
+                        // On the same guide as the group headers and the rows' text.
+                        StorageBar(storage: storage)
+                            .padding(.horizontal, SbuTheme.space4)
+                    }
+                    HomeList(model: model)
                 }
-                HomeList(model: model)
-                    // The list's own inset already makes the margin.
-                    .padding(.horizontal, -SbuTheme.space4)
+            } pills: {
+                EmptyView()
             }
-            .frame(maxHeight: .infinity)
-            .layoutPriority(1)
-        } pills: {
-            NavigationLink(value: Route.months) {
-                Text("Scorri le foto")
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .buttonStyle(SbuFieldPillStyle())
-            NavigationLink(value: Route.bin) {
-                Text("Cestino: \(model.state.trash.count)")
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .buttonStyle(SbuFieldPillStyle())
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        // The two ways in stay at hand while the page scrolls.
+        .bottomAction {
+            HomePills(binCount: model.state.trash.count)
         }
         .navigationDestination(for: Route.self) { route in
             RouteView(route: route, model: model)
         }
-        // The tool screen does not scroll: past this size the figure would leave no room for
-        // the list. Every screen it opens follows the largest sizes.
-        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
     }
 }
 

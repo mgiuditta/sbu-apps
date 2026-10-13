@@ -28,7 +28,7 @@ struct SpaceWidgetView: View {
 
             if family == .systemMedium, let storage = entry.storage {
                 VStack(alignment: .leading, spacing: SbuTheme.space1) {
-                    Text("\(storage.usedBytes.formatted(.byteCount(style: .file))) usati su \(storage.totalBytes.formatted(.byteCount(style: .file)))")
+                    Text("\(storage.usedBytes.sizeText) usati su \(storage.totalBytes.sizeText)")
                         .font(SbuTheme.footnote)
                         .foregroundStyle(SbuTheme.inkMuted)
                     ProgressView(value: storage.usedFraction)
@@ -46,7 +46,7 @@ struct SpaceWidgetView: View {
 
     @ViewBuilder private var freeable: some View {
         if let bytes = entry.freeableBytes {
-            Text("Puoi liberare \(bytes.formatted(.byteCount(style: .file)))")
+            Text("Puoi liberare \(bytes.sizeText)")
                 .font(SbuTheme.footnote)
                 .foregroundStyle(SbuTheme.inkMuted)
         } else {

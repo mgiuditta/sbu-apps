@@ -19,7 +19,7 @@ extension MediaCategory {
     var title: Text {
         switch self {
         case .screenshots: Text("Screenshot")
-        case .screenRecordings: Text("Registrazioni dello schermo")
+        case .screenRecordings: Text("Registrazioni")
         case .videos: Text("Video")
         case .livePhotos: Text("Live Photo")
         }

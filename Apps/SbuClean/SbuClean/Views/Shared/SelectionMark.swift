@@ -2,12 +2,15 @@ import SbuKit
 import SwiftUI
 
 /// The corner mark of a tile: a filled bin in the accent when the item goes to the bin, an
-/// empty ring when not. The shape, not the color alone, tells the two apart.
+/// empty ring when not. The shape, not the color alone, tells the two apart. Both sit on a disk
+/// of paper drawn with the same symbol, so the disk never shows past the mark's edge.
 struct SelectionMark: View {
     let isSelected: Bool
 
     var body: some View {
-        Group {
+        ZStack {
+            Image(systemName: "circle.fill")
+                .foregroundStyle(SbuTheme.surface)
             if isSelected {
                 Image(systemName: "trash.circle.fill")
                     .symbolRenderingMode(.palette)
@@ -19,7 +22,6 @@ struct SelectionMark: View {
         }
         .font(.title2)
         .fontWeight(.medium)
-        .background(Circle().fill(SbuTheme.surface))
         .padding(SbuTheme.space1)
         .accessibilityHidden(true)
     }

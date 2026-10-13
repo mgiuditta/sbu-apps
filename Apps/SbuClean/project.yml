@@ -38,7 +38,7 @@ targets:
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         # Italian source; the English one is in InfoPlist.xcstrings.
-        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "Sbu Clean guarda le tue foto e i tuoi video per trovare doppioni, screenshot e file pesanti. Tutto resta su questo iPhone: niente lascia il dispositivo."
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "Sbu Clean guarda le tue foto e i tuoi video per trovare duplicati, screenshot e file pesanti. Tutto resta su questo iPhone: niente lascia il dispositivo."
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.
         TARGETED_DEVICE_FAMILY: "1"
@@ -54,6 +54,7 @@ targets:
       - SbuCleanWidget
       # The widget shares the figure, the storage reading and the snapshot with the app.
       - SbuClean/Clean/SpaceFigure.swift
+      - SbuClean/Clean/Int64+SizeText.swift
       - SbuClean/Clean/DeviceStorage.swift
       - SbuClean/Clean/WidgetSnapshot.swift
       - SbuClean/Store/StoredFile.swift

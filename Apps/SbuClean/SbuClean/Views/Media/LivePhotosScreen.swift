@@ -10,6 +10,8 @@ struct LivePhotosScreen: View {
     @State private var selection: Set<String> = []
     @State private var isConverting = false
     @State private var showsBin = false
+    @State private var skipped = 0
+    @State private var showsSkipped = false
 
     private let columns = [GridItem(.adaptive(minimum: 150), spacing: SbuTheme.space2)]
 
@@ -46,13 +48,22 @@ struct LivePhotosScreen: View {
             }
         }
         .bottomAction {
-            SbuButton("Converti \(selection.count) in foto fisse", action: convert)
+            SbuButton(selection.isEmpty ? "Converti in foto fisse" : "Converti \(selection.count) in foto fisse", action: convert)
                 .disabled(selection.isEmpty || isConverting)
                 .overlay {
                     if isConverting {
                         ProgressView()
                     }
                 }
+        }
+        .alert("Alcune Live Photo non sono convertite", isPresented: $showsSkipped) {
+            Button("OK", role: .cancel) {
+                let goToBin = model.state.trash.isEmpty == false
+                skipped = 0
+                showsBin = goToBin
+            }
+        } message: {
+            Text("\(skipped) Live Photo sono solo in iCloud. Aprile nell'app Foto per scaricarle, poi riprova.")
         }
         .navigationDestination(isPresented: $showsBin) {
             BinScreen(model: model)
@@ -70,10 +81,13 @@ struct LivePhotosScreen: View {
     private func convert() {
         isConverting = true
         Task {
+            let wanted = selection.count
             let converted = await model.convertLivePhotos(Array(selection))
             selection = []
             isConverting = false
-            if converted > 0 {
+            skipped = wanted - converted
+            showsSkipped = skipped > 0
+            if converted > 0 && skipped == 0 {
                 showsBin = true
             }
         }

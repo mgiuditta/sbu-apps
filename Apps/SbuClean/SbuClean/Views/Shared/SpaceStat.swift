@@ -9,7 +9,7 @@ struct SpaceStat: View {
 
     var body: some View {
         let figure = SpaceFigure(bytes: bytes)
-        SbuStat(label, value: figure.value, format: figure.format, unit: figure.unit, context: context)
+        SbuStat(label, value: figure.number, format: figure.format, unit: figure.unit, context: context)
     }
 }
 

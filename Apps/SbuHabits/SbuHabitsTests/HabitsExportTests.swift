@@ -5,9 +5,11 @@ import Testing
 struct HabitsExportTests {
     /// A file with every kind of data a habit keeps: log, mark hours, skips, reminders, an edit, a
     /// Limite, a countdown, a monthly schedule, an Attività di un giorno, Orari automatici and
-    /// every notification setting.
+    /// every notification setting; and what Sincronizza con iCloud adds: the dates of the edits
+    /// and of the notes, a deletion, the dates of the order and of the start of the day.
     static let sample: HabitsFile = {
         let start = LogicalDay(ordinal: 20_000)
+        let edited = Date(timeIntervalSince1970: 1_760_000_000)
         var water = Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: start)
         water.log = [start: 8, start + 1: 3]
         water.skipped = [start + 2]
@@ -25,13 +27,15 @@ struct HabitsExportTests {
         var reading = Habit(title: "Leggere", symbol: "book", createdOn: start)
         _ = reading.update(title: "Leggere", symbol: "book", timesPerDay: 1, schedule: .everyDay, timerMinutes: 20, from: start)
         reading.mark(on: start + 1, hour: 22)
-        reading.setNote("Venti pagine\nPoi a letto", on: start + 1)
+        reading.setNote("Venti pagine\nPoi a letto", on: start + 1, at: edited)
+        reading.modifiedAt = edited
         reading.setNote("Saltata, influenza", on: start + 2)
         var books = Habit(title: "Biblioteca", symbol: "books.vertical", schedule: .timesPerMonth(2), createdOn: start)
         books.log = [start + 5: 1]
         var dentist = Habit(title: "Dentista", symbol: "pills", schedule: .oneDay(start + 9), createdOn: start)
         dentist.reminders = [ReminderTime(hour: 8, minute: 0)]
-        return HabitsFile(habits: [water, coffee, gym, reading, books, dentist, walk], startHour: 4)
+        let gone = UUID(uuidString: "6F9619FF-8B86-D011-B42D-00C04FC964FF")!
+        return HabitsFile(habits: [water, coffee, gym, reading, books, dentist, walk], startHour: 4, deleted: [gone: edited], orderModifiedAt: edited, startHourModifiedAt: edited)
     }()
 
     @Test func anExportReadsBackAsTheSameData() throws {
@@ -43,6 +47,10 @@ struct HabitsExportTests {
         #expect(read.habits[0].markHours == [LogicalDay(ordinal: 20_004): [7, 13]])
         #expect(read.habits[3].timerMinutes == 20)
         #expect(read.habits[3].note(on: LogicalDay(ordinal: 20_001)) == "Venti pagine\nPoi a letto")
+        #expect(read.habits[3].noteDates[LogicalDay(ordinal: 20_001)] == Date(timeIntervalSince1970: 1_760_000_000))
+        #expect(read.habits[3].modifiedAt == Date(timeIntervalSince1970: 1_760_000_000))
+        #expect(read.deleted.count == 1)
+        #expect(read.orderModifiedAt == Date(timeIntervalSince1970: 1_760_000_000))
         #expect(read.habits[4].schedule == .timesPerMonth(2))
         #expect(read.habits[5].schedule == .oneDay(LogicalDay(ordinal: 20_009)))
         #expect(read.habits[2].reminderMode == .automatic)

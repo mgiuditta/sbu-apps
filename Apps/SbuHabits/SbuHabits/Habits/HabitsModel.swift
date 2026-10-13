@@ -16,6 +16,14 @@ final class HabitsModel {
     private(set) var timer: HabitTimer?
     /// Countdowns that ran to their end with the app open, for the success haptic.
     private(set) var timersEnded = 0
+    /// Habits deleted and when, so Sincronizza con iCloud never brings them back.
+    private(set) var deleted: [UUID: Date] = [:]
+    /// When the order and the start of the day last changed, for Sincronizza con iCloud.
+    private(set) var orderModifiedAt: Date?
+    private(set) var startHourModifiedAt: Date?
+
+    /// Called after every change this iPhone saves, so Sincronizza con iCloud can send it.
+    @ObservationIgnored var didSave: (@MainActor () -> Void)?
 
     @ObservationIgnored private let store: HabitsStore
     @ObservationIgnored private let now: () -> Date
@@ -30,7 +38,9 @@ final class HabitsModel {
     var fullStreak: Int { Streak.full(of: habits, today: today) }
 
     /// Everything saved, as Esporta writes it.
-    var file: HabitsFile { HabitsFile(habits: habits, startHour: startHour) }
+    var file: HabitsFile {
+        HabitsFile(habits: habits, startHour: startHour, deleted: deleted, orderModifiedAt: orderModifiedAt, startHourModifiedAt: startHourModifiedAt)
+    }
 
     var firstWeekday: Int { calendar.firstWeekday }
 
@@ -98,9 +108,7 @@ final class HabitsModel {
     /// or a new day starts. A countdown that ended meanwhile marks its habit done.
     func reload() {
         do {
-            let file = try store.load()
-            habits = file.habits
-            startHour = file.startHour
+            show(try store.load())
             isUnreadable = false
         } catch {
             habits = []
@@ -118,20 +126,61 @@ final class HabitsModel {
     /// Replaces every habit, its history and the start of the day with an imported file, then
     /// plans the reminders and refreshes the widgets.
     /// - Throws: When the file cannot be written; nothing changes then, on disk or here.
+    /// With Sincronizza con iCloud the import wins on every iPhone: the habits it lacks count as
+    /// deleted now, and its habits, order and start of the day as edited now.
     func replace(with file: HabitsFile) throws {
-        let file = HabitsFile(habits: file.habits, startHour: Habit.clamp(file.startHour, to: HabitsFile.startHourRange))
-        try store.save(file)
+        let date = now()
+        var replacement = file
+        replacement.startHour = Habit.clamp(file.startHour, to: HabitsFile.startHourRange)
+        for index in replacement.habits.indices {
+            replacement.habits[index].modifiedAt = date
+        }
+        let kept = Set(replacement.habits.map(\.id))
+        for habit in habits where kept.contains(habit.id) == false {
+            replacement.deleted[habit.id] = date
+        }
+        replacement.orderModifiedAt = date
+        replacement.startHourModifiedAt = date
+        replacement.forgetOldDeletions(now: date)
+        try store.save(replacement)
+        show(replacement)
+        isUnreadable = false
+        dropTimerOfDeletedHabit()
+        didChange()
+        didSave?()
+    }
+
+    /// Takes the habits as Sincronizza con iCloud merged them: saves them for the widget, then
+    /// plans the reminders and refreshes the widgets. Never called while the file is unreadable.
+    func applySynced(_ file: HabitsFile) {
+        guard isUnreadable == false else { return }
+        // ponytail: a failed write keeps the merge in memory only; the next sync merges again.
+        try? store.save(file)
+        show(file)
+        dropTimerOfDeletedHabit()
+        didChange()
+    }
+
+    private func show(_ file: HabitsFile) {
         habits = file.habits
         startHour = file.startHour
-        isUnreadable = false
+        deleted = file.deleted
+        orderModifiedAt = file.orderModifiedAt
+        startHourModifiedAt = file.startHourModifiedAt
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
-        WidgetCenter.shared.reloadAllTimelines()
-        planReminders()
+    }
+
+    /// A countdown whose habit another iPhone deleted.
+    private func dropTimerOfDeletedHabit() {
+        if let timer, habits.contains(where: { $0.id == timer.habitID }) == false {
+            setTimer(nil)
+        }
     }
 
     /// Moves the start of the day, for people who live past midnight.
     func setStartHour(_ hour: Int) {
         startHour = Habit.clamp(hour, to: HabitsFile.startHourRange)
+        startHourModifiedAt = now()
         today = LogicalDay(now(), startHour: startHour, calendar: calendar)
         save()
     }
@@ -145,12 +194,18 @@ final class HabitsModel {
         guard habits.count < HomePages.habitLimit else { return }
         var habit = Habit(title: "", symbol: symbol, limit: limit, createdOn: today)
         guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, remindsAutomatically: remindsAutomatically, notificationStyle: notificationStyle, health: health, timerMinutes: timerMinutes, from: today) else { return }
+        habit.modifiedAt = now()
         habits.append(habit)
         save()
     }
 
     func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], remindsAutomatically: Bool = false, notificationStyle: NotificationStyle = NotificationStyle(), health: HealthLink? = nil, timerMinutes: Int? = nil) {
-        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, remindsAutomatically: remindsAutomatically, notificationStyle: notificationStyle, health: health, timerMinutes: timerMinutes, from: today) }
+        let date = now()
+        update(habit) { habit in
+            if habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, remindsAutomatically: remindsAutomatically, notificationStyle: notificationStyle, health: health, timerMinutes: timerMinutes, from: today) {
+                habit.modifiedAt = date
+            }
+        }
     }
 
     /// Asks to read `measure` from Salute, the first time a habit is linked to it, then marks
@@ -205,6 +260,7 @@ final class HabitsModel {
         var rest = habits.indices.filter { source.contains($0) == false }.map { habits[$0] }
         rest.insert(contentsOf: moving, at: destination - source.count { $0 < destination })
         habits = rest
+        orderModifiedAt = now()
         save()
     }
 
@@ -215,6 +271,11 @@ final class HabitsModel {
     /// Removes the habit with its whole log and its notes, and its countdown.
     func delete(_ habit: Habit) {
         habits.removeAll { $0.id == habit.id }
+        // Remembered a year, so Sincronizza con iCloud never brings it back.
+        deleted[habit.id] = now()
+        var file = file
+        file.forgetOldDeletions(now: now())
+        deleted = file.deleted
         if timer?.habitID == habit.id {
             setTimer(nil)
         }
@@ -301,10 +362,11 @@ final class HabitsModel {
 
     /// Writes the Nota del giorno of `day`, today or a day gone by; a blank text removes it.
     func setNote(_ text: String, for habit: Habit, on day: LogicalDay) {
+        let date = now()
         update(habit) { habit in
             // Never a day still to come: the editor opens only on today and the past.
             guard day <= today else { return }
-            habit.setNote(text, on: day)
+            habit.setNote(text, on: day, at: date)
         }
     }
 
@@ -320,6 +382,13 @@ final class HabitsModel {
         guard isUnreadable == false else { return }
         // ponytail: a failed write keeps the change in memory only; add an alert if it shows up in practice.
         try? store.save(file)
+        didChange()
+        didSave?()
+    }
+
+    /// After every change, saved here or merged from iCloud: the widgets, the reminders, and
+    /// Salute for the measures linked now.
+    private func didChange() {
         WidgetCenter.shared.reloadAllTimelines()
         planReminders()
         if let observedMeasures, observedMeasures != linkedMeasures {

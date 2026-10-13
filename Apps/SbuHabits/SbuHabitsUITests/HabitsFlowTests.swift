@@ -9,11 +9,15 @@ final class HabitsFlowTests: XCTestCase {
         continueAfterFailure = false
     }
 
+    /// - Parameter iCloud: Makes iCloud look signed in; the app still never syncs a test file.
     @MainActor
-    private func launch() -> XCUIApplication {
+    private func launch(iCloud: Bool = false) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launchEnvironment["SBU_HABITS_FILE"] = file
+        if iCloud {
+            app.launchEnvironment["SBU_HABITS_ICLOUD"] = "available"
+        }
         app.launch()
         return app
     }
@@ -706,6 +710,48 @@ final class HabitsFlowTests: XCTestCase {
         // Contrast is left out as on the tool screen. Dynamic Type too: in the settings sheet the
         // audit flags every text as partially unsupported, system ones included (the Fine button,
         // a plain section footer), so it says nothing about this screen.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+    }
+
+    /// Without iCloud, as on a simulator signed out: the switch is off, cannot be turned on, and
+    /// the footer says why.
+    @MainActor
+    func testWithoutICloudTheSyncSwitchIsOffAndSaysWhy() throws {
+        let app = launch()
+
+        app.buttons["Impostazioni"].tap()
+        let toggle = app.switches["Sincronizza con iCloud"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        XCTAssertEqual(toggle.value as? String, "0")
+        XCTAssertFalse(toggle.isEnabled)
+        XCTAssertTrue(app.staticTexts["Per sincronizzare, accedi a iCloud e attiva iCloud Drive nelle Impostazioni dell'iPhone."].exists)
+        XCTAssertTrue(app.buttons["Esporta"].isEnabled)
+
+        // As in testSettingsOfferExportAndImportAndPassTheAccessibilityAudit.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+    }
+
+    /// With iCloud the switch starts off, in Dati above Esporta, and turns on.
+    @MainActor
+    func testWithICloudTheSyncSwitchStartsOffAndTurnsOn() throws {
+        let app = launch(iCloud: true)
+
+        app.buttons["Impostazioni"].tap()
+        let toggle = app.switches["Sincronizza con iCloud"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        XCTAssertEqual(toggle.value as? String, "0")
+        XCTAssertTrue(toggle.isEnabled)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev'")).firstMatch.exists)
+
+        toggle.switches.firstMatch.tap()
+
+        expectValue(toggle, "1")
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
             return true

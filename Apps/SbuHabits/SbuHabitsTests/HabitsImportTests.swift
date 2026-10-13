@@ -111,12 +111,44 @@ struct HabitsImportTests {
         let model = HabitsModel(store: store, scheduleReminders: plans.record)
         model.add(title: "Camminare", symbol: "figure.walk")
 
+        let walk = try #require(model.habits.first)
+
         try model.replace(with: HabitsExportTests.sample)
 
-        #expect(model.file == HabitsExportTests.sample)
+        #expect(model.habits.map(\.id) == HabitsExportTests.sample.habits.map(\.id))
+        #expect(model.habits.map(\.log) == HabitsExportTests.sample.habits.map(\.log))
         #expect(model.startHour == 4)
-        #expect(try store.load() == HabitsExportTests.sample)
+        #expect(try store.load() == model.file)
         #expect(plans.last?.isEmpty == false)
+        // With Sincronizza con iCloud the import wins on every iPhone: what it lacks is deleted.
+        #expect(model.deleted[walk.id] != nil)
+    }
+
+    /// The dates Sincronizza con iCloud adds, from a clock: a crafted date is refused.
+    @Test(arguments: [
+        #""version": 2, "habits": [], "deleted": {"6F9619FF-8B86-D011-B42D-00C04FC964FF": -1e300}"#,
+        #""version": 2, "habits": [], "deleted": {"6F9619FF-8B86-D011-B42D-00C04FC964FF": 1e300}"#,
+        #""version": 2, "habits": [], "orderModifiedAt": 1e300"#,
+        #""version": 2, "habits": [], "startHourModifiedAt": -1e300"#,
+        #""version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "modifiedAt": 1e300}]"#,
+        #""version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "noteDates": {"20001": 1e300}}]"#,
+        #""version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "noteDates": {"5": 700000000}}]"#,
+        // Kept and deleted at once: no merge writes that.
+        #""version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}}], "deleted": {"6F9619FF-8B86-D011-B42D-00C04FC964FF": 700000000}"#,
+        // The same habit twice.
+        #""version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}}, {"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}}]"#,
+    ])
+    func implausibleSyncDatesAreRefused(fields: String) {
+        #expect(throws: HabitsImport.Failure.damaged) { try HabitsImport(data: Data("{\(fields)}".utf8)) }
+    }
+
+    @Test func plausibleSyncDatesAreAccepted() throws {
+        let json = #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "modifiedAt": 700000000, "notes": {"20001": "Bene"}, "noteDates": {"20001": 700000000, "20002": 700000100}}], "deleted": {"7F9619FF-8B86-D011-B42D-00C04FC964FF": 700000000}, "orderModifiedAt": 700000000, "startHourModifiedAt": 700000000}"#
+
+        let file = try HabitsImport(data: Data(json.utf8)).file
+
+        #expect(file.deleted.count == 1)
+        #expect(file.habits[0].noteDates.count == 2)
     }
 
     @Test func aFailedReplaceChangesNothing() throws {

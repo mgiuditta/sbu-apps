@@ -17,10 +17,12 @@ permissions:
     - Notifiche, solo se attivi i promemoria. Partono dall'iPhone, non da un server.
     - Salute, solo se colleghi un'abitudine. Sbu Habits legge solo le misure che colleghi, solo per segnare le tue abitudini. Non scrive mai in Salute e non conserva i valori che legge. I dati di Salute non lasciano l'iPhone, non vengono condivisi con nessuno e non servono alla pubblicità.
     - File, solo quando usi Esporta o Importa. Il file con le abitudini e lo storico nasce solo quando lo chiedi, e lo salvi dove scegli tu. Importa legge solo il file che scegli.
+    - iCloud, solo se attivi Sincronizza con iCloud, spenta di default. Con la sincronizzazione attiva, le abitudini e lo storico vanno nel tuo iCloud, mai a sbu.dev, per arrivare sugli altri tuoi dispositivi. sbu.dev non li vede. Per smettere, spegni l'interruttore; la copia su iCloud si elimina da Impostazioni > [il tuo nome] > iCloud.
   en:
     - Notifications, only if you turn on reminders. They come from your iPhone, not from a server.
     - Health, only if you link a habit. Sbu Habits reads only the measures you link, only to mark your habits. It never writes to Health and does not keep the values it reads. Your Health data does not leave your iPhone, is not shared with anyone and is not used for ads.
     - Files, only when you use Export or Import. The file with your habits and their history is made only when you ask, and you save it where you choose. Import reads only the file you choose.
+    - iCloud, only if you turn on Sync with iCloud, off by default. With sync on, your habits and their history go to your own iCloud, never to sbu.dev, to reach your other devices. sbu.dev cannot see them. To stop, turn the switch off; delete the copy on iCloud in Settings > [your name] > iCloud.
 faq:
   it:
     - q: Sbu Habits è davvero gratis?

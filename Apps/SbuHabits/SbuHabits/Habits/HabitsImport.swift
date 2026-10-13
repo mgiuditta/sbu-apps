@@ -17,7 +17,7 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
         // The version first: a newer file may not decode, and should say why.
         guard let version = try? decoder.decode(Header.self, from: data).version else { throw .damaged }
         guard version <= HabitsFile.currentVersion else { throw .newerVersion }
-        guard var file = try? decoder.decode(HabitsFile.self, from: data), file.habits.allSatisfy(Self.isPlausible) else { throw .damaged }
+        guard var file = try? decoder.decode(HabitsFile.self, from: data), Self.isPlausible(file) else { throw .damaged }
         file.startHour = Habit.clamp(file.startHour, to: HabitsFile.startHourRange)
         self.file = file
     }
@@ -44,6 +44,27 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
     /// Most edits a habit can keep: each day reads them all, so a crafted list would slow every launch.
     static let maxEdits = 1_000
 
+    /// Most deletions a file can remember: a year of them, far above what anyone deletes.
+    static let maxDeletions = 10_000
+
+    /// A file the app could have written: every habit plausible, each id once, and the dates of
+    /// Sincronizza con iCloud sane. A habit both kept and deleted is refused: no merge writes that.
+    static func isPlausible(_ file: HabitsFile) -> Bool {
+        let ids = file.habits.map(\.id)
+        return file.habits.allSatisfy(isPlausible)
+            && Set(ids).count == ids.count
+            && file.deleted.count <= maxDeletions
+            && file.deleted.values.allSatisfy(isPlausible(date:))
+            && ids.allSatisfy { file.deleted[$0] == nil }
+            && [file.orderModifiedAt, file.startHourModifiedAt].allSatisfy { $0.map(isPlausible(date:)) ?? true }
+    }
+
+    /// A moment between `earliestDay` and `latestDay`: a date from a clock, not a crafted one.
+    static func isPlausible(date: Date) -> Bool {
+        let seconds = date.timeIntervalSince1970
+        return seconds.isFinite && (Double(earliestDay.ordinal) * 86_400...Double(latestDay.ordinal) * 86_400).contains(seconds)
+    }
+
     /// Values the form could have produced: a file edited by hand or crafted is refused, not
     /// trusted, since it replaces everything and is read again on every launch.
     static func isPlausible(_ habit: Habit) -> Bool {
@@ -51,7 +72,7 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
         let oneDays = schedules.compactMap { schedule in
             if case .oneDay(let day) = schedule { day } else { nil }
         }
-        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped + habit.markHours.keys + habit.notes.keys + oneDays
+        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped + habit.markHours.keys + habit.notes.keys + habit.noteDates.keys + oneDays
         let times = [habit.timesPerDay] + habit.earlier.map(\.timesPerDay)
         let limits = ([habit.limit] + habit.earlier.map(\.limit)).compactMap { $0 }
         let untils = habit.earlier.map(\.until)
@@ -71,6 +92,8 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
             && habit.markHours.allSatisfy { day, hours in hours.count <= habit.count(on: day) && hours.allSatisfy((0..<24).contains) }
             // Notes the editor could have saved: trimmed, never blank, never too long.
             && habit.notes.values.allSatisfy(DailyNote.isPlausible)
+            && habit.noteDates.values.allSatisfy(isPlausible(date:))
+            && habit.modifiedAt.map(isPlausible(date:)) ?? true
             && habit.reminders.allSatisfy { (0..<24).contains($0.hour) && (0..<60).contains($0.minute) }
             // Orari automatici replace the times, and an Abitudine da evitare has no reminders.
             && (habit.remindsAutomatically == false || (habit.reminders.isEmpty && habit.limit == nil))

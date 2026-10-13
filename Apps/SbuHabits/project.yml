@@ -35,6 +35,11 @@ targets:
         com.apple.developer.healthkit.background-delivery: true
         # Sensibili al tempo, and the end of a countdown: through a Focus that allows them.
         com.apple.developer.usernotifications.time-sensitive: true
+        # Sincronizza con iCloud, off by default: the habits file in the user's own iCloud
+        # container, outside Documents so it stays hidden (ADR-0008). App only, not the widget.
+        com.apple.developer.icloud-container-identifiers: [iCloud.dev.sbu.habits]
+        com.apple.developer.ubiquity-container-identifiers: [iCloud.dev.sbu.habits]
+        com.apple.developer.icloud-services: [CloudDocuments]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits

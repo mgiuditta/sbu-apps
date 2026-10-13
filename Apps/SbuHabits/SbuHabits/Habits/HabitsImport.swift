@@ -51,7 +51,7 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
         let oneDays = schedules.compactMap { schedule in
             if case .oneDay(let day) = schedule { day } else { nil }
         }
-        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped + habit.markHours.keys + oneDays
+        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped + habit.markHours.keys + habit.notes.keys + oneDays
         let times = [habit.timesPerDay] + habit.earlier.map(\.timesPerDay)
         let limits = ([habit.limit] + habit.earlier.map(\.limit)).compactMap { $0 }
         let untils = habit.earlier.map(\.until)
@@ -69,6 +69,8 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
             && habit.log.values.allSatisfy { (0...maxCount).contains($0) }
             // Never more hours than marks: days from before hours existed may have fewer.
             && habit.markHours.allSatisfy { day, hours in hours.count <= habit.count(on: day) && hours.allSatisfy((0..<24).contains) }
+            // Notes the editor could have saved: trimmed, never blank, never too long.
+            && habit.notes.values.allSatisfy(DailyNote.isPlausible)
             && habit.reminders.allSatisfy { (0..<24).contains($0.hour) && (0..<60).contains($0.minute) }
             && schedules.allSatisfy { schedule in
                 switch schedule {

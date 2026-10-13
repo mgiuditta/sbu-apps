@@ -188,7 +188,7 @@ final class HabitsModel {
         Streak.best(of: habit, today: today, firstWeekday: calendar.firstWeekday)
     }
 
-    /// Removes the habit and its whole log, and its countdown.
+    /// Removes the habit with its whole log and its notes, and its countdown.
     func delete(_ habit: Habit) {
         habits.removeAll { $0.id == habit.id }
         if timer?.habitID == habit.id {
@@ -273,6 +273,15 @@ final class HabitsModel {
     /// Skips today, or takes the skip back.
     func toggleSkip(_ habit: Habit) {
         update(habit) { $0.toggleSkip(on: today) }
+    }
+
+    /// Writes the Nota del giorno of `day`, today or a day gone by; a blank text removes it.
+    func setNote(_ text: String, for habit: Habit, on day: LogicalDay) {
+        update(habit) { habit in
+            // Never a day still to come: the editor opens only on today and the past.
+            guard day <= today else { return }
+            habit.setNote(text, on: day)
+        }
     }
 
     private func update(_ habit: Habit, _ change: (inout Habit) -> Void) {

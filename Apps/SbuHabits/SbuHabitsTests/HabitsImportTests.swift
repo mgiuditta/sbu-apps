@@ -20,6 +20,7 @@ struct HabitsImportTests {
         #"{"version": 1, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "timerMinutes": 180}]}"#,
         #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Biblioteca", "symbol": "book", "schedule": {"timesPerMonth": {"_0": 27}}, "createdOn": 20000, "log": {}}]}"#,
         #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Dentista", "symbol": "pills", "schedule": {"oneDay": {"_0": 20010}}, "createdOn": 20000, "log": {}}]}"#,
+        #"{"version": 2, "habits": [{"id": "6F9619FF-8B86-D011-B42D-00C04FC964FF", "title": "Leggere", "symbol": "book", "createdOn": 20000, "log": {}, "notes": {"20001": "Venti pagine\nPoi a letto"}}]}"#,
     ])
     func validFilesAreAccepted(json: String) {
         #expect(throws: Never.self) { try HabitsImport(data: Data(json.utf8)) }
@@ -64,6 +65,11 @@ struct HabitsImportTests {
         #""createdOn": 20000, "log": {"20001": 1}, "markHours": {"20001": [24]}"#,
         #""createdOn": 20000, "log": {"20001": 1}, "markHours": {"20001": [8, 9]}"#, // more hours than marks
         #""createdOn": 20000, "log": {"20001": 1}, "markHours": {"5": []}"#,
+        #""createdOn": 20000, "notes": {"5": "Troppo presto"}"#,
+        #""createdOn": 20000, "notes": {"9223372036854775807": "Troppo tardi"}"#,
+        #""createdOn": 20000, "notes": {"20001": ""}"#, // a blank note is no note
+        #""createdOn": 20000, "notes": {"20001": "  Non tagliata  "}"#,
+        #""createdOn": 20000, "notes": {"20001": "\#(String(repeating: "a", count: DailyNote.maxLength + 1))"}"#,
         #""createdOn": 20000, "earlier": [{"until": 20000, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,
         #""createdOn": 20000, "earlier": [{"until": 20005, "timesPerDay": 1, "schedule": {"everyDay": {}}}, {"until": 20002, "timesPerDay": 1, "schedule": {"everyDay": {}}}]"#,
     ])

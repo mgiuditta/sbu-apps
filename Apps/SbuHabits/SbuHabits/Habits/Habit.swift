@@ -44,6 +44,9 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// habit that is not timed. Only for a habit to do, never linked to Salute; done once a day.
     /// Not kept per day like the goal: it never changes whether a past day was done.
     private(set) var timerMinutes: Int?
+    /// The Nota del giorno of each logical day that has one, as `DailyNote` saves it: never blank.
+    /// A skip leaves it, deleting the habit deletes them all.
+    private(set) var notes: [LogicalDay: String] = [:]
 
     init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, createdOn: LogicalDay) {
         self.id = id
@@ -56,8 +59,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     }
 
     // Files saved before times per day, schedules, limits, skips, reminders, edits, Salute, mark hours and
-    // timers existed: yes/no, every day, to do, nothing skipped, no reminders, never edited, marked by hand,
-    // no hours, not timed.
+    // timers and notes existed: yes/no, every day, to do, nothing skipped, no reminders, never edited,
+    // marked by hand, no hours, not timed, no notes.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -74,6 +77,7 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         earlier = try container.decodeIfPresent([HabitSettings].self, forKey: .earlier) ?? []
         health = try container.decodeIfPresent(HealthLink.self, forKey: .health)
         timerMinutes = try container.decodeIfPresent(Int.self, forKey: .timerMinutes)
+        notes = try container.decodeIfPresent([LogicalDay: String].self, forKey: .notes) ?? [:]
     }
 
     /// The countdown of an Abitudine a tempo, `nil` for a habit that is not timed.
@@ -161,6 +165,17 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         self.health = newHealth
         self.timerMinutes = newTimer
         return true
+    }
+
+    /// The Nota del giorno of `day`, `nil` when it has none.
+    func note(on day: LogicalDay) -> String? {
+        notes[day]
+    }
+
+    /// Writes the Nota del giorno of `day`, trimmed and cut to `DailyNote.maxLength`; a blank
+    /// text removes it.
+    mutating func setNote(_ text: String, on day: LogicalDay) {
+        notes[day] = DailyNote.normalized(text)
     }
 
     func isSkipped(on day: LogicalDay) -> Bool {

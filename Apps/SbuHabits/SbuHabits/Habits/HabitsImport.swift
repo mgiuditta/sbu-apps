@@ -61,6 +61,8 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
             && limits.allSatisfy(Habit.limitRange.contains)
             // A Salute goal the form offers (NaN never is), and only on a habit to do.
             && habit.health.map { $0.measure.goalRange.contains($0.goal) && habit.limit == nil } ?? true
+            // A length the form offers, only on a habit to do that Salute does not mark.
+            && habit.timerMinutes.map { Habit.timerMinutesRange.contains($0) && habit.limit == nil && habit.health == nil } ?? true
             && habit.log.values.allSatisfy { (0...maxCount).contains($0) }
             // Never more hours than marks: days from before hours existed may have fewer.
             && habit.markHours.allSatisfy { day, hours in hours.count <= habit.count(on: day) && hours.allSatisfy((0..<24).contains) }

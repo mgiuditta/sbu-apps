@@ -62,6 +62,7 @@ targets:
       - path: SbuHabits/Habits
         excludes: [HabitsModel.swift, HabitsModel+Preview.swift, HabitSymbol.swift, HabitsExport.swift, HabitsImport.swift, HabitsImport+Failure.swift, HabitsImport+Preview.swift]
       - SbuHabits/Reminders
+      - SbuHabits/Timer
       - SbuHabits/Intents
       - SbuHabits/Views/HabitRing.swift
       - SbuHabits/Views/HabitRingFace.swift

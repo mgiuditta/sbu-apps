@@ -1540,6 +1540,17 @@
           }
         }
       }
+    },
+    "%@: fatto" : {
+      "comment" : "The countdown of a timed habit ended. The habit's title, then done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: done"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

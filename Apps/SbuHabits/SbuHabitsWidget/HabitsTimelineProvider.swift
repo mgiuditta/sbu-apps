@@ -18,7 +18,7 @@ struct HabitsTimelineProvider: AppIntentTimelineProvider {
         let now = Date.now
         let file = WidgetFile.load()
         // Each new day's timeline also tops up the reminders, for people who never open the app.
-        await ReminderScheduler.replace(with: ReminderPlan.reminders(for: file.habits, now: now, startHour: file.startHour, calendar: .current))
+        await ReminderScheduler.replace(with: ReminderPlan.reminders(for: file.habits, timer: HabitTimerStore.shared.load(), now: now, startHour: file.startHour, calendar: .current))
         // The app and the intent reload the widget on every change; this covers the new day.
         return Timeline(entries: [Self.entry(for: file, chosen: configuration.habits, now: now)], policy: .after(WidgetFile.nextDayStart(for: file, after: now)))
     }

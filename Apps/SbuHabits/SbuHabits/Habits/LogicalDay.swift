@@ -4,8 +4,10 @@ import Foundation
 ///
 /// Stored as the number of days since 1 January 1970, so the day before is `self - 1`.
 /// Everything except this initializer works on logical days, never on raw `Date`s.
-nonisolated struct LogicalDay: Hashable, Comparable, Codable, CodingKeyRepresentable, Sendable {
+nonisolated struct LogicalDay: Hashable, Comparable, Codable, CodingKeyRepresentable, Identifiable, Sendable {
     let ordinal: Int
+
+    var id: Int { ordinal }
 
     init(ordinal: Int) {
         self.ordinal = ordinal

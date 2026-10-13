@@ -5,6 +5,7 @@ import SwiftUI
 ///
 /// Done is a filled accent circle with a checkmark, skipped a forward mark, missed an empty
 /// ring, and a day with nothing expected stays blank: state never rests on color alone.
+/// With `openNote`, every day from the habit's start to today opens its Nota del giorno.
 struct HistoryGrid: View {
     static let maxWeeks = 26
 
@@ -13,6 +14,8 @@ struct HistoryGrid: View {
     let habit: Habit
     let today: LogicalDay
     let firstWeekday: Int
+    /// Opens the Nota del giorno of a day; `nil` leaves the days still.
+    var openNote: ((LogicalDay) -> Void)?
 
     private var columns: [GridItem] {
         Array(repeating: GridItem(.flexible(), spacing: SbuTheme.space1), count: 7)
@@ -38,10 +41,16 @@ struct HistoryGrid: View {
             }
 
             ForEach(days, id: \.self) { day in
-                HistoryCell(state: DayState(of: habit, on: day, today: today), day: day)
+                HistoryCell(state: DayState(of: habit, on: day, today: today), day: day, hasNote: habit.note(on: day) != nil, open: opener(for: day))
             }
         }
         .padding(.vertical, SbuTheme.space2)
+    }
+
+    /// Only the days the habit lived, today included: never one still to come.
+    private func opener(for day: LogicalDay) -> (() -> Void)? {
+        guard let openNote, day <= today, day >= habit.createdOn else { return nil }
+        return { openNote(day) }
     }
 }
 
@@ -50,6 +59,9 @@ private struct HistoryCell: View {
 
     let state: DayState
     let day: LogicalDay
+    let hasNote: Bool
+    /// Opens the day's note; `nil` for a day that has none to open.
+    let open: (() -> Void)?
 
     @ScaledMetric(relativeTo: .body) private var side = SbuTheme.space6
 
@@ -62,7 +74,35 @@ private struct HistoryCell: View {
         }
     }
 
+    private var value: Text {
+        hasNote ? Text(stateName) + Text(verbatim: ", ") + Text("con nota") : Text(stateName)
+    }
+
     var body: some View {
+        if let open {
+            Button(action: open) {
+                mark
+            }
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(label)
+            .accessibilityValue(value)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityHint("Apre la nota del giorno")
+        } else {
+            mark
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(label)
+                .accessibilityValue(value)
+                .accessibilityHidden(state == .empty)
+        }
+    }
+
+    private var label: Text {
+        Text(day.noon(in: calendar), format: .dateTime.weekday(.wide).day().month(.wide))
+    }
+
+    private var mark: some View {
         ZStack {
             switch state {
             case .done:
@@ -84,10 +124,7 @@ private struct HistoryCell: View {
         }
         .frame(width: side, height: side)
         .frame(maxWidth: .infinity)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(day.noon(in: calendar), format: .dateTime.weekday(.wide).day().month(.wide)))
-        .accessibilityValue(Text(stateName))
-        .accessibilityHidden(state == .empty)
+        .contentShape(.rect)
     }
 }
 

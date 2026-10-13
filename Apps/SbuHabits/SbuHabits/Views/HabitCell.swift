@@ -17,10 +17,14 @@ struct HabitCell: View {
     let habit: Habit
     let progress: HabitProgress
     let streak: Int
+    /// Today has a Nota del giorno.
+    var hasNote = false
     let markDone: () -> Void
     let undoLast: () -> Void
     let toggleSkip: () -> Void
     let edit: () -> Void
+    /// Opens today's Nota del giorno.
+    var writeNote: () -> Void = {}
     /// Opens the Timer of an Abitudine a tempo.
     var startTimer: () -> Void = {}
 
@@ -38,15 +42,28 @@ struct HabitCell: View {
         progress.isSkippedToday ? "Non saltare oggi" : "Salta oggi"
     }
 
+    private var noteTitle: LocalizedStringKey {
+        hasNote ? "Modifica nota" : "Scrivi nota"
+    }
+
     private var streakText: Text {
         Text(habit.schedule.streakText(streak))
     }
 
-    /// Today's state, the length of an Abitudine a tempo, then the Serie.
+    /// Today's state, the length of an Abitudine a tempo, the Serie, then whether today has a note.
     private var accessibilityValue: Text {
-        let state = face.progressText + Text(verbatim: ", ")
-        guard let duration = habit.timerDuration else { return state + streakText }
-        return state + Text(duration, format: TimerFormat.spoken) + Text(verbatim: ", ") + streakText
+        var value = face.progressText + Text(verbatim: ", ")
+        if let duration = habit.timerDuration {
+            value = value + Text(duration, format: TimerFormat.spoken) + Text(verbatim: ", ")
+        }
+        value = value + streakText
+        return hasNote ? value + Text(verbatim: ", ") + Text("con nota") : value
+    }
+
+    /// The title, after a small note symbol when today has a Nota del giorno.
+    private var titleText: Text {
+        guard hasNote else { return Text(habit.title) }
+        return Text(Image(systemName: "note.text")).fontWeight(.medium).foregroundStyle(SbuTheme.inkMuted) + Text(verbatim: " ") + Text(habit.title)
     }
 
     /// Play only while the timed habit still asks for something today.
@@ -87,7 +104,7 @@ struct HabitCell: View {
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
                 .anchorPreference(key: RingBoundsKey.self, value: .bounds) { $0 }
 
-            Text(habit.title)
+            titleText
                 .font(SbuTheme.subheadline)
                 .foregroundStyle(SbuTheme.ink)
                 .multilineTextAlignment(.center)
@@ -125,6 +142,7 @@ struct HabitCell: View {
             Button("Annulla ultima", action: undoLast)
                 .disabled(progress.marksToday == 0)
             Button(skipTitle, action: toggleSkip)
+            Button(noteTitle, action: writeNote)
             Button("Modifica", action: edit)
         }
         .accessibilityElement(children: .ignore)
@@ -140,6 +158,7 @@ struct HabitCell: View {
                 Button("Annulla ultima", action: undoLast)
             }
             Button(skipTitle, action: toggleSkip)
+            Button(noteTitle, action: writeNote)
             Button("Modifica", action: edit)
         }
     }
@@ -171,7 +190,7 @@ struct HabitCell: View {
 private struct HabitCellPreview: View {
     var body: some View {
         HStack(spacing: SbuTheme.space3) {
-            HabitCellPreviewItem(habit: Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(.now)), marks: 1, streak: 12)
+            HabitCellPreviewItem(habit: Habit(title: "Leggere", symbol: "book", createdOn: LogicalDay(.now)), marks: 1, streak: 12, hasNote: true)
             HabitCellPreviewItem(habit: Habit(title: "Bere acqua", symbol: "drop", timesPerDay: 8, createdOn: LogicalDay(.now)), marks: 3, streak: 1)
             HabitCellPreviewItem(habit: Habit(title: "Caffè", symbol: "cup.and.saucer", limit: 2, createdOn: LogicalDay(.now)), marks: 1, streak: 4)
             HabitCellPreviewItem(habit: .timedPreview, marks: 0, streak: 3)
@@ -195,10 +214,11 @@ private struct HabitCellPreviewItem: View {
     let habit: Habit
     let marks: Int
     let streak: Int
+    var hasNote = false
 
     var body: some View {
         var marked = habit
         marked.log[LogicalDay(.now)] = marks
-        return HabitCell(habit: marked, progress: HabitProgress(of: marked, today: LogicalDay(.now), firstWeekday: 2), streak: streak, markDone: {}, undoLast: {}, toggleSkip: {}, edit: {})
+        return HabitCell(habit: marked, progress: HabitProgress(of: marked, today: LogicalDay(.now), firstWeekday: 2), streak: streak, hasNote: hasNote, markDone: {}, undoLast: {}, toggleSkip: {}, edit: {})
     }
 }

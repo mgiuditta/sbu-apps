@@ -2179,6 +2179,50 @@
         }
       }
     },
+    "Le abitudini e lo storico vanno sul tuo iCloud, mai a sbu.dev, e si uniscono a quelli degli altri tuoi dispositivi. Esporta e Importa restano." : {
+      "comment" : "Footer of the iCloud switch: where the data goes, and that Export and Import are still there.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your habits and their history go to your iCloud, never to sbu.dev, and merge with those on your other devices. Export and Import stay."
+          }
+        }
+      }
+    },
+    "Per sincronizzare, accedi a iCloud e attiva iCloud Drive nelle Impostazioni dell'iPhone." : {
+      "comment" : "Footer of the iCloud switch when iCloud is not available: why it is off and what to do.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To sync, sign in to iCloud and turn on iCloud Drive in your iPhone's Settings."
+          }
+        }
+      }
+    },
+    "Sincronizza con iCloud" : {
+      "comment" : "Settings switch in Dati: turns on sync with the user's own iCloud, off by default.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync with iCloud"
+          }
+        }
+      }
+    },
+    "Su iCloud ci sono dati di una versione più recente di Sbu Habits. Aggiorna l'app per sincronizzare." : {
+      "comment" : "Footer of the iCloud switch when the copy on iCloud comes from a newer version of the app.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud has data from a newer version of Sbu Habits. Update the app to sync."
+          }
+        }
+      }
+    },
     "giorni" : {
       "comment" : "Unit after the Serie piena figure.",
       "localizations" : {

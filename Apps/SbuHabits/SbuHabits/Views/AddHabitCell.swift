@@ -2,7 +2,7 @@ import SbuKit
 import SwiftUI
 
 /// Aggiungi as the grid's last place, as Streaks has it: an empty ring with a plus, the word
-/// under it. It opens the form for a new habit.
+/// under it. It opens Aggiungi abitudine.
 struct AddHabitCell: View {
     /// The ring's largest side: `.infinity` on a page of the grid, where the place sets it.
     var maxRingSide = CGFloat.infinity

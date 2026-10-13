@@ -96,7 +96,7 @@ final class HabitsFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Acqua"].exists, app.debugDescription)
         try app.auditHabitForm()
         app.backToForm()
-        app.buttons["Aggiungi abitudine"].tap()
+        app.addHabitButton.tap()
 
         expectValue(habit("Acqua", in: app), "Da fare, 0 giorni")
     }
@@ -450,7 +450,7 @@ final class HabitsFlowTests: XCTestCase {
         XCTAssertTrue(app.buttons["Nessuna"].isSelected)
         app.backToForm()
         // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi abitudine.
-        app.navigationBars.buttons["Annulla"].tap()
+        app.cancelNewHabit()
     }
 
     @MainActor

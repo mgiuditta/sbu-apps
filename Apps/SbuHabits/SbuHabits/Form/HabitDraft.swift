@@ -41,20 +41,11 @@ nonisolated struct HabitDraft: Equatable, Sendable {
         symbol = habit?.symbol ?? HabitSymbol.all[0].id
         timesPerDay = habit?.timesPerDay ?? 1
         limit = habit?.limit ?? 0
-        let schedule = habit?.schedule ?? .everyDay
-        scheduleKind = ScheduleKind(schedule)
+        scheduleKind = .everyDay
         weekdays = Set(1...7)
         timesPerWeek = 3
         timesPerMonth = 10
-        var day = today
-        switch schedule {
-        case .everyDay: break
-        case .weekdays(let days): weekdays = days
-        case .timesPerWeek(let times): timesPerWeek = times
-        case .timesPerMonth(let times): timesPerMonth = times
-        case .oneDay(let only): day = only
-        }
-        oneDay = day.noon(in: calendar)
+        oneDay = today.noon(in: calendar)
         let measure = habit?.health?.measure ?? .steps
         linksHealth = habit?.health != nil
         healthMeasure = measure
@@ -62,6 +53,19 @@ nonisolated struct HabitDraft: Equatable, Sendable {
         timerMinutes = habit?.timerMinutes ?? 10
         reminderMode = habit?.reminderMode ?? .off
         notificationStyle = habit?.notificationStyle ?? NotificationStyle()
+        setSchedule(habit?.schedule ?? .everyDay, calendar: calendar)
+    }
+
+    /// Sets the Giorni screen to `schedule`, keeping the values of the other kinds of schedule.
+    mutating func setSchedule(_ schedule: Schedule, calendar: Calendar = .current) {
+        scheduleKind = ScheduleKind(schedule)
+        switch schedule {
+        case .everyDay: break
+        case .weekdays(let days): weekdays = days
+        case .timesPerWeek(let times): timesPerWeek = times
+        case .timesPerMonth(let times): timesPerMonth = times
+        case .oneDay(let day): oneDay = day.noon(in: calendar)
+        }
     }
 
     func schedule(in calendar: Calendar = .current) -> Schedule {

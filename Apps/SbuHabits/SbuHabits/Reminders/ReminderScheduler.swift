@@ -22,7 +22,7 @@ enum ReminderScheduler {
         for reminder in reminders {
             let content = UNMutableNotificationContent()
             if reminder.endsTimer {
-                content.body = String(localized: "\(reminder.title): fatto", comment: "The countdown of a timed habit ended. The habit's title, then 'done'.")
+                content.body = String(localized: "\(reminder.title): fatta", comment: "A habit is done: its countdown ended, or Salute marked it. The habit's title, then 'done', agreeing with 'abitudine' (feminine).")
             } else {
                 content.title = reminder.title
                 content.body = String(localized: "Da fare oggi")
@@ -45,7 +45,7 @@ enum ReminderScheduler {
         let center = UNUserNotificationCenter.current()
         for habit in habits {
             let content = UNMutableNotificationContent()
-            content.body = String(localized: "\(habit.title): fatta", comment: "Salute marked a habit done by itself. The habit's title, then 'done', agreeing with 'abitudine' (feminine).")
+            content.body = String(localized: "\(habit.title): fatta", comment: "A habit is done: its countdown ended, or Salute marked it. The habit's title, then 'done', agreeing with 'abitudine' (feminine).")
             content.sound = notificationSound(habit.notificationStyle.sound)
             center.add(UNNotificationRequest(identifier: "\(habit.id)-health", content: content, trigger: nil))
         }

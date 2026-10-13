@@ -2,11 +2,17 @@ import SbuKit
 import SwiftUI
 
 /// The form that creates or edits a habit: to do or to avoid, a title, how many times a day, a
-/// countdown or the Limite, which days, a link to Salute, a symbol and reminder times. The kind is chosen once;
+/// countdown or the Limite, which days (or the one day of an Attività di un giorno), a link to Salute, a symbol
+/// and reminder times. The kind is chosen once;
 /// editing never rewrites the log, and offers Elimina.
 struct HabitForm: View {
     private enum Kind {
-        case everyDay, weekdays, timesPerWeek
+        case everyDay, weekdays, timesPerWeek, timesPerMonth, oneDay
+
+        /// Counted in weeks or months: done once a day, the count is the days.
+        var isCounted: Bool {
+            self == .timesPerWeek || self == .timesPerMonth
+        }
     }
 
     @Environment(\.dismiss) private var dismiss
@@ -23,6 +29,9 @@ struct HabitForm: View {
     @State private var kind: Kind
     @State private var weekdays: Set<Int>
     @State private var timesPerWeek: Int
+    @State private var timesPerMonth: Int
+    /// The day of an Attività di un giorno, at noon.
+    @State private var oneDay: Date
     @State private var reminders: [RemindersSection.Row]
     @State private var linksHealth: Bool
     @State private var healthMeasure: HealthMeasure
@@ -35,7 +44,18 @@ struct HabitForm: View {
         case .everyDay: .everyDay
         case .weekdays: .weekdays(weekdays)
         case .timesPerWeek: .timesPerWeek(timesPerWeek)
+        case .timesPerMonth: .timesPerMonth(timesPerMonth)
+        case .oneDay: .oneDay(LogicalDay(oneDay, calendar: .current))
         }
+    }
+
+    /// From today on, or from the habit's own day if it already passed.
+    private var oneDayRange: PartialRangeFrom<Date> {
+        let today = model.today.noon(in: .current)
+        if case .oneDay(let day) = habit?.schedule {
+            return min(day.noon(in: .current), today)...
+        }
+        return today...
     }
 
     private var formTitle: LocalizedStringKey {
@@ -76,20 +96,30 @@ struct HabitForm: View {
         _healthGoal = State(initialValue: habit?.health?.goal ?? measure.defaultGoal)
         _isTimed = State(initialValue: habit?.timerMinutes != nil)
         _timerMinutes = State(initialValue: habit?.timerMinutes ?? 10)
+        var weekdays = Set(1...7)
+        var timesPerWeek = 3
+        var timesPerMonth = 10
+        var oneDay = model.today
         switch habit?.schedule ?? .everyDay {
         case .everyDay:
             _kind = State(initialValue: .everyDay)
-            _weekdays = State(initialValue: Set(1...7))
-            _timesPerWeek = State(initialValue: 3)
         case .weekdays(let days):
             _kind = State(initialValue: .weekdays)
-            _weekdays = State(initialValue: days)
-            _timesPerWeek = State(initialValue: 3)
+            weekdays = days
         case .timesPerWeek(let times):
             _kind = State(initialValue: .timesPerWeek)
-            _weekdays = State(initialValue: Set(1...7))
-            _timesPerWeek = State(initialValue: times)
+            timesPerWeek = times
+        case .timesPerMonth(let times):
+            _kind = State(initialValue: .timesPerMonth)
+            timesPerMonth = times
+        case .oneDay(let day):
+            _kind = State(initialValue: .oneDay)
+            oneDay = day
         }
+        _weekdays = State(initialValue: weekdays)
+        _timesPerWeek = State(initialValue: timesPerWeek)
+        _timesPerMonth = State(initialValue: timesPerMonth)
+        _oneDay = State(initialValue: oneDay.noon(in: .current))
     }
 
     var body: some View {
@@ -104,7 +134,7 @@ struct HabitForm: View {
                     .labelsHidden()
                     // Changing the kind would rewrite what the log means.
                     .disabled(habit != nil)
-                    .onChange(of: avoids, dropWeekly)
+                    .onChange(of: avoids, dropCounted)
 
                     TextField("Titolo", text: $title)
                         .onChange(of: title, limitTitle)
@@ -113,8 +143,8 @@ struct HabitForm: View {
                         Stepper(value: $limit, in: Habit.limitRange) {
                             LabeledContent("Limite al giorno", value: limit, format: .number)
                         }
-                    } else if kind != .timesPerWeek, linksHealth == false, isTimed == false {
-                        // A weekly habit is done once a day: its count is the days of the week.
+                    } else if kind.isCounted == false, linksHealth == false, isTimed == false {
+                        // A weekly or monthly habit is done once a day: its count is the days.
                         // So is one linked to Salute, done when the goal is reached, and a timed
                         // one, done when its countdown ends.
                         Stepper(value: $timesPerDay, in: Habit.timesPerDayRange) {
@@ -143,12 +173,14 @@ struct HabitForm: View {
                     }
                 }
 
-                Section("Programmazione") {
+                Section {
                     Picker("Programmazione", selection: $kind) {
                         Text("Ogni giorno").tag(Kind.everyDay)
                         Text("Giorni della settimana").tag(Kind.weekdays)
                         if avoids == false {
                             Text("Volte a settimana").tag(Kind.timesPerWeek)
+                            Text("Volte al mese").tag(Kind.timesPerMonth)
+                            Text("Un giorno solo").tag(Kind.oneDay)
                         }
                     }
                     .pickerStyle(.inline)
@@ -163,6 +195,18 @@ struct HabitForm: View {
                         Stepper(value: $timesPerWeek, in: Schedule.timesPerWeekRange) {
                             LabeledContent("Volte a settimana", value: timesPerWeek, format: .number)
                         }
+                    case .timesPerMonth:
+                        Stepper(value: $timesPerMonth, in: Schedule.timesPerMonthRange) {
+                            LabeledContent("Volte al mese", value: timesPerMonth, format: .number)
+                        }
+                    case .oneDay:
+                        DatePicker("Giorno", selection: $oneDay, in: oneDayRange, displayedComponents: .date)
+                    }
+                } header: {
+                    Text("Programmazione")
+                } footer: {
+                    if kind == .oneDay {
+                        Text("Compare nella griglia solo quel giorno.")
                     }
                 }
 
@@ -201,9 +245,9 @@ struct HabitForm: View {
         }
     }
 
-    /// An Abitudine da evitare is never weekly.
-    private func dropWeekly() {
-        if avoids, kind == .timesPerWeek {
+    /// An Abitudine da evitare is never counted in weeks or months, nor an Attività di un giorno.
+    private func dropCounted() {
+        if avoids, kind.isCounted || kind == .oneDay {
             kind = .everyDay
         }
     }

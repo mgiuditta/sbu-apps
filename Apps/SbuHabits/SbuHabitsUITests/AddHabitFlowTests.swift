@@ -27,6 +27,12 @@ final class AddHabitFlowTests: XCTestCase {
             if issue.auditType == .textClipped, issue.element?.elementType == .searchField {
                 return true
             }
+            // On the iPhone 17 the audit reads Personalizzata's text frame (20 pt) as shorter than
+            // its line, yet the row shows it whole (checked in the failure recording); the Pro Max
+            // passes. The title wraps if it ever needs to.
+            if issue.auditType == .textClipped, issue.element?.label == "Personalizzata" {
+                return true
+            }
             // Bar buttons and the round tabs keep their side: they show in the Large Content
             // Viewer instead of scaling.
             if issue.auditType == .dynamicType, ["Chiudi", "Cerca", "Annulla"].contains(issue.element?.label) {

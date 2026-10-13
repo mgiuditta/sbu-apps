@@ -1,0 +1,29 @@
+{
+  "id": "944150988",
+  "name": "Magnetometro",
+  "developer": "Stefano Caschi",
+  "bundle_id": "org.caschi.magnetometer",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.99,
+  "formatted_price": "0,99 €",
+  "currency": "EUR",
+  "genre": "Utilities",
+  "genres": [
+    "Utility",
+    "Istruzione"
+  ],
+  "description": "Questa App trasforma il tuo dispositivo in un magnetometro (DC Gauss Meter).\n\nI campi magnetici statici si possono sviluppare su molti oggetti in ferro o in acciaio se sono stati esposti a campi magnetici, a corrente, o ad attriti.\n\nQuesta applicazione rileva il campo magnetico residuo presente nelle parti in acciaio in modo rapido e preciso.\nÈ sufficiente posizionare il bordo del dispositivo vicino o a contatto con l'oggetto, per ottenere una lettura che rappresenta il magnetismo dell'oggetto in quel punto e la sua polarità.\nSarà anche possibile verificare la completezza della eventuale smagnetizzazione. \nPotrai controllare la tua auto, il telaio del letto, i mobili, la scrivania, o qualsiasi altro oggetto metallico.\nIl magnetometro può anche essere usato per controllare la forza dei magneti.\n\nCaratteristiche:\n- Rilevazione della forza di campo magnetico lungo i 3 assi: x,y,z\n- Unità di misura configurabile: Tesla, Gauss\n- Risoluzione della misura: 1 mG (0.1μT)\n\nApplicazioni:\n- Valutazione di materiali magnetici.\n- Analisi di circuiti magnetici e dei componenti\n- Misurazione di campi magnetici residui\n- Misura di campi magnetici dispersi\n- Test, ordinamento e classificazione di magneti\n- Misura di magnetismo nei motori elettrici\n- Verifica dei campi magnetici presenti nei relè e nei solenoidi\n- Verifica magnetismo negli altoparlanti\n\nNota: la misura non è mai 0 perchè è sempre presente il campo magnetico terrestre",
+  "release_notes": "- Layout per iPhone X\n- Risoluzione di bug",
+  "version": "1.1",
+  "current_version_release_date": "2018-03-16T21:06:56Z",
+  "rating": 1,
+  "rating_count": 1,
+  "minimum_os": "8.0",
+  "url": "https://apps.apple.com/it/app/magnetometro/id944150988?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/ee/2b/c4/ee2bc41f-c6e8-b519-a338-ef2cea788c09/mzl.fazjjxkn.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/84/8f/41/848f419d-324f-b030-049d-eac1df559361/mzl.vkhoxzhq.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/19/fe/06/19fe063a-ad3c-4523-226c-fa9d480d4e52/mzl.iavvvgjs.png/392x696bb.png"
+  ]
+}

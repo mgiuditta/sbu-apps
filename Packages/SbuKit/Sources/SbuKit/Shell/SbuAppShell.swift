@@ -5,7 +5,9 @@ import SwiftUI
 ///
 /// Every screen, the tool screen included, sits on paper and follows the system color scheme.
 /// The app's accent is the tint: the full stop, filled buttons and controls. Each app has one
-/// thing to do, so there is no tab bar: settings open from the gear in the toolbar.
+/// thing to do, so there is no tab bar: settings open from the gear in the toolbar, or, with
+/// `settingsButtonPlacement: .content`, from a button the tool screen draws itself and wires to
+/// the `showSettings` environment action. The action is in the content's environment either way.
 public struct SbuAppShell<Content: View, Settings: View>: View {
     private static var settingsTitle: String { String(localized: "Impostazioni", bundle: SbuTheme.bundle) }
 
@@ -13,6 +15,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     private let slug: String
     private let accent: Color
     private let appIcon: Image
+    private let settingsButtonPlacement: SbuSettingsButtonPlacement
     private let content: Content
     private let settings: Settings
 
@@ -24,6 +27,8 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     ///   - slug: The app's sbu.dev slug, such as `habits`: settings link to its privacy page.
     ///   - accent: The app's `accent*` token. Text on it is always `onAccent`.
     ///   - appIcon: The icon artwork shown at the top of settings.
+    ///   - settingsButtonPlacement: Where the gear that opens settings goes; `.toolbar` unless
+    ///     the tool screen draws its own and calls `showSettings`.
     ///   - content: The app's tool screen.
     ///   - settings: App-specific settings sections, placed above the sbu.dev footer.
     public init(
@@ -31,6 +36,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
         slug: String,
         accent: Color,
         appIcon: Image,
+        settingsButtonPlacement: SbuSettingsButtonPlacement = .toolbar,
         @ViewBuilder content: () -> Content,
         @ViewBuilder settings: () -> Settings
     ) {
@@ -38,6 +44,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
         self.slug = slug
         self.accent = accent
         self.appIcon = appIcon
+        self.settingsButtonPlacement = settingsButtonPlacement
         self.content = content()
         self.settings = settings()
     }
@@ -50,12 +57,15 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        // In ink: on the tool screen the accent belongs to the figure's full stop.
-                        Button(Self.settingsTitle, systemImage: "gearshape", action: showSettings)
-                            .tint(SbuTheme.ink)
+                    if settingsButtonPlacement == .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            // In ink: on the tool screen the accent belongs to the figure's full stop.
+                            Button(Self.settingsTitle, systemImage: "gearshape", action: showSettings)
+                                .tint(SbuTheme.ink)
+                        }
                     }
                 }
+                .environment(\.showSettings, SbuShowSettingsAction(showSettings))
         }
         .sheet(isPresented: $isShowingSettings) {
             SbuSettingsView(appName: title, appIcon: appIcon, slug: slug) {
@@ -77,6 +87,29 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
 #Preview("Dark") {
     SbuAppShellPreview()
         .preferredColorScheme(.dark)
+}
+
+#Preview("Ingranaggio nel contenuto") {
+    SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle), settingsButtonPlacement: .content) {
+        SbuAppShellContentGearPreview()
+    } settings: {
+        EmptyView()
+    }
+}
+
+private struct SbuAppShellContentGearPreview: View {
+    @Environment(\.showSettings) private var showSettings
+
+    var body: some View {
+        VStack {
+            Spacer()
+            Button(String(localized: "Impostazioni", bundle: SbuTheme.bundle), systemImage: "gearshape") {
+                showSettings()
+            }
+            .tint(SbuTheme.ink)
+        }
+        .padding(SbuTheme.space4)
+    }
 }
 
 private struct SbuAppShellPreview: View {

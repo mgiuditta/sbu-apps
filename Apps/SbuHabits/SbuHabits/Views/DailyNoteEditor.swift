@@ -46,10 +46,14 @@ struct DailyNoteEditor: View {
             .scrollBounceBehavior(.basedOnSize)
             .background(SbuTheme.surface)
             .safeAreaInset(edge: .bottom) {
-                SbuButton("Fine", action: save)
-                    .padding(.horizontal, SbuTheme.space4)
-                    .padding(.vertical, SbuTheme.space2)
-                    .background(SbuTheme.surface)
+                // Above the keyboard with Fine, so the count stays in sight while typing.
+                VStack(alignment: .trailing, spacing: SbuTheme.space2) {
+                    counter
+                    SbuButton("Fine", action: save)
+                }
+                .padding(.horizontal, SbuTheme.space4)
+                .padding(.vertical, SbuTheme.space2)
+                .background(SbuTheme.surface)
             }
             .navigationTitle("Nota del giorno")
             .navigationBarTitleDisplayMode(.inline)
@@ -72,7 +76,7 @@ struct DailyNoteEditor: View {
 
             Text(habit.title)
                 .font(SbuTheme.headline)
-                .foregroundStyle(SbuTheme.ink)
+            .foregroundStyle(SbuTheme.ink)
                 .multilineTextAlignment(.center)
 
             dayText
@@ -93,29 +97,31 @@ struct DailyNoteEditor: View {
     }
 
     private var field: some View {
-        VStack(alignment: .trailing, spacing: SbuTheme.space2) {
-            TextField("Com'è andata", text: $text, axis: .vertical)
-                .font(SbuTheme.body)
-                .foregroundStyle(SbuTheme.ink)
-                .lineLimit(6...)
-                .focused($isFocused)
-                .padding(SbuTheme.space3)
-                .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
-                .accessibilityLabel("Nota")
-                .onChange(of: text) { _, newText in
-                    let limited = DailyNote.limited(newText)
-                    if limited != newText {
-                        text = limited
-                    }
+        TextField("Com'è andata", text: $text, axis: .vertical)
+            .font(SbuTheme.body)
+            .foregroundStyle(SbuTheme.ink)
+            .lineLimit(6...)
+            .focused($isFocused)
+            .padding(SbuTheme.space3)
+            .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
+            .accessibilityLabel("Nota")
+            .onChange(of: text) { _, newText in
+                let limited = DailyNote.limited(newText)
+                if limited != newText {
+                    text = limited
                 }
+            }
+    }
 
-            Text(verbatim: "\(text.count.formatted())/\(DailyNote.maxLength.formatted())")
-                .font(SbuTheme.footnote)
-                .monospacedDigit()
-                .foregroundStyle(SbuTheme.inkMuted)
-                .accessibilityLabel("Caratteri")
-                .accessibilityValue(Text("\(text.count) di \(DailyNote.maxLength)"))
-        }
+    private var counter: some View {
+        Text(verbatim: "\(text.count.formatted())/\(DailyNote.maxLength.formatted())")
+            .font(SbuTheme.footnote)
+            .monospacedDigit()
+            .foregroundStyle(SbuTheme.inkMuted)
+            .fixedSize()
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .accessibilityLabel("Caratteri")
+            .accessibilityValue(Text("\(text.count) di \(DailyNote.maxLength)"))
     }
 
     private func focus() {

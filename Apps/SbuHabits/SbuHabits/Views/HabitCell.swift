@@ -14,6 +14,9 @@ struct HabitCell: View {
     private static let holdDuration = 0.5
     /// Where the Serie sits in the ring, as a fraction of its side from the top: under the symbol.
     private static let streakPosition = 0.75
+    /// The smallest ring with room for the Serie under the symbol: on a smaller one, as on a
+    /// short iPhone's full page, the number would cover the symbol, so the ring goes without it.
+    private static let minRingSideForStreak = SbuTheme.space8 * 2
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -119,7 +122,7 @@ struct HabitCell: View {
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
                 .overlay {
                     // The Serie alone, no unit, inside the ring as in Streaks: "giorni" belongs to
-                    // the figure, and weeks read in VoiceOver. Hidden at zero.
+                    // the figure, and weeks read in VoiceOver. Hidden at zero and on a ring too small for it.
                     GeometryReader { proxy in
                         let room = streakRoom(inRingOfSide: proxy.size.width)
                         Text(streak, format: .number)
@@ -132,7 +135,7 @@ struct HabitCell: View {
                             // in the cell's value, and the Statistiche show it at any size.
                             .dynamicTypeSize(...DynamicTypeSize.large)
                             .contentTransition(.numericText(value: Double(streak)))
-                            .opacity(streak > 0 ? 1 : 0)
+                            .opacity(streak > 0 && proxy.size.width >= Self.minRingSideForStreak ? 1 : 0)
                             .animation(reduceMotion ? nil : .snappy, value: streak)
                             .frame(width: room, alignment: showsPlay ? .trailing : .center)
                             .position(x: room / 2, y: proxy.size.height * Self.streakPosition)

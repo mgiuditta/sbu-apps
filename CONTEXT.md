@@ -145,6 +145,14 @@ _Avoid_: sample, audio, campione
 Il gruppo di **Suoni** nel catalogo: Rumori, Pioggia, Acqua, Natura, Casa, Viaggio, Relax.
 _Avoid_: sezione, scheda, il menu ☰ (che elenca Suoni, Mix, Playlist, Preferiti)
 
+**Sveglia** (_Alarm_):
+L'ora a cui Noise ti sveglia con un suono che entra in dissolvenza; suona dentro l'app finché un **Suono** è in riproduzione.
+_Avoid_: allarme, timer (il timer ferma o avvia un suono, non sveglia)
+
+**Riserva** (_Backup alarm_):
+Quello che suona se la **Sveglia** non può: notifiche locali su iOS 17–25, un allarme di sistema su iOS 26+. Si annulla quando fermi la Sveglia.
+_Avoid_: fallback, sveglia di backup
+
 ## Relationships
 
 - Un **Candidato** ha al più uno **Spec**, scritto prima di decidere

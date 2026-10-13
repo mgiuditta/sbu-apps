@@ -12,6 +12,17 @@
         }
       }
     },
+    "%@: fatta" : {
+      "comment" : "A habit is done: its countdown ended, or Salute marked it. The habit's title, then 'done', agreeing with 'abitudine' (feminine).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: done"
+          }
+        }
+      }
+    },
     "%@, %@: completamento %@, serie migliore %@, completamenti %@." : {
       "comment" : "Description written into a shared Statistiche image: the habit or every habit, the period, the completion rate, the best streak and the completions.",
       "localizations" : {
@@ -676,6 +687,17 @@
         }
       }
     },
+    "Arrivano anche durante una Full immersion che le consente." : {
+      "comment" : "Footer of Sensibili al tempo on the Notifiche screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "They come through a Focus that allows them."
+          }
+        }
+      }
+    },
     "Arte" : {
       "localizations" : {
         "en" : {
@@ -752,6 +774,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bus"
+          }
+        }
+      }
+    },
+    "Automatici" : {
+      "comment" : "Value of the Notifiche row: the habit reminds at the hour it is usually done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic"
           }
         }
       }
@@ -1239,6 +1272,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cardio"
+          }
+        }
+      }
+    },
+    "Carta" : {
+      "comment" : "A notification sound bundled in Sbu Habits: two light notes.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paper"
           }
         }
       }
@@ -2954,8 +2998,30 @@
         }
       }
     },
+    "Nessun promemoria" : {
+      "comment" : "Promemoria choice on the Notifiche screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reminders"
+          }
+        }
+      }
+    },
     "Nessuna" : {
       "comment" : "Value of the Notifiche row with no reminders.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Nessuno" : {
+      "comment" : "Suono choice: the notifications play no sound.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3042,6 +3108,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Don't skip today"
+          }
+        }
+      }
+    },
+    "Notifica" : {
+      "comment" : "Choice under 'Quando si segna da sola': a notification says Salute marked the habit done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification"
           }
         }
       }
@@ -3154,6 +3231,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Umbrella"
+          }
+        }
+      }
+    },
+    "Orari automatici" : {
+      "comment" : "Promemoria choice: at the hour the habit is usually done.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic times"
+          }
+        }
+      }
+    },
+    "Orari personalizzati" : {
+      "comment" : "Promemoria choice: at times the user picks.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom times"
           }
         }
       }
@@ -3548,6 +3647,17 @@
         }
       }
     },
+    "Predefinito" : {
+      "comment" : "Suono choice: the iOS notification sound.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default"
+          }
+        }
+      }
+    },
     "Prezzo" : {
       "localizations" : {
         "en" : {
@@ -3598,6 +3708,17 @@
         }
       }
     },
+    "Punto" : {
+      "comment" : "A notification sound bundled in Sbu Habits: one short tone.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full stop"
+          }
+        }
+      }
+    },
     "Puntualità" : {
       "localizations" : {
         "en" : {
@@ -3644,6 +3765,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Air quality"
+          }
+        }
+      }
+    },
+    "Quando si segna da sola" : {
+      "comment" : "Section of the Notifiche screen for a habit Salute marks done by itself.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When it marks itself done"
           }
         }
       }
@@ -4130,6 +4262,17 @@
         }
       }
     },
+    "Sensibili al tempo" : {
+      "comment" : "Toggle on the Notifiche screen: iOS Time Sensitive notifications.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time Sensitive"
+          }
+        }
+      }
+    },
     "Sereno" : {
       "localizations" : {
         "en" : {
@@ -4490,6 +4633,17 @@
         }
       }
     },
+    "Suono" : {
+      "comment" : "Picker on the Notifiche screen: the notification sound.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound"
+          }
+        }
+      }
+    },
     "Surf" : {
       "localizations" : {
         "en" : {
@@ -4666,6 +4820,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pass"
+          }
+        }
+      }
+    },
+    "Ti avvisa quando Salute la segna fatta." : {
+      "comment" : "Footer of 'Quando si segna da sola'.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tells you when Health marks it done."
+          }
+        }
+      }
+    },
+    "Ti ricorda all'ora in cui di solito la fai, se oggi non è ancora fatta." : {
+      "comment" : "Footer of Orari automatici on the Notifiche screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminds you at the time you usually do it, if it isn't done yet today."
           }
         }
       }
@@ -5397,17 +5573,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Active Energy"
-          }
-        }
-      }
-    },
-    "%@: fatto" : {
-      "comment" : "The countdown of a timed habit ended. The habit's title, then done.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@: done"
           }
         }
       }

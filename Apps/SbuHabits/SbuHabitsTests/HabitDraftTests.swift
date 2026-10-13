@@ -279,6 +279,45 @@ struct HabitDraftTests {
         #expect(HabitDraft.remindersSummary([nine, nine], calendar: calendar, locale: Self.american) == "2 reminders")
     }
 
+    @Test(arguments: [
+        (ReminderMode.off, 2, "Nessuna", "None"),
+        (.automatic, 2, "Automatici", "Automatic"),
+        (.custom, 0, "Nessuna", "None"),
+        (.custom, 1, "09:00", "9:00\u{202F}AM"),
+        (.custom, 3, "3 promemoria", "3 reminders"),
+    ])
+    func theNotificheRowFollowsTheMode(mode: ReminderMode, times: Int, italian: String, english: String) throws {
+        let nine = try #require(calendar.date(from: DateComponents(year: 2026, month: 10, day: 14, hour: 9)))
+        let habit = draft { $0.reminderMode = mode }
+        let dates = Array(repeating: nine, count: times)
+
+        #expect(habit.remindersSummary(times: dates, calendar: calendar, locale: Self.italian) == italian)
+        #expect(habit.remindersSummary(times: dates, calendar: calendar, locale: Self.american) == english)
+    }
+
+    @Test func aDraftReadsTheHabitsNotifications() {
+        var habit = Habit(title: "Camminare", symbol: "figure.walk", createdOn: today)
+        let style = NotificationStyle(isTimeSensitive: true, sound: .punto, announcesHealthMark: true)
+        _ = habit.update(title: "Camminare", symbol: "figure.walk", timesPerDay: 1, schedule: .everyDay, remindsAutomatically: true, notificationStyle: style, health: HealthLink(measure: .steps, goal: 8_000), from: today)
+
+        let edited = HabitDraft(habit: habit, today: today, calendar: calendar)
+
+        #expect(edited.reminderMode == .automatic)
+        #expect(edited.notificationStyle == style)
+        #expect(edited.canAnnounceHealthMark)
+    }
+
+    @Test func onlyALinkedHabitSavesTheWordWhenSaluteMarksIt() {
+        let linked = draft {
+            $0.linksHealth = true
+            $0.notificationStyle.announcesHealthMark = true
+        }
+        let unlinked = draft { $0.notificationStyle.announcesHealthMark = true }
+
+        #expect(linked.savedNotificationStyle.announcesHealthMark)
+        #expect(unlinked.savedNotificationStyle.announcesHealthMark == false)
+    }
+
     @Test func theTipoAndSaluteRowsSay() {
         #expect(draft().kindSummary(locale: Self.italian) == "Da fare")
         #expect(draft { $0.kind = .toAvoid }.kindSummary(locale: Self.american) == "To avoid")

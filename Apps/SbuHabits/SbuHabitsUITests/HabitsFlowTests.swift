@@ -92,7 +92,7 @@ final class HabitsFlowTests: XCTestCase {
         try app.auditHabitForm()
 
         app.openFormRow("Notifiche")
-        XCTAssertTrue(app.buttons["Aggiungi promemoria"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Nessun promemoria"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["Acqua"].exists, app.debugDescription)
         try app.auditHabitForm()
         app.backToForm()
@@ -434,6 +434,21 @@ final class HabitsFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Obiettivo al giorno"].waitForExistence(timeout: 5))
         try app.auditHabitForm()
         app.backToForm()
+
+        // A habit Salute marks can say so. The box above pushes the row under the bottom button.
+        app.collectionViews.firstMatch.swipeUp()
+        app.openFormRow("Notifiche")
+        XCTAssertTrue(app.buttons["Nessun promemoria"].waitForExistence(timeout: 5))
+        // Taller with the Salute section, the screen always has a system row cut by the screen
+        // edge or the bar, which the audit reports as clipped text with no element, as in Impostazioni.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType, .textClipped])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+        app.collectionViews.firstMatch.swipeUp()
+        XCTAssertTrue(app.staticTexts["Ti avvisa quando Salute la segna fatta."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Nessuna"].isSelected)
+        app.backToForm()
         // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi abitudine.
         app.cancelNewHabit()
     }
@@ -483,6 +498,53 @@ final class HabitsFlowTests: XCTestCase {
         app.backToForm()
         XCTAssertTrue(app.formRow("Durata").waitForExistence(timeout: 5))
         app.typeTitleAndAdd(title)
+    }
+
+    /// The Notifiche screen's toggle: the row's right edge, where the switch is.
+    @MainActor
+    private func toggleTimeSensitive(in app: XCUIApplication) -> XCUIElement {
+        let toggle = app.switches["Sensibili al tempo"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        return toggle
+    }
+
+    /// The Suono row, a picker: its choice is its label or its value.
+    @MainActor
+    private func soundRowSays(_ sound: String, in app: XCUIApplication) -> Bool {
+        let row = app.formRow("Suono")
+        return row.label.contains(sound) || (row.value as? String)?.contains(sound) == true
+    }
+
+    @MainActor
+    func testTheNotificheScreenKeepsAutomaticTimesTimeSensitiveAndASound() throws {
+        let app = launch()
+        app.openHabitForm()
+        app.openFormRow("Notifiche")
+
+        app.buttons["Orari automatici"].tap()
+        allowNotificationsIfAsked()
+        XCTAssertTrue(app.staticTexts["Ti ricorda all'ora in cui di solito la fai, se oggi non è ancora fatta."].waitForExistence(timeout: 5))
+        let toggle = toggleTimeSensitive(in: app)
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
+        XCTAssertEqual(toggle.value as? String, "1")
+        try app.auditHabitForm()
+        app.formRow("Suono").tap()
+        app.buttons["Carta"].tap()
+        XCTAssertTrue(app.formRow("Suono").waitForExistence(timeout: 5))
+        XCTAssertTrue(soundRowSays("Carta", in: app), app.formRow("Suono").debugDescription)
+        app.backToForm()
+        XCTAssertTrue(app.formRow("Notifiche").label.contains("Automatici"), app.formRow("Notifiche").label)
+        app.typeTitleAndAdd("Leggere")
+
+        habit("Leggere", in: app).tap()
+        app.buttons["Modifica"].tap()
+        XCTAssertTrue(app.formRow("Notifiche").waitForExistence(timeout: 5))
+        XCTAssertTrue(app.formRow("Notifiche").label.contains("Automatici"), app.formRow("Notifiche").label)
+        app.openFormRow("Notifiche")
+        XCTAssertTrue(app.buttons["Orari automatici"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Orari automatici"].isSelected)
+        XCTAssertEqual(toggleTimeSensitive(in: app).value as? String, "1")
+        XCTAssertTrue(soundRowSays("Carta", in: app), app.formRow("Suono").debugDescription)
     }
 
     @MainActor

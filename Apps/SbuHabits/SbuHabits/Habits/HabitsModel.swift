@@ -23,6 +23,7 @@ final class HabitsModel {
     @ObservationIgnored private let scheduleReminders: @MainActor ([PlannedReminder]) -> Void
     @ObservationIgnored private let health: any HealthReading
     @ObservationIgnored private let timerStore: HabitTimerStore
+    @ObservationIgnored private let announceHealthMarks: @MainActor ([Habit]) -> Void
     /// The measures Salute is followed for, `nil` until `observeHealth()`.
     @ObservationIgnored private var observedMeasures: Set<HealthMeasure>?
 
@@ -58,13 +59,15 @@ final class HabitsModel {
     ///   - scheduleReminders: Receives the full reminder plan after every change; tests pass their own.
     ///   - health: Where linked habits read their totals; tests pass a fake.
     ///   - timerStore: Where the running countdown is kept; tests pass their own.
+    ///   - announceHealthMarks: Receives the habits Salute just marked done that ask to say so.
     init(
         store: HabitsStore = .shared,
         now: @escaping () -> Date = Date.init,
         calendar: Calendar = .current,
         scheduleReminders: @escaping @MainActor ([PlannedReminder]) -> Void = ReminderScheduler.replace,
         health: any HealthReading = HealthKitReader(),
-        timerStore: HabitTimerStore = .shared
+        timerStore: HabitTimerStore = .shared,
+        announceHealthMarks: @escaping @MainActor ([Habit]) -> Void = ReminderScheduler.announceHealthMarks
     ) {
         self.store = store
         self.now = now
@@ -72,6 +75,7 @@ final class HabitsModel {
         self.scheduleReminders = scheduleReminders
         self.health = health
         self.timerStore = timerStore
+        self.announceHealthMarks = announceHealthMarks
         today = LogicalDay(now(), calendar: calendar)
         reload()
     }
@@ -137,16 +141,16 @@ final class HabitsModel {
     ///   - health: The Salute measure and goal that mark it done; call `connectHealth(_:)` after.
     ///   - timerMinutes: The countdown of an Abitudine a tempo, `nil` for one that is not timed.
     /// Past `HomePages.habitLimit` habits nothing is added.
-    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil) {
+    func add(title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, reminders: [ReminderTime] = [], remindsAutomatically: Bool = false, notificationStyle: NotificationStyle = NotificationStyle(), health: HealthLink? = nil, timerMinutes: Int? = nil) {
         guard habits.count < HomePages.habitLimit else { return }
         var habit = Habit(title: "", symbol: symbol, limit: limit, createdOn: today)
-        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, timerMinutes: timerMinutes, from: today) else { return }
+        guard habit.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, remindsAutomatically: remindsAutomatically, notificationStyle: notificationStyle, health: health, timerMinutes: timerMinutes, from: today) else { return }
         habits.append(habit)
         save()
     }
 
-    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], health: HealthLink? = nil, timerMinutes: Int? = nil) {
-        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, health: health, timerMinutes: timerMinutes, from: today) }
+    func edit(_ habit: Habit, title: String, symbol: String, timesPerDay: Int, schedule: Schedule, limit: Int? = nil, reminders: [ReminderTime] = [], remindsAutomatically: Bool = false, notificationStyle: NotificationStyle = NotificationStyle(), health: HealthLink? = nil, timerMinutes: Int? = nil) {
+        update(habit) { _ = $0.update(title: title, symbol: symbol, timesPerDay: timesPerDay, schedule: schedule, limit: limit, reminders: reminders, remindsAutomatically: remindsAutomatically, notificationStyle: notificationStyle, health: health, timerMinutes: timerMinutes, from: today) }
     }
 
     /// Asks to read `measure` from Salute, the first time a habit is linked to it, then marks
@@ -182,8 +186,16 @@ final class HabitsModel {
             totals[measure] = try? await health.total(of: measure, in: interval)
         }
         // The habits may have changed while Salute answered: mark the ones there are now.
+        let before = habits
         if HealthMarking.mark(&habits, totals: totals, on: day, hour: calendar.component(.hour, from: now())) {
             save()
+            let marked = habits.filter { habit in
+                habit.notificationStyle.announcesHealthMark && habit.isDone(on: day)
+                    && before.first { $0.id == habit.id }?.isDone(on: day) == false
+            }
+            if marked.isEmpty == false {
+                announceHealthMarks(marked)
+            }
         }
     }
 

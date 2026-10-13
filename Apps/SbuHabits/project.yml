@@ -33,6 +33,8 @@ targets:
         com.apple.developer.healthkit.access: []
         # Wakes the app to mark linked habits; only while a habit is linked.
         com.apple.developer.healthkit.background-delivery: true
+        # Sensibili al tempo, and the end of a countdown: through a Focus that allows them.
+        com.apple.developer.usernotifications.time-sensitive: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits

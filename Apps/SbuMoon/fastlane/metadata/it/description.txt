@@ -10,9 +10,11 @@ Apri l'app e sai com'è la luna adesso: quanta parte è illuminata, se cresce o 
 - Percentuale illuminata, una cifra grande e leggibile
 - La luna disegnata com'è, con la parte illuminata e il nome della fase
 - Giorno e ora delle prossime quattro fasi: luna nuova, primo quarto, luna piena, ultimo quarto
+- Avvisi di fase: scegli luna nuova, primo quarto, luna piena o ultimo quarto e l'ora in cui saperlo
+- Sorgere e tramonto della luna dove sei: dalla posizione letta una volta o da una città dell'elenco, senza rete
 - Età della luna e distanza dalla Terra
 - Qualsiasi giorno dal 1900 al 2100: scorri per il giorno prima o dopo, o sceglilo da un calendario
-- Calcolata sull'iPhone: niente posizione, niente rete, nessun permesso
+- Calcolata sull'iPhone, senza rete. La posizione serve solo per sorgere e tramonto, se la chiedi, e resta sull'iPhone
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: ti dice com'è la luna.

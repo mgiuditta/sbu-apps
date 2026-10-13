@@ -10,9 +10,11 @@ Open the app and you know what the moon looks like right now: how much of it is 
 - Illuminated percentage, one large readable figure
 - The moon drawn as it looks, with its lit part and the phase's name
 - Day and time of the next four phases: new moon, first quarter, full moon, last quarter
+- Phase alerts: pick new moon, first quarter, full moon or last quarter and the time you want to know
+- Moonrise and moonset where you are: from your location read once or a city from the list, without network
 - The moon's age and its distance from Earth
 - Any day from 1900 to 2100: swipe for the day before or after, or pick it from a calendar
-- Worked out on your iPhone: no location, no network, no permissions
+- Worked out on your iPhone, without network. Location is used only for moonrise and moonset, when you ask, and stays on your iPhone
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it tells you what the moon looks like.

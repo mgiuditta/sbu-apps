@@ -13,7 +13,8 @@ final class SnapshotTests: XCTestCase {
         XCTAssertTrue(element("Leggere", "Read", in: app).exists)
         snapshot("01-main")
 
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        // The gear sits at the bottom of the tool screen, not in the navigation bar.
+        button("Impostazioni", "Settings", in: app).tap()
         snapshot("02-privacy")
         button("Fine", "Done", in: app).tap()
 

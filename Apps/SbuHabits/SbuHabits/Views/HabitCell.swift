@@ -1,8 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// One habit on the tool screen: symbol in a ring, title, Serie; an Abitudine a tempo also shows
-/// its length, and a play button on the ring that starts its Timer.
+/// One habit on the tool screen, as Streaks draws it: symbol in a ring with the Serie under it,
+/// the title in uppercase after a heart when linked to Salute or ⊘ for an Abitudine da evitare;
+/// an Abitudine a tempo also shows its length, and a play button on the ring that starts its Timer.
 ///
 /// Hold it to add one time, hold it again once done today to take one back. A short tap opens
 /// its menu. A weekly habit's ring shows the week: one segment per day done. An Abitudine da
@@ -11,6 +12,8 @@ import SwiftUI
 struct HabitCell: View {
     /// How long to hold before the habit counts as done.
     private static let holdDuration = 0.5
+    /// Where the Serie sits in the ring, as a fraction of its side from the top: under the symbol.
+    private static let streakPosition = 0.75
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -19,6 +22,10 @@ struct HabitCell: View {
     let streak: Int
     /// Today has a Nota del giorno.
     var hasNote = false
+    /// The ring's largest side: `.infinity` on a page of the grid, where the place sets it.
+    var maxRingSide = CGFloat.infinity
+    /// The captions of the cell's row in the grid, so the rings of a row stay even.
+    var rowCaptions: [SlotCaption] = []
     let markDone: () -> Void
     let undoLast: () -> Void
     let toggleSkip: () -> Void
@@ -30,8 +37,6 @@ struct HabitCell: View {
 
     @State private var isHolding = false
     @State private var isShowingMenu = false
-
-    @ScaledMetric(relativeTo: .title2) private var ringSize = SbuTheme.space12 * 2
 
     /// The ring's symbol, fill and VoiceOver state, the same the widgets draw.
     private var face: HabitRingFace {
@@ -50,20 +55,43 @@ struct HabitCell: View {
         Text(habit.schedule.streakText(streak))
     }
 
-    /// Today's state, the length of an Abitudine a tempo, the Serie, then whether today has a note.
+    /// Today's state, the length of an Abitudine a tempo, the Serie, then whether today has a note
+    /// and whether Salute marks it: the heart says it on screen.
     private var accessibilityValue: Text {
         var value = face.progressText + Text(verbatim: ", ")
         if let duration = habit.timerDuration {
             value = value + Text(duration, format: TimerFormat.spoken) + Text(verbatim: ", ")
         }
         value = value + streakText
-        return hasNote ? value + Text(verbatim: ", ") + Text("con nota") : value
+        if hasNote {
+            value = value + Text(verbatim: ", ") + Text("con nota")
+        }
+        if habit.health != nil {
+            value = value + Text(verbatim: ", ") + Text("collegata a Salute")
+        }
+        return value
     }
 
-    /// The title, after a small note symbol when today has a Nota del giorno.
-    private var titleText: Text {
-        guard hasNote else { return Text(habit.title) }
-        return Text(Image(systemName: "note.text")).fontWeight(.medium).foregroundStyle(SbuTheme.inkMuted) + Text(verbatim: " ") + Text(habit.title)
+    /// The title after its kind's symbol, a heart when Salute marks it or ⊘ for an Abitudine da
+    /// evitare, then a small note symbol when today has a Nota del giorno; under it, the length of
+    /// an Abitudine a tempo.
+    static func caption(of habit: Habit, hasNote: Bool) -> SlotCaption {
+        SlotCaption(
+            title: Text(habit.title),
+            kindSymbol: kindSymbol(of: habit),
+            hasNote: hasNote,
+            detail: habit.timerDuration.map { Text($0, format: TimerFormat.length) }
+        )
+    }
+
+    private static func kindSymbol(of habit: Habit) -> String? {
+        if habit.health != nil {
+            "heart.fill"
+        } else if habit.limit != nil {
+            "nosign"
+        } else {
+            nil
+        }
     }
 
     /// Play only while the timed habit still asks for something today.
@@ -96,38 +124,26 @@ struct HabitCell: View {
     }
 
     private var cell: some View {
-        VStack(spacing: SbuTheme.space2) {
+        RingSlot(maxRingSide: maxRingSide, caption: Self.caption(of: habit, hasNote: hasNote), rowCaptions: rowCaptions) {
             HabitRing(face: face, isHolding: isHolding)
-                // Up to its scaled size, never wider than the column.
-                .frame(maxWidth: ringSize, maxHeight: ringSize)
-                .aspectRatio(1, contentMode: .fit)
                 .animation(isHolding ? .linear(duration: Self.holdDuration) : .default, value: isHolding)
-                .anchorPreference(key: RingBoundsKey.self, value: .bounds) { $0 }
-
-            titleText
-                .font(SbuTheme.subheadline)
-                .foregroundStyle(SbuTheme.ink)
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
-
-            if let duration = habit.timerDuration {
-                Text(duration, format: TimerFormat.length)
-                    .font(SbuTheme.footnote)
-                    .monospacedDigit()
-                    .foregroundStyle(SbuTheme.inkMuted)
-            }
-
-            // The Serie alone, no unit: "giorni" belongs to the figure, and weeks read in VoiceOver. Hidden at zero, kept for even rows.
-            Text(streak, format: .number)
-                .font(SbuTheme.footnote)
-                .monospacedDigit()
-                .foregroundStyle(SbuTheme.inkMuted)
-                .contentTransition(.numericText(value: Double(streak)))
-                .opacity(streak > 0 ? 1 : 0)
-                .animation(reduceMotion ? nil : .snappy, value: streak)
-                .accessibilityHidden(true)
+                .overlay {
+                    // The Serie alone, no unit, inside the ring as in Streaks: "giorni" belongs to
+                    // the figure, and weeks read in VoiceOver. Hidden at zero.
+                    GeometryReader { proxy in
+                        Text(streak, format: .number)
+                            .font(SbuTheme.footnote)
+                            .fontWeight(.semibold)
+                            .monospacedDigit()
+                            .foregroundStyle(SbuTheme.inkMuted)
+                            .contentTransition(.numericText(value: Double(streak)))
+                            .opacity(streak > 0 ? 1 : 0)
+                            .animation(reduceMotion ? nil : .snappy, value: streak)
+                            .position(x: proxy.size.width / 2, y: proxy.size.height * Self.streakPosition)
+                    }
+                    .accessibilityHidden(true)
+                }
         }
-        .frame(maxWidth: .infinity)
         .contentShape(.rect)
         // A dialog on tap, not a context menu: a context menu would take the long press.
         .onTapGesture(perform: showMenu)

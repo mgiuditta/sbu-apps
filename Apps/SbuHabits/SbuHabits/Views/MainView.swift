@@ -1,13 +1,19 @@
 import SbuKit
 import SwiftUI
 
-/// The tool screen: the Serie piena as the figure, today's habits in a grid, and Aggiungi.
+/// The tool screen, as Streaks lays it out: the Serie piena as the figure on top, today's habits
+/// in pages of six with Aggiungi last, and at the bottom the settings gear, the page dots and
+/// Statistiche.
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let model: HabitsModel
     let present: (HabitSheet) -> Void
+
+    /// The page of the grid on screen; `nil` while a swipe is between two.
+    @State private var page: Int? = 0
 
     private var context: LocalizedStringKey? {
         if model.isUnreadable {
@@ -16,6 +22,9 @@ struct MainView: View {
             "Aggiungi la prima abitudine"
         } else if model.todayHabits.isEmpty {
             "Niente previsto oggi"
+        } else if model.canAdd == false {
+            // Aggiungi is gone from the grid: say why.
+            "Hai \(HomePages.habitLimit) abitudini, il massimo. Per aggiungerne un'altra, eliminane una."
         } else {
             nil
         }
@@ -24,6 +33,7 @@ struct MainView: View {
     var body: some View {
         // Walks back through the whole log: once per render.
         let fullStreak = model.fullStreak
+        let pages = model.homePages
         SbuToolField(
             "Serie piena",
             value: fullStreak,
@@ -31,17 +41,24 @@ struct MainView: View {
             unit: Self.unit(for: fullStreak),
             context: context
         ) {
-            HabitGrid(model: model, edit: edit, writeNote: writeNote)
+            HabitGrid(model: model, pages: pages, page: $page, add: add, edit: edit, writeNote: writeNote)
+                // All the free height goes to the rings, none to the tool screen's spacer.
+                .layoutPriority(1)
         } pills: {
-            Button("Aggiungi", action: add)
-                .buttonStyle(SbuFieldPillStyle())
-                .disabled(model.isUnreadable)
-            Button("Statistiche", action: showStatistics)
-                .buttonStyle(SbuFieldPillStyle())
-                .disabled(model.habits.isEmpty)
+            HomeBar(
+                // One column, no pages, at accessibility text sizes.
+                pageCount: dynamicTypeSize.isAccessibilitySize ? 1 : pages.pages.count,
+                page: $page,
+                isStatisticsEnabled: model.habits.isEmpty == false,
+                showStatistics: showStatistics
+            )
         }
         // Rolls the figure's digits (SbuToolField sets .numericText) when the Serie piena changes.
         .animation(reduceMotion ? nil : .snappy, value: fullStreak)
+        // A page whose habits went: show the last one left.
+        .onChange(of: pages.pages.count) { _, _ in
+            page = pages.clamped(page ?? 0)
+        }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
                 model.reload()

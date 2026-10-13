@@ -10,7 +10,8 @@ struct RootView: View {
     @State private var isShowingTimer = false
 
     var body: some View {
-        SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
+            // The gear sits at the bottom of the tool screen, as in Streaks.
             MainView(model: model, present: present)
         } settings: {
             StartOfDaySection(model: model)

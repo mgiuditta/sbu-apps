@@ -1859,6 +1859,50 @@
           }
         }
       }
+    },
+    "Impostazioni" : {
+      "comment" : "Accessibility label of the gear at the bottom left of the tool screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "Pagina" : {
+      "comment" : "VoiceOver label of the page dots under the grid; the value is 2 of 3.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Page"
+          }
+        }
+      }
+    },
+    "collegata a Salute" : {
+      "comment" : "VoiceOver value, at the end: Salute marks this habit (the heart before its title).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "linked to Health"
+          }
+        }
+      }
+    },
+    "Hai %lld abitudini, il massimo. Per aggiungerne un'altra, eliminane una." : {
+      "comment" : "Under the Serie piena when the habit limit is reached and Aggiungi is gone from the grid.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have %lld habits, the most there can be. To add another, delete one."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

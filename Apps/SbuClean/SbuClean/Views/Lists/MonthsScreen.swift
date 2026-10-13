@@ -18,10 +18,11 @@ struct MonthsScreen: View {
             }
 
             Section {
-                queueRow(.recent, count: summary.recentCount)
-                queueRow(.random, count: nil)
-                queueRow(.onThisDay, count: summary.onThisDayCount)
-                queueRow(.later, count: model.state.later.count)
+                // The same words as on the home.
+                queueRow(.recent, subtitle: "\(summary.recentCount) da vedere")
+                queueRow(.random, subtitle: "Un giro a caso nella libreria")
+                queueRow(.onThisDay, subtitle: "\(summary.onThisDayCount) da vedere")
+                queueRow(.later, subtitle: "\(model.state.later.count) messi da parte")
             }
             .listRowBackground(SbuTheme.surfaceRaised)
 
@@ -58,17 +59,15 @@ struct MonthsScreen: View {
         }
     }
 
-    private func queueRow(_ source: SwipeSource, count: Int?) -> some View {
+    private func queueRow(_ source: SwipeSource, subtitle: LocalizedStringKey) -> some View {
         NavigationLink(value: Route.swipe(source)) {
             VStack(alignment: .leading, spacing: 0) {
                 source.title
                     .font(SbuTheme.headline)
                     .foregroundStyle(SbuTheme.ink)
-                if let count {
-                    Text("\(count) da vedere")
-                        .font(SbuTheme.subheadline)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                }
+                Text(subtitle)
+                    .font(SbuTheme.subheadline)
+                    .foregroundStyle(SbuTheme.inkMuted)
             }
         }
         .accessibilityIdentifier("months.\(source.identifier)")

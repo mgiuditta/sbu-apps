@@ -8,7 +8,7 @@ extension HabitsSync {
             remote: nil,
             base: HabitsStore(url: .temporaryDirectory.appending(path: "icloud-base-preview.json")),
             preferences: nil,
-            account: { isAvailable ? Data() : nil }
+            account: { isAvailable ? NSString(string: "preview") : nil }
         )
     }
 }

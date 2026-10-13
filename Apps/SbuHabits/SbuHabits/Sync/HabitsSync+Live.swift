@@ -13,7 +13,7 @@ extension HabitsSync {
                 remote: nil,
                 base: HabitsStore(url: .temporaryDirectory.appending(path: "icloud-base-\(UUID().uuidString).json")),
                 preferences: nil,
-                account: { isAvailable ? Data() : nil }
+                account: { isAvailable ? NSString(string: "uitest") : nil }
             )
         }
         return HabitsSync(
@@ -27,10 +27,9 @@ extension HabitsSync {
         )
     }
 
-    /// The iCloud account signed in with iCloud Drive on, as an opaque token, or `nil`. Quick to
-    /// read on the main actor, unlike the container.
-    private static func currentAccount() -> Data? {
-        guard let token = FileManager.default.ubiquityIdentityToken else { return nil }
-        return try? NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: true)
+    /// The iCloud account signed in with iCloud Drive on, as iCloud's opaque token, or `nil`.
+    /// Quick to read on the main actor, unlike the container.
+    private static func currentAccount() -> NSObject? {
+        FileManager.default.ubiquityIdentityToken as? NSObject
     }
 }

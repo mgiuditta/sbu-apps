@@ -11,7 +11,7 @@ struct HabitsSyncTests {
         HabitsModel(store: HabitsStore(url: folder.appending(path: "\(name).json")), scheduleReminders: plans.record)
     }
 
-    private func sync(_ model: HabitsModel, remote: FakeRemote?, account: Data? = Data([1]), preferences: UserDefaults? = nil, base: String = "base") -> HabitsSync {
+    private func sync(_ model: HabitsModel, remote: FakeRemote?, account: NSObject? = NSString(string: "uno"), preferences: UserDefaults? = nil, base: String = "base") -> HabitsSync {
         HabitsSync(model: model, remote: remote, base: HabitsStore(url: folder.appending(path: "\(base).json")), preferences: preferences, account: { account })
     }
 
@@ -190,12 +190,12 @@ struct HabitsSyncTests {
         let preferences = try #require(UserDefaults(suiteName: suite))
         defer { preferences.removePersistentDomain(forName: suite) }
         let model = model()
-        await sync(model, remote: FakeRemote(), account: Data([1]), preferences: preferences).setEnabled(true)
+        await sync(model, remote: FakeRemote(), account: NSString(string: "uno"), preferences: preferences).setEnabled(true)
 
-        let sameAccount = sync(model, remote: FakeRemote(), account: Data([1]), preferences: preferences)
+        let sameAccount = sync(model, remote: FakeRemote(), account: NSString(string: "uno"), preferences: preferences)
         #expect(sameAccount.isEnabled)
 
-        let otherAccount = sync(model, remote: FakeRemote(), account: Data([2]), preferences: preferences)
+        let otherAccount = sync(model, remote: FakeRemote(), account: NSString(string: "due"), preferences: preferences)
         #expect(otherAccount.isEnabled == false)
         #expect(preferences.bool(forKey: "syncsWithICloud") == false)
     }

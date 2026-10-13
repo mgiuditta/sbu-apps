@@ -21,7 +21,7 @@ final class HabitsSync {
     @ObservationIgnored private let remote: (any HabitsRemote)?
     @ObservationIgnored private let base: HabitsStore
     @ObservationIgnored private let preferences: UserDefaults?
-    @ObservationIgnored private let account: @MainActor () -> Data?
+    @ObservationIgnored private let account: @MainActor () -> NSObject?
     @ObservationIgnored private let now: () -> Date
     @ObservationIgnored private let watcher: ICloudWatcher?
     @ObservationIgnored private var isSyncing = false
@@ -35,9 +35,9 @@ final class HabitsSync {
     ///   - remote: The copy on iCloud; `nil` never syncs, for UI tests and screenshots.
     ///   - base: Where the file as of the last sync is kept, on this iPhone only.
     ///   - preferences: Where the switch is kept; `nil` keeps it in memory, off at each launch.
-    ///   - account: The iCloud account signed in, as data, or `nil` without one.
+    ///   - account: The iCloud account signed in, as iCloud's opaque token, or `nil` without one.
     ///   - watcher: Tells when iCloud changes the copy; `nil` in tests.
-    init(model: HabitsModel, remote: (any HabitsRemote)?, base: HabitsStore, preferences: UserDefaults?, account: @escaping @MainActor () -> Data?, watcher: ICloudWatcher? = nil, now: @escaping () -> Date = Date.init) {
+    init(model: HabitsModel, remote: (any HabitsRemote)?, base: HabitsStore, preferences: UserDefaults?, account: @escaping @MainActor () -> NSObject?, watcher: ICloudWatcher? = nil, now: @escaping () -> Date = Date.init) {
         self.model = model
         self.remote = remote
         self.base = base
@@ -73,7 +73,7 @@ final class HabitsSync {
         if on {
             isEnabled = true
             preferences?.set(true, forKey: Self.enabledKey)
-            preferences?.set(account(), forKey: Self.accountKey)
+            preferences?.set(account().flatMap(Self.archive), forKey: Self.accountKey)
             watcher?.start()
             await sync()
         } else {
@@ -96,7 +96,8 @@ final class HabitsSync {
     /// Reads the copy on iCloud, merges it with this iPhone's habits, saves the result here and
     /// writes it back. One pass at a time; a request during a pass runs one more after it.
     func sync() async {
-        guard isEnabled, isAvailable, let remote else { return }
+        // Before the watcher's first look, a copy still only in the cloud could seem missing.
+        guard isEnabled, isAvailable, let remote, watcher?.hasGathered ?? true else { return }
         guard isSyncing == false else {
             needsAnotherPass = true
             return
@@ -155,6 +156,8 @@ final class HabitsSync {
                 return
             }
         }
+        // Turned off during the write: the next time on starts from no last sync.
+        guard isEnabled else { return }
         try? base.save(result)
     }
 
@@ -182,10 +185,25 @@ final class HabitsSync {
     private func checkAccount() {
         let current = account()
         isAvailable = current != nil
-        let isAnotherAccount = preferences != nil && current != preferences?.data(forKey: Self.accountKey)
+        // Compared token to token, as iCloud advises; one that cannot be read back is no reason to stop.
+        let saved = preferences?.data(forKey: Self.accountKey).flatMap(Self.unarchive)
+        let isAnotherAccount = current != nil && saved != nil && current?.isEqual(saved) == false
         if isEnabled, current == nil || isAnotherAccount {
             turnOff()
         }
+    }
+
+    private static func archive(_ account: NSObject) -> Data? {
+        try? NSKeyedArchiver.archivedData(withRootObject: account, requiringSecureCoding: false)
+    }
+
+    /// Reads back a token this app saved in its own defaults.
+    private static func unarchive(_ data: Data) -> NSObject? {
+        guard let unarchiver = try? NSKeyedUnarchiver(forReadingFrom: data) else { return nil }
+        // iCloud's token does not promise secure coding; the data only ever comes from this app.
+        unarchiver.requiresSecureCoding = false
+        defer { unarchiver.finishDecoding() }
+        return unarchiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as? NSObject
     }
 
     /// Stops following iCloud; the habits on this iPhone stay as they are.

@@ -6,6 +6,9 @@ import Foundation
 final class ICloudWatcher {
     /// Called on the main actor after the first look and after every change iCloud reports.
     var onChange: (@MainActor () -> Void)?
+    /// The query has looked once: it knows whether a copy exists on iCloud, even one not
+    /// downloaded yet.
+    private(set) var hasGathered = false
 
     private var query: NSMetadataQuery?
     private var observers: [any NSObjectProtocol] = []
@@ -20,6 +23,7 @@ final class ICloudWatcher {
         for name in [Notification.Name.NSMetadataQueryDidFinishGathering, .NSMetadataQueryDidUpdate] {
             observers.append(NotificationCenter.default.addObserver(forName: name, object: query, queue: .main) { [weak self] _ in
                 MainActor.assumeIsolated {
+                    self?.hasGathered = true
                     self?.onChange?()
                 }
             })
@@ -31,6 +35,7 @@ final class ICloudWatcher {
     func stop() {
         query?.stop()
         query = nil
+        hasGathered = false
         for observer in observers {
             NotificationCenter.default.removeObserver(observer)
         }

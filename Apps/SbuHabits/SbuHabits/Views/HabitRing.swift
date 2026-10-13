@@ -1,5 +1,6 @@
 import SbuKit
 import SwiftUI
+import WidgetKit
 
 /// A habit's symbol inside a ring that fills in the accent, one segment per time of the day;
 /// over the Limite of an Abitudine da evitare, in `danger`, with the cross.
@@ -16,17 +17,20 @@ struct HabitRing: View {
     let isOverLimit: Bool
     /// The symbol's text style: larger for the Timer's big ring.
     let symbolFont: Font
+    /// The stroke: thinner for the small ring at the top of a one-habit widget.
+    let lineWidth: CGFloat
 
-    init(symbol: String, segments: Int, filled: Double, isOverLimit: Bool = false, symbolFont: Font = SbuTheme.title2) {
+    init(symbol: String, segments: Int, filled: Double, isOverLimit: Bool = false, symbolFont: Font = SbuTheme.title2, lineWidth: CGFloat = SbuTheme.space2) {
         self.symbol = symbol
         self.segments = segments
         self.filled = filled
         self.isOverLimit = isOverLimit
         self.symbolFont = symbolFont
+        self.lineWidth = lineWidth
     }
 
-    init(face: HabitRingFace, isHolding: Bool = false) {
-        self.init(symbol: face.symbol, segments: face.segments, filled: face.filled(isHolding: isHolding), isOverLimit: face.isOverLimit)
+    init(face: HabitRingFace, isHolding: Bool = false, symbolFont: Font = SbuTheme.title2, lineWidth: CGFloat = SbuTheme.space2) {
+        self.init(symbol: face.symbol, segments: face.segments, filled: face.filled(isHolding: isHolding), isOverLimit: face.isOverLimit, symbolFont: symbolFont, lineWidth: lineWidth)
     }
 
     /// The accent from the environment's tint, or `danger` over the Limite. Never `.tint(nil)`:
@@ -47,11 +51,13 @@ struct HabitRing: View {
 
                 Circle()
                     .trim(from: range.lowerBound, to: range.upperBound)
-                    .stroke(SbuTheme.line, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
+                    .stroke(SbuTheme.line, style: StrokeStyle(lineWidth: lineWidth, lineCap: lineCap))
 
                 Circle()
                     .trim(from: range.lowerBound, to: range.lowerBound + (range.upperBound - range.lowerBound) * fill)
-                    .stroke(fillStyle, style: StrokeStyle(lineWidth: SbuTheme.space2, lineCap: lineCap))
+                    .stroke(fillStyle, style: StrokeStyle(lineWidth: lineWidth, lineCap: lineCap))
+                    // On a tinted Home Screen the fill takes the accent, the track the other tint.
+                    .widgetAccentable()
             }
             .rotationEffect(.degrees(-90))
 

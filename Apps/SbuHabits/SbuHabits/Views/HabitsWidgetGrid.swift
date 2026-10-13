@@ -3,11 +3,14 @@ import SwiftUI
 
 /// The widget's grid, shared with the app so tests can draw it. Cells keep the size of a full
 /// grid of `columns` by `rows`, whatever the count; rows sit centered, a short last row too.
+/// Each ring is drawn as on the home, its title in uppercase after the heart or the ⊘.
 /// A "+N" cell stands for habits that do not fit. Tapping a ring marks it once; tapping anywhere
 /// else, "+N" included, opens the app.
 struct HabitsWidgetGrid: View {
     let slots: WidgetSlots
     let progress: [Habit.ID: HabitProgress]
+    /// Each habit's Serie, for VoiceOver: the grid's rings are too small to show it, as in Streaks.
+    var streaks: [Habit.ID: Int] = [:]
     let columns: Int
     let rows: Int
     let showsTitles: Bool
@@ -43,7 +46,7 @@ struct HabitsWidgetGrid: View {
         switch cell {
         case .habit(let habit):
             if let progress = progress[habit.id] {
-                WidgetHabitButton(habit: habit, progress: progress, showsTitle: showsTitles)
+                WidgetRingButton(habit: habit, progress: progress, streak: streaks[habit.id] ?? 0, showsCaption: showsTitles)
             }
         case .more(let count):
             WidgetMoreCell(count: count, showsTitle: showsTitles)
@@ -53,38 +56,6 @@ struct HabitsWidgetGrid: View {
     private enum Cell {
         case habit(Habit)
         case more(Int)
-    }
-}
-
-private struct WidgetHabitButton: View {
-    let habit: Habit
-    let progress: HabitProgress
-    let showsTitle: Bool
-
-    private var face: HabitRingFace {
-        HabitRingFace(habit: habit, progress: progress)
-    }
-
-    var body: some View {
-        Button(intent: MarkHabitIntent(habitID: habit.id)) {
-            VStack(spacing: SbuTheme.space1) {
-                HabitRing(face: face)
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                if showsTitle {
-                    Text(habit.title)
-                        .font(SbuTheme.caption)
-                        .foregroundStyle(SbuTheme.ink)
-                        .lineLimit(1)
-                }
-            }
-        }
-        // Not disabled, which would dim a done habit: marking it again changes nothing. An
-        // Abitudine da evitare counts one more time given in on every tap.
-        .buttonStyle(.plain)
-        .accessibilityLabel(habit.title)
-        .accessibilityValue(face.progressText)
     }
 }
 
@@ -107,8 +78,9 @@ private struct WidgetMoreCell: View {
 
             if showsTitle {
                 // Keeps the ring level with its neighbours.
-                Text(verbatim: " ")
-                    .font(SbuTheme.caption)
+                SlotCaption(title: Text(verbatim: " "), maxLines: 1, font: SbuTheme.caption)
+                    .dynamicTypeSize(...DynamicTypeSize.xLarge)
+                    .hidden()
             }
         }
         .accessibilityElement(children: .ignore)

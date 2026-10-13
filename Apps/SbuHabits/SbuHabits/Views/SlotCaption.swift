@@ -13,6 +13,10 @@ struct SlotCaption: View {
     /// Today has a Nota del giorno: a small note symbol, muted.
     var hasNote = false
     var detail: Text?
+    /// Lines the title may take; `nil` for two, or four at accessibility sizes. A widget keeps one.
+    var maxLines: Int?
+    /// The text style: smaller in the widget's grid, where four rings share a row.
+    var font = SbuTheme.footnote
 
     var body: some View {
         VStack(spacing: SbuTheme.space1) {
@@ -27,16 +31,16 @@ struct SlotCaption: View {
                 title
                     .textCase(.uppercase)
                     .multilineTextAlignment(.center)
-                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 4 : 2)
+                    .lineLimit(maxLines ?? (dynamicTypeSize.isAccessibilitySize ? 4 : 2))
             }
-            .font(SbuTheme.footnote)
+            .font(font)
             .fontWeight(.semibold)
             .imageScale(.medium)
             .foregroundStyle(SbuTheme.ink)
 
             if let detail {
                 detail
-                    .font(SbuTheme.footnote)
+                    .font(font)
                     .monospacedDigit()
                     .foregroundStyle(SbuTheme.inkMuted)
             }

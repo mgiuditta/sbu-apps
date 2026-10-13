@@ -190,7 +190,7 @@ targets:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits.watchkitapp.complication
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.habits.watchkitapp.widget
         TARGETED_DEVICE_FAMILY: "4"
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES

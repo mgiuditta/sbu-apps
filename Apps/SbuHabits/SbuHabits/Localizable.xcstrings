@@ -12,6 +12,17 @@
         }
       }
     },
+    "%lld al giorno" : {
+      "comment" : "Value of the Limite row: most times a day.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld a day"
+          }
+        }
+      }
+    },
     "%lld di %lld" : {
       "comment" : "VoiceOver progress of a habit done several times a day: 3 of 8.",
       "localizations" : {
@@ -69,6 +80,47 @@
         }
       }
     },
+    "%lld promemoria" : {
+      "comment" : "Value of the Notifiche row with two or more reminder times.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld reminder"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld reminders"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld promemoria"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld promemoria"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld settimane" : {
       "localizations" : {
         "it" : {
@@ -102,6 +154,129 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld weeks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld volte a settimana" : {
+      "comment" : "Value of the Giorni row: times a week.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld time a week"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld times a week"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volta a settimana"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volte a settimana"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld volte al giorno" : {
+      "comment" : "Value of the Obiettivo row: times a day.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld time a day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld times a day"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volta al giorno"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volte al giorno"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld volte al mese" : {
+      "comment" : "Value of the Giorni row: times a month.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld time a month"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld times a month"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volta al mese"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volte al mese"
                 }
               }
             }
@@ -225,6 +400,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add"
+          }
+        }
+      }
+    },
+    "Aggiungi abitudine" : {
+      "comment" : "The form's main button for a new habit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add habit"
           }
         }
       }
@@ -559,6 +745,17 @@
         }
       }
     },
+    "Automatico" : {
+      "comment" : "Placeholder of the form's Titolo: left blank, the title is made from the habit's settings.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic"
+          }
+        }
+      }
+    },
     "Backup" : {
       "localizations" : {
         "en" : {
@@ -699,6 +896,17 @@
         }
       }
     },
+    "Bere %@" : {
+      "comment" : "Automatic title of a habit linked to water, the goal already formatted: Bere 2000 ml.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drink %@"
+          }
+        }
+      }
+    },
     "Bere acqua" : {
       "localizations" : {
         "en" : {
@@ -789,6 +997,17 @@
         }
       }
     },
+    "Bruciare %@" : {
+      "comment" : "Automatic title of a habit linked to active energy, the goal already formatted: Bruciare 400 kcal.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Burn %@"
+          }
+        }
+      }
+    },
     "Bucato" : {
       "localizations" : {
         "en" : {
@@ -860,6 +1079,17 @@
         }
       }
     },
+    "Cambia simbolo" : {
+      "comment" : "The round … button on the form's ring: opens the symbol picker.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change symbol"
+          }
+        }
+      }
+    },
     "Camino" : {
       "localizations" : {
         "en" : {
@@ -876,6 +1106,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Walk"
+          }
+        }
+      }
+    },
+    "Camminare %@" : {
+      "comment" : "Automatic title of a habit linked to steps, the goal already formatted: Camminare 8.000 passi.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walk %@"
+          }
+        }
+      }
+    },
+    "Camminare o correre %@" : {
+      "comment" : "Automatic title of a habit linked to walking and running distance, the goal already formatted: Camminare o correre 5 km.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walk or run %@"
           }
         }
       }
@@ -1226,6 +1478,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Code"
+          }
+        }
+      }
+    },
+    "Collegata a Salute" : {
+      "comment" : "VoiceOver label of the heart before the title of a habit linked to Apple Health.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linked to Health"
+          }
+        }
+      }
+    },
+    "Collegata a Salute, non può essere a tempo." : {
+      "comment" : "Footer of the Tipo screen: a habit linked to Apple Health is not offered Timed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linked to Health, it can't be timed."
           }
         }
       }
@@ -1861,6 +2135,17 @@
         }
       }
     },
+    "Giorni" : {
+      "comment" : "Form row and screen: the habit's schedule.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days"
+          }
+        }
+      }
+    },
     "Giorni della settimana" : {
       "localizations" : {
         "en" : {
@@ -2102,6 +2387,17 @@
         }
       }
     },
+    "La segni tu tenendola premuta." : {
+      "comment" : "Footer of the Tipo screen for a habit to do.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You mark it by holding it."
+          }
+        }
+      }
+    },
     "Laboratorio" : {
       "localizations" : {
         "en" : {
@@ -2212,6 +2508,17 @@
         }
       }
     },
+    "Limite" : {
+      "comment" : "Form row of a habit to avoid: its daily limit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit"
+          }
+        }
+      }
+    },
     "Lingue" : {
       "localizations" : {
         "en" : {
@@ -2278,6 +2585,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Magic"
+          }
+        }
+      }
+    },
+    "Mai" : {
+      "comment" : "Value of the Limite row when the limit is 0.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
           }
         }
       }
@@ -2388,6 +2706,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Doctor"
+          }
+        }
+      }
+    },
+    "Meditare %@" : {
+      "comment" : "Automatic title of a habit linked to mindful minutes, the goal already formatted: Meditare 10 min.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meditate %@"
           }
         }
       }
@@ -2592,6 +2921,39 @@
         }
       }
     },
+    "Nei giorni che vuoi: la segni una volta al giorno." : {
+      "comment" : "Footer of the Giorni screen for times a week or a month.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On any days you like: you mark it once a day."
+          }
+        }
+      }
+    },
+    "Nessun giorno" : {
+      "comment" : "Value of the Giorni row with no weekday chosen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No days"
+          }
+        }
+      }
+    },
+    "Nessuna" : {
+      "comment" : "Value of the Notifiche row with no reminders.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
     "Neve" : {
       "localizations" : {
         "en" : {
@@ -2618,6 +2980,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No phone"
+          }
+        }
+      }
+    },
+    "Non collegata" : {
+      "comment" : "Value of the Salute row of a habit not linked to Apple Health.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not linked"
           }
         }
       }
@@ -2658,6 +3031,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Don't skip today"
+          }
+        }
+      }
+    },
+    "Notifiche" : {
+      "comment" : "Form row and screen: the habit's reminders.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
           }
         }
       }
@@ -2738,6 +3122,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Every day"
+          }
+        }
+      }
+    },
+    "Ogni volta che la tieni premuta riempie un tratto dell'anello." : {
+      "comment" : "Footer of the goal screen for times a day.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each hold fills one part of the ring."
           }
         }
       }
@@ -3492,6 +3887,17 @@
         }
       }
     },
+    "Salva abitudine" : {
+      "comment" : "The form's main button when editing a habit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save habit"
+          }
+        }
+      }
+    },
     "Sbu Habits" : {
       "localizations" : {
         "en" : {
@@ -3538,6 +3944,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shoes"
+          }
+        }
+      }
+    },
+    "Scegli almeno un giorno." : {
+      "comment" : "Footer of the Giorni screen when no weekday is chosen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose at least one day."
           }
         }
       }
@@ -4352,6 +4769,17 @@
         }
       }
     },
+    "Tutti i giorni" : {
+      "comment" : "Value of the Giorni row with all seven weekdays chosen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All days"
+          }
+        }
+      }
+    },
     "Uccello" : {
       "localizations" : {
         "en" : {
@@ -4408,6 +4836,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "One habit"
+          }
+        }
+      }
+    },
+    "Usa i dati di Salute. Consenti l'accesso se iOS lo chiede." : {
+      "comment" : "Box under the form's preview of a habit linked to Apple Health.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uses data from Health. Allow access if iOS asks."
           }
         }
       }

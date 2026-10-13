@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The form's link to Salute: a measure and a daily goal that mark the habit done by itself.
+/// The form's link to Salute: the measure that marks the habit done by itself. Its daily goal
+/// is set on the Obiettivo screen; choosing another measure starts it from that measure's.
 struct HealthSection: View {
     @Binding var isOn: Bool
     @Binding var measure: HealthMeasure
@@ -17,10 +18,6 @@ struct HealthSection: View {
                         Text(measure.title)
                             .tag(measure)
                     }
-                }
-
-                Stepper(value: $goal, in: measure.goalRange, step: measure.goalStep) {
-                    LabeledContent("Obiettivo al giorno", value: measure.formatted(goal))
                 }
             }
         } header: {

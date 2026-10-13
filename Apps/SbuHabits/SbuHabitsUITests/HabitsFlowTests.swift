@@ -20,29 +20,39 @@ final class HabitsFlowTests: XCTestCase {
 
     @MainActor
     private func add(_ title: String, timesPerDay: Int = 1, in app: XCUIApplication) {
-        app.buttons["Aggiungi"].firstMatch.tap()
-        let titleField = app.textFields["Titolo"]
-        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
-        titleField.tap()
-        titleField.typeText(title)
-        for _ in 1..<timesPerDay {
-            app.steppers.firstMatch.buttons.element(boundBy: 1).tap() // the "+" half
+        app.openHabitForm()
+        if timesPerDay > 1 {
+            app.openFormRow("Obiettivo")
+            for _ in 1..<timesPerDay {
+                app.steppers.firstMatch.buttons.element(boundBy: 1).tap() // the "+" half
+            }
+            app.backToForm()
         }
-        app.navigationBars.buttons["Aggiungi"].tap()
+        app.typeTitleAndAdd(title)
     }
 
     @MainActor
     private func addAvoided(_ title: String, limit: Int, in app: XCUIApplication) {
-        app.buttons["Aggiungi"].firstMatch.tap()
-        let titleField = app.textFields["Titolo"]
-        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
+        app.openHabitForm()
+        app.openFormRow("Tipo")
         app.buttons["Da evitare"].tap()
-        titleField.tap()
-        titleField.typeText(title)
+        app.backToForm()
+        app.openFormRow("Limite")
         for _ in 0..<limit {
             app.steppers.firstMatch.buttons.element(boundBy: 1).tap() // the "+" half
         }
-        app.navigationBars.buttons["Aggiungi"].tap()
+        app.backToForm()
+        app.typeTitleAndAdd(title)
+    }
+
+    /// Adds a habit with the schedule picked on the Giorni screen.
+    @MainActor
+    private func add(_ title: String, schedule: String, in app: XCUIApplication) {
+        app.openHabitForm()
+        app.openFormRow("Giorni")
+        app.buttons[schedule].tap()
+        app.backToForm()
+        app.typeTitleAndAdd(title)
     }
 
     @MainActor
@@ -73,11 +83,22 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
-    func testBlankTitleCannotBeAdded() {
+    func testABlankTitleAddsTheAutomaticOne() throws {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
+        app.openHabitForm()
+        XCTAssertEqual(app.textFields["Titolo"].placeholderValue, "Automatico")
+        // The preview reads the title the habit will get: the default symbol's name.
+        XCTAssertTrue(app.staticTexts["Acqua"].exists, app.debugDescription)
+        try app.auditHabitForm()
 
-        XCTAssertFalse(app.navigationBars.buttons["Aggiungi"].isEnabled)
+        app.openFormRow("Notifiche")
+        XCTAssertTrue(app.buttons["Aggiungi promemoria"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Acqua"].exists, app.debugDescription)
+        try app.auditHabitForm()
+        app.backToForm()
+        app.buttons["Aggiungi abitudine"].tap()
+
+        expectValue(habit("Acqua", in: app), "Da fare, 0 giorni")
     }
 
     @MainActor
@@ -140,15 +161,15 @@ final class HabitsFlowTests: XCTestCase {
     func testAHabitNotExpectedTodayStaysOutOfTheGrid() {
         let app = launch()
         add("Leggere", in: app)
-        app.buttons["Aggiungi"].firstMatch.tap()
-        app.textFields["Titolo"].tap()
-        app.textFields["Titolo"].typeText("Palestra")
+        app.openHabitForm()
+        app.openFormRow("Giorni")
         app.buttons["Giorni della settimana"].tap()
         var italian = Calendar(identifier: .gregorian)
         italian.locale = Locale(identifier: "it_IT")
         let today = italian.standaloneWeekdaySymbols[italian.component(.weekday, from: .now) - 1]
         app.buttons[today].tap()
-        app.navigationBars.buttons["Aggiungi"].tap()
+        app.backToForm()
+        app.typeTitleAndAdd("Palestra")
 
         XCTAssertTrue(habit("Leggere", in: app).exists)
         XCTAssertFalse(app.descendants(matching: .any)["Palestra"].exists)
@@ -157,11 +178,7 @@ final class HabitsFlowTests: XCTestCase {
     @MainActor
     func testAWeeklyHabitCountsDaysOfTheWeek() {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
-        app.textFields["Titolo"].tap()
-        app.textFields["Titolo"].typeText("Palestra")
-        app.buttons["Volte a settimana"].tap()
-        app.navigationBars.buttons["Aggiungi"].tap()
+        add("Palestra", schedule: "Volte a settimana", in: app)
         let palestra = habit("Palestra", in: app)
         expectValue(palestra, "0 di 3, 0 settimane")
 
@@ -173,11 +190,7 @@ final class HabitsFlowTests: XCTestCase {
     @MainActor
     func testAMonthlyHabitCountsDaysOfTheMonth() {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
-        app.textFields["Titolo"].tap()
-        app.textFields["Titolo"].typeText("Biblioteca")
-        app.buttons["Volte al mese"].tap()
-        app.navigationBars.buttons["Aggiungi"].tap()
+        add("Biblioteca", schedule: "Volte al mese", in: app)
         let biblioteca = habit("Biblioteca", in: app)
         expectValue(biblioteca, "0 di 10, 0 mesi")
 
@@ -189,22 +202,15 @@ final class HabitsFlowTests: XCTestCase {
     @MainActor
     func testAnAttivitaDiUnGiornoForTodayIsInTheGrid() throws {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
-        app.textFields["Titolo"].tap()
-        app.textFields["Titolo"].typeText("Dentista\n")
+        app.openHabitForm()
+        app.openFormRow("Giorni")
         app.buttons["Un giorno solo"].tap()
 
         XCTAssertTrue(app.staticTexts["Compare nella griglia solo quel giorno."].waitForExistence(timeout: 5))
         XCTAssertTrue(app.datePickers.firstMatch.exists)
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            // The inline title fits; the audit reads the glass bar's edge as clipping it.
-            if issue.auditType == .textClipped, issue.element?.label == "Nuova abitudine" {
-                return true
-            }
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
-            return true
-        }
-        app.navigationBars.buttons["Aggiungi"].tap()
+        try app.auditHabitForm()
+        app.backToForm()
+        app.typeTitleAndAdd("Dentista")
 
         expectValue(habit("Dentista", in: app), "Da fare, 0 giorni")
     }
@@ -312,13 +318,13 @@ final class HabitsFlowTests: XCTestCase {
         titleField.tap()
         XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         titleField.typeText(" ogni sera")
-        app.navigationBars.buttons["Salva"].tap()
+        app.buttons["Salva abitudine"].tap()
         let edited = habit("Leggere ogni sera", in: app)
 
         edited.tap()
         app.buttons["Modifica"].tap()
-        // Elimina sits at the bottom of the form, past the symbols.
-        app.collectionViews.firstMatch.swipeUp()
+        // Elimina sits at the bottom of the form, past the rows.
+        XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
         app.collectionViews.firstMatch.swipeUp()
         app.buttons["Elimina"].firstMatch.tap()
         app.buttons["Elimina"].firstMatch.tap() // the confirmation
@@ -358,41 +364,36 @@ final class HabitsFlowTests: XCTestCase {
     @MainActor
     func testTheFormLinksAHabitToSalute() throws {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
-        XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
-        // Collega a Salute sits below the schedule.
-        app.collectionViews.firstMatch.swipeUp()
+        app.openHabitForm()
+        app.openFormRow("Salute")
 
         app.switches["Collega a Salute"].switches.firstMatch.tap()
 
         XCTAssertTrue(app.staticTexts["Si segna da sola quando Salute arriva all'obiettivo. Se neghi l'accesso, la segni tu."].waitForExistence(timeout: 5))
-        let goal = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'passi' OR value CONTAINS 'passi'")).firstMatch
-        XCTAssertTrue(goal.exists, app.debugDescription)
-        // Dynamic Type is left out too: the form is all system rows and bar buttons, which scale,
-        // and the audit flags every one of them, Annulla included, as partially supported.
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
-            // The inline title fits; the audit reads the glass bar's edge as clipping it.
-            if issue.auditType == .textClipped, issue.element?.label == "Nuova abitudine" {
-                return true
-            }
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
-            return true
-        }
-        // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi.
+        app.backToForm()
+        // The goal has its own row, and the title follows it until you write one.
+        let goal = app.formRow("Obiettivo")
+        XCTAssertTrue("\(goal.label) \(goal.value as? String ?? "")".contains("passi"), goal.debugDescription)
+        XCTAssertTrue(app.staticTexts["Usa i dati di Salute. Consenti l'accesso se iOS lo chiede."].exists, app.debugDescription)
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Camminare 8000 passi'")).firstMatch.exists, app.debugDescription)
+        try app.auditHabitForm()
+
+        app.openFormRow("Obiettivo")
+        XCTAssertTrue(app.staticTexts["Obiettivo al giorno"].waitForExistence(timeout: 5))
+        try app.auditHabitForm()
+        app.backToForm()
+        // Linking for real would show iOS's Salute sheet: the test stops before Aggiungi abitudine.
         app.navigationBars.buttons["Annulla"].tap()
     }
 
     @MainActor
     func testALinkedHabitWithoutAccessIsMarkedByHand() {
         let app = launch()
-        app.buttons["Aggiungi"].firstMatch.tap()
-        let titleField = app.textFields["Titolo"]
-        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
-        titleField.tap()
-        titleField.typeText("Camminare")
-        app.collectionViews.firstMatch.swipeUp()
+        app.openHabitForm()
+        app.openFormRow("Salute")
         app.switches["Collega a Salute"].switches.firstMatch.tap()
-        app.navigationBars.buttons["Aggiungi"].tap()
+        app.backToForm()
+        app.typeTitleAndAdd("Camminare")
 
         // iOS asks only the first time on this simulator, in the system's language; deny it, as a
         // person may.
@@ -423,15 +424,13 @@ final class HabitsFlowTests: XCTestCase {
 
     @MainActor
     private func addTimed(_ title: String, in app: XCUIApplication) {
-        app.buttons["Aggiungi"].firstMatch.tap()
-        let titleField = app.textFields["Titolo"]
-        XCTAssertTrue(titleField.waitForExistence(timeout: 5))
-        titleField.tap()
-        titleField.typeText(title)
-        app.switches["A tempo"].switches.firstMatch.tap()
+        app.openHabitForm()
+        app.openFormRow("Tipo")
+        app.buttons["A tempo"].tap()
         allowNotificationsIfAsked()
-        XCTAssertTrue(app.buttons["Durata"].waitForExistence(timeout: 5) || app.staticTexts["Durata"].exists)
-        app.navigationBars.buttons["Aggiungi"].tap()
+        app.backToForm()
+        XCTAssertTrue(app.formRow("Durata").waitForExistence(timeout: 5))
+        app.typeTitleAndAdd(title)
     }
 
     @MainActor

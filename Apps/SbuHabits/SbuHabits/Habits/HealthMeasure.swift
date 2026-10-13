@@ -64,7 +64,10 @@ nonisolated enum HealthMeasure: String, CaseIterable, Identifiable, Codable, Sen
         switch self {
         case .steps:
             let steps = Int(amount.rounded()).formatted(.number.locale(locale))
-            return String(localized: "\(steps) passi", comment: "A goal in steps, the number already formatted: 8.000 passi.")
+            // In the locale's language too, as the units of the other measures are.
+            var goal = LocalizedStringResource("\(steps) passi", comment: "A goal in steps, the number already formatted: 8.000 passi.")
+            goal.locale = locale
+            return String(localized: goal)
         case .water:
             return Self.format(Measurement(value: amount, unit: UnitVolume.milliliters), locale: locale)
         case .mindfulMinutes:

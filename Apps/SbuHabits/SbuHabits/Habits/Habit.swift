@@ -52,6 +52,12 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
     /// The Nota del giorno of each logical day that has one, as `DailyNote` saves it: never blank.
     /// A skip leaves it, deleting the habit deletes them all.
     private(set) var notes: [LogicalDay: String] = [:]
+    /// When each Nota del giorno was last written or cleared, for Sincronizza con iCloud: the
+    /// newer edit wins. A cleared note keeps its date, so clearing it travels too.
+    private(set) var noteDates: [LogicalDay: Date] = [:]
+    /// When its settings were last changed by adding or editing it, for Sincronizza con iCloud:
+    /// the newer edit wins. Marks, skips and notes never change it. `nil` before sync existed.
+    var modifiedAt: Date?
 
     init(id: UUID = UUID(), title: String, symbol: String, timesPerDay: Int = 1, schedule: Schedule = .everyDay, limit: Int? = nil, createdOn: LogicalDay) {
         self.id = id
@@ -86,6 +92,8 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
         health = try container.decodeIfPresent(HealthLink.self, forKey: .health)
         timerMinutes = try container.decodeIfPresent(Int.self, forKey: .timerMinutes)
         notes = try container.decodeIfPresent([LogicalDay: String].self, forKey: .notes) ?? [:]
+        noteDates = try container.decodeIfPresent([LogicalDay: Date].self, forKey: .noteDates) ?? [:]
+        modifiedAt = try container.decodeIfPresent(Date.self, forKey: .modifiedAt)
     }
 
     /// Nessun promemoria, Orari automatici or Orari personalizzati.
@@ -204,8 +212,12 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
 
     /// Writes the Nota del giorno of `day`, trimmed and cut to `DailyNote.maxLength`; a blank
     /// text removes it.
-    mutating func setNote(_ text: String, on day: LogicalDay) {
+    /// - Parameter date: When it was written, for Sincronizza con iCloud.
+    mutating func setNote(_ text: String, on day: LogicalDay, at date: Date? = nil) {
         notes[day] = DailyNote.normalized(text)
+        if let date {
+            noteDates[day] = date
+        }
     }
 
     func isSkipped(on day: LogicalDay) -> Bool {
@@ -250,6 +262,38 @@ nonisolated struct Habit: Identifiable, Hashable, Codable, Sendable {
             log[day] = nil
             markHours[day] = nil
         }
+    }
+
+    // MARK: - Merge
+
+    /// The same habit with its settings only: no marks, skips or notes. Two copies whose
+    /// settings match are equal this way.
+    var settingsOnly: Habit {
+        var copy = self
+        copy.log = [:]
+        copy.markHours = [:]
+        copy.skipped = []
+        copy.notes = [:]
+        copy.noteDates = [:]
+        return copy
+    }
+
+    /// Sets what happened on `day` as a merge decided it: the count, its hours and the skip.
+    mutating func setDay(count: Int, hours: [Int], isSkipped: Bool, on day: LogicalDay) {
+        log[day] = count > 0 ? count : nil
+        markHours[day] = hours.isEmpty ? nil : hours
+        if isSkipped {
+            skipped.insert(day)
+        } else {
+            skipped.remove(day)
+        }
+    }
+
+    /// Sets the Nota del giorno of `day` and its date as a merge decided them, already saved
+    /// once so not normalized again.
+    mutating func restoreNote(_ text: String?, editedAt date: Date?, on day: LogicalDay) {
+        notes[day] = text
+        noteDates[day] = date
     }
 
     static func clamp<Value: Comparable>(_ value: Value, to range: ClosedRange<Value>) -> Value {

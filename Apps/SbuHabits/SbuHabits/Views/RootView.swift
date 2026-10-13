@@ -3,7 +3,10 @@ import SwiftUI
 
 /// The app inside the standard Sbu shell.
 struct RootView: View {
+    @Environment(\.scenePhase) private var scenePhase
+
     let model: HabitsModel
+    let sync: HabitsSync
 
     @State private var sheet: HabitSheet?
     /// Follows the model: the Timer stays on screen while a countdown runs or is paused.
@@ -16,7 +19,7 @@ struct RootView: View {
         } settings: {
             StartOfDaySection(model: model)
             HabitOrderSection(model: model)
-            DataSection(model: model)
+            DataSection(model: model, sync: sync)
         }
         .sheet(item: $sheet) { sheet in
             Group {
@@ -40,6 +43,19 @@ struct RootView: View {
         .onChange(of: model.timer != nil, initial: true) { _, hasTimer in
             isShowingTimer = hasTimer
         }
+        // Another iPhone may have synced meanwhile; a change still waiting goes before the app sleeps.
+        .onChange(of: scenePhase) { _, phase in
+            switch phase {
+            case .active:
+                Task {
+                    await sync.appDidBecomeActive()
+                }
+            case .background:
+                sync.appDidEnterBackground()
+            default:
+                break
+            }
+        }
         // A countdown that ends with the app open.
         .sensoryFeedback(.success, trigger: model.timersEnded)
     }
@@ -50,10 +66,10 @@ struct RootView: View {
 }
 
 #Preview("Light") {
-    RootView(model: .preview)
+    RootView(model: .preview, sync: .preview(model: .preview))
 }
 
 #Preview("Dark") {
-    RootView(model: .preview)
+    RootView(model: .preview, sync: .preview(model: .preview))
         .preferredColorScheme(.dark)
 }

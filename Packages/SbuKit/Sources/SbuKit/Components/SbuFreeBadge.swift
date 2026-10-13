@@ -6,16 +6,21 @@ import SwiftUI
 /// of every app's settings and links to sbu.dev.
 public struct SbuFreeBadge: View {
     private let style: Style
+    private let dataLocation: SbuDataLocation
 
     /// Creates the badge.
-    /// - Parameter style: The four promise pills, or the "Parte di sbu.dev" footer.
-    public init(style: Style) {
+    /// - Parameters:
+    ///   - style: The four promise pills, or the "Parte di sbu.dev" footer.
+    ///   - dataLocation: Where the data pill says the data stays; `.thisDevice` unless the app
+    ///     syncs through the user's iCloud and sync is on.
+    public init(style: Style, dataLocation: SbuDataLocation = .thisDevice) {
         self.style = style
+        self.dataLocation = dataLocation
     }
 
     public var body: some View {
         switch style {
-        case .pills: SbuPromisePills()
+        case .pills: SbuPromisePills(dataLocation: dataLocation)
         case .footer: SbuFooterLink()
         }
     }
@@ -44,6 +49,7 @@ private struct SbuFreeBadgePreview: View {
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space4) {
             SbuFreeBadge(style: .pills)
+            SbuFreeBadge(style: .pills, dataLocation: .yourDevices)
             SbuFreeBadge(style: .footer)
         }
         .padding(SbuTheme.space4)

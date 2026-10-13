@@ -19,6 +19,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     private let accent: Color
     private let appIcon: Image
     private let settingsButtonPlacement: SbuSettingsButtonPlacement
+    private let dataLocation: SbuDataLocation
     private let content: Content
     private let settings: Settings
 
@@ -32,6 +33,8 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
     ///   - appIcon: The icon artwork shown at the top of settings.
     ///   - settingsButtonPlacement: Where the gear that opens settings goes; `.toolbar` unless
     ///     the tool screen draws its own and calls `showSettings`.
+    ///   - dataLocation: Where the promise pills in settings say the data stays; `.yourDevices`
+    ///     only while the app syncs through the user's iCloud.
     ///   - content: The app's tool screen.
     ///   - settings: App-specific settings sections, placed above the sbu.dev footer.
     public init(
@@ -40,6 +43,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
         accent: Color,
         appIcon: Image,
         settingsButtonPlacement: SbuSettingsButtonPlacement = .toolbar,
+        dataLocation: SbuDataLocation = .thisDevice,
         @ViewBuilder content: () -> Content,
         @ViewBuilder settings: () -> Settings
     ) {
@@ -48,6 +52,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
         self.accent = accent
         self.appIcon = appIcon
         self.settingsButtonPlacement = settingsButtonPlacement
+        self.dataLocation = dataLocation
         self.content = content()
         self.settings = settings()
     }
@@ -71,7 +76,7 @@ public struct SbuAppShell<Content: View, Settings: View>: View {
                 .environment(\.showSettings, SbuShowSettingsAction(showSettings))
         }
         .sheet(isPresented: $isShowingSettings) {
-            SbuSettingsView(appName: title, appIcon: appIcon, slug: slug) {
+            SbuSettingsView(appName: title, appIcon: appIcon, slug: slug, dataLocation: dataLocation) {
                 settings
             }
         }

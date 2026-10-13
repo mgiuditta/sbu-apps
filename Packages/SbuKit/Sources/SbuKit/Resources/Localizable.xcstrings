@@ -11,6 +11,11 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Free apps that do one thing." } }
       }
     },
+    "Dati solo sui tuoi dispositivi" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data only on your devices" } }
+      }
+    },
     "Dati solo su questo iPhone" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Data stays on this iPhone" } }

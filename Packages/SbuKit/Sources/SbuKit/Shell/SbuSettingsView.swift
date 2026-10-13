@@ -73,17 +73,15 @@ struct SbuSettingsView<Settings: View>: View {
                 }
                 .listRowBackground(SbuTheme.surfaceRaised)
 
+                // In the footer, not in a row: a row is clipped by the section's rounded corner,
+                // which cut the first pill.
                 Section {
-                    SbuFreeBadge(style: .pills)
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets())
-
-                    SbuFreeBadge(style: .footer)
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets())
-                        .padding(.top, SbuTheme.space3)
+                } footer: {
+                    VStack(alignment: .leading, spacing: SbuTheme.space3) {
+                        SbuFreeBadge(style: .pills)
+                        SbuFreeBadge(style: .footer)
+                    }
                 }
-                .listRowSeparator(.hidden)
             }
             .listStyle(.insetGrouped)
             .listSectionSpacing(SbuTheme.space6)

@@ -104,6 +104,21 @@ struct SpeedModelTests {
         #expect(model.dialFullScale == 120)
     }
 
+    @Test(arguments: [
+        // 5 m/s is 18 km/h on the 60 scale; 100 m/s is 360 km/h, past the 300 scale.
+        (Optional(5.0), 0.3),
+        (100, 1),
+        (nil, 0),
+    ])
+    func dialFractionIsTheSpeedOverTheScale(metersPerSecond: Double?, expected: Double) async {
+        let events: [SpeedEvent] = metersPerSecond.map { [.access(.granted), .sample(.fix(at: 0, speed: $0))] } ?? []
+        let model = model(events)
+
+        await model.run()
+
+        #expect(abs(model.dialFraction - expected) < 0.001)
+    }
+
     @Test func dialHoldsTheLimit() {
         let model = model(locale: "it_IT")
 

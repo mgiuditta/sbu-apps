@@ -96,4 +96,27 @@ struct TripTests {
         restored.record(.fix(at: 6, metersNorth: 60, speed: 10))
         #expect(restored.distance == saved.distance)
     }
+
+    @Test(arguments: [
+        (0.0, "it_IT", "0:00:00"),
+        // Seconds are cut, not rounded: the clock never runs ahead.
+        (970.9, "it_IT", "0:16:10"),
+        (3_920, "en_US", "1:05:20"),
+        (36_000, "it_IT", "10:00:00"),
+    ])
+    func movingTimeIsAClock(seconds: TimeInterval, identifier: String, expected: String) {
+        let trip = Trip(maxSpeed: 0, distance: 0, movingTime: seconds)
+
+        #expect(trip.movingTimeText(locale: Locale(identifier: identifier)) == expected)
+    }
+
+    @Test(arguments: [
+        ("it_IT", "1 ora, 5 minuti e 20 secondi"),
+        ("en_US", "1 hour, 5 minutes, 20 seconds"),
+    ])
+    func movingTimeIsSpokenInWords(identifier: String, expected: String) {
+        let trip = Trip(maxSpeed: 0, distance: 0, movingTime: 3_920)
+
+        #expect(trip.movingTimeSpokenText(locale: Locale(identifier: identifier)).withPlainSpaces == expected)
+    }
 }

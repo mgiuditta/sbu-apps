@@ -22,11 +22,34 @@ final class SpeedFlowTests: XCTestCase {
         let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Velocità'")).firstMatch
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("52"), figure.label)
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Massima'")).firstMatch.exists)
+        XCTAssertTrue(app.descendants(matching: .any)["Massima"].exists)
+        XCTAssertEqual(app.descendants(matching: .any)["Durata"].value as? String, "16 minuti e 10 secondi")
         XCTAssertTrue(app.buttons["Azzera viaggio"].isEnabled)
 
         // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,
         // and the audit misreads the iOS 26 glass bar and the dial's decorative track.
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+    }
+
+    @MainActor
+    func testLandscapePutsTheTripBesideTheFigureAndPassesTheAccessibilityAudit() throws {
+        let app = launch()
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Velocità'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        let duration = app.descendants(matching: .any)["Durata"]
+        XCTAssertTrue(duration.waitForExistence(timeout: 5))
+        // Beside, not under: the trip starts right of the figure.
+        XCTAssertGreaterThan(duration.frame.minX, figure.frame.maxX)
+        // The pill stays on screen, after the rotation settles.
+        let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: app.buttons["Azzera viaggio"])
+        XCTAssertEqual(XCTWaiter.wait(for: [hittable], timeout: 5), .completed)
+
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
             return true

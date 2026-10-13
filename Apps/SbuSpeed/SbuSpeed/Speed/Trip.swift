@@ -26,6 +26,19 @@ nonisolated struct Trip: Codable, Equatable, Sendable {
 
     var isEmpty: Bool { maxSpeed == 0 && distance == 0 }
 
+    /// The time spent moving, in whole seconds: the clock on screen never runs ahead.
+    var movingDuration: Duration { .seconds(Int(movingTime)) }
+
+    /// The time spent moving as a clock: "1:05:20".
+    func movingTimeText(locale: Locale = .autoupdatingCurrent) -> String {
+        movingDuration.formatted(.time(pattern: .hourMinuteSecond).locale(locale))
+    }
+
+    /// The time spent moving in words, for VoiceOver: "1 ora, 5 minuti e 20 secondi".
+    func movingTimeSpokenText(locale: Locale = .autoupdatingCurrent) -> String {
+        movingDuration.formatted(.units(allowed: [.hours, .minutes, .seconds], width: .wide).locale(locale))
+    }
+
     init() {}
 
     /// A trip with fixed totals, for screenshots and previews.

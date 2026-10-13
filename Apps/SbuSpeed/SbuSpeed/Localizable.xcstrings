@@ -51,6 +51,16 @@
         }
       }
     },
+    "Durata": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time"
+          }
+        }
+      }
+    },
     "Fermo": {
       "localizations": {
         "en": {

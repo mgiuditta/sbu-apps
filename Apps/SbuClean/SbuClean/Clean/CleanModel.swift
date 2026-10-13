@@ -205,6 +205,12 @@ final class CleanModel {
         state.addToTrash(ids)
     }
 
+    /// Makes every kept and set-aside item to see again; the bin and the items kept forever stay.
+    func resetProgress() {
+        state.kept = []
+        state.later = []
+    }
+
     /// Takes an item out of the bin: it goes back to the queues.
     func restore(_ id: String) {
         state.set(nil, for: id)
@@ -227,6 +233,28 @@ final class CleanModel {
         pruneGroups()
         storage = readStorage()
         return DeletionResult(count: ids.count, bytes: bytes, totalBytes: state.freed.totalBytes, totalCount: state.freed.totalCount)
+    }
+
+    // MARK: - Live Photos and videos
+
+    /// Saves a still copy of each Live Photo and puts the originals in the bin, for the final
+    /// review. Returns how many were converted; those that fail stay as they were.
+    func convertLivePhotos(_ ids: [String]) async -> Int {
+        var converted: [String] = []
+        for id in ids {
+            if (try? await library.saveStill(ofLivePhoto: id)) != nil {
+                converted.append(id)
+            }
+        }
+        moveToTrash(converted)
+        await reload()
+        return converted.count
+    }
+
+    /// Saves a compressed copy of a video; the original stays until the user decides.
+    func compress(_ id: String, quality: CompressionQuality) async throws {
+        _ = try await library.saveCompressed(video: id, quality: quality)
+        await reload()
     }
 
     // MARK: - Duplicates and similar

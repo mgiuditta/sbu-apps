@@ -1,0 +1,48 @@
+import SbuKit
+import SwiftUI
+
+/// After a deletion: the space freed as the one figure, the total so far, and where the photos
+/// went. No confetti, no "hours saved".
+struct DeletionResultSheet: View {
+    let result: DeletionResult
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: SbuTheme.space4) {
+                    SpaceStat(label: "Spazio liberato", bytes: result.bytes, context: "\(result.count) elementi eliminati")
+
+                    Text("In totale con Sbu Clean: \(result.totalBytes.formatted(.byteCount(style: .file))), \(result.totalCount) elementi.")
+                        .font(SbuTheme.subheadline)
+                        .foregroundStyle(SbuTheme.inkMuted)
+
+                    RecentlyDeletedNote()
+                }
+                .padding(SbuTheme.space4)
+            }
+            .background(SbuTheme.surface)
+            .navigationTitle("Eliminati")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Fine") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Preview("Light") {
+    DeletionResultSheet(result: DeletionResult(count: 37, bytes: 1_240_000_000, totalBytes: 3_100_000_000, totalCount: 120))
+        .tint(SbuTheme.accentClean)
+}
+
+#Preview("Dark") {
+    DeletionResultSheet(result: DeletionResult(count: 37, bytes: 1_240_000_000, totalBytes: 3_100_000_000, totalCount: 120))
+        .tint(SbuTheme.accentClean)
+        .preferredColorScheme(.dark)
+}

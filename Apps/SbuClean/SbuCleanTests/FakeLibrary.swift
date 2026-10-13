@@ -92,7 +92,7 @@ nonisolated final class FakeLibrary: PhotoLibrary {
     func delete(_ ids: [String]) async throws {
         try contents.withLock { contents in
             if contents.refusesDeletion {
-                throw CocoaError(.userCancelled)
+                throw LibraryError.cancelled
             }
             contents.deleted += ids
             contents.items.removeAll { ids.contains($0.id) }

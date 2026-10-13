@@ -9,7 +9,7 @@ struct RootView: View {
         SbuAppShell("Sbu Clean", slug: "clean", accent: SbuTheme.accentClean, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
-            EmptyView()
+            LibrarySettingsSection(model: model)
         }
         .environment(\.photoLibrary, model.library)
     }

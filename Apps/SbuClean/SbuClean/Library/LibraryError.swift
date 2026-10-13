@@ -4,4 +4,6 @@ nonisolated enum LibraryError: Error, Equatable, Sendable {
     case unavailable
     /// The system could not save the new copy.
     case saveFailed
+    /// The user said no in the system dialog.
+    case cancelled
 }

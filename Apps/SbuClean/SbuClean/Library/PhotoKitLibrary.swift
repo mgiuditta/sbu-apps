@@ -71,8 +71,12 @@ nonisolated final class PhotoKitLibrary: PhotoLibrary {
     }
 
     func delete(_ ids: [String]) async throws {
-        try await PHPhotoLibrary.shared().performChanges {
-            PHAssetChangeRequest.deleteAssets(PHAsset.fetchAssets(withLocalIdentifiers: ids, options: nil))
+        do {
+            try await PHPhotoLibrary.shared().performChanges {
+                PHAssetChangeRequest.deleteAssets(PHAsset.fetchAssets(withLocalIdentifiers: ids, options: nil))
+            }
+        } catch let error as PHPhotosError where error.code == .userCancelled {
+            throw LibraryError.cancelled
         }
     }
 

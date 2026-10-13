@@ -35,8 +35,8 @@ nonisolated protocol PhotoLibrary: Sendable {
     /// File name and camera, for the long press on a card.
     func details(for id: String) async -> MediaDetails
 
-    /// Deletes the items from the library. The system asks the user first and throws if
-    /// the user says no.
+    /// Deletes the items from the library. The system asks the user first and throws
+    /// `LibraryError.cancelled` if the user says no.
     func delete(_ ids: [String]) async throws
 
     /// Saves a still copy of a Live Photo, with its date, place and favourite, and returns

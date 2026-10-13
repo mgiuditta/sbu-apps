@@ -116,7 +116,7 @@ struct CleanModelTests {
         model.moveToTrash(["film"])
         fake.update { $0.refusesDeletion = true }
 
-        await #expect(throws: CocoaError.self) {
+        await #expect(throws: LibraryError.cancelled) {
             try await model.deleteTrash()
         }
         #expect(model.state.trash == ["film"])
@@ -159,5 +159,25 @@ struct CleanModelTests {
         await model.requestAccess()
 
         #expect(model.access == .full)
+    }
+
+    @Test func convertingLivePhotosPutsTheOriginalsInTheBin() async {
+        let fake = library()
+        let model = await loadedModel(fake)
+
+        let converted = await model.convertLivePhotos(["burst-0"])
+
+        #expect(converted == 1)
+        #expect(model.state.trash == ["burst-0"])
+    }
+
+    @Test func compressingKeepsTheOriginal() async throws {
+        let fake = library()
+        let model = await loadedModel(fake)
+
+        try await model.compress("film", quality: .medium)
+
+        #expect(model.state.trash.isEmpty)
+        #expect(model.itemsByID["film"] != nil)
     }
 }

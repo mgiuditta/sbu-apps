@@ -68,7 +68,10 @@ schemes:
       targets:
         SbuClean: all
     test:
-      targets: [SbuCleanTests]
+      targets:
+        - SbuCleanTests
+        - name: SbuCleanUITests
+          skippedTests: [SnapshotTests]
   SbuCleanSnapshots:
     build:
       targets:

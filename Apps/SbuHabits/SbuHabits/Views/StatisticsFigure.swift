@@ -2,7 +2,8 @@ import SbuKit
 import SwiftUI
 
 /// The one figure of a Statistiche page, the completion rate in `statHero` closed by the full
-/// stop, with the Serie migliore and the completions small under it.
+/// stop, with the Serie migliore and the completions small under it. With nothing expected the
+/// figure is a dash, and a dash is not a closed figure: it has no full stop.
 ///
 /// Every page is a screen with its figure, but while a swipe is between two both show: only the
 /// page on show draws its full stop, so there is never more than one.
@@ -34,7 +35,7 @@ struct StatisticsFigure: View {
                     .tracking(SbuTheme.captionTracking)
                     .foregroundStyle(SbuTheme.inkMuted)
 
-                HeroRate(rate: rate, showsFullStop: showsFullStop)
+                HeroRate(rate: rate, isClosed: statistics.tally.rate != nil, showsFullStop: showsFullStop)
                     // Past the first accessibility size "100%" would not fit across the screen.
                     .dynamicTypeSize(...DynamicTypeSize.accessibility1)
 
@@ -56,9 +57,12 @@ struct StatisticsFigure: View {
     }
 }
 
-/// The completion rate in `statHero`, closed by the full stop when its page is on show.
+/// The completion rate in `statHero`, closed by the full stop when its page is on show; the dash
+/// of a period with nothing expected stays open.
 private struct HeroRate: View {
     let rate: String
+    /// A real rate: the dash of a period with nothing expected has no full stop, nor its room.
+    let isClosed: Bool
     let showsFullStop: Bool
 
     @ScaledMetric(relativeTo: .largeTitle) private var size = SbuTheme.statHeroSize
@@ -73,8 +77,10 @@ private struct HeroRate: View {
                 .foregroundStyle(SbuTheme.ink)
                 .contentTransition(.numericText())
 
-            SbuFullStop(fontSize: size)
-                .opacity(showsFullStop ? 1 : 0)
+            if isClosed {
+                SbuFullStop(fontSize: size)
+                    .opacity(showsFullStop ? 1 : 0)
+            }
         }
     }
 }

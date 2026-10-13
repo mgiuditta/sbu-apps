@@ -43,6 +43,9 @@ struct DailyNoteEditor: View {
                 .padding(SbuTheme.space4)
             }
             .scrollDismissesKeyboard(.interactively)
+            // The end of the text, where you type, stays in sight above Fine and the keyboard: on
+            // a short iPhone the field grows past them, and the ring scrolls away instead.
+            .defaultScrollAnchor(.bottom)
             .scrollBounceBehavior(.basedOnSize)
             .background(SbuTheme.surface)
             .safeAreaInset(edge: .bottom) {

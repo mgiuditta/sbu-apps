@@ -5,6 +5,7 @@ import WidgetKit
 /// A habit's symbol inside a ring that fills in the accent, one segment per time of the day;
 /// over the Limite of an Abitudine da evitare, in `danger`, with the cross.
 struct HabitRing: View {
+    @Environment(\.widgetRenderingMode) private var renderingMode
     /// Space between segments, as a fraction of the whole ring.
     private static let gap = 0.02
 
@@ -51,7 +52,7 @@ struct HabitRing: View {
 
                 Circle()
                     .trim(from: range.lowerBound, to: range.upperBound)
-                    .stroke(SbuTheme.line, style: StrokeStyle(lineWidth: lineWidth, lineCap: lineCap))
+                    .stroke(WidgetTrack.style(for: renderingMode), style: StrokeStyle(lineWidth: lineWidth, lineCap: lineCap))
 
                 Circle()
                     .trim(from: range.lowerBound, to: range.lowerBound + (range.upperBound - range.lowerBound) * fill)

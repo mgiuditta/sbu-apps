@@ -1,5 +1,6 @@
 import SbuKit
 import SwiftUI
+import WidgetKit
 
 /// The widget's grid, shared with the app so tests can draw it. Cells keep the size of a full
 /// grid of `columns` by `rows`, whatever the count; rows sit centered, a short last row too.
@@ -60,13 +61,14 @@ struct HabitsWidgetGrid: View {
 }
 
 private struct WidgetMoreCell: View {
+    @Environment(\.widgetRenderingMode) private var renderingMode
     let count: Int
     let showsTitle: Bool
 
     var body: some View {
         VStack(spacing: SbuTheme.space1) {
             Circle()
-                .strokeBorder(SbuTheme.line, lineWidth: SbuTheme.space1)
+                .strokeBorder(WidgetTrack.style(for: renderingMode), lineWidth: SbuTheme.space1)
                 .overlay {
                     Text(verbatim: "+\(count)")
                         .font(SbuTheme.headline)

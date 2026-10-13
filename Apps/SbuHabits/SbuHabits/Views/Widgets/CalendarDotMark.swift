@@ -4,6 +4,7 @@ import WidgetKit
 
 /// One day of the calendar widget.
 struct CalendarDotMark: View {
+    @Environment(\.widgetRenderingMode) private var renderingMode
     let state: CalendarDotState
 
     var body: some View {
@@ -31,7 +32,7 @@ struct CalendarDotMark: View {
                 .widgetAccentable()
         case .rest:
             Circle()
-                .fill(SbuTheme.line)
+                .fill(WidgetTrack.style(for: renderingMode))
         }
     }
 }

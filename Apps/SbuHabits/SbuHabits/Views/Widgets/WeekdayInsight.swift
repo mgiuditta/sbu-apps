@@ -7,6 +7,7 @@ import WidgetKit
 /// a faint dot, so the seven stay in place.
 struct WeekdayInsight: View {
     @Environment(\.calendar) private var calendar
+    @Environment(\.widgetRenderingMode) private var renderingMode
 
     let bars: [WeekdayBar]
 
@@ -19,7 +20,7 @@ struct WeekdayInsight: View {
                     GeometryReader { proxy in
                         // A day without completions is a faint dot, never a short accent bar.
                         Capsule()
-                            .fill(bar.count > 0 ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.line))
+                            .fill(bar.count > 0 ? AnyShapeStyle(.tint) : WidgetTrack.style(for: renderingMode))
                             .frame(width: barWidth, height: max(barWidth, proxy.size.height * bar.fraction))
                             .widgetAccentable(bar.count > 0)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)

@@ -7,6 +7,7 @@ import WidgetKit
 /// the first day under its start and Oggi under its end. The same line as the Statistiche page.
 struct RateInsight: View {
     @Environment(\.calendar) private var calendar
+    @Environment(\.widgetRenderingMode) private var renderingMode
 
     let statistics: HabitStatistics
 
@@ -40,7 +41,7 @@ struct RateInsight: View {
     private var chart: some View {
         Chart(statistics.line) { point in
             AreaMark(x: .value("Giorno", point.index), y: .value("Completamento", point.rate))
-                .foregroundStyle(SbuTheme.line)
+                .foregroundStyle(WidgetTrack.style(for: renderingMode))
                 .interpolationMethod(.monotone)
             LineMark(x: .value("Giorno", point.index), y: .value("Completamento", point.rate))
                 .foregroundStyle(.tint)
@@ -55,6 +56,8 @@ struct RateInsight: View {
         .chartYScale(domain: 0...1)
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
+        // The line's stroke at 100 % would be cut in half by the edge.
+        .padding(.vertical, SbuTheme.hairline)
         .widgetAccentable()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text("Completamento nel tempo"))

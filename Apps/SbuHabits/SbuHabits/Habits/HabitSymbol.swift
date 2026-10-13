@@ -1,58 +1,29 @@
 import Foundation
 
-/// The SF Symbols a habit can wear, each with the name VoiceOver reads.
+/// An SF Symbol a habit can wear, with the name VoiceOver reads, its group in the picker and the
+/// words that find it in both languages. The list is in `HabitSymbol+Catalog.swift`.
 nonisolated struct HabitSymbol: Identifiable, Sendable {
-    static let all: [HabitSymbol] = [
-        HabitSymbol("drop", "Acqua"),
-        HabitSymbol("cup.and.saucer", "Tazza"),
-        HabitSymbol("fork.knife", "Pasto"),
-        HabitSymbol("carrot", "Verdura"),
-        HabitSymbol("pills", "Medicine"),
-        HabitSymbol("bed.double", "Sonno"),
-        HabitSymbol("moon", "Luna"),
-        HabitSymbol("sun.max", "Sole"),
-        HabitSymbol("alarm", "Sveglia"),
-        HabitSymbol("figure.walk", "Camminata"),
-        HabitSymbol("figure.run", "Corsa"),
-        HabitSymbol("bicycle", "Bicicletta"),
-        HabitSymbol("figure.pool.swim", "Nuoto"),
-        HabitSymbol("dumbbell", "Pesi"),
-        HabitSymbol("figure.yoga", "Yoga"),
-        HabitSymbol("figure.mind.and.body", "Meditazione"),
-        HabitSymbol("lungs", "Respiro"),
-        HabitSymbol("heart", "Cuore"),
-        HabitSymbol("brain.head.profile", "Mente"),
-        HabitSymbol("book", "Libro"),
-        HabitSymbol("books.vertical", "Studio"),
-        HabitSymbol("pencil", "Scrittura"),
-        HabitSymbol("graduationcap", "Scuola"),
-        HabitSymbol("character.book.closed", "Lingue"),
-        HabitSymbol("music.note", "Musica"),
-        HabitSymbol("guitars", "Strumento"),
-        HabitSymbol("paintbrush", "Pittura"),
-        HabitSymbol("camera", "Foto"),
-        HabitSymbol("leaf", "Natura"),
-        HabitSymbol("tree", "Albero"),
-        HabitSymbol("pawprint", "Animali"),
-        HabitSymbol("house", "Casa"),
-        HabitSymbol("shower", "Doccia"),
-        HabitSymbol("washer", "Bucato"),
-        HabitSymbol("cart", "Spesa"),
-        HabitSymbol("banknote", "Risparmio"),
-        HabitSymbol("phone", "Telefonata"),
-        HabitSymbol("iphone.slash", "Niente telefono"),
-        HabitSymbol("envelope", "Posta"),
-        HabitSymbol("person.2", "Persone"),
-        HabitSymbol("checklist", "Lista"),
-        HabitSymbol("clock", "Orario"),
-    ]
-
-    /// SF Symbol name.
+    /// SF Symbol name, the id saved with a habit: never rename or drop one.
     let id: String
     let name: LocalizedStringResource
+    let category: HabitSymbolCategory
+    /// The Italian and English names and the keywords, folded for the search.
+    let searchTerms: [String]
 
-    private init(_ id: String, _ name: LocalizedStringResource) {
+    /// - Parameters:
+    ///   - english: the English name, as in `Localizable.xcstrings`, so the search finds it in either language.
+    ///   - keywords: more words, Italian and English, separated by spaces.
+    init(_ id: String, _ name: LocalizedStringResource, _ english: String, _ category: HabitSymbolCategory, _ keywords: String = "") {
         self.id = id
         self.name = name
+        self.category = category
+        searchTerms = SymbolSearch.terms(in: [name.key, english, keywords])
     }
+
+    /// The catalog entry for a saved symbol name, if it is one.
+    static func named(_ id: String) -> HabitSymbol? {
+        index[id]
+    }
+
+    private static let index = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
 }

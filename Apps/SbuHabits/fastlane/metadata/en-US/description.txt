@@ -21,6 +21,7 @@ Add the habits you want to build and hold one down when you do it. At the top yo
 - Statistics with your best streak and the last 26 weeks
 - Export and import your data as a file, saved where you choose
 - Sync through your own iCloud, off until you turn it on
+- Share a habit with anyone you like, through iCloud
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it counts the days in a row you keep a habit.

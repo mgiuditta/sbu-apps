@@ -3,6 +3,9 @@ import SwiftUI
 
 /// A row of the habit form: a symbol and a name, and the current value on the right.
 struct HabitFormRow: View {
+    /// A row that cannot be used, such as Condividi without iCloud, reads muted.
+    @Environment(\.isEnabled) private var isEnabled
+
     let title: LocalizedStringResource
     let systemImage: String
     let value: String
@@ -14,7 +17,7 @@ struct HabitFormRow: View {
         } label: {
             Label {
                 Text(title)
-                    .foregroundStyle(SbuTheme.ink)
+                    .foregroundStyle(isEnabled ? SbuTheme.ink : SbuTheme.inkMuted)
             } icon: {
                 Image(systemName: systemImage)
                     .fontWeight(.medium)

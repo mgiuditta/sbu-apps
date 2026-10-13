@@ -21,6 +21,7 @@ Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alt
 - Statistiche con la serie migliore e le ultime 26 settimane
 - Esporta e importa i tuoi dati in un file, salvato dove scegli tu
 - Sincronizzazione sul tuo iCloud, spenta finché non la attivi
+- Condividi un'abitudine con chi vuoi, tramite iCloud
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: conta i giorni di fila in cui mantieni un'abitudine.

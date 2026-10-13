@@ -3,14 +3,16 @@ import SwiftUI
 
 /// The form that creates or edits a habit, as Streaks lays it out: the ring and the title as the
 /// grid will show them, with "…" for the symbol; the Titolo, automatic when blank; rows for
-/// Tipo, Obiettivo and Giorni, then Notifiche and Salute, each on its own screen; and the save
-/// button at the bottom. The kind Da evitare is chosen once; editing never rewrites the log,
+/// Tipo, Obiettivo and Giorni, then Notifiche and Salute, each on its own screen; Condividi when
+/// editing; and the save button at the bottom. The kind Da evitare is chosen once; editing never rewrites the log,
 /// and offers Elimina. It lives in a navigation stack: `HabitForm`'s own when editing, Aggiungi
 /// abitudine's when adding, so `close` ends the whole sheet rather than this screen.
 struct HabitFormScreen: View {
     let model: HabitsModel
     /// The habit to edit, or `nil` to add a new one.
     let habit: Habit?
+    /// Offers Condividi for a habit being edited; `nil` while adding one.
+    let sharing: HabitSharing?
     /// Closes the sheet, after saving, deleting or cancelling.
     let close: () -> Void
 
@@ -45,9 +47,10 @@ struct HabitFormScreen: View {
     }
 
     /// - Parameter draft: where a new habit starts, as a Modello fills it; `habit`'s settings otherwise.
-    init(model: HabitsModel, editing habit: Habit? = nil, draft: HabitDraft? = nil, close: @escaping () -> Void) {
+    init(model: HabitsModel, editing habit: Habit? = nil, sharing: HabitSharing? = nil, draft: HabitDraft? = nil, close: @escaping () -> Void) {
         self.model = model
         self.habit = habit
+        self.sharing = sharing
         self.close = close
         _draft = State(initialValue: draft ?? HabitDraft(habit: habit, today: model.today))
         _reminders = State(initialValue: (habit?.reminders ?? []).map { time in
@@ -99,6 +102,10 @@ struct HabitFormScreen: View {
                     }
                 }
                 .listRowBackground(SbuTheme.surfaceRaised)
+            }
+
+            if let habit, let sharing {
+                ShareHabitSection(sharing: sharing, habit: habit)
             }
 
             if habit != nil {

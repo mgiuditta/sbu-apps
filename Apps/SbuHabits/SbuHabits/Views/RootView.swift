@@ -7,6 +7,8 @@ struct RootView: View {
 
     let model: HabitsModel
     let sync: HabitsSync
+    let sharing: HabitSharing
+    let received: ReceivedHabits
 
     @State private var sheet: HabitSheet?
     /// Follows the model: the Timer stays on screen while a countdown runs or is paused.
@@ -15,7 +17,7 @@ struct RootView: View {
     var body: some View {
         SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
             // The gear sits at the bottom of the tool screen, as in Streaks.
-            MainView(model: model, present: present)
+            MainView(model: model, received: received, present: present)
         } settings: {
             StartOfDaySection(model: model)
             HabitOrderSection(model: model)
@@ -27,11 +29,13 @@ struct RootView: View {
                 case .add:
                     AddHabitSheet(model: model)
                 case .edit(let habit):
-                    HabitForm(model: model, editing: habit)
+                    HabitForm(model: model, editing: habit, sharing: sharing)
                 case .note(let habit, let day):
                     DailyNoteEditor(model: model, habit: habit, day: day)
                 case .statistics:
                     StatisticsView(model: model)
+                case .shared(let habit):
+                    SharedHabitScreen(received: received, key: habit.key)
                 }
             }
             .tint(SbuTheme.accentHabits)
@@ -43,18 +47,31 @@ struct RootView: View {
         .onChange(of: model.timer != nil, initial: true) { _, hasTimer in
             isShowingTimer = hasTimer
         }
-        // Another iPhone may have synced meanwhile; a change still waiting goes before the app sleeps.
+        // Another iPhone may have synced meanwhile, a shared habit may have changed; a change still
+        // waiting goes before the app sleeps.
         .onChange(of: scenePhase) { _, phase in
             switch phase {
             case .active:
                 Task {
                     await sync.appDidBecomeActive()
                 }
+                Task {
+                    await sharing.appDidBecomeActive()
+                }
+                Task {
+                    await received.refresh()
+                }
             case .background:
                 sync.appDidEnterBackground()
+                sharing.appDidEnterBackground()
             default:
                 break
             }
+        }
+        // At launch: the shares, and what other people shared.
+        .task {
+            await sharing.appDidBecomeActive()
+            await received.refresh()
         }
         // A countdown that ends with the app open.
         .sensoryFeedback(.success, trigger: model.timersEnded)
@@ -66,10 +83,10 @@ struct RootView: View {
 }
 
 #Preview("Light") {
-    RootView(model: .preview, sync: .preview(model: .preview))
+    RootView(model: .preview, sync: .preview(model: .preview), sharing: .preview(model: .preview), received: .preview)
 }
 
 #Preview("Dark") {
-    RootView(model: .preview, sync: .preview(model: .preview))
+    RootView(model: .preview, sync: .preview(model: .preview), sharing: .preview(model: .preview), received: .preview)
         .preferredColorScheme(.dark)
 }

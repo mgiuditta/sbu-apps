@@ -408,6 +408,17 @@
         }
       }
     },
+    "Abitudine condivisa" : {
+      "comment" : "Title of the screen of a habit someone else shares with the user.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared habit"
+          }
+        }
+      }
+    },
     "Abitudini" : {
       "localizations" : {
         "en" : {
@@ -1501,6 +1512,17 @@
         }
       }
     },
+    "Chi inviti vede l'abitudine e lo storico, non i promemoria né le note." : {
+      "comment" : "Footer of the Condividi row: what the people invited to a shared habit see.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People you invite see the habit and its history, not your reminders or notes."
+          }
+        }
+      }
+    },
     "Chiavi" : {
       "localizations" : {
         "en" : {
@@ -1715,12 +1737,67 @@
         }
       }
     },
+    "Condivisa con %lld persone" : {
+      "comment" : "Value of the Condividi row in the habit form: how many people the habit is shared with, two or more.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared with %lld people"
+          }
+        }
+      }
+    },
+    "Condivisa con 1 persona" : {
+      "comment" : "Value of the Condividi row in the habit form: the habit is shared with one person.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared with 1 person"
+          }
+        }
+      }
+    },
+    "condivisa da un'altra persona" : {
+      "comment" : "VoiceOver value of a grid ring that someone else shares with the user, after its state and streak. Lowercase, agreeing with 'abitudine' (feminine).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "shared by someone else"
+          }
+        }
+      }
+    },
+    "Condivisa da un'altra persona: solo da vedere" : {
+      "comment" : "Shown briefly when the user holds a ring shared by someone else: it cannot be marked.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared by someone else: view only"
+          }
+        }
+      }
+    },
     "Condizionatore" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Air conditioner"
+          }
+        }
+      }
+    },
+    "Controlla la connessione e riprova." : {
+      "comment" : "Alert message: preparing the iCloud share of a habit failed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check your connection and try again."
           }
         }
       }
@@ -2371,6 +2448,28 @@
         }
       }
     },
+    "Non riesco a condividere l'abitudine" : {
+      "comment" : "Alert title: preparing the iCloud share of a habit failed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can't share the habit"
+          }
+        }
+      }
+    },
+    "Per condividere, accedi a iCloud nelle Impostazioni dell'iPhone." : {
+      "comment" : "Footer of the Condividi row when iCloud is not available: why it is off and what to do.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To share, sign in to iCloud in your iPhone's Settings."
+          }
+        }
+      }
+    },
     "Per sincronizzare, accedi a iCloud e attiva iCloud Drive nelle Impostazioni dell'iPhone." : {
       "comment" : "Footer of the iCloud switch when iCloud is not available: why it is off and what to do.",
       "localizations" : {
@@ -2382,6 +2481,50 @@
         }
       }
     },
+    "Persona" : {
+      "comment" : "VoiceOver label of the person symbol in the row of icons for the owner of a shared habit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Person"
+          }
+        }
+      }
+    },
+    "Questa abitudine è condivisa con te. Vedi i suoi progressi e le statistiche." : {
+      "comment" : "Info box on the screen of a habit someone else shares with the user.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This habit is shared with you. See its progress and statistics."
+          }
+        }
+      }
+    },
+    "Rimuovi" : {
+      "comment" : "Destructive button on the screen of a shared habit: removes it from this iPhone and leaves the share. Infinitive verb.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "Scegli un'icona per chi la condivide" : {
+      "comment" : "Above the row of emoji the user picks from to mark the owner of a shared habit.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose an icon for the person sharing it"
+          }
+        }
+      }
+    },
     "Sincronizza con iCloud" : {
       "comment" : "Settings switch in Dati: turns on sync with the user's own iCloud, off by default.",
       "localizations" : {
@@ -2389,6 +2532,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sync with iCloud"
+          }
+        }
+      }
+    },
+    "Smetti di vederla su questo iPhone. Chi la condivide non perde niente." : {
+      "comment" : "Under Rimuovi on the screen of a shared habit: what removing it does.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You stop seeing it on this iPhone. The person sharing it loses nothing."
           }
         }
       }

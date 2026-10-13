@@ -56,12 +56,12 @@ final class SystemAudio {
     private func updateNowPlaying() {
         withObservationTracking {
             MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-                MPMediaItemPropertyTitle: model.current?.name ?? "Sbu Noise",
+                MPMediaItemPropertyTitle: model.isRinging ? String(localized: "Sveglia") : model.current?.name ?? "Sbu Noise",
                 MPMediaItemPropertyArtist: "Sbu Noise",
                 MPMediaItemPropertyArtwork: artwork,
                 // A sound with no end: no progress bar and no skip by seconds.
                 MPNowPlayingInfoPropertyIsLiveStream: true,
-                MPNowPlayingInfoPropertyPlaybackRate: model.isPlaying ? 1.0 : 0.0,
+                MPNowPlayingInfoPropertyPlaybackRate: model.isPlaying || model.isRinging ? 1.0 : 0.0,
             ]
         } onChange: { [weak self] in
             Task { @MainActor in self?.updateNowPlaying() }

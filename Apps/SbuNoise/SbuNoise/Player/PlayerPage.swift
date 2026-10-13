@@ -15,8 +15,14 @@ struct PlayerPage: View {
     var body: some View {
         VStack(spacing: SbuTheme.space4) {
             Spacer(minLength: 0)
+            // The symbol gives way first: with the largest text the name and the position must fit.
             Image(systemName: item.systemImage)
-                .font(.system(size: symbolSize, weight: .medium))
+                .resizable()
+                .fontWeight(.medium)
+                .scaledToFit()
+                .frame(maxWidth: symbolSize, maxHeight: symbolSize)
+                .frame(minHeight: 0)
+                .layoutPriority(-1)
                 .foregroundStyle(SbuTheme.inkMuted)
                 .accessibilityHidden(true)
             Spacer(minLength: 0)

@@ -1,0 +1,24 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "NSAlarmKitUsageDescription" : {
+      "comment" : "The AlarmKit permission prompt (iOS 26): the system alarm is only the backup of the in-app alarm.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Noise uses a system alarm as a backup, in case the app is not open when your alarm goes off."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Noise usa una sveglia di sistema come riserva, se all'ora della sveglia l'app non è aperta."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

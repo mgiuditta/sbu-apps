@@ -7,7 +7,7 @@ struct FavoritesTests {
     private let defaults = UserDefaults(suiteName: UUID().uuidString)!
 
     private func model() -> PlayerModel {
-        PlayerModel(library: Library(store: store), defaults: defaults)
+        PlayerModel(sounds: Sound.generated, library: Library(store: store), defaults: defaults)
     }
 
     @Test func heartsAreSavedInTheNoiseFile() throws {

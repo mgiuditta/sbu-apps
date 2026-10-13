@@ -14,6 +14,7 @@ final class TimerFlowTests: XCTestCase {
         try audit(app)
 
         app.buttons["Aggiungi"].tap()
+        app.buttons["Nuovo timer"].tap()
         XCTAssertTrue(app.navigationBars["Nuovo timer"].waitForExistence(timeout: 2))
         try audit(app)
         app.buttons["Salva"].tap()

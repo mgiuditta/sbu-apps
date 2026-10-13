@@ -1,12 +1,17 @@
 import Foundation
 import Observation
 
-/// What the user made and keeps in the Noise file: the mixes and the favorites.
+/// What the user made and keeps in the Noise file: the mixes, the favorites and how the catalog
+/// is arranged.
 @Observable
 final class Library {
     private(set) var mixes: [Mix]
     /// Sound ids and mix UUIDs (`PlayerItem.id`), in the order they were added.
     private(set) var favorites: [String]
+    /// The order and the hidden sounds from Gestisci.
+    var arrangement: SoundArrangement {
+        didSet { commit() }
+    }
 
     @ObservationIgnored private let store: NoiseStore
 
@@ -16,6 +21,7 @@ final class Library {
         let file = (try? store.load()) ?? NoiseFile()
         mixes = file.mixes
         favorites = file.favorites
+        arrangement = file.arrangement
     }
 
     /// Adds the mix or replaces the one with the same id.
@@ -62,6 +68,7 @@ final class Library {
         try? store.update { file in
             file.mixes = mixes
             file.favorites = favorites
+            file.arrangement = arrangement
         }
         // The mixes Siri and Comandi rapidi offer in "Riproduci … con Sbu Noise".
         NoiseShortcuts.updateAppShortcutParameters()

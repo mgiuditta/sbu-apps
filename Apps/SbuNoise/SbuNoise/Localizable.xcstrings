@@ -51,16 +51,6 @@
         }
       }
     },
-    "Aggiungi un timer per fermare il suono a un'ora o dopo un po'." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a timer to stop the sound at a set time or after a while."
-          }
-        }
-      }
-    },
     "al centro" : {
       "localizations" : {
         "en" : {
@@ -977,6 +967,876 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tap the heart under a sound or a mix to find it here."
+          }
+        }
+      }
+    },
+    "%@ · Nascosto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · Hidden"
+          }
+        }
+      }
+    },
+    "Acqua" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water"
+          }
+        }
+      }
+    },
+    "Aereo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Airplane"
+          }
+        }
+      }
+    },
+    "Aggiungi un timer per fermare il suono, o una sveglia per svegliarti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a timer to stop the sound, or an alarm to wake you up."
+          }
+        }
+      }
+    },
+    "Autore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Author"
+          }
+        }
+      }
+    },
+    "Casa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "Cerca un suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a sound"
+          }
+        }
+      }
+    },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Condizionatore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Air Conditioner"
+          }
+        }
+      }
+    },
+    "Creati da Sbu Noise" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made by Sbu Noise"
+          }
+        }
+      }
+    },
+    "Creato da Sbu Noise, in loop senza stacchi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made by Sbu Noise, looping without gaps"
+          }
+        }
+      }
+    },
+    "Crediti dei suoni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound Credits"
+          }
+        }
+      }
+    },
+    "Dissolvenza in entrata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fade In"
+          }
+        }
+      }
+    },
+    "Elimina sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Alarm"
+          }
+        }
+      }
+    },
+    "Ferma" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        }
+      }
+    },
+    "Filtra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter"
+          }
+        }
+      }
+    },
+    "Gocce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dripping Water"
+          }
+        }
+      }
+    },
+    "Gruppi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groups"
+          }
+        }
+      }
+    },
+    "Gruppo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group"
+          }
+        }
+      }
+    },
+    "Il suono si ferma prima: la sveglia arriva solo come notifica." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The sound stops earlier: the alarm only comes as a notification."
+          }
+        }
+      }
+    },
+    "Il suono si ferma prima: la sveglia arriva solo come sveglia di sistema, senza dissolvenza." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The sound stops earlier: the alarm only comes as a system alarm, without the fade."
+          }
+        }
+      }
+    },
+    "La sveglia suona se Noise resta aperta con un suono attivo. Altrimenti arriva una notifica." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The alarm rings if Noise stays open with a sound playing. Otherwise a notification arrives."
+          }
+        }
+      }
+    },
+    "La sveglia suona se Noise resta aperta con un suono attivo. Altrimenti suona una sveglia di sistema." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The alarm rings if Noise stays open with a sound playing. Otherwise a system alarm rings."
+          }
+        }
+      }
+    },
+    "Le notifiche di Sbu Noise sono spente: se l'app non è aperta, la sveglia non suona. Accendile in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Noise notifications are off: if the app is not open, the alarm does not ring. Turn them on in Settings."
+          }
+        }
+      }
+    },
+    "Le registrazioni vengono da Freesound e sono in pubblico dominio (CC0). I rumori e gli altri suoni sono creati da Sbu Noise." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The recordings come from Freesound and are in the public domain (CC0). The noises and the other sounds are made by Sbu Noise."
+          }
+        }
+      }
+    },
+    "Le sveglie di Sbu Noise sono spente in Impostazioni: se l'app non è aperta, la sveglia non suona." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Noise alarms are off in Settings: if the app is not open, the alarm does not ring."
+          }
+        }
+      }
+    },
+    "Licenza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "License"
+          }
+        }
+      }
+    },
+    "Lo rimette nel player." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puts it back in the player."
+          }
+        }
+      }
+    },
+    "Lo riproduce." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plays it."
+          }
+        }
+      }
+    },
+    "Luminosità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brightness"
+          }
+        }
+      }
+    },
+    "Modifica la sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit the alarm"
+          }
+        }
+      }
+    },
+    "Modifica sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Alarm"
+          }
+        }
+      }
+    },
+    "Mostra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show"
+          }
+        }
+      }
+    },
+    "Nascondi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide"
+          }
+        }
+      }
+    },
+    "Nascosti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hidden"
+          }
+        }
+      }
+    },
+    "Natura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nature"
+          }
+        }
+      }
+    },
+    "Nel player" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the Player"
+          }
+        }
+      }
+    },
+    "Nessun suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sound"
+          }
+        }
+      }
+    },
+    "Nessun suono trovato." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sounds found."
+          }
+        }
+      }
+    },
+    "Nessuna sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No alarm"
+          }
+        }
+      }
+    },
+    "Nuova sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Alarm"
+          }
+        }
+      }
+    },
+    "Pagina della fonte: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source page: %@"
+          }
+        }
+      }
+    },
+    "Pioggia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain"
+          }
+        }
+      }
+    },
+    "Preferito" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorite"
+          }
+        }
+      }
+    },
+    "Registrazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording"
+          }
+        }
+      }
+    },
+    "Registrazione in pubblico dominio (CC0), tagliata e chiusa in un loop senza stacchi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public domain recording (CC0), trimmed and closed into a loop without gaps."
+          }
+        }
+      }
+    },
+    "Rimanda" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snooze"
+          }
+        }
+      }
+    },
+    "Rimanda di %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snooze for %@"
+          }
+        }
+      }
+    },
+    "Rintocchi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chimes"
+          }
+        }
+      }
+    },
+    "Rumori" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noises"
+          }
+        }
+      }
+    },
+    "Sono le %@. Tocca per fermarla." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's %@. Tap to stop it."
+          }
+        }
+      }
+    },
+    "Suoni di sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm Sounds"
+          }
+        }
+      }
+    },
+    "Sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm"
+          }
+        }
+      }
+    },
+    "Sveglia alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm at %@"
+          }
+        }
+      }
+    },
+    "Sveglia classica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classic Alarm"
+          }
+        }
+      }
+    },
+    "Sveglia · %@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm · %1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "Sveglie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarms"
+          }
+        }
+      }
+    },
+    "Tocca Modifica per cambiare l'ordine. Scorri un suono per nasconderlo, tocca un suono nascosto per rimetterlo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap Edit to change the order. Swipe a sound to hide it, tap a hidden sound to put it back."
+          }
+        }
+      }
+    },
+    "Tocca per fermarla." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to stop it."
+          }
+        }
+      }
+    },
+    "Tutti i gruppi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Groups"
+          }
+        }
+      }
+    },
+    "Vento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wind"
+          }
+        }
+      }
+    },
+    "Viaggio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel"
+          }
+        }
+      }
+    },
+    "Asciugatrice" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clothes Dryer"
+          }
+        }
+      }
+    },
+    "Auto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Car Ride"
+          }
+        }
+      }
+    },
+    "Bosco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forest"
+          }
+        }
+      }
+    },
+    "Cascata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waterfall"
+          }
+        }
+      }
+    },
+    "Città" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "City Street"
+          }
+        }
+      }
+    },
+    "Fiume" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "River"
+          }
+        }
+      }
+    },
+    "Fuoco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fireplace"
+          }
+        }
+      }
+    },
+    "Fusa del gatto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cat Purring"
+          }
+        }
+      }
+    },
+    "Lavastoviglie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dishwasher"
+          }
+        }
+      }
+    },
+    "Lavatrice" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Washing Machine"
+          }
+        }
+      }
+    },
+    "Mare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocean"
+          }
+        }
+      }
+    },
+    "Notte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Night"
+          }
+        }
+      }
+    },
+    "Onde" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waves"
+          }
+        }
+      }
+    },
+    "Orologio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ticking Clock"
+          }
+        }
+      }
+    },
+    "Pioggia forte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heavy Rain"
+          }
+        }
+      }
+    },
+    "Pioggia leggera" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light Rain"
+          }
+        }
+      }
+    },
+    "Pioggia sul tetto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain on the Roof"
+          }
+        }
+      }
+    },
+    "Pioggia sull'auto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain on the Car"
+          }
+        }
+      }
+    },
+    "Pioggia sulla tenda" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rain on a Tent"
+          }
+        }
+      }
+    },
+    "Rane" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frogs"
+          }
+        }
+      }
+    },
+    "Ruscello" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stream"
+          }
+        }
+      }
+    },
+    "Temporale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thunderstorm"
+          }
+        }
+      }
+    },
+    "Treno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Train"
+          }
+        }
+      }
+    },
+    "Ventilatore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fan"
+          }
+        }
+      }
+    },
+    "Vento tra i pini" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wind in the Pines"
           }
         }
       }

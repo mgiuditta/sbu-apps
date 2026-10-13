@@ -138,14 +138,21 @@ final class SoundEngine {
         if !engine.isRunning { try? engine.start() }
     }
 
-    /// Reads a whole audio file into memory, ready for `addLoop`. `AVAudioFile` drops the AAC
-    /// priming and remainder frames, so the buffer holds exactly the encoded samples.
-    nonisolated static func loadLoop(_ url: URL) throws -> AVAudioPCMBuffer {
+    /// Frames of wrap-around that `make_sounds.py` adds before and after every loop of the bundle,
+    /// where AAC's error at the file's edges lands instead of on the seam.
+    nonisolated static let loopPadding: AVAudioFramePosition = 4_096
+
+    /// Reads an audio file into memory, ready for `addLoop`, without `padding` frames at each end.
+    /// `AVAudioFile` drops the AAC priming and remainder frames, so the buffer holds exactly the
+    /// encoded samples.
+    nonisolated static func loadLoop(_ url: URL, padding: AVAudioFramePosition = 0) throws -> AVAudioPCMBuffer {
         let file = try AVAudioFile(forReading: url)
-        guard let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length)) else {
+        let length = file.length - 2 * padding
+        guard length > 0, let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(length)) else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        try file.read(into: buffer)
+        file.framePosition = padding
+        try file.read(into: buffer, frameCount: AVAudioFrameCount(length))
         return buffer
     }
 

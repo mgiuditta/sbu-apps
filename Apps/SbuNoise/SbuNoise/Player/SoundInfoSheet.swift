@@ -10,7 +10,17 @@ struct SoundInfoSheet: View {
         NavigationStack {
             List {
                 Section("Fonte") {
-                    Text("Generato in tempo reale")
+                    LabeledContent("Gruppo") {
+                        Text(sound.category.title)
+                    }
+                    switch sound.source {
+                    case .generated:
+                        Text("Generato in tempo reale")
+                    case .loop(_, credit: let credit?):
+                        SoundCreditRows(credit: credit)
+                    case .loop(_, credit: nil):
+                        Text("Creato da Sbu Noise, in loop senza stacchi")
+                    }
                 }
             }
             .listStyle(.insetGrouped)
@@ -30,6 +40,6 @@ struct SoundInfoSheet: View {
 }
 
 #Preview("Dark") {
-    Color.clear.sheet(isPresented: .constant(true)) { SoundInfoSheet(sound: Sound.generated[0]) }
+    Color.clear.sheet(isPresented: .constant(true)) { SoundInfoSheet(sound: Sound.catalog.last ?? Sound.generated[0]) }
         .preferredColorScheme(.dark)
 }

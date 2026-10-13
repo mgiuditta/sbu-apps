@@ -5,7 +5,7 @@ struct NoiseItemQueryTests {
     @Test func offersTheSoundsThenTheMixes() {
         let mix = Mix(name: "Temporale", soundIDs: ["noise.pink"])
         let entities = NoiseItemQuery.entities(mixes: [mix])
-        #expect(entities.map(\.id) == Sound.generated.map(\.id) + [mix.id.uuidString])
+        #expect(entities.map(\.id) == Sound.catalog.map(\.id) + [mix.id.uuidString])
         #expect(entities.last?.name == "Temporale")
         #expect(entities.last?.systemImage == "square.stack.3d.up")
     }

@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// Chooses the sounds for a mix, up to the room left in it.
+/// Chooses the sounds for a mix, up to the room left in it, group by group.
 struct MixSoundPicker: View {
     let sounds: [Sound]
     let limit: Int
@@ -16,36 +16,43 @@ struct MixSoundPicker: View {
     var body: some View {
         List {
             Section {
-                ForEach(sounds) { sound in
-                    let isSelected = selection.contains(sound.id)
-                    Button {
-                        if isSelected {
-                            selection.removeAll { $0 == sound.id }
-                        } else if selection.count < limit {
-                            selection.append(sound.id)
-                        }
-                    } label: {
-                        // ponytail: not a Label, which the accessibility audit flags as clipped in this row.
-                        HStack(spacing: SbuTheme.space3) {
-                            Image(systemName: sound.systemImage)
-                                .fontWeight(.medium)
-                                .frame(width: iconWidth)
-                                .accessibilityHidden(true)
-                            Text(sound.name)
-                            Spacer()
-                            if isSelected {
-                                Image(systemName: "checkmark")
-                                    .fontWeight(.medium)
-                                    .foregroundStyle(.tint)
-                            }
-                        }
-                        .foregroundStyle(SbuTheme.ink)
-                    }
-                    .disabled(!isSelected && selection.count >= limit)
-                    .accessibilityAddTraits(isSelected ? .isSelected : [])
-                }
-            } footer: {
                 Text("Fino a \(limit) suoni.")
+                    .font(SbuTheme.footnote)
+                    .foregroundStyle(SbuTheme.inkMuted)
+            }
+            ForEach(groups, id: \.group) { entry in
+                Section {
+                    ForEach(entry.sounds) { sound in
+                        let isSelected = selection.contains(sound.id)
+                        Button {
+                            if isSelected {
+                                selection.removeAll { $0 == sound.id }
+                            } else if selection.count < limit {
+                                selection.append(sound.id)
+                            }
+                        } label: {
+                            // ponytail: not a Label, which the accessibility audit flags as clipped in this row.
+                            HStack(spacing: SbuTheme.space3) {
+                                Image(systemName: sound.systemImage)
+                                    .fontWeight(.medium)
+                                    .frame(width: iconWidth)
+                                    .accessibilityHidden(true)
+                                Text(sound.name)
+                                Spacer()
+                                if isSelected {
+                                    Image(systemName: "checkmark")
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(.tint)
+                                }
+                            }
+                            .foregroundStyle(SbuTheme.ink)
+                        }
+                        .disabled(!isSelected && selection.count >= limit)
+                        .accessibilityAddTraits(isSelected ? .isSelected : [])
+                    }
+                } header: {
+                    Text(entry.group.title)
+                }
             }
         }
         .navigationTitle("Scegli i suoni")
@@ -58,6 +65,14 @@ struct MixSoundPicker: View {
                 Button(confirmTitle) { onConfirm(selection) }
                     .disabled(selection.isEmpty)
             }
+        }
+    }
+
+    /// The catalog's groups that have sounds here, in catalog order.
+    private var groups: [(group: SoundCategory, sounds: [Sound])] {
+        SoundCategory.allCases.compactMap { group in
+            let members = sounds.filter { $0.category == group }
+            return members.isEmpty ? nil : (group, members)
         }
     }
 }

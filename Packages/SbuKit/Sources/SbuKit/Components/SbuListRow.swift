@@ -5,7 +5,7 @@ import SwiftUI
 
 /// A row of an `.insetGrouped` list: icon, title and subtitle on the left, figure and status on the right.
 ///
-/// The separator starts under the title, as on iOS, because the icon is the `Label` icon.
+/// The icon tile is centred on the title and subtitle; the separator starts under the title, as on iOS.
 public struct SbuListRow: View {
     private let title: LocalizedStringKey
     private let subtitle: LocalizedStringKey?
@@ -65,7 +65,16 @@ public struct SbuListRow: View {
                 }
             }
         } label: {
-            Label {
+            // Not a `Label`: outside a `List` it aligns the icon to the title's first line, so the
+            // tile sat high next to a two-line title and subtitle. Centred here in and out of lists.
+            HStack(spacing: SbuTheme.space3) {
+                Image(systemName: systemImage)
+                    .fontWeight(.medium)
+                    .imageScale(.medium)
+                    .foregroundStyle(iconForeground)
+                    .frame(width: iconSide, height: iconSide)
+                    .background(iconBackground, in: .rect(cornerRadius: SbuTheme.radiusMd))
+
                 VStack(alignment: .leading, spacing: 0) {
                     Text(title)
                         .font(SbuTheme.headline)
@@ -77,13 +86,7 @@ public struct SbuListRow: View {
                             .foregroundStyle(SbuTheme.inkMuted)
                     }
                 }
-            } icon: {
-                Image(systemName: systemImage)
-                    .fontWeight(.medium)
-                    .imageScale(.medium)
-                    .foregroundStyle(iconForeground)
-                    .frame(width: iconSide, height: iconSide)
-                    .background(iconBackground, in: .rect(cornerRadius: SbuTheme.radiusMd))
+                .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
             }
         }
         .listRowInsets(EdgeInsets(top: SbuTheme.space3, leading: SbuTheme.space4, bottom: SbuTheme.space3, trailing: SbuTheme.space4))

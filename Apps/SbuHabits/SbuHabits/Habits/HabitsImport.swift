@@ -47,8 +47,11 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
     /// Values the form could have produced: a file edited by hand or crafted is refused, not
     /// trusted, since it replaces everything and is read again on every launch.
     static func isPlausible(_ habit: Habit) -> Bool {
-        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped + habit.markHours.keys
         let schedules = [habit.schedule] + habit.earlier.map(\.schedule)
+        let oneDays = schedules.compactMap { schedule in
+            if case .oneDay(let day) = schedule { day } else { nil }
+        }
+        let days = [habit.createdOn] + habit.earlier.map(\.until) + habit.log.keys + habit.skipped + habit.markHours.keys + oneDays
         let times = [habit.timesPerDay] + habit.earlier.map(\.timesPerDay)
         let limits = ([habit.limit] + habit.earlier.map(\.limit)).compactMap { $0 }
         let untils = habit.earlier.map(\.until)
@@ -72,6 +75,9 @@ nonisolated struct HabitsImport: Identifiable, Sendable {
                 case .everyDay: true
                 case .weekdays(let days): days.isEmpty == false && days.isSubset(of: 1...7)
                 case .timesPerWeek(let times): Schedule.timesPerWeekRange.contains(times)
+                // Counted in months or on one day only: never with a Limite.
+                case .timesPerMonth(let times): Schedule.timesPerMonthRange.contains(times) && habit.limit == nil
+                case .oneDay: habit.limit == nil
                 }
             }
     }

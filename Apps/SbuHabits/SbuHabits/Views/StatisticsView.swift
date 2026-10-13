@@ -47,7 +47,7 @@ private struct StatisticsRow: View {
 
     var body: some View {
         LabeledContent {
-            Text(habit.schedule.isWeekly ? "\(streak) settimane" : "\(streak) giorni")
+            Text(habit.schedule.streakText(streak))
                 .monospacedDigit()
         } label: {
             Label {

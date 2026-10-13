@@ -10,7 +10,7 @@ struct SingleHabitWidgetView: View {
         Group {
             if let habit = entry.habit, let progress = entry.progress {
                 let face = HabitRingFace(habit: habit, progress: progress)
-                let streakText = habit.schedule.isWeekly ? Text("\(entry.streak) settimane") : Text("\(entry.streak) giorni")
+                let streakText = Text(habit.schedule.streakText(entry.streak))
                 Button(intent: MarkHabitIntent(habitID: habit.id)) {
                     VStack(spacing: SbuTheme.space1) {
                         HabitRing(face: face)

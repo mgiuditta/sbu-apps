@@ -40,6 +40,27 @@ nonisolated struct LogicalDay: Hashable, Comparable, Codable, CodingKeyRepresent
         self - (weekday - firstWeekday + 7) % 7
     }
 
+    /// The first day of the calendar month this day falls in, on the Gregorian calendar.
+    var monthStart: LogicalDay {
+        self - (Self.utc.component(.day, from: utcMidnight) - 1)
+    }
+
+    /// How many days the calendar month this day falls in has: 28 to 31.
+    var daysInMonth: Int {
+        Self.utc.range(of: .day, in: .month, for: utcMidnight)?.count ?? 30
+    }
+
+    /// The Gregorian calendar in UTC, where day `ordinal` starts exactly `ordinal` days after 1970.
+    private static var utc: Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = .gmt
+        return calendar
+    }
+
+    private var utcMidnight: Date {
+        Date(timeIntervalSince1970: Double(ordinal) * 86_400)
+    }
+
     /// Noon of this day in `calendar`'s time zone: a moment safely inside the day, to format its
     /// date or to set a time on it.
     func noon(in calendar: Calendar) -> Date {

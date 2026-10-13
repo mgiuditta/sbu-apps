@@ -1,8 +1,9 @@
-/// How far a habit is toward its goal: today's times, or the week's days for a weekly habit;
+/// How far a habit is toward its goal: today's times, or the days of the week or month for a
+/// weekly or monthly habit;
 /// for an Abitudine da evitare, today's times given in against the Limite.
 nonisolated struct HabitProgress: Equatable, Sendable {
     let done: Int
-    /// Zero when every day of a weekly habit's week was skipped: nothing was asked that week.
+    /// Zero when every day of a weekly or monthly habit's period was skipped: nothing was asked.
     let goal: Int
     /// Times marked today, which Annulla ultima can take back.
     let marksToday: Int
@@ -30,11 +31,12 @@ nonisolated struct HabitProgress: Equatable, Sendable {
         limit = habit.limit(on: today)
         // Every hold of an Abitudine da evitare is one more time given in.
         holdUndoes = limit == nil && habit.isDone(on: today)
-        if case .timesPerWeek(let times) = habit.schedule(on: today) {
-            let start = today.weekStart(firstWeekday: firstWeekday)
+        let schedule = habit.schedule(on: today)
+        if let period = schedule.period, let times = schedule.timesPerPeriod {
+            let start = period.start(of: today, firstWeekday: firstWeekday)
             let days = (0...(today.ordinal - start.ordinal)).map { start + $0 }
             done = days.count { habit.isDone(on: $0) }
-            // Each skipped day lowers the week's goal by one.
+            // Each skipped day lowers the period's goal by one.
             goal = max(times - days.count { habit.isSkipped(on: $0) }, 0)
         } else {
             done = habit.count(on: today)

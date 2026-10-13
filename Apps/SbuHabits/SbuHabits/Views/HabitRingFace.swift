@@ -17,7 +17,7 @@ nonisolated struct HabitRingFace: Equatable, Sendable {
         self.progress = progress
         segments = max(progress.goal, 1)
         isOverLimit = progress.isOverLimit
-        symbol = if progress.isSkippedToday && habit.schedule.isWeekly == false {
+        symbol = if progress.isSkippedToday && habit.schedule.isCounted == false {
             "forward"
         } else if progress.isOverLimit {
             "xmark"

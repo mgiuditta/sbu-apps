@@ -69,7 +69,7 @@ struct TimedHabitTests {
         let file = try JSONDecoder().decode(HabitsFile.self, from: Data(json.utf8))
 
         #expect(file.habits[0].timerMinutes == nil)
-        #expect(file.version == HabitsFile.currentVersion)
+        #expect(file.version == 1)
     }
 
     // MARK: - The countdown

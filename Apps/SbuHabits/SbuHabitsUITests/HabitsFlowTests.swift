@@ -171,6 +171,45 @@ final class HabitsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testAMonthlyHabitCountsDaysOfTheMonth() {
+        let app = launch()
+        app.buttons["Aggiungi"].firstMatch.tap()
+        app.textFields["Titolo"].tap()
+        app.textFields["Titolo"].typeText("Biblioteca")
+        app.buttons["Volte al mese"].tap()
+        app.navigationBars.buttons["Aggiungi"].tap()
+        let biblioteca = habit("Biblioteca", in: app)
+        expectValue(biblioteca, "0 di 10, 0 mesi")
+
+        biblioteca.press(forDuration: 1)
+
+        expectValue(biblioteca, "1 di 10, 0 mesi")
+    }
+
+    @MainActor
+    func testAnAttivitaDiUnGiornoForTodayIsInTheGrid() throws {
+        let app = launch()
+        app.buttons["Aggiungi"].firstMatch.tap()
+        app.textFields["Titolo"].tap()
+        app.textFields["Titolo"].typeText("Dentista\n")
+        app.buttons["Un giorno solo"].tap()
+
+        XCTAssertTrue(app.staticTexts["Compare nella griglia solo quel giorno."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.datePickers.firstMatch.exists)
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            // The inline title fits; the audit reads the glass bar's edge as clipping it.
+            if issue.auditType == .textClipped, issue.element?.label == "Nuova abitudine" {
+                return true
+            }
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+        app.navigationBars.buttons["Aggiungi"].tap()
+
+        expectValue(habit("Dentista", in: app), "Da fare, 0 giorni")
+    }
+
+    @MainActor
     func testSkippingTodayCanBeTakenBack() {
         let app = launch()
         add("Leggere", in: app)

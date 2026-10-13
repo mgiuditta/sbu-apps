@@ -1,7 +1,9 @@
 /// Everything Sbu Habits saves: one JSON file in the App Group, shared with the widget.
 nonisolated struct HabitsFile: Codable, Equatable, Sendable {
-    /// Bump when the format changes in a way this version cannot read back.
-    static let currentVersion = 1
+    /// Bump when the format changes in a way this version cannot read back. 2 added the schedules
+    /// N volte al mese and Attività di un giorno, which version 1 cannot decode: it refuses the file
+    /// as newer instead of calling it damaged, and never overwrites it.
+    static let currentVersion = 2
     /// The hours a day can start at: 0 is midnight, 4 suits a night shift.
     static let startHourRange = 0...6
 

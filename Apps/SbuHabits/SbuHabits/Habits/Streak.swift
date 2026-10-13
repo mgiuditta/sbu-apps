@@ -3,8 +3,9 @@
 /// Today not done yet never breaks a streak: the day is not over. Days with nothing expected
 /// and skipped days are neutral: they neither break a streak nor add to it. An Abitudine da
 /// evitare counts a day once it is over and was within its Limite; going over it breaks a
-/// streak at once, today too. Weekly habits count in weeks and stay out of the Serie piena,
-/// which counts days.
+/// streak at once, today too. Weekly habits count in weeks, monthly ones in calendar months,
+/// and both stay out of the Serie piena, which counts days. An Attività di un giorno is expected
+/// on its day only: neutral on every other.
 nonisolated enum Streak {
     private enum Day {
         case done, neutral, missed
@@ -12,11 +13,11 @@ nonisolated enum Streak {
         case pending
     }
 
-    /// Expected days in a row, up to today, on which `habit` was done; for a weekly habit, weeks
-    /// in a row with the goal reached, where the current week never breaks it.
+    /// Expected days in a row, up to today, on which `habit` was done; for a weekly or monthly
+    /// habit, weeks or months in a row with the goal reached, where the current one never breaks it.
     static func current(of habit: Habit, today: LogicalDay, firstWeekday: Int) -> Int {
-        if case .timesPerWeek = habit.schedule {
-            return weeks(of: habit, today: today, firstWeekday: firstWeekday)
+        if let period = habit.schedule.period {
+            return periods(of: habit, period: period, today: today, firstWeekday: firstWeekday)
         }
         return countBack(from: today, to: habit.createdOn) { verdict(of: habit, on: $0, today: today) }
     }
@@ -33,23 +34,24 @@ nonisolated enum Streak {
         }
     }
 
-    /// The longest Serie the habit ever had, in days or, for a weekly habit, in weeks.
+    /// The longest Serie the habit ever had, in days or, for a weekly or monthly habit, in weeks
+    /// or months.
     static func best(of habit: Habit, today: LogicalDay, firstWeekday: Int) -> Int {
         var best = 0
         var run = 0
-        if case .timesPerWeek = habit.schedule {
-            let thisWeek = today.weekStart(firstWeekday: firstWeekday)
-            var weekStart = habit.createdOn.weekStart(firstWeekday: firstWeekday)
-            while weekStart <= thisWeek {
-                let lastDay = weekStart == thisWeek ? today : weekStart + 6
-                switch week(of: habit, endingOn: lastDay, firstWeekday: firstWeekday) {
+        if let period = habit.schedule.period {
+            let thisStart = period.start(of: today, firstWeekday: firstWeekday)
+            var start = period.start(of: habit.createdOn, firstWeekday: firstWeekday)
+            while start <= thisStart {
+                let lastDay = start == thisStart ? today : period.end(of: start, firstWeekday: firstWeekday)
+                switch result(of: habit, period: period, endingOn: lastDay, firstWeekday: firstWeekday) {
                 case .done: run += 1
                 case .neutral, .pending: break
-                case .missed where weekStart != thisWeek: run = 0
+                case .missed where start != thisStart: run = 0
                 case .missed: break
                 }
                 best = max(best, run)
-                weekStart = weekStart + 7
+                start = lastDay + 1
             }
             return best
         }
@@ -66,23 +68,26 @@ nonisolated enum Streak {
         return best
     }
 
-    private static func weeks(of habit: Habit, today: LogicalDay, firstWeekday: Int) -> Int {
-        let thisWeek = today.weekStart(firstWeekday: firstWeekday)
-        var weekEnd = week(of: habit, endingOn: today, firstWeekday: firstWeekday) == .done ? thisWeek + 6 : thisWeek - 1
+    /// Weeks or months in a row with the goal reached: the current one counts once reached, and
+    /// never breaks the Serie before then.
+    private static func periods(of habit: Habit, period: SchedulePeriod, today: LogicalDay, firstWeekday: Int) -> Int {
+        let thisStart = period.start(of: today, firstWeekday: firstWeekday)
+        var lastDay = result(of: habit, period: period, endingOn: today, firstWeekday: firstWeekday) == .done ? today : thisStart - 1
         var count = 0
-        while weekEnd >= habit.createdOn {
-            switch week(of: habit, endingOn: weekEnd, firstWeekday: firstWeekday) {
+        while lastDay >= habit.createdOn {
+            switch result(of: habit, period: period, endingOn: lastDay, firstWeekday: firstWeekday) {
             case .done: count += 1
             case .neutral, .pending: break
             case .missed: return count
             }
-            weekEnd = weekEnd - 7
+            lastDay = period.start(of: lastDay, firstWeekday: firstWeekday) - 1
         }
         return count
     }
 
-    /// A week whose every day was skipped asked for nothing: neutral, never counted.
-    private static func week(of habit: Habit, endingOn lastDay: LogicalDay, firstWeekday: Int) -> Day {
+    /// How a week or month counts, judged on its days up to `lastDay`. One whose every day was
+    /// skipped asked for nothing: neutral, never counted.
+    private static func result(of habit: Habit, period: SchedulePeriod, endingOn lastDay: LogicalDay, firstWeekday: Int) -> Day {
         let progress = HabitProgress(of: habit, today: lastDay, firstWeekday: firstWeekday)
         if progress.goal == 0 { return .neutral }
         return progress.isComplete ? .done : .missed

@@ -36,11 +36,11 @@ nonisolated enum ReminderPlan {
 
     private static func isExpected(_ habit: Habit, on day: LogicalDay, today: LogicalDay, calendar: Calendar) -> Bool {
         guard day >= habit.createdOn, habit.isSkipped(on: day) == false, habit.isDone(on: day) == false else { return false }
-        guard habit.schedule.isWeekly else { return habit.schedule.includes(day) }
-        // Any day can be one of the week's days. This week, only until the goal is reached.
+        guard let period = habit.schedule.period else { return habit.schedule.includes(day) }
+        // Any day can be one of the week's or month's days. This one, only until the goal is reached.
         let firstWeekday = calendar.firstWeekday
-        let isThisWeek = day.weekStart(firstWeekday: firstWeekday) == today.weekStart(firstWeekday: firstWeekday)
-        return isThisWeek == false || HabitProgress(of: habit, today: today, firstWeekday: firstWeekday).isComplete == false
+        let isThisPeriod = period.start(of: day, firstWeekday: firstWeekday) == period.start(of: today, firstWeekday: firstWeekday)
+        return isThisPeriod == false || HabitProgress(of: habit, today: today, firstWeekday: firstWeekday).isComplete == false
     }
 
     /// The moment `time` falls on in `day`: an hour before the start of the day belongs to the

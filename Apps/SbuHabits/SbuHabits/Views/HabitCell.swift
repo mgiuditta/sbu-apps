@@ -39,7 +39,7 @@ struct HabitCell: View {
     }
 
     private var streakText: Text {
-        habit.schedule.isWeekly ? Text("\(streak) settimane") : Text("\(streak) giorni")
+        Text(habit.schedule.streakText(streak))
     }
 
     /// Today's state, the length of an Abitudine a tempo, then the Serie.

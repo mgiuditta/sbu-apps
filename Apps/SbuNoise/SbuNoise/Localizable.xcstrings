@@ -872,6 +872,106 @@
           }
         }
       }
+    },
+    "Riproduci o metti in pausa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play or pause"
+          }
+        }
+      }
+    },
+    "In riproduzione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playing"
+          }
+        }
+      }
+    },
+    "Riproduci un suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play a sound"
+          }
+        }
+      }
+    },
+    "Riproduce un suono o un mix, o l'ultimo che hai ascoltato." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plays a sound or a mix, or the last one you listened to."
+          }
+        }
+      }
+    },
+    "Riproduci ${sound}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play ${sound}"
+          }
+        }
+      }
+    },
+    "Metti in pausa il suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause the sound"
+          }
+        }
+      }
+    },
+    "Metti in pausa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        }
+      }
+    },
+    "In pausa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
+          }
+        }
+      }
+    },
+    "Il suono che stai ascoltando, da avviare o mettere in pausa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The sound you are listening to, to play or pause."
+          }
+        }
+      }
+    },
+    "Avvia o metti in pausa il suono di Sbu Noise." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play or pause the Sbu Noise sound."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

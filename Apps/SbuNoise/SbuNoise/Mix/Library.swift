@@ -38,5 +38,7 @@ final class Library {
 
     private func commit() {
         try? store.update { $0.mixes = mixes }
+        // The mixes Siri and Comandi rapidi offer in "Riproduci … con Sbu Noise".
+        NoiseShortcuts.updateAppShortcutParameters()
     }
 }

@@ -103,6 +103,29 @@ final class PlayerModel {
         }
     }
 
+    /// Commands from Comandi rapidi, Siri, the widgets and the control.
+    func perform(_ command: PlaybackCommand) {
+        switch command {
+        case .play(let itemID):
+            if let itemID { select(itemID) }
+            // Changing page already restarts a playing sound.
+            if !isPlaying { start() }
+        case .pause:
+            pause()
+        }
+    }
+
+    /// Moves to the sound or mix with this id, in its category; an unknown id stays where it is.
+    private func select(_ itemID: String) {
+        if let soundIndex = sounds.firstIndex(where: { $0.id == itemID }) {
+            category = .sounds
+            index = soundIndex
+        } else if let mixIndex = library.mixes.firstIndex(where: { $0.id.uuidString == itemID }) {
+            category = .mixes
+            index = mixIndex
+        }
+    }
+
     func isFavorite(_ item: PlayerItem) -> Bool {
         favorites.contains(item.id)
     }

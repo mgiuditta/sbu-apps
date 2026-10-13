@@ -7,13 +7,13 @@ nonisolated struct NoiseStore: Sendable {
         case unknownVersion(Int)
     }
 
-    /// The file in Application Support.
+    /// The file in the App Group container, where Comandi rapidi read the mixes.
     static var shared: NoiseStore {
         // UI tests run each case on its own throwaway file, named in the launch environment.
         if let name = ProcessInfo.processInfo.environment["SBU_NOISE_FILE"] {
             return NoiseStore(url: .temporaryDirectory.appending(path: name))
         }
-        return NoiseStore(url: .applicationSupportDirectory.appending(path: "noise.json"))
+        return NoiseStore(url: AppGroup.folder.appending(path: "noise.json"))
     }
 
     let url: URL

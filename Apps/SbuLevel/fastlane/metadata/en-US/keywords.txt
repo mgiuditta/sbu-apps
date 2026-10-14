@@ -1,1 +1,1 @@
-level,bubble,clinometer,tilt,angle,degrees,inclinometer,shelf,picture
+bubble,clinometer,tilt,angle,degrees,inclinometer,slope,spirit,plumb,shelf,picture,frame

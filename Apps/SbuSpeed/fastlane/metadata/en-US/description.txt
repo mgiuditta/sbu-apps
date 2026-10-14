@@ -19,4 +19,6 @@ Open the app and read your speed in large digits, from your iPhone's GPS. On a b
 - Location is used only while the app is open and stays on your iPhone
 - Light and dark mode, Dynamic Type, VoiceOver
 
+When driving, mount your iPhone before you set off and don't touch it while moving. GPS speed is a guide: your vehicle's speedometer and the law always come first.
+
 Sbu does one thing: it tells you how fast you are going.

@@ -5,4 +5,5 @@ The app opens on the speedometer and iOS asks for location. The current speed fr
 - "Reset trip" clears the trip after a confirmation.
 - The gear opens Settings: units (km/h, mph or knots) and an optional speed limit; going over it vibrates and plays a sound once.
 - In landscape, as in a car mount, the number sits on the left and the trip on the right.
+The app needs no interaction while driving: the screen stays on and only shows the speed. The optional limit alert helps the driver stay under the limit.
 Without movement the speed reads 0; testing needs a walk or a drive. With location denied, the screen says so and offers to open Settings.

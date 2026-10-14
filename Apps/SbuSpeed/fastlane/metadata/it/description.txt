@@ -19,4 +19,6 @@ Apri l'app e leggi la tua velocità in grande, dal GPS dell'iPhone. In bici, di 
 - La posizione si usa solo con l'app aperta e resta sull'iPhone
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
+Alla guida, fissa l'iPhone a un supporto prima di partire e non toccarlo in movimento. La velocità del GPS è indicativa: valgono sempre il tachimetro del veicolo e il codice della strada.
+
 Sbu fa una cosa sola: ti dice quanto vai veloce.

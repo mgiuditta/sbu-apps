@@ -70,3 +70,10 @@ extension Subscription {
         !isInTrial(on: date, in: calendar) && nextPayment(after: date, in: calendar) != nil && cycle != .once
     }
 }
+
+extension Subscription {
+    var reminderSource: ReminderSource {
+        ReminderSource(id: "\(Int(createdAt.timeIntervalSince1970 * 1000))", name: name, price: price, currencyCode: currencyCode,
+                       schedule: schedule, trialEnd: trialEndDate, daysBefore: reminderDaysBefore, isActive: status == .active)
+    }
+}

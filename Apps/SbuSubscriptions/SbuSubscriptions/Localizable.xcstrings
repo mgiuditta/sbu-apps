@@ -231,6 +231,26 @@
         }
       }
     },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Arriva tra pochi secondi, anche con l'app aperta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It arrives in a few seconds, even with the app open."
+          }
+        }
+      }
+    },
     "Assicurazione" : {
       "localizations" : {
         "en" : {
@@ -357,6 +377,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finished"
+          }
+        }
+      }
+    },
+    "Così arrivano i promemoria prima di ogni rinnovo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is how reminders arrive before each renewal."
           }
         }
       }
@@ -601,6 +631,16 @@
         }
       }
     },
+    "Invia un promemoria di prova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send a test reminder"
+          }
+        }
+      }
+    },
     "Istruzione" : {
       "localizations" : {
         "en" : {
@@ -617,6 +657,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The figure at the top and the widget show this period."
+          }
+        }
+      }
+    },
+    "La prova gratuita finisce domani. Poi paghi %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The free trial ends tomorrow. Then you pay %@."
+          }
+        }
+      }
+    },
+    "La prova gratuita finisce il %@. Poi paghi %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The free trial ends on %@. Then you pay %@."
+          }
+        }
+      }
+    },
+    "La prova gratuita finisce oggi. Poi paghi %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The free trial ends today. Then you pay %@."
           }
         }
       }
@@ -791,6 +861,16 @@
         }
       }
     },
+    "Notifiche spente per Sbu Subscriptions" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications are off for Sbu Subscriptions"
+          }
+        }
+      }
+    },
     "Notizie" : {
       "localizations" : {
         "en" : {
@@ -917,6 +997,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Daily"
+          }
+        }
+      }
+    },
+    "Ora dei promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminder time"
           }
         }
       }
@@ -1061,6 +1151,16 @@
         }
       }
     },
+    "Quanti giorni prima lo scegli per ogni abbonamento." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many days ahead you choose for each subscription."
+          }
+        }
+      }
+    },
     "Quanto vale 1 %@ in %@." : {
       "localizations" : {
         "en" : {
@@ -1121,6 +1221,16 @@
         }
       }
     },
+    "Senza notifiche nessun rinnovo ti avvisa. Attivale nelle Impostazioni dell'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without notifications no renewal warns you. Turn them on in the iPhone's Settings."
+          }
+        }
+      }
+    },
     "Settimanale" : {
       "localizations" : {
         "en" : {
@@ -1137,6 +1247,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Weeks"
+          }
+        }
+      }
+    },
+    "Si rinnova domani: %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews tomorrow: %@."
+          }
+        }
+      }
+    },
+    "Si rinnova il %@: %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews on %@: %@."
+          }
+        }
+      }
+    },
+    "Si rinnova oggi: %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews today: %@."
           }
         }
       }

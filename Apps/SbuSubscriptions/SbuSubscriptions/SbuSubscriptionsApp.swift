@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import UserNotifications
 
 @main
 struct SbuSubscriptionsApp: App {
@@ -20,6 +21,12 @@ struct SbuSubscriptionsApp: App {
             fatalError("Subscriptions store failed to open: \(error)")
         }
     }()
+
+    private let notificationPresenter = ForegroundNotificationPresenter()
+
+    init() {
+        UNUserNotificationCenter.current().delegate = notificationPresenter
+    }
 
     var body: some Scene {
         WindowGroup {

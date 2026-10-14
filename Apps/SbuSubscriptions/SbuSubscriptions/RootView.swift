@@ -1,6 +1,7 @@
 import SbuKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 /// The app inside the standard Sbu shell. Reminders are planned again after every save and whenever it comes back.
 struct RootView: View {
@@ -43,6 +44,7 @@ struct RootView: View {
         let subscriptions = (try? modelContext.fetch(FetchDescriptor<Subscription>())) ?? []
         PriceSettler.settle(subscriptions)
         let sources = subscriptions.map(\.reminderSource)
+        WidgetCenter.shared.reloadAllTimelines()
         Task { await reminders.reschedule(sources) }
     }
 }

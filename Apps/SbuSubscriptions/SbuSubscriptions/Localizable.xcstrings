@@ -11,6 +11,16 @@
         }
       }
     },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@"
+          }
+        }
+      }
+    },
     "%@ · %@" : {
       "localizations" : {
         "en" : {
@@ -197,6 +207,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Other"
+          }
+        }
+      }
+    },
+    "Ancora da pagare questo mese: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Still to pay this month: %@"
           }
         }
       }
@@ -1061,6 +1081,16 @@
         }
       }
     },
+    "Lascia vuoto per vedere tutti gli abbonamenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave empty to see every subscription."
+          }
+        }
+      }
+    },
     "Lista" : {
       "localizations" : {
         "en" : {
@@ -1277,6 +1307,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No payments yet"
+          }
+        }
+      }
+    },
+    "Nessun pagamento in arrivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No payments coming"
           }
         }
       }
@@ -1571,6 +1611,16 @@
         }
       }
     },
+    "Pagamenti in arrivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upcoming payments"
+          }
+        }
+      }
+    },
     "Pagamenti rimanenti: %lld" : {
       "localizations" : {
         "en" : {
@@ -1701,6 +1751,16 @@
         }
       }
     },
+    "Prossimo rinnovo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next renewal"
+          }
+        }
+      }
+    },
     "Prova fino al" : {
       "localizations" : {
         "en" : {
@@ -1757,6 +1817,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "How many days ahead you choose for each subscription."
+          }
+        }
+      }
+    },
+    "Quanto spendi e i prossimi rinnovi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What you spend and the next renewals."
           }
         }
       }
@@ -1897,6 +1967,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Subscriptions"
+          }
+        }
+      }
+    },
+    "Scegli la lista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the list"
           }
         }
       }
@@ -2357,6 +2437,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "^[%lld payment](inflect: true)"
+          }
+        }
+      }
+    },
+    "·" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "·"
           }
         }
       }

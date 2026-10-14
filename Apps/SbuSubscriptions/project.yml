@@ -23,6 +23,7 @@ targets:
     sources: [SbuSubscriptions]
     dependencies:
       - package: SbuKit
+      - target: SbuSubscriptionsWidget
     entitlements:
       path: SbuSubscriptions/SbuSubscriptions.entitlements
       properties:
@@ -44,6 +45,54 @@ targets:
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES
+  SbuSubscriptionsWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuSubscriptionsWidget
+      # The widget reads the app's store, so it shares the model, the money and the schedule types.
+      - path: SbuSubscriptions/Subscriptions
+        excludes: [Subscription+Demo.swift]
+      - path: SbuSubscriptions/Categories
+        includes: [BuiltInCategory.swift, SubscriptionCategory.swift, SubscriptionList.swift]
+      - path: SbuSubscriptions/History
+        includes: [PriceChange.swift, SubscriptionEvent.swift, PriceTimeline.swift]
+      - path: SbuSubscriptions/Currency
+        includes: [CurrencySettings.swift, CurrencyConverter.swift, ExchangeRates.swift, ExchangeRates.json, OwnRate.swift]
+      - path: SbuSubscriptions/Totals
+        includes: [Charge.swift, SpendingTotal.swift, TotalPeriod.swift]
+      - path: SbuSubscriptions/Reminders
+        includes: [ReminderSource.swift]
+      - path: SbuSubscriptions/Calendar
+        includes: [MonthGrid.swift, MonthPayments.swift]
+      - path: SbuSubscriptions/Home
+        includes: [DueDay.swift, UpcomingPayments.swift]
+      - SbuSubscriptions/Intents
+      - SbuSubscriptions/UserDefaults+AppGroup.swift
+      - SbuSubscriptions/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuSubscriptionsWidget/SbuSubscriptionsWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.subscriptions]
+    info:
+      path: SbuSubscriptionsWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Subscriptions
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.subscriptions.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
   SbuSubscriptionsTests:
     type: bundle.unit-test
     platform: iOS

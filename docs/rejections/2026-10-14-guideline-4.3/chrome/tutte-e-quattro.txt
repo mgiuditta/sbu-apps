@@ -1,0 +1,228 @@
+Sei su App Store Connect, già loggato. Devi rispondere al messaggio di rifiuto di App Review su quattro app, una dopo l'altra, nell'ordine: Sbu Habits, Sbu Clean, Sbu Noise, Sbu Moon. Per ogni app:
+
+1. Vai su https://appstoreconnect.apple.com/apps e apri l'app.
+2. Apri la versione iOS 1.0 (stato "Rifiutata" / "Rejected"), poi la sezione App Review (o il link "Visualizza messaggio" / Resolution Center) e trova il messaggio di Apple del 14 ottobre 2026 su "Guidelines 4.3 - Spam and 4.2.6 - App Generation Services".
+3. Premi Rispondi e incolla nel campo di testo, parola per parola e senza modifiche, il testo della sezione di quell'app qui sotto (solo quello tra le righe ===).
+4. Fermati e mostrami il testo nel campo. Premi Invia solo dopo il mio ok. Poi passa all'app successiva.
+
+Non premere mai "Invia per la revisione" / "Submit for Review". Non toccare build, metadati, screenshot o altre app (Sbu Level, Sbu Speed, Sbu Subscriptions, Sbu Scanner non si toccano). Se non trovi il messaggio o il pulsante Rispondi, fermati e dimmelo.
+
+########## Sbu Habits ##########
+
+===
+Thank you for the review. I believe Sbu Habits meets guidelines 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Here are the answers to the nine questions.
+
+1. What the app does and the problem it solves
+
+Sbu Habits is a habit tracker whose single figure is the "full streak": the number of consecutive days on which every habit due that day was done. The user adds up to 24 habits (from templates in five categories or custom), each either yes/no or counted (for example 8 glasses of water), scheduled daily, on chosen weekdays, N times a week, N times a month, or on one chosen day only. A habit is marked by touching and holding its ring.
+
+Beyond the basic tracker it handles the cases that usually break a streak in real life:
+
+- Habits to avoid, with a daily limit (0 for "no smoking", 2 for "at most two coffees"): the user marks each lapse, the day counts if they stayed within the limit, going over breaks the streak at once.
+- Timed habits: a play button on the ring starts a countdown, shown as a Live Activity on the Lock Screen; at the end the habit is marked by itself. It survives backgrounding and app termination.
+- Habits linked to Apple Health (read only: steps, water, sleep, Activity rings, distances, exercise and mindfulness minutes, and others) with a daily goal; the habit marks itself when the day's total reaches the goal, also while the app is in the background. Health only ever adds a mark; the user can always mark by hand.
+- A note per habit per day, "skip today" (illness) without breaking the streak, a configurable start of the day for night-shift workers, reminders only on due days and only if the habit is not done yet.
+- Interactive Home Screen widgets, an Apple Watch app with a complication (fed by the iPhone over WatchConnectivity), statistics with best streak and completion history exportable as an image, JSON export and import.
+- Optional, off by default: sync between the user's own devices through their iCloud, and sharing one habit read-only with people they invite through iCloud sharing.
+
+All data stays on the device unless the user turns on iCloud sync. There is no account and no server of mine.
+
+2. Intended user
+
+People building or breaking a daily routine who want one honest number for how they are doing, including shift workers (start of the day), people who already track activity in Apple Health and want habits to mark themselves, people with a habit to limit rather than to do, and Apple Watch users who mark from the wrist.
+
+3. Need or gap
+
+The habit apps I studied before building this one charge up front or by subscription for the features above (Health linking, Watch, timed habits, sharing), and most of them require an account or send usage data. Sbu Habits is free with nothing to buy, has no account, no ads and no analytics, reads Health without ever writing to it or storing Health values, keeps iCloud strictly opt-in, and treats habits to avoid and timed habits as first-class types rather than add-ons. It is fully usable with VoiceOver (every ring exposes "Mark as done" or "Mark that you gave in" as an action) and at the largest Dynamic Type sizes.
+
+4. Beta testing
+
+Testing was internal: five TestFlight builds installed on a physical iPhone 15 Pro Max, worked through a written test checklist with exact pass/fail results (first launch, add/mark/undo/skip, templates, notes, widgets, largest text size, VoiceOver, light and dark, Italian and English, export/import, relaunch), plus the iPhone SE size in the simulator. Timed habits, Health linking, iCloud sync and sharing and the Watch app are covered by automated tests and were checked in the simulator; their long-running behaviour on a device over days is not yet hand-tested. I had no external beta testers for 1.0. Findings fixed before the production build:
+
+- A UI pass before release found ten defects (layout, wording, confirmations), all fixed and logged in my issue tracker.
+- At the largest accessibility text sizes the add-habit form overlapped its fixed button and rows broke mid-word (issue #439). Fix: the button moves to the end of the form, rows wrap whole words, the grid becomes one scrolling column.
+- The play button covered small rings. Fix: a smaller play button on small rings.
+- On a short iPhone the last line of a note was hidden under the keyboard. Fix: the note scrolls above the keyboard.
+- The stepper under "N times a week" read awkwardly. Fix: it now says just "3 times".
+
+5. Standalone or suite
+
+Sbu Habits is a standalone app. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Sbu Habits (habit streaks), Sbu Level (level and clinometer), Sbu Moon (moon phase), Sbu Noise (sleep sounds), Sbu Speed (GPS speedometer), Sbu Clean (free up Photos library space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, both already on the App Store since May and June 2026. None of them overlaps another in function: I never publish two apps in the same category. Sbu Habits is the only one that tracks anything over days, the only one that reads Apple Health and the only one with an Apple Watch app.
+
+6. Could it be a feature of another app on my account
+
+No. The closest app on my account, Sbu Subscriptions, tracks recurring payments and money; it shares no data model, no screen and no user need with habit tracking. Bundling would force unrelated permissions (Health, notifications, Watch) into an app about money. The apps are also free with no in-app purchases, so delivering this as a purchasable feature expansion is not possible.
+
+7. Code shared with other apps on my account
+
+Yes, a small Swift package of mine called SbuKit, about 1,700 lines, shared by all my apps. It contains the colour and typography tokens of my design system, button styles, the large-number component, the "no subscription / no in-app purchases / no account / no ads / no tracking / data on the device" pills, and the Settings screen with the privacy policy and the font licence. It holds no habit, Health, sync or business logic. Sbu Habits' own code is about 14,600 lines: the habit model and streak rules, schedules, Health linking, timers and Live Activity, widgets, the Watch app, CloudKit sync and sharing, export/import, statistics, and the tests.
+
+8. Code shared with third-party apps
+
+None. The app uses only Apple frameworks (SwiftUI, SwiftData, HealthKit, WidgetKit, ActivityKit, WatchConnectivity, CloudKit, UserNotifications). The only outside asset is the Bricolage Grotesque typeface (SIL Open Font License), used for the large number and credited in Settings.
+
+9. Client, partner or third party
+
+No. I am Matteo Giuditta, an individual developer; I designed and wrote Sbu Habits myself in Swift and SwiftUI, in Xcode, in my own repository. No commercial template, app generation service or third party provided its code, content, concept or branding. sbu.dev is my own site.
+
+I am happy to provide a screen recording or more detail on any point.
+===
+
+########## Sbu Clean ##########
+
+===
+Thank you for the review. I believe Sbu Clean meets guidelines 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Here are the answers to the nine questions.
+
+1. What the app does and the problem it solves
+
+Sbu Clean frees space in the Photos library. It reads the library through PhotoKit, shows at the top how much space can be reclaimed and the iPhone's total and free storage, and then offers five ways to decide what to remove:
+
+- Swipe review, month by month, most recent, random, "on this day", or one album at a time: swipe left to put a photo in the bin, right to keep it, with undo of the last choice. The position is saved, so the user resumes where they stopped, even across updates. Uncertain photos go to a "maybe" pile to decide later, or can be marked "always keep" so they are never proposed again.
+- Duplicates and similar photos, found on the device with Vision feature prints (no image leaves the iPhone). In each group the app proposes the best photo to keep, judged by faces, sharpness, favourite status and whether it was edited, pre-selects the copies, and lets the user change the choice.
+- Screenshots and screen recordings in a grid, selectable all at once.
+- Videos sorted by size, to watch before deciding; a video can be compressed with AVFoundation to low, medium or high quality into a new copy, and the original stays until the user deletes it.
+- Live Photos can be turned into still photos, saving the video part.
+
+Nothing is deleted without the user reviewing the bin and confirming, after which iOS asks once more; the app tells the user that iOS keeps deleted photos for 30 days in Recently Deleted. A video that lives only in iCloud is downloaded only when the user asks for it. The app shows the space freed in total and in the last session, and a widget shows the iPhone's free space. There is no account, no server of mine and no network access.
+
+2. Intended user
+
+People whose iPhone or iCloud storage is full, often not technical, who want to get space back quickly and safely: parents with thousands of near-identical photos of children, people who screenshot everything, anyone who shoots long videos.
+
+3. Need or gap
+
+Photo-cleaning is a category where the top apps I studied charge a weekly or yearly subscription, limit the number of swipes per day on the free tier, or start a trial that converts to a subscription, and several analyse photos through their servers. Sbu Clean is free with nothing to buy, has no daily limit, no trial, no account, no ads and no analytics, does the duplicate analysis entirely on the device, keeps the original of every compressed video, has an explicit final review before anything is deleted, and is usable with VoiceOver and at the largest Dynamic Type sizes (the swipe card exposes keep, bin and undo as actions).
+
+4. Beta testing
+
+Testing was internal: TestFlight builds installed on a physical iPhone 15 Pro Max with a real library, worked through a written test checklist with exact pass/fail results (first launch and permission explanation, denied and limited access, each of the five modes, bin review and deletion, compression, Live Photo conversion, widget, largest text size, VoiceOver, light and dark, Italian and English, relaunch), plus the iPhone SE size in the simulator. I had no external beta testers for 1.0. Findings fixed before the production build:
+
+- On a large library the scan stuttered and blocked the home screen. Fix: the scan was made incremental and the home updates smoothly while it runs.
+- Videos stored only in iCloud were downloaded automatically during the scan, using data and time. Fix: such a video is downloaded only when the user opens or compresses it.
+- The duplicate tests grouped differently on the device than in the simulator because Vision prints differ. Fix: the tests group with the device's own prints.
+- The selection mark had a disk behind it that hid the photo; the month queue used different words from the home. Both fixed.
+
+5. Standalone or suite
+
+Sbu Clean is a standalone app. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Sbu Clean (free up Photos library space), Sbu Habits (habit streaks), Sbu Level (level and clinometer), Sbu Moon (moon phase), Sbu Noise (sleep sounds), Sbu Speed (GPS speedometer), plus Sbu Scanner QR Barcode and Sbu Subscriptions, both already on the App Store since May and June 2026. None of them overlaps another in function: I never publish two apps in the same category. Sbu Clean is the only one that touches the Photos library and the only one that uses Vision.
+
+6. Could it be a feature of another app on my account
+
+No. No other app on my account has anything to do with photos or storage. Bundling it into another app would force every user of that app to be asked for full Photos library access, which I will not do. The apps are also free with no in-app purchases, so delivering this as a purchasable feature expansion is not possible.
+
+7. Code shared with other apps on my account
+
+Yes, a small Swift package of mine called SbuKit, about 1,700 lines, shared by all my apps. It contains the colour and typography tokens of my design system, button styles, the large-number component, the "no subscription / no in-app purchases / no account / no ads / no tracking / data on the device" pills, and the Settings screen with the privacy policy and the font licence. It holds no photo, Vision or business logic. Sbu Clean's own code is about 6,200 lines: the library scan, the swipe queues and their saved positions, duplicate grouping and best-photo choice, compression, Live Photo conversion, the bin, the widget and the tests.
+
+8. Code shared with third-party apps
+
+None. The app uses only Apple frameworks (SwiftUI, PhotoKit, Vision, AVFoundation, WidgetKit). The only outside asset is the Bricolage Grotesque typeface (SIL Open Font License), used for the large number and credited in Settings.
+
+9. Client, partner or third party
+
+No. I am Matteo Giuditta, an individual developer; I designed and wrote Sbu Clean myself in Swift and SwiftUI, in Xcode, in my own repository. No commercial template, app generation service or third party provided its code, content, concept or branding. sbu.dev is my own site.
+
+I am happy to provide a screen recording or more detail on any point.
+===
+
+########## Sbu Noise ##########
+
+===
+Thank you for the review. I believe Sbu Noise meets guidelines 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Here are the answers to the nine questions.
+
+1. What the app does and the problem it solves
+
+Sbu Noise plays a sound to fall asleep to. It bundles 34 looping sounds: coloured noises (white, pink, brown and others) generated by the app, and public-domain field recordings of rain, water, nature, home and travel, all normalised to the same loudness and looped without an audible seam. Everything is in the app; it never streams or downloads.
+
+The user picks a sound, marks favourites, hides or reorders sounds, and can build a mix of up to five sounds, each with its own volume and placed around the listener in headphones. A sleep timer fades the sound out and can repeat on chosen days; an alarm fades a chosen sound in at a set time, with snooze, backed by a system alarm (AlarmKit on iOS 26 and later, Time Sensitive notifications before) that rings only if the app is not running at that time. A bedside clock with adjustable brightness is one tap away. Playback continues in the background and with the screen locked, works with AirPlay and the headphone controls, and can be started and stopped from a Home Screen widget, a Control Center control, Shortcuts and Siri. There is no account, no server of mine and no network access.
+
+2. Intended user
+
+People who sleep badly or in a noisy place, shift workers sleeping by day, parents settling a baby, people with tinnitus who use masking noise, and people who work or study with headphones on.
+
+3. Need or gap
+
+The sleep-sound apps I studied before building this one stream their catalogue (so they need the network and often an account), lock most sounds, mixes or the alarm behind a subscription, or carry ads. Sbu Noise is free with nothing to buy, works entirely offline, has no account, no ads and no analytics, offers mixes with spatial placement, an alarm with a real system backup, a Control Center control and Siri, and keeps every sound at equal loudness so switching sounds at night never startles. It is usable with VoiceOver (the player reads the sound, position in the group and each control) and at the largest Dynamic Type sizes.
+
+4. Beta testing
+
+Testing was internal: TestFlight builds installed on a physical iPhone 15 Pro Max, listened to with and without headphones, and worked through a written test checklist with exact pass/fail results (every sound and group, favourites, hide and reorder, mixes, sleep timer, alarm with the app killed, bedside clock, background and lock-screen playback, widget and Control Center, largest text size, VoiceOver, light and dark, Italian and English, relaunch), plus the iPhone SE size in the simulator. I had no external beta testers for 1.0. Findings fixed before the production build:
+
+- Sounds differed widely in loudness, so switching from rain to a fan was a jump. Fix: every sound was normalised to -18 LUFS.
+- Several recordings had an audible click at the loop point. Fix: the loop now wraps through the decoded padding, so the seam is inaudible.
+- The train recording contained station beeps that woke the listener. Fix: the recording was trimmed to the window section.
+- The store screenshots showed an idle player; the test pass asked for a sound playing. Fix: screenshots regenerated with a sound playing and a real title.
+
+5. Standalone or suite
+
+Sbu Noise is a standalone app. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Sbu Noise (sleep sounds), Sbu Habits (habit streaks), Sbu Level (level and clinometer), Sbu Moon (moon phase), Sbu Speed (GPS speedometer), Sbu Clean (free up Photos library space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, both already on the App Store since May and June 2026. None of them overlaps another in function: I never publish two apps in the same category. Sbu Noise is the only one that plays audio and the only one with the background audio mode.
+
+6. Could it be a feature of another app on my account
+
+No. No other app on my account plays sound or has anything to do with sleep. Bundling 34 sounds and the background audio mode into, say, a habit tracker would bloat it for every user who never uses them. The apps are also free with no in-app purchases, so delivering this as a purchasable feature expansion is not possible.
+
+7. Code shared with other apps on my account
+
+Yes, a small Swift package of mine called SbuKit, about 1,700 lines, shared by all my apps. It contains the colour and typography tokens of my design system, button styles, the large-number component, the "no subscription / no in-app purchases / no account / no ads / no tracking / data on the device" pills, and the Settings screen with the privacy policy and the font licence. It holds no audio or business logic. Sbu Noise's own code is about 5,200 lines: the catalogue, the audio engine and noise generators, mixes and spatial placement, timers and alarms, the bedside clock, the widget, the Control Center control, App Intents and the tests.
+
+8. Code shared with third-party apps
+
+None. The app uses only Apple frameworks (SwiftUI, AVFoundation, AlarmKit, WidgetKit, App Intents, MediaPlayer). The outside assets are the field recordings, released under CC0 and credited one by one in Settings > Sound Credits, and the Bricolage Grotesque typeface (SIL Open Font License), credited in Settings.
+
+9. Client, partner or third party
+
+No. I am Matteo Giuditta, an individual developer; I designed and wrote Sbu Noise myself in Swift and SwiftUI, in Xcode, in my own repository. No commercial template, app generation service or third party provided its code, content, concept or branding. sbu.dev is my own site.
+
+I am happy to provide a screen recording or more detail on any point.
+===
+
+########## Sbu Moon ##########
+
+===
+Thank you for the review. I believe Sbu Moon meets guidelines 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Here are the answers to the nine questions.
+
+1. What the app does and the problem it solves
+
+Sbu Moon shows the state of the moon for any day, computed on the device with the algorithms from Jean Meeus's Astronomical Algorithms (phase, illuminated fraction, age, distance, position; moonrise and moonset from the observer's coordinates), with no network at all.
+
+Opening the app shows today's moon drawn as it looks, the illuminated percentage as the main figure, whether it is waxing or waning, the phase's name, the date and time of the next four principal phases (new moon, first quarter, full moon, last quarter), the moon's age and its distance from Earth. The user swipes to the previous or next day or picks any day from 1900 to 2100 from a calendar. Moonrise and moonset are shown either from the position read once (to about a kilometre, When In Use, only when the user taps "Use my location") or from a built-in list of cities, with the city's own clock when it differs from the iPhone's. Phase alerts are local notifications: the user chooses which phases and at what hour. There is no account and no server of mine.
+
+2. Intended user
+
+People who follow the moon for a practical reason: gardeners and fishermen who plan by the phase, night photographers and amateur astronomers who want the next full or new moon with its time, people who want an alert for the full moon, and anyone curious to see what the moon looks like tonight without going outside.
+
+3. Need or gap
+
+The moon apps I studied before building this one are paid or carry ads, several require the network for rise and set times, and some keep the location permission on. Sbu Moon is free with nothing to buy, has no ads, no account and no analytics, works entirely offline including rise and set for a city, reads the location once and only on request, covers 1900 to 2100, has phase alerts at the hour the user chooses, and is usable with VoiceOver (the figure, the phase and the next phases are read in order) and at the largest Dynamic Type sizes.
+
+4. Beta testing
+
+Testing was internal: TestFlight builds installed on a physical iPhone 15 Pro Max, checked against published ephemerides (the rise and set calculation is tested against United States Naval Observatory values), and worked through a written test checklist with exact pass/fail results (today's moon, swiping days, the calendar at the range limits, location request and denial, city list, alerts, largest text size, VoiceOver, light and dark, Italian and English, relaunch), plus the iPhone SE size in the simulator. I had no external beta testers for 1.0. Findings fixed before the production build:
+
+- Rise and set for a chosen city were shown in the iPhone's time zone, which is wrong for a city abroad. Fix: they are shown in the city's own clock, named when it differs from the iPhone's.
+- The large figure "63" with the percent sign placed differently made the layout look misaligned at large text sizes. Fix: the percent sign is treated as the unit, on the baseline.
+- A precision pass on the device found wording and spacing defects on the phases list and the alerts screen, all fixed.
+
+5. Standalone or suite
+
+Sbu Moon is a standalone app. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Sbu Moon (moon phase), Sbu Habits (habit streaks), Sbu Level (level and clinometer), Sbu Noise (sleep sounds), Sbu Speed (GPS speedometer), Sbu Clean (free up Photos library space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, both already on the App Store since May and June 2026. None of them overlaps another in function: I never publish two apps in the same category. Sbu Moon is the only one that computes anything astronomical.
+
+6. Could it be a feature of another app on my account
+
+No. No other app on my account has anything to do with the sky, dates in the past or future, or location-based times. Bundling would add a location permission request and a city list to an app whose users never asked for them. The apps are also free with no in-app purchases, so delivering this as a purchasable feature expansion is not possible.
+
+7. Code shared with other apps on my account
+
+Yes, a small Swift package of mine called SbuKit, about 1,700 lines, shared by all my apps. It contains the colour and typography tokens of my design system, button styles, the large-number component, the "no subscription / no in-app purchases / no account / no ads / no tracking / data on the device" pills, and the Settings screen with the privacy policy and the font licence. It holds no astronomical or business logic. Sbu Moon's own code is about 2,300 lines: the Meeus computations, the moon drawing, the day navigation and calendar, location and cities, alerts, and the tests (including the comparison with USNO values).
+
+8. Code shared with third-party apps
+
+None. The app uses only Apple frameworks (SwiftUI, Core Location, UserNotifications). The algorithms are from a published textbook, implemented by me. The only outside asset is the Bricolage Grotesque typeface (SIL Open Font License), used for the large number and credited in Settings.
+
+9. Client, partner or third party
+
+No. I am Matteo Giuditta, an individual developer; I designed and wrote Sbu Moon myself in Swift and SwiftUI, in Xcode, in my own repository. No commercial template, app generation service or third party provided its code, content, concept or branding. sbu.dev is my own site.
+
+I am happy to provide a screen recording or more detail on any point.
+===
+

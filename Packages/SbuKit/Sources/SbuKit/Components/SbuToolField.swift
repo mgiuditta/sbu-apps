@@ -131,11 +131,14 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
 
             // One gap above the pills, not two: an indicator that takes all the height leaves the
             // spacer at zero, and a gap on each side of it would cost the indicator a whole space8.
-            VStack(spacing: 0) {
-                Spacer(minLength: 0)
+            // No pills, no block: an empty row would still cost a space8 under the figure.
+            if Pills.self != EmptyView.self {
+                VStack(spacing: 0) {
+                    Spacer(minLength: 0)
 
-                HStack(spacing: SbuTheme.space2) {
-                    pills
+                    HStack(spacing: SbuTheme.space2) {
+                        pills
+                    }
                 }
             }
         }

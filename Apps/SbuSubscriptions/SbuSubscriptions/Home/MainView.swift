@@ -68,13 +68,20 @@ struct MainView: View {
                     .accessibilityIdentifier("add")
             }
         }
+        .navigationDestination(for: Subscription.self) { subscription in
+            SubscriptionDetailView(subscription: subscription, currency: currency)
+        }
         .sheet(isPresented: $isAdding) {
             AddSubscriptionSheet(currency: currency)
         }
     }
 
     private func rows(_ subscriptions: [Subscription], today: Date) -> some View {
-        ForEach(subscriptions) { SubscriptionRow(subscription: $0, today: today) }
+        ForEach(subscriptions) { subscription in
+            NavigationLink(value: subscription) {
+                SubscriptionRow(subscription: subscription, today: today)
+            }
+        }
     }
 
     private func total(_ subscriptions: [Subscription], per period: TotalPeriod) -> SpendingTotal {

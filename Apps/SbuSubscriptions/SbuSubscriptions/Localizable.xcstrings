@@ -201,6 +201,16 @@
         }
       }
     },
+    "Annulla abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel subscription"
+          }
+        }
+      }
+    },
     "Annullati" : {
       "localizations" : {
         "en" : {
@@ -401,6 +411,26 @@
         }
       }
     },
+    "Elimina abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete subscription"
+          }
+        }
+      }
+    },
+    "Eliminare %@?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %@?"
+          }
+        }
+      }
+    },
     "Eliminare la categoria?" : {
       "localizations" : {
         "en" : {
@@ -551,6 +581,16 @@
         }
       }
     },
+    "In pausa o annullato non entra nel totale e non ti ricorda i pagamenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused or cancelled, it leaves the total and stops reminding you."
+          }
+        }
+      }
+    },
     "Internet" : {
       "localizations" : {
         "en" : {
@@ -657,6 +697,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Payment method is only a label, such as “Personal card”. Never type your card details."
+          }
+        }
+      }
+    },
+    "Metti in pausa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        }
+      }
+    },
+    "Modifica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
           }
         }
       }
@@ -871,6 +931,26 @@
         }
       }
     },
+    "Pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payments"
+          }
+        }
+      }
+    },
+    "Pagamenti rimanenti: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payments left: %lld"
+          }
+        }
+      }
+    },
     "Pagamento" : {
       "localizations" : {
         "en" : {
@@ -941,6 +1021,16 @@
         }
       }
     },
+    "Prova fino al" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial until"
+          }
+        }
+      }
+    },
     "Prova fino al %@" : {
       "localizations" : {
         "en" : {
@@ -977,6 +1067,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "What 1 %@ is worth in %@."
+          }
+        }
+      }
+    },
+    "Riattiva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reactivate"
+          }
+        }
+      }
+    },
+    "Riprendi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume"
           }
         }
       }
@@ -1037,6 +1147,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Symbol"
+          }
+        }
+      }
+    },
+    "Sito" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Website"
           }
         }
       }
@@ -1277,6 +1397,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "^[%lld subscription](inflect: true) · %@ a year"
+          }
+        }
+      }
+    },
+    "^[%lld giorno](inflect: true) prima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld day](inflect: true) before"
           }
         }
       }

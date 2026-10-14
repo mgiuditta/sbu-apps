@@ -12,7 +12,11 @@ struct CollapsedSection: View {
         if !subscriptions.isEmpty {
             Section {
                 DisclosureGroup(isExpanded: $isExpanded) {
-                    ForEach(subscriptions) { SubscriptionRow(subscription: $0, today: today) }
+                    ForEach(subscriptions) { subscription in
+                        NavigationLink(value: subscription) {
+                            SubscriptionRow(subscription: subscription, today: today)
+                        }
+                    }
                 } label: {
                     LabeledContent(title) {
                         Text(subscriptions.count, format: .number)

@@ -5,15 +5,19 @@ import SwiftUI
 /// The form of a new subscription: name and price first, then how and when you pay, then how you file it.
 struct SubscriptionFormView: View {
     let currency: CurrencySettings
+    /// The subscription being edited, or `nil` for a new one.
+    let editing: Subscription?
     let onSave: () -> Void
 
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @Query(sort: \SubscriptionCategory.order) private var categories: [SubscriptionCategory]
     @Query(sort: \SubscriptionList.order) private var lists: [SubscriptionList]
     @State private var draft: SubscriptionDraft
 
-    init(draft: SubscriptionDraft, currency: CurrencySettings, onSave: @escaping () -> Void) {
+    init(draft: SubscriptionDraft, currency: CurrencySettings, editing: Subscription? = nil, onSave: @escaping () -> Void) {
         self.currency = currency
+        self.editing = editing
         self.onSave = onSave
         _draft = State(initialValue: draft)
     }
@@ -48,7 +52,13 @@ struct SubscriptionFormView: View {
                 if draft.cycle != .once {
                     Toggle("Numero fisso di pagamenti", isOn: $draft.hasFixedCount)
                     if draft.hasFixedCount {
-                        Stepper("^[\(draft.paymentCount) pagamento](inflect: true)", value: $draft.paymentCount, in: 1...360)
+                        Stepper(value: $draft.paymentCount, in: 1...360) {
+                            if editing == nil {
+                                Text("^[\(draft.paymentCount) pagamento](inflect: true)")
+                            } else {
+                                Text("Pagamenti rimanenti: \(draft.paymentCount)")
+                            }
+                        }
                     }
                 }
             }
@@ -92,9 +102,14 @@ struct SubscriptionFormView: View {
                 Text("Metodo di pagamento è solo un'etichetta, come «Carta personale». Non scrivere mai i dati della carta.")
             }
         }
-        .navigationTitle(draft.name.isEmpty ? String(localized: "Nuovo abbonamento") : draft.name)
+        .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            if editing != nil {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Annulla") { dismiss() }
+                }
+            }
             ToolbarItem(placement: .confirmationAction) {
                 Button("Salva", action: save)
                     .disabled(!draft.canSave)
@@ -103,9 +118,17 @@ struct SubscriptionFormView: View {
         }
     }
 
+    private var title: String {
+        if editing != nil { return String(localized: "Modifica") }
+        return draft.name.isEmpty ? String(localized: "Nuovo abbonamento") : draft.name
+    }
+
     private func save() {
-        guard let subscription = draft.makeSubscription() else { return }
-        modelContext.insert(subscription)
+        if let editing {
+            draft.apply(to: editing)
+        } else if let subscription = draft.makeSubscription() {
+            modelContext.insert(subscription)
+        }
         try? modelContext.save()
         onSave()
     }

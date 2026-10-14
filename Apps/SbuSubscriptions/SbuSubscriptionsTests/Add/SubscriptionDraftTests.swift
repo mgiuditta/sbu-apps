@@ -87,3 +87,48 @@ struct SubscriptionDraftTests {
         #expect(draft.serviceID == "duolingo")
     }
 }
+
+struct SubscriptionDraftEditTests {
+    let calendar: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Europe/Rome")!
+        return calendar
+    }()
+
+    func day(_ year: Int, _ month: Int, _ day: Int) -> Date {
+        calendar.date(from: DateComponents(year: year, month: month, day: day))!
+    }
+
+    func plan() -> Subscription {
+        Subscription(name: "Telefono", price: 30, currencyCode: "EUR", startDate: day(2026, 1, 10), cycle: .monthly, paymentCount: 12)
+    }
+
+    @Test func editOpensOnTheNextPaymentAndWhatIsLeft() {
+        var draft = SubscriptionDraft(subscription: plan(), today: day(2026, 10, 14), calendar: calendar)
+        draft.locale = Locale(identifier: "it_IT")
+        #expect(draft.nextPayment == day(2026, 11, 10))
+        #expect(draft.paymentCount == 2)
+        #expect(draft.price == 30)
+    }
+
+    @Test func changingOnlyThePriceKeepsTheSchedule() {
+        let subscription = plan()
+        var draft = SubscriptionDraft(subscription: subscription, today: day(2026, 10, 14), calendar: calendar)
+        draft.priceText = "35"
+        draft.locale = Locale(identifier: "it_IT")
+        draft.apply(to: subscription)
+        #expect(subscription.price == 35)
+        #expect(subscription.startDate == day(2026, 1, 10))
+        #expect(subscription.paymentCount == 12)
+    }
+
+    @Test func changingTheDateRestartsFromItWithWhatIsLeft() {
+        let subscription = plan()
+        var draft = SubscriptionDraft(subscription: subscription, today: day(2026, 10, 14), calendar: calendar)
+        draft.nextPayment = day(2026, 11, 15)
+        draft.apply(to: subscription)
+        #expect(subscription.startDate == day(2026, 11, 15))
+        #expect(subscription.paymentCount == 2)
+        #expect(subscription.schedule.payments(from: day(2026, 10, 1), to: day(2027, 6, 1), in: calendar) == [day(2026, 11, 15), day(2026, 12, 15)])
+    }
+}

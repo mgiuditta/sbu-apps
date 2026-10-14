@@ -26,10 +26,15 @@ nonisolated struct BillingSchedule: Hashable, Sendable {
 
     /// The first payment on the day of `date` or later, or `nil` when the schedule has ended.
     func nextPayment(onOrAfter date: Date, in calendar: Calendar) -> Date? {
+        nextPaymentIndex(onOrAfter: date, in: calendar).flatMap { payment(at: $0, in: calendar) }
+    }
+
+    /// The index of that payment, which is also how many came before it.
+    func nextPaymentIndex(onOrAfter date: Date, in calendar: Calendar) -> Int? {
         let day = calendar.startOfDay(for: date)
         var index = firstIndexToCheck(before: day, in: calendar)
         while let payment = payment(at: index, in: calendar) {
-            if payment >= day { return payment }
+            if payment >= day { return index }
             index += 1
         }
         return nil

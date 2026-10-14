@@ -1,6 +1,11 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "Annulla" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } }
+      }
+    },
     "Apre sbu.dev in Safari" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Opens sbu.dev in Safari" } }

@@ -122,7 +122,7 @@ struct HabitFormScreen: View {
 
             if let habit {
                 Section {
-                    ConfirmedDestructiveButton(title: "Elimina", question: "Eliminare “\(habit.title)”?", action: delete)
+                    SbuButton("Elimina", kind: .destructive, confirmationTitle: "Eliminare “\(habit.title)”?", action: delete)
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)

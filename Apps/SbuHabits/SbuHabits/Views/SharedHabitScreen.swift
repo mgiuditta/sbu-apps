@@ -69,7 +69,7 @@ struct SharedHabitScreen: View {
 
                 HabitHistorySection(habit: display.habit, streak: display.streak, today: display.today, firstWeekday: Calendar.current.firstWeekday, openNote: nil)
 
-                ConfirmedDestructiveButton(title: "Rimuovi", question: "Rimuovere “\(display.habit.title)”?") {
+                SbuButton("Rimuovi", kind: .destructive, confirmationTitle: "Rimuovere “\(display.habit.title)”?") {
                     remove(received)
                 }
 

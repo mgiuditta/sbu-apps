@@ -6,13 +6,13 @@ Thank you for the review. I believe Sbu Habits meets 4.3(a), 4.3(b) and 4.2.6, s
 
 2. People building or breaking a daily routine who want one honest number: shift workers, people who track activity in Health, people with a habit to limit, Watch users.
 
-3. The habit apps I studied charge up front or by subscription for Health linking, Watch, timed habits and sharing, and most need an account or send usage data. Sbu Habits is free with nothing to buy, no account, no ads, no analytics, never writes to Health, keeps iCloud opt-in, and treats habits to avoid and timed habits as first-class types. Fully usable with VoiceOver and the largest Dynamic Type sizes.
+3. The habit apps I studied charge up front or by subscription for Health linking, Watch, timed habits and sharing, and most need an account. Sbu Habits is free with nothing to buy, no account, no ads, no analytics, never writes to Health, keeps iCloud opt-in, and treats habits to avoid and timed habits as first-class types. Fully usable with VoiceOver and the largest Dynamic Type sizes.
 
 4. Internal: five TestFlight builds on a physical iPhone 15 Pro Max, worked through a written pass/fail checklist (first launch, add/mark/undo/skip, templates, notes, widgets, largest text, VoiceOver, light/dark, Italian/English, export/import, relaunch) plus iPhone SE in the simulator. Timed habits, Health, iCloud and Watch are covered by automated tests and the simulator, not yet over days on a device. No external testers for 1.0. Fixed before this build: a pre-release UI pass found ten defects; at the largest text sizes the add form overlapped its button and rows broke mid-word (issue #439); the play button covered small rings; a note's last line hid under the keyboard on a short iPhone.
 
 5. Standalone. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Habits (habit streaks), Level (level and clinometer), Moon (moon phase), Noise (sleep sounds), Speed (GPS speedometer), Clean (free up Photos space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, on the App Store since May and June 2026. I never publish two apps in the same category. Habits is the only one that tracks anything over days, reads Health or has a Watch app.
 
-6. No. The closest, Sbu Subscriptions, tracks recurring payments; no shared data model, screen or user need. Bundling would push Health, notification and Watch permissions into an app about money. All my apps are free with no in-app purchases, so a paid feature expansion is not possible.
+6. No. The closest, Sbu Subscriptions, tracks recurring payments; no shared data model, screen or user need. Bundling would push Health and Watch into an app about money. All my apps are free with no in-app purchases, so a paid feature expansion is not possible.
 
 7. Yes: SbuKit, my own Swift package, about 1,700 lines shared by all my apps: colour and type tokens, button styles, the large-number component, the "no subscription / no account / no ads / no tracking" pills, and the Settings screen with privacy policy and font licence. No habit, Health, sync or business logic. Habits' own code is about 14,600 lines.
 

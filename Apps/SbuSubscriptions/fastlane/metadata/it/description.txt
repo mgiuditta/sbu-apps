@@ -21,6 +21,7 @@ Aggiungi i tuoi abbonamenti e in alto vedi quanto spendi all'anno, o al mese. Pr
 - Siri, Comandi Rapidi e Spotlight
 - Esporta e importa in CSV, anche da un foglio di calcolo
 - iCloud resta spento finché non lo attivi: allora gli abbonamenti si sincronizzano sui tuoi dispositivi, tramite il tuo iCloud
+- Condividi una lista con chi vuoi, tramite iCloud e solo quando lo scegli tu: la vede in sola lettura, con il totale
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: ti dice quanto ti costano gli abbonamenti, e nessun rinnovo ti sorprende.

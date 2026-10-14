@@ -1,4 +1,4 @@
-No account. Sbu Subscriptions has no server of its own and sends nothing to sbu.dev: no analytics, ads or tracking. By default all data stays on the device. "Sync with iCloud" (Settings > Data) is off until the user turns it on; then the store is mirrored to the user's own private CloudKit database.
+No account. Sbu Subscriptions has no server of its own and sends nothing to sbu.dev: no analytics, ads or tracking. By default all data stays on the device. Two optional features use the user's own iCloud, both off until the user acts: "Sync with iCloud" (Settings > Data), which mirrors the store to the user's private CloudKit database, and sharing one list read only with people they invite (Settings > Lists, the share button next to a list), through CloudKit sharing.
 
 This is version 2.0 of an app already on the App Store, rebuilt in Swift. At first launch it brings over the subscriptions saved by version 1.0 on the same device; on a new install it opens empty.
 

@@ -9,6 +9,8 @@ struct RootView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     @State private var currency = CurrencySettings()
+    @Environment(ListSharing.self) private var sharing
+    @Environment(ReceivedLists.self) private var received
     @State private var reminders = Reminders(center: Self.isDemo ? SilentReminderCenter() : SystemReminderCenter())
 
     /// Screenshots and UI tests run on made-up data and must never touch the device's notifications.
@@ -32,7 +34,13 @@ struct RootView: View {
             LegacyImportSection()
         }
         .onChange(of: scenePhase, initial: true) {
-            if scenePhase == .active { reschedule() }
+            guard scenePhase == .active else { return }
+            reschedule()
+            Task {
+                await sharing.refresh()
+                publishSharedLists()
+                await received.refresh()
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: ModelContext.didSave)) { _ in
             reschedule()
@@ -56,7 +64,15 @@ struct RootView: View {
         let sources = subscriptions.map(\.reminderSource)
         WidgetCenter.shared.reloadAllTimelines()
         SpotlightIndex.update(subscriptions)
+        publishSharedLists()
         Task { await reminders.reschedule(sources) }
+    }
+
+    /// Sends the shared lists that changed since they were last sent.
+    private func publishSharedLists() {
+        let lists = (try? modelContext.fetch(FetchDescriptor<SubscriptionList>())) ?? []
+        let snapshots = Dictionary(lists.map { ($0.uuid, SharedListSnapshot(list: $0)) }, uniquingKeysWith: { first, _ in first })
+        Task { await sharing.publish(snapshots) }
     }
 }
 
@@ -64,11 +80,15 @@ struct RootView: View {
     RootView()
         .modelContainer(.preview)
         .environment(AppRouter())
+        .environment(ListSharing(outbox: nil))
+        .environment(ReceivedLists(store: ReceivedListsStore(url: .temporaryDirectory.appending(path: "preview.json")), inbox: nil))
 }
 
 #Preview("Dark") {
     RootView()
         .modelContainer(.preview)
         .environment(AppRouter())
+        .environment(ListSharing(outbox: nil))
+        .environment(ReceivedLists(store: ReceivedListsStore(url: .temporaryDirectory.appending(path: "preview.json")), inbox: nil))
         .preferredColorScheme(.dark)
 }

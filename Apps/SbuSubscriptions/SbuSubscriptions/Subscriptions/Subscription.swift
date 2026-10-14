@@ -75,6 +75,10 @@ extension Subscription {
         for subscription in all where !seen.insert(subscription.uuid).inserted {
             subscription.uuid = UUID()
         }
+        var seenLists = Set<UUID>()
+        for list in try context.fetch(FetchDescriptor<SubscriptionList>()) where !seenLists.insert(list.uuid).inserted {
+            list.uuid = UUID()
+        }
         if context.hasChanges { try context.save() }
     }
 

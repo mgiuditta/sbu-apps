@@ -18,6 +18,7 @@ struct MainView: View {
     @State private var showsCalendar = false
     @State private var opened: Subscription?
     @Environment(AppRouter.self) private var router
+    @Environment(ReceivedLists.self) private var received
 
     var body: some View {
         // ponytail: "today" is read on each render, not at midnight; the app redraws whenever it comes back.
@@ -73,6 +74,7 @@ struct MainView: View {
             CollapsedSection(title: "In pausa", subscriptions: groups.paused, today: today)
             CollapsedSection(title: "Annullati", subscriptions: groups.cancelled, today: today)
             CollapsedSection(title: "Conclusi", subscriptions: groups.finished, today: today)
+            ReceivedListsSection(received: received, currency: currency, period: period)
         }
         .listStyle(.insetGrouped)
         .listSectionSpacing(.compact)
@@ -88,7 +90,7 @@ struct MainView: View {
                     Button("Mostra tutti", action: clearFilters)
                 }
             }
-            if subscriptions.isEmpty {
+            if subscriptions.isEmpty, received.lists.isEmpty {
                 ContentUnavailableView {
                     Label("Nessun abbonamento", systemImage: "creditcard")
                 } description: {
@@ -175,11 +177,13 @@ struct MainView: View {
     NavigationStack { MainView(currency: CurrencySettings()) }
         .modelContainer(.preview)
         .environment(AppRouter())
+        .environment(ReceivedLists(store: ReceivedListsStore(url: .temporaryDirectory.appending(path: "preview.json")), inbox: nil))
 }
 
 #Preview("Dark") {
     NavigationStack { MainView(currency: CurrencySettings()) }
         .modelContainer(.preview)
         .environment(AppRouter())
+        .environment(ReceivedLists(store: ReceivedListsStore(url: .temporaryDirectory.appending(path: "preview.json")), inbox: nil))
         .preferredColorScheme(.dark)
 }

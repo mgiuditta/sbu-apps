@@ -721,6 +721,56 @@
         }
       }
     },
+    "Condividi %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share %@"
+          }
+        }
+      }
+    },
+    "Condividi una lista con chi vuoi, tramite iCloud: la vede in sola lettura, con il totale. Note, siti, metodi di pagamento e promemoria restano qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share a list with anyone, through iCloud: they see it read only, with its total. Notes, websites, payment methods and reminders stay here."
+          }
+        }
+      }
+    },
+    "Condivisa con ^[%lld persona](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared with ^[%lld person](inflect: true)"
+          }
+        }
+      }
+    },
+    "Condivisa da %@, in sola lettura. Non entra nel tuo totale e non ti manda promemoria." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared by %@, read only. It's not in your total and sends you no reminders."
+          }
+        }
+      }
+    },
+    "Condivise con te" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared with you"
+          }
+        }
+      }
+    },
     "Corso di lingue" : {
       "localizations" : {
         "en" : {
@@ -1001,6 +1051,16 @@
         }
       }
     },
+    "Famiglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Family"
+          }
+        }
+      }
+    },
     "Film e serie" : {
       "localizations" : {
         "en" : {
@@ -1241,6 +1301,16 @@
         }
       }
     },
+    "In sola lettura. Non entra nel tuo totale e non ti manda promemoria." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read only. It's not in your total and sends you no reminders."
+          }
+        }
+      }
+    },
     "Internet" : {
       "localizations" : {
         "en" : {
@@ -1287,6 +1357,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The figure at the top and the widget show this period."
+          }
+        }
+      }
+    },
+    "La lista sparisce da questo iPhone. Chi la condivide la tiene." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The list leaves this iPhone. Whoever shares it keeps it."
           }
         }
       }
@@ -1961,6 +2041,16 @@
         }
       }
     },
+    "Per condividere una lista accedi a iCloud nelle Impostazioni dell'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To share a list, sign in to iCloud in the iPhone's Settings."
+          }
+        }
+      }
+    },
     "Per esempio Famiglia o Lavoro. Ogni abbonamento può stare in una lista." : {
       "localizations" : {
         "en" : {
@@ -2247,6 +2337,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rows that can't be imported"
+          }
+        }
+      }
+    },
+    "Rimuovere %@?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove %@?"
+          }
+        }
+      }
+    },
+    "Rimuovi lista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove list"
           }
         }
       }

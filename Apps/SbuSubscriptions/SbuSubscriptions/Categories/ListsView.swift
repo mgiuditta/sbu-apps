@@ -1,9 +1,11 @@
+import SbuKit
 import SwiftData
 import SwiftUI
 
 /// Settings → Liste: lists such as Famiglia or Lavoro, to add, rename or delete.
 struct ListsView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(ListSharing.self) private var sharing
     @Query(sort: \SubscriptionList.order) private var lists: [SubscriptionList]
     @State private var newName = ""
     @State private var pendingDelete: SubscriptionList?
@@ -12,7 +14,10 @@ struct ListsView: View {
         List {
             Section {
                 ForEach(lists) { list in
-                    ListNameField(list: list)
+                    HStack {
+                        ListNameField(list: list, participants: sharing.participants[list.uuid])
+                        ShareListButton(list: list, sharing: sharing)
+                    }
                 }
                 .onDelete { pendingDelete = $0.first.map { lists[$0] } }
             }
@@ -23,6 +28,12 @@ struct ListsView: View {
                     .accessibilityIdentifier("newList")
             } footer: {
                 Text("Per esempio Famiglia o Lavoro. Ogni abbonamento può stare in una lista.")
+            }
+            Section {
+            } footer: {
+                Text(sharing.isAvailable
+                     ? "Condividi una lista con chi vuoi, tramite iCloud: la vede in sola lettura, con il totale. Note, siti, metodi di pagamento e promemoria restano qui."
+                     : "Per condividere una lista accedi a iCloud nelle Impostazioni dell'iPhone.")
             }
         }
         .navigationTitle("Liste")
@@ -55,19 +66,30 @@ struct ListsView: View {
 /// A list's name, editable in place.
 private struct ListNameField: View {
     @Bindable var list: SubscriptionList
+    /// People it's shared with, `nil` when it isn't shared.
+    let participants: Int?
 
     var body: some View {
-        TextField("Nome", text: $list.name)
+        VStack(alignment: .leading) {
+            TextField("Nome", text: $list.name)
+            if let participants {
+                Text("Condivisa con ^[\(participants) persona](inflect: true)")
+                    .font(SbuTheme.footnote)
+                    .foregroundStyle(SbuTheme.inkMuted)
+            }
+        }
     }
 }
 
 #Preview("Light") {
     NavigationStack { ListsView() }
         .modelContainer(.preview)
+        .environment(ListSharing(outbox: nil))
 }
 
 #Preview("Dark") {
     NavigationStack { ListsView() }
         .modelContainer(.preview)
+        .environment(ListSharing(outbox: nil))
         .preferredColorScheme(.dark)
 }

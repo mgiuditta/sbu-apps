@@ -5,6 +5,7 @@ import UserNotifications
 
 @main
 struct SbuSubscriptionsApp: App {
+    @UIApplicationDelegateAdaptor private var delegate: AppDelegate
     // ponytail: no recovery screen; a store that can't open is a bug to fix, never a reason to start empty over the data.
     private let container: ModelContainer = {
         // fastlane snapshot shows made-up subscriptions, never the user's own.
@@ -28,6 +29,8 @@ struct SbuSubscriptionsApp: App {
 
     private let notificationPresenter = ForegroundNotificationPresenter()
     @State private var router = AppRouter()
+    @State private var sharing = ListSharing.live()
+    @State private var received = ReceivedLists.live()
 
     /// Runs for Siri and Shortcuts too, even when no window opens: everything an intent needs is set here.
     init() {
@@ -36,12 +39,16 @@ struct SbuSubscriptionsApp: App {
         let router = router
         AppDependencyManager.shared.add(dependency: container)
         AppDependencyManager.shared.add(dependency: router)
+        // Before any silent notification or invitation can arrive.
+        AppDelegate.received = received
     }
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(router)
+                .environment(sharing)
+                .environment(received)
         }
         .modelContainer(container)
     }

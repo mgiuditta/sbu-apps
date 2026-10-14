@@ -21,6 +21,7 @@ Add your subscriptions and at the top you see what you spend a year, or a month.
 - Siri, Shortcuts and Spotlight
 - Export and import as CSV, from a spreadsheet too
 - iCloud stays off until you turn it on: then your subscriptions sync across your devices, through your own iCloud
+- Share a list with anyone, through iCloud and only when you choose: they see it read only, with its total
 - Light and dark, Dynamic Type, VoiceOver
 
 Sbu does one thing: it tells you what your subscriptions cost, so no renewal takes you by surprise.

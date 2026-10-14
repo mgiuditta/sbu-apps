@@ -41,8 +41,10 @@ targets:
         # The version and build from the project settings, as without a plist of our own.
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
-        # Wakes the app for iCloud's silent notification, to bring in changes from your other devices.
+        # Wakes the app for iCloud's silent notification: changes from your other devices, or a shared list.
         UIBackgroundModes: [remote-notification]
+        # Opens the app from an invitation to a shared list (ADR-0009).
+        CKSharingSupported: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.subscriptions

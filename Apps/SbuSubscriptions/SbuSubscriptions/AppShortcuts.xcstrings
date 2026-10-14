@@ -1,0 +1,17 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Aggiungi un abbonamento a ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Add a subscription to ${applicationName}" } } } },
+    "Apri ${target} in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Open ${target} in ${applicationName}" } } } },
+    "Apri il calendario di ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Open the ${applicationName} calendar" } } } },
+    "Apri un abbonamento in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Open a subscription in ${applicationName}" } } } },
+    "Prossimo rinnovo in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Next renewal in ${applicationName}" } } } },
+    "Quando si rinnova ${subscription} in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "When does ${subscription} renew in ${applicationName}" } } } },
+    "Quanti abbonamenti ho in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "How many subscriptions do I have in ${applicationName}" } } } },
+    "Quanto costa ${subscription} in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "How much is ${subscription} in ${applicationName}" } } } },
+    "Quanto costa un abbonamento in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "How much is a subscription in ${applicationName}" } } } },
+    "Quanto pago questo mese con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "How much do I pay this month with ${applicationName}" } } } },
+    "Spesa del mese in ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Monthly spending in ${applicationName}" } } } }
+  },
+  "version" : "1.0"
+}

@@ -15,6 +15,9 @@ struct MainView: View {
     @AppStorage("home.filter.paymentMethod") private var methodFilter = ""
     @State private var isAdding = false
     @State private var search = ""
+    @State private var showsCalendar = false
+    @State private var opened: Subscription?
+    @Environment(AppRouter.self) private var router
 
     var body: some View {
         // ponytail: "today" is read on each render, not at midnight; the app redraws whenever it comes back.
@@ -111,6 +114,15 @@ struct MainView: View {
         .navigationDestination(for: Subscription.self) { subscription in
             SubscriptionDetailView(subscription: subscription, currency: currency)
         }
+        .navigationDestination(item: $opened) { subscription in
+            SubscriptionDetailView(subscription: subscription, currency: currency)
+        }
+        .navigationDestination(isPresented: $showsCalendar) {
+            PaymentsCalendarView(currency: currency)
+        }
+        .onChange(of: router.pending, initial: true) {
+            follow(router.pending)
+        }
         .sheet(isPresented: $isAdding) {
             AddSubscriptionSheet(currency: currency)
         }
@@ -121,6 +133,17 @@ struct MainView: View {
             NavigationLink(value: subscription) {
                 SubscriptionRow(subscription: subscription, today: today)
             }
+        }
+    }
+
+    /// Follows a route from Siri, Shortcuts or Spotlight, once.
+    private func follow(_ route: AppRoute?) {
+        guard let route else { return }
+        router.pending = nil
+        switch route {
+        case let .subscription(id): opened = subscriptions.first { $0.uuid == id }
+        case .calendar: showsCalendar = true
+        case .add: isAdding = true
         }
     }
 
@@ -151,10 +174,12 @@ struct MainView: View {
 #Preview("Light") {
     NavigationStack { MainView(currency: CurrencySettings()) }
         .modelContainer(.preview)
+        .environment(AppRouter())
 }
 
 #Preview("Dark") {
     NavigationStack { MainView(currency: CurrencySettings()) }
         .modelContainer(.preview)
+        .environment(AppRouter())
         .preferredColorScheme(.dark)
 }

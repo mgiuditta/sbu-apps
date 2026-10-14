@@ -21,6 +21,116 @@
         }
       }
     },
+    "%@ a settimana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a week"
+          }
+        }
+      }
+    },
+    "%@ al giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a day"
+          }
+        }
+      }
+    },
+    "%@ al mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a month"
+          }
+        }
+      }
+    },
+    "%@ all'anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a year"
+          }
+        }
+      }
+    },
+    "%@ costa %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ costs %@."
+          }
+        }
+      }
+    },
+    "%@ ogni %lld anni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ every %lld years"
+          }
+        }
+      }
+    },
+    "%@ ogni %lld giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ every %lld days"
+          }
+        }
+      }
+    },
+    "%@ ogni %lld mesi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ every %lld months"
+          }
+        }
+      }
+    },
+    "%@ ogni %lld settimane" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ every %lld weeks"
+          }
+        }
+      }
+    },
+    "%@ si rinnova %@: %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ renews %@: %@."
+          }
+        }
+      }
+    },
+    "%@ una tantum" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ one-off"
+          }
+        }
+      }
+    },
     "%@ · %@" : {
       "localizations" : {
         "en" : {
@@ -111,6 +221,16 @@
         }
       }
     },
+    "Abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription"
+          }
+        }
+      }
+    },
     "Acqua" : {
       "localizations" : {
         "en" : {
@@ -167,6 +287,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add from this day"
+          }
+        }
+      }
+    },
+    "Aggiungi un abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a subscription"
           }
         }
       }
@@ -321,12 +451,42 @@
         }
       }
     },
+    "Apri abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open subscription"
+          }
+        }
+      }
+    },
     "Apri gli abbonamenti dell'App Store" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open App Store subscriptions"
+          }
+        }
+      }
+    },
+    "Apri il calendario dei pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the payments calendar"
+          }
+        }
+      }
+    },
+    "Apri un abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a subscription"
           }
         }
       }
@@ -597,6 +757,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Design"
+          }
+        }
+      }
+    },
+    "Dice quando arriva il prossimo pagamento e quanto costa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tells when the next payment comes and how much it is."
+          }
+        }
+      }
+    },
+    "Dice quanti abbonamenti stai pagando." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tells how many subscriptions you're paying for."
+          }
+        }
+      }
+    },
+    "Dice quanto costa un abbonamento e ogni quanto lo paghi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tells what a subscription costs and how often you pay it."
+          }
+        }
+      }
+    },
+    "Dice quanto paghi questo mese e quanto resta da pagare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tells what you pay this month and what's still to pay."
           }
         }
       }
@@ -1081,6 +1281,16 @@
         }
       }
     },
+    "Lascia vuoto per il primo rinnovo tra tutti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave empty for the first renewal of all."
+          }
+        }
+      }
+    },
     "Lascia vuoto per vedere tutti gli abbonamenti." : {
       "localizations" : {
         "en" : {
@@ -1321,6 +1531,16 @@
         }
       }
     },
+    "Nessun pagamento in arrivo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No payments coming."
+          }
+        }
+      }
+    },
     "Nessuna" : {
       "localizations" : {
         "en" : {
@@ -1407,6 +1627,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "News"
+          }
+        }
+      }
+    },
+    "Numero di abbonamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of subscriptions"
           }
         }
       }
@@ -1721,6 +1951,16 @@
         }
       }
     },
+    "Prezzo di un abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price of a subscription"
+          }
+        }
+      }
+    },
     "Produttività" : {
       "localizations" : {
         "en" : {
@@ -1811,6 +2051,16 @@
         }
       }
     },
+    "Quanti abbonamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many subscriptions"
+          }
+        }
+      }
+    },
     "Quanti giorni prima lo scegli per ogni abbonamento." : {
       "localizations" : {
         "en" : {
@@ -1837,6 +2087,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "What 1 %@ is worth in %@."
+          }
+        }
+      }
+    },
+    "Questo mese paghi %@. Ancora da pagare: %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This month you pay %@. Still to pay: %@."
           }
         }
       }
@@ -2167,6 +2427,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You spend a year · %@"
+          }
+        }
+      }
+    },
+    "Spesa del mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly spending"
+          }
+        }
+      }
+    },
+    "Stai pagando ^[%lld abbonamento](inflect: true)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're paying for ^[%lld subscription](inflect: true)."
           }
         }
       }

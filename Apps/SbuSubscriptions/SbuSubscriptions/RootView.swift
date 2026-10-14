@@ -45,6 +45,7 @@ struct RootView: View {
         PriceSettler.settle(subscriptions)
         let sources = subscriptions.map(\.reminderSource)
         WidgetCenter.shared.reloadAllTimelines()
+        SpotlightIndex.update(subscriptions)
         Task { await reminders.reschedule(sources) }
     }
 }
@@ -52,10 +53,12 @@ struct RootView: View {
 #Preview("Light") {
     RootView()
         .modelContainer(.preview)
+        .environment(AppRouter())
 }
 
 #Preview("Dark") {
     RootView()
         .modelContainer(.preview)
+        .environment(AppRouter())
         .preferredColorScheme(.dark)
 }

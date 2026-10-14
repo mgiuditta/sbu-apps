@@ -4,6 +4,8 @@ import SwiftData
 /// One recurring payment you keep track of. Every property has a default so the store can sync through iCloud.
 @Model
 final class Subscription {
+    /// Stable across launches and devices: what Siri, Shortcuts and Spotlight know it by.
+    var uuid: UUID = UUID()
     var name: String = ""
     /// The catalog entry it was added from, if any.
     var serviceID: String?

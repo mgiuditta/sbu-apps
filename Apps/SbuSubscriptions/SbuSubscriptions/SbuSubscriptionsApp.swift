@@ -1,3 +1,4 @@
+import AppIntents
 import SwiftData
 import SwiftUI
 import UserNotifications
@@ -25,14 +26,21 @@ struct SbuSubscriptionsApp: App {
     }()
 
     private let notificationPresenter = ForegroundNotificationPresenter()
+    @State private var router = AppRouter()
 
+    /// Runs for Siri and Shortcuts too, even when no window opens: everything an intent needs is set here.
     init() {
         UNUserNotificationCenter.current().delegate = notificationPresenter
+        let container = container
+        let router = router
+        AppDependencyManager.shared.add(dependency: container)
+        AppDependencyManager.shared.add(dependency: router)
     }
 
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environment(router)
         }
         .modelContainer(container)
     }

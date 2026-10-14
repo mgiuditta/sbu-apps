@@ -31,7 +31,12 @@ struct SubscriptionRow: View {
         case .active: break
         }
         if subscription.isInTrial(on: today), let end = subscription.trialEndDate {
-            return "Prova fino al \(end.formatted(.dateTime.day().month()))"
+            switch DueDay(end, from: today, in: .current) {
+            case .today: return "La prova finisce oggi"
+            case .tomorrow: return "La prova finisce domani"
+            case let .inDays(days): return "Prova: ancora \(days) giorni"
+            case .on: return "Prova fino al \(end.formatted(.dateTime.day().month()))"
+            }
         }
         guard let next = subscription.nextPayment(after: today) else { return "Concluso" }
         switch DueDay(next, from: today, in: .current) {

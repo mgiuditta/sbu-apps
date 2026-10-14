@@ -671,6 +671,26 @@
         }
       }
     },
+    "La prova finisce domani" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends tomorrow"
+          }
+        }
+      }
+    },
+    "La prova finisce oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends today"
+          }
+        }
+      }
+    },
     "La prova gratuita finisce domani. Poi paghi %@." : {
       "localizations" : {
         "en" : {
@@ -1167,6 +1187,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Free trial"
+          }
+        }
+      }
+    },
+    "Prova: ancora %lld giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial: %lld days left"
           }
         }
       }

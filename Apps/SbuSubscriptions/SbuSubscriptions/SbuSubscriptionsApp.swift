@@ -16,7 +16,9 @@ struct SbuSubscriptionsApp: App {
             return container
         }
         do {
-            let container = try ModelContainer.subscriptions()
+            // If the iCloud-mirrored store won't open (an account or iCloud in an odd state), the same file
+            // opens locally: the subscriptions are all there, and sync picks up once iCloud is back.
+            let container = try (try? ModelContainer.subscriptions()) ?? ModelContainer.subscriptions(syncsWithICloud: false)
             try CategorySeeder.seed(container.mainContext)
             try Subscription.repairDuplicateIDs(container.mainContext)
             // Before the first screen: whoever updates from the 1.0 finds their subscriptions there.

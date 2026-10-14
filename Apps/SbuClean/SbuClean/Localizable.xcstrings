@@ -1015,12 +1015,12 @@
         }
       }
     },
-    "Consenti l'accesso": {
+    "Continua": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Allow access"
+            "value": "Continue"
           }
         }
       }

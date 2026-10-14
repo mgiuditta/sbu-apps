@@ -72,7 +72,7 @@ final class CleanFlowTests: XCTestCase {
     func testFirstLaunchExplainsAndAsksForPhotos() throws {
         let app = launch(access: "notDetermined")
 
-        let ask = app.buttons["Consenti l'accesso"]
+        let ask = app.buttons["Continua"]
         XCTAssertTrue(ask.waitForExistence(timeout: 5))
         attachScreenshot("01-access", of: app)
         try audit(app)

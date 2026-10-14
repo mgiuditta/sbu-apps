@@ -33,7 +33,7 @@ final class RealLibraryTests: XCTestCase {
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launch()
 
-        let ask = app.buttons["Consenti l'accesso"]
+        let ask = app.buttons["Continua"]
         if ask.waitForExistence(timeout: 3) {
             ask.tap()
             let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")

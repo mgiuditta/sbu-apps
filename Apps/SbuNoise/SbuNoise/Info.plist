@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSAlarmKitUsageDescription</key>
 	<string>Sbu Noise usa una sveglia di sistema come riserva, se all'ora della sveglia l'app non è aperta.</string>
 	<key>UIBackgroundModes</key>

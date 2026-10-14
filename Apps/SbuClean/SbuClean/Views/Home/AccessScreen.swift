@@ -34,7 +34,7 @@ struct AccessScreen: View {
                 .buttonStyle(SbuFieldPillStyle())
             } else {
                 Button(action: requestAccess) {
-                    Text("Consenti l'accesso")
+                    Text("Continua")
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .buttonStyle(SbuFieldPillStyle())

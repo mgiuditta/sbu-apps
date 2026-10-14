@@ -120,9 +120,10 @@ final class MoonFlowTests: XCTestCase {
         for phase in ["Luna nuova", "Primo quarto", "Ultimo quarto"] {
             XCTAssertTrue(app.switches[phase].exists, phase)
         }
-        // Earlier runs on this simulator may have left it on.
-        if fullMoon.value as? String == "1" {
-            fullMoon.switches.firstMatch.tap()
+        // Earlier runs, or the person on their own iPhone, may have left some on: the time row
+        // shows while any is.
+        for phase in ["Luna piena", "Luna nuova", "Primo quarto", "Ultimo quarto"] where app.switches[phase].value as? String == "1" {
+            app.switches[phase].switches.firstMatch.tap()
         }
 
         fullMoon.switches.firstMatch.tap()

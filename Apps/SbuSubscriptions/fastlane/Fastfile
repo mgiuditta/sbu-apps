@@ -59,8 +59,10 @@ platform :ios do
   desc "Upload only metadata and framed screenshots to the App Store listing, without a build or submitting"
   lane :metadata do
     api_key
+    version = ensure_app_store_version
     ensure_review_detail
     upload_to_app_store(
+      app_version: version,
       skip_binary_upload: true,
       submit_for_review: false,
       force: true,
@@ -69,10 +71,46 @@ platform :ios do
     )
   end
 
+  desc "Print the App Store versions and the latest builds"
+  lane :state do
+    api_key
+    app = Spaceship::ConnectAPI::App.find(CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier))
+    app.get_app_store_versions.each { |v| UI.message("version #{v.version_string} #{v.app_store_state}") }
+    Spaceship::ConnectAPI::Build.all(app_id: app.id, sort: "-uploadedDate", limit: 5).each do |b|
+      UI.message("build #{b.app_version} (#{b.version}) #{b.processing_state}")
+    end
+    version = app.get_edit_app_store_version or next
+    UI.message("editing #{version.version_string}, build #{version.build&.version || "none"}")
+    version.get_app_store_version_localizations.each do |localization|
+      shots = localization.get_app_screenshot_sets.sum { |set| set.app_screenshots.count }
+      UI.message("#{localization.locale}: #{shots} screenshots, notes #{localization.whats_new.to_s.length} chars, description #{localization.description.to_s.length} chars")
+    end
+  end
+
+  desc "Attach an uploaded build to the version being edited, without submitting: fastlane select_build build:4"
+  lane :select_build do |options|
+    api_key
+    app = Spaceship::ConnectAPI::App.find(CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier))
+    version = app.get_edit_app_store_version || UI.user_error!("No App Store version being edited: run the metadata lane first")
+    build = Spaceship::ConnectAPI::Build.all(app_id: app.id, version: version.version_string, build_number: options[:build].to_s).first
+    UI.user_error!("No build #{options[:build]} for #{version.version_string}") unless build
+    UI.user_error!("Build #{options[:build]} is #{build.processing_state}") unless build.processing_state == "VALID"
+    version.select_build(build_id: build.id)
+    UI.success("#{version.version_string} uses build #{build.version}")
+  end
+
   # Automatic signing creates the App Store profiles (app and widget, with the App Group) itself.
   def signing_args
     "-allowProvisioningUpdates -authenticationKeyPath #{ENV.fetch("ASC_KEY_PATH")} " \
       "-authenticationKeyID #{ENV.fetch("ASC_KEY_ID")} -authenticationKeyIssuerID #{ENV.fetch("ASC_ISSUER_ID")}"
+  end
+
+  # The version in project.yml, created on App Store Connect if the live one is older (a 2.0 over a 1.0).
+  private_lane :ensure_app_store_version do
+    version = get_version_number(xcodeproj: "SbuSubscriptions.xcodeproj", target: "SbuSubscriptions")
+    app = Spaceship::ConnectAPI::App.find(CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier))
+    app.ensure_version!(version, platform: Spaceship::ConnectAPI::Platform::IOS)
+    version
   end
 
   # A first version has no App Review details yet, and deliver fails reading them ("No data",

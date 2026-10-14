@@ -5,6 +5,8 @@ import SwiftData
 struct MonthSpendingIntent: AppIntent {
     static let title: LocalizedStringResource = "Spesa del mese"
     static let description = IntentDescription("Dice quanto paghi questo mese e quanto resta da pagare.")
+    /// What you pay is private: from a locked iPhone, Siri asks to unlock before it answers.
+    static let authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
 
     @Dependency private var container: ModelContainer
 

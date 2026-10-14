@@ -5,6 +5,8 @@ import SwiftData
 struct SubscriptionCountIntent: AppIntent {
     static let title: LocalizedStringResource = "Numero di abbonamenti"
     static let description = IntentDescription("Dice quanti abbonamenti stai pagando.")
+    /// What you pay is private: from a locked iPhone, Siri asks to unlock before it answers.
+    static let authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
 
     @Dependency private var container: ModelContainer
 

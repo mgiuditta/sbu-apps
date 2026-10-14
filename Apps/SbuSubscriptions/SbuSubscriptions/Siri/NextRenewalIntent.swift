@@ -5,6 +5,8 @@ import SwiftData
 struct NextRenewalIntent: AppIntent {
     static let title: LocalizedStringResource = "Prossimo rinnovo"
     static let description = IntentDescription("Dice quando arriva il prossimo pagamento e quanto costa.")
+    /// What you pay is private: from a locked iPhone, Siri asks to unlock before it answers.
+    static let authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
 
     @Parameter(title: "Abbonamento", description: "Lascia vuoto per il primo rinnovo tra tutti.")
     var subscription: SubscriptionEntity?

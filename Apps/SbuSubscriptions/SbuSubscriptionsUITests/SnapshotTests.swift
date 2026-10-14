@@ -11,7 +11,7 @@ final class SnapshotTests: XCTestCase {
 
         snapshot("01-main")
 
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.navigationBars.buttons.element(boundBy: 1).tap()  // 0 is Aggiungi, 1 the gear
         snapshot("02-privacy")
     }
 }

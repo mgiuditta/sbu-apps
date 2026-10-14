@@ -26,7 +26,7 @@ struct CurrencySection: View {
         Locale.current.localizedString(forCurrencyCode: code)?.localizedCapitalized ?? code
     }
 
-    private static let currencies = Locale.commonISOCurrencyCodes.sorted {
+    static let currencies = Locale.commonISOCurrencyCodes.sorted {
         name(of: $0).localizedStandardCompare(name(of: $1)) == .orderedAscending
     }
 }

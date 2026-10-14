@@ -8,6 +8,7 @@ struct MainView: View {
 
     @Query private var subscriptions: [Subscription]
     @AppStorage(TotalPeriod.storageKey, store: .appGroup) private var period = TotalPeriod.year
+    @State private var isAdding = false
 
     var body: some View {
         // ponytail: "today" is read on each render, not at midnight; the app redraws whenever it comes back.
@@ -49,8 +50,26 @@ struct MainView: View {
         .scrollContentBackground(.hidden)
         .overlay {
             if subscriptions.isEmpty {
-                ContentUnavailableView("Nessun abbonamento", systemImage: "creditcard", description: Text("Gli abbonamenti che aggiungi compaiono qui, con quanto spendi."))
+                ContentUnavailableView {
+                    Label("Nessun abbonamento", systemImage: "creditcard")
+                } description: {
+                    Text("Gli abbonamenti che aggiungi compaiono qui, con quanto spendi.")
+                } actions: {
+                    SbuButton("Aggiungi") { isAdding = true }
+                        .accessibilityIdentifier("addFirst")
+                }
             }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                // In ink, like the gear: on this screen the accent belongs to the figure's full stop.
+                Button("Aggiungi abbonamento", systemImage: "plus") { isAdding = true }
+                    .tint(SbuTheme.ink)
+                    .accessibilityIdentifier("add")
+            }
+        }
+        .sheet(isPresented: $isAdding) {
+            AddSubscriptionSheet(currency: currency)
         }
     }
 

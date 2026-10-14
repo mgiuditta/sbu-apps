@@ -31,7 +31,13 @@ extension ModelContainer {
     static var preview: ModelContainer {
         // ponytail: in-memory never fails to open; a crash here is a broken preview, not lost data.
         let container = try! subscriptions(inMemory: true)
-        Subscription.demo().forEach(container.mainContext.insert)
+        try? CategorySeeder.seed(container.mainContext)
+        let categories = (try? container.mainContext.fetch(FetchDescriptor<SubscriptionCategory>())) ?? []
+        let keys: [BuiltInCategory] = [.streaming, .music, .cloud, .news, .design, .education, .fitness]
+        for (subscription, key) in zip(Subscription.demo(), keys) {
+            subscription.category = categories.first { $0.key == key.rawValue }
+            container.mainContext.insert(subscription)
+        }
         return container
     }
 }

@@ -9,14 +9,19 @@ struct SubscriptionRow: View {
     var body: some View {
         SbuListRow(
             "\(subscription.name)",
-            subtitle: subscription.cycle.label,
-            systemImage: Monogram.systemImage(for: subscription.name),
+            subtitle: subtitle,
+            systemImage: subscription.category?.symbol ?? Monogram.systemImage(for: subscription.name),
             // Not the accent: on this screen it belongs to the figure's full stop.
             iconBackground: SbuTheme.surfaceSunken,
             iconForeground: SbuTheme.inkMuted,
             amount: subscription.price.formatted(.currency(code: subscription.currencyCode)),
             status: status
         )
+    }
+
+    private var subtitle: LocalizedStringKey {
+        guard let category = subscription.category else { return subscription.cycle.label }
+        return "\(category.name) · \(Text(subscription.cycle.label))"
     }
 
     private var status: LocalizedStringKey {

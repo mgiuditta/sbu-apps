@@ -11,12 +11,132 @@
         }
       }
     },
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · %@"
+          }
+        }
+      }
+    },
+    "0" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0"
+          }
+        }
+      }
+    },
     "1 %@ =" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "1 %@ ="
+          }
+        }
+      }
+    },
+    "1 giorno prima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 day before"
+          }
+        }
+      }
+    },
+    "3 giorni prima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 days before"
+          }
+        }
+      }
+    },
+    "7 giorni prima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 days before"
+          }
+        }
+      }
+    },
+    "AI" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI"
+          }
+        }
+      }
+    },
+    "Acqua" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water"
+          }
+        }
+      }
+    },
+    "Affitto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rent"
+          }
+        }
+      }
+    },
+    "Aggiungi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "Aggiungi abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add subscription"
+          }
+        }
+      }
+    },
+    "Aggiungi categoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add category"
+          }
+        }
+      }
+    },
+    "Aggiungi «%@»" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add “%@”"
           }
         }
       }
@@ -41,12 +161,42 @@
         }
       }
     },
+    "Altro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        }
+      }
+    },
+    "Anni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Years"
+          }
+        }
+      }
+    },
     "Annuale" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yearly"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         }
       }
@@ -71,6 +221,16 @@
         }
       }
     },
+    "Assicurazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insurance"
+          }
+        }
+      }
+    },
     "Attivi" : {
       "localizations" : {
         "en" : {
@@ -81,12 +241,82 @@
         }
       }
     },
+    "Audio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio"
+          }
+        }
+      }
+    },
     "BCE" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ECB"
+          }
+        }
+      }
+    },
+    "Categoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Category"
+          }
+        }
+      }
+    },
+    "Categorie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categories"
+          }
+        }
+      }
+    },
+    "Cerca un servizio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a service"
+          }
+        }
+      }
+    },
+    "Cibo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Food"
+          }
+        }
+      }
+    },
+    "Ciclo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cycle"
+          }
+        }
+      }
+    },
+    "Cloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloud"
           }
         }
       }
@@ -121,6 +351,16 @@
         }
       }
     },
+    "Design" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Design"
+          }
+        }
+      }
+    },
     "Domani" : {
       "localizations" : {
         "en" : {
@@ -151,12 +391,102 @@
         }
       }
     },
+    "Elimina %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %@"
+          }
+        }
+      }
+    },
+    "Eliminare la categoria?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the category?"
+          }
+        }
+      }
+    },
+    "Eliminare la lista?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the list?"
+          }
+        }
+      }
+    },
     "Esclusi %lld in %@: manca il tasso" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld in %@ left out: no rate"
+          }
+        }
+      }
+    },
+    "Finanza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finance"
+          }
+        }
+      }
+    },
+    "Fine della prova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends"
+          }
+        }
+      }
+    },
+    "Fitness" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fitness"
+          }
+        }
+      }
+    },
+    "Gas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gas"
+          }
+        }
+      }
+    },
+    "Giochi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Games"
+          }
+        }
+      }
+    },
+    "Giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days"
           }
         }
       }
@@ -171,12 +501,42 @@
         }
       }
     },
+    "Gli abbonamenti restano, senza categoria." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Its subscriptions stay, without a category."
+          }
+        }
+      }
+    },
+    "Gli abbonamenti restano, senza lista." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Its subscriptions stay, without a list."
+          }
+        }
+      }
+    },
     "I totali sono in questa valuta. Gli abbonamenti in altre valute si convertono con i tassi BCE inclusi nell'app, o con i tuoi." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Totals are in this currency. Subscriptions in other currencies are converted with the ECB rates included in the app, or with your own."
+          }
+        }
+      }
+    },
+    "Il giorno stesso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On the day"
           }
         }
       }
@@ -191,12 +551,62 @@
         }
       }
     },
+    "Internet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internet"
+          }
+        }
+      }
+    },
+    "Istruzione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Education"
+          }
+        }
+      }
+    },
     "La cifra in alto e il widget mostrano questo periodo." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "The figure at the top and the widget show this period."
+          }
+        }
+      }
+    },
+    "Lista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List"
+          }
+        }
+      }
+    },
+    "Liste" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lists"
+          }
+        }
+      }
+    },
+    "Luce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Electricity"
           }
         }
       }
@@ -221,6 +631,56 @@
         }
       }
     },
+    "Mesi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Months"
+          }
+        }
+      }
+    },
+    "Metodo di pagamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payment method"
+          }
+        }
+      }
+    },
+    "Metodo di pagamento è solo un'etichetta, come «Carta personale». Non scrivere mai i dati della carta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payment method is only a label, such as “Personal card”. Never type your card details."
+          }
+        }
+      }
+    },
+    "Musica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music"
+          }
+        }
+      }
+    },
+    "Mutuo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mortgage"
+          }
+        }
+      }
+    },
     "Nessun abbonamento" : {
       "localizations" : {
         "en" : {
@@ -231,12 +691,112 @@
         }
       }
     },
+    "Nessuna" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Nessuno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Note" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        }
+      }
+    },
+    "Notizie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "News"
+          }
+        }
+      }
+    },
+    "Numero fisso di pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixed number of payments"
+          }
+        }
+      }
+    },
+    "Nuova categoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New category"
+          }
+        }
+      }
+    },
+    "Nuova lista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New list"
+          }
+        }
+      }
+    },
+    "Nuovo abbonamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New subscription"
+          }
+        }
+      }
+    },
     "Oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Today"
+          }
+        }
+      }
+    },
+    "Ogni %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every %lld"
           }
         }
       }
@@ -281,6 +841,16 @@
         }
       }
     },
+    "Ogni 3 mesi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every 3 months"
+          }
+        }
+      }
+    },
     "Ogni giorno" : {
       "localizations" : {
         "en" : {
@@ -291,12 +861,102 @@
         }
       }
     },
+    "Organizza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Organize"
+          }
+        }
+      }
+    },
+    "Pagamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payment"
+          }
+        }
+      }
+    },
+    "Per esempio Famiglia o Lavoro. Ogni abbonamento può stare in una lista." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Such as Family or Work. Each subscription can be in one list."
+          }
+        }
+      }
+    },
+    "Personalizzato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
+    "Prezzo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price"
+          }
+        }
+      }
+    },
+    "Produttività" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Productivity"
+          }
+        }
+      }
+    },
+    "Promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminder"
+          }
+        }
+      }
+    },
+    "Prossimo pagamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next payment"
+          }
+        }
+      }
+    },
     "Prova fino al %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trial until %@"
+          }
+        }
+      }
+    },
+    "Prova gratuita" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free trial"
           }
         }
       }
@@ -317,6 +977,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "What 1 %@ is worth in %@."
+          }
+        }
+      }
+    },
+    "Salva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         }
       }
@@ -351,6 +1021,46 @@
         }
       }
     },
+    "Settimane" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weeks"
+          }
+        }
+      }
+    },
+    "Simbolo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbol"
+          }
+        }
+      }
+    },
+    "Sito per gestirlo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Website to manage it"
+          }
+        }
+      }
+    },
+    "Social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Social"
+          }
+        }
+      }
+    },
     "Spendi al mese" : {
       "localizations" : {
         "en" : {
@@ -367,6 +1077,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You spend a year"
+          }
+        }
+      }
+    },
+    "Streaming" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streaming"
+          }
+        }
+      }
+    },
+    "Sviluppo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Development"
           }
         }
       }
@@ -461,12 +1191,32 @@
         }
       }
     },
+    "Unità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unit"
+          }
+        }
+      }
+    },
     "Usa il tasso BCE" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use the ECB rate"
+          }
+        }
+      }
+    },
+    "VPN" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VPN"
           }
         }
       }
@@ -481,12 +1231,32 @@
         }
       }
     },
+    "Valuta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Currency"
+          }
+        }
+      }
+    },
     "Valuta principale" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Main currency"
+          }
+        }
+      }
+    },
+    "Viaggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel"
           }
         }
       }
@@ -507,6 +1277,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "^[%lld subscription](inflect: true) · %@ a year"
+          }
+        }
+      }
+    },
+    "^[%lld pagamento](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld payment](inflect: true)"
           }
         }
       }

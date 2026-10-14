@@ -11,6 +11,7 @@ struct RootView: View {
         } settings: {
             TotalSection()
             CurrencySection(settings: currency)
+            OrganizeSection()
         }
     }
 }

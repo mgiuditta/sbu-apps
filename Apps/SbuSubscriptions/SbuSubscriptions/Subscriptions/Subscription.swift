@@ -20,6 +20,10 @@ final class Subscription {
     var trialEndDate: Date?
     /// Days before a payment to remind you; `nil` for no reminder.
     var reminderDaysBefore: Int? = 1
+    var category: SubscriptionCategory?
+    var list: SubscriptionList?
+    /// A label such as "Carta personale"; never card details.
+    var paymentMethod: String = ""
     var url: URL?
     var notes: String = ""
     var createdAt: Date = Date.now

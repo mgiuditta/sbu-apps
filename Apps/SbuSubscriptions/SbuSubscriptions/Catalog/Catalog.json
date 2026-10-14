@@ -1,0 +1,896 @@
+[
+ {
+  "id": "netflix",
+  "name": "Netflix",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "disneyplus",
+  "name": "Disney+",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "primevideo",
+  "name": "Prime Video",
+  "category": "streaming",
+  "cycle": "yearly"
+ },
+ {
+  "id": "amazonprime",
+  "name": "Amazon Prime",
+  "category": "streaming",
+  "cycle": "yearly"
+ },
+ {
+  "id": "max",
+  "name": "Max",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "hbomax",
+  "name": "HBO Max",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "paramountplus",
+  "name": "Paramount+",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "appletv",
+  "name": "Apple TV+",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "peacock",
+  "name": "Peacock",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "hulu",
+  "name": "Hulu",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "crunchyroll",
+  "name": "Crunchyroll",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "dazn",
+  "name": "DAZN",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "sky",
+  "name": "Sky",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "nowtv",
+  "name": "NOW",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "mubi",
+  "name": "MUBI",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "viaplay",
+  "name": "Viaplay",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "plutotv",
+  "name": "Pluto TV",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "tubi",
+  "name": "Tubi",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "rakuten",
+  "name": "Rakuten TV",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "plex",
+  "name": "Plex",
+  "category": "streaming",
+  "cycle": "yearly"
+ },
+ {
+  "id": "vimeo",
+  "name": "Vimeo",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "twitch",
+  "name": "Twitch",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "youtube",
+  "name": "YouTube Premium",
+  "category": "streaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "letterboxd",
+  "name": "Letterboxd",
+  "category": "streaming",
+  "cycle": "yearly"
+ },
+ {
+  "id": "spotify",
+  "name": "Spotify",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "applemusic",
+  "name": "Apple Music",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "youtubemusic",
+  "name": "YouTube Music",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "tidal",
+  "name": "Tidal",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "deezer",
+  "name": "Deezer",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "soundcloud",
+  "name": "SoundCloud",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "pandora",
+  "name": "Pandora",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "bandcamp",
+  "name": "Bandcamp",
+  "category": "music",
+  "cycle": "monthly"
+ },
+ {
+  "id": "shazam",
+  "name": "Shazam",
+  "category": "music",
+  "cycle": "yearly"
+ },
+ {
+  "id": "audible",
+  "name": "Audible",
+  "category": "audio",
+  "cycle": "monthly"
+ },
+ {
+  "id": "pocketcasts",
+  "name": "Pocket Casts",
+  "category": "audio",
+  "cycle": "yearly"
+ },
+ {
+  "id": "applepodcasts",
+  "name": "Apple Podcasts",
+  "category": "audio",
+  "cycle": "monthly"
+ },
+ {
+  "id": "storytel",
+  "name": "Storytel",
+  "category": "audio",
+  "cycle": "monthly"
+ },
+ {
+  "id": "openai",
+  "name": "ChatGPT Plus",
+  "category": "ai",
+  "cycle": "monthly"
+ },
+ {
+  "id": "anthropic",
+  "name": "Claude",
+  "category": "ai",
+  "cycle": "monthly"
+ },
+ {
+  "id": "perplexity",
+  "name": "Perplexity",
+  "category": "ai",
+  "cycle": "monthly"
+ },
+ {
+  "id": "githubcopilot",
+  "name": "GitHub Copilot",
+  "category": "ai",
+  "cycle": "monthly"
+ },
+ {
+  "id": "midjourney",
+  "name": "Midjourney",
+  "category": "ai",
+  "cycle": "monthly"
+ },
+ {
+  "id": "elevenlabs",
+  "name": "ElevenLabs",
+  "category": "ai",
+  "cycle": "monthly"
+ },
+ {
+  "id": "googlegemini",
+  "name": "Gemini",
+  "category": "ai",
+  "cycle": "monthly"
+ },
+ {
+  "id": "icloud",
+  "name": "iCloud+",
+  "category": "cloud",
+  "cycle": "monthly"
+ },
+ {
+  "id": "googledrive",
+  "name": "Google One",
+  "category": "cloud",
+  "cycle": "monthly"
+ },
+ {
+  "id": "onedrive",
+  "name": "OneDrive",
+  "category": "cloud",
+  "cycle": "yearly"
+ },
+ {
+  "id": "dropbox",
+  "name": "Dropbox",
+  "category": "cloud",
+  "cycle": "yearly"
+ },
+ {
+  "id": "box",
+  "name": "Box",
+  "category": "cloud",
+  "cycle": "monthly"
+ },
+ {
+  "id": "mega",
+  "name": "MEGA",
+  "category": "cloud",
+  "cycle": "monthly"
+ },
+ {
+  "id": "backblaze",
+  "name": "Backblaze",
+  "category": "cloud",
+  "cycle": "monthly"
+ },
+ {
+  "id": "wetransfer",
+  "name": "WeTransfer",
+  "category": "cloud",
+  "cycle": "yearly"
+ },
+ {
+  "id": "nordvpn",
+  "name": "NordVPN",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "expressvpn",
+  "name": "ExpressVPN",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "surfshark",
+  "name": "Surfshark",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "mullvad",
+  "name": "Mullvad",
+  "category": "vpn",
+  "cycle": "monthly"
+ },
+ {
+  "id": "protonvpn",
+  "name": "Proton VPN",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "protonmail",
+  "name": "Proton Mail",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "1password",
+  "name": "1Password",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "bitwarden",
+  "name": "Bitwarden",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "lastpass",
+  "name": "LastPass",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "dashlane",
+  "name": "Dashlane",
+  "category": "vpn",
+  "cycle": "yearly"
+ },
+ {
+  "id": "notion",
+  "name": "Notion",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "evernote",
+  "name": "Evernote",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "todoist",
+  "name": "Todoist",
+  "category": "productivity",
+  "cycle": "yearly"
+ },
+ {
+  "id": "trello",
+  "name": "Trello",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "asana",
+  "name": "Asana",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "clickup",
+  "name": "ClickUp",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "linear",
+  "name": "Linear",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "obsidian",
+  "name": "Obsidian",
+  "category": "productivity",
+  "cycle": "yearly"
+ },
+ {
+  "id": "grammarly",
+  "name": "Grammarly",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "microsoft365",
+  "name": "Microsoft 365",
+  "category": "productivity",
+  "cycle": "yearly"
+ },
+ {
+  "id": "googleworkspace",
+  "name": "Google Workspace",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "slack",
+  "name": "Slack",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "zoom",
+  "name": "Zoom",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "discord",
+  "name": "Discord Nitro",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "raycast",
+  "name": "Raycast",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "setapp",
+  "name": "Setapp",
+  "category": "productivity",
+  "cycle": "monthly"
+ },
+ {
+  "id": "canva",
+  "name": "Canva",
+  "category": "design",
+  "cycle": "yearly"
+ },
+ {
+  "id": "figma",
+  "name": "Figma",
+  "category": "design",
+  "cycle": "monthly"
+ },
+ {
+  "id": "sketch",
+  "name": "Sketch",
+  "category": "design",
+  "cycle": "yearly"
+ },
+ {
+  "id": "framer",
+  "name": "Framer",
+  "category": "design",
+  "cycle": "monthly"
+ },
+ {
+  "id": "webflow",
+  "name": "Webflow",
+  "category": "design",
+  "cycle": "monthly"
+ },
+ {
+  "id": "adobecreativecloud",
+  "name": "Adobe Creative Cloud",
+  "category": "design",
+  "cycle": "yearly"
+ },
+ {
+  "id": "adobephotoshop",
+  "name": "Photoshop",
+  "category": "design",
+  "cycle": "monthly"
+ },
+ {
+  "id": "github",
+  "name": "GitHub",
+  "category": "development",
+  "cycle": "monthly"
+ },
+ {
+  "id": "gitlab",
+  "name": "GitLab",
+  "category": "development",
+  "cycle": "monthly"
+ },
+ {
+  "id": "vercel",
+  "name": "Vercel",
+  "category": "development",
+  "cycle": "monthly"
+ },
+ {
+  "id": "netlify",
+  "name": "Netlify",
+  "category": "development",
+  "cycle": "monthly"
+ },
+ {
+  "id": "digitalocean",
+  "name": "DigitalOcean",
+  "category": "development",
+  "cycle": "monthly"
+ },
+ {
+  "id": "cloudflare",
+  "name": "Cloudflare",
+  "category": "development",
+  "cycle": "monthly"
+ },
+ {
+  "id": "jetbrains",
+  "name": "JetBrains",
+  "category": "development",
+  "cycle": "yearly"
+ },
+ {
+  "id": "playstation",
+  "name": "PlayStation Plus",
+  "category": "gaming",
+  "cycle": "yearly"
+ },
+ {
+  "id": "nintendoswitch",
+  "name": "Nintendo Switch Online",
+  "category": "gaming",
+  "cycle": "yearly"
+ },
+ {
+  "id": "xbox",
+  "name": "Xbox",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "xboxgamepass",
+  "name": "Xbox Game Pass",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "steam",
+  "name": "Steam",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "epicgames",
+  "name": "Epic Games",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "eaplay",
+  "name": "EA Play",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "geforcenow",
+  "name": "GeForce NOW",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "ubisoftconnect",
+  "name": "Ubisoft+",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "riotgames",
+  "name": "Riot Games",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "battledotnet",
+  "name": "Battle.net",
+  "category": "gaming",
+  "cycle": "monthly"
+ },
+ {
+  "id": "newyorktimes",
+  "name": "The New York Times",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "theguardian",
+  "name": "The Guardian",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "wsj",
+  "name": "The Wall Street Journal",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "economist",
+  "name": "The Economist",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "financialtimes",
+  "name": "Financial Times",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "bloomberg",
+  "name": "Bloomberg",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "medium",
+  "name": "Medium",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "substack",
+  "name": "Substack",
+  "category": "news",
+  "cycle": "monthly"
+ },
+ {
+  "id": "strava",
+  "name": "Strava",
+  "category": "fitness",
+  "cycle": "yearly"
+ },
+ {
+  "id": "fitbit",
+  "name": "Fitbit Premium",
+  "category": "fitness",
+  "cycle": "monthly"
+ },
+ {
+  "id": "peloton",
+  "name": "Peloton",
+  "category": "fitness",
+  "cycle": "monthly"
+ },
+ {
+  "id": "myfitnesspal",
+  "name": "MyFitnessPal",
+  "category": "fitness",
+  "cycle": "monthly"
+ },
+ {
+  "id": "calm",
+  "name": "Calm",
+  "category": "fitness",
+  "cycle": "yearly"
+ },
+ {
+  "id": "headspace",
+  "name": "Headspace",
+  "category": "fitness",
+  "cycle": "yearly"
+ },
+ {
+  "id": "whoop",
+  "name": "WHOOP",
+  "category": "fitness",
+  "cycle": "monthly"
+ },
+ {
+  "id": "garmin",
+  "name": "Garmin Connect+",
+  "category": "fitness",
+  "cycle": "monthly"
+ },
+ {
+  "id": "komoot",
+  "name": "komoot",
+  "category": "fitness",
+  "cycle": "yearly"
+ },
+ {
+  "id": "alltrails",
+  "name": "AllTrails+",
+  "category": "fitness",
+  "cycle": "yearly"
+ },
+ {
+  "id": "hellofresh",
+  "name": "HelloFresh",
+  "category": "food",
+  "cycle": "weekly"
+ },
+ {
+  "id": "deliveroo",
+  "name": "Deliveroo Plus",
+  "category": "food",
+  "cycle": "monthly"
+ },
+ {
+  "id": "ubereats",
+  "name": "Uber Eats",
+  "category": "food",
+  "cycle": "monthly"
+ },
+ {
+  "id": "justeat",
+  "name": "Just Eat",
+  "category": "food",
+  "cycle": "monthly"
+ },
+ {
+  "id": "doordash",
+  "name": "DoorDash",
+  "category": "food",
+  "cycle": "monthly"
+ },
+ {
+  "id": "instacart",
+  "name": "Instacart+",
+  "category": "food",
+  "cycle": "monthly"
+ },
+ {
+  "id": "telegram",
+  "name": "Telegram Premium",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "x",
+  "name": "X Premium",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "reddit",
+  "name": "Reddit Premium",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "snapchat",
+  "name": "Snapchat+",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "linkedin",
+  "name": "LinkedIn Premium",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "tinder",
+  "name": "Tinder",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "patreon",
+  "name": "Patreon",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "onlyfans",
+  "name": "OnlyFans",
+  "category": "social",
+  "cycle": "monthly"
+ },
+ {
+  "id": "duolingo",
+  "name": "Super Duolingo",
+  "category": "education",
+  "cycle": "yearly"
+ },
+ {
+  "id": "babbel",
+  "name": "Babbel",
+  "category": "education",
+  "cycle": "yearly"
+ },
+ {
+  "id": "coursera",
+  "name": "Coursera Plus",
+  "category": "education",
+  "cycle": "yearly"
+ },
+ {
+  "id": "udemy",
+  "name": "Udemy",
+  "category": "education",
+  "cycle": "monthly"
+ },
+ {
+  "id": "skillshare",
+  "name": "Skillshare",
+  "category": "education",
+  "cycle": "yearly"
+ },
+ {
+  "id": "masterclass",
+  "name": "MasterClass",
+  "category": "education",
+  "cycle": "yearly"
+ },
+ {
+  "id": "airbnb",
+  "name": "Airbnb",
+  "category": "travel",
+  "cycle": "monthly"
+ },
+ {
+  "id": "booking",
+  "name": "Booking.com",
+  "category": "travel",
+  "cycle": "monthly"
+ },
+ {
+  "id": "uber",
+  "name": "Uber One",
+  "category": "travel",
+  "cycle": "monthly"
+ },
+ {
+  "id": "lyft",
+  "name": "Lyft",
+  "category": "travel",
+  "cycle": "monthly"
+ },
+ {
+  "id": "flightradar24",
+  "name": "Flightradar24",
+  "category": "travel",
+  "cycle": "yearly"
+ },
+ {
+  "id": "revolut",
+  "name": "Revolut",
+  "category": "finance",
+  "cycle": "monthly"
+ },
+ {
+  "id": "wise",
+  "name": "Wise",
+  "category": "finance",
+  "cycle": "monthly"
+ },
+ {
+  "id": "paypal",
+  "name": "PayPal",
+  "category": "finance",
+  "cycle": "monthly"
+ }
+]

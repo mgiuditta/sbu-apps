@@ -11,6 +11,11 @@ originale:
   appStoreId: 530829008
   price: 3.99
   checked: 2026-10-12
+permissions:
+  it:
+    - Posizione, solo mentre l'app è aperta, per leggere la velocità dal GPS. Sbu Speed non salva percorsi né coordinate, tiene solo i totali del viaggio (massima, media, distanza, durata) finché non lo azzeri. La posizione non lascia l'iPhone.
+  en:
+    - Location, only while the app is open, to read your speed from GPS. Sbu Speed saves no routes or coordinates, it keeps only the trip totals (top, average, distance, time) until you reset them. Your location never leaves your iPhone.
 figure:
   it: { value: "52 km/h", label: Velocità }
   en: { value: "32 mph", label: Speed }

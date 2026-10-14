@@ -11,6 +11,11 @@ originale:
   appStoreId: 286215117
   price: 1.99
   checked: 2026-10-12
+permissions:
+  it:
+    - Sensore di movimento, letto solo sull'iPhone, senza permesso e senza salvarlo. Resta salvata solo la calibrazione.
+  en:
+    - Motion sensor, read only on your iPhone, with no permission and never stored. Only the calibration is saved.
 figure:
   it: { value: "32,4°", label: Inclinazione }
   en: { value: "32.4°", label: Tilt }

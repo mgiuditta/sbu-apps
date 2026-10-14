@@ -34,7 +34,7 @@ const principles: Record<Locale, TextPage> = {
       {
         heading: 'Come lo verifichi',
         paragraphs: [
-          'Nella scheda App Store di ogni app Sbu, la sezione Privacy dell’app riporta i dati raccolti, e non ci sono acquisti in-app. Le app non si collegano a nessun server: funzionano anche in modalità aereo.',
+          'Nella scheda App Store di ogni app Sbu, la sezione Privacy dell’app riporta i dati raccolti, e non ci sono acquisti in-app. Le app non si collegano a nessun server di sbu.dev o di terzi: la loro funzione principale va anche in modalità aereo.',
         ],
       },
       {
@@ -62,7 +62,7 @@ const principles: Record<Locale, TextPage> = {
       {
         heading: 'How to check',
         paragraphs: [
-          'On the App Store page of every Sbu app, the App Privacy section lists the data collected, and there are no in-app purchases. The apps connect to no server: they work in airplane mode too.',
+          'On the App Store page of every Sbu app, the App Privacy section lists the data collected, and there are no in-app purchases. The apps connect to no server of sbu.dev or of third parties: their main feature works in airplane mode too.',
         ],
       },
       {
@@ -83,7 +83,7 @@ const support: Record<Locale, TextPage> = {
     faq: [
       { q: 'Le app sono davvero gratis?', a: 'Sì. Niente abbonamento, niente acquisti in-app, niente pubblicità.' },
       { q: 'Serve un account?', a: 'No. Apri l’app e la usi.' },
-      { q: 'Dove sono i miei dati?', a: 'Solo sul tuo iPhone, nel backup che fai già. Se elimini l’app, i dati vengono eliminati con lei.' },
+      { q: 'Dove sono i miei dati?', a: 'Sul tuo iPhone, nel backup che fai già. Se un’app offre iCloud e lo attivi, anche nel tuo iCloud: eliminando l’app quella copia resta, e la elimini da Impostazioni > [il tuo nome] > iCloud.' },
       { q: 'Su quali iPhone funzionano?', a: 'Su iPhone con iOS 17 o successivo.' },
     ],
   },
@@ -94,7 +94,7 @@ const support: Record<Locale, TextPage> = {
     faq: [
       { q: 'Are the apps really free?', a: 'Yes. No subscription, no in-app purchases, no ads.' },
       { q: 'Do I need an account?', a: 'No. Open the app and use it.' },
-      { q: 'Where is my data?', a: 'Only on your iPhone, in the backup you already make. If you delete the app, its data goes with it.' },
+      { q: 'Where is my data?', a: 'On your iPhone, in the backup you already make. If an app offers iCloud and you turn it on, also in your own iCloud: deleting the app keeps that copy, which you delete in Settings > [your name] > iCloud.' },
       { q: 'Which iPhones do they run on?', a: 'iPhone with iOS 17 or later.' },
     ],
   },
@@ -123,6 +123,16 @@ function privacy(locale: Locale, app?: string, permissions: string[] = [], conne
   ];
   if (permissions.length) {
     sections.push({ heading: it ? 'Permessi' : 'Permissions', list: permissions });
+  }
+  if (SUPPORT_EMAIL) {
+    sections.push({
+      heading: it ? 'Contatti' : 'Contact',
+      paragraphs: [
+        it
+          ? `Titolare: Matteo Giuditta. Per domande sulla privacy, scrivi a ${SUPPORT_EMAIL}.`
+          : `Controller: Matteo Giuditta. For privacy questions, write to ${SUPPORT_EMAIL}.`,
+      ],
+    });
   }
   sections.push({
     heading: it ? 'Questo sito' : 'This site',

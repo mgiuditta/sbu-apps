@@ -11,6 +11,13 @@ originale:
   appStoreId: 1104649303
   price: 3.99
   checked: 2026-10-12
+permissions:
+  it:
+    - Posizione, solo se tocchi Mostra sorgere e tramonto e scegli Usa la mia posizione. Sbu Moon la legge una volta, al chilometro, e la conserva sull'iPhone come luogo per il sorgere e il tramonto, finché non scegli una città. Non lascia l'iPhone.
+    - Notifiche, solo se attivi un avviso di fase. Partono dall'iPhone, non da un server.
+  en:
+    - Location, only if you tap Show moonrise and moonset and choose Use my location. Sbu Moon reads it once, to the kilometre, and keeps it on your iPhone as the place for moonrise and moonset until you pick a city. It never leaves your iPhone.
+    - Notifications, only if you turn on a phase alert. They come from your iPhone, not from a server.
 figure:
   it: { value: "68%", label: Illuminazione }
   en: { value: "68%", label: Illumination }

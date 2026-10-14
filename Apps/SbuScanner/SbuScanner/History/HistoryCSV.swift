@@ -18,14 +18,16 @@ nonisolated enum HistoryCSV {
         return lines.map { $0.map(field).joined(separator: ",") }.joined(separator: "\r\n") + "\r\n"
     }
 
-    /// By Unicode scalar, not Character: "\r\n" is one Character and would hide its "\r". Spaces
-    /// before a sign don't make it safe, as spreadsheets skip them.
+    /// By Unicode scalar, not Character: "\r\n" is one Character and would hide its "\r". A leading
+    /// whitespace or control character of any kind (no-break space, ideographic space, newline) is
+    /// treated as a formula start, since spreadsheets may skip it to reach a sign; full-width signs too.
     private static func startsLikeAFormula(_ value: String) -> Bool {
         guard let first = value.unicodeScalars.first else { return false }
-        if "\t\r\n".unicodeScalars.contains(first) { return true }
-        guard let sign = value.unicodeScalars.first(where: { $0 != " " }) else { return false }
-        return "=+-@".unicodeScalars.contains(sign)
+        if first.properties.isWhitespace || first.properties.generalCategory == .control { return true }
+        return formulaSigns.contains(first)
     }
+
+    private static let formulaSigns = Set("=+-@|%＝＋－＠".unicodeScalars)
 
     private static func field(_ value: String) -> String {
         // A code's text comes from anyone: a cell that starts like a formula would run in a spreadsheet,

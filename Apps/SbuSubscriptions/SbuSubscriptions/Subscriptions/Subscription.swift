@@ -27,6 +27,8 @@ final class Subscription {
     var url: URL?
     var notes: String = ""
     var createdAt: Date = Date.now
+    /// The row id in the 1.0's database, so importing it again never adds a copy.
+    var legacyID: Int?
 
     init(
         name: String,

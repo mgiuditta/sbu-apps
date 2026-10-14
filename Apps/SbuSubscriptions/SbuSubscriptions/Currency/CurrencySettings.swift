@@ -20,6 +20,11 @@ final class CurrencySettings {
         ownRates = defaults.data(forKey: Keys.ownRates).flatMap { try? JSONDecoder().decode([String: OwnRate].self, from: $0) } ?? [:]
     }
 
+    /// Whether you picked the main currency yourself, rather than it following the region.
+    var hasChosenMainCurrency: Bool {
+        defaults.string(forKey: Keys.mainCurrency) != nil
+    }
+
     var converter: CurrencyConverter {
         CurrencyConverter(table: .bundled, ownRates: ownRates)
     }

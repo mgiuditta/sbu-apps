@@ -25,6 +25,7 @@ struct RootView: View {
             ReminderSection(reminders: reminders)
             CurrencySection(settings: currency)
             OrganizeSection()
+            LegacyImportSection()
         }
         .onChange(of: scenePhase, initial: true) {
             if scenePhase == .active { reschedule() }

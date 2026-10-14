@@ -581,6 +581,16 @@
         }
       }
     },
+    "I dati della versione precedente restano su questo iPhone, intatti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The previous version's data stays on this iPhone, untouched."
+          }
+        }
+      }
+    },
     "I totali sono in questa valuta. Gli abbonamenti in altre valute si convertono con i tassi BCE inclusi nell'app, o con i tuoi." : {
       "localizations" : {
         "en" : {
@@ -847,6 +857,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Name"
+          }
+        }
+      }
+    },
+    "Non importati dalla versione precedente: ^[%lld abbonamento](inflect: true)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not imported from the previous version: ^[%lld subscription](inflect: true)."
+          }
+        }
+      }
+    },
+    "Non riesco a leggere gli abbonamenti della versione precedente." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The previous version's subscriptions can't be read."
           }
         }
       }
@@ -1191,6 +1221,16 @@
         }
       }
     },
+    "Riprova a importare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try importing again"
+          }
+        }
+      }
+    },
     "Salva" : {
       "localizations" : {
         "en" : {
@@ -1507,6 +1547,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Main currency"
+          }
+        }
+      }
+    },
+    "Versione precedente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous version"
           }
         }
       }

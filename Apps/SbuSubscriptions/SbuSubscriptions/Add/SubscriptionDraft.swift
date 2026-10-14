@@ -138,7 +138,7 @@ struct SubscriptionDraft {
         subscription.category = category
         subscription.list = list
         subscription.paymentMethod = paymentMethod.trimmingCharacters(in: .whitespaces)
-        subscription.url = URL(string: urlText.trimmingCharacters(in: .whitespaces)).flatMap { $0.scheme == nil ? URL(string: "https://\($0.absoluteString)") : $0 }
+        subscription.url = WebPage.url(urlText)
         subscription.notes = notes
     }
 }

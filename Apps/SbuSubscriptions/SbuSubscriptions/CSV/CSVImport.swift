@@ -90,7 +90,7 @@ nonisolated struct CSVImport: Identifiable, Sendable {
             reminderDaysBefore: reminder ?? 1,
             list: value(.list),
             paymentMethod: value(.paymentMethod) ?? "",
-            website: value(.website).flatMap(URL.init(string:))
+            website: value(.website).flatMap(WebPage.url)
         ))
     }
 }

@@ -35,7 +35,7 @@ struct ReminderSection: View {
     private var footer: LocalizedStringKey {
         switch reminders.access {
         case .denied: "Senza notifiche nessun rinnovo ti avvisa. Attivale nelle Impostazioni dell'iPhone."
-        case .allowed: "Arriva tra pochi secondi, anche con l'app aperta."
+        case .allowed: "Arriva subito, anche con l'app aperta."
         case .notDetermined: "Quanti giorni prima lo scegli per ogni abbonamento."
         }
     }

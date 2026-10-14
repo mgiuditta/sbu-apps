@@ -10,8 +10,11 @@ struct RootView: View {
     @State private var reminders = Reminders(center: Self.isDemo ? SilentReminderCenter() : SystemReminderCenter())
 
     /// Screenshots and UI tests run on made-up data and must never touch the device's notifications.
+    /// The device notification test opts back in with SBU_REAL_NOTIFICATIONS, on its own empty store.
     private static var isDemo: Bool {
-        UserDefaults.standard.bool(forKey: "FASTLANE_SNAPSHOT") || UserDefaults.standard.bool(forKey: "SBU_EMPTY_STORE")
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "SBU_REAL_NOTIFICATIONS") { return false }
+        return defaults.bool(forKey: "FASTLANE_SNAPSHOT") || defaults.bool(forKey: "SBU_EMPTY_STORE")
     }
 
     var body: some View {

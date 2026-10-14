@@ -241,12 +241,12 @@
         }
       }
     },
-    "Arriva tra pochi secondi, anche con l'app aperta." : {
+    "Arriva subito, anche con l'app aperta." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "It arrives in a few seconds, even with the app open."
+            "value" : "It arrives right away, even with the app open."
           }
         }
       }

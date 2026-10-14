@@ -36,6 +36,7 @@ struct SystemReminderCenter: ReminderCenter {
         content.title = String(localized: "Sbu Subscriptions")
         content.body = String(localized: "Così arrivano i promemoria prima di ogni rinnovo.")
         content.sound = .default
-        UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "test", content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)))
+        // Delivered now, never pending: a reschedule clears the queue and would drop it.
+        UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "test", content: content, trigger: nil))
     }
 }

@@ -7,6 +7,7 @@ import type { Locale } from '../i18n';
 
 const icons = import.meta.glob<string>('../../../Design/icons/*.png', { query: '?url', import: 'default', eager: true });
 // The engraving alone, as an ink mask (white = ink): the app page draws it in `ink`, so it follows the theme.
+const specs: Record<string, { name?: Record<Locale, string> }> = JSON.parse(readFileSync(resolve(process.cwd(), '..', 'Design', 'icons', 'engravings.json'), 'utf8'));
 const engravings = import.meta.glob<ImageMetadata>('../../../Design/icons/source/*.png', { import: 'default', eager: true });
 
 /** The ink mask as a small WebP: the 1024px originals weigh up to 950 kB. Luminance masking works on any image. */
@@ -22,9 +23,17 @@ export async function iconThumb(slug: string): Promise<string> {
   return (await getImage({ src: iconImages[`../../../Design/icons/sbu-${slug}.png`], width: 96, format: 'webp' })).src;
 }
 
-/** Every engraving in one size, for pages that pick one (the backdrop). */
-export async function allEngravings(width: number): Promise<string[]> {
-  return Promise.all(Object.values(engravings).map(async (src) => (await getImage({ src, width, format: 'webp' })).src));
+/** Every engraving in one size with its instrument's name, for pages that pick one (the plate). */
+export async function allEngravings(width: number): Promise<{ src: string; name?: Record<Locale, string> }[]> {
+  return Promise.all(Object.entries(engravings).map(async ([path, src]) => ({
+    src: (await getImage({ src, width, format: 'webp' })).src,
+    name: specs[path.match(/sbu-(.+)\.png$/)![1]]?.name,
+  })));
+}
+
+/** The instrument's name, to caption the plate: from Design/icons/engravings.json. */
+export function instrument(slug: string, locale: Locale): string | undefined {
+  return specs[slug]?.name?.[locale];
 }
 
 const RESEARCH = resolve(process.cwd(), '..', 'research');
@@ -62,7 +71,7 @@ export async function getApps() {
         ...app.data,
         listing: listing.data,
         icon: png,
-        engraving: await engraving(app.id, 640),
+        engraving: await engraving(app.id, 800),
         /** The same engraving small, for lists. */
         mark: await engraving(app.id, 192),
         storeUrl: app.data.status === 'live' && app.data.appStoreId ? `https://apps.apple.com/app/id${app.data.appStoreId}` : undefined,

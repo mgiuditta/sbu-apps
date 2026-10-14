@@ -51,7 +51,7 @@ python3 - "$root/Design/icons/engravings.json" "$lower" "$accent" "$subject" <<'
 import json, sys
 path, name, accent, subject = sys.argv[1:]
 specs = json.load(open(path))
-specs[name] = {"accent": accent, "subject": subject}
+specs[name] = {"accent": accent, "subject": subject}  # add "name": {"it", "en"} by hand: the site captions the plate with it
 json.dump(specs, open(path, "w"), indent=2)
 open(path, "a").write("\n")
 PY

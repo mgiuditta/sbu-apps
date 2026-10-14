@@ -16,15 +16,14 @@ interface Props {
   /** Link preview, 1200x630 from Tools/make_og.py. Defaults to the home's. */
   image?: string;
   noindex?: boolean;
-  /** `wide`: the home. Header, main and footer use the wide frame instead of the reading column. */
+  /** `wide`: the home, whose content fills the frame. Otherwise the reading column, with the plate beside it. */
   layout?: 'page' | 'wide';
-  /** One engraving behind the page, in `line`. Off where the page already shows its own (the app page). */
-  backdrop?: boolean;
+  /** The plate beside the column: the app page passes its own engraving, or `false` without one; by default one is picked by the path. */
+  plate?: { src: string; caption?: string; lead?: boolean } | false;
 }
 
-const { locale, path, alternates, title, description, jsonLd = [], image = `/og/home-${locale}.png`, noindex = false, layout = 'page', backdrop = true } = Astro.props;
+const { locale, path, alternates, title, description, jsonLd = [], image = `/og/home-${locale}.png`, noindex = false, layout = 'page' } = Astro.props;
 const wide = layout === 'wide';
-const frame = wide ? 'frame' : 'page';
 const t = ui[locale];
 const site = Astro.site!;
 const absolute = (target: Locale) => new URL(localePath(target, path), site).href;
@@ -54,8 +53,9 @@ const here = localePath(locale, path);
 // The sheet lists the header's links first, then the footer's others.
 const more = footer.filter((item) => !nav.some((top) => top.href === item.href));
 // One instrument per page, the same on every visit: picked by the path, not at random.
-const engravings = await allEngravings(640);
-const engraving = backdrop && !wide && engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
+const engravings = await allEngravings(800);
+const picked = engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
+const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.name?.[locale] });
 ---
 <!doctype html>
 <html lang={locale}>
@@ -89,9 +89,8 @@ const engraving = backdrop && !wide && engravings[[...path].reduce((sum, c) => s
   {/* No background here: html carries the paper, so the backdrop at z-index -1 sits on it, under the page. */}
   <body class="min-h-dvh text-ink">
     <a href="#main" class="sr-only focus:not-sr-only">{t.skip}</a>
-    {engraving && <div class="backdrop" style={`--engraving: url(${engraving})`} aria-hidden="true"></div>}
     <header class="bar">
-      <div class:list={['flex items-center justify-between gap-4 py-4', frame]}>
+      <div class="frame flex items-center justify-between gap-4 py-4">
         <a href={localePath(locale, '')} class="py-2 text-brand">
           <Fragment set:html={logo} />
           <span class="sr-only">sbu.dev</span>
@@ -120,7 +119,7 @@ const engraving = backdrop && !wide && engravings[[...path].reduce((sum, c) => s
     </header>
     {/* The phone's menu: one sheet of paper over the page, its links set large and printed in one by one. */}
     <dialog class="sheet" data-menu aria-label={t.navLabel}>
-      {engraving && <div class="sheet-engraving" style={`--engraving: url(${engraving})`} aria-hidden="true"></div>}
+      {plate && <div class="sheet-engraving" style={`--engraving: url(${plate.src})`} aria-hidden="true"></div>}
       <div class="flex items-center justify-between gap-4 py-4">
         <span class="py-2 text-brand"><Fragment set:html={logo} /></span>
         <button type="button" class="text-subheadline text-ink" data-menu-close>{t.close}</button>
@@ -147,12 +146,23 @@ const engraving = backdrop && !wide && engravings[[...path].reduce((sum, c) => s
       document.querySelector('[data-menu-open]')!.addEventListener('click', () => sheet.showModal());
       document.querySelector('[data-menu-close]')!.addEventListener('click', () => sheet.close());
     </script>
-    <main id="main" class:list={[frame, 'pb-12']}>
-      <slot />
+    {/* Header, main and footer share the frame, so the logo never moves from page to page. The reading
+        column sits under the logo; the plate, the one perfect drawing on the page, stands still beside it. */}
+    <main id="main" class="frame pb-12">
+      {wide ? <slot /> : (
+        <div class="reading">
+          <div class="column"><slot /></div>
+          {plate && (
+            <figure class:list={['plate', { 'plate-lead': plate.lead }]}>
+              <div class="plate-art" style={`--engraving: url(${plate.src})`} aria-hidden="true"></div>
+              {plate.caption && <figcaption class="text-footnote text-ink-muted">{plate.caption}</figcaption>}
+            </figure>
+          )}
+        </div>
+      )}
     </main>
     <footer class="border-t border-line">
-      {/* text-footnote on the children, not here: on .page it would shrink the 70ch column. */}
-      <div class:list={[frame, 'site-footer py-8 text-ink-muted']}>
+      <div class="frame site-footer py-8 text-ink-muted">
         <a href={localePath(locale, '')} class="self-start py-2 text-brand">
           <Fragment set:html={logo} />
           <span class="sr-only">sbu.dev</span>

@@ -1,50 +1,98 @@
 {
   "subscriptions": {
     "accent": "accent-subscriptions",
-    "subject": "a vintage brass mechanical cash register, three-quarter view"
+    "subject": "a vintage brass mechanical cash register, three-quarter view",
+    "name": {
+      "it": "Registratore di cassa",
+      "en": "Cash register"
+    }
   },
   "scanner": {
     "accent": "accent-scanner",
-    "subject": "a vintage brass magnifying glass, three-quarter view"
+    "subject": "a vintage brass magnifying glass, three-quarter view",
+    "name": {
+      "it": "Lente d'ingrandimento",
+      "en": "Magnifying glass"
+    }
   },
   "level": {
     "accent": "accent-level",
-    "subject": "a vintage brass carpenter's spirit level with a bubble vial, three-quarter view"
+    "subject": "a vintage brass carpenter's spirit level with a bubble vial, three-quarter view",
+    "name": {
+      "it": "Livella a bolla",
+      "en": "Spirit level"
+    }
   },
   "noise": {
     "accent": "accent-noise",
-    "subject": "a vintage 1950s tabletop radio with a speaker grille"
+    "subject": "a vintage 1950s tabletop radio with a speaker grille",
+    "name": {
+      "it": "Radio da tavolo",
+      "en": "Tabletop radio"
+    }
   },
   "docs": {
     "accent": "accent-docs",
-    "subject": "a vintage manual typewriter with a sheet of paper in it, three-quarter view"
+    "subject": "a vintage manual typewriter with a sheet of paper in it, three-quarter view",
+    "name": {
+      "it": "Macchina da scrivere",
+      "en": "Typewriter"
+    }
   },
   "habits": {
     "accent": "accent-habits",
-    "subject": "an antique hourglass with sand flowing"
+    "subject": "an antique hourglass with sand flowing",
+    "name": {
+      "it": "Clessidra",
+      "en": "Hourglass"
+    }
   },
   "cards": {
     "accent": "accent-cards",
-    "subject": "a small wooden card index box with paper index cards standing inside"
+    "subject": "a small wooden card index box with paper index cards standing inside",
+    "name": {
+      "it": "Schedario",
+      "en": "Card index"
+    }
   },
   "block": {
     "accent": "accent-block",
-    "subject": "an old iron padlock, closed"
+    "subject": "an old iron padlock, closed",
+    "name": {
+      "it": "Lucchetto",
+      "en": "Padlock"
+    }
   },
   "dark": {
     "accent": "accent-dark",
-    "subject": "an old brass oil lamp with the flame turned low"
+    "subject": "an old brass oil lamp with the flame turned low",
+    "name": {
+      "it": "Lume a olio",
+      "en": "Oil lamp"
+    }
   },
   "speed": {
     "accent": "accent-speed",
-    "subject": "a vintage chrome car speedometer gauge with a needle, front view"
+    "subject": "a vintage chrome car speedometer gauge with a needle, front view",
+    "name": {
+      "it": "Tachimetro",
+      "en": "Speedometer"
+    }
   },
   "moon": {
     "accent": "accent-moon",
-    "subject": "an antique brass telescope on a small tripod, three-quarter view"
+    "subject": "an antique brass telescope on a small tripod, three-quarter view",
+    "name": {
+      "it": "Cannocchiale",
+      "en": "Telescope"
+    }
   },
   "clean": {
     "accent": "accent-clean",
-    "subject": "an old besom broom made of birch twigs bound to a wooden handle"
+    "subject": "an old besom broom made of birch twigs bound to a wooden handle",
+    "name": {
+      "it": "Ramazza",
+      "en": "Besom"
+    }
   }
 }

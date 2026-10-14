@@ -42,14 +42,7 @@
 }
 
 @layer components {
-  /* Reading measure: the design system has no layout width token, so the column follows the text. */
-  .page {
-    max-width: 70ch;
-    margin-inline: auto;
-    padding-inline: var(--spacing-4);
-  }
-
-  /* The home's frame: wide enough for the ledger's columns. No layout width token either, so it is
+  /* The frame every page shares: wide enough for the home's ledger. No layout width token, so it is
      counted in the largest spacing step, like the other wide measures of the site. */
   .frame {
     max-width: calc(var(--spacing-12) * 25);
@@ -145,30 +138,38 @@
     @keyframes print { from { clip-path: inset(0 0 100% 0); translate: 0 var(--spacing-2); } to { clip-path: inset(0); translate: 0; } }
   }
 
-  /* One engraving behind the page, in `line`: present, never louder than the text. On a wide screen it
-     sits in the margin beside the reading column; it drifts up a little slower than the page. */
-  .backdrop {
-    position: fixed;
-    z-index: -1;
-    right: calc(var(--spacing-12) * -1);
-    bottom: calc(var(--spacing-12) * -1);
-    width: calc(var(--spacing-12) * 7);
+  /* Every page but the home: the reading column under the logo, the plate beside it. The design system has
+     no layout width token, so the column follows the text. On a phone the plate closes the page; the app
+     page leads with it. */
+  .reading { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--spacing-12); }
+  .column { max-width: 70ch; min-width: 0; }
+  .plate { display: grid; gap: var(--spacing-2); width: min(100%, calc(var(--spacing-12) * 6)); }
+  .plate-lead { order: -1; }
+  /* The ink mask is white on black: luminance keeps the strokes, the paper shows through the rest. */
+  .plate-art {
     aspect-ratio: 1;
-    background: var(--sbu-line);
+    background: var(--sbu-ink);
     mask: var(--engraving) center / contain no-repeat luminance;
-    pointer-events: none;
   }
   @media (min-width: 64rem) {
-    .backdrop { top: calc(var(--spacing-12) * 2); bottom: auto; right: 0; width: calc((100vw - 70ch) / 2); max-width: calc(var(--spacing-12) * 10); }
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: scroll()) {
-      .backdrop { animation: drift linear both; animation-timeline: scroll(root); }
-      @keyframes drift { from { translate: 0 0; rotate: 0deg; } to { translate: 0 calc(var(--spacing-12) * -3); rotate: -4deg; } }
+    .reading { grid-template-columns: minmax(0, 70ch) minmax(0, 1fr); align-items: start; }
+    /* Still while the text scrolls past it. */
+    .plate {
+      order: 0;
+      position: sticky;
+      top: calc(var(--spacing-12) * 2);
+      justify-self: end;
+      width: min(100%, calc(var(--spacing-12) * 8));
+      margin-top: var(--spacing-8);
     }
   }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Printed top to bottom, once, when the page opens. Then it does not move. */
+    .plate-art { animation: engrave 1.2s cubic-bezier(.4, 0, .2, 1) both; }
+    @keyframes engrave { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+  }
   @media (forced-colors: active), print {
-    .backdrop, .sheet-engraving { display: none; }
+    .plate, .sheet-engraving { display: none; }
   }
 
   .prose > * + * { margin-top: var(--spacing-4); }

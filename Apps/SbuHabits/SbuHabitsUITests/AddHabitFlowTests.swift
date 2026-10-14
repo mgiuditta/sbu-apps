@@ -35,6 +35,11 @@ final class AddHabitFlowTests: XCTestCase {
             if issue.auditType == .dynamicType, ["Chiudi", "Cerca", "Annulla"].contains(issue.element?.label) {
                 return true
             }
+            // Personalizzata stops growing at AX2 on purpose: past it the word no longer fits the
+            // row even alone on its line, and iOS would break it in half (#439).
+            if issue.auditType == .dynamicType, issue.element?.label == "Personalizzata" {
+                return true
+            }
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }

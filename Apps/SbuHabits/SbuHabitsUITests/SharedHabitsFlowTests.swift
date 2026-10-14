@@ -56,6 +56,12 @@ final class SharedHabitsFlowTests: XCTestCase {
             if issue.isRowCutByTheScreenEdge {
                 return true
             }
+            // An owner's emoji keeps its side in the circle; the audit reads the glyph of some, such
+            // as 🤩, as cut, while on the iPhone it shows whole (#439).
+            if issue.auditType == .textClipped, issue.element?.elementType == .button,
+               issue.element?.label.unicodeScalars.first?.properties.isEmojiPresentation == true {
+                return true
+            }
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }

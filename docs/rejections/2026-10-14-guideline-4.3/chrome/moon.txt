@@ -1,49 +1,25 @@
-Vai su https://appstoreconnect.apple.com/apps e apri l'app "Sbu Moon". Nella versione iOS 1.0 (stato Rifiutata) apri i messaggi di App Review (sezione "App Review" o il link al Resolution Center) e trova il messaggio di Apple del 14 ottobre 2026 su Guidelines 4.3 e 4.2.6. Premi Rispondi e incolla nel campo di testo, senza cambiare nulla, il testo tra le righe ===. Non premere "Invia per la revisione" (Submit for Review), non modificare metadati, build o altro. Prima di premere Invia nel messaggio, fermati e mostrami il testo nel campo così lo confermo.
+Vai su https://appstoreconnect.apple.com/apps e apri l'app "Sbu Moon". Nella versione iOS 1.0 (stato Rifiutata) apri i messaggi di App Review (sezione "App Review" o il link al Resolution Center) e trova il messaggio di Apple del 14 ottobre 2026 su Guidelines 4.3 e 4.2.6. Premi Rispondi e incolla nel campo di testo, senza cambiare nulla, il testo tra le righe === (è sotto i 4.000 caratteri). Non premere "Invia per la revisione" (Submit for Review), non modificare metadati, build o altro. Prima di premere Invia nel messaggio, fermati e mostrami il testo nel campo così lo confermo.
 
 ===
-Thank you for the review. I believe Sbu Moon meets guidelines 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Here are the answers to the nine questions.
+Thank you for the review. I believe Sbu Moon meets 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Answers to the nine questions:
 
-1. What the app does and the problem it solves
+1. Sbu Moon shows the state of the moon for any day, computed on the device with the algorithms from Jean Meeus's Astronomical Algorithms, with no network. It opens on today's moon drawn as it looks, the illuminated percentage as the main figure, waxing or waning, the phase name, date and time of the next four principal phases, the moon's age and distance. The user swipes to the previous or next day or picks any day from 1900 to 2100. Moonrise and moonset come from the position read once (about a kilometre, When In Use, only on tapping "Use my location") or from a built-in city list, shown in the city's own clock when it differs. Phase alerts are local notifications at the hour the user picks. No account, no server of mine.
 
-Sbu Moon shows the state of the moon for any day, computed on the device with the algorithms from Jean Meeus's Astronomical Algorithms (phase, illuminated fraction, age, distance, position; moonrise and moonset from the observer's coordinates), with no network at all.
+2. People who follow the moon for a practical reason: gardeners and fishermen planning by the phase, night photographers and amateur astronomers who want the next full or new moon with its time, anyone who wants a full-moon alert.
 
-Opening the app shows today's moon drawn as it looks, the illuminated percentage as the main figure, whether it is waxing or waning, the phase's name, the date and time of the next four principal phases (new moon, first quarter, full moon, last quarter), the moon's age and its distance from Earth. The user swipes to the previous or next day or picks any day from 1900 to 2100 from a calendar. Moonrise and moonset are shown either from the position read once (to about a kilometre, When In Use, only when the user taps "Use my location") or from a built-in list of cities, with the city's own clock when it differs from the iPhone's. Phase alerts are local notifications: the user chooses which phases and at what hour. There is no account and no server of mine.
+3. The moon apps I studied are paid or carry ads, several need the network for rise and set, and some keep location on. Sbu Moon is free with nothing to buy, has no ads, no account, no analytics, works entirely offline including rise and set for a city, reads location once and only on request, covers 1900 to 2100, and has alerts at a chosen hour. Usable with VoiceOver and the largest Dynamic Type sizes.
 
-2. Intended user
+4. Internal: TestFlight builds on a physical iPhone 15 Pro Max, worked through a written pass/fail checklist (today's moon, swiping days, the calendar at the range limits, location request and denial, city list, alerts, largest text, VoiceOver, light/dark, Italian/English, relaunch) plus iPhone SE in the simulator; rise and set are unit-tested against United States Naval Observatory values. No external testers for 1.0. Fixed before this build: rise and set for a chosen city were shown in the iPhone's time zone, now in the city's own clock, named when different; the percent sign made the figure look misaligned at large text, now treated as the unit on the baseline; a precision pass found wording and spacing defects on the phases list and the alerts screen.
 
-People who follow the moon for a practical reason: gardeners and fishermen who plan by the phase, night photographers and amateur astronomers who want the next full or new moon with its time, people who want an alert for the full moon, and anyone curious to see what the moon looks like tonight without going outside.
+5. Standalone. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Moon (moon phase), Habits (habit streaks), Level (level and clinometer), Noise (sleep sounds), Speed (GPS speedometer), Clean (free up Photos space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, on the App Store since May and June 2026. I never publish two apps in the same category. Moon is the only one that computes anything astronomical.
 
-3. Need or gap
+6. No. No other app of mine concerns the sky, past or future dates, or location-based times; bundling would add a location request and a city list where nobody asked for them. All my apps are free with no in-app purchases, so a paid feature expansion is not possible.
 
-The moon apps I studied before building this one are paid or carry ads, several require the network for rise and set times, and some keep the location permission on. Sbu Moon is free with nothing to buy, has no ads, no account and no analytics, works entirely offline including rise and set for a city, reads the location once and only on request, covers 1900 to 2100, has phase alerts at the hour the user chooses, and is usable with VoiceOver (the figure, the phase and the next phases are read in order) and at the largest Dynamic Type sizes.
+7. Yes: SbuKit, my own Swift package, about 1,700 lines shared by all my apps: colour and type tokens, button styles, the large-number component, the "no subscription / no account / no ads / no tracking" pills, and the Settings screen with privacy policy and font licence. No astronomical or business logic. Moon's own code is about 2,300 lines, including the tests against USNO.
 
-4. Beta testing
+8. None. Only Apple frameworks (SwiftUI, Core Location, UserNotifications). The algorithms come from a published textbook, implemented by me. The only outside asset is the Bricolage Grotesque typeface (SIL OFL), credited in Settings.
 
-Testing was internal: TestFlight builds installed on a physical iPhone 15 Pro Max, checked against published ephemerides (the rise and set calculation is tested against United States Naval Observatory values), and worked through a written test checklist with exact pass/fail results (today's moon, swiping days, the calendar at the range limits, location request and denial, city list, alerts, largest text size, VoiceOver, light and dark, Italian and English, relaunch), plus the iPhone SE size in the simulator. I had no external beta testers for 1.0. Findings fixed before the production build:
+9. No. I am Matteo Giuditta, an individual developer; I designed and wrote the app myself in Swift and SwiftUI, in my own repository. No template, app generation service or third party provided code, content, concept or branding. sbu.dev is my site.
 
-- Rise and set for a chosen city were shown in the iPhone's time zone, which is wrong for a city abroad. Fix: they are shown in the city's own clock, named when it differs from the iPhone's.
-- The large figure "63" with the percent sign placed differently made the layout look misaligned at large text sizes. Fix: the percent sign is treated as the unit, on the baseline.
-- A precision pass on the device found wording and spacing defects on the phases list and the alerts screen, all fixed.
-
-5. Standalone or suite
-
-Sbu Moon is a standalone app. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Sbu Moon (moon phase), Sbu Habits (habit streaks), Sbu Level (level and clinometer), Sbu Noise (sleep sounds), Sbu Speed (GPS speedometer), Sbu Clean (free up Photos library space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, both already on the App Store since May and June 2026. None of them overlaps another in function: I never publish two apps in the same category. Sbu Moon is the only one that computes anything astronomical.
-
-6. Could it be a feature of another app on my account
-
-No. No other app on my account has anything to do with the sky, dates in the past or future, or location-based times. Bundling would add a location permission request and a city list to an app whose users never asked for them. The apps are also free with no in-app purchases, so delivering this as a purchasable feature expansion is not possible.
-
-7. Code shared with other apps on my account
-
-Yes, a small Swift package of mine called SbuKit, about 1,700 lines, shared by all my apps. It contains the colour and typography tokens of my design system, button styles, the large-number component, the "no subscription / no in-app purchases / no account / no ads / no tracking / data on the device" pills, and the Settings screen with the privacy policy and the font licence. It holds no astronomical or business logic. Sbu Moon's own code is about 2,300 lines: the Meeus computations, the moon drawing, the day navigation and calendar, location and cities, alerts, and the tests (including the comparison with USNO values).
-
-8. Code shared with third-party apps
-
-None. The app uses only Apple frameworks (SwiftUI, Core Location, UserNotifications). The algorithms are from a published textbook, implemented by me. The only outside asset is the Bricolage Grotesque typeface (SIL Open Font License), used for the large number and credited in Settings.
-
-9. Client, partner or third party
-
-No. I am Matteo Giuditta, an individual developer; I designed and wrote Sbu Moon myself in Swift and SwiftUI, in Xcode, in my own repository. No commercial template, app generation service or third party provided its code, content, concept or branding. sbu.dev is my own site.
-
-I am happy to provide a screen recording or more detail on any point.
+Happy to provide a screen recording or more detail.
 ===

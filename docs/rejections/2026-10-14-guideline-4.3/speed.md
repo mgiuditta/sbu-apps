@@ -1,45 +1,23 @@
 # Sbu Speed 1.0 (build 2), reply to Guidelines 4.3 and 4.2.6
 
-Thank you for the review. I believe Sbu Speed meets guidelines 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Here are the answers to the nine questions.
+Thank you for the review. I believe Sbu Speed meets 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Answers to the nine questions:
 
-**1. What the app does and the problem it solves**
+1. Sbu Speed shows the current GPS speed (Core Location, When In Use only) as one large whole number readable from a distance, in km/h, mph or knots. Under it, the trip: top speed, average speed, distance and duration, kept until reset with a confirmation. The average counts only time in motion, so stops do not pull it down. With knots, distance is in nautical miles and the limit presets are the ones used on the water. An optional limit shows under the figure when exceeded, with one vibration and one sound per crossing. The dial scale adapts (60, 120, 200, 300 km/h). In landscape, as in a car mount, the figure sits left and the trip right; the screen stays on. No position is stored or logged, location is used only with the app open. No account, no server, no network.
 
-Sbu Speed shows the current speed from the iPhone's GPS (Core Location, When In Use only) as one large whole number, readable from a distance, in km/h, mph or knots. Under it, the trip: top speed, average speed, distance and duration, kept until the user resets them with a confirmation. The average counts only time in motion, so stops at lights do not pull it down. With knots, distance is in nautical miles and the limit presets are the ones used on the water. An optional speed limit shows under the figure when exceeded, and the iPhone vibrates and plays a sound once. The dial's scale adapts to the speed (60, 120, 200 or 300 km/h). In landscape, as in a car mount, the figure sits on the left and the trip on the right. The screen stays on while the app shows the speed. No position is stored or logged; the location is used only while the app is open and never leaves the device. There is no account, no server of mine and no network access.
+2. Cyclists, runners, e-scooter riders and boat owners without a speedometer, and drivers cross-checking an old gauge. The large figure and landscape layout are for a phone in a mount, glanced at, never touched.
 
-**2. Intended user**
+3. The GPS speedometer apps I studied are paid, carry ads, or sell the limit alert, units or trip as in-app purchases, and several log the route in the background. Sbu Speed is free with nothing to buy, no ads, no account, no analytics, never uses background location and keeps no route, has a moving-time average, nautical units with matching distances and limits, and a limit alert with sound and haptics. Usable with VoiceOver and the largest Dynamic Type sizes.
 
-Cyclists, runners, e-scooter riders and boat owners who have no speedometer, and drivers who want to cross-check an old or uncertain vehicle gauge. The large figure and the landscape layout are for a phone in a mount, glanced at, never touched.
+4. Internal: TestFlight builds on a physical iPhone 15 Pro Max checked outdoors on foot, worked through a written pass/fail checklist (first fix within 30 seconds, stopped reads 0, units, limit alert, landscape, denied location, largest text, VoiceOver, light/dark, Italian/English, relaunch); higher speeds and trip values with simulated routes in Xcode and unit tests of the trip maths; iPhone SE in the simulator. No long road test in a car mount yet, no external testers for 1.0. Fixed before this build: the reset confirmation did not say what would be cleared, now it names the four values; "Stopped" appeared in Italian in the English interface and unit names were not localised.
 
-**3. Need or gap**
+5. Standalone. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Speed (GPS speedometer), Habits (habit streaks), Level (level and clinometer), Moon (moon phase), Noise (sleep sounds), Clean (free up Photos space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, on the App Store since May and June 2026. I never publish two apps in the same category. Speed is the only one that uses continuous location.
 
-The GPS speedometer apps I studied before building this one are paid, carry ads, or offer the limit alert, the units or the trip only with an in-app purchase, and several log the user's route in the background. Sbu Speed is free with nothing to buy, has no ads, no account and no analytics, never uses background location and keeps no route, has a moving-time average, nautical units with the matching distances and limits, a limit alert with sound and haptics, and is usable with VoiceOver (the figure and the four trip values are read with their units) and at the largest Dynamic Type sizes.
+6. No. The only other app of mine that touches location, Sbu Moon, reads it once for moonrise; bundling a speedometer anywhere would add continuous location to users who never asked for it. All my apps are free with no in-app purchases, so a paid feature expansion is not possible.
 
-**4. Beta testing**
+7. Yes: SbuKit, my own Swift package, about 1,700 lines shared by all my apps: colour and type tokens, button styles, the large-number component, the "no subscription / no account / no ads / no tracking" pills, and the Settings screen with privacy policy and font licence. No location or business logic. Speed's own code is about 1,000 lines: location reading, trip accumulation, units, the limit alert, the dial, layouts and tests.
 
-Testing was internal: TestFlight builds installed on a physical iPhone 15 Pro Max and checked outdoors on foot, worked through a written test checklist with exact pass/fail results (first GPS fix within 30 seconds, stopped reading 0, units, limit alert, landscape, denied location, largest text size, VoiceOver, light and dark, Italian and English, relaunch); higher speeds and the trip values were checked with simulated routes in Xcode and with unit tests of the trip maths, and the iPhone SE size in the simulator. I have not yet done a long road test in a car mount, and I had no external beta testers for 1.0. Findings fixed before the production build:
+8. None. Only Apple frameworks (SwiftUI, Core Location, Core Haptics, AVFoundation for the alert sound). The only outside asset is the Bricolage Grotesque typeface (SIL OFL), credited in Settings.
 
-- The reset confirmation did not say what would be cleared. Fix: it names the four trip values.
-- "Stopped" appeared in Italian in the English interface, and unit names were not localised. Fix: all strings localised.
-- The flow tests depended on the unit chosen on the device. Fix: they are pinned to km/h.
+9. No. I am Matteo Giuditta, an individual developer; I designed and wrote the app myself in Swift and SwiftUI, in my own repository. No template, app generation service or third party provided code, content, concept or branding. sbu.dev is my site.
 
-**5. Standalone or suite**
-
-Sbu Speed is a standalone app. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Sbu Speed (GPS speedometer), Sbu Habits (habit streaks), Sbu Level (level and clinometer), Sbu Moon (moon phase), Sbu Noise (sleep sounds), Sbu Clean (free up Photos library space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, both already on the App Store since May and June 2026. None of them overlaps another in function: I never publish two apps in the same category. Sbu Speed is the only one that uses continuous location updates.
-
-**6. Could it be a feature of another app on my account**
-
-No. The other app on my account that touches location, Sbu Moon, reads it once to compute moonrise; it has no use for continuous updates or for a speed. Bundling a speedometer into any other app would add a continuous location request to users who never asked for it. The apps are also free with no in-app purchases, so delivering this as a purchasable feature expansion is not possible.
-
-**7. Code shared with other apps on my account**
-
-Yes, a small Swift package of mine called SbuKit, about 1,700 lines, shared by all my apps. It contains the colour and typography tokens of my design system, button styles, the large-number component, the "no subscription / no in-app purchases / no account / no ads / no tracking / data on the device" pills, and the Settings screen with the privacy policy and the font licence. It holds no location or business logic. Sbu Speed's own code is about 1,000 lines: the location reading and filtering, the trip accumulation with the moving-time average, units and conversions, the limit alert, the dial, the layouts and the tests.
-
-**8. Code shared with third-party apps**
-
-None. The app uses only Apple frameworks (SwiftUI, Core Location, Core Haptics, AVFoundation for the alert sound). The only outside asset is the Bricolage Grotesque typeface (SIL Open Font License), used for the large number and credited in Settings.
-
-**9. Client, partner or third party**
-
-No. I am Matteo Giuditta, an individual developer; I designed and wrote Sbu Speed myself in Swift and SwiftUI, in Xcode, in my own repository. No commercial template, app generation service or third party provided its code, content, concept or branding. sbu.dev is my own site.
-
-I am happy to provide a screen recording or more detail on any point.
+Happy to provide a screen recording or more detail.

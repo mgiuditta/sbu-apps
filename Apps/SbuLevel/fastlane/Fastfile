@@ -31,6 +31,19 @@ platform :ios do
     upload_to_testflight(skip_waiting_for_build_processing: true)
   end
 
+  desc "Upload metadata and framed screenshots to App Store Connect, without a build or submitting"
+  lane :metadata do
+    api_key
+    ensure_review_detail
+    upload_to_app_store(
+      skip_binary_upload: true,
+      submit_for_review: false,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
   desc "Build and upload to the App Store with metadata and framed screenshots, without submitting"
   lane :release do
     api_key
@@ -47,6 +60,19 @@ platform :ios do
   def signing_args
     "-allowProvisioningUpdates -authenticationKeyPath #{ENV.fetch("ASC_KEY_PATH")} " \
       "-authenticationKeyID #{ENV.fetch("ASC_KEY_ID")} -authenticationKeyIssuerID #{ENV.fetch("ASC_ISSUER_ID")}"
+  end
+
+  # A first version has no App Review details yet, and deliver fails reading them ("No data",
+  # fastlane#20538): create the empty record first.
+  private_lane :ensure_review_detail do
+    app = Spaceship::ConnectAPI::App.find(CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier))
+    version = app.get_edit_app_store_version
+    begin
+      version.fetch_app_store_review_detail
+    rescue StandardError
+      notes = File.read(File.expand_path("metadata/review_information/notes.txt", __dir__)).strip
+      version.create_app_store_review_detail(attributes: { notes: notes })
+    end
   end
 
   private_lane :api_key do

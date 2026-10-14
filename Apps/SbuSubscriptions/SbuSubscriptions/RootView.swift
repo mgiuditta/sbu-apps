@@ -25,6 +25,7 @@ struct RootView: View {
             ReminderSection(reminders: reminders)
             CurrencySection(settings: currency)
             OrganizeSection()
+            DataSection(currency: currency)
             LegacyImportSection()
         }
         .onChange(of: scenePhase, initial: true) {

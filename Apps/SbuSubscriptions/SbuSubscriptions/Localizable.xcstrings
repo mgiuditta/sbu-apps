@@ -421,6 +421,16 @@
         }
       }
     },
+    "Dati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data"
+          }
+        }
+      }
+    },
     "Design" : {
       "localizations" : {
         "en" : {
@@ -531,6 +541,26 @@
         }
       }
     },
+    "Esporta CSV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export CSV"
+          }
+        }
+      }
+    },
+    "Esporta crea un file con tutti gli abbonamenti: lo salvi dove vuoi tu. Importa legge un file della versione precedente, di questa o di un foglio di calcolo, e ti fa scegliere le righe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export makes a file with every subscription: you keep it where you want. Import reads a file from the previous version, from this one or from a spreadsheet, and lets you choose the rows."
+          }
+        }
+      }
+    },
     "Finanza" : {
       "localizations" : {
         "en" : {
@@ -591,6 +621,16 @@
         }
       }
     },
+    "Già presente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already there"
+          }
+        }
+      }
+    },
     "Gli abbonamenti che aggiungi compaiono qui, con quanto spendi." : {
       "localizations" : {
         "en" : {
@@ -641,12 +681,42 @@
         }
       }
     },
+    "Il file è vuoto o non si legge." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file is empty or can't be read."
+          }
+        }
+      }
+    },
     "Il giorno stesso" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "On the day"
+          }
+        }
+      }
+    },
+    "Importa %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import %lld"
+          }
+        }
+      }
+    },
+    "Importa CSV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import CSV"
           }
         }
       }
@@ -897,6 +967,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mortgage"
+          }
+        }
+      }
+    },
+    "Nel file non trovo le colonne del nome e del prezzo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file has no name and price columns."
           }
         }
       }
@@ -1327,6 +1407,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reactivate"
+          }
+        }
+      }
+    },
+    "Riga %lld: ciclo non riconosciuto «%@»" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line %lld: unknown cycle “%@”"
+          }
+        }
+      }
+    },
+    "Riga %lld: data non valida «%@»" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line %lld: invalid date “%@”"
+          }
+        }
+      }
+    },
+    "Riga %lld: manca il nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line %lld: no name"
+          }
+        }
+      }
+    },
+    "Riga %lld: prezzo non valido «%@»" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line %lld: invalid price “%@”"
+          }
+        }
+      }
+    },
+    "Righe non importabili" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rows that can't be imported"
           }
         }
       }

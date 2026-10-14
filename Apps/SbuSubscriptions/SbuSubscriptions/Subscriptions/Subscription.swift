@@ -1,0 +1,57 @@
+import Foundation
+import SwiftData
+
+/// One recurring payment you keep track of. Every property has a default so the store can sync through iCloud.
+@Model
+final class Subscription {
+    var name: String = ""
+    /// The catalog entry it was added from, if any.
+    var serviceID: String?
+    var price: Decimal = 0
+    /// ISO 4217 code of `price`.
+    var currencyCode: String = "EUR"
+    /// The first payment; the schedule counts every later one from here.
+    var startDate: Date = Date.now
+    var cycle: BillingCycle = BillingCycle.monthly
+    /// Instalment plans only; `nil` repeats until cancelled.
+    var paymentCount: Int?
+    var status: SubscriptionStatus = SubscriptionStatus.active
+    /// The day the free trial turns into the first paid renewal.
+    var trialEndDate: Date?
+    /// Days before a payment to remind you; `nil` for no reminder.
+    var reminderDaysBefore: Int? = 1
+    var url: URL?
+    var notes: String = ""
+    var createdAt: Date = Date.now
+
+    init(
+        name: String,
+        price: Decimal,
+        currencyCode: String,
+        startDate: Date,
+        cycle: BillingCycle = .monthly,
+        paymentCount: Int? = nil
+    ) {
+        self.name = name
+        self.price = price
+        self.currencyCode = currencyCode
+        self.startDate = startDate
+        self.cycle = cycle
+        self.paymentCount = paymentCount
+    }
+
+    var schedule: BillingSchedule {
+        BillingSchedule(start: startDate, cycle: cycle, paymentCount: paymentCount)
+    }
+
+    /// The next payment you still have to make, or `nil` if it's paused, cancelled or paid off.
+    func nextPayment(after date: Date = .now, in calendar: Calendar = .current) -> Date? {
+        guard status == .active else { return nil }
+        return schedule.nextPayment(onOrAfter: date, in: calendar)
+    }
+
+    func isInTrial(on date: Date = .now, in calendar: Calendar = .current) -> Bool {
+        guard status == .active, let trialEndDate else { return false }
+        return calendar.startOfDay(for: date) < calendar.startOfDay(for: trialEndDate)
+    }
+}

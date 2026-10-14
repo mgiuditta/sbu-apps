@@ -23,6 +23,11 @@ targets:
     sources: [SbuSubscriptions]
     dependencies:
       - package: SbuKit
+    entitlements:
+      path: SbuSubscriptions/SbuSubscriptions.entitlements
+      properties:
+        # The store lives here so the widget can read it.
+        com.apple.security.application-groups: [group.dev.sbu.subscriptions]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.subscriptions

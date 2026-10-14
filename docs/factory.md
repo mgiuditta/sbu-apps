@@ -65,7 +65,7 @@ Le 5 fatte (Level, Habits, Noise, Moon, Speed) più 20. Dalle classifiche top-pa
 | App Sbu | Originale | Nota |
 |---|---|---|
 | Subscriptions | Orbit | 2.0 in corso |
-| Scanner | CamScanner | |
+| Scanner | QR Reader for iPhone (TapMedia) | 2.0 sulla scheda 6772572337 |
 | Docs | da definire | archivio PDF (ADR-0006) |
 | Cards | AnkiMobile Flashcards | |
 | Block | Wipr 2 | estensione Safari |

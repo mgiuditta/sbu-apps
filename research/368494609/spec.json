@@ -1,0 +1,22 @@
+{
+  "source": "Public App Store data only: listing (it), release notes 10.0-10.1, 4 screenshots, 31 reviews of 1-3 stars. Written by hand on 2026-10-14 (Tools/spec.py had no API key).",
+  "originale": {"name": "QR Reader for iPhone (QR Code ϟ)", "developer": "TapMedia Ltd", "id": 368494609, "ratings_us": 1439709, "monetization": "TapMedia ONE monthly subscription with 3-day trial; Database Scanner monthly subscription"},
+  "features": [
+    {"name": "Live scan of QR and barcodes", "priority": "core", "reason": "Screenshots 1-2. AVFoundation metadata output: QR, EAN-8/13, UPC-E, Code 39/93/128, ITF, PDF417, Aztec, Data Matrix."},
+    {"name": "Torch, front/back camera, zoom", "priority": "core", "reason": "Screenshot 1 toolbar: flash and camera switch. Pinch to zoom."},
+    {"name": "Scan from a photo", "priority": "core", "reason": "Screenshot 1 gallery button. PhotosPicker + Vision, no library permission."},
+    {"name": "Result by content type with actions", "priority": "core", "reason": "Link, text, Wi-Fi, contact (vCard/MECARD), e-mail, phone, SMS, location, calendar event, product code."},
+    {"name": "Link preview before opening", "priority": "core", "reason": "Listing 'La sicurezza prima di tutto'. Local only: domain, https, punycode, IP host, shorteners, user@host tricks."},
+    {"name": "History, search, favourites, folders, CSV export", "priority": "core", "reason": "Listing 'Esportazione dati in CSV'; folders kept from Sbu Scanner 1.1."},
+    {"name": "Creator: text, link, location, Wi-Fi, contact, e-mail, phone, SMS, event; barcodes EAN-13 and Code 128", "priority": "core", "reason": "Screenshot 3: list of created codes with Edit and +. Export PNG and SVG."},
+    {"name": "Sound and vibration on scan", "priority": "nice", "reason": "Common setting of the category."},
+    {"name": "Scan from Shortcuts and the Action button", "priority": "nice", "reason": "App Intents OpenIntent."},
+    {"name": "VoiceOver usable scanning", "priority": "core", "reason": "Review 'Ci siamo anche noi non vedenti': announce the reading."},
+    {"name": "Product lookup, prices, coupons, health and ingredients", "priority": "skip", "reason": "Needs servers. Replaced by 'Cerca sul web', which opens Safari with the number."},
+    {"name": "PDF and document scanner, AI chat, quizzes", "priority": "skip", "reason": "Server AI, and documents are Sbu Docs' one thing (ADR-0004)."},
+    {"name": "Expiry date tracking", "priority": "skip", "reason": "A different one thing (a pantry tracker)."},
+    {"name": "Database scanner to a server/API", "priority": "skip", "reason": "Network calls."},
+    {"name": "Shopping tab, puzzles", "priority": "skip", "reason": "Ads, affiliation, network."}
+  ],
+  "user_pains": ["Free download then a paywall", "Scanning fails or is slow", "Not accessible with VoiceOver", "Cookies and tracking"]
+}

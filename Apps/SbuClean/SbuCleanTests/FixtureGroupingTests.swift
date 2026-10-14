@@ -34,10 +34,19 @@ struct FixtureGroupingTests {
         return try #require(CGImageSourceCreateImageAtIndex(source, 0, nil))
     }
 
-    /// The fixtures as one session a second apart, analysed with the Mac's Vision prints.
-    private static func library() throws -> (items: [MediaItem], analyses: [String: ImageAnalysis]) {
+    /// The fixtures as one session a second apart, analysed with the Mac's Vision prints, or with
+    /// the prints this device's Vision makes when `live`.
+    private static func library(live: Bool = false) throws -> (items: [MediaItem], analyses: [String: ImageAnalysis]) {
         let url = try #require(bundle.url(forResource: "vision-prints", withExtension: "json"))
-        let prints = try JSONDecoder().decode([String: [Float]].self, from: Data(contentsOf: url))
+        let stored = try JSONDecoder().decode([String: [Float]].self, from: Data(contentsOf: url))
+        var prints: [String: [Float]] = [:]
+        for name in names {
+            if live {
+                prints[name] = try #require(ImageAnalyzer.visionAnalysis(of: image(name))).featurePrint
+            } else {
+                prints[name] = stored[name]
+            }
+        }
         let start = Fixture.date(1, 1)
         var items: [MediaItem] = []
         var analyses: [String: ImageAnalysis] = [:]
@@ -57,8 +66,17 @@ struct FixtureGroupingTests {
     }
 
     @Test func groupsTheFixtureSetAsExpected() throws {
-        let library = try Self.library()
+        try expectFixtureGroups(Self.library())
+    }
 
+    /// The Mac's and the iPhone's Vision make slightly different prints, so the thresholds must
+    /// hold on the device's own: the app compares prints made on one device only.
+    @Test(.enabled(if: !isSimulator, "Vision needs a device"))
+    func groupsTheFixtureSetAsExpectedWithThisDevicesPrints() throws {
+        try expectFixtureGroups(Self.library(live: true))
+    }
+
+    private func expectFixtureGroups(_ library: (items: [MediaItem], analyses: [String: ImageAnalysis])) {
         let groups = SimilarityGrouper().groups(of: library.items, analyses: library.analyses)
         let byMembers = Dictionary(uniqueKeysWithValues: groups.map { (Set($0.members), $0.kind) })
 
@@ -96,16 +114,6 @@ struct FixtureGroupingTests {
         let blurry = try #require(library.analyses["burst-2-blurry"])
         let sharp = try #require(library.analyses["burst-0"])
         #expect(sharp.sharpness > blurry.sharpness * BestShot.sharpnessRatio)
-    }
-
-    @Test(.enabled(if: !isSimulator, "Vision needs a device"))
-    func liveVisionMatchesTheStoredPrints() throws {
-        let stored = try Self.library().analyses
-        for name in ["dup-a", "burst-0"] {
-            let live = try #require(ImageAnalyzer.visionAnalysis(of: Self.image(name)))
-            let print = try #require(stored[name]?.featurePrint)
-            #expect(FeatureDistance.between(live.featurePrint, print) < 0.05)
-        }
     }
 
     @Test func theSimulatorStandInSeparatesCopiesFromOtherPictures() throws {

@@ -21,7 +21,7 @@ Tre controlli umani, il resto automatico.
 | 3 | **Approvazione della spec**: cosa entra, cosa si salta | **Matteo**, 5 min | |
 | 4 | Scaffold, icona incisa, sito | agente | `new_app.sh <Name> <accent> "<strumento>"` |
 | 5 | App, stringhe IT/EN, test, audit accessibilità | agente | `fastlane test` |
-| 6 | Screenshot, cornici, metadati IT/EN | agente | `fastlane snapshot && fastlane frames` |
+| 6 | Screenshot, cornici, metadati IT/EN | agente | `fastlane snapshot && fastlane frames`; un'app con target Apple Watch ha anche lo screenshot Watch (`Tools/watch_screenshots.sh` nella lane `snapshot`, con una modalità demo nell'app Watch) |
 | 7 | **Test insieme** su TestFlight, checklist sotto | **Matteo**, 15-20 min | `fastlane beta` |
 | 8 | Upload senza invio | agente | `fastlane release` |
 | 9 | **Invio in revisione** | **Matteo**, da App Store Connect | |

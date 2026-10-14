@@ -16,6 +16,9 @@ platform :ios do
   desc "App Store screenshots (Snapfile), Italian and English"
   lane :snapshot do
     capture_screenshots
+    # The binary has a Watch app, so App Store Connect wants a Watch screenshot too.
+    sh(File.expand_path("../../../Tools/watch_screenshots.sh", __dir__), File.expand_path("..", __dir__),
+       "SbuHabitsWatch", "dev.sbu.habits.watchkitapp", "SBU_WATCH_DEMO")
   end
 
   desc "Panorama on paper with the icon engraving and a closing card with the logo (Tools/make_screenshots.py)"

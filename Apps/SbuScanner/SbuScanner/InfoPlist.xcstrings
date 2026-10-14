@@ -1,0 +1,24 @@
+{
+  "sourceLanguage": "it",
+  "strings": {
+    "NSCameraUsageDescription": {
+      "comment": "The camera permission prompt.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Scanner uses the camera to read QR codes and barcodes. The pictures stay on your iPhone."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Scanner usa la fotocamera per leggere QR e codici a barre. Le immagini restano sull'iPhone."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

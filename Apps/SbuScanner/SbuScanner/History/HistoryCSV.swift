@@ -19,6 +19,9 @@ nonisolated enum HistoryCSV {
     }
 
     private static func field(_ value: String) -> String {
+        // A code's text comes from anyone: a cell that starts like a formula would run in a spreadsheet,
+        // so it gets a leading apostrophe and stays text (OWASP CSV injection).
+        let value = value.first.map { "=+-@\t\r".contains($0) } == true ? "'" + value : value
         guard value.contains(where: { $0 == "," || $0 == "\"" || $0.isNewline }) else { return value }
         return "\"" + value.replacing("\"", with: "\"\"") + "\""
     }

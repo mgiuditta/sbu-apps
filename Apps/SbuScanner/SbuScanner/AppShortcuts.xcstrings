@@ -1,0 +1,36 @@
+{
+  "sourceLanguage": "it",
+  "strings": {
+    "Apri ${applicationName}": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open ${applicationName}"
+          }
+        }
+      }
+    },
+    "Leggi un codice con ${applicationName}": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read a code with ${applicationName}"
+          }
+        }
+      }
+    },
+    "Scansiona con ${applicationName}": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan with ${applicationName}"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

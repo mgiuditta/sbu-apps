@@ -11,9 +11,7 @@ struct ResultHistorySection: View {
 
     var body: some View {
         Section("Cronologia") {
-            Toggle(isOn: $record.isFavorite) {
-                Label("Tra i preferiti", systemImage: "bookmark")
-            }
+            Toggle("Tra i preferiti", systemImage: "bookmark", isOn: $record.isFavorite)
             .onChange(of: record.isFavorite) { try? modelContext.save() }
             FolderPicker(record: record)
             Button("Elimina dalla cronologia", systemImage: "trash", role: .destructive) {

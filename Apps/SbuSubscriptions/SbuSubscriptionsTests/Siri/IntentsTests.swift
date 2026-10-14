@@ -51,3 +51,13 @@ struct IntentsTests {
         #expect(PriceText.text(10, currencyCode: "EUR", cycle: cycle).contains("10"))
     }
 }
+
+struct SpotlightPrivacyTests {
+    @Test func spotlightShowsTheCycleNeverThePrice() {
+        let subscription = Subscription(name: "Musica", price: Decimal(string: "10.99")!, currencyCode: "EUR", startDate: .now)
+        let entity = SubscriptionEntity(subscription)
+        let shown = String(localized: entity.displayRepresentation.subtitle ?? "")
+        #expect(!shown.contains("10"), "What you pay never shows in Spotlight")
+        #expect(!shown.isEmpty)
+    }
+}

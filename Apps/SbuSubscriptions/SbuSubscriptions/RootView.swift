@@ -63,7 +63,8 @@ struct RootView: View {
         PriceSettler.settle(subscriptions)
         let sources = subscriptions.map(\.reminderSource)
         WidgetCenter.shared.reloadAllTimelines()
-        SpotlightIndex.update(subscriptions)
+        // Made-up data never replaces your subscriptions in the iPhone's Spotlight.
+        if !Self.isDemo { SpotlightIndex.update(subscriptions) }
         publishSharedLists()
         Task { await reminders.reschedule(sources) }
     }

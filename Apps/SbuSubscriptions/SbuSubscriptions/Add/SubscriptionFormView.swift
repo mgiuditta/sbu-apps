@@ -64,13 +64,7 @@ struct SubscriptionFormView: View {
             }
 
             Section {
-                Picker("Promemoria", selection: $draft.reminderDaysBefore) {
-                    Text("Nessuno").tag(Int?.none)
-                    Text("Il giorno stesso").tag(Int?.some(0))
-                    Text("1 giorno prima").tag(Int?.some(1))
-                    Text("3 giorni prima").tag(Int?.some(3))
-                    Text("7 giorni prima").tag(Int?.some(7))
-                }
+                ReminderPicker(daysBefore: $draft.reminderDaysBefore)
             }
 
             Section("Organizza") {

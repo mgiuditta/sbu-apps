@@ -15,6 +15,8 @@ struct MainView: View {
     @AppStorage("home.filter.paymentMethod") private var methodFilter = ""
     @State private var isAdding = false
     @State private var search = ""
+    /// The cycle or category sections folded, by title.
+    @State private var collapsed: Set<String> = []
     @State private var showsCalendar = false
     @State private var opened: Subscription?
     @Environment(AppRouter.self) private var router
@@ -67,8 +69,18 @@ struct MainView: View {
                 }
             }
             ForEach(HomeSections.groups(groups.active, by: grouping)) { group in
-                Section(group.title) {
-                    rows(group.subscriptions, today: today)
+                if grouping == .status {
+                    Section(group.title) {
+                        rows(group.subscriptions, today: today)
+                    }
+                } else {
+                    Section {
+                        if !collapsed.contains(group.title) {
+                            rows(group.subscriptions, today: today)
+                        }
+                    } header: {
+                        CollapsibleHeader(title: group.title, count: group.subscriptions.count, isCollapsed: isCollapsed(group.title))
+                    }
                 }
             }
             CollapsedSection(title: "In pausa", subscriptions: groups.paused, today: today)
@@ -136,6 +148,10 @@ struct MainView: View {
                 SubscriptionRow(subscription: subscription, today: today)
             }
         }
+    }
+
+    private func isCollapsed(_ title: String) -> Binding<Bool> {
+        Binding { collapsed.contains(title) } set: { if $0 { collapsed.insert(title) } else { collapsed.remove(title) } }
     }
 
     /// Follows a route from Siri, Shortcuts or Spotlight, once.

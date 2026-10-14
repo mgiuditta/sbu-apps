@@ -431,6 +431,16 @@
         }
       }
     },
+    "Aperta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        }
+      }
+    },
     "App Store" : {
       "localizations" : {
         "en" : {
@@ -647,6 +657,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search your email for “receipt”, “renewal” or “subscription”: every service sends a receipt with each payment."
+          }
+        }
+      }
+    },
+    "Chiusa, ^[%lld abbonamento](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closed, ^[%lld subscription](inflect: true)"
           }
         }
       }
@@ -1571,6 +1591,16 @@
         }
       }
     },
+    "Mostra gli abbonamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows the subscriptions"
+          }
+        }
+      }
+    },
     "Mostra tutti" : {
       "localizations" : {
         "en" : {
@@ -1597,6 +1627,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mortgage"
+          }
+        }
+      }
+    },
+    "Nasconde gli abbonamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hides the subscriptions"
           }
         }
       }

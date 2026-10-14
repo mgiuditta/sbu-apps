@@ -16,6 +16,7 @@ public struct SbuListRow: View {
     private let status: LocalizedStringKey?
     private let statusTone: SbuStatusTone
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @ScaledMetric(relativeTo: .headline) private var iconSide: CGFloat = 40
     @ScaledMetric(relativeTo: .title2) private var amountSize = SbuTheme.statSmallSize
 
@@ -51,7 +52,8 @@ public struct SbuListRow: View {
 
     public var body: some View {
         LabeledContent {
-            VStack(alignment: .trailing, spacing: 0) {
+            // Under the title at the accessibility sizes, so it lines up with it.
+            VStack(alignment: dynamicTypeSize.isAccessibilitySize ? .leading : .trailing, spacing: 0) {
                 if let amount {
                     Text(amount)
                         .font(SbuTheme.smallNumberFont(size: amountSize))
@@ -68,12 +70,16 @@ public struct SbuListRow: View {
             // Not a `Label`: outside a `List` it aligns the icon to the title's first line, so the
             // tile sat high next to a two-line title and subtitle. Centred here in and out of lists.
             HStack(spacing: SbuTheme.space3) {
-                Image(systemName: systemImage)
-                    .fontWeight(.medium)
-                    .imageScale(.medium)
-                    .foregroundStyle(iconForeground)
-                    .frame(width: iconSide, height: iconSide)
-                    .background(iconBackground, in: .rect(cornerRadius: SbuTheme.radiusMd))
+                // At the accessibility sizes the tile grew to a third of the row and broke the title
+                // mid-word; the title says it all, so the text gets the whole width instead.
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Image(systemName: systemImage)
+                        .fontWeight(.medium)
+                        .imageScale(.medium)
+                        .foregroundStyle(iconForeground)
+                        .frame(width: iconSide, height: iconSide)
+                        .background(iconBackground, in: .rect(cornerRadius: SbuTheme.radiusMd))
+                }
 
                 VStack(alignment: .leading, spacing: 0) {
                     Text(title)

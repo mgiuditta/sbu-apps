@@ -93,6 +93,13 @@ extension XCUIApplication {
     func openFormRow(_ name: String) {
         let row = formRow(name)
         reveal(row)
+        // A row under the fixed button still reads as hittable, and the tap would add the habit.
+        let fixedButton = buttons.matching(NSPredicate(format: "label IN %@", ["Aggiungi abitudine", "Salva abitudine"])).firstMatch
+        let list = collectionViews.firstMatch
+        for _ in 0..<5 where fixedButton.exists && row.frame.maxY > fixedButton.frame.minY {
+            let start = list.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.6))
+            start.press(forDuration: 0.05, thenDragTo: start.withOffset(CGVector(dx: 0, dy: -150)))
+        }
         row.tap()
     }
 

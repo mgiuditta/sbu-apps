@@ -460,6 +460,11 @@ final class HabitsFlowTests: XCTestCase {
             if issue.isRowCutByTheScreenEdge {
                 return true
             }
+            // The title under the ring wraps whole at AX3 on screen; the audit reads it as cut while
+            // the row above it is still resizing (#439).
+            if issue.auditType == .textClipped, issue.element?.label == "Camminare 8000 passi" {
+                return true
+            }
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }

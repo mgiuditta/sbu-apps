@@ -15,6 +15,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios internal_testers
+
+```sh
+[bundle exec] fastlane ios internal_testers
+```
+
+Internal TestFlight group with every build, with SBU_TESTER_EMAIL (default matteogiuditta@gmail.com) in it
+
 ### ios test
 
 ```sh

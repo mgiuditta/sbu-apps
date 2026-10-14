@@ -15,6 +15,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios internal_testers
+
+```sh
+[bundle exec] fastlane ios internal_testers
+```
+
+Internal TestFlight group with every build, with SBU_TESTER_EMAIL (default matteogiuditta@gmail.com) in it
+
 ### ios test
 
 ```sh
@@ -70,6 +78,22 @@ Build and upload to the App Store with metadata and framed screenshots, without 
 ```
 
 Upload only metadata and framed screenshots to the App Store listing, without a build or submitting
+
+### ios state
+
+```sh
+[bundle exec] fastlane ios state
+```
+
+Print the App Store versions and the latest builds
+
+### ios select_build
+
+```sh
+[bundle exec] fastlane ios select_build
+```
+
+Attach an uploaded build to the version being edited, without submitting: fastlane select_build build:4
 
 ----
 

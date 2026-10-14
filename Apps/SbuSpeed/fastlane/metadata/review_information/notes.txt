@@ -1,0 +1,8 @@
+No account. Sbu Speed has no server and sends nothing: no analytics, ads or tracking. Location is used only while the app is open (When In Use) and stays on the device.
+
+The app opens on the speedometer and iOS asks for location. The current speed from GPS shows as one large number, with the trip below: top speed, average speed while moving, distance and time.
+
+- "Reset trip" clears the trip after a confirmation.
+- The gear opens Settings: units (km/h, mph or knots) and an optional speed limit; going over it vibrates and plays a sound once.
+- In landscape, as in a car mount, the number sits on the left and the trip on the right.
+Without movement the speed reads 0; testing needs a walk or a drive. With location denied, the screen says so and offers to open Settings.

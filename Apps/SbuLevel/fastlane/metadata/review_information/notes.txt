@@ -1,0 +1,7 @@
+No account. Sbu Level has no server and sends nothing: no analytics, ads or tracking. All data (the calibration) stays on the device. It asks for no permissions.
+
+The app opens on the tool screen. Lay the iPhone flat: it shows the bubble level. Stand it on an edge: it becomes a clinometer and shows the tilt to a tenth of a degree on a dial.
+
+- "Lock" freezes the reading; tap again to release it.
+- "Calibrate" walks through two readings for the current side, turning the iPhone 180 degrees between them, so it works even on a surface that is not level.
+- The gear opens Settings: Keep screen on, the calibration of each side with a reset, the privacy policy and the licences.

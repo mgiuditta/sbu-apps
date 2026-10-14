@@ -5,6 +5,16 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Scegli un suono e dormi: pioggia, mare, ventilatore, rumore bianco. Suona anche a schermo bloccato, senza rete.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- 34 suoni in loop: rumori colorati e registrazioni libere di pioggia, acqua, natura, casa e viaggio
+- Preferiti con il cuore; Gestisci per nascondere e riordinare i suoni
+- Mix: fino a cinque suoni insieme, ognuno con il suo volume, attorno a te in cuffia
+- Timer di spegnimento con dissolvenza, anche ripetuti nei giorni che scegli
+- Sveglia che entra piano, con il suono che vuoi e Rimanda
+- Orologio da comodino con luminosità regolabile
+- Suona in background, con AirPlay e i comandi delle cuffie
+- Widget e Centro di Controllo per avviare e fermare, Comandi rapidi e Siri
+- Modalità chiara e scura, Dynamic Type, VoiceOver
+
+Sbu fa una cosa sola: ti fa dormire con un suono.

@@ -5,6 +5,16 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Pick a sound and sleep: rain, the sea, a fan, white noise. It keeps playing with the screen locked, without network.
 
-Sbu does one thing: __ONE_THING_EN__
+- 34 looping sounds: colored noises and free recordings of rain, water, nature, home and travel
+- Favorites with the heart; Manage to hide and reorder sounds
+- Mix: up to five sounds together, each with its own volume, around you in headphones
+- Sleep timers that fade out, repeated on the days you choose
+- An alarm that fades in, with the sound you want and Snooze
+- A bedside clock with adjustable brightness
+- Plays in the background, with AirPlay and headphone controls
+- Widget and Control Center to start and stop, Shortcuts and Siri
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it helps you sleep with a sound.

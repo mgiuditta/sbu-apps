@@ -1,0 +1,10 @@
+No account. Sbu Clean has no server and sends nothing: no analytics, ads or tracking. The library scan runs on the device with Vision; no photo leaves the iPhone.
+
+On first launch the app explains why it needs the Photos library and then iOS asks for access. With access denied or limited, the screen says so and offers to open Settings.
+
+- The main screen shows the space you can free and the iPhone's storage, then: Duplicates and similar, Screenshots, Screen recordings, Videos, Live Photos.
+- Swipe (Month by month, Recent, Random, On this day, one album at a time): left to the bin, right to keep, with undo.
+- Nothing is deleted until you review the bin and confirm; iOS then asks again, and keeps deleted photos for 30 days in Recently Deleted, which the app says.
+- Videos can be compressed into a new copy; Live Photos can be turned into still photos. The original stays until you delete it.
+- A widget shows the iPhone's free space.
+To review with real content, add a few duplicate photos and screenshots to the device's library first.

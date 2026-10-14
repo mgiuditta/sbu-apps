@@ -1,0 +1,7 @@
+No account. Sbu Moon has no server and sends nothing: no analytics, ads or tracking. Everything is worked out on the device with Jean Meeus's algorithms, without network.
+
+The app opens on today's moon: the illuminated percentage, the phase's name, the dates of the next four phases, the moon's age and distance.
+
+- Swipe left or right for the day after or before, or tap the date to pick any day from 1900 to 2100.
+- "Show moonrise and moonset" asks for location once (When In Use), or lets you pick a city from a built-in list with no network. Location is read once and stays on the device.
+- The gear opens Settings: phase alerts (new moon, first quarter, full moon, last quarter) at a chosen time. iOS asks for notifications only when you turn one on.

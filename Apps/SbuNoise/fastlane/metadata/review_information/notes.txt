@@ -1,0 +1,9 @@
+No account. Sbu Noise has no server and sends nothing: no analytics, ads or tracking. All sounds are in the app (free CC0 recordings and generated noises, credited in Settings > Sound Credits); it never streams.
+
+The app opens on the player. Tap play: the sound loops, and keeps playing in the background and with the screen locked (background audio mode). Swipe or use the arrows for the next sound; the menu at the top left picks a group (Sounds, Favorites, Mixes, Noises, Rain, Water, Nature, Home, Travel).
+
+- The heart adds the sound to Favorites. Manage (the grid button) hides and reorders sounds.
+- Plus creates a Mix of up to five sounds, each with its own volume, placed around you in headphones.
+- The clock button opens Timers: a sleep timer fades the sound out; an alarm fades a sound in at the chosen time, with Snooze. iOS asks for notifications only when you add one.
+- The moon button opens the bedside clock.
+- Widget and Control Center control start and stop the sound; Shortcuts and Siri can play a sound or a mix.

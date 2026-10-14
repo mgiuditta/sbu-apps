@@ -25,7 +25,14 @@ struct StatusActionsSection: View {
     }
 
     private func set(_ status: SubscriptionStatus) {
+        let event: SubscriptionEvent.Kind = switch (subscription.status, status) {
+        case (_, .paused): .paused
+        case (_, .cancelled): .cancelled
+        case (.paused, .active): .resumed
+        default: .reactivated
+        }
         subscription.status = status
+        subscription.record(event)
         try? modelContext.save()
     }
 }

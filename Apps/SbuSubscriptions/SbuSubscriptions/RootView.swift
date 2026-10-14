@@ -40,7 +40,9 @@ struct RootView: View {
     }
 
     private func reschedule() {
-        let sources = ((try? modelContext.fetch(FetchDescriptor<Subscription>())) ?? []).map(\.reminderSource)
+        let subscriptions = (try? modelContext.fetch(FetchDescriptor<Subscription>())) ?? []
+        PriceSettler.settle(subscriptions)
+        let sources = subscriptions.map(\.reminderSource)
         Task { await reminders.reschedule(sources) }
     }
 }

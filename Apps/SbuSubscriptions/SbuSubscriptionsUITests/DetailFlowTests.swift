@@ -44,6 +44,32 @@ final class DetailFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testHistoryAndPriceChange() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
+        app.launch()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Musica")).firstMatch.tap()
+
+        app.buttons["Cronologia"].tap()
+        let markPaid = app.buttons["Segna come pagato"].firstMatch
+        XCTAssertTrue(markPaid.waitForExistence(timeout: 5), "Past payments can be marked paid")
+        try audit(app, "cronologia")
+        markPaid.tap()
+        XCTAssertTrue(app.staticTexts["Pagato"].waitForExistence(timeout: 5))
+        app.navigationBars.buttons.firstMatch.tap()
+
+        app.buttons["Cambia prezzo"].tap()
+        let price = app.textFields["newPrice"]
+        XCTAssertTrue(price.waitForExistence(timeout: 5))
+        try audit(app, "cambia prezzo")
+        price.tap()
+        price.typeText("12,99")
+        app.buttons["Salva"].tap()
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Dal ")).firstMatch.waitForExistence(timeout: 5),
+                      "A rise from the next payment shows under the price")
+    }
+
+    @MainActor
     private func audit(_ app: XCUIApplication, _ screen: String) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
             XCTFail("\(screen): \(issue.compactDescription): \(issue.element.map { "\($0.elementType.rawValue) '\($0.label)' \($0.frame)" } ?? issue.detailedDescription)")

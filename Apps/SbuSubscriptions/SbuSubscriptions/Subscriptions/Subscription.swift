@@ -29,6 +29,8 @@ final class Subscription {
     var createdAt: Date = Date.now
     /// The row id in the 1.0's database, so importing it again never adds a copy.
     var legacyID: Int?
+    @Relationship(deleteRule: .cascade, inverse: \PriceChange.subscription) var priceChanges: [PriceChange]? = []
+    @Relationship(deleteRule: .cascade, inverse: \SubscriptionEvent.subscription) var events: [SubscriptionEvent]? = []
 
     init(
         name: String,
@@ -63,8 +65,19 @@ final class Subscription {
 }
 
 extension Subscription {
+    /// What one payment costs on `day`, after any price change that has started by then.
+    func price(on day: Date, calendar: Calendar = .current) -> Decimal {
+        PriceTimeline.price(on: day, base: price, changes: (priceChanges ?? []).map { ($0.effectiveDate, $0.price) }, calendar: calendar)
+    }
+
     var charge: Charge {
-        Charge(price: price, currencyCode: currencyCode, cycle: cycle)
+        Charge(price: price(on: .now), currencyCode: currencyCode, cycle: cycle)
+    }
+
+    func record(_ kind: SubscriptionEvent.Kind, date: Date = .now, amount: Decimal? = nil) {
+        let event = SubscriptionEvent(kind, date: date, amount: amount)
+        modelContext?.insert(event)
+        event.subscription = self
     }
 
     /// Whether it counts in the recurring total today: active, past its trial, and not paid off.
@@ -76,6 +89,7 @@ extension Subscription {
 extension Subscription {
     var reminderSource: ReminderSource {
         ReminderSource(id: "\(Int(createdAt.timeIntervalSince1970 * 1000))", name: name, price: price, currencyCode: currencyCode,
-                       schedule: schedule, trialEnd: trialEndDate, daysBefore: reminderDaysBefore, isActive: status == .active)
+                       schedule: schedule, trialEnd: trialEndDate, daysBefore: reminderDaysBefore, isActive: status == .active,
+                       priceChanges: (priceChanges ?? []).map { ($0.effectiveDate, $0.price) })
     }
 }

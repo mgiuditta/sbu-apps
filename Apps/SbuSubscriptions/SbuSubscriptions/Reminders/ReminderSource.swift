@@ -11,4 +11,6 @@ nonisolated struct ReminderSource: Sendable {
     /// Days before a payment; `nil` for no reminder.
     var daysBefore: Int?
     var isActive: Bool
+    /// Changes of price from a day on, so each reminder says what that payment will cost.
+    var priceChanges: [(date: Date, price: Decimal)] = []
 }

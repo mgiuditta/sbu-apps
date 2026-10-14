@@ -22,7 +22,8 @@ nonisolated enum ReminderPlan {
                 guard let day = calendar.date(byAdding: .day, value: -daysBefore, to: calendar.startOfDay(for: payment)),
                       let fire = calendar.date(bySettingHour: hour, minute: minute, second: 0, of: day),
                       fire > now else { return nil }
-                return PlannedReminder(kind: kind, subscriptionID: source.id, name: source.name, price: source.price,
+                let price = PriceTimeline.price(on: payment, base: source.price, changes: source.priceChanges, calendar: calendar)
+                return PlannedReminder(kind: kind, subscriptionID: source.id, name: source.name, price: price,
                                        currencyCode: source.currencyCode, paymentDate: calendar.startOfDay(for: payment),
                                        daysBefore: daysBefore, fireDate: fire)
             }

@@ -11,6 +11,7 @@ struct SubscriptionDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isEditing = false
     @State private var isDeleting = false
+    @State private var isChangingPrice = false
 
     var body: some View {
         List {
@@ -18,6 +19,11 @@ struct SubscriptionDetailView: View {
                 LabeledContent("Prezzo") {
                     Text(subscription.price, format: .currency(code: subscription.currencyCode))
                         .foregroundStyle(SbuTheme.ink)
+                }
+                if let upcoming {
+                    LabeledContent("Dal \(upcoming.effectiveDate.formatted(.dateTime.day().month(.wide)))") {
+                        Text(upcoming.price, format: .currency(code: subscription.currencyCode))
+                    }
                 }
                 LabeledContent("Ciclo") { Text(subscription.cycle.label) }
                 if let count = subscription.paymentCount {
@@ -60,6 +66,11 @@ struct SubscriptionDetailView: View {
                 }
             }
 
+            Section {
+                Button("Cambia prezzo") { isChangingPrice = true }
+                NavigationLink("Cronologia") { HistoryView(subscription: subscription) }
+            }
+
             CancelHelpSection(subscription: subscription)
             StatusActionsSection(subscription: subscription)
 
@@ -84,6 +95,9 @@ struct SubscriptionDetailView: View {
                 try? modelContext.save()
             }
         }
+        .sheet(isPresented: $isChangingPrice) {
+            PriceChangeSheet(subscription: subscription)
+        }
         .sheet(isPresented: $isEditing) {
             NavigationStack {
                 SubscriptionFormView(draft: SubscriptionDraft(subscription: subscription), currency: currency, editing: subscription) {
@@ -91,6 +105,12 @@ struct SubscriptionDetailView: View {
                 }
             }
         }
+    }
+
+    /// The next price change still to come, if any.
+    private var upcoming: PriceChange? {
+        let today = Calendar.current.startOfDay(for: .now)
+        return (subscription.priceChanges ?? []).filter { $0.effectiveDate > today }.min { $0.effectiveDate < $1.effectiveDate }
     }
 
     private var nextPaymentText: LocalizedStringKey {

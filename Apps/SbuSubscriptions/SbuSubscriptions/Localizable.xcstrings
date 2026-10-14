@@ -381,6 +381,16 @@
         }
       }
     },
+    "Cambia prezzo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change price"
+          }
+        }
+      }
+    },
     "Categoria" : {
       "localizations" : {
         "en" : {
@@ -517,6 +527,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This is how reminders arrive before each renewal."
+          }
+        }
+      }
+    },
+    "Cronologia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        }
+      }
+    },
+    "Da quando" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From"
+          }
+        }
+      }
+    },
+    "Dal %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From %@"
           }
         }
       }
@@ -701,6 +741,16 @@
         }
       }
     },
+    "Eventi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Events"
+          }
+        }
+      }
+    },
     "Finanza" : {
       "localizations" : {
         "en" : {
@@ -821,6 +871,16 @@
         }
       }
     },
+    "I pagamenti da quel giorno usano il nuovo prezzo, anche nel totale e nei promemoria." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payments from that day use the new price, in the total and the reminders too."
+          }
+        }
+      }
+    },
     "I totali sono in questa valuta. Gli abbonamenti in altre valute si convertono con i tassi BCE inclusi nell'app, o con i tuoi." : {
       "localizations" : {
         "en" : {
@@ -917,6 +977,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send a test reminder"
+          }
+        }
+      }
+    },
+    "Iscritto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribed"
           }
         }
       }
@@ -1071,6 +1141,16 @@
         }
       }
     },
+    "Messo in pausa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
+          }
+        }
+      }
+    },
     "Metodo di pagamento" : {
       "localizations" : {
         "en" : {
@@ -1187,6 +1267,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No payments"
+          }
+        }
+      }
+    },
+    "Nessun pagamento ancora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No payments yet"
           }
         }
       }
@@ -1317,6 +1407,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New subscription"
+          }
+        }
+      }
+    },
+    "Nuovo prezzo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New price"
           }
         }
       }
@@ -1491,6 +1591,16 @@
         }
       }
     },
+    "Pagato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paid"
+          }
+        }
+      }
+    },
     "PayPal" : {
       "localizations" : {
         "en" : {
@@ -1521,6 +1631,16 @@
         }
       }
     },
+    "Prezzi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prices"
+          }
+        }
+      }
+    },
     "Prezzo" : {
       "localizations" : {
         "en" : {
@@ -1537,6 +1657,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Price per month"
+          }
+        }
+      }
+    },
+    "Prezzo cambiato: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price changed: %@"
           }
         }
       }
@@ -1661,6 +1791,16 @@
         }
       }
     },
+    "Riattivato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reactivated"
+          }
+        }
+      }
+    },
     "Riga %lld: ciclo non riconosciuto «%@»" : {
       "localizations" : {
         "en" : {
@@ -1721,6 +1861,16 @@
         }
       }
     },
+    "Ripreso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resumed"
+          }
+        }
+      }
+    },
     "Riprova a importare" : {
       "localizations" : {
         "en" : {
@@ -1777,6 +1927,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mark as cancelled"
+          }
+        }
+      }
+    },
+    "Segna come pagato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as paid"
           }
         }
       }

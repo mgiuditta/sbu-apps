@@ -51,6 +51,7 @@ struct CancelHelpSection: View {
 
     private func markCancelled() {
         subscription.status = .cancelled
+        subscription.record(.cancelled)
         try? modelContext.save()
     }
 }

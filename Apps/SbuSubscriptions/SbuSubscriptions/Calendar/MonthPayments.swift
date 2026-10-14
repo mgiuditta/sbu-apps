@@ -22,7 +22,7 @@ struct MonthPayments {
         for subscription in subscriptions where subscription.status == .active {
             for day in subscription.schedule.payments(from: grid.start, to: grid.end, in: calendar) {
                 byDay[day, default: []].append(Payment(subscription: subscription, day: day))
-                guard let amount = converter.convert(subscription.price, from: subscription.currencyCode, to: mainCurrency) else {
+                guard let amount = converter.convert(subscription.price(on: day, calendar: calendar), from: subscription.currencyCode, to: mainCurrency) else {
                     missingRates += 1
                     continue
                 }

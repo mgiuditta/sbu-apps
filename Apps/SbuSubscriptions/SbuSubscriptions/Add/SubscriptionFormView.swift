@@ -128,6 +128,7 @@ struct SubscriptionFormView: View {
             draft.apply(to: editing)
         } else if let subscription = draft.makeSubscription() {
             modelContext.insert(subscription)
+            subscription.record(.subscribed, date: subscription.createdAt)
         }
         try? modelContext.save()
         onSave()

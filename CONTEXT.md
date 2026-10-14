@@ -36,7 +36,7 @@ Il numero che misura la **Cosa sola**, mostrato in grande una volta per schermat
 _Avoid_: KPI, metrica, valore
 
 **Schermata strumento** (_Tool screen_):
-La schermata principale di un'**App Sbu**, dove fa la sua **Cosa sola**, su un campo scuro del colore dell'app.
+La schermata principale di un'**App Sbu**, dove fa la sua **Cosa sola**, sulla carta (`surface`) come ogni altra schermata.
 _Avoid_: home, dashboard, prima tab
 
 **Schermata di gestione** (_Management screen_):

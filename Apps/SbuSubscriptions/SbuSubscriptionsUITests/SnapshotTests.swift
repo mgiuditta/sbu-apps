@@ -11,7 +11,7 @@ final class SnapshotTests: XCTestCase {
 
         snapshot("01-main")
 
-        app.navigationBars.buttons.element(boundBy: 1).tap()  // 0 is Aggiungi, 1 the gear
+        app.navigationBars.buttons.allElementsBoundByIndex.last?.tap()  // The gear is always the last button
         snapshot("02-privacy")
     }
 }

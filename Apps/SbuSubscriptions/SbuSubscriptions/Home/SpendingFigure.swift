@@ -6,6 +6,8 @@ struct SpendingFigure: View {
     let total: SpendingTotal
     let otherTotal: SpendingTotal
     let period: TotalPeriod
+    /// The list, category or payment method the total is narrowed to, if any.
+    var filterName: String?
     let currency: CurrencySettings
 
     var body: some View {
@@ -29,7 +31,12 @@ struct SpendingFigure: View {
     }
 
     private var caption: LocalizedStringKey {
-        period == .year ? "Spendi all'anno" : "Spendi al mese"
+        switch (period, filterName) {
+        case (.year, nil): "Spendi all'anno"
+        case (.month, nil): "Spendi al mese"
+        case let (.year, name?): "Spendi all'anno · \(name)"
+        case let (.month, name?): "Spendi al mese · \(name)"
+        }
     }
 
     private var context: LocalizedStringKey {

@@ -8,7 +8,7 @@ final class DetailFlowTests: XCTestCase {
         app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launch()
 
-        app.staticTexts["Musica"].firstMatch.tap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Musica")).firstMatch.tap()
         XCTAssertTrue(app.buttons["edit"].waitForExistence(timeout: 5))
         let shot = XCTAttachment(screenshot: app.screenshot())
         shot.name = "dettaglio"

@@ -12,7 +12,7 @@ final class AddFlowTests: XCTestCase {
         try audit(app)
 
         app.buttons["addFirst"].tap()
-        let search = app.searchFields.firstMatch
+        let search = app.searchFields["Cerca un servizio"]
         XCTAssertTrue(search.waitForExistence(timeout: 5))
         search.tap()
         search.typeText("netfl")

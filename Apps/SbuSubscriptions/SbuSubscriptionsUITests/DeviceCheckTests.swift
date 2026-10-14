@@ -30,7 +30,7 @@ final class DeviceCheckTests: XCTestCase {
         }
         XCTAssertTrue(app.staticTexts["Prova Sbu"].waitForExistence(timeout: 5))
 
-        app.navigationBars.buttons.element(boundBy: 1).tap()
+        app.navigationBars.buttons.allElementsBoundByIndex.last?.tap()
         let send = app.buttons["Invia un promemoria di prova"]
         XCTAssertTrue(send.waitForExistence(timeout: 5), "With permission given, settings offer the test reminder")
         attach(app, "impostazioni")
@@ -52,7 +52,7 @@ final class DeviceCheckTests: XCTestCase {
         app.swipeUp()
         attach(app, "home-ax5-sotto")
         app.swipeUp()
-        app.staticTexts["Musica"].firstMatch.tap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Musica")).firstMatch.tap()
         attach(app, "dettaglio-ax5")
         app.buttons["edit"].tap()
         attach(app, "modifica-ax5")
@@ -60,7 +60,7 @@ final class DeviceCheckTests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         app.swipeDown()
         app.swipeDown()
-        app.navigationBars.buttons.element(boundBy: 1).tap()
+        app.navigationBars.buttons.allElementsBoundByIndex.last?.tap()
         attach(app, "impostazioni-ax5")
     }
 

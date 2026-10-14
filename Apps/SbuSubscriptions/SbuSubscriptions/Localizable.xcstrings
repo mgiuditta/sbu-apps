@@ -371,6 +371,16 @@
         }
       }
     },
+    "Calendario dei pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payments calendar"
+          }
+        }
+      }
+    },
     "Categoria" : {
       "localizations" : {
         "en" : {
@@ -387,6 +397,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Categories"
+          }
+        }
+      }
+    },
+    "Cerca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
           }
         }
       }
@@ -1091,6 +1111,16 @@
         }
       }
     },
+    "Mostra tutti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show all"
+          }
+        }
+      }
+    },
     "Musica" : {
       "localizations" : {
         "en" : {
@@ -1137,6 +1167,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No subscriptions"
+          }
+        }
+      }
+    },
+    "Nessun abbonamento con questo filtro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No subscriptions with this filter"
           }
         }
       }
@@ -1391,6 +1431,26 @@
         }
       }
     },
+    "Ordina e filtra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort and filter"
+          }
+        }
+      }
+    },
+    "Ordina per" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort by"
+          }
+        }
+      }
+    },
     "Organizza" : {
       "localizations" : {
         "en" : {
@@ -1467,6 +1527,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Price"
+          }
+        }
+      }
+    },
+    "Prezzo al mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price per month"
           }
         }
       }
@@ -1567,6 +1637,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "What 1 %@ is worth in %@."
+          }
+        }
+      }
+    },
+    "Raggruppa per" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group by"
           }
         }
       }
@@ -1701,6 +1781,16 @@
         }
       }
     },
+    "Senza categoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No category"
+          }
+        }
+      }
+    },
     "Senza notifiche nessun rinnovo ti avvisa. Attivale nelle Impostazioni dell'iPhone." : {
       "localizations" : {
         "en" : {
@@ -1811,12 +1901,42 @@
         }
       }
     },
+    "Spendi al mese · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You spend a month · %@"
+          }
+        }
+      }
+    },
     "Spendi all'anno" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "You spend a year"
+          }
+        }
+      }
+    },
+    "Spendi all'anno · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You spend a year · %@"
+          }
+        }
+      }
+    },
+    "Stato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
           }
         }
       }
@@ -1917,6 +2037,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yours"
+          }
+        }
+      }
+    },
+    "Tutte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "Tutti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
           }
         }
       }

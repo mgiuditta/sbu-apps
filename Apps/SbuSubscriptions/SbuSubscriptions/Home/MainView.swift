@@ -8,23 +8,49 @@ struct MainView: View {
 
     @Query private var subscriptions: [Subscription]
     @AppStorage(TotalPeriod.storageKey, store: .appGroup) private var period = TotalPeriod.year
+    @AppStorage("home.sort") private var sort = HomeSort.nextPayment
+    @AppStorage("home.grouping") private var grouping = HomeGrouping.status
+    @AppStorage("home.filter.list") private var listFilter = ""
+    @AppStorage("home.filter.category") private var categoryFilter = ""
+    @AppStorage("home.filter.paymentMethod") private var methodFilter = ""
     @State private var isAdding = false
+    @State private var search = ""
 
     var body: some View {
         // ponytail: "today" is read on each render, not at midnight; the app redraws whenever it comes back.
         let today = Date.now
-        let groups = SubscriptionGroups(subscriptions, on: today)
+        let filter = HomeFilter(list: listFilter, category: categoryFilter, paymentMethod: methodFilter)
+        let shown = subscriptions.filter { filter.matches($0) }
+        let figureGroups = SubscriptionGroups(shown, on: today)
+        let groups = SubscriptionGroups(shown.filter(matchesSearch), on: today, sort: sort, monthlyPrice: monthlyPrice)
         List {
-            if !subscriptions.isEmpty {
+            if !subscriptions.isEmpty, search.isEmpty {
                 Section {
                     SpendingFigure(
-                        total: total(groups.counted, per: period),
-                        otherTotal: total(groups.counted, per: period.other),
+                        total: total(figureGroups.counted, per: period),
+                        otherTotal: total(figureGroups.counted, per: period.other),
                         period: period,
+                        filterName: [listFilter, categoryFilter, methodFilter].first { !$0.isEmpty },
                         currency: currency
                     )
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
+                }
+                Section {
+                    // A row, not a toolbar button: with + and the filters the title would no longer fit.
+                    NavigationLink {
+                        PaymentsCalendarView(currency: currency)
+                    } label: {
+                        Label {
+                            Text("Calendario dei pagamenti")
+                        } icon: {
+                            // Not the accent: on this screen it belongs to the figure's full stop.
+                            Image(systemName: "calendar")
+                                .fontWeight(.medium)
+                                .foregroundStyle(SbuTheme.inkMuted)
+                        }
+                    }
+                    .accessibilityIdentifier("calendar")
                 }
             }
             if !groups.trials.isEmpty {
@@ -36,9 +62,9 @@ struct MainView: View {
                     Text(trialFooter(groups.trials))
                 }
             }
-            if !groups.active.isEmpty {
-                Section("Attivi") {
-                    rows(groups.active, today: today)
+            ForEach(HomeSections.groups(groups.active, by: grouping)) { group in
+                Section(group.title) {
+                    rows(group.subscriptions, today: today)
                 }
             }
             CollapsedSection(title: "In pausa", subscriptions: groups.paused, today: today)
@@ -48,7 +74,17 @@ struct MainView: View {
         .listStyle(.insetGrouped)
         .listSectionSpacing(.compact)
         .scrollContentBackground(.hidden)
+        .searchable(text: $search, prompt: Text("Cerca"))
         .overlay {
+            if !subscriptions.isEmpty, !search.isEmpty, groups.isEmpty {
+                ContentUnavailableView.search(text: search)
+            } else if !subscriptions.isEmpty, shown.isEmpty {
+                ContentUnavailableView {
+                    Label("Nessun abbonamento con questo filtro", systemImage: "line.3.horizontal.decrease.circle")
+                } actions: {
+                    Button("Mostra tutti", action: clearFilters)
+                }
+            }
             if subscriptions.isEmpty {
                 ContentUnavailableView {
                     Label("Nessun abbonamento", systemImage: "creditcard")
@@ -66,13 +102,10 @@ struct MainView: View {
                 Button("Aggiungi abbonamento", systemImage: "plus") { isAdding = true }
                     .tint(SbuTheme.ink)
                     .accessibilityIdentifier("add")
-                NavigationLink {
-                    PaymentsCalendarView(currency: currency)
-                } label: {
-                    Label("Calendario", systemImage: "calendar")
+                if !subscriptions.isEmpty {
+                    HomeOptionsMenu(sort: $sort, grouping: $grouping, list: $listFilter, category: $categoryFilter,
+                                    paymentMethod: $methodFilter, subscriptions: subscriptions)
                 }
-                .tint(SbuTheme.ink)
-                .accessibilityIdentifier("calendar")
             }
         }
         .navigationDestination(for: Subscription.self) { subscription in
@@ -89,6 +122,20 @@ struct MainView: View {
                 SubscriptionRow(subscription: subscription, today: today)
             }
         }
+    }
+
+    private func clearFilters() {
+        listFilter = ""
+        categoryFilter = ""
+        methodFilter = ""
+    }
+
+    private func matchesSearch(_ subscription: Subscription) -> Bool {
+        search.isEmpty || subscription.name.localizedStandardContains(search)
+    }
+
+    private func monthlyPrice(_ subscription: Subscription) -> Decimal? {
+        subscription.charge.amount(per: .month).flatMap { currency.converter.convert($0, from: subscription.currencyCode, to: currency.mainCurrency) }
     }
 
     private func total(_ subscriptions: [Subscription], per period: TotalPeriod) -> SpendingTotal {

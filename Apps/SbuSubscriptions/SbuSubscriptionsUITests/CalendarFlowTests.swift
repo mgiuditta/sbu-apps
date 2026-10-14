@@ -21,7 +21,7 @@ final class CalendarFlowTests: XCTestCase {
         XCTAssertTrue(today.exists, "Today's cell says so to VoiceOver")
         today.press(forDuration: 1)
         app.buttons["Aggiungi da questo giorno"].tap()
-        XCTAssertTrue(app.searchFields.firstMatch.waitForExistence(timeout: 5), "The add sheet opens")
+        XCTAssertTrue(app.searchFields["Cerca un servizio"].waitForExistence(timeout: 5), "The add sheet opens")
     }
 
     @MainActor

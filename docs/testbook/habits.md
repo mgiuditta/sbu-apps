@@ -18,7 +18,7 @@ Prima di iniziare: elimina Sbu Habits dall'iPhone se c'è già, poi installa la 
 
 ### 2. Impostazioni e promessa
 - Passi: tocca l'ingranaggio.
-- Atteso: foglio Impostazioni con nome e versione 1.0, Inizio della giornata, Ordine delle abitudini (disattivato senza abitudini), Dati (Sincronizza con iCloud spento, Esporta, Importa), Licenze, link alla privacy. Nel piede le pillole della promessa intere, non tagliate dall'angolo della sezione. Con iCloud spento la pillola dice "Dati solo sul dispositivo". Fine chiude.
+- Atteso: foglio Impostazioni con nome e versione 1.0, Inizio della giornata, Ordine delle abitudini (disattivato senza abitudini), Dati (Sincronizza con iCloud spento, Esporta, Importa), Licenze, link alla privacy. Nel piede le pillole della promessa intere, non tagliate dall'angolo della sezione. Con iCloud spento la pillola dice "Dati solo su questo iPhone". Fine chiude.
 - [ ] Fatto
 
 ## B. Aggiungere un'abitudine
@@ -177,7 +177,7 @@ Prima di iniziare: elimina Sbu Habits dall'iPhone se c'è già, poi installa la 
 
 ### 30. Modificare ed eliminare
 - Passi: tocca un'abitudine → Modifica, cambia il titolo, Salva abitudine. Di nuovo Modifica → Elimina.
-- Atteso: la conferma nomina l'abitudine ("Eliminare “…”?"); sul telefono può apparire come fumetto sopra il pulsante. Confermando sparisce; lo storico delle altre resta.
+- Atteso: la conferma nomina l'abitudine ("Eliminare “…”?"); a testo standard è un fumetto sopra il pulsante, a testo grande un avviso. Confermando sparisce; lo storico delle altre resta.
 - [ ] Fatto
 
 ## I. iCloud (spento finché non lo attivi)

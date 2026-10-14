@@ -51,6 +51,10 @@ public struct SbuStat: View {
                     .padding(.trailing, -SbuTheme.statTracking)
                     .foregroundStyle(SbuTheme.ink)
                     .contentTransition(.numericText())
+                    // A figure never breaks across lines, which would strand the full stop mid-number:
+                    // at the largest text sizes it shrinks to the width instead.
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
 
                 if let unit {
                     Text(unit)

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Turn an app's raw `fastlane snapshot` screenshots into its App Store screenshots.
 
-One panorama on paper cut into one 1320×2868 image per screenshot (2 to 5), plus a closing
-card with the Sbu logo: the layout lives in Tools/screenshots/store.html (decided in #437).
+One panorama on paper cut into one 1320×2868 image per screenshot (2 to 5): the layout lives in
+Tools/screenshots/store.html (decided in #437). Its closing card with the Sbu logo is not written:
+App Review wants every screenshot to show the app in use (guideline 2.3.3).
 Per app it reads everything from the repo: the accent from Design/tokens.json, the icon
 engraving from Design/icons/source/sbu-<app>.png, the titles from
 fastlane/screenshots/<lang>/title.strings ("Title. Subtitle." splits at the first full stop).
 
-Writes `<raw name>_framed.png` next to each raw screenshot and `iPhone 17 Pro Max-99-sbu_framed.png`;
+Writes `<raw name>_framed.png` next to each raw screenshot;
 `deliver` uploads only the framed ones when they exist. Renders with Chrome headless.
 
 Usage:
@@ -33,7 +34,6 @@ ROOT = Path(__file__).resolve().parent.parent
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 SIZE = (1320, 2868)
 DEVICE = "iPhone 17 Pro Max"
-CLOSING = f"{DEVICE}-99-sbu_framed.png"
 
 
 def light_tokens():
@@ -121,7 +121,7 @@ def main():
             for old in lang_dir.glob("*_framed.png"):
                 old.unlink()
             shots = raw_shots(lang_dir)
-            outs = [s.with_name(f"{s.stem}_framed.png") for s in shots] + [lang_dir / CLOSING]
+            outs = [s.with_name(f"{s.stem}_framed.png") for s in shots]
             for i, out in enumerate(outs):
                 render(f"{base}?slice={i}#{config}", out)
             print(f"{app} {lang_dir.name}: {len(outs)} screenshots")

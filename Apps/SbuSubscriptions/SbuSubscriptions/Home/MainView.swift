@@ -61,11 +61,18 @@ struct MainView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                // In ink, like the gear: on this screen the accent belongs to the figure's full stop.
+            // In ink, like the gear: on this screen the accent belongs to the figure's full stop.
+            ToolbarItemGroup(placement: .topBarLeading) {
                 Button("Aggiungi abbonamento", systemImage: "plus") { isAdding = true }
                     .tint(SbuTheme.ink)
                     .accessibilityIdentifier("add")
+                NavigationLink {
+                    PaymentsCalendarView(currency: currency)
+                } label: {
+                    Label("Calendario", systemImage: "calendar")
+                }
+                .tint(SbuTheme.ink)
+                .accessibilityIdentifier("calendar")
             }
         }
         .navigationDestination(for: Subscription.self) { subscription in

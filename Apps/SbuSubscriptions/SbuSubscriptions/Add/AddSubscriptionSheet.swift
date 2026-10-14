@@ -5,6 +5,8 @@ import SwiftUI
 /// The + sheet: search the catalog of known services, or start a subscription of your own.
 struct AddSubscriptionSheet: View {
     let currency: CurrencySettings
+    /// The day a long press in the calendar added from; today otherwise.
+    var startDate: Date?
 
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \SubscriptionCategory.order) private var categories: [SubscriptionCategory]
@@ -52,14 +54,19 @@ struct AddSubscriptionSheet: View {
     }
 
     private func draft(for route: AddRoute) -> SubscriptionDraft {
+        var draft: SubscriptionDraft
         switch route {
         case .custom:
-            var draft = SubscriptionDraft(currencyCode: currency.mainCurrency)
+            draft = SubscriptionDraft(currencyCode: currency.mainCurrency)
             draft.name = query.trimmingCharacters(in: .whitespaces)
-            return draft
         case let .service(service):
-            return SubscriptionDraft(service: service, categories: categories, currencyCode: currency.mainCurrency)
+            draft = SubscriptionDraft(service: service, categories: categories, currencyCode: currency.mainCurrency)
         }
+        if let startDate {
+            draft.nextPayment = startDate
+            draft.trialEnd = startDate
+        }
+        return draft
     }
 }
 

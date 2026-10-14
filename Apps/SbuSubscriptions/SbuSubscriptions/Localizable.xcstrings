@@ -21,6 +21,16 @@
         }
       }
     },
+    "%@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@"
+          }
+        }
+      }
+    },
     "0" : {
       "localizations" : {
         "en" : {
@@ -127,6 +137,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add category"
+          }
+        }
+      }
+    },
+    "Aggiungi da questo giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add from this day"
           }
         }
       }
@@ -287,6 +307,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ECB"
+          }
+        }
+      }
+    },
+    "Calendario" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar"
           }
         }
       }
@@ -487,6 +517,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld in %@ left out: no rate"
+          }
+        }
+      }
+    },
+    "Esclusi %lld: manca il tasso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld left out: no rate"
           }
         }
       }
@@ -771,6 +811,26 @@
         }
       }
     },
+    "Mese precedente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous month"
+          }
+        }
+      }
+    },
+    "Mese successivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next month"
+          }
+        }
+      }
+    },
     "Mesi" : {
       "localizations" : {
         "en" : {
@@ -847,6 +907,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No subscriptions"
+          }
+        }
+      }
+    },
+    "Nessun pagamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No payments"
           }
         }
       }
@@ -977,6 +1047,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Today"
+          }
+        }
+      }
+    },
+    "Oggi, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today, %@"
+          }
+        }
+      }
+    },
+    "Oggi, %@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today, %@: %@"
           }
         }
       }
@@ -1477,6 +1567,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Total"
+          }
+        }
+      }
+    },
+    "Totale %@ · ancora da pagare %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total %@ · still to pay %@"
           }
         }
       }

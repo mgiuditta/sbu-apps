@@ -1,0 +1,32 @@
+# Lanes shared by every app, imported from Apps/<App>/fastlane/Fastfile.
+# They rely on the app's private api_key lane and Appfile app_identifier.
+platform :ios do
+  # An internal TestFlight group with access to every build, with the tester in it (invited by
+  # Apple on joining). Reuses any internal group already there. Tester: SBU_TESTER_EMAIL.
+  desc "Internal TestFlight group with every build, with SBU_TESTER_EMAIL (default matteogiuditta@gmail.com) in it"
+  lane :internal_testers do
+    api_key
+    email = ENV.fetch("SBU_TESTER_EMAIL", "matteogiuditta@gmail.com")
+    app = Spaceship::ConnectAPI::App.find(CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier))
+    group = app.get_beta_groups(includes: "betaTesters").find(&:is_internal_group) || create_internal_group(app)
+    if (group.beta_testers || []).any? { |t| t.email.casecmp?(email) }
+      UI.message("#{email} already in #{group.name}")
+    else
+      Spaceship::ConnectAPI.post_beta_tester_assignment(beta_group_ids: [group.id], attributes: { email: email })
+      UI.success("#{email} added to #{group.name}")
+    end
+  end
+
+  # Not app.create_beta_group: it always sends the public link attributes, which Apple refuses
+  # on an internal group.
+  def create_internal_group(app)
+    body = {
+      data: {
+        type: "betaGroups",
+        attributes: { name: "Internal Test", isInternalGroup: true, hasAccessToAllBuilds: true },
+        relationships: { app: { data: { type: "apps", id: app.id } } }
+      }
+    }
+    Spaceship::ConnectAPI.test_flight_request_client.post("v1/betaGroups", body).to_models.first
+  end
+end

@@ -2,6 +2,7 @@
 # beta/release need an App Store Connect API key in the environment:
 #   ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH (path to the .p8), SBU_TEAM_ID
 default_platform(:ios)
+import(File.expand_path("../../../Tools/fastlane/Fastfile", __dir__))
 
 platform :ios do
   before_all do
@@ -42,6 +43,7 @@ platform :ios do
     increment_build_number(build_number: latest_testflight_build_number + 1, xcodeproj: "SbuScanner.xcodeproj")
     build_app(scheme: "SbuScanner", export_method: "app-store", xcargs: signing_args)
     upload_to_testflight(skip_waiting_for_build_processing: true)
+    internal_testers
   end
 
   desc "Build and upload to the App Store with metadata and framed screenshots, without submitting"

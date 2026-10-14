@@ -9,6 +9,8 @@ final class ScanRecord {
     var date: Date = Date.now
     var isFavorite: Bool = false
     var folder: ScanFolder?
+    /// The row id in the 1.x database, for codes and folders brought over from it (ADR-0010).
+    var legacyID: Int?
 
     init(raw: String, symbology: Symbology, date: Date = .now, folder: ScanFolder? = nil) {
         self.raw = raw

@@ -8,7 +8,10 @@ struct SbuScannerApp: App {
         // fastlane snapshot and the flow tests show made-up codes, never the user's own.
         if LaunchMode.isDemo { return .preview }
         do {
-            return try .scanner()
+            let container = try ModelContainer.scanner()
+            // Before the first screen: whoever updates from the 1.x finds their history and folders there.
+            LegacyMigration.runIfNeeded(container.mainContext)
+            return container
         } catch {
             fatalError("Scanner store failed to open: \(error)")
         }

@@ -651,6 +651,16 @@
         }
       }
     },
+    "I dati della versione precedente restano su questo iPhone, intatti.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The previous version's data stays on this iPhone, untouched."
+          }
+        }
+      }
+    },
     "I suoi codici restano nella cronologia, senza cartella.": {
       "localizations": {
         "en": {
@@ -1081,6 +1091,26 @@
         }
       }
     },
+    "Non importati dalla versione precedente: ^[%lld codice](inflect: true).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not brought over from the previous version: ^[%lld code](inflect: true)."
+          }
+        }
+      }
+    },
+    "Non riesco a leggere la cronologia della versione precedente.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Can't read the previous version's history."
+          }
+        }
+      }
+    },
     "Note": {
       "localizations": {
         "en": {
@@ -1297,6 +1327,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hidden network"
+          }
+        }
+      }
+    },
+    "Riprova a importare": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Importing Again"
           }
         }
       }
@@ -1547,6 +1587,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Use the back camera"
+          }
+        }
+      }
+    },
+    "Versione precedente": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous version"
           }
         }
       }

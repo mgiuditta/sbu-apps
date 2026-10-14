@@ -8,6 +8,7 @@ struct RootView: View {
             ScannerScreen()
         } settings: {
             ScannerSettingsSection()
+            LegacyImportSection()
         }
     }
 }

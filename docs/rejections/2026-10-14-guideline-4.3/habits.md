@@ -1,0 +1,58 @@
+# Sbu Habits 1.0 (build 5), reply to Guidelines 4.3 and 4.2.6
+
+Thank you for the review. I believe Sbu Habits meets guidelines 4.3(a), 4.3(b) and 4.2.6, so I am not resubmitting. Here are the answers to the nine questions.
+
+**1. What the app does and the problem it solves**
+
+Sbu Habits is a habit tracker whose single figure is the "full streak": the number of consecutive days on which every habit due that day was done. The user adds up to 24 habits (from templates in five categories or custom), each either yes/no or counted (for example 8 glasses of water), scheduled daily, on chosen weekdays, N times a week, N times a month, or on one chosen day only. A habit is marked by touching and holding its ring.
+
+Beyond the basic tracker it handles the cases that usually break a streak in real life:
+
+- Habits to avoid, with a daily limit (0 for "no smoking", 2 for "at most two coffees"): the user marks each lapse, the day counts if they stayed within the limit, going over breaks the streak at once.
+- Timed habits: a play button on the ring starts a countdown, shown as a Live Activity on the Lock Screen; at the end the habit is marked by itself. It survives backgrounding and app termination.
+- Habits linked to Apple Health (read only: steps, water, sleep, Activity rings, distances, exercise and mindfulness minutes, and others) with a daily goal; the habit marks itself when the day's total reaches the goal, also while the app is in the background. Health only ever adds a mark; the user can always mark by hand.
+- A note per habit per day, "skip today" (illness) without breaking the streak, a configurable start of the day for night-shift workers, reminders only on due days and only if the habit is not done yet.
+- Interactive Home Screen widgets, an Apple Watch app with a complication (fed by the iPhone over WatchConnectivity), statistics with best streak and completion history exportable as an image, JSON export and import.
+- Optional, off by default: sync between the user's own devices through their iCloud, and sharing one habit read-only with people they invite through iCloud sharing.
+
+All data stays on the device unless the user turns on iCloud sync. There is no account and no server of mine.
+
+**2. Intended user**
+
+People building or breaking a daily routine who want one honest number for how they are doing, including shift workers (start of the day), people who already track activity in Apple Health and want habits to mark themselves, people with a habit to limit rather than to do, and Apple Watch users who mark from the wrist.
+
+**3. Need or gap**
+
+The habit apps I studied before building this one charge up front or by subscription for the features above (Health linking, Watch, timed habits, sharing), and most of them require an account or send usage data. Sbu Habits is free with nothing to buy, has no account, no ads and no analytics, reads Health without ever writing to it or storing Health values, keeps iCloud strictly opt-in, and treats habits to avoid and timed habits as first-class types rather than add-ons. It is fully usable with VoiceOver (every ring exposes "Mark as done" or "Mark that you gave in" as an action) and at the largest Dynamic Type sizes.
+
+**4. Beta testing**
+
+Testing was internal: five TestFlight builds installed on a physical iPhone 15 Pro Max, worked through a written test checklist with exact pass/fail results (first launch, add/mark/undo/skip, templates, notes, widgets, largest text size, VoiceOver, light and dark, Italian and English, export/import, relaunch), plus the iPhone SE size in the simulator. Timed habits, Health linking, iCloud sync and sharing and the Watch app are covered by automated tests and were checked in the simulator; their long-running behaviour on a device over days is not yet hand-tested. I had no external beta testers for 1.0. Findings fixed before the production build:
+
+- A UI pass before release found ten defects (layout, wording, confirmations), all fixed and logged in my issue tracker.
+- At the largest accessibility text sizes the add-habit form overlapped its fixed button and rows broke mid-word (issue #439). Fix: the button moves to the end of the form, rows wrap whole words, the grid becomes one scrolling column.
+- The play button covered small rings. Fix: a smaller play button on small rings.
+- On a short iPhone the last line of a note was hidden under the keyboard. Fix: the note scrolls above the keyboard.
+- The stepper under "N times a week" read awkwardly. Fix: it now says just "3 times".
+
+**5. Standalone or suite**
+
+Sbu Habits is a standalone app. It is one of the apps I publish under the sbu.dev name, each doing one task in a different category: Sbu Habits (habit streaks), Sbu Level (level and clinometer), Sbu Moon (moon phase), Sbu Noise (sleep sounds), Sbu Speed (GPS speedometer), Sbu Clean (free up Photos library space), plus Sbu Scanner QR Barcode and Sbu Subscriptions, both already on the App Store since May and June 2026. None of them overlaps another in function: I never publish two apps in the same category. Sbu Habits is the only one that tracks anything over days, the only one that reads Apple Health and the only one with an Apple Watch app.
+
+**6. Could it be a feature of another app on my account**
+
+No. The closest app on my account, Sbu Subscriptions, tracks recurring payments and money; it shares no data model, no screen and no user need with habit tracking. Bundling would force unrelated permissions (Health, notifications, Watch) into an app about money. The apps are also free with no in-app purchases, so delivering this as a purchasable feature expansion is not possible.
+
+**7. Code shared with other apps on my account**
+
+Yes, a small Swift package of mine called SbuKit, about 1,700 lines, shared by all my apps. It contains the colour and typography tokens of my design system, button styles, the large-number component, the "no subscription / no in-app purchases / no account / no ads / no tracking / data on the device" pills, and the Settings screen with the privacy policy and the font licence. It holds no habit, Health, sync or business logic. Sbu Habits' own code is about 14,600 lines: the habit model and streak rules, schedules, Health linking, timers and Live Activity, widgets, the Watch app, CloudKit sync and sharing, export/import, statistics, and the tests.
+
+**8. Code shared with third-party apps**
+
+None. The app uses only Apple frameworks (SwiftUI, SwiftData, HealthKit, WidgetKit, ActivityKit, WatchConnectivity, CloudKit, UserNotifications). The only outside asset is the Bricolage Grotesque typeface (SIL Open Font License), used for the large number and credited in Settings.
+
+**9. Client, partner or third party**
+
+No. I am Matteo Giuditta, an individual developer; I designed and wrote Sbu Habits myself in Swift and SwiftUI, in Xcode, in my own repository. No commercial template, app generation service or third party provided its code, content, concept or branding. sbu.dev is my own site.
+
+I am happy to provide a screen recording or more detail on any point.

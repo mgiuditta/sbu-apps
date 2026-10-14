@@ -5,7 +5,7 @@ This is version 2.0 of an app already on the App Store, rebuilt in Swift. At fir
 1. The main screen is the camera: point it at any QR code or barcode and it reads by itself. iOS asks for the camera the first time. "From a Photo" reads a code from an image picked with the system photo picker (no library permission).
 2. The result screen shows what the code says. For a link it shows the site's name, the full address and local warnings (http, IP address, punycode, "@" in the address, shorteners) before "Open Link", which opens Safari. For Wi-Fi, "Connect" uses NEHotspotConfiguration, so iOS asks the user to join; for a contact or event, the system's new-contact and new-event sheets open; for a product barcode, "Search the Web" opens Safari's search.
 3. "History" (top left): search, favourites, folders, CSV export, clear.
-4. "Create" (top right): make QR codes for links, text, Wi-Fi, contacts, email, phone, SMS, places and events, or EAN-13 and Code 128 barcodes; share as PNG or SVG.
+4. "Create" (top right): make QR codes for links, text, Wi-Fi, contacts, email, phone, SMS, places and events, as QR, Aztec or PDF417, or as EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF-14 or Codabar barcodes; share as PNG or SVG.
 
 The Hotspot Configuration entitlement is used only for the "Connect" button on a Wi-Fi code.
 

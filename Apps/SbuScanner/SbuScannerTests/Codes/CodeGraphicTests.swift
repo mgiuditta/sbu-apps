@@ -12,12 +12,29 @@ struct CodeGraphicTests {
         ("Città, caffè e però", .qr, .qr),
         ("4006381333931", .ean13, .ean13),
         ("SBU-2026-0042", .code128, .code128),
+        ("Sbu Scanner 2.0", .aztec, .aztec),
+        ("Sbu Scanner, un codice lungo per il PDF417", .pdf417, .pdf417),
+        ("96385074", .ean8, .ean8),
+        ("04252614", .upce, .upce),
+        ("SBU-42", .code39, .code39),
+        ("15400141288763", .itf14, .itf14),
     ])
     func whatIsDrawnReadsBack(text: String, format: CodeFormat, symbology: Symbology) async throws {
         let graphic = try #require(CodeGraphic(text, format: format))
         let png = try #require(graphic.image(moduleSize: 6).pngData())
         let readings = try await PhotoCodeReader.codes(in: png)
         #expect(readings == [CodeReading(raw: text, symbology: symbology)])
+    }
+
+    /// Scanners give back what the bars say: UPC-A as an EAN-13 with its leading 0, Codabar with its start and stop letters.
+    @Test(.enabled(if: !Self.isSimulator, "Vision reads no barcodes in the simulator"), arguments: [
+        ("036000291452", CodeFormat.upca, "0036000291452", Symbology.ean13),
+        ("31117013206375", .codabar, "A31117013206375A", .codabar),
+    ])
+    func barcodesReadBackAsScannersSeeThem(text: String, format: CodeFormat, read: String, symbology: Symbology) async throws {
+        let graphic = try #require(CodeGraphic(text, format: format))
+        let png = try #require(graphic.image(moduleSize: 6).pngData())
+        #expect(try await PhotoCodeReader.codes(in: png) == [CodeReading(raw: read, symbology: symbology)])
     }
 
     /// The same check for QR codes with Core Image's detector, which works in the simulator too.

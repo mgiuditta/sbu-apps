@@ -15,7 +15,7 @@ Inquadra un codice e si legge da solo. Prima di aprire un link vedi dove porta d
 - Contatti, eventi, email, telefono, SMS e posizioni: un tocco per aggiungerli o aprirli
 - Prodotti: il numero del codice a barre, da cercare sul web
 - Cronologia con ricerca, preferiti e cartelle, esportabile in CSV
-- Crea QR per link, testo, Wi-Fi, contatti, email, telefono, SMS, posizioni ed eventi, e codici a barre EAN-13 e Code 128
+- Crea QR per link, testo, Wi-Fi, contatti, email, telefono, SMS, posizioni ed eventi, e codici a barre EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF-14 e Codabar, oltre ad Aztec e PDF417
 - Esporta i codici creati in PNG o SVG
 - Comandi Rapidi, Siri e tasto Azione per aprire subito la fotocamera
 - Suono e vibrazione a scelta

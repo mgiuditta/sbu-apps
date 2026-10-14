@@ -30,9 +30,9 @@ nonisolated struct CodeDraft: Equatable, Sendable {
     /// The formats this kind can be drawn in: barcodes only hold a number or a short text.
     var formats: [CodeFormat] {
         switch kind {
-        case .product: [.ean13, .code128]
-        case .text: [.qr, .code128]
-        default: [.qr]
+        case .product: [.ean13, .ean8, .upca, .upce, .itf14, .code128, .code39, .codabar]
+        case .text: [.qr, .aztec, .pdf417, .code128, .code39, .codabar]
+        default: [.qr, .aztec, .pdf417]
         }
     }
 
@@ -50,8 +50,9 @@ nonisolated struct CodeDraft: Equatable, Sendable {
         case .event: event.title.isEmpty || (event.end.map { $0 < event.start } ?? false) ? nil : event.code
         case .product: productNumber.filter(\.isNumber).isEmpty ? nil : productNumber.filter { !$0.isWhitespace }
         }
-        guard let value, CodeGraphic(value, format: format) != nil else { return nil }
-        return value
+        // Check digits added, Code 39 in capitals: the list keeps what the code really says.
+        guard let value, let code = format.normalized(value), CodeGraphic(code, format: format) != nil else { return nil }
+        return code
     }
 
     /// A name for the list of created codes when the user gives none.

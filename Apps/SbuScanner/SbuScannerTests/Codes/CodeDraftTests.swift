@@ -63,7 +63,7 @@ struct CodeDraftTests {
     @Test func productNeedsAValidEAN13UnlessCode128() {
         var draft = CodeDraft(kind: .product)
         draft.productNumber = "400638133393"
-        #expect(draft.payload == "400638133393")
+        #expect(draft.payload == "4006381333931")
         draft.productNumber = "4006381333932"
         #expect(draft.payload == nil)
         draft.format = .code128
@@ -85,9 +85,19 @@ struct CodeDraftTests {
     }
 
     @Test func formatsByKind() {
-        #expect(CodeDraft(kind: .product).formats == [.ean13, .code128])
+        #expect(CodeDraft(kind: .product).formats.first == .ean13)
         #expect(CodeDraft(kind: .product).format == .ean13)
-        #expect(CodeDraft(kind: .text).formats == [.qr, .code128])
-        #expect(CodeDraft(kind: .wifi).formats == [.qr])
+        #expect(!CodeDraft(kind: .product).formats.contains(.qr))
+        #expect(CodeDraft(kind: .text).formats.first == .qr)
+        #expect(CodeDraft(kind: .wifi).formats == [.qr, .aztec, .pdf417])
+    }
+
+    @Test func code39IsSavedInCapitals() {
+        var draft = CodeDraft(kind: .text)
+        draft.text = "sbu-42"
+        draft.format = .code39
+        #expect(draft.payload == "SBU-42")
+        draft.text = "sbu_42"
+        #expect(draft.payload == nil)
     }
 }

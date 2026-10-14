@@ -15,7 +15,7 @@ Point at a code and it reads by itself. Before a link opens, you see where it re
 - Contacts, events, email, phone, texts and places: one tap to add or open them
 - Products: the barcode's number, to search on the web
 - History with search, favourites and folders, exportable as CSV
-- Make QR codes for links, text, Wi-Fi, contacts, email, phone, texts, places and events, and EAN-13 and Code 128 barcodes
+- Make QR codes for links, text, Wi-Fi, contacts, email, phone, texts, places and events, EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF-14 and Codabar barcodes, plus Aztec and PDF417
 - Export the codes you make as PNG or SVG
 - Shortcuts, Siri and the Action button to open the camera right away
 - Sound and vibration, your choice

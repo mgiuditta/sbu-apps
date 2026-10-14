@@ -7,7 +7,7 @@ nonisolated enum PhotoCodeReader {
     @concurrent
     static func codes(in imageData: Data) async throws -> [CodeReading] {
         let request = VNDetectBarcodesRequest()
-        request.symbologies = Symbology.allCases.map(\.visionSymbology)
+        request.symbologies = Symbology.visionSymbologies
         try VNImageRequestHandler(data: imageData).perform([request])
         var seen = Set<CodeReading>()
         return (request.results ?? []).compactMap { observation in

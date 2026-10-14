@@ -78,7 +78,7 @@ nonisolated final class CaptureEngine: NSObject, AVCaptureMetadataOutputObjectsD
             session.addOutput(output)
             output.setMetadataObjectsDelegate(self, queue: queue)
         }
-        output.metadataObjectTypes = Symbology.allCases.map(\.metadataType).filter(output.availableMetadataObjectTypes.contains)
+        output.metadataObjectTypes = Symbology.metadataTypes.filter(output.availableMetadataObjectTypes.contains)
 
         // On a virtual camera, start on the main lens: iOS switches to the ultra wide by itself for close-up codes.
         baseZoom = device.virtualDeviceSwitchOverVideoZoomFactors.first.map { CGFloat(truncating: $0) } ?? 1

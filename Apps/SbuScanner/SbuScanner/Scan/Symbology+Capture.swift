@@ -20,7 +20,16 @@ nonisolated extension Symbology {
         }
     }
 
+    /// Every camera type to ask for: Interleaved 2 of 5 too, which is how ITF-14 cartons often read.
+    static var metadataTypes: [AVMetadataObject.ObjectType] {
+        allCases.map(\.metadataType) + [.interleaved2of5]
+    }
+
     init?(metadataType: AVMetadataObject.ObjectType) {
+        if metadataType == .interleaved2of5 {
+            self = .itf14
+            return
+        }
         guard let match = Self.allCases.first(where: { $0.metadataType == metadataType }) else { return nil }
         self = match
     }
@@ -43,7 +52,16 @@ nonisolated extension Symbology {
         }
     }
 
+    /// Every Vision type to look for, Interleaved 2 of 5 included.
+    static var visionSymbologies: [VNBarcodeSymbology] {
+        allCases.map(\.visionSymbology) + [.i2of5, .i2of5Checksum]
+    }
+
     init?(visionSymbology: VNBarcodeSymbology) {
+        if visionSymbology == .i2of5 || visionSymbology == .i2of5Checksum {
+            self = .itf14
+            return
+        }
         guard let match = Self.allCases.first(where: { $0.visionSymbology == visionSymbology }) else { return nil }
         self = match
     }

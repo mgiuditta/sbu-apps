@@ -79,11 +79,13 @@ struct CreateFields: View {
                 TextField("Note", text: $draft.event.notes, axis: .vertical)
             case .product:
                 TextField("Numero del prodotto", text: $draft.productNumber)
-                    .keyboardType(.numberPad)
+                    .keyboardType([.code39, .codabar, .code128].contains(draft.format) ? .asciiCapable : .numberPad)
+                    .textInputAutocapitalization(.characters)
+                    .autocorrectionDisabled()
             }
         } footer: {
-            if draft.kind == .product, draft.format == .ean13 {
-                Text("EAN-13: 12 cifre, l'ultima la calcola Sbu Scanner, o 13 con quella giusta.")
+            if let hint = draft.format.lengthHint, draft.kind == .product || draft.kind == .text {
+                Text(hint)
             } else if draft.kind == .location {
                 Text("Le coordinate le trovi in Mappe: tocca e tieni premuto un punto, poi scorri in basso.")
             }

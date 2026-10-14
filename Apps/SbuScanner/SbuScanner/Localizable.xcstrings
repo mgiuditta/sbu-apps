@@ -221,12 +221,52 @@
         }
       }
     },
+    "Codabar: cifre e - $ : / . +": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codabar: digits and - $ : / . +"
+          }
+        }
+      }
+    },
+    "Code 39: lettere maiuscole, cifre, spazio e - . $ / + %.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code 39: capital letters, digits, space and - . $ / + %."
+          }
+        }
+      }
+    },
     "Codice": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Code"
+          }
+        }
+      }
+    },
+    "Codice Aztec": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aztec code"
+          }
+        }
+      }
+    },
+    "Codice PDF417": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PDF417 code"
           }
         }
       }
@@ -241,6 +281,16 @@
         }
       }
     },
+    "Codice a barre Codabar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codabar barcode"
+          }
+        }
+      }
+    },
     "Codice a barre Code 128": {
       "localizations": {
         "en": {
@@ -251,12 +301,62 @@
         }
       }
     },
+    "Codice a barre Code 39": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code 39 barcode"
+          }
+        }
+      }
+    },
     "Codice a barre EAN-13": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "EAN-13 barcode"
+          }
+        }
+      }
+    },
+    "Codice a barre EAN-8": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EAN-8 barcode"
+          }
+        }
+      }
+    },
+    "Codice a barre ITF-14": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ITF-14 barcode"
+          }
+        }
+      }
+    },
+    "Codice a barre UPC-A": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UPC-A barcode"
+          }
+        }
+      }
+    },
+    "Codice a barre UPC-E": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UPC-E barcode"
           }
         }
       }
@@ -491,6 +591,16 @@
         }
       }
     },
+    "EAN-8: 7 cifre, l'ultima la calcola Sbu Scanner, o 8 con quella giusta.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EAN-8: 7 digits and Sbu Scanner works out the last one, or 8 with the right one."
+          }
+        }
+      }
+    },
     "Elimina": {
       "localizations": {
         "en": {
@@ -667,6 +777,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Its codes stay in the history, without a folder."
+          }
+        }
+      }
+    },
+    "ITF-14: 13 cifre, l'ultima la calcola Sbu Scanner, o 14 con quella giusta.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ITF-14: 13 digits and Sbu Scanner works out the last one, or 14 with the right one."
           }
         }
       }
@@ -1567,6 +1687,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "All day"
+          }
+        }
+      }
+    },
+    "UPC-A: 11 cifre, l'ultima la calcola Sbu Scanner, o 12 con quella giusta.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UPC-A: 11 digits and Sbu Scanner works out the last one, or 12 with the right one."
+          }
+        }
+      }
+    },
+    "UPC-E: 6 cifre, o 7 con il sistema 0 o 1 davanti, o 8 con la cifra di controllo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UPC-E: 6 digits, or 7 with number system 0 or 1 in front, or 8 with the check digit."
           }
         }
       }

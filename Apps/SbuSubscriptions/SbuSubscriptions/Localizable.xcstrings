@@ -231,6 +231,16 @@
         }
       }
     },
+    "Accedi a iCloud nelle Impostazioni dell'iPhone per sincronizzare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in to iCloud in the iPhone's Settings to sync."
+          }
+        }
+      }
+    },
     "Acqua" : {
       "localizations" : {
         "en" : {
@@ -1067,6 +1077,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Its subscriptions stay, without a list."
+          }
+        }
+      }
+    },
+    "Gli abbonamenti vanno nel tuo iCloud e arrivano sui tuoi dispositivi, mai su un server di Sbu. Spento, restano solo su questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your subscriptions go to your iCloud and reach your devices, never a Sbu server. Off, they stay on this iPhone only."
           }
         }
       }
@@ -2321,6 +2341,26 @@
         }
       }
     },
+    "Si attiva quando riapri l'app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It starts when you reopen the app."
+          }
+        }
+      }
+    },
+    "Si ferma quando riapri l'app. I dati restano su questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It stops when you reopen the app. Your data stays on this iPhone."
+          }
+        }
+      }
+    },
     "Si rinnova domani: %@." : {
       "localizations" : {
         "en" : {
@@ -2357,6 +2397,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Symbol"
+          }
+        }
+      }
+    },
+    "Sincronizza con iCloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync with iCloud"
           }
         }
       }

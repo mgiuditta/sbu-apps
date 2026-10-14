@@ -1,3 +1,4 @@
+import CoreData
 import SbuKit
 import SwiftData
 import SwiftUI
@@ -19,7 +20,8 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork),
+                    dataLocation: Self.syncsWithICloud ? .yourDevices : .thisDevice) {
             MainView(currency: currency)
         } settings: {
             TotalSection()
@@ -35,12 +37,20 @@ struct RootView: View {
         .onReceive(NotificationCenter.default.publisher(for: ModelContext.didSave)) { _ in
             reschedule()
         }
+        // Changes brought in from your other devices through iCloud.
+        .onReceive(NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange).receive(on: RunLoop.main)) { _ in
+            reschedule()
+        }
         .onChange(of: reminders.minutesAfterMidnight) {
             reschedule()
         }
     }
 
+    /// What the store was opened with: the promise in Settings says where the data is right now.
+    private static let syncsWithICloud = UserDefaults.appGroup.bool(forKey: ModelContainer.iCloudSyncKey)
+
     private func reschedule() {
+        try? CategorySeeder.mergeDuplicates(modelContext)
         let subscriptions = (try? modelContext.fetch(FetchDescriptor<Subscription>())) ?? []
         PriceSettler.settle(subscriptions)
         let sources = subscriptions.map(\.reminderSource)

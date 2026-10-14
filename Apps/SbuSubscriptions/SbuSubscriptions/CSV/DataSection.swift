@@ -7,12 +7,21 @@ struct DataSection: View {
     let currency: CurrencySettings
 
     @Query private var subscriptions: [Subscription]
+    @AppStorage(ModelContainer.iCloudSyncKey, store: .appGroup) private var syncsWithICloud = false
+    /// What the store was opened with at launch; the switch takes effect on the next one.
+    @State private var syncedAtLaunch = UserDefaults.appGroup.bool(forKey: ModelContainer.iCloudSyncKey)
     @State private var isImporting = false
     @State private var file: CSVImport?
     @State private var failure: CSVImport.Failure?
 
     var body: some View {
         let export = CSVExport(subscriptions)
+        Section {
+            Toggle("Sincronizza con iCloud", isOn: $syncsWithICloud)
+                .accessibilityIdentifier("iCloudSync")
+        } footer: {
+            Text(syncFooter)
+        }
         Section {
             // Words only: beside a symbol the audit finds the title clipped at larger text (as in Sbu Habits).
             ShareLink(item: export, preview: SharePreview(export.fileName)) {
@@ -30,6 +39,16 @@ struct DataSection: View {
         } footer: {
             Text("Esporta crea un file con tutti gli abbonamenti: lo salvi dove vuoi tu. Importa legge un file della versione precedente, di questa o di un foglio di calcolo, e ti fa scegliere le righe.")
         }
+    }
+
+    private var syncFooter: LocalizedStringKey {
+        if syncsWithICloud, FileManager.default.ubiquityIdentityToken == nil {
+            return "Accedi a iCloud nelle Impostazioni dell'iPhone per sincronizzare."
+        }
+        if syncsWithICloud != syncedAtLaunch {
+            return syncsWithICloud ? "Si attiva quando riapri l'app." : "Si ferma quando riapri l'app. I dati restano su questo iPhone."
+        }
+        return "Gli abbonamenti vanno nel tuo iCloud e arrivano sui tuoi dispositivi, mai su un server di Sbu. Spento, restano solo su questo iPhone."
     }
 
     private var hasFailure: Binding<Bool> {

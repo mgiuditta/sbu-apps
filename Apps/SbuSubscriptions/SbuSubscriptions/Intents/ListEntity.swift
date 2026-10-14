@@ -21,7 +21,7 @@ struct ListEntityQuery: EntityQuery {
 
     func suggestedEntities() async throws -> [ListEntity] {
         try await MainActor.run {
-            let context = ModelContext(try ModelContainer.subscriptions())
+            let context = ModelContext(try ModelContainer.subscriptions(syncsWithICloud: false))
             return try context.fetch(FetchDescriptor<SubscriptionList>(sortBy: [SortDescriptor(\.order)])).map { ListEntity(id: $0.name) }
         }
     }

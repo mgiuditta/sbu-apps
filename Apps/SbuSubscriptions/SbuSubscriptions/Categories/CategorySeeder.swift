@@ -11,4 +11,24 @@ enum CategorySeeder {
         }
         try context.save()
     }
+
+    /// Two devices that synced through iCloud each seeded the same built-in categories: keep the oldest
+    /// of each key, move its subscriptions over, delete the copies.
+    static func mergeDuplicates(_ context: ModelContext) throws {
+        let categories = try context.fetch(FetchDescriptor<SubscriptionCategory>(sortBy: [SortDescriptor(\.order)]))
+        var kept: [String: SubscriptionCategory] = [:]
+        var changed = false
+        for category in categories {
+            guard let key = category.key else { continue }
+            guard let original = kept[key] else {
+                kept[key] = category
+                continue
+            }
+            for subscription in category.subscriptions ?? [] { subscription.category = original }
+            if original.customName.isEmpty { original.customName = category.customName }
+            context.delete(category)
+            changed = true
+        }
+        if changed { try context.save() }
+    }
 }

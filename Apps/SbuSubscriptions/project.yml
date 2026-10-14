@@ -29,6 +29,20 @@ targets:
       properties:
         # The store lives here so the widget can read it.
         com.apple.security.application-groups: [group.dev.sbu.subscriptions]
+        # Sincronizza con iCloud, off by default: the store mirrored to the user's own private
+        # CloudKit database (ADR-0008). App only; the widget reads the local store.
+        com.apple.developer.icloud-container-identifiers: [iCloud.dev.sbu.subscriptions]
+        com.apple.developer.icloud-services: [CloudKit]
+        # The silent notification iCloud sends when another device changed the store; no server of ours.
+        aps-environment: development
+    info:
+      path: SbuSubscriptions/Info.plist
+      properties:
+        # The version and build from the project settings, as without a plist of our own.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # Wakes the app for iCloud's silent notification, to bring in changes from your other devices.
+        UIBackgroundModes: [remote-notification]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.subscriptions

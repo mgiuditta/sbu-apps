@@ -27,7 +27,7 @@ struct SubscriptionsTimelineProvider: AppIntentTimelineProvider {
         let calendar = Calendar.current
         let currency = CurrencySettings()
         let period = UserDefaults.appGroup.string(forKey: TotalPeriod.storageKey).flatMap(TotalPeriod.init(rawValue:)) ?? .year
-        guard let container = try? ModelContainer.subscriptions(),
+        guard let container = try? ModelContainer.subscriptions(syncsWithICloud: false),
               var subscriptions = try? ModelContext(container).fetch(FetchDescriptor<Subscription>()) else {
             return SubscriptionsWidgetEntry(date: date, period: period, total: 0, monthRemaining: 0, currencyCode: currency.mainCurrency,
                                             upcoming: [], listName: nil, isEmpty: true)

@@ -17,6 +17,7 @@ struct SbuSubscriptionsApp: App {
         do {
             let container = try ModelContainer.subscriptions()
             try CategorySeeder.seed(container.mainContext)
+            try Subscription.repairDuplicateIDs(container.mainContext)
             // Before the first screen: whoever updates from the 1.0 finds their subscriptions there.
             LegacyMigration.runIfNeeded(container.mainContext, currency: CurrencySettings())
             return container

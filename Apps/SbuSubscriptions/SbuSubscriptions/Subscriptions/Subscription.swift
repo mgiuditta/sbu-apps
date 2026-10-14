@@ -67,6 +67,17 @@ final class Subscription {
 }
 
 extension Subscription {
+    /// A store migrated in place gives every existing row the same default `uuid`: give each copy a new one,
+    /// so Siri and Spotlight never mix two subscriptions up.
+    static func repairDuplicateIDs(_ context: ModelContext) throws {
+        let all = try context.fetch(FetchDescriptor<Subscription>())
+        var seen = Set<UUID>()
+        for subscription in all where !seen.insert(subscription.uuid).inserted {
+            subscription.uuid = UUID()
+        }
+        if context.hasChanges { try context.save() }
+    }
+
     /// What one payment costs on `day`, after any price change that has started by then.
     func price(on day: Date, calendar: Calendar = .current) -> Decimal {
         PriceTimeline.price(on: day, base: price, changes: (priceChanges ?? []).map { ($0.effectiveDate, $0.price) }, calendar: calendar)

@@ -59,3 +59,18 @@ struct SubscriptionTests {
         #expect(!subscription.isInTrial(on: day(2026, 10, 21), in: calendar))
     }
 }
+
+struct DuplicateIDTests {
+    @Test func copiesGetNewIDsTheFirstKeepsItsOwn() throws {
+        let context = ModelContext(try ModelContainer.subscriptions(inMemory: true))
+        let shared = UUID()
+        let first = Subscription(name: "A", price: 1, currencyCode: "EUR", startDate: .now)
+        let second = Subscription(name: "B", price: 1, currencyCode: "EUR", startDate: .now)
+        [first, second].forEach { $0.uuid = shared; context.insert($0) }
+        try context.save()
+        try Subscription.repairDuplicateIDs(context)
+        let ids = try context.fetch(FetchDescriptor<Subscription>()).map(\.uuid)
+        #expect(Set(ids).count == 2)
+        #expect(ids.contains(shared))
+    }
+}

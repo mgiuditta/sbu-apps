@@ -55,3 +55,14 @@ final class Subscription {
         return calendar.startOfDay(for: date) < calendar.startOfDay(for: trialEndDate)
     }
 }
+
+extension Subscription {
+    var charge: Charge {
+        Charge(price: price, currencyCode: currencyCode, cycle: cycle)
+    }
+
+    /// Whether it counts in the recurring total today: active, past its trial, and not paid off.
+    func countsInTotal(on date: Date = .now, in calendar: Calendar = .current) -> Bool {
+        !isInTrial(on: date, in: calendar) && nextPayment(after: date, in: calendar) != nil && cycle != .once
+    }
+}

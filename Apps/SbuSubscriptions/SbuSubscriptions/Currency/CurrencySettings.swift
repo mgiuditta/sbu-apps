@@ -14,7 +14,7 @@ final class CurrencySettings {
         didSet { defaults.set(try? JSONEncoder().encode(ownRates), forKey: Keys.ownRates) }
     }
 
-    init(defaults: UserDefaults = UserDefaults(suiteName: "group.dev.sbu.subscriptions") ?? .standard, locale: Locale = .current) {
+    init(defaults: UserDefaults = .appGroup, locale: Locale = .current) {
         self.defaults = defaults
         mainCurrency = defaults.string(forKey: Keys.mainCurrency) ?? locale.currency?.identifier ?? "EUR"
         ownRates = defaults.data(forKey: Keys.ownRates).flatMap { try? JSONDecoder().decode([String: OwnRate].self, from: $0) } ?? [:]

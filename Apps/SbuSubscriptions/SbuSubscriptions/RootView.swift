@@ -7,8 +7,9 @@ struct RootView: View {
 
     var body: some View {
         SbuAppShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork)) {
-            MainView()
+            MainView(currency: currency)
         } settings: {
+            TotalSection()
             CurrencySection(settings: currency)
         }
     }
@@ -16,11 +17,11 @@ struct RootView: View {
 
 #Preview("Light") {
     RootView()
-        .modelContainer(try! .subscriptions(inMemory: true))
+        .modelContainer(.preview)
 }
 
 #Preview("Dark") {
     RootView()
-        .modelContainer(try! .subscriptions(inMemory: true))
+        .modelContainer(.preview)
         .preferredColorScheme(.dark)
 }

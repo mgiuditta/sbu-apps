@@ -54,8 +54,10 @@ final class ReceivedLists {
         try? await inbox.accept(metadata)
         let owner = metadata.ownerIdentity.nameComponents?.formatted()
         await refresh()
-        if let owner, var file = try? store.load(),
-           let index = file.lists.firstIndex(where: { CloudKitSharedLists.zoneID(fromKey: $0.key)?.zoneName == metadata.share.recordID.zoneID.zoneName }) {
+        // Matched on the whole key, owner and zone: a zone name alone is chosen by whoever shares, and another
+        // person could reuse it to put their name on a list someone else shares with you.
+        let key = CloudKitSharedLists.key(of: metadata.share.recordID.zoneID)
+        if let owner, var file = try? store.load(), let index = file.lists.firstIndex(where: { $0.key == key }) {
             file.lists[index].ownerName = owner
             save(file)
         }

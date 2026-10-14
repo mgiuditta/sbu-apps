@@ -37,8 +37,8 @@
   --sbu-focus: #0a0a00;
   --sbu-shadow-marketing: 0 24px 48px -16px rgba(20, 24, 31, 0.28);
   --sbu-hairline: 1px;
-  --sbu-mark-size: 0.22em;
-  --sbu-mark-gap: 0.06em;
+  --sbu-mark-size: 0.52em;
+  --sbu-mark-gap: 0.09em;
 }
 
 @media (prefers-color-scheme: dark) {

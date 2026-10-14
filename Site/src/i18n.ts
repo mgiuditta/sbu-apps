@@ -21,6 +21,8 @@ export const ui = {
     promises: ['Nessun abbonamento', 'Nessun acquisto in-app', 'Nessun account', 'Nessuna pubblicità', 'Nessun tracking', 'Dati solo sul dispositivo'],
     freeBadge: ['Nessun account', 'Nessuna pubblicità', 'Nessun acquisto in-app', 'Dati solo su questo iPhone'],
     comingSoon: 'In arrivo',
+    /** The app's fixed catalogue number, its `order`: the same on the plate, the home and its page. */
+    number: (n: number) => `N° ${String(n).padStart(2, '0')}`,
     appStore: 'Scarica dall’App Store',
     requires: 'Per iPhone con iOS 17 o successivo.',
     features: 'Cosa fa',
@@ -52,6 +54,7 @@ export const ui = {
     promises: ['No subscription', 'No in-app purchases', 'No account', 'No ads', 'No tracking', 'Data stays on your device'],
     freeBadge: ['No account', 'No ads', 'No in-app purchases', 'Data only on this iPhone'],
     comingSoon: 'Coming soon',
+    number: (n: number) => `No. ${String(n).padStart(2, '0')}`,
     appStore: 'Download on the App Store',
     requires: 'For iPhone with iOS 17 or later.',
     features: 'What it does',

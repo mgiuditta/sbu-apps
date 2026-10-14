@@ -53,9 +53,9 @@ const here = localePath(locale, path);
 // The sheet lists the header's links first, then the footer's others.
 const more = footer.filter((item) => !nav.some((top) => top.href === item.href));
 // One instrument per page, the same on every visit: picked by the path, not at random.
-const engravings = await allEngravings(800);
+const engravings = await allEngravings(800, locale);
 const picked = engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
-const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.name?.[locale] });
+const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.caption });
 ---
 <!doctype html>
 <html lang={locale}>

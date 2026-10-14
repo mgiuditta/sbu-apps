@@ -124,10 +124,10 @@ public extension SbuTheme {
 
     // MARK: - Mark
 
-    /// Il punto fermo: lato del quadrato rispetto alla dimensione del font della cifra o del titolo che chiude. Sta sulla linea di base.
-    static let markSize: CGFloat = 0.22
-    /// Spazio tra l'ultimo carattere e il punto fermo, rispetto alla dimensione del font.
-    static let markGap: CGFloat = 0.06
+    /// Il punto fermo: lato del quadrato rispetto alla dimensione del font della cifra o del titolo che chiude, alto come la x di Bricolage (0,525 em): si riconosce come il quadrato del logo. Sta sulla linea di base.
+    static let markSize: CGFloat = 0.52
+    /// Spazio tra l'ultimo carattere e il punto fermo, rispetto alla dimensione del font. Con il margine laterale della lettera, l'inchiostro dista un quarto del lato, come nel logo.
+    static let markGap: CGFloat = 0.09
 }
 
 extension SbuTheme {

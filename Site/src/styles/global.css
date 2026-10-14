@@ -193,4 +193,9 @@
   @media (forced-colors: active) {
     .full-stop { forced-color-adjust: none; background: CanvasText; }
   }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Last on every title: the square drops onto the baseline and stops. Once, no bounce. */
+    .full-stop { animation: stamp .28s cubic-bezier(.3, 0, .2, 1) var(--stamp-delay, 250ms) both; }
+    @keyframes stamp { from { opacity: 0; translate: 0 -.6em; } }
+  }
 }

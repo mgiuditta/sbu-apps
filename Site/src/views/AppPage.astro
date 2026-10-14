@@ -4,7 +4,7 @@ import PageTitle from '../components/PageTitle.astro';
 import ToolFieldShot from '../components/ToolFieldShot.astro';
 import Base from '../layouts/Base.astro';
 import { capitalize, formatDate, formatPrice, localePath, ui } from '../i18n';
-import { instrument, text, type App } from '../lib/apps';
+import { plateCaption, text, type App } from '../lib/apps';
 import { breadcrumbs, faqPage } from '../lib/jsonld';
 import type { Route } from '../lib/routes';
 
@@ -44,12 +44,13 @@ const jsonLd = [
   description={`${listing.name} ${listing.oneThing}. ${t.metaSuffix}`}
   image={`/og/${app.slug}.png`}
   jsonLd={jsonLd}
-  plate={app.engraving ? { src: app.engraving, caption: instrument(app.slug, locale), lead: true } : false}
+  plate={app.engraving ? { src: app.engraving, caption: plateCaption(app.slug, app.order, locale), lead: true } : false}
 >
   <article class="app flex flex-col gap-12 py-8" style={`--c: var(--sbu-${app.accent})`}>
     {/* The instrument behind the app is the page's plate, beside the column (Base.astro). */}
     <header class="hero">
       <div class="flex flex-col gap-4">
+        <p class="text-footnote text-ink-muted tabular-nums">{t.number(app.order)}</p>
         <PageTitle text={listing.name} accent={app.accent} size="hero" />
         <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
         {listing.intro.map((paragraph) => <p>{paragraph}</p>)}

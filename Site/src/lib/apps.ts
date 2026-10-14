@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import type { ImageMetadata } from 'astro';
 import { getImage } from 'astro:assets';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import type { Locale } from '../i18n';
+import { ui, type Locale } from '../i18n';
 
 const icons = import.meta.glob<string>('../../../Design/icons/*.png', { query: '?url', import: 'default', eager: true });
 // The engraving alone, as an ink mask (white = ink): the app page draws it in `ink`, so it follows the theme.
@@ -23,17 +23,19 @@ export async function iconThumb(slug: string): Promise<string> {
   return (await getImage({ src: iconImages[`../../../Design/icons/sbu-${slug}.png`], width: 96, format: 'webp' })).src;
 }
 
-/** Every engraving in one size with its instrument's name, for pages that pick one (the plate). */
-export async function allEngravings(width: number): Promise<{ src: string; name?: Record<Locale, string> }[]> {
-  return Promise.all(Object.entries(engravings).map(async ([path, src]) => ({
-    src: (await getImage({ src, width, format: 'webp' })).src,
-    name: specs[path.match(/sbu-(.+)\.png$/)![1]]?.name,
-  })));
+/** Every engraving in one size with its caption, for pages that pick one (the plate). */
+export async function allEngravings(width: number, locale: Locale): Promise<{ src: string; caption?: string }[]> {
+  const order = new Map((await getCollection('apps')).map((app) => [app.id, app.data.order]));
+  return Promise.all(Object.entries(engravings).map(async ([path, src]) => {
+    const slug = path.match(/sbu-(.+)\.png$/)![1];
+    return { src: (await getImage({ src, width, format: 'webp' })).src, caption: plateCaption(slug, order.get(slug), locale) };
+  }));
 }
 
-/** The instrument's name, to caption the plate: from Design/icons/engravings.json. */
-export function instrument(slug: string, locale: Locale): string | undefined {
-  return specs[slug]?.name?.[locale];
+/** The plate's caption: the app's number, then the instrument's name from Design/icons/engravings.json. */
+export function plateCaption(slug: string, order: number | undefined, locale: Locale): string | undefined {
+  const name = specs[slug]?.name?.[locale];
+  return name && (order === undefined ? name : `${ui[locale].number(order)} · ${name}`);
 }
 
 const RESEARCH = resolve(process.cwd(), '..', 'research');

@@ -129,7 +129,7 @@
     width: calc(var(--spacing-12) * 7);
     aspect-ratio: 1;
     background: var(--sbu-line);
-    mask: var(--engraving) center / contain no-repeat luminance;
+    mask: var(--engraving) center / contain no-repeat;
   }
   @media (prefers-reduced-motion: no-preference) {
     /* Each line is printed in turn, the same rising reveal as the app page's engraving. */
@@ -145,11 +145,11 @@
   .column { max-width: 70ch; min-width: 0; }
   .plate { display: grid; gap: var(--spacing-2); width: min(100%, calc(var(--spacing-12) * 6)); }
   .plate-lead { order: -1; }
-  /* The ink mask is white on black: luminance keeps the strokes, the paper shows through the rest. */
+  /* The ink mask is alpha (Safari has no luminance masks): the strokes keep `ink`, the paper shows through the rest. */
   .plate-art {
     aspect-ratio: 1;
     background: var(--sbu-ink);
-    mask: var(--engraving) center / contain no-repeat luminance;
+    mask: var(--engraving) center / contain no-repeat;
   }
   @media (min-width: 64rem) {
     .reading { grid-template-columns: minmax(0, 70ch) minmax(0, 1fr); align-items: start; }

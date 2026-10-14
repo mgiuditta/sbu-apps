@@ -6,11 +6,11 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { ui, type Locale } from '../i18n';
 
 const icons = import.meta.glob<string>('../../../Design/icons/*.png', { query: '?url', import: 'default', eager: true });
-// The engraving alone, as an ink mask (white = ink): the app page draws it in `ink`, so it follows the theme.
+// The engraving alone, as an alpha ink mask: the app page draws it in `ink`, so it follows the theme.
 const specs: Record<string, { name?: Record<Locale, string> }> = JSON.parse(readFileSync(resolve(process.cwd(), '..', 'Design', 'icons', 'engravings.json'), 'utf8'));
 const engravings = import.meta.glob<ImageMetadata>('../../../Design/icons/source/*.png', { import: 'default', eager: true });
 
-/** The ink mask as a small WebP: the 1024px originals weigh up to 950 kB. Luminance masking works on any image. */
+/** The ink mask as a small WebP: the 1024px originals weigh up to 950 kB. WebP keeps the alpha the mask reads. */
 async function engraving(slug: string, width: number): Promise<string | undefined> {
   const source = engravings[`../../../Design/icons/source/sbu-${slug}.png`];
   return source ? (await getImage({ src: source, width, format: 'webp' })).src : undefined;

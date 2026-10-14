@@ -7,8 +7,8 @@ warm black (`ink`) on paper (`surface`), centred, with the square full stop in t
 in the accent's dark value. Tinted: the dark variant in greys, for iOS to tint.
 
 Subjects live in Design/icons/engravings.json ({name: {accent, subject}}). The engraving is
-kept as a greyscale ink mask in Design/icons/source/sbu-<name>.png (white = ink), so icons
-rebuild without calling a model.
+kept as an ink mask in Design/icons/source/sbu-<name>.png (white, alpha = ink), so icons
+rebuild without calling a model and the site can mask with it in every browser.
 
 Usage:
   python3 Tools/make_icons.py level [--appiconset Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIcon.appiconset]
@@ -206,10 +206,11 @@ def main() -> None:
     if args.generate or args.from_image:
         raw = generate(spec["subject"]) if args.generate else Image.open(args.from_image)
         source.parent.mkdir(parents=True, exist_ok=True)
-        ink_mask(raw).save(source)
+        mask = ink_mask(raw)
+        Image.merge("LA", (Image.new("L", mask.size, 255), mask)).save(source)
     if not source.exists():
         sys.exit(f"{source.relative_to(ROOT)} is missing: run with --generate or --from-image")
-    mask = Image.open(source).convert("L")
+    mask = Image.open(source).getchannel("A")
 
     ink, surface = palette["ink"], palette["surface"]
     variants = {

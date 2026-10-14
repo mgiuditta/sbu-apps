@@ -57,7 +57,7 @@ def footer(draw: ImageDraw.ImageDraw, colors: dict) -> None:
 
 def app_card(name: str, accent: str, colors: dict) -> Image.Image:
     image = Image.new("RGB", (W, H), colors["surface"])
-    mask = Image.open(SOURCES / f"sbu-{name}.png").convert("L").resize((H - 40, H - 40), Image.LANCZOS)
+    mask = Image.open(SOURCES / f"sbu-{name}.png").getchannel("A").resize((H - 40, H - 40), Image.LANCZOS)
     image.paste(Image.new("RGB", mask.size, colors["ink"]), (W - mask.width - 20, 20), mask)
     draw = ImageDraw.Draw(image)
     title(draw, ["Sbu", name.capitalize()], 132, PAD + 40, colors["ink"], colors[accent])

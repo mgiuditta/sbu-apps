@@ -66,7 +66,7 @@
   }
 
   const esc = s => s.replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
-  const mask = `url('${app.engraving}') center / contain no-repeat luminance`;
+  const mask = `url('${app.engraving}') center / contain no-repeat`;
   const pano = `
     <div class="engraving" style="left:${W - 1100}px;-webkit-mask:${mask};mask:${mask}"></div>
     ${app.shots.map((s, i) => {

@@ -47,6 +47,14 @@ Panorama on paper with the icon engraving and a closing card with the logo (Tool
 
 Build and upload to TestFlight
 
+### ios metadata
+
+```sh
+[bundle exec] fastlane ios metadata
+```
+
+Upload metadata and framed screenshots to App Store Connect, without a build or submitting
+
 ### ios release
 
 ```sh

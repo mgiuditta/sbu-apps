@@ -18,10 +18,19 @@ nonisolated enum HistoryCSV {
         return lines.map { $0.map(field).joined(separator: ",") }.joined(separator: "\r\n") + "\r\n"
     }
 
+    /// By Unicode scalar, not Character: "\r\n" is one Character and would hide its "\r". Spaces
+    /// before a sign don't make it safe, as spreadsheets skip them.
+    private static func startsLikeAFormula(_ value: String) -> Bool {
+        guard let first = value.unicodeScalars.first else { return false }
+        if "\t\r\n".unicodeScalars.contains(first) { return true }
+        guard let sign = value.unicodeScalars.first(where: { $0 != " " }) else { return false }
+        return "=+-@".unicodeScalars.contains(sign)
+    }
+
     private static func field(_ value: String) -> String {
         // A code's text comes from anyone: a cell that starts like a formula would run in a spreadsheet,
         // so it gets a leading apostrophe and stays text (OWASP CSV injection).
-        let value = value.first.map { "=+-@\t\r".contains($0) } == true ? "'" + value : value
+        let value = startsLikeAFormula(value) ? "'" + value : value
         guard value.contains(where: { $0 == "," || $0 == "\"" || $0.isNewline }) else { return value }
         return "\"" + value.replacing("\"", with: "\"\"") + "\""
     }

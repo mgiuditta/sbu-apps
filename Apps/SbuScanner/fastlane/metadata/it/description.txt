@@ -5,6 +5,20 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Inquadra un codice e si legge da solo. Prima di aprire un link vedi dove porta davvero.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Legge QR, Data Matrix, Aztec, PDF417 e codici a barre EAN, UPC, Code 128, Code 39 e altri
+- Torcia, fotocamera frontale e zoom con due dita
+- Legge un codice anche da una foto, senza accesso alla libreria
+- Prima di aprire un link: il nome del sito in grande, l'indirizzo intero e gli avvisi su http, indirizzi numerici, lettere che imitano altre e link accorciati
+- Wi-Fi: ti connette alla rete, o copia la password
+- Contatti, eventi, email, telefono, SMS e posizioni: un tocco per aggiungerli o aprirli
+- Prodotti: il numero del codice a barre, da cercare sul web
+- Cronologia con ricerca, preferiti e cartelle, esportabile in CSV
+- Crea QR per link, testo, Wi-Fi, contatti, email, telefono, SMS, posizioni ed eventi, e codici a barre EAN-13 e Code 128
+- Esporta i codici creati in PNG o SVG
+- Comandi Rapidi, Siri e tasto Azione per aprire subito la fotocamera
+- Suono e vibrazione a scelta
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: legge qualsiasi codice e ti fa vedere dove porta prima di aprirlo.

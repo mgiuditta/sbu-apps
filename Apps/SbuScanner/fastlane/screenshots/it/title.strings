@@ -1,2 +1,5 @@
-"01-main" = "Sbu Scanner";
-"02-privacy" = "Gratis. Senza account.";
+"01-main" = "Inquadra. Si legge da solo.";
+"02-result" = "Vedi dove porta il link.";
+"03-history" = "Cronologia, cartelle e CSV.";
+"04-created" = "Crea QR e codici a barre.";
+"05-privacy" = "Senza account. Dati sull'iPhone.";

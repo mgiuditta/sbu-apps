@@ -12,8 +12,7 @@ struct HistoryRow: View {
             subtitle: subtitle(content),
             systemImage: content.kind.systemImage,
             iconBackground: SbuTheme.surfaceSunken,
-            iconForeground: SbuTheme.inkMuted,
-            status: record.isFavorite ? "Preferito" : nil
+            iconForeground: SbuTheme.inkMuted
         )
     }
 

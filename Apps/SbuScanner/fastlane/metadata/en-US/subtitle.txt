@@ -1,1 +1,1 @@
-__SUBTITLE_EN__
+Read and make QR and barcodes

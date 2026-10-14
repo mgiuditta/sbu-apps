@@ -5,6 +5,20 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Point at a code and it reads by itself. Before a link opens, you see where it really goes.
 
-Sbu does one thing: __ONE_THING_EN__
+- Reads QR, Data Matrix, Aztec, PDF417 and EAN, UPC, Code 128, Code 39 barcodes and more
+- Torch, front camera and pinch to zoom
+- Reads a code from a photo too, without access to your library
+- Before a link opens: the site's name in large type, the full address, and warnings about http, numeric addresses, look-alike letters and shortened links
+- Wi-Fi: joins the network, or copies the password
+- Contacts, events, email, phone, texts and places: one tap to add or open them
+- Products: the barcode's number, to search on the web
+- History with search, favourites and folders, exportable as CSV
+- Make QR codes for links, text, Wi-Fi, contacts, email, phone, texts, places and events, and EAN-13 and Code 128 barcodes
+- Export the codes you make as PNG or SVG
+- Shortcuts, Siri and the Action button to open the camera right away
+- Sound and vibration, your choice
+- Light and dark, Dynamic Type, VoiceOver
+
+Sbu does one thing: it reads any code and shows you where it goes before you open it.

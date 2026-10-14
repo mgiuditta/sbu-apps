@@ -1,1 +1,1 @@
-
+reader,code,scan,generator,wifi,contact,product,link,ean,upc,camera,maker,creator,vcard,menu,ticket

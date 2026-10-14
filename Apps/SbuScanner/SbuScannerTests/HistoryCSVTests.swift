@@ -9,10 +9,11 @@ struct HistoryCSVTests {
         #expect(csv == "Data,Tipo,Codice,Cartella,Preferito,Contenuto\r\n1970-01-01T00:00:00Z,Testo,QR,\"Lavoro, casa\",1,\"Disse \"\"ciao\"\"\nA presto\"\r\n")
     }
 
-    @Test(arguments: ["=HYPERLINK(\"http://x\")", "+1+1", "-2", "@SUM(A1)", "\tcmd"])
+    @Test(arguments: ["=HYPERLINK(\"http://x\")", "+1+1", "-2", "@SUM(A1)", "\tcmd", "\r\n=1+1", "  =1+1"])
     func formulasStayText(content: String) {
         let row = HistoryCSV.Row(date: Date(timeIntervalSince1970: 0), kind: "Testo", symbology: "QR", folder: "", isFavorite: false, content: content)
-        let line = HistoryCSV.make([row], header: []).split(separator: "\r\n").last.map(String.init) ?? ""
-        #expect(line.hasSuffix(",'" + content) || line.hasSuffix(",\"'" + content.replacing("\"", with: "\"\"") + "\""), "\(line)")
+        let csv = HistoryCSV.make([row], header: [])
+        // The content is the last cell: it starts with an apostrophe, quoted or not.
+        #expect(csv.hasSuffix(",'" + content + "\r\n") || csv.hasSuffix(",\"'" + content.replacing("\"", with: "\"\"") + "\"\r\n"), "\(csv)")
     }
 }

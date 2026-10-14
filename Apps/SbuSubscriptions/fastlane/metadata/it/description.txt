@@ -5,6 +5,22 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Aggiungi i tuoi abbonamenti e in alto vedi quanto spendi all'anno, o al mese. Prima di ogni rinnovo ti arriva un promemoria con il giorno e l'importo.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Abbonamenti illimitati, da un elenco di servizi noti o scritti da te
+- Cicli settimanali, mensili, trimestrali, annuali, ogni N giorni, settimane, mesi o anni, una tantum o a rate
+- Quanto spendi in una cifra sola, con le altre valute convertite ai tassi BCE inclusi nell'app, oppure ai tuoi
+- Prove gratuite con i giorni che restano e il prezzo dopo la prova
+- Promemoria prima di ogni rinnovo e della fine della prova, all'ora che scegli
+- Calendario dei pagamenti con il totale del mese e quanto resta da pagare
+- Cambi di prezzo da una data, cronologia dei pagamenti e Segna come pagato
+- Categorie, liste e metodi di pagamento; ordina, raggruppa, filtra e cerca
+- Pausa, annulla e riattiva senza perdere nulla
+- Aiuto ad annullare: il sito del servizio o gli abbonamenti dell'App Store
+- Widget per la schermata Home e la schermata di blocco
+- Siri, Comandi Rapidi e Spotlight
+- Esporta e importa in CSV, anche da un foglio di calcolo
+- iCloud resta spento finché non lo attivi: allora gli abbonamenti si sincronizzano sui tuoi dispositivi, tramite il tuo iCloud
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: ti dice quanto ti costano gli abbonamenti, e nessun rinnovo ti sorprende.

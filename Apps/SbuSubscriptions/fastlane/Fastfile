@@ -83,7 +83,8 @@ platform :ios do
     begin
       version.fetch_app_store_review_detail
     rescue StandardError
-      version.create_app_store_review_detail(attributes: { notes: "No account needed. All data stays on the device." })
+      notes = File.read(File.expand_path("metadata/review_information/notes.txt", __dir__)).strip
+      version.create_app_store_review_detail(attributes: { notes: notes })
     end
   end
 

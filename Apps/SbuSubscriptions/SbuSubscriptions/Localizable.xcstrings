@@ -501,6 +501,16 @@
         }
       }
     },
+    "Archivio cloud" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloud storage"
+          }
+        }
+      }
+    },
     "Arriva subito, anche con l'app aperta." : {
       "localizations" : {
         "en" : {
@@ -707,6 +717,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finished"
+          }
+        }
+      }
+    },
+    "Corso di lingue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language course"
           }
         }
       }
@@ -981,6 +1001,16 @@
         }
       }
     },
+    "Film e serie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Films and series"
+          }
+        }
+      }
+    },
     "Finanza" : {
       "localizations" : {
         "en" : {
@@ -1027,6 +1057,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Games"
+          }
+        }
+      }
+    },
+    "Giornale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Newspaper"
           }
         }
       }
@@ -1901,6 +1941,16 @@
         }
       }
     },
+    "Palestra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gym"
+          }
+        }
+      }
+    },
     "PayPal" : {
       "localizations" : {
         "en" : {
@@ -2517,6 +2567,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Streaming"
+          }
+        }
+      }
+    },
+    "Strumenti di design" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Design tools"
           }
         }
       }

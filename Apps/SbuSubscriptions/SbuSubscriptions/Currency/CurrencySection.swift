@@ -23,7 +23,9 @@ struct CurrencySection: View {
     }
 
     static func name(of code: String) -> String {
-        Locale.current.localizedString(forCurrencyCode: code)?.localizedCapitalized ?? code
+        // Only the first letter: "US dollar", not localizedCapitalized's "Us Dollar".
+        guard let name = Locale.current.localizedString(forCurrencyCode: code), let first = name.first else { return code }
+        return first.uppercased() + name.dropFirst()
     }
 
     static let currencies = Locale.commonISOCurrencyCodes.sorted {

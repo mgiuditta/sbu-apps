@@ -1,14 +1,154 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "1 %@ =" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 %@ ="
+          }
+        }
+      }
+    },
+    "BCE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ECB"
+          }
+        }
+      }
+    },
+    "I totali sono in questa valuta. Gli abbonamenti in altre valute si convertono con i tassi BCE inclusi nell'app, o con i tuoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Totals are in this currency. Subscriptions in other currencies are converted with the ECB rates included in the app, or with your own."
+          }
+        }
+      }
+    },
+    "Manca il tasso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No rate"
+          }
+        }
+      }
+    },
+    "Quanto vale 1 %@ in %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What 1 %@ is worth in %@."
+          }
+        }
+      }
+    },
     "Sbu Subscriptions" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Subscriptions" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Subscriptions"
+          }
+        }
+      }
+    },
+    "Scrivi tu il tasso di ogni valuta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type the rate of each currency yourself."
+          }
+        }
+      }
+    },
+    "Tassi di cambio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exchange rates"
+          }
+        }
+      }
+    },
+    "Tassi di riferimento BCE del %@, inclusi nell'app: Sbu non va in rete. Tocca una valuta per scrivere il tasso del tuo estratto conto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ECB reference rates of %@, included in the app: Sbu never goes online. Tap a currency to type the rate on your bank statement."
+          }
+        }
+      }
+    },
+    "Tasso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rate"
+          }
+        }
+      }
+    },
+    "Tuo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yours"
+          }
+        }
+      }
+    },
+    "Tutti i tuoi abbonamenti sono in %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your subscriptions are in %@."
+          }
+        }
+      }
+    },
+    "Usa il tasso BCE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the ECB rate"
+          }
+        }
       }
     },
     "Valore" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Value"
+          }
+        }
+      }
+    },
+    "Valuta principale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Main currency"
+          }
+        }
       }
     }
   },

@@ -6,6 +6,7 @@ struct OrganizeSection: View {
         Section("Organizza") {
             NavigationLink("Categorie") { CategoriesView() }
             NavigationLink("Liste") { ListsView() }
+            NavigationLink("Dove trovare gli abbonamenti") { FindSubscriptionsView() }
         }
     }
 }

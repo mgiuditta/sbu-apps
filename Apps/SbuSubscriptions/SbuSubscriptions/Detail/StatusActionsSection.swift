@@ -12,10 +12,10 @@ struct StatusActionsSection: View {
             switch subscription.status {
             case .active:
                 Button("Metti in pausa") { set(.paused) }
-                Button("Annulla abbonamento") { set(.cancelled) }
+                Button("Segna come annullato") { set(.cancelled) }
             case .paused:
                 Button("Riprendi") { set(.active) }
-                Button("Annulla abbonamento") { set(.cancelled) }
+                Button("Segna come annullato") { set(.cancelled) }
             case .cancelled:
                 Button("Riattiva") { set(.active) }
             }

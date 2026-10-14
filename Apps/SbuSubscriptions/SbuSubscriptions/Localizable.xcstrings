@@ -91,6 +91,16 @@
         }
       }
     },
+    "Abbonamenti dell'App Store" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Store subscriptions"
+          }
+        }
+      }
+    },
     "Acqua" : {
       "localizations" : {
         "en" : {
@@ -251,12 +261,52 @@
         }
       }
     },
+    "Annulli sul sito del servizio, o qui se lo paghi con l'App Store." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You cancel on the service's website, or here if you pay through the App Store."
+          }
+        }
+      }
+    },
+    "App Store" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Store"
+          }
+        }
+      }
+    },
+    "Apri %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open %@"
+          }
+        }
+      }
+    },
     "Apri Impostazioni" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Apri gli abbonamenti dell'App Store" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open App Store subscriptions"
           }
         }
       }
@@ -341,12 +391,32 @@
         }
       }
     },
+    "Cerca gli addebiti con lo stesso importo ogni mese o ogni anno, anche piccoli. Guarda gli ultimi dodici mesi: gli annuali passano una volta sola." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Look for charges of the same amount every month or year, small ones too. Check the last twelve months: yearly ones show up only once."
+          }
+        }
+      }
+    },
     "Cerca un servizio" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search for a service"
+          }
+        }
+      }
+    },
+    "Cerca «ricevuta», «rinnovo» o «abbonamento» nella tua email: ogni servizio manda una ricevuta a ogni pagamento." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search your email for “receipt”, “renewal” or “subscription”: every service sends a receipt with each payment."
           }
         }
       }
@@ -377,6 +447,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cloud"
+          }
+        }
+      }
+    },
+    "Come annullare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to cancel"
           }
         }
       }
@@ -471,6 +551,16 @@
         }
       }
     },
+    "Dove trovare gli abbonamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Where to find subscriptions"
+          }
+        }
+      }
+    },
     "Elimina %@" : {
       "localizations" : {
         "en" : {
@@ -521,6 +611,26 @@
         }
       }
     },
+    "Email" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "Esce dal totale e dai promemoria. Puoi riattivarlo quando vuoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It leaves the total and the reminders. You can reactivate it anytime."
+          }
+        }
+      }
+    },
     "Esclusi %lld in %@: manca il tasso" : {
       "localizations" : {
         "en" : {
@@ -557,6 +667,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Export makes a file with every subscription: you keep it where you want. Import reads a file from the previous version, from this one or from a spreadsheet, and lets you choose the rows."
+          }
+        }
+      }
+    },
+    "Estratto conto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bank statement"
           }
         }
       }
@@ -661,6 +781,16 @@
         }
       }
     },
+    "Hai annullato %@?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Did you cancel %@?"
+          }
+        }
+      }
+    },
     "I dati della versione precedente restano su questo iPhone, intatti." : {
       "localizations" : {
         "en" : {
@@ -717,6 +847,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import CSV"
+          }
+        }
+      }
+    },
+    "Impostazioni dell'iPhone, il tuo nome in alto, poi Abbonamenti. Ci sono tutti quelli che paghi con l'App Store." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone Settings, your name at the top, then Subscriptions. Every one you pay through the App Store is there."
           }
         }
       }
@@ -981,6 +1121,16 @@
         }
       }
     },
+    "Nell'app PayPal: Impostazioni, Pagamenti, Gestisci pagamenti automatici." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the PayPal app: Settings, Payments, Manage automatic payments."
+          }
+        }
+      }
+    },
     "Nessun abbonamento" : {
       "localizations" : {
         "en" : {
@@ -1027,6 +1177,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Name"
+          }
+        }
+      }
+    },
+    "Non ancora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not yet"
           }
         }
       }
@@ -1271,6 +1431,16 @@
         }
       }
     },
+    "PayPal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PayPal"
+          }
+        }
+      }
+    },
     "Per esempio Famiglia o Lavoro. Ogni abbonamento può stare in una lista." : {
       "localizations" : {
         "en" : {
@@ -1507,6 +1677,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Type the rate of each currency yourself."
+          }
+        }
+      }
+    },
+    "Se lo paghi con l'App Store lo annulli qui. Altrimenti aggiungi il sito del servizio con Modifica." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you pay through the App Store, cancel it here. Otherwise add the service's website with Edit."
+          }
+        }
+      }
+    },
+    "Segna come annullato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as cancelled"
           }
         }
       }

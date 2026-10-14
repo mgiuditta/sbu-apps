@@ -50,7 +50,7 @@ struct SubscriptionDetailView: View {
                 if !subscription.paymentMethod.isEmpty {
                     LabeledContent("Metodo di pagamento", value: subscription.paymentMethod)
                 }
-                if let url = subscription.url {
+                if let url = subscription.url, WebPage.isWebPage(url) {
                     Link(destination: url) {
                         LabeledContent("Sito") { Text(url.host() ?? url.absoluteString) }
                     }
@@ -60,6 +60,7 @@ struct SubscriptionDetailView: View {
                 }
             }
 
+            CancelHelpSection(subscription: subscription)
             StatusActionsSection(subscription: subscription)
 
             Section {

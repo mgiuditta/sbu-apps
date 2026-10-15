@@ -10,6 +10,7 @@ final class LevelModel {
     private static let locksWhenSteadyKey = "locksWhenSteady"
     private static let steadyToleranceKey = "steadyTolerance"
     private static let speechKey = "speech"
+    private static let playsSoundKey = "playsSound"
 
     /// What the screen shows: the live reading, or the one frozen by the lock.
     private(set) var reading = LevelReading.level
@@ -57,6 +58,11 @@ final class LevelModel {
         didSet { defaults.set(speech.rawValue, forKey: Self.speechKey) }
     }
 
+    /// Plays a short sound when a lock or a calibration step is captured. Off by default.
+    var playsSound: Bool {
+        didSet { defaults.set(playsSound, forKey: Self.playsSoundKey) }
+    }
+
     @ObservationIgnored private var steadySampler: StableSampler?
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let source: any GravitySource
@@ -85,6 +91,7 @@ final class LevelModel {
         keepsScreenAwake = defaults.object(forKey: Self.keepsScreenAwakeKey) as? Bool ?? true
         unit = defaults.string(forKey: Self.unitKey).flatMap(AngleUnit.init(rawValue:)) ?? .standard
         locksWhenSteady = defaults.bool(forKey: Self.locksWhenSteadyKey)
+        playsSound = defaults.bool(forKey: Self.playsSoundKey)
         speech = defaults.string(forKey: Self.speechKey).flatMap(SpeechMode.init(rawValue:)) ?? .off
         steadyTolerance = SteadyLock.clamped(defaults.object(forKey: Self.steadyToleranceKey) as? Double ?? SteadyLock.defaultTolerance)
     }

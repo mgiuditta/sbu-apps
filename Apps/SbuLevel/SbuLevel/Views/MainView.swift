@@ -85,6 +85,7 @@ struct MainView: View {
             CalibrationSheet(model: model)
         }
         .onChange(of: model.lockCount) {
+            if model.playsSound { MeasureSound.play() }
             announceLock()
         }
         .onChange(of: model.readout) { _, readout in

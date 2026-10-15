@@ -40,6 +40,9 @@ struct CalibrationSheet: View {
                 }
             }
         }
+        .onChange(of: session.step) {
+            if model.playsSound { MeasureSound.play() }
+        }
         // Half height keeps the dial in sight; with accessibility text sizes the steps need the room.
         .presentationDetents(dynamicTypeSize.isAccessibilitySize ? [.large] : [.medium, .large])
     }

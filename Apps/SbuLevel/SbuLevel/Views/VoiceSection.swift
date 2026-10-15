@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// Settings section for reading the figure aloud.
+/// Settings section for what you hear: the figure read aloud, and a sound at each measure.
 struct VoiceSection: View {
     @Bindable var model: LevelModel
 
@@ -14,8 +14,12 @@ struct VoiceSection: View {
                 }
             }
             .pickerStyle(.menu)
+
+            Toggle("Suono alla misura", isOn: $model.playsSound)
+        } header: {
+            Text("Voce e suono")
         } footer: {
-            Text("La voce dell'iPhone legge la cifra e ogni blocco, così allinei senza guardare lo schermo. Funziona senza rete.")
+            Text("La voce dell'iPhone legge la cifra e ogni blocco, così allinei senza guardare lo schermo. Il suono segna ogni blocco e ogni passo della calibrazione. Funziona senza rete.")
         }
     }
 }

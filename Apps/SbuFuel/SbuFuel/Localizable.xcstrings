@@ -1,0 +1,16 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Sbu Fuel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Fuel" } }
+      }
+    },
+    "Valore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

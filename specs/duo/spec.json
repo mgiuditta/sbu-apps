@@ -32,25 +32,25 @@
   }
  ],
  "reference_outside_app_store": "None.",
- "one_thing": "Looks and works like a calculator. A secret code followed by '=' opens one private conversation with one person, through your own iCloud. The calculator's one figure is the result on the display.",
+ "one_thing": "One private conversation with one person, through your own iCloud, hidden behind a cover the user chooses (calculator, notes, stopwatch, converter or none). Each cover is a real tool with its own one figure; a secret code opens the conversation.",
  "features": [
   {
-   "name": "Calculator cover",
-   "description": "The app opens on a real, complete calculator: + - × ÷ %, ±, decimal, history tape, copy result; Decimal and FormatStyle, locale separators. The display is the screen's one figure (SbuToolField, SbuFullStop in the accent). Typing the secret code and '=' opens the conversation; any other input computes normally. Pure Calculator type with parameterized Swift Testing tests.",
+   "name": "Cover chosen by the user",
+   "description": "At first run and later in Info, the user picks how the app shows itself: a cover (the screen the app opens on) plus its matching alternate icon, set together with setAlternateIconName. 1.0 covers, each a real working tool built from SbuKit on surface, with its own one figure + SbuFullStop: Calcolatrice (display; code then '='), Note (a plain local notes list; a note titled with the code), Cronometro (stopwatch; laps entered as the code), Convertitore (units; the code as the value to convert). Plus 'Nessuna': opens on a plain lock screen with Face ID. The unlock gesture is described on the cover's setup screen and in the listing. Each cover is a pure type with Swift Testing tests. Covers never imitate Apple's apps: Sbu engraving icons, Sbu tokens.",
    "priority": "P0",
-   "reason": "Calculator# review: 'it could use being able to do math. It's a bit sus if you click and nothing happens'. The cover only holds if it is a real tool.",
-   "source": "competitor"
+   "reason": "The user decides how and with what to hide it. Calculator# offers only a calculator and reviews say a cover that does nothing is 'sus': every cover must work.",
+   "source": "sbu"
   },
   {
    "name": "Secret code",
-   "description": "Set at first run (6 to 10 digits, typed twice). Stored in the Keychain (kSecAttrAccessibleWhenUnlockedThisDeviceOnly) as salt + PBKDF2-SHA256 (CommonCrypto CCKeyDerivationPBKDF, iterations tuned to about 100 ms on device), never a plain hash, never in UserDefaults. Wrong code: the calculator shows the number like any other input, no error. Silent throttling: after 5 wrong attempts ending in '=', the correct code is ignored for growing intervals (1, 5, 15, 60 min), persisted in the Keychain so a relaunch does not reset it; the cover never shows a lockout. Forgotten code: there is no reset that keeps the conversation. 'Reimposta' (long-press on the display, then device authentication) erases the local store, the Keychain item and leaves the share (participant) or deletes the zone (owner) after a destructive confirm; the device passcode alone never opens the conversation. Documented in the listing.",
+   "description": "Set at first run (6 to 10 digits, typed twice). Stored in the Keychain (kSecAttrAccessibleWhenUnlockedThisDeviceOnly) as salt + PBKDF2-SHA256 (CommonCrypto CCKeyDerivationPBKDF, iterations tuned to about 100 ms on device), never a plain hash, never in UserDefaults. Wrong code: the cover treats it as normal input (a number, a note, a lap), no error. Silent throttling: after 5 wrong attempts ending in '=', the correct code is ignored for growing intervals (1, 5, 15, 60 min), persisted in the Keychain so a relaunch does not reset it; the cover never shows a lockout. Forgotten code: there is no reset that keeps the conversation. 'Reimposta' (long-press on the cover's figure, then device authentication) erases the local store, the Keychain item and leaves the share (participant) or deletes the zone (owner) after a destructive confirm; the device passcode alone never opens the conversation. Documented in the listing.",
    "priority": "P0",
    "reason": "Calculator#: 17 reviews about a forgotten password. Here the person to hide from may know the device passcode, so recovery must not reveal anything: losing the code costs the conversation, never its privacy.",
    "source": "competitor"
   },
   {
-   "name": "Back to the calculator",
-   "description": "Leaving the app, locking the phone or turning it face down (CMMotionManager gravity) closes the conversation and shows the calculator with an empty display. The app switcher snapshot shows the calculator.",
+   "name": "Back to the cover",
+   "description": "Leaving the app, locking the phone or turning it face down (CMMotionManager gravity) closes the conversation and shows the chosen cover in its empty state. The app switcher snapshot shows the cover.",
    "priority": "P0",
    "reason": "The cover must hold when someone picks up the phone.",
    "source": "competitor"
@@ -85,7 +85,7 @@
   },
   {
    "name": "Silent notifications",
-   "description": "CKDatabaseSubscription (shouldSendContentAvailable) wakes the app; it fetches changes and, only if the user turned it on, posts a local notification with neutral text chosen in Settings (default off; options like 'Promemoria'). Never a preview. Tapping it opens the calculator.",
+   "description": "CKDatabaseSubscription (shouldSendContentAvailable) wakes the app; it fetches changes and, only if the user turned it on, posts a local notification with neutral text chosen in Settings (default off; options like 'Promemoria'). Never a preview. Tapping it opens the cover.",
    "priority": "P0",
    "reason": "Originale: 'my kid has my wife's phone ... notification pops up and she taps the notification' (opens the chat without the password). Between: 'notifications just disappear'.",
    "source": "original"
@@ -98,8 +98,8 @@
    "source": "sbu"
   },
   {
-   "name": "Alternate icon",
-   "description": "Default icon: the Sbu engraving of a calculator (icon grammar: the real instrument behind the app). No imitation of Apple's Calculator icon or name.",
+   "name": "Icons",
+   "description": "One alternate icon per cover in the Sbu icon grammar (engraving of the instrument: calculator, notebook, stopwatch, ruler for the converter), plus the Duo default. The home-screen name cannot change at runtime (CFBundleDisplayName is fixed), so the app name must be neutral enough for every cover.",
    "priority": "P1",
    "reason": "Discretion through the cover itself; copying Apple's Calculator icon or name would be impersonation (2.3.7, 5.2).",
    "source": "sbu"
@@ -114,13 +114,11 @@
  ],
  "screens": [
   {
-   "name": "Calculator",
-   "purpose": "The tool screen on surface and the app's face: display as the one figure (SbuToolField + SbuFullStop), native-feeling keypad, history tape in a sheet.",
+   "name": "Cover",
+   "purpose": "The app's face, chosen by the user: Calcolatrice, Note, Cronometro or Convertitore, each a working tool on surface with its one figure (SbuToolField/SbuStat + SbuFullStop). Settings are never reachable from a cover.",
    "elements": [
-    "display",
-    "keypad",
-    "history",
-    "Settings sheet only from the conversation, never from the calculator"
+    "the chosen tool",
+    "no Duo branding visible"
    ]
   },
   {
@@ -172,16 +170,25 @@
     "Face ID toggle",
     "Termina la conversazione"
    ]
+  },
+  {
+   "name": "Choose cover",
+   "purpose": "List .insetGrouped of covers with icon preview and the unlock gesture in one line each; selecting sets cover and icon together.",
+   "elements": [
+    "cover rows",
+    "unlock gesture per cover",
+    "Nessuna"
+   ]
   }
  ],
  "flows": [
   {
    "name": "First run",
    "steps": [
-    "Calculator screen with a one-line hint 'Scegli un codice, poi premi ='",
-    "Code typed twice",
-    "Pairing screen: Invita",
-    "From now on the app opens as a plain calculator"
+    "Pairing or join",
+    "Choose cover: list with icon and unlock gesture",
+    "Set code, typed twice",
+    "Icon changes (system alert from iOS), app now opens on the cover"
    ]
   },
   {
@@ -207,15 +214,16 @@
     "Silent push wakes the app",
     "Fetch changes into SwiftData",
     "Optional neutral local notification",
-    "Tap -> calculator -> code + '=' -> conversation"
+    "Tap -> cover -> code -> conversation"
    ]
   }
  ],
  "data_model": {
   "Message (SwiftData + CKRecord)": "id, sender (CKRecord creator userRecordID), sentAt, text (encrypted), photo (CKAsset, optional), expiresAt (optional), state (local: pending, sent, failed)",
   "Conversation (one per install)": "zoneID, share URL, isOwner, partnerName (from CKShare participant), sinceDate",
-  "Settings (UserDefaults)": "faceIDAfterCode, blurPhotos, notificationsOn, notificationText",
-  "Secret (Keychain)": "salt + SHA256 of the code, kSecAttrAccessibleWhenUnlockedThisDeviceOnly"
+  "Settings (UserDefaults)": "cover, faceIDAfterCode, blurPhotos, notificationsOn, notificationText",
+  "Secret (Keychain)": "salt + SHA256 of the code, kSecAttrAccessibleWhenUnlockedThisDeviceOnly",
+  "Notes cover (SwiftData, local only)": "title, body, updatedAt; never synced"
  },
  "monetization": "Free. Promise block unchanged; the store page adds that messages go through each person's own iCloud.",
  "pains": [
@@ -233,7 +241,8 @@
   "Shared calendar, love letters, stickers, games: not the one thing.",
   "More than one conversation: Messages does it.",
   "Copying Apple's Calculator icon or name: impersonation.",
-  "Hiding photos from the camera roll (vault): not the one thing."
+  "Covers that need network (weather, news): not allowed in Sbu apps.",
+  "Changing the home-screen name per cover: iOS does not allow it."
  ],
  "system_frameworks": [
   "SwiftUI",
@@ -270,30 +279,35 @@
    "mitigation": "Only through each user's own iCloud (ADR-0011), Data Not Collected, privacy page explains CloudKit sharing and how to stop."
   },
   {
-   "rule": "2.3.1 hidden features",
-   "risk": "An app that hides a chat behind a calculator.",
-   "mitigation": "Documented, not hidden: name, subtitle, description and screenshots say it is a calculator with a private conversation behind a code, as Calculator# does (approved, 28,918 ratings). Review notes give a test code and a sample conversation."
-  },
-  {
    "rule": "2.3.7 / 5.2 impersonation",
-   "risk": "Looking like Apple's Calculator.",
+   "risk": "Covers looking like Apple's Calculator, Notes or Clock.",
    "mitigation": "Sbu engraving icon, Sbu name, SF keypad in Sbu tokens, no Apple icon or 'Calculator' alone as the name."
   },
   {
    "rule": "Brand",
    "risk": "Viral as an affair app reflects on sbu.dev and the other apps on the account.",
    "mitigation": "Listing and site speak of privacy at home and personal safety; never of partners to hide from. Decision for Matteo: same developer account or not."
+  },
+  {
+   "rule": "2.3.1 hidden features",
+   "risk": "An app that hides a chat behind a cover.",
+   "mitigation": "Documented: subtitle, description and screenshots show the covers and the unlock gestures, as Calculator# does (approved, 28,918 ratings). Review notes give a test code and a sample conversation."
+  },
+  {
+   "rule": "4.2 / 4.3",
+   "risk": "Several mini tools could read as a bundle of templates.",
+   "mitigation": "Covers are the frame of one thing, the conversation; each is small, real and tested."
   }
  ],
  "decisions_needed": [
-  "Store name and home-screen name: 'Sbu Calc' on the home screen? The store name must also say what is behind (e.g. 'Sbu Calc: calcolatrice e chat privata').",
-  "Same developer account as the other Sbu apps, given the 4.3 history and the brand risk.",
-  "Accent for Duo/Calc (not yet in Design/tokens.json).",
-  "Neutral notifications in 1.0 or off entirely.",
-  "Reset path for a forgotten code."
+  "Home-screen name, fixed for every cover: neutral (e.g. 'Strumenti', 'Utility') or 'Sbu Duo'. The store name must still say what is behind.",
+  "Which covers in 1.0: the four proposed or fewer.",
+  "Same developer account as the other Sbu apps.",
+  "Accent for Duo (not yet in Design/tokens.json).",
+  "Neutral notifications in 1.0 or off entirely."
  ],
- "estimate_days": 12,
- "estimate_note": "About 12 days: calculator with tests 2, code and Keychain 1, CloudKit sharing and push 4, conversation and photos 3, cover behaviour and polish 2. Two devices with two Apple IDs for testing.",
+ "estimate_days": 15,
+ "estimate_note": "About 15 days: four covers with tests 4 (calculator 2, notes, stopwatch, converter 2), code and Keychain 1, CloudKit sharing and push 4, conversation and photos 3, cover switching, icons and polish 3. Two devices with two Apple IDs for testing.",
  "source": {
   "listing": "research/1498275568/meta.json, research/458035189/meta.json, research/1165276801/meta.json",
   "reviews": "research/1498275568/reviews.json (49 unique, 1-3 stars), research/458035189/reviews.json (27 unique), research/1165276801/reviews.json (183 unique)",

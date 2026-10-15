@@ -67,8 +67,8 @@ public extension SbuTheme {
     static let accentInventory = Color("accent-inventory", bundle: .module)
     /// Accento di Sbu Fuel: lampone, tinta 350 tra Cycle e Cards, lontano da Speed. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentFuel = Color("accent-fuel", bundle: .module)
-    /// Accento di Sbu Tasca: petrolio, tinta 207 tra Docs e Transcribe. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentTasca = Color("accent-tasca", bundle: .module)
+    /// Accento di Sbu Duo: petrolio, tinta 207 tra Docs e Transcribe. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentDuo = Color("accent-duo", bundle: .module)
     /// Testo e glifi sopra ogni `accent-*`: bianco in light, nero caldo in dark (gli accenti dark sono chiari). Mai bianco letterale.
     static let onAccent = Color("on-accent", bundle: .module)
     /// Stato positivo: abitudine completata, calibrazione riuscita. Sempre con una parola o un SF Symbol.
@@ -140,7 +140,7 @@ public extension SbuTheme {
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-invoice", "accent-transcribe", "accent-find", "accent-remote", "accent-tuner", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "accent-tasca", "on-accent", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-invoice", "accent-transcribe", "accent-find", "accent-remote", "accent-tuner", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "accent-duo", "on-accent", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [

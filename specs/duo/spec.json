@@ -1,6 +1,6 @@
 {
- "name": "Sbu Tasca",
- "slug": "tasca",
+ "name": "Sbu Duo",
+ "slug": "duo",
  "in_repo": null,
  "replaces": [
   {
@@ -59,7 +59,7 @@
    "name": "Hide with iOS",
    "description": "Last step of setup: one screen that explains, with the system's own words, how to hide the app (iOS 18+: hold the icon, 'Richiedi Face ID', 'Nascondi e richiedi Face ID'; iOS 17: remove from the home screen, it stays in the App Library). The app never tries to hide itself; the cover is the second layer for whoever opens the Hidden folder.",
    "priority": "P0",
-   "reason": "Users will hide it no matter what; the OS feature also removes it from Spotlight and silences notifications. Tasca does not need to imitate what iOS already does.",
+   "reason": "Users will hide it no matter what; the OS feature also removes it from Spotlight and silences notifications. Duo does not need to imitate what iOS already does.",
    "source": "sbu"
   },
   {
@@ -71,7 +71,7 @@
   },
   {
    "name": "Messages",
-   "description": "Text messages as CKRecords in the shared zone, text in encryptedValues. Append-only: each person writes only their own records, so nothing to merge. Local store in SwiftData, CloudKit changes fetched with CKFetchRecordZoneChangesOperation (owner: private database, participant: shared database). Sent, delivered (on the server) and failed states with a word and a symbol; failed messages retry with 'Riprova'. Local store and photo cache with NSFileProtectionComplete, excluded from device backups (isExcludedFromBackup); CloudKit is the only copy off the device. End-to-end encryption, independent of iCloud: at pairing each device creates a Curve25519 key pair (CryptoKit), publishes only the public key as a record in the zone and derives keys with KeyAgreement + HKDF<SHA256>, salt = the zone ID, and a distinct info label per use: one sending key per direction ('tasca/v1/msg/<sender public key>'), one for photos, never the same key for two purposes. AES-GCM with a fresh random 96-bit nonce per message; the record ID and sender go into the authenticated data. The key that wraps the private key is a separate HKDF output ('tasca/v1/wrap') over the PBKDF2 output and the Secure Enclave secret, never reused elsewhere. Every message text and photo is sealed with AES-GCM before it reaches CloudKit and stays sealed in the local store. The private key lives only in the Keychain, wrapped by a key that needs both the code (PBKDF2) and a non-exportable Secure Enclave P256 key (SecureEnclave.P256.KeyAgreement, ThisDeviceOnly, combined with HKDF): guessing the code is only possible on this device, through the throttle, never offline. Without the code nothing is readable: not the local store, not the zone, not after delete and reinstall (the Keychain item survives but stays wrapped). Fail closed: any Keychain, Secure Enclave or decryption error shows the cover as if the code were wrong; nothing is ever shown unsealed by a fallback. Key authentication: each device shows at pairing a 6-digit safety code computed from both public keys, the same on both phones; nothing can be sent or shown until both confirm it matches (in person or on a call). The verified key is pinned; if the partner's key ever changes, the app neither sends nor opens anything signed with the new key until the code is compared again ('La chiave è cambiata', warning symbol).",
+   "description": "Text messages as CKRecords in the shared zone, text in encryptedValues. Append-only: each person writes only their own records, so nothing to merge. Local store in SwiftData, CloudKit changes fetched with CKFetchRecordZoneChangesOperation (owner: private database, participant: shared database). Sent, delivered (on the server) and failed states with a word and a symbol; failed messages retry with 'Riprova'. Local store and photo cache with NSFileProtectionComplete, excluded from device backups (isExcludedFromBackup); CloudKit is the only copy off the device. End-to-end encryption, independent of iCloud: at pairing each device creates a Curve25519 key pair (CryptoKit), publishes only the public key as a record in the zone and derives keys with KeyAgreement + HKDF<SHA256>, salt = the zone ID, and a distinct info label per use: one sending key per direction ('duo/v1/msg/<sender public key>'), one for photos, never the same key for two purposes. AES-GCM with a fresh random 96-bit nonce per message; the record ID and sender go into the authenticated data. The key that wraps the private key is a separate HKDF output ('duo/v1/wrap') over the PBKDF2 output and the Secure Enclave secret, never reused elsewhere. Every message text and photo is sealed with AES-GCM before it reaches CloudKit and stays sealed in the local store. The private key lives only in the Keychain, wrapped by a key that needs both the code (PBKDF2) and a non-exportable Secure Enclave P256 key (SecureEnclave.P256.KeyAgreement, ThisDeviceOnly, combined with HKDF): guessing the code is only possible on this device, through the throttle, never offline. Without the code nothing is readable: not the local store, not the zone, not after delete and reinstall (the Keychain item survives but stays wrapped). Fail closed: any Keychain, Secure Enclave or decryption error shows the cover as if the code were wrong; nothing is ever shown unsealed by a fallback. Key authentication: each device shows at pairing a 6-digit safety code computed from both public keys, the same on both phones; nothing can be sent or shown until both confirm it matches (in person or on a call). The verified key is pinned; if the partner's key ever changes, the app neither sends nor opens anything signed with the new key until the code is compared again ('La chiave è cambiata', warning symbol).",
    "priority": "P0",
    "reason": "The thing itself. Reviews of the originale: 'Consistently fails to send messages', 'Keep receiving messages but I can't see anything', 'decryption key error'. CloudKit encryption is managed by Apple: no key to lose.",
    "source": "original"
@@ -106,7 +106,7 @@
   },
   {
    "name": "Icons",
-   "description": "Default icon: the Sbu engraving of a pocket with a stitched seam. One alternate per cover in the Sbu grammar (gift box, notebook). The home-screen name 'Sbu Tasca' cannot change at runtime and fits every cover.",
+   "description": "Default icon: generic, in the Sbu grammar, an engraved gift box closed by the square full stop in accent-duo; says nothing about a conversation and matches the Regali cover. The home-screen name 'Sbu Duo' cannot change at runtime. Alternate icons per cover in a later version.",
    "priority": "P2",
    "reason": "Users hide the app anyway (iOS 18 Hidden apps); alternate icons only matter for those who keep it on the home screen.",
    "source": "sbu"
@@ -125,7 +125,7 @@
    "purpose": "The app's face, chosen by the user: Regali or Note, each a working tool on surface with its one figure (SbuToolField/SbuStat + SbuFullStop). Settings are never reachable from a cover.",
    "elements": [
     "the chosen tool",
-    "no Tasca branding visible"
+    "no Duo branding visible"
    ]
   },
   {
@@ -282,7 +282,7 @@
   {
    "rule": "4.3 spam",
    "risk": "Chat apps are crowded; Sbu Chats exists in repo.",
-   "mitigation": "Chats analyses exported chats offline, Tasca is a live conversation: no shared code or screens. Run originality-check before the submit."
+   "mitigation": "Chats analyses exported chats offline, Duo is a live conversation: no shared code or screens. Run originality-check before the submit."
   },
   {
    "rule": "5.1.1 privacy",
@@ -332,10 +332,11 @@
   ]
  },
  "decisions": {
-  "name": "Sbu Tasca on the home screen and the store, slug tasca; store name says what is inside, e.g. 'Sbu Tasca: chat privata nascosta'.",
+  "name": "Sbu Duo on the home screen and the store, slug duo; the store name says what is inside, e.g. 'Sbu Duo: chat privata nascosta'.",
   "covers_1_0": "Regali, Note, Nessuna. No calculator. No alternate icons in 1.0: the app is hidden with iOS.",
   "notifications": "On, random neutral text per cover, editable, can be turned off.",
   "account": "Same developer account; submit only after Apple answers the current lot, one submit per week.",
-  "accent": "accent-tasca, petrol, OKLCH hue 207 in the gap between Docs and Transcribe."
+  "accent": "accent-duo, petrol, OKLCH hue 207 in the gap between Docs and Transcribe.",
+  "icon": "Generic: engraved gift box, no chat symbols."
  }
 }

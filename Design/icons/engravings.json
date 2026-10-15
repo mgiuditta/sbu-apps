@@ -102,5 +102,13 @@
       "it": "Contapersone",
       "en": "Tally counter"
     }
+  },
+  "duo": {
+    "accent": "accent-duo",
+    "subject": "a small wrapped gift box tied with a ribbon bow, three-quarter view",
+    "name": {
+      "it": "Pacchetto regalo",
+      "en": "Gift box"
+    }
   }
 }

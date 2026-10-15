@@ -4,24 +4,57 @@ Obiettivo: ogni app a pagamento che non ha bisogno di un server ha la sua App Sb
 
 Traguardi: ~~25 app in revisione entro il 31 ottobre 2026, 100 entro fine anno~~, abbandonati dopo il rifiuto 4.3 del 14/10: conta la salute dell'account (vedi il calendario sotto). Il codice non è il collo di bottiglia: lo sono la revisione Apple e il test insieme.
 
+## Roadmap punta di lancia (15 ottobre 2026)
+
+Sostituisce le wave precedenti. Le utility non diventano virali da sole: diventano virali il numero (il paywall settimanale moltiplicato per 52) e la persona (uno studente di Sicurezza Informatica che rifà le app a pagamento e le regala). Piano di marketing in `docs/lancio-sbu.md`, motivi degli spostamenti in `docs/priorita-2026-10.md`.
+
+Prezzi: acquisti in-app mostrati da apps.apple.com/it il 15/10/2026, il più alto settimanale (o annuo dove non c'è un settimanale). "Equivalente annuo" = settimanale × 52. `launch_tier`: **spearhead** (piano di 14 giorni), **loop** (checklist ripetibile), **silent** (release senza contenuti).
+
+| Wave | App | Slug | Originale (ID) | paywall_weekly | paywall_yearly_equiv | hook | launch_tier | Giorni | Stato al 15/10 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Sbu Auth | `auth` | Authenticator ℠ App (6754900760) | 9,99 € (US fino a 14,90 $) | 519 € | Un generatore di codici 2FA costa 9,99 € a settimana. Sbu Auth è gratis, aperta e non tocca mai la rete. | spearhead | 3 | ricerca fatta, spec pronta |
+| 1 | Sbu Clean ("Sweep") | `clean` | Cleanup (1510944943); Swipewipe (1583884012) | 12,99 € (Swipewipe 9,99 €) | 675 € (Swipewipe 519 €) | Cleanup ti fa scegliere le foto per mezz'ora e poi chiede 12,99 € a settimana per eliminarle. Sbu Clean le elimina gratis. | spearhead | 6 (fatta) | costruita, respinta il 14/10 (4.3), risposta in attesa |
+| 1 | Sbu Steps | `steps` | Stompers (6477849675) | 5,99 € (giornata intera e storico) | 311 € | Stompers smette di contare i tuoi passi alle 21 se non paghi. Sbu Steps conta tutta la giornata, gratis. | loop | 3 | ricerca fatta, spec da fare |
+| 1 | Sbu Docs ("Scan") | `docs` | CamScanner+ (388624839) | nessuno (Premium 49,99 $/anno) | 50 $ | Scansionare un foglio non dovrebbe costare 50 $ l'anno e una filigrana. | loop | 7 | accento pronto, spec da fare |
+| 1 | Sbu Level 1.1 | `level` | Clinometer | una tantum | – | – | silent | in corso | reinvio dopo il 4.3 |
+| 2 | Sbu Focus | `focus` | Forest (866450515) | nessuno (27,99 €/anno) | 28 € | Forest ti fa pagare per scegliere quali app restano aperte. | loop | 4 | spec; entitlement FamilyControls da chiedere |
+| 2 | Sbu Alarm | `alarm` | Alarmy (1163786766) | n.v. (fino a 59,99 €/anno) | 60 € | Una sveglia non dovrebbe avere un abbonamento. | loop | 6 | spec; decisione iOS 26 o Noise |
+| 2 | Sbu Cycle | `cycle` | Flo (1038369065) | nessuno (39,99 €/anno) | 40 € | Il tuo ciclo resta sul tuo telefono, non su un server. | loop | n.d. | ricerca fatta; dati sanitari |
+| 2 | Sbu Chats | `chats` | The Cringe (6766070732) | 9,99 € | 519 € | Le statistiche delle tue chat costano 9,99 € a settimana. Qui sono gratis e non escono dal telefono. | loop | 12 (fatta) | pronta per il test insieme |
+| 2 | Sbu PDF | `pdf` | GoodReader (777310222) | nessuno (29,99 €/anno, Pro Pack 99,99 €) | 30 € | Hai già pagato GoodReader. Ora vuole anche un abbonamento. | loop | 6 | spec |
+| 3 | Sbu Remote | `remote` | TV Remote (1539090879) | 7,99 € | 415 € | Un telecomando per la TV a 7,99 € a settimana. | loop | n.d. | ricerca fatta |
+| 3 | Sbu Lift | `lift` | Hevy (1458862350) | nessuno (26,49 €/anno) | 26 € | – | silent | 8 | spec; elenco esercizi da scrivere |
+| 3 | Sbu Collage | `collage` | SCRL (1289057196) | 5,99 € | 311 € | – | silent | 6 | spec |
+| 3 | Sbu Words | `words` | Vocabulary (1084540807) | nessuno (39,99 €/anno) | 40 € | – | silent | 5 | spec; licenze dei dati |
+| 3 | Sbu Habits | `habits` | Streaks | una tantum | – | – | silent | fatta | respinta il 14/10, risposta in attesa |
+| 3 | Sbu Cards | `cards` | AnkiMobile | una tantum (24,99 $) | – | – | silent | n.d. | accento pronto |
+| 3 | Sbu Noise | `noise` | – | – | – | – | silent | fatta | respinta il 14/10, risposta in attesa |
+| 3 | Sbu Dark + Block | `dark`, `block` | Noir, Wipr 2 | una tantum | – | – | silent | n.d. | accento pronto |
+
+Fuori dalle wave e senza marketing (release silenziose negli slot liberi): Fuel e Inventory (pronte), Speed 1.1, Scanner 2.0, Subscriptions 2.0, Moon.
+
+Le app una tantum a prezzo equo (Streaks, AnkiMobile, Noir, Wipr) non si attaccano mai nei contenuti: nessuna indignazione, rischio antipatia.
+
 ## Calendario degli invii dopo il rifiuto 4.3 (15 ottobre 2026)
 
 Criterio: l'abbonamento è stupido da pagare se la funzione non ha bisogno di un server; una App Sbu per ogni nicchia così, l'affollamento non esclude. Dati: `research/it-top-grossing-2026-10-15.md`, `research/us-top-grossing-2026-10-15.md`, `research/niches/`.
 
 Regole: uno slot a settimana dalla risposta di Apple; app nuove e reinvii (Level 1.1, Speed 1.1) si alternano; prima le app già in corso, poi gli strumenti veri, le app veloci in nicchie sature solo dopo; al massimo un'app con dati sanitari al mese; fuori le nicchie che si sovrappongono a un'App Sbu finché il confine non è deciso. Scanner 2.0 è un aggiornamento e parte appena passa il test insieme.
 
-| Settimana | Invio | Originale | Stato al 15/10 |
-|---|---|---|---|
-| 1 | Chats | The Cringe | pronta per il test insieme |
-| 2 | Level 1.1 | Clinometer | reinvio |
-| 3 | Fuel | Fuelly | pronta per il test insieme |
-| 4 | Speed 1.1 | Speedometer 55 | reinvio |
-| 5 | Inventory | Sortly | in costruzione |
-| 6 | Leggi | Speechify | ricerca fatta |
-| 7 | Russare | SnoreLab | ricerca fatta, salute |
-| 8 | Ricalco | AR Drawing | ricerca fatta |
-| 9 | Digiuno | BodyFast, Zero | ricerca fatta, salute |
-| 10 | Suonerie | Garage Ringtones | ricerca fatta |
+| Settimana | Invio | Originale | Tier | Stato al 15/10 |
+|---|---|---|---|---|
+| 1 | Auth | Authenticator ℠ App | spearhead | da costruire (3 giorni) |
+| 2 | Clean | Cleanup | spearhead | reinvio o approvazione della risposta 4.3 |
+| 3 | Level 1.1 | Clinometer | silent | reinvio |
+| 4 | Steps | Stompers | loop | da costruire |
+| 5 | Speed 1.1 | Speedometer 55 | silent | reinvio |
+| 6 | Docs | CamScanner+ | loop | da costruire |
+| 7 | Chats | The Cringe | loop | pronta per il test insieme |
+| 8 | Fuel | Fuelly | silent | pronta per il test insieme |
+| 9 | Inventory | Sortly | silent | in costruzione |
+| 10 | Focus | Forest | loop | dopo l'entitlement |
+
+Se Apple approva Clean dalla risposta al Resolution Center prima della settimana 2, lo slot 2 passa a Steps e il resto scala.
 
 Riserve, in ordine: Calcolatrice, Font, Frasi, Impostore, Dividi, Spese, Collage.
 Ferme finché non si decide il confine: Pdf (con Docs), Cassaforte e Duo, Quaderno (con Pdf). Patente: aspetta la licenza del catalogo ministeriale. Ritocco e Gravidanza grandi; Palestra e Turni con paywall debole.
@@ -132,9 +165,7 @@ Sette app nuove, che non coincidono con nessuna app già in repo o in coda. Dati
 
 Gli accenti si aggiungono in `Design/tokens.json` con `sync_tokens.py` quando l'app parte, non prima.
 
-**Wave 1:** Level, Chats.
-**Wave 2:** Focus, Alarm, Habits, Cards.
-**Wave 3:** Lift, Collage, PDF, Words, Noise, Dark + Block.
+Wave superate dalla roadmap punta di lancia, in cima a questo documento.
 
 Le proposte che coincidevano con app già in coda (Cleanup e Swipewipe con Clean, CamScanner con Docs, StepsApp con Steps, Authenticator con Authenticator, i telecomandi TV con Remote, Flo con Cycle) restano dove sono nella coda qui sopra e non entrano nelle wave. Level è stata rifiutata il 14/10 e tolta dal sito il 15/10: "in corso" vale solo per la risposta al Resolution Center. Focus sta nella nicchia che ha fatto scartare Bear Focus Timer (Intervals), Alarm in quella della sveglia di Sbu Noise: vedi l'analisi.
 

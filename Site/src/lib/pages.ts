@@ -13,6 +13,9 @@ interface TextPage {
   faq?: { q: string; a: string }[];
 }
 
+/** The public code of the site and every app. */
+export const REPO_URL = 'https://github.com/mgiuditta/sbu-apps';
+
 /** Support address, not decided yet: the contact paragraph appears only once it is set. */
 export const SUPPORT_EMAIL: string | undefined = 'matteogiuditta@gmail.com';
 
@@ -43,6 +46,12 @@ const principles: Record<Locale, TextPage> = {
           'Sbu sceglie un lavoro semplice che l’iPhone sa già fare, come misurare una pendenza o contare i giorni di fila, e ci costruisce un’app gratuita. Il codice e la grafica sono scritti da zero.',
         ],
       },
+      {
+        heading: 'Il codice è aperto',
+        paragraphs: [
+          'Il codice di ogni app e di questo sito è pubblico su GitHub, con licenza MIT. Non devi fidarti di quello che c’è scritto qui: puoi leggere cosa fa ogni app, riga per riga.',
+        ],
+      },
     ],
   },
   en: {
@@ -69,6 +78,12 @@ const principles: Record<Locale, TextPage> = {
         heading: 'How an app is made',
         paragraphs: [
           'Sbu picks a simple job your iPhone can already do, like measuring a slope or counting days in a row, and builds a free app for it. The code and the design are written from scratch.',
+        ],
+      },
+      {
+        heading: 'The code is open',
+        paragraphs: [
+          'The code of every app and of this site is public on GitHub, under the MIT licence. You don’t have to trust what this page says: you can read what each app does, line by line.',
         ],
       },
     ],

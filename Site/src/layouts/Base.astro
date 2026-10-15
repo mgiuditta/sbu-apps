@@ -4,6 +4,8 @@ import mark from '../../../Design/logos/sbu-mark.svg?url';
 import logoSvg from '../../../Design/logos/sbu-logo.svg?raw';
 import { localePath, ui, type Locale } from '../i18n';
 import { allEngravings } from '../lib/apps';
+import { REPO_URL } from '../lib/pages';
+import GitHubMark from '../components/GitHubMark.astro';
 
 interface Props {
   locale: Locale;
@@ -112,6 +114,10 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
             </ul>
           </nav>
           <ul class="flex items-center gap-4"><slot name="nav-end" /></ul>
+          <a href={REPO_URL} class="-m-2 p-2 text-ink hover:text-ink-muted" title={t.code}>
+            <GitHubMark />
+            <span class="sr-only">{t.code}</span>
+          </a>
           <button type="button" class="narrow text-ink" data-menu-open aria-haspopup="dialog">{t.menu}</button>
         </div>
       </div>
@@ -136,6 +142,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
           {alternates.includes(other) && (
             <li style={`--i: ${nav.length + more.length}`}><a href={localePath(other, path)} hreflang={other} lang={other} class="text-ink-muted">{t.otherLocale.label}</a></li>
           )}
+          <li style={`--i: ${nav.length + more.length + 1}`}><a href={REPO_URL} class="inline-flex items-center gap-2 text-ink-muted"><GitHubMark class="h-4 w-4" />{t.code}</a></li>
         </ul>
       </nav>
     </dialog>
@@ -171,6 +178,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
         </ul>
         <ul class="flex flex-col gap-2 text-footnote" aria-label={t.footerSite}>
           {footer.filter((item) => !tools.has(item.href)).map((item) => <li><a href={item.href} aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>)}
+          <li><a href={REPO_URL} class="inline-flex items-center gap-2"><GitHubMark class="h-4 w-4" />{t.code}</a></li>
         </ul>
         <p class="site-footer-note text-footnote">{t.footerNote}</p>
       </div>

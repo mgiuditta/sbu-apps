@@ -26,10 +26,14 @@ function read(dir: string, file: string): string {
 
 function text(app: string, locale: keyof typeof FOLDERS): ListingText {
   const dir = join(APPS, app, 'fastlane', 'metadata', FOLDERS[locale]);
-  const [promises, ...blocks] = read(dir, 'description').split(/\n\s*\n/);
-  if (promises.trim() !== PROMISES[locale]) {
-    throw new Error(`${app} ${locale}: the description must start with the fixed promise block`);
+  const blocks = read(dir, 'description').split(/\n\s*\n/);
+  // The promise block opens the description or, since the 1.1 listings, closes it; one line per promise or one line.
+  const flat = (s: string) => s.replace(/\s+/g, ' ').trim();
+  const at = [0, blocks.length - 1].find((i) => flat(blocks[i]) === flat(PROMISES[locale]));
+  if (at === undefined) {
+    throw new Error(`${app} ${locale}: the description must start or end with the fixed promise block`);
   }
+  blocks.splice(at, 1);
   const last = blocks.pop() ?? '';
   const oneThing = last.match(ONE_THING[locale])?.[1];
   if (!oneThing) throw new Error(`${app} ${locale}: the description must end with the Sbu one-thing line`);

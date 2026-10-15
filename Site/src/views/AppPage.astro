@@ -6,6 +6,7 @@ import Base from '../layouts/Base.astro';
 import { capitalize, formatDate, formatPrice, localePath, ui } from '../i18n';
 import { plateCaption, text, type App } from '../lib/apps';
 import { breadcrumbs, faqPage } from '../lib/jsonld';
+import { REPO_URL } from '../lib/pages';
 import type { Route } from '../lib/routes';
 
 type Props = Route & { app: App };
@@ -105,6 +106,7 @@ const jsonLd = [
     <ul class="flex flex-col gap-2">
       {alternative && <li><a href={localePath(locale, `alternatives/${alternative.slug}`)}>{t.alternativeLink(app.originale?.name ?? '')}</a></li>}
       <li><a href={localePath(locale, `privacy/${app.slug}`)}>{t.privacyLink(listing.name)}</a></li>
+      <li><a href={`${REPO_URL}/tree/main/Apps/${app.app}`}>{t.codeOf(listing.name)}</a></li>
     </ul>
     {originale?.checked && <p class="text-footnote text-ink-muted">{t.priceSource(formatDate(originale.checked, locale))}</p>}
   </article>

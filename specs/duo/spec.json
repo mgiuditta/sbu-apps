@@ -43,9 +43,9 @@
   },
   {
    "name": "Secret code",
-   "description": "Set at first run (4 to 8 digits, typed twice), stored in the Keychain as a salted SHA256 hash (CryptoKit), never in UserDefaults. Wrong code: the calculator shows the number like any other input, no error. Forgotten code: long-press on the display asks for the device passcode or Face ID (LAPolicy.deviceOwnerAuthentication) and lets you set a new code; documented in the listing.",
+   "description": "Set at first run (6 to 10 digits, typed twice). Stored in the Keychain (kSecAttrAccessibleWhenUnlockedThisDeviceOnly) as salt + PBKDF2-SHA256 (CommonCrypto CCKeyDerivationPBKDF, iterations tuned to about 100 ms on device), never a plain hash, never in UserDefaults. Wrong code: the calculator shows the number like any other input, no error. Silent throttling: after 5 wrong attempts ending in '=', the correct code is ignored for growing intervals (1, 5, 15, 60 min), persisted in the Keychain so a relaunch does not reset it; the cover never shows a lockout. Forgotten code: there is no reset that keeps the conversation. 'Reimposta' (long-press on the display, then device authentication) erases the local store, the Keychain item and leaves the share (participant) or deletes the zone (owner) after a destructive confirm; the device passcode alone never opens the conversation. Documented in the listing.",
    "priority": "P0",
-   "reason": "Calculator#: 17 reviews about a forgotten password with no recovery.",
+   "reason": "Calculator#: 17 reviews about a forgotten password. Here the person to hide from may know the device passcode, so recovery must not reveal anything: losing the code costs the conversation, never its privacy.",
    "source": "competitor"
   },
   {

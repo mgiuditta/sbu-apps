@@ -37,15 +37,13 @@ struct NumberField: View {
         .keyboardType(.decimalPad)
         .multilineTextAlignment(unitFirst ? .leading : .trailing)
         .monospacedDigit()
-        // The unit is hidden beside the field: VoiceOver hears it with the name.
-        .accessibilityLabel(Text("\(Text(title)), \(unit)"))
         .accessibilityIdentifier(identifier)
     }
 
+    /// Visible to VoiceOver too: hidden, the audit flagged it as text shown but not exposed.
     private var unitText: some View {
         Text(unit)
             .foregroundStyle(SbuTheme.inkMuted)
-            .accessibilityHidden(true)
     }
 
     /// Whether the locale writes its currency symbol before the amount.

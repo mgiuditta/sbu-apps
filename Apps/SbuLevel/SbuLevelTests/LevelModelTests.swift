@@ -180,6 +180,276 @@ struct LevelModelTests {
     @Test func aNormalLaunchUsesTheSensor() {
         #expect(FixedGravitySource.requested(in: defaults) == nil)
     }
+
+    @Test func zeroHereShowsTheTurnFromThere() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+
+        model.toggleReference()
+        model.update(with: .standing(rotatedBy: 27))
+
+        #expect(model.readout.isRelative)
+        #expect(abs(model.readout.angle - 7) < 1e-9)
+    }
+
+    @Test func tappingAgainGoesBackToTheAbsoluteAngle() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+        model.update(with: .standing(rotatedBy: 27))
+
+        model.toggleReference()
+
+        #expect(model.readout.isRelative == false)
+        #expect(abs(model.readout.angle - 27) < 1e-9)
+    }
+
+    @Test func changingModeClearsTheReference() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+
+        model.update(with: .lying(tiltedBy: 2))
+        model.update(with: .standing(rotatedBy: 20))
+
+        #expect(model.reference == nil)
+        #expect(model.readout.isRelative == false)
+    }
+
+    @Test func aLockedRelativeReadingStaysFrozen() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+        model.update(with: .standing(rotatedBy: 25))
+
+        model.toggleLock()
+        model.update(with: .standing(rotatedBy: 40))
+        // Rolling onto another edge while locked does not drop the reference under the frozen figure.
+        model.update(with: .standing(rotatedBy: 90))
+
+        #expect(model.readout.isRelative)
+        #expect(abs(model.readout.angle - 5) < 1e-9)
+    }
+
+    @Test func zeroingWhileLockedTakesTheFrozenReading() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleLock()
+        model.update(with: .standing(rotatedBy: 30))
+
+        model.toggleReference()
+        #expect(model.readout.angle == 0)
+        model.toggleLock()
+
+        #expect(abs(model.readout.angle - 10) < 1e-9)
+    }
+
+    @Test func theReferenceIsNotSaved() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+
+        #expect(makeModel().reference == nil)
+    }
+
+    @Test func theSightMeasuresTheLineOfSightAndEndsLockAndReference() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+        model.toggleLock()
+
+        model.toggleSight()
+        model.update(with: Gravity(x: 0, y: -cos(.pi / 18), z: sin(.pi / 18)))
+
+        #expect(model.isSighting)
+        #expect(model.isLocked == false)
+        #expect(model.reference == nil)
+        #expect(model.reading.mode == .sight)
+        #expect(abs(model.readout.angle - 10) < 1e-9)
+    }
+
+    @Test func calibratingClosesTheSight() {
+        let model = makeModel()
+        model.toggleSight()
+
+        model.startCalibration()
+
+        #expect(model.isSighting == false)
+    }
+
+    @Test func theSightIsNotSaved() {
+        makeModel().toggleSight()
+
+        #expect(makeModel().isSighting == false)
+    }
+
+    // MARK: - Steady lock
+
+    private func steadyModel(tolerance: Double = 0.5) -> LevelModel {
+        let model = makeModel()
+        model.locksWhenSteady = true
+        model.steadyTolerance = tolerance
+        return model
+    }
+
+    @Test func theSteadyLockIsOffByDefaultAndSaved() {
+        #expect(makeModel().locksWhenSteady == false)
+        #expect(makeModel().steadyTolerance == SteadyLock.defaultTolerance)
+
+        _ = steadyModel(tolerance: 1.2)
+
+        #expect(makeModel().locksWhenSteady)
+        #expect(makeModel().steadyTolerance == 1.2)
+    }
+
+    @Test func theSteadyLockWaitsThenFreezesTheMean() {
+        let model = steadyModel()
+        model.update(with: .standing(rotatedBy: 20))
+
+        model.toggleLock()
+        #expect(model.isLocked == false)
+        #expect(model.steadyProgress == 0)
+
+        for index in 0..<SteadyLock.sampleCount {
+            model.update(with: .standing(rotatedBy: index.isMultiple(of: 2) ? 20.2 : 19.8))
+        }
+
+        #expect(model.isLocked)
+        #expect(model.steadyProgress == nil)
+        #expect(model.lockCount == 1)
+        #expect(abs(model.reading.angle - 20) < 0.01)
+
+        model.update(with: .standing(rotatedBy: 35))
+        #expect(abs(model.reading.angle - 20) < 0.01)
+    }
+
+    @Test func movingPastTheToleranceStartsTheWaitOver() {
+        let model = steadyModel(tolerance: 0.3)
+        model.toggleLock()
+        for _ in 0..<(SteadyLock.sampleCount - 1) {
+            model.update(with: .standing(rotatedBy: 20))
+        }
+
+        model.update(with: .standing(rotatedBy: 21))
+
+        #expect(model.isLocked == false)
+        #expect(model.steadyProgress == 0)
+    }
+
+    @Test func tappingWhileWaitingGivesUp() {
+        let model = steadyModel()
+        model.toggleLock()
+
+        model.toggleLock()
+        for _ in 0..<SteadyLock.sampleCount {
+            model.update(with: .standing(rotatedBy: 20))
+        }
+
+        #expect(model.steadyProgress == nil)
+        #expect(model.isLocked == false)
+        #expect(model.lockCount == 0)
+    }
+
+    @Test func aLockByHandCountsAtOnce() {
+        let model = makeModel()
+
+        model.toggleLock()
+
+        #expect(model.isLocked)
+        #expect(model.lockCount == 1)
+    }
+
+    @Test(arguments: [(0.0, 0.1), (0.04, 0.1), (0.54, 0.5), (1.26, 1.3), (9, 3)])
+    func toleranceStaysInTheRangeToATenth(value: Double, expected: Double) {
+        #expect(abs(SteadyLock.clamped(value) - expected) < 1e-9)
+    }
+
+    @Test func turningTheDialReads0AtTheSidesAndIsSaved() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 0))
+        #expect(model.readout.isLevel)
+
+        model.turnDial(by: 80)
+
+        #expect(model.dialTurn == 90)
+        #expect(abs(model.readout.angle - 90) < 1e-9)
+        // Level still agrees with the figure: on the bottom edge a turned dial reads 90° level.
+        #expect(model.readout.isLevel)
+        #expect(makeModel().dialTurn == 90)
+    }
+
+    @Test func aRightEdgeReadsZeroLevelOnATurnedDial() {
+        let model = makeModel()
+        model.turnDial(by: 90)
+
+        model.update(with: .standing(rotatedBy: 90))
+
+        #expect(abs(model.readout.angle) < 1e-9)
+        #expect(model.readout.isLevel)
+    }
+
+    @Test func turningTheDialEndsTheLockAndTheReference() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 10))
+        model.toggleReference()
+        model.toggleLock()
+
+        model.turnDial(by: -90)
+
+        #expect(model.isLocked == false)
+        #expect(model.reference == nil)
+    }
+
+    @Test func aShortDragLeavesTheDial() {
+        let model = makeModel()
+
+        model.turnDial(by: 30)
+
+        #expect(model.dialTurn == 0)
+    }
+
+    @Test func theVolumeButtonIsOffUntilChosenAndThenSaved() {
+        #expect(makeModel().locksWithVolumeButton == false)
+
+        makeModel().locksWithVolumeButton = true
+
+        #expect(makeModel().locksWithVolumeButton)
+    }
+
+    @Test func theSoundIsOffUntilChosenAndThenSaved() {
+        #expect(makeModel().playsSound == false)
+
+        makeModel().playsSound = true
+
+        #expect(makeModel().playsSound)
+    }
+
+    @Test func theVoiceIsOffUntilChosenAndThenSaved() {
+        #expect(makeModel().speech == .off)
+
+        makeModel().speech = .whenSettled
+
+        #expect(makeModel().speech == .whenSettled)
+    }
+
+    @Test func theUnitIsDegreesUntilChosenAndThenSaved() {
+        let model = makeModel()
+        #expect(model.unit == .degrees)
+
+        model.unit = .pitch
+
+        #expect(makeModel().unit == .pitch)
+    }
+
+    @Test func theFigureFollowsTheUnit() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 45))
+
+        model.unit = .percent
+
+        #expect(model.readout.unit == .percent)
+        #expect(model.readout.unit.value(forDegrees: model.readout.angle) == 100)
+    }
 }
 
 /// A source with no motion sensor, like the simulator.

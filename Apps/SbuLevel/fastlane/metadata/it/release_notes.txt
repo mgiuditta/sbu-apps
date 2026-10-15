@@ -1,1 +1,1 @@
-Prima versione.
+Mirino con fotocamera: misura l'angolo di un punto lontano, un tetto o un albero. Unità in gradi, %, x:12 e 1V:H. Azzera qui per l'angolo relativo. Blocco a lettura stabile, voce che legge la cifra, suono alla misura, tasto volume nel mirino. Quadrante che ruota, schermo intero con un tocco e la pagina Come si usa.

@@ -11,8 +11,8 @@ packages:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MARKETING_VERSION: "1.0"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "1.1"
+    CURRENT_PROJECT_VERSION: "4"
     DEVELOPMENT_TEAM: $(SBU_TEAM_ID)
     TARGETED_DEVICE_FAMILY: "1"
     LOCALIZATION_PREFERS_STRING_CATALOGS: YES
@@ -30,6 +30,8 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Level
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        # The sight shows the rear camera; nothing is saved. English in InfoPlist.xcstrings.
+        INFOPLIST_KEY_NSCameraUsageDescription: "La fotocamera fa da mirino per misurare l'inclinazione di un punto lontano. L'immagine resta sullo schermo: non viene salvata né inviata."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

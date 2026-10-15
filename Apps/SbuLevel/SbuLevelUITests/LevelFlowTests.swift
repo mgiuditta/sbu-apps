@@ -14,6 +14,8 @@ final class LevelFlowTests: XCTestCase {
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES", "-FIXED_GRAVITY", gravity]
         // Every test starts uncalibrated: a string where the calibration data goes reads as none.
         app.launchArguments += ["-calibration", "none"]
+        // And in degrees to the tenth, whatever an earlier test chose: arguments win over saved settings.
+        app.launchArguments += ["-unit", "degrees", "-locksWhenSteady", "NO", "-speech", "off", "-playsSound", "NO", "-locksWithVolumeButton", "NO", "-dialTurn", "0"]
         app.launch()
         return app
     }
@@ -34,6 +36,16 @@ final class LevelFlowTests: XCTestCase {
             XCTFail("\(issue.compactDescription):\(issue.element?.debugDescription ?? "no element")")
             return true
         }
+    }
+
+    /// Scrolls settings up until `element` is on screen: the calibration rows sit below the fold.
+    @MainActor
+    private func scroll(_ app: XCUIApplication, to element: XCUIElement) -> Bool {
+        _ = app.collectionViews.firstMatch.waitForExistence(timeout: 5)
+        for _ in 0..<5 where element.isHittable == false {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        return element.isHittable
     }
 
     @MainActor
@@ -71,6 +83,135 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testZeroHereReadsRelativeUntilAbsolute() throws {
+        let app = launch()
+        let zero = app.buttons["Azzera qui"]
+        XCTAssertTrue(zero.waitForExistence(timeout: 5))
+
+        zero.tap()
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.label.contains("0,0 gradi"), figure.label)
+        XCTAssertTrue(figure.label.contains("Relativo"), figure.label)
+        let absolute = app.buttons["Assoluto"]
+        XCTAssertTrue(absolute.isSelected)
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        absolute.tap()
+        XCTAssertTrue(app.buttons["Azzera qui"].waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.contains("32,4"), figure.label)
+    }
+
+    /// The simulator has no camera: the sight says so, still reads the line of sight, and closes again.
+    @MainActor
+    func testTheSightMeasuresTheLineOfSightAndSaysWhenThereIsNoCamera() throws {
+        let app = launch()
+        let sight = app.buttons["Mirino"]
+        XCTAssertTrue(sight.waitForExistence(timeout: 5))
+
+        sight.tap()
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Linea di mira'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.contains("Fotocamera non disponibile"), figure.label)
+        XCTAssertTrue(sight.isSelected)
+        XCTAssertFalse(app.buttons["Calibra"].exists)
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        sight.tap()
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Calibra"].exists)
+    }
+
+    @MainActor
+    func testTheSteadyLockWaitsForAStillReadingThenLocks() throws {
+        let app = launch()
+        app.buttons["Impostazioni"].tap()
+        let steady = app.switches["Blocca a lettura stabile"]
+        XCTAssertTrue(steady.waitForExistence(timeout: 5))
+        steady.switches.firstMatch.tap()
+        XCTAssertTrue(app.sliders["Tolleranza"].waitForExistence(timeout: 5))
+        app.buttons["Fine"].tap()
+
+        app.buttons["Blocca"].tap()
+
+        // The fixed tilt is perfectly still: two seconds, then the lock.
+        XCTAssertTrue(app.buttons["In attesa"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.buttons["Sblocca"].waitForExistence(timeout: 5))
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.label.contains("Lettura bloccata"), figure.label)
+        XCTAssertTrue(figure.label.contains("32,4"), figure.label)
+    }
+
+    @MainActor
+    func testTurningTheDialReads0AtTheSides() throws {
+        let app = launch()
+        let dial = app.otherElements["Quadrante"]
+        XCTAssertTrue(dial.waitForExistence(timeout: 5))
+
+        // A quarter turn by hand, from the top of the dial round to its right side.
+        let top = dial.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.1))
+        let right = dial.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
+        top.press(forDuration: 0.1, thenDragTo: right)
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.label.contains("57,6"), figure.label)
+        XCTAssertEqual(dial.value as? String, "0° sui lati")
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        right.press(forDuration: 0.1, thenDragTo: top)
+        XCTAssertTrue(figure.label.contains("32,4"), figure.label)
+        XCTAssertEqual(dial.value as? String, "0° sui bordi in alto e in basso")
+    }
+
+    @MainActor
+    func testTheInfoPageExplainsModesUnitsAndLimits() throws {
+        let app = launch()
+        app.buttons["Impostazioni"].tap()
+        let info = app.buttons["Come si usa"]
+        XCTAssertTrue(info.waitForExistence(timeout: 5))
+
+        info.tap()
+
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Sul bordo'")).firstMatch.waitForExistence(timeout: 5))
+        let limits = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'I limiti del sensore'")).firstMatch
+        XCTAssertTrue(scroll(app, to: limits))
+        // As in the sheets: the audit flags the bar of the iOS 26 sheet ("no element"), not the rows.
+        try audit(app, excluding: [.contrast, .dynamicType, .textClipped])
+    }
+
+    @MainActor
+    func testFlatShowsTheBubbleAndItsAxesWithoutTheDial() throws {
+        let app = launch(gravity: "flat")
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+
+        XCTAssertTrue(figure.label.contains("In piano"), figure.label)
+        // The dial is hidden from VoiceOver when flat, but XCUITest still lists SwiftUI's hidden
+        // elements, so only the axes are checked here.
+        XCTAssertTrue(app.otherElements.matching(NSPredicate(format: "label BEGINSWITH 'Asse orizzontale'")).firstMatch.exists)
+        try audit(app, excluding: Self.toolScreenExclusions)
+    }
+
+    @MainActor
+    func testATapOnTheDialHidesBarsAndPillsAndAnotherShowsThem() throws {
+        let app = launch()
+        let dial = app.otherElements["Quadrante"]
+        XCTAssertTrue(dial.waitForExistence(timeout: 5))
+
+        dial.tap()
+
+        XCTAssertTrue(app.buttons["Blocca"].waitForNonExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Impostazioni"].exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch.exists)
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        dial.tap()
+        XCTAssertTrue(app.buttons["Blocca"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Impostazioni"].exists)
+    }
+
+    @MainActor
     func testTwoStepCalibrationThenResetInSettings() throws {
         // 0,6° off on the bottom edge: within what a calibration accepts.
         let app = launch(gravity: "nearlyLevel")
@@ -97,7 +238,7 @@ final class LevelFlowTests: XCTestCase {
 
         app.buttons["Impostazioni"].tap()
         let reset = app.buttons["Ripristina calibrazione"]
-        XCTAssertTrue(reset.waitForExistence(timeout: 5))
+        XCTAssertTrue(scroll(app, to: reset))
         reset.tap()
 
         // The confirmation names the side: it is reset only after the second tap.
@@ -132,9 +273,18 @@ final class LevelFlowTests: XCTestCase {
         let app = launch()
 
         app.buttons["Impostazioni"].tap()
-        XCTAssertTrue(app.switches["Schermo sempre acceso"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.switches["Schermo sempre acceso"].value as? String, "1")
-        XCTAssertTrue(app.buttons["Calibra"].exists)
+        XCTAssertTrue(app.buttons["Come si usa"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Unità di misura'")).firstMatch.exists)
+        XCTAssertTrue(app.switches["Blocca a lettura stabile"].exists)
+        XCTAssertTrue(app.switches["Blocca col tasto volume nel mirino"].exists)
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggi ad alta voce'")).firstMatch.exists)
+        try audit(app, excluding: [.contrast, .dynamicType])
+
+        let screenOn = app.switches["Schermo sempre acceso"]
+        XCTAssertTrue(scroll(app, to: screenOn))
+        XCTAssertEqual(screenOn.value as? String, "1")
+        XCTAssertTrue(app.switches["Suono alla misura"].exists)
+        XCTAssertTrue(scroll(app, to: app.collectionViews.buttons["Calibra"]))
 
         // Dynamic Type is left out as in the other apps: in the settings sheet the audit flags
         // every text as partially unsupported, system ones included.
@@ -142,11 +292,31 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheUnitChosenInSettingsReadsTheFigure() throws {
+        let app = launch()
+        app.buttons["Impostazioni"].tap()
+        let units = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Unità di misura'")).firstMatch
+        XCTAssertTrue(units.waitForExistence(timeout: 5))
+        units.tap()
+        let percent = app.buttons["Pendenza in %"]
+        XCTAssertTrue(percent.waitForExistence(timeout: 5))
+
+        percent.tap()
+        app.buttons["Fine"].tap()
+
+        // 32,4° is a 63,5 % slope; VoiceOver says the unit in words.
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.contains("63,5 per cento"), figure.label)
+        try audit(app, excluding: Self.toolScreenExclusions)
+    }
+
+    @MainActor
     func testCalibraInSettingsOpensTheCalibration() {
         let app = launch(gravity: "nearlyLevel")
         app.buttons["Impostazioni"].tap()
         let row = app.collectionViews.buttons["Calibra"]
-        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(scroll(app, to: row))
 
         row.tap()
 

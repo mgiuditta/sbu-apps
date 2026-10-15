@@ -1,6 +1,106 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@ per cento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ percent"
+          }
+        }
+      }
+    },
+    "%@ su 12" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ in 12"
+          }
+        }
+      }
+    },
+    "0° sui bordi in alto e in basso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0° on the top and bottom edges"
+          }
+        }
+      }
+    },
+    "0° sui lati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0° on the sides"
+          }
+        }
+      }
+    },
+    "1 a %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 in %@"
+          }
+        }
+      }
+    },
+    "1V:H" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1V:H"
+          }
+        }
+      }
+    },
+    "All'orizzonte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On the horizon"
+          }
+        }
+      }
+    },
+    "Alzata su 12 (x:12)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rise on 12 (x:12)"
+          }
+        }
+      }
+    },
+    "Angolo assoluto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Absolute angle"
+          }
+        }
+      }
+    },
+    "Angolo relativo: zero qui" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relative angle: zero here"
+          }
+        }
+      }
+    },
     "Annulla" : {
       "localizations" : {
         "en" : {
@@ -21,6 +121,16 @@
         }
       }
     },
+    "Appoggia l'iPhone sul retro: la bolla mostra la pendenza della superficie, e sotto c'è l'inclinazione lungo ciascun asse." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lay your iPhone on its back: the bubble shows the slope of the surface, with the tilt along each axis underneath."
+          }
+        }
+      }
+    },
     "Appoggia l'iPhone sullo stesso lato della prima misura." : {
       "localizations" : {
         "en" : {
@@ -31,7 +141,77 @@
         }
       }
     },
+    "Appoggia un bordo dell'iPhone sulla superficie: il quadrante legge l'angolo di quel bordo, da 0° a 90°. I quattro bordi si riconoscono da soli." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rest an edge of your iPhone on the surface: the dial reads the angle of that edge, from 0° to 90°. All four edges are recognized on their own."
+          }
+        }
+      }
+    },
+    "Asse orizzontale %@, asse verticale %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horizontal axis %@, vertical axis %@"
+          }
+        }
+      }
+    },
+    "Assoluto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Absolute"
+          }
+        }
+      }
+    },
+    "Azzera qui" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zero here"
+          }
+        }
+      }
+    },
     "Blocca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock"
+          }
+        }
+      }
+    },
+    "Blocca a lettura stabile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock when steady"
+          }
+        }
+      }
+    },
+    "Blocca col tasto volume nel mirino" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock with a volume button in the sight"
+          }
+        }
+      }
+    },
+    "Blocco" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -131,12 +311,82 @@
         }
       }
     },
+    "Come si usa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to use"
+          }
+        }
+      }
+    },
+    "Consenti la fotocamera" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow the camera"
+          }
+        }
+      }
+    },
+    "Controlli nascosti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controls hidden"
+          }
+        }
+      }
+    },
+    "Controlli visibili" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controls shown"
+          }
+        }
+      }
+    },
+    "Dopo Blocca, la lettura si ferma quando resta entro la tolleranza per due secondi, e mostra la media. Nel mirino, con la fotocamera accesa, anche un tasto volume blocca e sblocca." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After Lock, the reading stops once it stays within the tolerance for two seconds, and shows the average. In the sight, with the camera on, a volume button locks and unlocks too."
+          }
+        }
+      }
+    },
+    "Due misure per lato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Two readings per side"
+          }
+        }
+      }
+    },
     "Durante la misura" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "While measuring"
+          }
+        }
+      }
+    },
+    "Ferma la cifra, così la leggi anche dopo aver tolto l'iPhone. Con Blocca a lettura stabile aspetta che l'iPhone resti fermo e mostra la media." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freezes the figure, so you can read it after taking your iPhone away. With Lock when steady, it waits for your iPhone to hold still and shows the average."
           }
         }
       }
@@ -151,6 +401,36 @@
         }
       }
     },
+    "Fotocamera non consentita" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera not allowed"
+          }
+        }
+      }
+    },
+    "Fotocamera non disponibile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera not available"
+          }
+        }
+      }
+    },
+    "Fuori scala" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off scale"
+          }
+        }
+      }
+    },
     "Gira l'iPhone di 180° sullo stesso punto, sullo stesso lato, e tocca Misura." : {
       "localizations" : {
         "en" : {
@@ -161,12 +441,72 @@
         }
       }
     },
+    "Gradi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Degrees"
+          }
+        }
+      }
+    },
+    "Gradi al decimo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Degrees to the tenth"
+          }
+        }
+      }
+    },
+    "Gradi interi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whole degrees"
+          }
+        }
+      }
+    },
+    "I limiti del sensore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The sensor's limits"
+          }
+        }
+      }
+    },
     "Il lato scelto torna alla lettura del sensore, senza correzioni." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "The side you pick goes back to the raw sensor reading."
+          }
+        }
+      }
+    },
+    "Il sensore dell'iPhone legge il decimo di grado, ma la misura vale quanto la calibrazione e l'appoggio: una custodia o una fotocamera sporgente cambiano l'angolo. Per lavori che chiedono uno strumento certificato, usa quello." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your iPhone's sensor reads to a tenth of a degree, but a reading is only as good as the calibration and how the iPhone rests: a case or a raised camera changes the angle. For work that calls for a certified instrument, use one."
+          }
+        }
+      }
+    },
+    "In attesa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting"
           }
         }
       }
@@ -201,6 +541,16 @@
         }
       }
     },
+    "L'angolo dall'orizzontale, al decimo o intero." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The angle from horizontal, to the tenth or whole."
+          }
+        }
+      }
+    },
     "L'iPhone si è mosso: la misura ricomincia." : {
       "localizations" : {
         "en" : {
@@ -217,6 +567,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The surface is too steep or your iPhone moved. Try again on a steady surface."
+          }
+        }
+      }
+    },
+    "La voce dell'iPhone legge la cifra e ogni blocco, così allinei senza guardare lo schermo. Il suono segna ogni blocco e ogni passo della calibrazione. Funziona senza rete." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your iPhone's voice reads the figure and every lock, so you can line things up without looking at the screen. The sound marks every lock and every calibration step. It works offline."
           }
         }
       }
@@ -241,6 +601,16 @@
         }
       }
     },
+    "Leggi ad alta voce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read aloud"
+          }
+        }
+      }
+    },
     "Lettura bloccata" : {
       "localizations" : {
         "en" : {
@@ -251,12 +621,22 @@
         }
       }
     },
-    "Lettura bloccata, %@°" : {
+    "Lettura bloccata, %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reading locked, %@°"
+            "value" : "Reading locked, %@"
+          }
+        }
+      }
+    },
+    "Lettura bloccata, relativa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading locked, relative"
           }
         }
       }
@@ -271,12 +651,42 @@
         }
       }
     },
+    "Linea di mira" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line of sight"
+          }
+        }
+      }
+    },
     "Lo schermo non si spegne mentre l'app è aperta." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "The screen stays on while the app is open."
+          }
+        }
+      }
+    },
+    "Mai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
+          }
+        }
+      }
+    },
+    "Mirino" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sight"
           }
         }
       }
@@ -301,6 +711,36 @@
         }
       }
     },
+    "Misurare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measuring"
+          }
+        }
+      }
+    },
+    "Modalità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modes"
+          }
+        }
+      }
+    },
+    "Mostra i controlli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show controls"
+          }
+        }
+      }
+    },
     "Non calibrato" : {
       "localizations" : {
         "en" : {
@@ -311,12 +751,32 @@
         }
       }
     },
+    "Ogni 3 secondi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every 3 seconds"
+          }
+        }
+      }
+    },
     "Ogni lato si calibra a parte, in due misure. La calibrazione resta su questo iPhone." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Each side is calibrated on its own, in two readings. The calibration stays on this iPhone."
+          }
+        }
+      }
+    },
+    "Ogni lato si calibra a parte: misura, gira l'iPhone di 180° sullo stesso punto e misura ancora. Le due misure si compensano, quindi la superficie non deve essere in bolla." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each side is calibrated on its own: measure, turn your iPhone 180° on the same spot and measure again. The two readings cancel out, so the surface doesn't need to be level."
           }
         }
       }
@@ -341,12 +801,122 @@
         }
       }
     },
+    "Pendenza in %" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slope in %"
+          }
+        }
+      }
+    },
     "Piano" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Flat"
+          }
+        }
+      }
+    },
+    "Precisione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy"
+          }
+        }
+      }
+    },
+    "Prende la posizione attuale come zero: la cifra mostra di quanto ti sposti da lì. Assoluto torna all'angolo vero." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Takes the current position as zero: the figure shows how far you move from there. Absolute goes back to the true angle."
+          }
+        }
+      }
+    },
+    "Quadrante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dial"
+          }
+        }
+      }
+    },
+    "Quando si ferma" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When it settles"
+          }
+        }
+      }
+    },
+    "Quanta base per 1 di alzata, come si scrive una scarpata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How much run for 1 of rise, as an embankment is written."
+          }
+        }
+      }
+    },
+    "Quanto sale ogni 100 di base: 100 % è 45°. A 90° non ha valore e la cifra mostra un trattino." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How much it rises for every 100 of run: 100 % is 45°. At 90° it has no value and the figure shows a dash."
+          }
+        }
+      }
+    },
+    "Quanto sale ogni 12 di base, come si misura un tetto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How much it rises for every 12 of run, as a roof is measured."
+          }
+        }
+      }
+    },
+    "Rapporto 1V:H" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ratio 1V:H"
+          }
+        }
+      }
+    },
+    "Relativo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relative"
+          }
+        }
+      }
+    },
+    "Relativo, allo zero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relative, at zero"
           }
         }
       }
@@ -391,6 +961,16 @@
         }
       }
     },
+    "Schermo intero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full screen"
+          }
+        }
+      }
+    },
     "Schermo sempre acceso" : {
       "localizations" : {
         "en" : {
@@ -411,6 +991,26 @@
         }
       }
     },
+    "Sopra l'orizzonte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Above the horizon"
+          }
+        }
+      }
+    },
+    "Sotto l'orizzonte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Below the horizon"
+          }
+        }
+      }
+    },
     "Sul bordo" : {
       "localizations" : {
         "en" : {
@@ -421,12 +1021,112 @@
         }
       }
     },
+    "Suono alla misura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound on measure"
+          }
+        }
+      }
+    },
+    "Tieni fermo l'iPhone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold your iPhone still"
+          }
+        }
+      }
+    },
+    "Tocca Mirino e inquadra un punto lontano, il colmo di un tetto o la cima di un albero: la cifra è l'angolo della linea di mira sopra o sotto l'orizzonte. L'immagine non viene salvata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap Sight and aim at a distant point, the ridge of a roof or the top of a tree: the figure is the angle of the line of sight above or below the horizon. The picture is never saved."
+          }
+        }
+      }
+    },
+    "Tolleranza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tolerance"
+          }
+        }
+      }
+    },
+    "Trascina il quadrante di un quarto di giro per leggere 0° sui lati invece che in alto e in basso. Un tocco nasconde i controlli, un altro li mostra." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag the dial a quarter turn to read 0° on the sides instead of the top and bottom. A tap hides the controls, another shows them."
+          }
+        }
+      }
+    },
     "Tutti i lati" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "All sides"
+          }
+        }
+      }
+    },
+    "Unità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Units"
+          }
+        }
+      }
+    },
+    "Unità di misura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unit"
+          }
+        }
+      }
+    },
+    "Voce e suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice and sound"
+          }
+        }
+      }
+    },
+    "x:12" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "x:12"
+          }
+        }
+      }
+    },
+    "x:12 è l'alzata su 12 di base, come si legge un tetto. 1V:H è la base per 1 di alzata. Il quadrante resta in gradi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "x:12 is the rise on a run of 12, as a roof is read. 1V:H is the run for a rise of 1. The dial stays in degrees."
           }
         }
       }

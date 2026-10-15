@@ -4,4 +4,6 @@ nonisolated enum LevelMode: Equatable, Sendable {
     case flat
     /// Standing on an edge: a clinometer for the angle of that edge.
     case edge
+    /// Held up to the eye with the camera on: the angle of the line of sight to a distant point.
+    case sight
 }

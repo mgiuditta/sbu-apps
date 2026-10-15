@@ -10,6 +10,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
     /// The figure already formatted for the current locale, or `nil` when the app has none.
     let formattedValue: String?
     private let unit: String?
+    private let spokenValue: Text?
     private let context: LocalizedStringKey?
     private let contextSystemImage: String?
     private let contextTone: SbuStatusTone
@@ -25,6 +26,8 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
     ///   - value: The figure to show.
     ///   - format: How to format `value`; it follows the current locale unless it sets its own.
     ///   - unit: Short unit attached to the figure, such as "°" or "dB".
+    ///   - spokenValue: What VoiceOver reads for the figure and its unit, such as "6,0 su 12",
+    ///     when the symbols would not read as words; `nil` reads them as shown.
     ///   - context: One line under the figure, such as "In bolla".
     ///   - contextSystemImage: SF Symbol before the context line, required with a status tone.
     ///   - contextTone: Color of the context line; a status color always comes with its word and symbol.
@@ -35,6 +38,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
         value: Format.FormatInput,
         format: Format,
         unit: String? = nil,
+        spokenValue: Text? = nil,
         context: LocalizedStringKey? = nil,
         contextSystemImage: String? = nil,
         contextTone: SbuStatusTone = .neutral,
@@ -44,6 +48,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
         self.caption = caption
         self.formattedValue = format.format(value)
         self.unit = unit
+        self.spokenValue = spokenValue
         self.context = context
         self.contextSystemImage = contextSystemImage
         self.contextTone = contextTone
@@ -66,6 +71,7 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
         self.caption = caption
         self.formattedValue = nil
         self.unit = nil
+        self.spokenValue = nil
         self.context = context
         self.contextSystemImage = nil
         self.contextTone = .neutral
@@ -95,11 +101,14 @@ public struct SbuToolField<Indicator: View, Pills: View>: View {
                             // at the largest text sizes it shrinks to the width instead.
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
+                            .accessibilityLabel(spokenValue ?? Text(verbatim: formattedValue))
 
                         if let unit {
                             Text(unit)
                                 .font(SbuTheme.smallNumberFont(size: unitSize))
                                 .foregroundStyle(SbuTheme.inkMuted)
+                                // The spoken value already says the unit in words.
+                                .accessibilityHidden(spokenValue != nil)
                         }
 
                         SbuFullStop(fontSize: valueSize)

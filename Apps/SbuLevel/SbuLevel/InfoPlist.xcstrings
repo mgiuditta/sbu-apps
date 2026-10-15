@@ -8,6 +8,14 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Level" } },
         "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Level" } }
       }
+    },
+    "NSCameraUsageDescription" : {
+      "comment" : "Why the camera sight asks for the camera.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The camera is a sight for measuring the angle to a distant point. The picture stays on screen: it is never saved or sent." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "La fotocamera fa da mirino per misurare l'inclinazione di un punto lontano. L'immagine resta sullo schermo: non viene salvata né inviata." } }
+      }
     }
   },
   "version" : "1.0"

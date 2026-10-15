@@ -8,7 +8,7 @@ final class SnapshotTests: XCTestCase {
         let app = XCUIApplication()
         setupSnapshot(app)
         // The screenshot shows the sensor as it comes, whatever an earlier run calibrated.
-        app.launchArguments += ["-calibration", "none"]
+        app.launchArguments += ["-calibration", "none", "-unit", "degrees", "-dialTurn", "0"]
         app.launch()
 
         snapshot("01-main")

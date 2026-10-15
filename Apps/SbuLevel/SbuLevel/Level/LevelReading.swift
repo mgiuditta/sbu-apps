@@ -16,15 +16,23 @@ nonisolated struct LevelReading: Equatable, Sendable {
     /// The edge resting on the surface; `nil` when flat.
     var edge: Edge?
     /// The angle shown, 0...90. Flat: tilt from horizontal. Edge: the dial reading, 0° when the
-    /// bottom or top edge is level and 90° when a side edge is.
+    /// bottom or top edge is level and 90° when a side edge is. Sight: the elevation of the line of
+    /// sight, -90...90, negative below the horizon.
     var angle: Double
     /// Signed degrees from level: of the surface when flat, of the resting edge when standing.
     var deviation: Double
-    /// Calibrated device rotation in degrees (see `Gravity.rotation`); zero when flat.
+    /// Calibrated device rotation in degrees (see `Gravity.rotation`); zero when flat. In sight, the
+    /// roll that tilts the horizon.
     var rotation: Double
     /// Bubble offset in -1...1, screen axes (x right, y down). Zero in edge mode.
     var bubbleX: Double
     var bubbleY: Double
+    /// Flat only: degrees of tilt along the screen's width (positive with the right side low) and
+    /// along its height (positive with the top low), calibrated. Zero in edge mode.
+    var tiltX = 0.0
+    var tiltY = 0.0
+    /// The dial's turn the angle was read on: 0, or 90 with 0° at the sides (see `DialGeometry`).
+    var dialTurn = 0.0
 
     /// The angle as shown: rounded half away from zero to a tenth, never negative, so it reads
     /// "0,0" and never "-0,0". The figure formats exactly this value.
@@ -32,12 +40,11 @@ nonisolated struct LevelReading: Equatable, Sendable {
         abs((angle * 10).rounded(.toNearestOrAwayFromZero) / 10)
     }
 
-    /// The angle the figure shows when the iPhone is level: 90° on a side edge, 0° otherwise.
+    /// The angle the figure shows when the iPhone is level: 90° on a side edge, 0° otherwise, or
+    /// the other way round on a turned dial.
     var levelAngle: Double {
-        switch edge {
-        case .left, .right: 90
-        case .bottom, .top, nil: 0
-        }
+        guard let edge else { return 0 }
+        return DialGeometry.value(at: DialGeometry.needlePosition(rotation: edge.restingRotation), dialTurn: dialTurn)
     }
 
     /// Level when the figure shows the level angle: "In bolla" and the figure always agree.
@@ -48,7 +55,17 @@ nonisolated struct LevelReading: Equatable, Sendable {
         edge.map(CalibrationTarget.edge) ?? .flat
     }
 
-    init(mode: LevelMode, edge: Edge?, angle: Double, deviation: Double, rotation: Double, bubbleX: Double, bubbleY: Double) {
+    init(
+        mode: LevelMode,
+        edge: Edge?,
+        angle: Double,
+        deviation: Double,
+        rotation: Double,
+        bubbleX: Double,
+        bubbleY: Double,
+        tiltX: Double = 0,
+        tiltY: Double = 0
+    ) {
         self.mode = mode
         self.edge = edge
         self.angle = angle
@@ -56,11 +73,15 @@ nonisolated struct LevelReading: Equatable, Sendable {
         self.rotation = rotation
         self.bubbleX = bubbleX
         self.bubbleY = bubbleY
+        self.tiltX = tiltX
+        self.tiltY = tiltY
     }
 
     /// Creates the reading for a gravity sample with a calibration applied.
-    /// - Parameter previous: The reading before this one; its mode and edge hold near the thresholds.
-    init(gravity: Gravity, calibration: Calibration, previous: LevelReading? = nil) {
+    /// - Parameters:
+    ///   - previous: The reading before this one; its mode and edge hold near the thresholds.
+    ///   - dialTurn: The dial's turn, 0 or 90, for the edge angle.
+    init(gravity: Gravity, calibration: Calibration, previous: LevelReading? = nil, dialTurn: Double = 0) {
         switch Self.mode(for: gravity, previous: previous?.mode) {
         case .flat:
             let x = gravity.x - calibration.flatX
@@ -75,21 +96,41 @@ nonisolated struct LevelReading: Equatable, Sendable {
                 deviation: tilt,
                 rotation: 0,
                 bubbleX: Self.clamped(-x / range),
-                bubbleY: Self.clamped(y / range)
+                bubbleY: Self.clamped(y / range),
+                tiltX: Angles.degrees(fromRadians: asin(Self.clamped(x))),
+                tiltY: Angles.degrees(fromRadians: asin(Self.clamped(y)))
             )
-        case .edge:
+        case .edge, .sight:
             let edge = Self.edge(for: gravity.rotation, previous: previous?.edge)
             let rotation = Angles.normalized(gravity.rotation - calibration.offset(for: edge))
             self.init(
                 mode: .edge,
                 edge: edge,
-                angle: DialGeometry.value(at: DialGeometry.needlePosition(rotation: rotation)),
+                angle: DialGeometry.value(at: DialGeometry.needlePosition(rotation: rotation), dialTurn: dialTurn),
                 deviation: edge.deviation(of: rotation),
                 rotation: rotation,
                 bubbleX: 0,
                 bubbleY: 0
             )
+            self.dialTurn = dialTurn
         }
+    }
+
+    /// The reading through the camera sight. The flat calibration corrects it: it measures how
+    /// the sensor sits in the iPhone, and so the tilt of the line of sight too.
+    static func sight(gravity: Gravity, calibration: Calibration) -> LevelReading {
+        let flatZ = -max(0, 1 - calibration.flatX * calibration.flatX - calibration.flatY * calibration.flatY).squareRoot()
+        let corrected = gravity.correcting(level: Gravity(x: calibration.flatX, y: calibration.flatY, z: flatZ))
+        let elevation = corrected.elevation
+        return LevelReading(
+            mode: .sight,
+            edge: nil,
+            angle: elevation,
+            deviation: elevation,
+            rotation: corrected.rotation,
+            bubbleX: 0,
+            bubbleY: 0
+        )
     }
 
     /// Flat when the screen faces up or down within 45°; past that, the previous mode holds for 5° more.
@@ -97,7 +138,7 @@ nonisolated struct LevelReading: Equatable, Sendable {
         let threshold = switch previous {
         case .flat: modeThreshold + hysteresis
         case .edge: modeThreshold - hysteresis
-        case nil: modeThreshold
+        case .sight, nil: modeThreshold
         }
         return gravity.tiltFromFlat < threshold ? .flat : .edge
     }

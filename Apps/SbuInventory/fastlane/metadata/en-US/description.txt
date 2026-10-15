@@ -1,0 +1,24 @@
+No subscription.
+No in-app purchases.
+No account.
+No ads.
+No tracking.
+Data stays on your device.
+
+Photograph the things you own, put them in folders like the places in your home, and always know where they are and how many. At the top you see the total: how many things you have.
+
+- No limit on items, folders or photos
+- Up to 8 photos per item, from the camera or your photos, already upright and light
+- Folders inside folders, as deep as you like: Home › Garage › Box 3
+- Quantities with − and +, or typed in; every folder counts all it holds
+- Search by name, notes, tags, label and fields, across the whole inventory or in one folder, with the path of every result
+- Tags with suggestions, and search by tag
+- Your own fields: text, number, date or amount, such as Serial number or Warranty until
+- Price and purchase date, with the value of every folder and of the whole inventory
+- Find by label: point the camera at a barcode or QR code already on an item or a box and it opens. The code is only a label to find things again
+- To buy again: a minimum quantity per item, the list of what is running out and, if you turn it on, a reminder at the time you choose
+- Export everything as CSV or as an archive with the photos, and import it back whenever you like
+- Try a sample, to see how it works before you start
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it keeps everything you own in one place, with its photo, where it is and how many.

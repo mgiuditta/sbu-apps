@@ -1,0 +1,40 @@
+import Foundation
+import SwiftData
+
+/// Finds the folder at a path of names, creating the missing ones along the way.
+/// Names match ignoring case and accents, so "garage" in a file lands in your "Garage".
+struct FolderResolver {
+    private let context: ModelContext
+    private var byParentAndName: [String: Folder] = [:]
+    /// How many folders it made.
+    private(set) var created = 0
+
+    init(context: ModelContext) {
+        self.context = context
+        for folder in (try? context.fetch(FetchDescriptor<Folder>())) ?? [] {
+            byParentAndName[Self.key(parent: folder.parent, name: folder.name)] = folder
+        }
+    }
+
+    /// The folder at `path`, top first; `nil` for an empty path, the top of the inventory.
+    mutating func folder(at path: [String]) -> Folder? {
+        var parent: Folder?
+        for name in path {
+            let key = Self.key(parent: parent, name: name)
+            if let existing = byParentAndName[key] {
+                parent = existing
+            } else {
+                let folder = Folder(name: name, parent: parent)
+                context.insert(folder)
+                byParentAndName[key] = folder
+                created += 1
+                parent = folder
+            }
+        }
+        return parent
+    }
+
+    private static func key(parent: Folder?, name: String) -> String {
+        (parent?.uuid.uuidString ?? "") + "/" + SearchKey.fold(name)
+    }
+}

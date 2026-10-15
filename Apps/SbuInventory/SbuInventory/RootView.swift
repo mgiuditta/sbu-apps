@@ -5,7 +5,7 @@ import SwiftUI
 struct RootView: View {
     var body: some View {
         SbuAppShell("Sbu Inventory", slug: "inventory", accent: SbuTheme.accentInventory, appIcon: Image(.appIconArtwork)) {
-            MainView()
+            Color.clear
         } settings: {
             EmptyView()
         }

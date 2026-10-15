@@ -43,7 +43,7 @@
   },
   {
    "name": "Secret code",
-   "description": "Set at first run (6 to 10 digits, typed twice). Stored in the Keychain (kSecAttrAccessibleWhenUnlockedThisDeviceOnly) as salt + PBKDF2-SHA256 (CommonCrypto CCKeyDerivationPBKDF, iterations tuned to about 100 ms on device), never a plain hash, never in UserDefaults. Wrong code: the cover treats it as normal input (a number, a note, a lap), no error. Silent throttling: after 5 wrong candidate inputs from any cover (any calculator '=', note title, lap set, conversion value of code length), counted in one shared Keychain counter so switching cover does not reset it, the correct code is ignored for growing intervals (1, 5, 15, 60 min), persisted in the Keychain so a relaunch does not reset it; the cover never shows a lockout. Forgotten code: there is no reset that keeps the conversation. 'Reimposta' (long-press on the cover's figure, then device authentication) erases the local store, the Keychain item and leaves the share (participant) or deletes the zone (owner) after a destructive confirm; the device passcode alone never opens the conversation. Documented in the listing.",
+   "description": "Set at first run (6 to 10 digits, typed twice). Stored in the Keychain (kSecAttrAccessibleWhenUnlockedThisDeviceOnly) as salt + PBKDF2-SHA256 (CommonCrypto CCKeyDerivationPBKDF, iterations tuned to about 100 ms on device), never a plain hash, never in UserDefaults. Wrong code: the cover treats it as normal input (a number, a note, a lap), no error. Silent throttling: after 5 wrong candidate inputs from any cover, where a candidate is only an input with exactly the code's length in digits (so ordinary use of the cover never counts), counted in one shared Keychain counter so switching cover does not reset it, the correct code is ignored for growing intervals (1, 5, 15, 60 min), persisted in the Keychain so a relaunch does not reset it; the cover never shows a lockout. Forgotten code: there is no reset that keeps the conversation. 'Reimposta' (long-press on the cover's figure, then device authentication) erases the local store and the Keychain item and leaves the share (participant) or deletes the zone (owner), after a destructive confirm. Accepted trade-off: someone with the device passcode can destroy the conversation but never read it; deleting the zone is needed because a kept zone would be re-fetched under the new code. Ending the conversation from inside it still needs the code. Documented in the listing.",
    "priority": "P0",
    "reason": "Calculator#: 17 reviews about a forgotten password. Here the person to hide from may know the device passcode, so recovery must not reveal anything: losing the code costs the conversation, never its privacy.",
    "source": "competitor"
@@ -64,7 +64,7 @@
   },
   {
    "name": "Messages",
-   "description": "Text messages as CKRecords in the shared zone, text in encryptedValues. Append-only: each person writes only their own records, so nothing to merge. Local store in SwiftData, CloudKit changes fetched with CKFetchRecordZoneChangesOperation (owner: private database, participant: shared database). Sent, delivered (on the server) and failed states with a word and a symbol; failed messages retry with 'Riprova'. Local store and photo cache with NSFileProtectionComplete, excluded from device backups (isExcludedFromBackup); CloudKit is the only copy off the device.",
+   "description": "Text messages as CKRecords in the shared zone, text in encryptedValues. Append-only: each person writes only their own records, so nothing to merge. Local store in SwiftData, CloudKit changes fetched with CKFetchRecordZoneChangesOperation (owner: private database, participant: shared database). Sent, delivered (on the server) and failed states with a word and a symbol; failed messages retry with 'Riprova'. Local store and photo cache with NSFileProtectionComplete, excluded from device backups (isExcludedFromBackup); CloudKit is the only copy off the device. Message text and photos are also encrypted locally (AES-GCM, CryptoKit) with a random data key wrapped by a key derived from the code (PBKDF2): without the code, a copy of the sandbox is unreadable.",
    "priority": "P0",
    "reason": "The thing itself. Reviews of the originale: 'Consistently fails to send messages', 'Keep receiving messages but I can't see anything', 'decryption key error'. CloudKit encryption is managed by Apple: no key to lose.",
    "source": "original"
@@ -313,5 +313,17 @@
   "reviews": "research/1498275568/reviews.json (49 unique, 1-3 stars), research/458035189/reviews.json (27 unique), research/1165276801/reviews.json (183 unique)",
   "competitors": "iTunes Search API, 2026-10-15",
   "fetched": "2026-10-15"
+ },
+ "threat_model": {
+  "protects_against": "A person who picks up the unlocked phone or knows its passcode: they must not learn that the conversation exists, read it, or recover it by resetting.",
+  "accepts": [
+   "That person can delete the app or reset it, destroying the conversation (not reading it).",
+   "Lockout up to 60 minutes after 5 code-length wrong inputs, which that person could also trigger."
+  ],
+  "out_of_scope": [
+   "Jailbroken or forensically extracted devices beyond the local encryption.",
+   "The partner's own device and choices.",
+   "Apple, under CloudKit's own encryption (encryptedValues; end-to-end only with Advanced Data Protection)."
+  ]
  }
 }

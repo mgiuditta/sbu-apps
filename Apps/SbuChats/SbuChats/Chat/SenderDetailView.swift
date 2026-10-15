@@ -7,7 +7,7 @@ struct SenderDetailView: View {
 
     var body: some View {
         List {
-            SenderSection(sender: sender)
+            SenderSection(sender: sender, showsName: false)
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)

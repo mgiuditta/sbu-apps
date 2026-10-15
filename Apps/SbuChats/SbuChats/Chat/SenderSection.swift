@@ -4,6 +4,8 @@ import SwiftUI
 /// One person's numbers: messages, words, media, conversations, reply times, streak.
 struct SenderSection: View {
     let sender: SenderStatistics
+    /// Off on the person's own screen, whose title already names them.
+    var showsName = true
 
     var body: some View {
         Section {
@@ -16,7 +18,9 @@ struct SenderSection: View {
             StatRow(title: "Risposta media", value: replyText(sender.averageReply))
             StatRow(title: "Giorni di fila, record", value: Text("\(sender.longestStreak) giorni"))
         } header: {
-            if sender.isOwner {
+            if !showsName {
+                EmptyView()
+            } else if sender.isOwner {
                 Text("Tu · \(sender.name)")
             } else {
                 Text(verbatim: sender.name)

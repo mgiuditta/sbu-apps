@@ -9,5 +9,9 @@ enum LaunchMode {
     static var seedsSample: Bool { isDemo && UserDefaults.standard.bool(forKey: "SEED_SAMPLE") }
 
     /// Flow tests: a text file to import at launch, as if shared, to reach the import error screen.
-    static var demoImportText: String? { isDemo ? UserDefaults.standard.string(forKey: "DEMO_IMPORT_TEXT") : nil }
+    /// Lines are separated by a literal `\n`: launch arguments lose real line breaks.
+    static var demoImportText: String? {
+        guard isDemo, let text = UserDefaults.standard.string(forKey: "DEMO_IMPORT_TEXT") else { return nil }
+        return text.replacing("\\n", with: "\n")
+    }
 }

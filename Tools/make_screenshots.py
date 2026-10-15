@@ -99,13 +99,15 @@ def serve():
 
 
 def render(url, out):
+    # ponytail: headless Chrome sometimes leaves the bottom ~70px of the window unpainted when the
+    # 3D phones are heavy, so render a taller window and keep the top SIZE.
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
-                    f"--window-size={SIZE[0]},{SIZE[1]}", "--virtual-time-budget=5000", f"--screenshot={out}", url],
+                    f"--window-size={SIZE[0]},{SIZE[1] + 200}", "--virtual-time-budget=5000", f"--screenshot={out}", url],
                    check=True, capture_output=True)
     with Image.open(out) as image:
-        if image.size != SIZE:
-            sys.exit(f"{out}: {image.size}, expected {SIZE}")
-        image.convert("RGB").save(out)  # App Store Connect rejects alpha
+        if image.size != (SIZE[0], SIZE[1] + 200):
+            sys.exit(f"{out}: {image.size}, expected {SIZE[0]}×{SIZE[1] + 200}")
+        image.crop((0, 0) + SIZE).convert("RGB").save(out)  # App Store Connect rejects alpha
 
 
 def main():

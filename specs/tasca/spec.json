@@ -32,18 +32,18 @@
   }
  ],
  "reference_outside_app_store": "None.",
- "one_thing": "One private conversation with one person, through your own iCloud, hidden behind a cover the user chooses (calculator or notes in 1.0, or none). Each cover is a real tool with its own one figure; a secret code opens the conversation.",
+ "one_thing": "One private conversation with one person, through your own iCloud, hidden behind a cover the user chooses (gift list or notes in 1.0, or none). Each cover is a real tool with its own one figure; a secret code opens the conversation.",
  "features": [
   {
    "name": "Cover chosen by the user",
-   "description": "At first run and later in Info, the user picks how the app shows itself: a cover (the screen the app opens on) (alternate icons follow in a later version). 1.0 covers, each a real working tool built from SbuKit on surface, with its own one figure + SbuFullStop: Calcolatrice (display; code then '=') and Note (a plain local notes list; a note titled with the code). 1.1: Cronometro (laps as the code) and Convertitore (the code as the value). Plus 'Nessuna': opens on a plain code keypad (Face ID only as a second step after the code, never instead of it). The unlock gesture is described on the cover's setup screen and in the listing. Each cover is a pure type with Swift Testing tests. Covers never imitate Apple's apps: Sbu engraving icons, Sbu tokens. Every cover passes candidate input to one shared Unlock type (pure, tested): input that matches the code is never stored (the Notes cover discards a note whose title is the code before saving; laps and conversions that unlock are not kept in history). Inputs that do not match stay as normal tool data.",
+   "description": "At first run and later in Info, the user picks how the app shows itself: a cover (the screen the app opens on) (alternate icons follow in a later version). 1.0 covers, each a real working tool built from SbuKit on surface, with its own one figure + SbuFullStop: Regali (gift list: people, ideas, price, occasion date, bought yes/no; the one figure is the total still to spend; unlock: a new gift whose price is the code, then Salva) and Note (a plain local notes list; a note titled with the code). No calculator: it is the best-known vault cover and the first thing a suspicious person tries. Plus 'Nessuna': opens on a plain code keypad (Face ID only as a second step after the code, never instead of it). The unlock gesture is described on the cover's setup screen and in the listing. Each cover is a pure type with Swift Testing tests. Covers never imitate Apple's apps: Sbu engraving icons, Sbu tokens. Every cover passes candidate input to one shared Unlock type (pure, tested): input that matches the code is never stored (the Notes cover discards a note whose title is the code before saving; laps and conversions that unlock are not kept in history). Inputs that do not match stay as normal tool data.",
    "priority": "P0",
-   "reason": "The user decides how and with what to hide it. Calculator# offers only a calculator and reviews say a cover that does nothing is 'sus': every cover must work.",
+   "reason": "The user decides how to hide it. A gift list has a ready excuse for being hidden ('it's for your surprises') and nobody digs into their own surprises; a calculator in the Hidden folder is suspicious by itself.",
    "source": "sbu"
   },
   {
    "name": "Secret code",
-   "description": "Set at first run (6 to 10 digits, typed twice). Never stored, not even as a hash: there is no separate verifier. The code is checked only by unwrapping the private key (PBKDF2-SHA256 with CommonCrypto, iterations tuned to about 100 ms on device, then HKDF with the Secure Enclave secret, then the AES-GCM tag): a wrong code fails the tag. Only the salt and the wrapped key are in the Keychain (kSecAttrAccessibleWhenUnlockedThisDeviceOnly), so a copy of the Keychain cannot be guessed offline without this device's Secure Enclave. Wrong code: the cover treats it as normal input (a number, a note, a lap), no error. Silent throttling: after 5 wrong candidate inputs from any cover, where a candidate is any input of 6 to 10 digits, the allowed range, never the real code's length, which is not stored anywhere (short everyday inputs never count), counted in one shared Keychain counter so switching cover does not reset it, the correct code is ignored for growing intervals (1, 5, 15, 60 min), persisted in the Keychain so a relaunch does not reset it; elapsed time is measured with the monotonic clock (mach_continuous_time, immune to changing the date), and a reboot (new kern.boottime) restarts the current interval from zero instead of ending it; the cover never shows a lockout. Forgotten code: there is no reset that keeps the conversation. 'Reimposta' (long-press on the cover's figure, then device authentication) erases the local store and the Keychain item and leaves the share (participant) or deletes the zone (owner), after a destructive confirm. Accepted trade-off: someone with the device passcode can destroy the conversation but never read it; the zone is deleted anyway because its sealed content is useless without the old key. Ending the conversation from inside it still needs the code. Documented in the listing. Fresh install that finds an existing zone or Keychain item and gets no valid code: it offers only 'Elimina e ricomincia' (deletes zone, share, Keychain item and Secure Enclave key); it never fetches content into view, and sealed records it cannot open are never kept.",
+   "description": "Set at first run (6 to 10 digits, typed twice). Never stored, not even as a hash: there is no separate verifier. The code is checked only by unwrapping the private key (PBKDF2-SHA256 with CommonCrypto, iterations tuned to about 100 ms on device, then HKDF with the Secure Enclave secret, then the AES-GCM tag): a wrong code fails the tag. Only the salt and the wrapped key are in the Keychain (kSecAttrAccessibleWhenUnlockedThisDeviceOnly), so a copy of the Keychain cannot be guessed offline without this device's Secure Enclave. Wrong code: the cover treats it as normal input (a gift price, a note), no error. Silent throttling: after 5 wrong candidate inputs from any cover, where a candidate is any input of 6 to 10 digits, the allowed range, never the real code's length, which is not stored anywhere (short everyday inputs never count), counted in one shared Keychain counter so switching cover does not reset it, the correct code is ignored for growing intervals (1, 5, 15, 60 min), persisted in the Keychain so a relaunch does not reset it; elapsed time is measured with the monotonic clock (mach_continuous_time, immune to changing the date), and a reboot (new kern.boottime) restarts the current interval from zero instead of ending it; the cover never shows a lockout. Forgotten code: there is no reset that keeps the conversation. 'Reimposta' (long-press on the cover's figure, then device authentication) erases the local store and the Keychain item and leaves the share (participant) or deletes the zone (owner), after a destructive confirm. Accepted trade-off: someone with the device passcode can destroy the conversation but never read it; the zone is deleted anyway because its sealed content is useless without the old key. Ending the conversation from inside it still needs the code. Documented in the listing. Fresh install that finds an existing zone or Keychain item and gets no valid code: it offers only 'Elimina e ricomincia' (deletes zone, share, Keychain item and Secure Enclave key); it never fetches content into view, and sealed records it cannot open are never kept.",
    "priority": "P0",
    "reason": "Calculator#: 17 reviews about a forgotten password. Here the person to hide from may know the device passcode, so recovery must not reveal anything: losing the code costs the conversation, never its privacy.",
    "source": "competitor"
@@ -92,7 +92,7 @@
   },
   {
    "name": "Random neutral notifications",
-   "description": "CKDatabaseSubscription (shouldSendContentAvailable) wakes the app; it fetches changes and posts a local notification whose text is picked at random from a neutral list that fits the chosen cover (Calcolatrice: 'Promemoria', 'Hai un calcolo in sospeso'; Note: 'Nota aggiornata', 'Promemoria'), editable in Info; never a name, never a preview, never mimicking iOS system alerts. Notifications can be turned off. Tapping one opens the cover. When the user hides the app with iOS 18 'Nascondi e richiedi Face ID', iOS suppresses its notifications: the app says so in the setup screen instead of promising alerts.",
+   "description": "CKDatabaseSubscription (shouldSendContentAvailable) wakes the app; it fetches changes and posts a local notification whose text is picked at random from a neutral list that fits the chosen cover (Regali: 'Promemoria', 'Un compleanno si avvicina'; Note: 'Nota aggiornata', 'Promemoria'), editable in Info; never a name, never a preview, never mimicking iOS system alerts. Notifications can be turned off. Tapping one opens the cover. When the user hides the app with iOS 18 'Nascondi e richiedi Face ID', iOS suppresses its notifications: the app says so in the setup screen instead of promising alerts.",
    "priority": "P0",
    "reason": "Originale: 'my kid has my wife's phone ... notification pops up and she taps the notification' (opens the chat without the password). Between: 'notifications just disappear'.",
    "source": "original"
@@ -106,7 +106,7 @@
   },
   {
    "name": "Icons",
-   "description": "Default icon: the Sbu engraving of a pocket with a stitched seam. One alternate per cover in the Sbu grammar (calculator, notebook). The home-screen name 'Sbu Tasca' cannot change at runtime and fits every cover.",
+   "description": "Default icon: the Sbu engraving of a pocket with a stitched seam. One alternate per cover in the Sbu grammar (gift box, notebook). The home-screen name 'Sbu Tasca' cannot change at runtime and fits every cover.",
    "priority": "P2",
    "reason": "Users hide the app anyway (iOS 18 Hidden apps); alternate icons only matter for those who keep it on the home screen.",
    "source": "sbu"
@@ -122,7 +122,7 @@
  "screens": [
   {
    "name": "Cover",
-   "purpose": "The app's face, chosen by the user: Calcolatrice, Note, Cronometro or Convertitore, each a working tool on surface with its one figure (SbuToolField/SbuStat + SbuFullStop). Settings are never reachable from a cover.",
+   "purpose": "The app's face, chosen by the user: Regali or Note, each a working tool on surface with its one figure (SbuToolField/SbuStat + SbuFullStop). Settings are never reachable from a cover.",
    "elements": [
     "the chosen tool",
     "no Tasca branding visible"
@@ -232,7 +232,8 @@
   "Conversation (one per install)": "zoneID, share URL, isOwner, partnerName (from CKShare participant), sinceDate",
   "Settings (UserDefaults)": "cover, faceIDAfterCode, blurPhotos, notificationsOn, notificationText",
   "Secret (Keychain)": "PBKDF2 salt, wrapped Curve25519 private key, pinned partner public key, throttle counter and interval; Secure Enclave key reference. No hash of the code.",
-  "Notes cover (SwiftData, local only)": "title, body, updatedAt; never synced"
+  "Notes cover (SwiftData, local only)": "title, body, updatedAt; never synced",
+  "Gifts cover (SwiftData, local only)": "person, idea, price (Decimal), occasion date, bought; never synced"
  },
  "monetization": "Free. Promise block unchanged; the store page adds that messages go through each person's own iCloud.",
  "pains": [
@@ -251,7 +252,8 @@
   "More than one conversation: Messages does it.",
   "Copying Apple's Calculator, Notes or Clock icons or names: impersonation.",
   "Covers that need network (weather, news): not allowed in Sbu apps.",
-  "Changing the home-screen name per cover: iOS does not allow it."
+  "Changing the home-screen name per cover: iOS does not allow it.",
+  "Calculator cover: too well known as a vault disguise."
  ],
  "system_frameworks": [
   "CloudKit",
@@ -310,7 +312,7 @@
  ],
  "decisions_needed": [],
  "estimate_days": 14,
- "estimate_note": "About 14 days: two covers with tests 2 (calculator 1.5, notes 0.5), code, Keychain and end-to-end encryption 3, CloudKit sharing and push 4, conversation and photos 3, cover switching, hide-with-iOS screen, safety code and polish 2. Two devices with two Apple IDs for testing.",
+ "estimate_note": "About 14 days: two covers with tests 2 (gifts 1.5, notes 0.5), code, Keychain and end-to-end encryption 3, CloudKit sharing and push 4, conversation and photos 3, cover switching, hide-with-iOS screen, safety code and polish 2. Two devices with two Apple IDs for testing.",
  "source": {
   "listing": "research/1498275568/meta.json, research/458035189/meta.json, research/1165276801/meta.json",
   "reviews": "research/1498275568/reviews.json (49 unique, 1-3 stars), research/458035189/reviews.json (27 unique), research/1165276801/reviews.json (183 unique)",
@@ -331,7 +333,7 @@
  },
  "decisions": {
   "name": "Sbu Tasca on the home screen and the store, slug tasca; store name says what is inside, e.g. 'Sbu Tasca: chat privata nascosta'.",
-  "covers_1_0": "Calcolatrice, Note, Nessuna. Cronometro and Convertitore in 1.1. No alternate icons in 1.0: the app is hidden with iOS.",
+  "covers_1_0": "Regali, Note, Nessuna. No calculator. No alternate icons in 1.0: the app is hidden with iOS.",
   "notifications": "On, random neutral text per cover, editable, can be turned off.",
   "account": "Same developer account; submit only after Apple answers the current lot, one submit per week.",
   "accent": "accent-tasca, petrol, OKLCH hue 207 in the gap between Docs and Transcribe."

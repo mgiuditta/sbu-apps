@@ -14,3 +14,7 @@ __pycache__/
 research/*/screenshots/
 .venv/
 **/fastlane/screenshots/screenshots.html
+
+# App Review contact: personal data, kept only on this Mac (fastlane deliver reads it from disk)
+**/fastlane/metadata/review_information/phone_number.txt
+**/fastlane/metadata/review_information/email_address.txt

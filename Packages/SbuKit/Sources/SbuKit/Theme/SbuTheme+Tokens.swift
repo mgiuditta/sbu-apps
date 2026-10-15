@@ -61,6 +61,8 @@ public extension SbuTheme {
     static let accentCycle = Color("accent-cycle", bundle: .module)
     /// Accento di Sbu Steps: terracotta. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentSteps = Color("accent-steps", bundle: .module)
+    /// Accento di Sbu Chats: orchidea, tinta 318 tra Moon e Clean. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentChats = Color("accent-chats", bundle: .module)
     /// Testo e glifi sopra ogni `accent-*`: bianco in light, nero caldo in dark (gli accenti dark sono chiari). Mai bianco letterale.
     static let onAccent = Color("on-accent", bundle: .module)
     /// Stato positivo: abitudine completata, calibrazione riuscita. Sempre con una parola o un SF Symbol.
@@ -132,7 +134,7 @@ public extension SbuTheme {
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-invoice", "accent-transcribe", "accent-find", "accent-remote", "accent-tuner", "accent-cycle", "accent-steps", "on-accent", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-invoice", "accent-transcribe", "accent-find", "accent-remote", "accent-tuner", "accent-cycle", "accent-steps", "accent-chats", "on-accent", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [

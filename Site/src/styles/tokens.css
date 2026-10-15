@@ -30,6 +30,7 @@
   --sbu-accent-tuner: #73693c;
   --sbu-accent-cycle: #835a75;
   --sbu-accent-steps: #8a5c4d;
+  --sbu-accent-chats: #8c47a0;
   --sbu-on-accent: #ffffff;
   --sbu-success: #1b7a35;
   --sbu-warning: #8f5800;
@@ -71,6 +72,7 @@
     --sbu-accent-tuner: #bcb282;
     --sbu-accent-cycle: #cea1be;
     --sbu-accent-steps: #d6a393;
+    --sbu-accent-chats: #d891ee;
     --sbu-on-accent: #0a0a00;
     --sbu-success: #6cc77a;
     --sbu-warning: #f0b04a;
@@ -111,6 +113,7 @@
   --color-accent-tuner: var(--sbu-accent-tuner);
   --color-accent-cycle: var(--sbu-accent-cycle);
   --color-accent-steps: var(--sbu-accent-steps);
+  --color-accent-chats: var(--sbu-accent-chats);
   --color-on-accent: var(--sbu-on-accent);
   --color-success: var(--sbu-success);
   --color-warning: var(--sbu-warning);

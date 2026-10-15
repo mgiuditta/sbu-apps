@@ -45,6 +45,13 @@ def light_tokens():
     return values
 
 
+def drop_shadow(box_shadow):
+    """`x y blur spread color` -> `x y blur color`: CSS drop-shadow() (which follows the bezel's
+    transparent outline, unlike box-shadow) takes no spread."""
+    x, y, blur, _spread, color = box_shadow.split(" ", 4)
+    return f"{x} {y} {blur} {color}"
+
+
 def read_titles(path):
     """title.strings: `"01-main" = "Title. Subtitle.";` -> {key: (title, subtitle)}."""
     titles = {}
@@ -74,7 +81,7 @@ def app_config(app, lang_dir, colors):
         "tokens": {
             "surface": colors["surface"], "sunken": colors["surface-sunken"], "ink": colors["ink"],
             "ink-muted": colors["ink-muted"], "brand": colors["brand"], "accent": colors[f"accent-{app}"],
-            "mark-size": colors["mark-size"], "mark-gap": colors["mark-gap"], "shadow": colors["shadow-marketing"],
+            "mark-size": colors["mark-size"], "mark-gap": colors["mark-gap"], "shadow": drop_shadow(colors["shadow-marketing"]),
         },
         "shots": shots,
     }

@@ -44,6 +44,8 @@
   .device img { position: absolute; display: block; }
   .device .screen { left: 5.102%; top: 2.2%; width: 89.796%; height: 95.6%; border-radius: 8% / 3.7%; }
   .device .bezel { inset: 0; width: 100%; height: 100%; }
+  /* Screen and bezel share one flat layer: as two coplanar 3D planes Chrome let the screen win. */
+  .face { position: absolute; inset: 0; }
   .device .side { filter: brightness(.82); }
 
   .engraving { position: absolute; top: 640px; width: 2200px; height: 2200px; background: var(--ink); opacity: .9; }
@@ -82,7 +84,7 @@
     ${app.shots.map((s, i) => {
       const p = phone(i);
       return `<p class="t" style="left:${i * W + 120}px">${esc(s.title)}${i === n - 1 ? '<span class="stop"></span>' : ""}${s.subtitle ? `<small>${esc(s.subtitle)}</small>` : ""}</p>
-        <div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px"><div class="device">${side(p.w)}<img class="screen" src="${s.image}" alt=""><img class="bezel" src="${BEZEL}" alt=""></div></div>`;
+        <div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px"><div class="device">${side(p.w)}<div class="face"><img class="screen" src="${s.image}" alt=""><img class="bezel" src="${BEZEL}" alt=""></div></div></div>`;
     }).join("")}
     <div class="cover" style="left:${n * W}px"></div>
     <img class="mark" src="../../Design/logos/sbu-mark.svg" alt="sbu" style="left:${n * W + 372}px">`;

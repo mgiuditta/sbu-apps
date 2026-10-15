@@ -28,6 +28,17 @@ nonisolated enum ConsumptionUnit: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
+    /// A consumption as VoiceOver reads it, units in full words: "6,1 litri ogni 100 chilometri".
+    func spoken(kmPerLitre: Double, locale: Locale = .current) -> String {
+        let number = formatted(kmPerLitre: kmPerLitre, locale: locale)
+        switch self {
+        case .litresPer100Km: return String(localized: "\(number) litri ogni 100 chilometri")
+        case .kmPerLitre: return String(localized: "\(number) chilometri al litro")
+        case .mpgUS: return String(localized: "\(number) miglia per gallone USA")
+        case .mpgUK: return String(localized: "\(number) miglia per gallone UK")
+        }
+    }
+
     /// Whether a smaller number means less fuel burned: true only for L/100 km.
     var lowerIsBetter: Bool { self == .litresPer100Km }
 

@@ -21,15 +21,23 @@ struct PriceSection: View {
             .accessibilityIdentifier("priceKind")
             NumberField(title: draft.priceKind == .total ? "Importo" : "Prezzo", text: $draft.priceText, unit: currencySymbol, identifier: "price")
         } footer: {
-            VStack(alignment: .leading, spacing: SbuTheme.space1) {
-                if let tankLitres, let litres = draft.litres, litres > tankLitres * 1.05 {
-                    ProblemLabel(text: Text("Più di quanto tiene il serbatoio (\(draft.volumeUnit.formatted(litres: tankLitres))): controlla la quantità."), tone: .warning)
-                }
-                if let worked {
-                    Text(worked)
+            // Nothing at all when there is nothing to say: an empty stack is an element without a description.
+            if isOverTank || worked != nil {
+                VStack(alignment: .leading, spacing: SbuTheme.space1) {
+                    if isOverTank, let tankLitres {
+                        ProblemLabel(text: Text("Più di quanto tiene il serbatoio (\(draft.volumeUnit.formatted(litres: tankLitres))): controlla la quantità."), tone: .warning)
+                    }
+                    if let worked {
+                        Text(worked)
+                    }
                 }
             }
         }
+    }
+
+    private var isOverTank: Bool {
+        guard let tankLitres, let litres = draft.litres else { return false }
+        return litres > tankLitres * 1.05
     }
 
     /// The other half of the price, once there is enough to work it out.

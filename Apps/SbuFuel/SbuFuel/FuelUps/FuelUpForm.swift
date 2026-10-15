@@ -53,7 +53,7 @@ struct FuelUpForm: View {
                     Text("Pieno: hai riempito il serbatoio. Rifornimento saltato: prima di questo ne hai fatto uno senza registrarlo; il consumo riparte da qui.")
                 }
                 Section {
-                    TextField("Distributore", text: $draft.station)
+                    TextRow(title: "Distributore", text: $draft.station, prompt: "Facoltativo")
                     TextField("Note", text: $draft.note, axis: .vertical)
                 }
                 if fuelUp != nil {
@@ -67,7 +67,8 @@ struct FuelUpForm: View {
             }
             .scrollContentBackground(.hidden)
             .background(SbuTheme.surface)
-            .navigationTitle(fuelUp == nil ? "Nuovo rifornimento" : "Rifornimento")
+            // One word: between Annulla and Salva a longer title has no room at larger text.
+            .navigationTitle("Rifornimento")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

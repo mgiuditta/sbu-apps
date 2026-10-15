@@ -5,6 +5,8 @@ import SwiftUI
 struct ValueRow: View {
     let title: LocalizedStringKey
     let value: String
+    /// The value in full words for VoiceOver, when its unit is an abbreviation such as "mpg".
+    var spokenValue: String?
 
     var body: some View {
         LabeledContent {
@@ -15,6 +17,10 @@ struct ValueRow: View {
             Text(title)
                 .foregroundStyle(SbuTheme.ink)
         }
+        // One element, name and value, with the value's unit in full words.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(title))
+        .accessibilityValue(spokenValue ?? value)
         .listRowBackground(SbuTheme.surfaceRaised)
     }
 }
@@ -27,7 +33,7 @@ struct ValueRow: View {
 
 #Preview("Dark") {
     List {
-        ValueRow(title: "Ultimo pieno", value: "6,2 L/100 km")
+        ValueRow(title: "Ultimo pieno", value: "38,6 mpg", spokenValue: "38,6 miglia per gallone USA")
     }
     .preferredColorScheme(.dark)
 }

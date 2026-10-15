@@ -23,7 +23,8 @@ struct FuelUpRow: View {
 
     private var status: LocalizedStringKey {
         if let segment {
-            return "\(units.consumption.formatted(kmPerLitre: segment.kmPerLitre))\u{00A0}\(units.consumption.symbol)"
+            let consumption = units.consumption.formatted(kmPerLitre: segment.kmPerLitre) + "\u{00A0}" + units.consumption.symbol
+            return "\(consumption)"
         }
         if !fuelUp.isFull { return "Parziale" }
         if fuelUp.missedPrevious { return "Dopo un salto" }

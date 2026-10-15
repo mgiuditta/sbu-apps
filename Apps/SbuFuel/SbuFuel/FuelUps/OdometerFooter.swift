@@ -20,9 +20,9 @@ struct OdometerFooter: View {
         let date = reading.date.formatted(.dateTime.day().month(.abbreviated).year())
         let km = unit.formatted(km: reading.km)
         switch conflict {
-        case .earlierIsHigher: return Text("Il \(date) il contachilometri segnava già \(km). Controlla la lettura o la data.")
-        case .laterIsLower: return Text("Il \(date) il contachilometri segnava \(km), meno di così. Controlla la lettura o la data.")
-        case .sameReading: return Text("Il rifornimento del \(date) ha già questa lettura.")
+        case .earlierIsHigher: return Text("\(date): il contachilometri segnava già \(km). Controlla la lettura o la data.")
+        case .laterIsLower: return Text("\(date): il contachilometri segnava \(km), meno di questa lettura. Controlla la lettura o la data.")
+        case .sameReading: return Text("Un altro rifornimento ha già questa lettura (\(date)).")
         }
     }
 }

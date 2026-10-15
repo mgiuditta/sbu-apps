@@ -31,8 +31,7 @@ struct VehicleForm: View {
     var body: some View {
         Form {
             Section {
-                TextField("Nome", text: $draft.name, prompt: Text("Per esempio Panda"))
-                    .accessibilityIdentifier("vehicleName")
+                TextRow(title: "Nome", text: $draft.name, prompt: "Per esempio Panda", identifier: "vehicleName")
                 Picker("Tipo", selection: $draft.kind) {
                     ForEach(VehicleKind.allCases) { kind in
                         Text(kind.name).tag(kind)
@@ -58,9 +57,10 @@ struct VehicleForm: View {
                      : "Il serbatoio è facoltativo: serve a segnalarti una quantità che non ci sta.")
             }
             Section {
-                TextField("Targa", text: $draft.plate)
+                TextRow(title: "Targa", text: $draft.plate)
                     .textInputAutocapitalization(.characters)
-                TextField("Numero di telaio", text: $draft.vin)
+                    .autocorrectionDisabled()
+                TextRow(title: "Numero di telaio", text: $draft.vin)
                     .textInputAutocapitalization(.characters)
                     .autocorrectionDisabled()
             } footer: {
@@ -77,7 +77,7 @@ struct VehicleForm: View {
         }
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
-        .navigationTitle(vehicle == nil ? "Nuovo veicolo" : "Veicolo")
+        .navigationTitle("Veicolo")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if vehicle == nil {

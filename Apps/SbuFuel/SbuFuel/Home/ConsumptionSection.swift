@@ -9,11 +9,11 @@ struct ConsumptionSection: View {
     var body: some View {
         Section("Consumo") {
             if let last = consumption.last {
-                ValueRow(title: "Ultimo pieno", value: text(last))
+                ValueRow(title: "Ultimo pieno", value: text(last), spokenValue: unit.spoken(kmPerLitre: last.kmPerLitre))
             }
             if consumption.segments.count > 1, let best = consumption.best, let worst = consumption.worst {
-                ValueRow(title: "Il migliore", value: text(best))
-                ValueRow(title: "Il peggiore", value: text(worst))
+                ValueRow(title: "Il migliore", value: text(best), spokenValue: unit.spoken(kmPerLitre: best.kmPerLitre))
+                ValueRow(title: "Il peggiore", value: text(worst), spokenValue: unit.spoken(kmPerLitre: worst.kmPerLitre))
             }
         }
     }

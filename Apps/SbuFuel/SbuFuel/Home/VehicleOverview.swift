@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The sections of the tool screen for one vehicle.
+/// The sections of the tool screen for one vehicle: the figure, the way into the log, the next
+/// service, then the secondary figures.
 struct VehicleOverview: View {
     let vehicle: Vehicle
     let units: UnitSettings
@@ -16,13 +17,6 @@ struct VehicleOverview: View {
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
         }
-        if !consumption.segments.isEmpty {
-            ConsumptionSection(consumption: consumption, unit: units.consumption)
-        }
-        if !records.isEmpty {
-            SpendingSection(costs: costs, distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume)
-        }
-        NextServiceSection(vehicle: vehicle)
         Section {
             NavigationLink {
                 HistoryView(vehicle: vehicle, units: units)
@@ -44,5 +38,12 @@ struct VehicleOverview: View {
             .accessibilityIdentifier("services")
         }
         .listRowBackground(SbuTheme.surfaceRaised)
+        NextServiceSection(vehicle: vehicle)
+        if !consumption.segments.isEmpty {
+            ConsumptionSection(consumption: consumption, unit: units.consumption)
+        }
+        if !records.isEmpty {
+            SpendingSection(costs: costs, distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume)
+        }
     }
 }

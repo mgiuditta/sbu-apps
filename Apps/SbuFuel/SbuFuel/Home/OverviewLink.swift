@@ -7,14 +7,16 @@ struct OverviewLink: View {
     let systemImage: String
 
     var body: some View {
-        Label {
-            Text(title)
-                .foregroundStyle(SbuTheme.ink)
-        } icon: {
+        // Not a Label: in a list row the audit read its title as clipped, its frame starting under the icon.
+        HStack(spacing: SbuTheme.space3) {
             Image(systemName: systemImage)
                 .fontWeight(.medium)
                 .imageScale(.medium)
                 .foregroundStyle(SbuTheme.inkMuted)
+                .frame(minWidth: SbuTheme.space6)
+                .accessibilityHidden(true)
+            Text(title)
+                .foregroundStyle(SbuTheme.ink)
         }
     }
 }

@@ -38,12 +38,11 @@ struct ReminderForm: View {
                 Section {
                     Picker("Intervento", selection: kind) {
                         ForEach(ServiceKind.allCases) { kind in
-                            Label { Text(kind.name) } icon: { Image(systemName: kind.systemImage) }
+                            Text(kind.name)
                                 .tag(kind)
                         }
                     }
-                    TextField("Nome", text: $draft.title)
-                        .accessibilityIdentifier("reminderTitle")
+                    TextRow(title: "Nome", text: $draft.title, identifier: "reminderTitle")
                 }
                 Section {
                     NumberField(title: "Ogni", text: $draft.everyKmText, unit: vehicle.odometerUnit.symbol, identifier: "everyKm")
@@ -85,7 +84,7 @@ struct ReminderForm: View {
             }
             .scrollContentBackground(.hidden)
             .background(SbuTheme.surface)
-            .navigationTitle(reminder == nil ? "Nuovo promemoria" : "Promemoria")
+            .navigationTitle("Promemoria")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

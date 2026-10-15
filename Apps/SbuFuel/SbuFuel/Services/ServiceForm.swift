@@ -40,13 +40,12 @@ struct ServiceForm: View {
                 Section {
                     Picker("Intervento", selection: $draft.kind) {
                         ForEach(ServiceKind.allCases) { kind in
-                            Label { Text(kind.name) } icon: { Image(systemName: kind.systemImage) }
+                            Text(kind.name)
                                 .tag(kind)
                         }
                     }
                     .onChange(of: draft.kind, renameForKind)
-                    TextField("Nome", text: $draft.title)
-                        .accessibilityIdentifier("serviceTitle")
+                    TextRow(title: "Nome", text: $draft.title, identifier: "serviceTitle")
                 }
                 Section {
                     DatePicker("Data", selection: $draft.date, in: ...Date.now, displayedComponents: .date)
@@ -72,7 +71,7 @@ struct ServiceForm: View {
             }
             .scrollContentBackground(.hidden)
             .background(SbuTheme.surface)
-            .navigationTitle(service == nil ? "Nuovo intervento" : "Intervento")
+            .navigationTitle("Intervento")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

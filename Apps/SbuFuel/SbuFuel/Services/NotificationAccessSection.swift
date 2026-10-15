@@ -10,8 +10,14 @@ struct NotificationAccessSection: View {
 
     var body: some View {
         Section {
-            Label("Notifiche spente per Sbu Fuel", systemImage: "bell.slash")
-                .foregroundStyle(SbuTheme.warning)
+            // Not a Label: in a list row the audit read its title as clipped, its frame starting under the icon.
+            HStack(spacing: SbuTheme.space3) {
+                Image(systemName: "bell.slash")
+                    .fontWeight(.medium)
+                    .accessibilityHidden(true)
+                Text("Notifiche spente per Sbu Fuel")
+            }
+            .foregroundStyle(SbuTheme.warning)
             if access == .denied {
                 Button("Apri Impostazioni", action: openSettings)
                     .accessibilityIdentifier("openSettings")

@@ -53,7 +53,7 @@ struct ZipTests {
     }
 
     /// One entry compressed with raw DEFLATE, as Finder and Files write them.
-    private static func deflatedArchive(name: String, data: Data) throws -> Data {
+    static func deflatedArchive(name: String, data: Data, declaredSize: Int? = nil) throws -> Data {
         var compressed = Data(count: data.count + 64)
         let size = compressed.withUnsafeMutableBytes { destination in
             data.withUnsafeBytes { source in
@@ -69,7 +69,7 @@ struct ZipTests {
         archive.append(le: UInt32(0x0403_4B50))
         archive.append(le: UInt16(20)); archive.append(le: UInt16(0)); archive.append(le: UInt16(8))
         archive.append(le: UInt16(0)); archive.append(le: UInt16(0))
-        archive.append(le: crc); archive.append(le: UInt32(compressed.count)); archive.append(le: UInt32(data.count))
+        archive.append(le: crc); archive.append(le: UInt32(compressed.count)); archive.append(le: UInt32(declaredSize ?? data.count))
         archive.append(le: UInt16(nameData.count)); archive.append(le: UInt16(0))
         archive.append(nameData)
         archive.append(compressed)
@@ -77,7 +77,7 @@ struct ZipTests {
         archive.append(le: UInt32(0x0201_4B50))
         archive.append(le: UInt16(20)); archive.append(le: UInt16(20)); archive.append(le: UInt16(0)); archive.append(le: UInt16(8))
         archive.append(le: UInt16(0)); archive.append(le: UInt16(0))
-        archive.append(le: crc); archive.append(le: UInt32(compressed.count)); archive.append(le: UInt32(data.count))
+        archive.append(le: crc); archive.append(le: UInt32(compressed.count)); archive.append(le: UInt32(declaredSize ?? data.count))
         archive.append(le: UInt16(nameData.count)); archive.append(le: UInt16(0)); archive.append(le: UInt16(0))
         archive.append(le: UInt16(0)); archive.append(le: UInt16(0)); archive.append(le: UInt32(0)); archive.append(le: UInt32(0))
         archive.append(nameData)

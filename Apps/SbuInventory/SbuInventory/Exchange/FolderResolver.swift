@@ -16,10 +16,19 @@ struct FolderResolver {
         }
     }
 
+    /// The longest folder name an import keeps.
+    static let maxNameLength = 200
+
     /// The folder at `path`, top first; `nil` for an empty path, the top of the inventory.
+    /// A path deeper than `InventoryTree.maxDepth` is cut there, and a very long name is shortened,
+    /// so a malformed file can't build a tree the app can't show.
     mutating func folder(at path: [String]) -> Folder? {
         var parent: Folder?
-        for name in path {
+        let names = path.lazy
+            .map { String($0.trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxNameLength)) }
+            .filter { !$0.isEmpty }
+            .prefix(InventoryTree.maxDepth)
+        for name in names {
             let key = Self.key(parent: parent, name: name)
             if let existing = byParentAndName[key] {
                 parent = existing

@@ -5,6 +5,9 @@ import Foundation
 /// Every walk up or down the tree is guarded against loops, so a damaged store or a bad import
 /// can never hang the app.
 nonisolated struct InventoryTree: Sendable {
+    /// The deepest a folder can sit. Far beyond any real house; an import flattens anything deeper.
+    static let maxDepth = 64
+
     private let folders: [UUID: FolderNode]
     private let childrenByParent: [UUID?: [FolderNode]]
     private let itemsByFolder: [UUID?: [ItemNode]]
@@ -20,7 +23,7 @@ nonisolated struct InventoryTree: Sendable {
         var names: [String] = []
         var seen: Set<UUID> = []
         var current = folderID
-        while let id = current, let folder = folders[id], seen.insert(id).inserted {
+        while let id = current, let folder = folders[id], seen.insert(id).inserted, names.count < Self.maxDepth {
             names.append(folder.name)
             current = folder.parentID
         }
@@ -63,18 +66,23 @@ nonisolated struct InventoryTree: Sendable {
     }
 
     /// Every folder top down, each followed by the ones inside it, by name; with its depth, 0 at the top.
+    ///
+    /// Iterative, with a visited set: a loop is listed once and a chain deeper than `maxDepth` stops there.
     func outline() -> [(folder: FolderNode, depth: Int)] {
         var result: [(folder: FolderNode, depth: Int)] = []
         var seen: Set<UUID> = []
-        func visit(_ parentID: UUID?, depth: Int) {
-            let children = (childrenByParent[parentID] ?? []).sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-            for child in children where seen.insert(child.id).inserted {
-                result.append((child, depth))
-                visit(child.id, depth: depth + 1)
-            }
+        var stack: [(folder: FolderNode, depth: Int)] = sortedChildren(of: nil).reversed().map { ($0, 0) }
+        while let entry = stack.popLast() {
+            guard seen.insert(entry.folder.id).inserted else { continue }
+            result.append(entry)
+            guard entry.depth + 1 < Self.maxDepth else { continue }
+            stack.append(contentsOf: sortedChildren(of: entry.folder.id).reversed().map { ($0, entry.depth + 1) })
         }
-        visit(nil, depth: 0)
         return result
+    }
+
+    private func sortedChildren(of parentID: UUID?) -> [FolderNode] {
+        (childrenByParent[parentID] ?? []).sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
     }
 
     /// Whether a folder can go into `target`: never into itself or into a folder inside it.

@@ -78,6 +78,35 @@ struct InventoryTreeTests {
         #expect(tree.total(in: first).quantity == 3)
     }
 
+    @Test func veryDeepChainIsWalkedWithoutRecursionAndCappedInDepth() {
+        var chain: [FolderNode] = []
+        var parent: UUID?
+        for level in 0..<20_000 {
+            let node = FolderNode(id: UUID(), name: "L\(level)", parentID: parent)
+            chain.append(node)
+            parent = node.id
+        }
+        let tree = InventoryTree(folders: chain, items: [ItemNode(id: UUID(), folderID: parent, quantity: 1)])
+        #expect(tree.path(of: parent).count == InventoryTree.maxDepth)
+        let outline = tree.outline()
+        #expect(outline.count == InventoryTree.maxDepth)
+        #expect(outline.map(\.depth).max() == InventoryTree.maxDepth - 1)
+        #expect(tree.total(in: chain[0].id).quantity == 1)
+        #expect(tree.subtree(of: chain[0].id).count == 20_000)
+    }
+
+    @Test func foldersInALoopNeverReachTheOutlineTwice() {
+        let top = UUID(), first = UUID(), second = UUID()
+        let tree = InventoryTree(folders: [
+            FolderNode(id: top, name: "Casa", parentID: nil),
+            FolderNode(id: first, name: "A", parentID: second),
+            FolderNode(id: second, name: "B", parentID: first),
+            FolderNode(id: UUID(), name: "Self", parentID: nil),
+        ], items: [])
+        #expect(tree.outline().map(\.folder.name) == ["Casa", "Self"])
+        #expect(!tree.canMove(folder: first, into: second))
+    }
+
     @Test func outlineListsFoldersDepthFirstByName() {
         let outline = InventoryTree(folders: folders, items: []).outline()
         #expect(outline.map(\.folder.name) == ["Casa", "Cucina", "Garage", "Scatola 3"])

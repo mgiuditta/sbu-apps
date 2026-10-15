@@ -9,6 +9,8 @@ nonisolated struct ImportFile: Sendable {
         case noCSV
         /// A CSV without a column for the names.
         case noNameColumn
+        /// An archive with more files or bytes than an inventory can hold, or one built to expand without end.
+        case tooLarge
     }
 
     let rows: [InventoryRow]
@@ -28,7 +30,13 @@ nonisolated struct ImportFile: Sendable {
         var photos: [String: Data] = [:]
         if data.starts(with: [0x50, 0x4B, 0x03, 0x04]) {
             let files: [String: Data]
-            do { files = try ZipReader.files(in: data) } catch { throw .unreadable }
+            do {
+                files = try ZipReader.files(in: data)
+            } catch .tooLarge {
+                throw .tooLarge
+            } catch {
+                throw .unreadable
+            }
             // Ours is inventory.csv; any CSV will do for an archive zipped by hand, the shortest path first.
             let csvNames = files.keys.filter { $0.lowercased().hasSuffix(".csv") && !$0.hasPrefix("__MACOSX") }
             guard let name = csvNames.first(where: { $0.hasSuffix(InventoryExport.csvName) }) ?? csvNames.min(by: { $0.count < $1.count }),

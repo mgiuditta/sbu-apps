@@ -38,6 +38,9 @@ struct MonthlySpendChart: View {
             .chartForegroundStyleScale([fuelName: SbuTheme.accentFuel, serviceName: SbuTheme.inkMuted])
             .chartLegend(position: .bottom, alignment: .leading)
             .chartXSelection(value: $selectedDate)
+            // Axis labels stop growing at the largest standard size: beyond it the months turned into ellipses.
+            // The values stay readable under your finger and in VoiceOver at every size.
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             .frame(height: height)
             .padding(.vertical, SbuTheme.space2)
             .listRowBackground(SbuTheme.surfaceRaised)

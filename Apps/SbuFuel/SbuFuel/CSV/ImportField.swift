@@ -41,7 +41,7 @@ nonisolated enum ImportField: String, CaseIterable, Identifiable, Sendable {
         case .type: ["tipo", "type", "entrytype", "recordtype"]
         case .date: ["data", "date", "fuelupdate", "datetime", "day", "giorno"]
         case .odometer: ["contachilometri", "odometer", "odometro", "odo", "km", "mileage", "chilometraggio"]
-        case .quantity: ["litri", "litres", "liters", "gallons", "galloni", "quantity", "quantita", "quantità", "volume", "fuel", "carburante"]
+        case .quantity: ["litri", "litres", "liters", "gallons", "usgallons", "ukgallons", "imperialgallons", "galloni", "quantity", "quantita", "quantità", "volume", "fuel", "carburante"]
         case .totalPrice: ["importo", "totale", "total", "totalprice", "prezzototale", "cost", "costo", "amount", "spesa"]
         case .unitPrice: ["price", "unitprice", "priceperunit", "pricepergallon", "priceperliter", "priceperlitre", "prezzo", "prezzounitario", "prezzoallitro"]
         case .full: ["pieno", "full", "fulltank", "isfull"]
@@ -55,6 +55,19 @@ nonisolated enum ImportField: String, CaseIterable, Identifiable, Sendable {
 
     static func normalised(_ header: String) -> String {
         header.lowercased().filter { !$0.isWhitespace && $0 != "_" && $0 != "-" && $0 != "." }
+    }
+
+    /// The units the headers name, if any: "gallons" or "miles" in a column the mapping uses.
+    static func units(_ header: [String], mapping: [ImportField: Int]) -> (distance: DistanceUnit?, volume: VolumeUnit?) {
+        func name(_ field: ImportField) -> String {
+            guard let index = mapping[field], header.indices.contains(index) else { return "" }
+            return normalised(header[index])
+        }
+        let quantity = name(.quantity), odometer = name(.odometer)
+        let volume: VolumeUnit? = quantity.contains("gal") ? (quantity.contains("uk") || quantity.contains("imp") ? .imperialGallons : .usGallons)
+            : quantity.contains("lit") ? .litres : nil
+        let distance: DistanceUnit? = odometer.contains("mi") && !odometer.contains("km") ? .miles : odometer.contains("km") ? .kilometres : nil
+        return (distance, volume)
     }
 
     /// Picks a column for each field from the header line; each column goes to one field at most.

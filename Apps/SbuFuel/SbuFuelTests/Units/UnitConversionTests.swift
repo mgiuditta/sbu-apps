@@ -69,6 +69,11 @@ struct UnitConversionTests {
         #expect(reopened.volume == .imperialGallons)
     }
 
+    @Test(arguments: [("it_IT", false), ("de_DE", false), ("en_US", true), ("en_GB", true)])
+    func currencySymbolSideFollowsTheLanguage(identifier: String, first: Bool) {
+        #expect(NumberField.currencySymbolFirst(locale: Locale(identifier: identifier)) == first)
+    }
+
     @Test(arguments: [
         ("it_IT", Decimal(string: "1.789")!, "1,789\u{00A0}€/L"),
         ("en_US", Decimal(string: "1.789")!, "$1.789/L"),

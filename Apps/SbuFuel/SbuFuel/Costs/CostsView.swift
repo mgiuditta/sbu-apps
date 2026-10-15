@@ -50,7 +50,7 @@ struct CostsView: View {
                     ValueRow(title: "In media al mese", value: Money.text(costs.total / Decimal(months.count)))
                 }
             }
-            Section("Consumo") {
+            Section("Consumo in \(units.consumption.symbol)") {
                 ConsumptionChart(segments: segments, unit: units.consumption)
             }
             Section("Spesa al mese") {

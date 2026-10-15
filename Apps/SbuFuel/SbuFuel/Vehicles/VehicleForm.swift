@@ -57,10 +57,10 @@ struct VehicleForm: View {
                      : "Il serbatoio è facoltativo: serve a segnalarti una quantità che non ci sta.")
             }
             Section {
-                TextRow(title: "Targa", text: $draft.plate)
+                TextRow(title: "Targa", text: $draft.plate, prompt: "Facoltativa")
                     .textInputAutocapitalization(.characters)
                     .autocorrectionDisabled()
-                TextRow(title: "Numero di telaio", text: $draft.vin)
+                TextRow(title: "Telaio", text: $draft.vin, prompt: "Facoltativo")
                     .textInputAutocapitalization(.characters)
                     .autocorrectionDisabled()
             } footer: {

@@ -71,16 +71,6 @@
         }
       }
     },
-    "%@ · %@ · %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ · %@ · %@"
-          }
-        }
-      }
-    },
     "%@, %@" : {
       "localizations" : {
         "en" : {
@@ -251,12 +241,12 @@
         }
       }
     },
-    "Anteprima" : {
+    "Anteprima di %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Preview"
+            "value" : "Preview of %@"
           }
         }
       }
@@ -411,12 +401,32 @@
         }
       }
     },
+    "Con queste colonne non si legge nessuna riga." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With these columns no row can be read."
+          }
+        }
+      }
+    },
     "Consumo" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Consumption"
+          }
+        }
+      }
+    },
+    "Consumo in %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumption in %@"
           }
         }
       }
@@ -471,22 +481,22 @@
         }
       }
     },
-    "Da importare: %lld. Già presenti: %lld." : {
+    "Da importare: %lld. Già presenti o ripetute: %lld." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To import: %lld. Already in your log: %lld."
+            "value" : "To import: %lld. Already in your log or repeated: %lld."
           }
         }
       }
     },
-    "Da importare: %lld. Già presenti: %lld. Senza data, contachilometri o quantità: %lld." : {
+    "Da importare: %lld. Già presenti o ripetute: %lld. Senza data, contachilometri o quantità: %lld." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To import: %lld. Already in your log: %lld. Missing a date, odometer or quantity: %lld."
+            "value" : "To import: %lld. Already in your log or repeated: %lld. Missing a date, odometer or quantity: %lld."
           }
         }
       }
@@ -951,6 +961,16 @@
         }
       }
     },
+    "Importa CSV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import CSV"
+          }
+        }
+      }
+    },
     "Importa CSV in %@" : {
       "localizations" : {
         "en" : {
@@ -1251,16 +1271,6 @@
         }
       }
     },
-    "Numero di telaio" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "VIN"
-          }
-        }
-      }
-    },
     "Ogni" : {
       "localizations" : {
         "en" : {
@@ -1466,7 +1476,17 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reminders"
+            "value" : "Reminder"
+          }
+        }
+      }
+    },
+    "Prossime scadenze" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming up"
           }
         }
       }
@@ -1747,6 +1767,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "License plate"
+          }
+        }
+      }
+    },
+    "Telaio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIN"
           }
         }
       }

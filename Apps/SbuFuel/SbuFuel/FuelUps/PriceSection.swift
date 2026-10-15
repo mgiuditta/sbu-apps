@@ -19,7 +19,8 @@ struct PriceSection: View {
             }
             .pickerStyle(.segmented)
             .accessibilityIdentifier("priceKind")
-            NumberField(title: draft.priceKind == .total ? "Importo" : "Prezzo", text: $draft.priceText, unit: currencySymbol, identifier: "price")
+            NumberField(title: draft.priceKind == .total ? "Importo" : "Prezzo", text: $draft.priceText, unit: currencySymbol, identifier: "price",
+                        unitFirst: NumberField.currencySymbolFirst(locale: draft.locale))
         } footer: {
             // Nothing at all when there is nothing to say: an empty stack is an element without a description.
             if isOverTank || worked != nil {

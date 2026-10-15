@@ -9,13 +9,16 @@ struct ConsumptionFigure: View {
     let unit: ConsumptionUnit
     let distanceUnit: DistanceUnit
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         if let average = consumption.averageKmPerLitre {
             SbuToolField(
                 "Consumo medio",
                 value: unit.value(fromKmPerLitre: average),
                 format: .number.precision(.fractionLength(1)),
-                unit: "\u{2009}" + unit.symbol,
+                // At the accessibility sizes "L/100 km" broke over three lines beside the figure: there it moves into the context line.
+                unit: dynamicTypeSize.isAccessibilitySize ? nil : "\u{2009}" + unit.symbol,
                 context: context
             ) {
                 EmptyView()
@@ -35,7 +38,8 @@ struct ConsumptionFigure: View {
 
     private var context: LocalizedStringKey {
         let distance = distanceUnit.formatted(km: consumption.segments.reduce(0) { $0 + $1.distanceKm })
-        return "Da pieno a pieno, su \(distance)"
+        let line = String(localized: "Da pieno a pieno, su \(distance)")
+        return dynamicTypeSize.isAccessibilitySize ? "\(unit.symbol) · \(line)" : "\(line)"
     }
 }
 

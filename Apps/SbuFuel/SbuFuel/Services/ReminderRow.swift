@@ -9,14 +9,11 @@ struct ReminderRow: View {
 
     var body: some View {
         let words = ReminderWords(reminder: reminder, due: due, distanceUnit: distanceUnit)
-        SbuListRow(
-            // Interpolated, so your own words are never looked up as a translation key.
-            "\(reminder.title)",
-            subtitle: words.interval,
+        EntryRow(
+            title: Text(reminder.title),
+            subtitle: words.interval.map { Text($0) },
             systemImage: reminder.kind.systemImage,
-            iconBackground: SbuTheme.surfaceSunken,
-            iconForeground: SbuTheme.ink,
-            status: words.status,
+            status: words.status.map { Text($0) },
             statusTone: words.tone
         )
     }

@@ -27,8 +27,15 @@ struct DataSection: View {
                 }
                 .disabled(!vehicle.hasEntries)
                 .accessibilityIdentifier("exportCSV")
-                Button("Importa CSV in \(vehicle.name)") { isImporting = true }
+                // On the button, not the section: on a section they land on every row, and two sheets
+                // bound to the same file closed the settings.
+                Button("Importa CSV in \(vehicle.name)", action: pickFile)
                     .accessibilityIdentifier("importCSV")
+                    .fileImporter(isPresented: $isImporting, allowedContentTypes: [.commaSeparatedText, .plainText, .text], onCompletion: read)
+                    .sheet(item: $file) { file in
+                        CSVImportView(file: file, vehicle: vehicle, units: units)
+                    }
+                    .alert(isPresented: hasFailure, error: failure) {}
             }
         } header: {
             Text("Dati")
@@ -37,13 +44,6 @@ struct DataSection: View {
                  ? "Aggiungi un veicolo per esportare o importare i suoi dati."
                  : "Esporta crea un file con i rifornimenti e gli interventi del veicolo: lo salvi dove vuoi tu. Importa legge un file CSV, anche da altri servizi, e ti fa scegliere le colonne.")
         }
-        .fileImporter(isPresented: $isImporting, allowedContentTypes: [.commaSeparatedText, .plainText, .text], onCompletion: read)
-        .sheet(item: $file) { file in
-            if let vehicle {
-                CSVImportView(file: file, vehicle: vehicle, units: units)
-            }
-        }
-        .alert(isPresented: hasFailure, error: failure) {}
     }
 
     private func export(_ vehicle: Vehicle) -> FuelCSVExport {
@@ -55,6 +55,15 @@ struct DataSection: View {
                 FuelCSVExport.Service(title: $0.title, date: $0.date, odometerKm: $0.odometerKm, cost: $0.cost, currencyCode: $0.currencyCode, note: $0.note)
             }
         )
+    }
+
+    private func pickFile() {
+        // UI tests can't drive the system file picker: they open the import sheet on a file of their own.
+        if let text = ProcessInfo.processInfo.environment["SBU_IMPORT_FIXTURE"], let importer = CSVImporter(text: text) {
+            file = ImportFile(importer: importer, name: "fixture.csv")
+            return
+        }
+        isImporting = true
     }
 
     private var hasFailure: Binding<Bool> {

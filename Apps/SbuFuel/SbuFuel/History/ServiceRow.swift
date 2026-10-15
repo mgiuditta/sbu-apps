@@ -7,20 +7,18 @@ struct ServiceRow: View {
     let distanceUnit: DistanceUnit
 
     var body: some View {
-        SbuListRow(
-            "\(service.title)",
-            subtitle: subtitle,
+        EntryRow(
+            title: Text(service.title),
+            subtitle: Text(subtitle),
             systemImage: service.kind.systemImage,
-            iconBackground: SbuTheme.surfaceSunken,
-            iconForeground: SbuTheme.ink,
             amount: service.cost.formatted(.currency(code: service.currencyCode))
         )
     }
 
-    private var subtitle: LocalizedStringKey {
+    private var subtitle: String {
         let date = service.date.formatted(.dateTime.day().month(.abbreviated).year())
-        guard let km = service.odometerKm else { return "\(date)" }
-        return "\(date) · \(distanceUnit.formatted(km: km))"
+        guard let km = service.odometerKm else { return date }
+        return date + " · " + distanceUnit.formatted(km: km)
     }
 }
 

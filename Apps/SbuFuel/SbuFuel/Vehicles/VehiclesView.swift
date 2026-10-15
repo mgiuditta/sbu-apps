@@ -19,13 +19,7 @@ struct VehiclesView: View {
                         NavigationLink {
                             VehicleForm(vehicle: vehicle, units: units)
                         } label: {
-                            SbuListRow(
-                                "\(vehicle.name)",
-                                subtitle: subtitle(vehicle),
-                                systemImage: vehicle.kind.systemImage,
-                                iconBackground: SbuTheme.surfaceSunken,
-                                iconForeground: SbuTheme.ink
-                            )
+                            EntryRow(title: Text(vehicle.name), subtitle: Text(subtitle(vehicle)), systemImage: vehicle.kind.systemImage)
                         }
                     }
                 }
@@ -55,10 +49,10 @@ struct VehiclesView: View {
         }
     }
 
-    private func subtitle(_ vehicle: Vehicle) -> LocalizedStringKey {
-        let kind = String(localized: vehicle.kind.name)
-        let fuel = String(localized: vehicle.fuelType.name)
-        return vehicle.plate.isEmpty ? "\(kind) · \(fuel)" : "\(kind) · \(fuel) · \(vehicle.plate)"
+    private func subtitle(_ vehicle: Vehicle) -> String {
+        [String(localized: vehicle.kind.name), String(localized: vehicle.fuelType.name), vehicle.plate]
+            .filter { !$0.isEmpty }
+            .joined(separator: " · ")
     }
 
     private func add() {

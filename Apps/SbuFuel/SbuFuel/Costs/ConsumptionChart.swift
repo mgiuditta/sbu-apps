@@ -33,9 +33,12 @@ struct ConsumptionChart: View {
                         }
                 }
             }
+            // The unit is in the section's title: as an axis label it ran into the top value at large text.
             .chartYScale(domain: .automatic(includesZero: false))
-            .chartYAxisLabel(unit.symbol)
             .chartXSelection(value: $selectedDate)
+            // Axis labels stop growing at the largest standard size: beyond it the months turned into ellipses.
+            // The values stay readable under your finger and in VoiceOver at every size.
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             .frame(height: height)
             .padding(.vertical, SbuTheme.space2)
             .listRowBackground(SbuTheme.surfaceRaised)

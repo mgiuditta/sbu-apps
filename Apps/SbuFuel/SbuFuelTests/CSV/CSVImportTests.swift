@@ -118,6 +118,18 @@ struct CSVImportTests {
         #expect(result.unreadable == 3)
     }
 
+    @Test(arguments: [
+        (["date", "odometer", "gallons"], nil as DistanceUnit?, VolumeUnit.usGallons as VolumeUnit?),
+        (["date", "mileage", "uk_gallons"], .miles, .imperialGallons),
+        (["data", "km", "litri"], .kilometres, .litres),
+        (["data", "contachilometri", "quantità"], nil, nil),
+    ])
+    func headersNameTheirUnits(header: [String], distance: DistanceUnit?, volume: VolumeUnit?) {
+        let units = ImportField.units(header, mapping: ImportField.guess(header))
+        #expect(units.distance == distance)
+        #expect(units.volume == volume)
+    }
+
     @Test func aHeaderAloneIsNoFile() {
         #expect(CSVImporter(text: "data,litri\n") == nil)
         #expect(CSVImporter(text: "") == nil)

@@ -50,7 +50,8 @@ struct ServiceForm: View {
                 Section {
                     DatePicker("Data", selection: $draft.date, in: ...Date.now, displayedComponents: .date)
                     NumberField(title: "Contachilometri", text: $draft.odometerText, unit: vehicle.odometerUnit.symbol, identifier: "serviceOdometer")
-                    NumberField(title: "Costo", text: $draft.costText, unit: Locale.current.currencySymbol ?? "", identifier: "serviceCost")
+                    NumberField(title: "Costo", text: $draft.costText, unit: Locale.current.currencySymbol ?? "", identifier: "serviceCost",
+                                unitFirst: NumberField.currencySymbolFirst(locale: .current))
                 } footer: {
                     if let conflict {
                         OdometerFooter(problem: .conflict(conflict), lastKm: nil, unit: vehicle.odometerUnit)

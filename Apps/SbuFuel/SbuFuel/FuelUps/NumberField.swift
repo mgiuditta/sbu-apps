@@ -7,26 +7,52 @@ struct NumberField: View {
     @Binding var text: String
     let unit: String
     var identifier = ""
+    /// The unit before the number, as "$" in English.
+    var unitFirst = false
 
     var body: some View {
         LabeledContent {
             HStack(spacing: SbuTheme.space1) {
-                TextField(text: $text, prompt: Text(verbatim: "0")) {
-                    Text(title)
+                if unitFirst {
+                    Spacer(minLength: 0)
+                    unitText
+                    field
+                        // Hugs the number so the symbol stays beside it, with room enough to tap.
+                        .fixedSize()
+                        .frame(minWidth: SbuTheme.controlRoundSm, alignment: .leading)
+                } else {
+                    field
+                    unitText
                 }
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-                .monospacedDigit()
-                // The unit is hidden beside the field: VoiceOver hears it with the name.
-                .accessibilityLabel(Text("\(Text(title)), \(unit)"))
-                .accessibilityIdentifier(identifier)
-                Text(unit)
-                    .foregroundStyle(SbuTheme.inkMuted)
-                    .accessibilityHidden(true)
             }
         } label: {
             Text(title)
         }
+    }
+
+    private var field: some View {
+        TextField(text: $text, prompt: Text(verbatim: "0")) {
+            Text(title)
+        }
+        .keyboardType(.decimalPad)
+        .multilineTextAlignment(unitFirst ? .leading : .trailing)
+        .monospacedDigit()
+        // The unit is hidden beside the field: VoiceOver hears it with the name.
+        .accessibilityLabel(Text("\(Text(title)), \(unit)"))
+        .accessibilityIdentifier(identifier)
+    }
+
+    private var unitText: some View {
+        Text(unit)
+            .foregroundStyle(SbuTheme.inkMuted)
+            .accessibilityHidden(true)
+    }
+
+    /// Whether the locale writes its currency symbol before the amount.
+    static func currencySymbolFirst(locale: Locale) -> Bool {
+        let code = Money.currencyCode(for: locale)
+        let sample = Decimal(1).formatted(.currency(code: code).locale(locale))
+        return !(sample.first?.isNumber ?? true)
     }
 }
 

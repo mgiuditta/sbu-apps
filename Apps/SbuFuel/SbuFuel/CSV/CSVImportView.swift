@@ -20,7 +20,8 @@ struct CSVImportView: View {
         let mapping = ImportField.guess(file.importer.header)
         _mapping = State(initialValue: mapping)
         let dates = file.importer.rows.prefix(50).map { CSVImporter.cell(.date, in: $0, mapping: mapping) }
-        _options = State(initialValue: CSVImporter.Options(distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume,
+        let named = ImportField.units(file.importer.header, mapping: mapping)
+        _options = State(initialValue: CSVImporter.Options(distanceUnit: named.distance ?? vehicle.odometerUnit, volumeUnit: named.volume ?? units.volume,
                                                            dateOrder: DateOrder.detect(dates, locale: .current)))
     }
 
@@ -28,21 +29,20 @@ struct CSVImportView: View {
         let result = file.importer.entries(mapping: mapping, options: options, existing: existing, calendar: .current)
         NavigationStack {
             Form {
+                // What will be imported first, then what to change if it reads wrong.
                 Section {
-                    ForEach(ImportField.allCases) { field in
-                        Picker(selection: column(field)) {
-                            Text("Nessuna").tag(-1)
-                            ForEach(file.importer.header.indices, id: \.self) { index in
-                                Text(verbatim: header(index)).tag(index)
-                            }
-                        } label: {
-                            Text(field.name)
-                        }
+                    ForEach(Array(result.entries.prefix(5).enumerated()), id: \.offset) { _, entry in
+                        ImportPreviewRow(entry: entry, distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume)
+                    }
+                    if result.entries.isEmpty {
+                        Text("Con queste colonne non si legge nessuna riga.")
+                            .foregroundStyle(SbuTheme.inkMuted)
                     }
                 } header: {
-                    Text("Colonne")
+                    Text("Anteprima di \(file.name)")
                 } footer: {
-                    Text("Le righe con tipo “intervento” diventano interventi, le altre rifornimenti. Senza la colonna Pieno, ogni rifornimento conta come pieno.")
+                    Text(summary(result))
+                        .accessibilityIdentifier("importSummary")
                 }
                 Section("Unità del file") {
                     Picker("Contachilometri", selection: $options.distanceUnit) {
@@ -62,19 +62,25 @@ struct CSVImportView: View {
                     }
                 }
                 Section {
-                    ForEach(Array(result.entries.prefix(5).enumerated()), id: \.offset) { _, entry in
-                        ImportPreviewRow(entry: entry, distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume)
+                    ForEach(ImportField.allCases) { field in
+                        Picker(selection: column(field)) {
+                            Text("Nessuna").tag(-1)
+                            ForEach(file.importer.header.indices, id: \.self) { index in
+                                Text(verbatim: header(index)).tag(index)
+                            }
+                        } label: {
+                            Text(field.name)
+                        }
                     }
                 } header: {
-                    Text("Anteprima")
+                    Text("Colonne")
                 } footer: {
-                    Text(summary(result))
-                        .accessibilityIdentifier("importSummary")
+                    Text("Le righe con tipo “intervento” diventano interventi, le altre rifornimenti. Senza la colonna Pieno, ogni rifornimento conta come pieno.")
                 }
             }
             .scrollContentBackground(.hidden)
             .background(SbuTheme.surface)
-            .navigationTitle(file.name)
+            .navigationTitle("Importa CSV")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -110,9 +116,9 @@ struct CSVImportView: View {
 
     private func summary(_ result: CSVImporter.Result) -> LocalizedStringKey {
         var text: LocalizedStringKey = "Da importare: \(result.entries.count)."
-        if result.duplicates > 0 { text = "Da importare: \(result.entries.count). Già presenti: \(result.duplicates)." }
+        if result.duplicates > 0 { text = "Da importare: \(result.entries.count). Già presenti o ripetute: \(result.duplicates)." }
         if result.unreadable > 0 {
-            text = "Da importare: \(result.entries.count). Già presenti: \(result.duplicates). Senza data, contachilometri o quantità: \(result.unreadable)."
+            text = "Da importare: \(result.entries.count). Già presenti o ripetute: \(result.duplicates). Senza data, contachilometri o quantità: \(result.unreadable)."
         }
         return text
     }

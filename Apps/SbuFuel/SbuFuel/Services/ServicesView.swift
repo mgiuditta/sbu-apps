@@ -32,7 +32,7 @@ struct ServicesView: View {
                     .accessibilityIdentifier("addReminder")
                     .listRowBackground(SbuTheme.surfaceRaised)
             } header: {
-                Text("Promemoria")
+                Text("Prossime scadenze")
             } footer: {
                 if reminders.isEmpty {
                     Text("Per esempio cambio olio ogni 15.000 km o 12 mesi: ti avvisa il giorno in cui scade.")

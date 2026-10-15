@@ -10,25 +10,22 @@ struct FuelUpRow: View {
     let units: UnitSettings
 
     var body: some View {
-        SbuListRow(
-            "\(fuelUp.date.formatted(.dateTime.day().month(.wide).year()))",
-            subtitle: "\(distanceUnit.formatted(km: fuelUp.odometerKm)) · \(units.volume.formatted(litres: fuelUp.litres))",
+        EntryRow(
+            title: Text(fuelUp.date.formatted(.dateTime.day().month(.wide).year())),
+            subtitle: Text(distanceUnit.formatted(km: fuelUp.odometerKm) + " · " + units.volume.formatted(litres: fuelUp.litres)),
             systemImage: "fuelpump",
-            iconBackground: SbuTheme.surfaceSunken,
-            iconForeground: SbuTheme.ink,
             amount: fuelUp.totalPrice.formatted(.currency(code: fuelUp.currencyCode)),
             status: status
         )
     }
 
-    private var status: LocalizedStringKey {
+    private var status: Text {
         if let segment {
-            let consumption = units.consumption.formatted(kmPerLitre: segment.kmPerLitre) + "\u{00A0}" + units.consumption.symbol
-            return "\(consumption)"
+            return Text(units.consumption.formatted(kmPerLitre: segment.kmPerLitre) + "\u{00A0}" + units.consumption.symbol)
         }
-        if !fuelUp.isFull { return "Parziale" }
-        if fuelUp.missedPrevious { return "Dopo un salto" }
-        return "Pieno"
+        if !fuelUp.isFull { return Text("Parziale") }
+        if fuelUp.missedPrevious { return Text("Dopo un salto") }
+        return Text("Pieno")
     }
 }
 

@@ -119,6 +119,7 @@ final class ScreenTourTests: XCTestCase {
         save(app, "20-settings")
         app.swipeUp()
         save(app, "21-settings-bottom")
+        app.swipeDown()
         reveal(app.element("fields"), in: app).tap()
         save(app, "22-fields-empty")
         app.element("addField").tap()

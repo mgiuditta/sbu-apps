@@ -3,46 +3,43 @@ import SwiftUI
 
 /// A whole number you type or step: the field for direct entry, − and + beside it. Never below zero.
 ///
-/// At the accessibility text sizes the title goes on its own line, so it never breaks a letter at a time.
+/// On one line when it fits; otherwise, as at the largest text sizes or on a small iPhone, the title goes
+/// on its own line above, so it never breaks a letter at a time.
 struct QuantityField: View {
     let title: LocalizedStringKey
     @Binding var value: Int
 
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .body) private var fieldWidth: CGFloat = 56
 
     var body: some View {
-        if dynamicTypeSize.isAccessibilitySize {
-            VStack(alignment: .leading, spacing: SbuTheme.space2) {
-                Text(title)
-                HStack {
-                    field
-                    Spacer(minLength: SbuTheme.space2)
-                    Stepper(title, value: $value, in: 0...999_999)
-                        .labelsHidden()
-                        .fixedSize()
-                }
-            }
-        } else {
-            // Laid out by hand: a `LabeledContent` inside the stepper squeezed the title's height.
+        ViewThatFits(in: .horizontal) {
             HStack(spacing: SbuTheme.space3) {
                 Text(title)
-                Spacer(minLength: SbuTheme.space2)
-                field
-                Stepper(title, value: $value, in: 0...999_999)
-                    .labelsHidden()
                     .fixedSize()
+                Spacer(minLength: SbuTheme.space2)
+                controls(alignment: .trailing)
+            }
+            VStack(alignment: .leading, spacing: SbuTheme.space2) {
+                Text(title)
+                    .fixedSize(horizontal: false, vertical: true)
+                controls(alignment: .leading)
             }
         }
     }
 
-    private var field: some View {
-        TextField(title, value: clamped, format: .number)
-            .keyboardType(.numberPad)
-            .multilineTextAlignment(.trailing)
-            .monospacedDigit()
-            // As wide as the number, so the title keeps the room and stays on one line.
-            .fixedSize()
-            .accessibilityIdentifier("quantityField")
+    /// The number and − +; the number lines up with the title above it when stacked, with − + beside it in a row.
+    private func controls(alignment: TextAlignment) -> some View {
+        HStack(spacing: SbuTheme.space3) {
+            TextField(title, value: clamped, format: .number)
+                .keyboardType(.numberPad)
+                .multilineTextAlignment(alignment)
+                .monospacedDigit()
+                .frame(width: fieldWidth)
+                .accessibilityIdentifier("quantityField")
+            Stepper(title, value: $value, in: 0...999_999)
+                .labelsHidden()
+                .fixedSize()
+        }
     }
 
     private var clamped: Binding<Int> {

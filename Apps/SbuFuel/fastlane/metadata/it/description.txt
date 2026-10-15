@@ -5,6 +5,19 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Registra ogni rifornimento con il contachilometri, i litri e quanto hai pagato: in alto vedi il consumo medio del tuo veicolo, calcolato da pieno a pieno.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Consumo da pieno a pieno: i parziali si sommano al tratto, un rifornimento saltato non falsa la media
+- Voci in qualunque ordine: aggiungi uno scontrino dimenticato o anni di storico, i consumi si ricalcolano
+- Controllo del contachilometri: ti dice con quale voce non torna la lettura
+- L/100 km, km/L, mpg USA e mpg UK; litri o galloni; chilometri o miglia per ogni veicolo
+- Più veicoli: auto, moto, furgone, con targa e telaio facoltativi
+- Spese del mese e dell'anno, costo del carburante al km, prezzo medio al litro
+- Grafici del consumo, della spesa al mese e del prezzo al litro, su 3 mesi, 12 mesi o tutto
+- Manutenzione: cambio olio, pneumatici, freni, revisione, assicurazione, bollo o quello che vuoi
+- Promemoria a chilometri, a mesi o entrambi, con una notifica il giorno in cui scade
+- Esporta in CSV e importa un CSV, anche da altri servizi, scegliendo le colonne
+- Dati di esempio per provarla subito
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: ti dice quanto consuma il tuo veicolo, da pieno a pieno.

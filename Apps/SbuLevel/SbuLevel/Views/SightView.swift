@@ -40,6 +40,13 @@ struct SightView: View {
             }
         }
         .aspectRatio(1, contentMode: .fit)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("Mirino"))
+        .accessibilityActions {
+            if camera.access == .denied {
+                Button("Consenti la fotocamera", action: openSettings)
+            }
+        }
     }
 
     private func openSettings() {

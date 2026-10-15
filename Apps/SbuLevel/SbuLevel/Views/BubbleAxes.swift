@@ -17,6 +17,10 @@ struct BubbleAxes: View {
         }
         .font(SbuTheme.footnote.monospacedDigit())
         .foregroundStyle(SbuTheme.inkMuted)
+        // VoiceOver offers the full-screen action here when flat: a whole touch target.
+        .frame(minHeight: SbuTheme.controlRoundSm)
+        // Never squeezed by the dial above it, which shrinks to make room instead.
+        .fixedSize(horizontal: false, vertical: true)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text("Asse orizzontale \(style.spokenText(abs(tiltX))), asse verticale \(style.spokenText(abs(tiltY)))"))
     }

@@ -291,6 +291,26 @@
         }
       }
     },
+    "Controlli nascosti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controls hidden"
+          }
+        }
+      }
+    },
+    "Controlli visibili" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controls shown"
+          }
+        }
+      }
+    },
     "Dopo Blocca, la lettura si ferma quando resta entro la tolleranza per due secondi, e mostra la media. Nel mirino, con la fotocamera accesa, anche un tasto volume blocca e sblocca." : {
       "localizations" : {
         "en" : {
@@ -591,6 +611,16 @@
         }
       }
     },
+    "Mostra i controlli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show controls"
+          }
+        }
+      }
+    },
     "Non calibrato" : {
       "localizations" : {
         "en" : {
@@ -747,6 +777,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Level"
+          }
+        }
+      }
+    },
+    "Schermo intero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full screen"
           }
         }
       }

@@ -12,6 +12,8 @@ struct MainView: View {
     @State private var camera = SightCamera()
     @State private var speaker = ReadingSpeaker()
     @State private var isCalibrating = false
+    /// Bars and pills hidden while measuring. Never saved.
+    @State private var isFullScreen = false
 
     private var format: AngleFormatStyle { AngleFormatStyle(unit: model.unit) }
 
@@ -45,19 +47,28 @@ struct MainView: View {
                     context: status.text,
                     contextSystemImage: status.systemImage
                 ) {
-                    LevelInstrument(model: model, camera: camera, toggleLock: toggleLock)
+                    LevelInstrument(
+                        model: model,
+                        camera: camera,
+                        isFullScreen: isFullScreen,
+                        toggleLock: toggleLock,
+                        toggleFullScreen: toggleFullScreen
+                    )
                 } pills: {
-                    // In one row, wrapping onto more where they would not fit, as with large text sizes.
-                    PillsLayout(spacing: SbuTheme.space2) {
-                        LevelPills(
-                            isRelative: model.readout.isRelative,
-                            isLocked: model.isLocked,
-                            isWaitingForSteady: model.steadyProgress != nil,
-                            isSighting: model.isSighting,
-                            toggleReference: toggleReference,
-                            toggleLock: toggleLock,
-                            toggleSight: toggleSight
-                        )
+                    // Gone in full screen: the screen lays out from the top, so the dial stays put.
+                    if isFullScreen == false {
+                        // In one row, wrapping onto more where they would not fit, as with large text sizes.
+                        PillsLayout(spacing: SbuTheme.space2) {
+                            LevelPills(
+                                isRelative: model.readout.isRelative,
+                                isLocked: model.isLocked,
+                                isWaitingForSteady: model.steadyProgress != nil,
+                                isSighting: model.isSighting,
+                                toggleReference: toggleReference,
+                                toggleLock: toggleLock,
+                                toggleSight: toggleSight
+                            )
+                        }
                     }
                 }
             } else {
@@ -80,6 +91,9 @@ struct MainView: View {
                 }
             }
         }
+        .toolbar(isFullScreen ? .hidden : .automatic, for: .navigationBar)
+        .statusBarHidden(isFullScreen)
+        .persistentSystemOverlays(isFullScreen ? .hidden : .automatic)
         .sensoryFeedback(.success, trigger: model.readout.isLevel) { _, isLevel in isLevel }
         .sheet(isPresented: $isCalibrating, onDismiss: model.endCalibration) {
             CalibrationSheet(model: model)
@@ -141,6 +155,14 @@ struct MainView: View {
         } else if model.speech != .off {
             speaker.speak(message)
         }
+    }
+
+    private func toggleFullScreen() {
+        withAnimation(.easeInOut) {
+            isFullScreen.toggle()
+        }
+        let message = isFullScreen ? String(localized: "Controlli nascosti") : String(localized: "Controlli visibili")
+        AccessibilityNotification.Announcement(message).post()
     }
 
     private func toggleSight() {

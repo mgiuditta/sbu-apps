@@ -165,6 +165,37 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testFlatShowsTheBubbleAndItsAxesWithoutTheDial() throws {
+        let app = launch(gravity: "flat")
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+
+        XCTAssertTrue(figure.label.contains("In piano"), figure.label)
+        // The dial is hidden from VoiceOver when flat, but XCUITest still lists SwiftUI's hidden
+        // elements, so only the axes are checked here.
+        XCTAssertTrue(app.otherElements.matching(NSPredicate(format: "label BEGINSWITH 'Asse orizzontale'")).firstMatch.exists)
+        try audit(app, excluding: Self.toolScreenExclusions)
+    }
+
+    @MainActor
+    func testATapOnTheDialHidesBarsAndPillsAndAnotherShowsThem() throws {
+        let app = launch()
+        let dial = app.otherElements["Quadrante"]
+        XCTAssertTrue(dial.waitForExistence(timeout: 5))
+
+        dial.tap()
+
+        XCTAssertTrue(app.buttons["Blocca"].waitForNonExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Impostazioni"].exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch.exists)
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        dial.tap()
+        XCTAssertTrue(app.buttons["Blocca"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Impostazioni"].exists)
+    }
+
+    @MainActor
     func testTwoStepCalibrationThenResetInSettings() throws {
         // 0,6° off on the bottom edge: within what a calibration accepts.
         let app = launch(gravity: "nearlyLevel")

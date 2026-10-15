@@ -8,6 +8,9 @@ struct LevelIndicator: View {
     let reading: LevelReading
     /// Turns the dial after a drag of so many degrees; `nil` keeps it fixed.
     var turnDial: ((Double) -> Void)?
+    /// The full-screen action VoiceOver offers on the dial, and its name.
+    var fullScreenAction: LocalizedStringKey = "Schermo intero"
+    var toggleFullScreen: (() -> Void)?
 
     @State private var dragAngle = 0.0
     @State private var size = CGSize.zero
@@ -41,13 +44,21 @@ struct LevelIndicator: View {
             size = newSize
         }
         .contentShape(.circle)
-        .gesture(dragToTurn)
+        // Alongside, not over, the tap that hides the controls: a drag moves too far to be a tap.
+        .simultaneousGesture(dragToTurn)
+        .onTapGesture {
+            toggleFullScreen?()
+        }
         .accessibilityElement()
         .accessibilityLabel(Text("Quadrante"))
         .accessibilityValue(Text(dialValue))
         .accessibilityAdjustableAction { _ in
             turnDial?(DialGeometry.quarterTurn)
         }
+        .accessibilityAction(named: Text(fullScreenAction)) {
+            toggleFullScreen?()
+        }
+        // Last: an accessibility modifier after it would bring the element back.
         .accessibilityHidden(turnsDial == false)
     }
 

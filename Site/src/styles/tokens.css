@@ -33,6 +33,7 @@
   --sbu-accent-chats: #8c47a0;
   --sbu-accent-inventory: #4d7800;
   --sbu-accent-fuel: #a14174;
+  --sbu-accent-tasca: #067783;
   --sbu-on-accent: #ffffff;
   --sbu-success: #1b7a35;
   --sbu-warning: #8f5800;
@@ -77,6 +78,7 @@
     --sbu-accent-chats: #d891ee;
     --sbu-accent-inventory: #93c35e;
     --sbu-accent-fuel: #f38abe;
+    --sbu-accent-tasca: #67c1cd;
     --sbu-on-accent: #0a0a00;
     --sbu-success: #6cc77a;
     --sbu-warning: #f0b04a;
@@ -120,6 +122,7 @@
   --color-accent-chats: var(--sbu-accent-chats);
   --color-accent-inventory: var(--sbu-accent-inventory);
   --color-accent-fuel: var(--sbu-accent-fuel);
+  --color-accent-tasca: var(--sbu-accent-tasca);
   --color-on-accent: var(--sbu-on-accent);
   --color-success: var(--sbu-success);
   --color-warning: var(--sbu-warning);

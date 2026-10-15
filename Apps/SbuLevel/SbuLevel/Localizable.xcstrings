@@ -41,6 +41,26 @@
         }
       }
     },
+    "Angolo assoluto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Absolute angle"
+          }
+        }
+      }
+    },
+    "Angolo relativo: zero qui" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relative angle: zero here"
+          }
+        }
+      }
+    },
     "Annulla" : {
       "localizations" : {
         "en" : {
@@ -77,6 +97,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Horizontal axis %@, vertical axis %@"
+          }
+        }
+      }
+    },
+    "Assoluto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Absolute"
+          }
+        }
+      }
+    },
+    "Azzera qui" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zero here"
           }
         }
       }
@@ -341,6 +381,16 @@
         }
       }
     },
+    "Lettura bloccata, relativa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading locked, relative"
+          }
+        }
+      }
+    },
     "Lettura sbloccata" : {
       "localizations" : {
         "en" : {
@@ -447,6 +497,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ratio 1V:H"
+          }
+        }
+      }
+    },
+    "Relativo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relative"
+          }
+        }
+      }
+    },
+    "Relativo, allo zero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relative, at zero"
           }
         }
       }

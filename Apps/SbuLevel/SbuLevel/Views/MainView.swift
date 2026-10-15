@@ -2,7 +2,8 @@ import SbuKit
 import SwiftUI
 import UIKit
 
-/// The tool screen: the angle as the figure, the clinometer dial or bubble, and the Calibra and Blocca pills.
+/// The tool screen: the angle as the figure, the clinometer dial or bubble, Calibra in the bar
+/// as in Clinometer, and the Azzera qui and Blocca pills.
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -13,7 +14,9 @@ struct MainView: View {
 
     private var context: LocalizedStringKey {
         if model.isLocked {
-            "Lettura bloccata"
+            model.readout.isRelative ? "Lettura bloccata, relativa" : "Lettura bloccata"
+        } else if model.readout.isRelative {
+            model.readout.isLevel ? "Relativo, allo zero" : "Relativo"
         } else if model.readout.isLevel {
             "In bolla"
         } else if model.reading.mode == .flat {
@@ -59,7 +62,7 @@ struct MainView: View {
                 } pills: {
                     // Side by side, or stacked with accessibility text sizes, where they would break the words.
                     pillsLayout {
-                        LevelPills(isLocked: model.isLocked, calibrate: calibrate, toggleLock: toggleLock)
+                        LevelPills(isRelative: model.readout.isRelative, isLocked: model.isLocked, toggleReference: toggleReference, toggleLock: toggleLock)
                     }
                 }
             } else {
@@ -68,6 +71,17 @@ struct MainView: View {
                     EmptyView()
                 } pills: {
                     EmptyView()
+                }
+            }
+        }
+        .toolbar {
+            // Without a motion sensor there is nothing to calibrate.
+            if model.isMotionAvailable {
+                ToolbarItem(placement: .topBarLeading) {
+                    // A symbol in ink, like the gear: the accent belongs to the figure's full stop, and
+                    // a symbol in the bar shows in the large content viewer at any text size.
+                    Button("Calibra", systemImage: "level", action: calibrate)
+                        .tint(SbuTheme.ink)
                 }
             }
         }
@@ -91,6 +105,16 @@ struct MainView: View {
         isCalibrating = true
     }
 
+    private func toggleReference() {
+        model.toggleReference()
+        let message = if model.readout.isRelative {
+            String(localized: "Angolo relativo: zero qui")
+        } else {
+            String(localized: "Angolo assoluto")
+        }
+        AccessibilityNotification.Announcement(message).post()
+    }
+
     private func toggleLock() {
         model.toggleLock()
         let message = if model.isLocked {
@@ -103,14 +127,18 @@ struct MainView: View {
 }
 
 #Preview("Light") {
-    MainView(model: LevelModel(source: FixedGravitySource.screenshot))
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentLevel)
+    NavigationStack {
+        MainView(model: LevelModel(source: FixedGravitySource.screenshot))
+            .background(SbuTheme.surface)
+    }
+    .tint(SbuTheme.accentLevel)
 }
 
 #Preview("Dark") {
-    MainView(model: LevelModel(source: FixedGravitySource(gravity: .lying(tiltedBy: 3))))
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentLevel)
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        MainView(model: LevelModel(source: FixedGravitySource(gravity: .lying(tiltedBy: 3))))
+            .background(SbuTheme.surface)
+    }
+    .tint(SbuTheme.accentLevel)
+    .preferredColorScheme(.dark)
 }

@@ -28,4 +28,55 @@ struct ReadoutTests {
         #expect(Readout(reading: edge(89.9), unit: .percent).isLevel == false)
         #expect(Readout(reading: edge(90), unit: .percent).isLevel)
     }
+
+    // MARK: - Relative angle
+
+    @Test(arguments: [(10.0, 25.0, 15.0), (25, 10, -15), (-5, 5, 10), (170, -170, 20)])
+    func onAnEdgeTheFigureIsTheTurnSinceTheReference(from: Double, to: Double, expected: Double) {
+        let readout = Readout(reading: edge(to), unit: .degrees, reference: edge(from))
+
+        #expect(readout.isRelative)
+        #expect(abs(readout.angle - expected) < 1e-9)
+    }
+
+    @Test func flatTheFigureIsTheChangeInTilt() {
+        let reference = LevelReading(gravity: .lying(tiltedBy: 2), calibration: .none)
+        let reading = LevelReading(gravity: .lying(tiltedBy: 5), calibration: .none)
+
+        #expect(abs(Readout(reading: reading, unit: .degrees, reference: reference).angle - 3) < 1e-9)
+    }
+
+    @Test func backOnTheReferenceIsLevelEvenOnASideEdge() {
+        // A side edge reads 90° when level; relative, the reference reads 0 and is the level.
+        let readout = Readout(reading: edge(60), unit: .degrees, reference: edge(60))
+
+        #expect(readout.angle == 0)
+        #expect(readout.levelAngle == 0)
+        #expect(readout.isLevel)
+    }
+
+    @Test(arguments: [
+        (LevelReading(gravity: .standing(rotatedBy: 0), calibration: .none), LevelReading(gravity: .lying(tiltedBy: 3), calibration: .none)),
+        (LevelReading(gravity: .standing(rotatedBy: 0), calibration: .none), LevelReading(gravity: .standing(rotatedBy: 90), calibration: .none)),
+    ])
+    func aReferenceFromAnotherModeOrEdgeDoesNotApply(reference: LevelReading, reading: LevelReading) {
+        let readout = Readout(reading: reading, unit: .degrees, reference: reference)
+
+        #expect(readout.isRelative == false)
+        #expect(readout.angle == reading.angle)
+    }
+
+    @Test(arguments: [(AngleUnit.percent, -100.0), (.pitch, -12), (.ratio, -1), (.wholeDegrees, -45)])
+    func relativeAnglesConvertWithTheirSign(unit: AngleUnit, expected: Double) {
+        let readout = Readout(reading: edge(-15), unit: unit, reference: edge(30))
+
+        #expect(unit.value(forDegrees: readout.angle) == expected)
+    }
+
+    @Test func aRelativeRatioAtZeroIsOffScaleButLevel() {
+        let readout = Readout(reading: edge(12), unit: .ratio, reference: edge(12))
+
+        #expect(AngleUnit.ratio.value(forDegrees: readout.angle) == nil)
+        #expect(readout.isLevel)
+    }
 }

@@ -1,15 +1,16 @@
 import SbuKit
 import SwiftUI
 
-/// The tool screen's pills: Calibra, and Blocca or Sblocca, laid out by the container.
+/// The tool screen's pills: Azzera qui or Assoluto, and Blocca or Sblocca, laid out by the container.
 struct LevelPills: View {
+    let isRelative: Bool
     let isLocked: Bool
-    let calibrate: () -> Void
+    let toggleReference: () -> Void
     let toggleLock: () -> Void
 
     var body: some View {
-        Button("Calibra", action: calibrate)
-            .buttonStyle(SbuFieldPillStyle())
+        Button(isRelative ? "Assoluto" : "Azzera qui", systemImage: "angle", action: toggleReference)
+            .buttonStyle(SbuFieldPillStyle(isSelected: isRelative))
 
         Button(isLocked ? "Sblocca" : "Blocca", systemImage: isLocked ? "lock.fill" : "lock.open", action: toggleLock)
             .buttonStyle(SbuFieldPillStyle(isSelected: isLocked))
@@ -18,7 +19,7 @@ struct LevelPills: View {
 
 #Preview("Light") {
     HStack(spacing: SbuTheme.space2) {
-        LevelPills(isLocked: false, calibrate: {}, toggleLock: {})
+        LevelPills(isRelative: false, isLocked: false, toggleReference: {}, toggleLock: {})
     }
     .padding(SbuTheme.space4)
     .background(SbuTheme.surface)
@@ -26,7 +27,7 @@ struct LevelPills: View {
 
 #Preview("Dark") {
     HStack(spacing: SbuTheme.space2) {
-        LevelPills(isLocked: true, calibrate: {}, toggleLock: {})
+        LevelPills(isRelative: true, isLocked: true, toggleReference: {}, toggleLock: {})
     }
     .padding(SbuTheme.space4)
     .background(SbuTheme.surface)

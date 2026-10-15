@@ -73,6 +73,26 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testZeroHereReadsRelativeUntilAbsolute() throws {
+        let app = launch()
+        let zero = app.buttons["Azzera qui"]
+        XCTAssertTrue(zero.waitForExistence(timeout: 5))
+
+        zero.tap()
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.label.contains("0,0 gradi"), figure.label)
+        XCTAssertTrue(figure.label.contains("Relativo"), figure.label)
+        let absolute = app.buttons["Assoluto"]
+        XCTAssertTrue(absolute.isSelected)
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        absolute.tap()
+        XCTAssertTrue(app.buttons["Azzera qui"].waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.contains("32,4"), figure.label)
+    }
+
+    @MainActor
     func testTwoStepCalibrationThenResetInSettings() throws {
         // 0,6° off on the bottom edge: within what a calibration accepts.
         let app = launch(gravity: "nearlyLevel")

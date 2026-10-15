@@ -15,6 +15,9 @@ final class LevelModel {
     private(set) var calibration: Calibration
     private(set) var isMotionAvailable = true
     private(set) var isLocked = false
+    /// The reading "Azzera qui" took as zero. Never saved: it ends with the app, with "Assoluto",
+    /// or when the iPhone changes mode or edge.
+    private(set) var reference: LevelReading?
     /// The two-step calibration in progress, if any.
     private(set) var calibrationSession: CalibrationSession?
 
@@ -35,7 +38,7 @@ final class LevelModel {
     var isCalibrated: Bool { calibration != .none }
 
     /// What the figure says for the shown reading.
-    var readout: Readout { Readout(reading: reading, unit: unit) }
+    var readout: Readout { Readout(reading: reading, unit: unit, reference: reference) }
 
     /// - Parameters:
     ///   - defaults: Where the calibration and settings are saved.
@@ -70,6 +73,10 @@ final class LevelModel {
         liveReading = LevelReading(gravity: sample, calibration: calibration, previous: liveReading)
         if isLocked == false {
             reading = liveReading
+            // A reference from another mode or edge would compare two different angles.
+            if let reference, Readout.applies(reference, to: reading) == false {
+                self.reference = nil
+            }
         }
         if var session = calibrationSession {
             session.add(sample, on: liveReading.calibrationTarget, base: calibration)
@@ -86,6 +93,12 @@ final class LevelModel {
         if isLocked == false {
             reading = liveReading
         }
+    }
+
+    /// Takes the shown reading as zero, or goes back to the absolute angle. While locked, the
+    /// frozen reading is the zero.
+    func toggleReference() {
+        reference = readout.isRelative ? nil : reading
     }
 
     /// Whether the screen should stay on, given whether the app is in the foreground.

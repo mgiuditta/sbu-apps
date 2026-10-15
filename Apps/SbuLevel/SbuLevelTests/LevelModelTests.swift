@@ -181,6 +181,77 @@ struct LevelModelTests {
         #expect(FixedGravitySource.requested(in: defaults) == nil)
     }
 
+    @Test func zeroHereShowsTheTurnFromThere() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+
+        model.toggleReference()
+        model.update(with: .standing(rotatedBy: 27))
+
+        #expect(model.readout.isRelative)
+        #expect(abs(model.readout.angle - 7) < 1e-9)
+    }
+
+    @Test func tappingAgainGoesBackToTheAbsoluteAngle() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+        model.update(with: .standing(rotatedBy: 27))
+
+        model.toggleReference()
+
+        #expect(model.readout.isRelative == false)
+        #expect(abs(model.readout.angle - 27) < 1e-9)
+    }
+
+    @Test func changingModeClearsTheReference() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+
+        model.update(with: .lying(tiltedBy: 2))
+        model.update(with: .standing(rotatedBy: 20))
+
+        #expect(model.reference == nil)
+        #expect(model.readout.isRelative == false)
+    }
+
+    @Test func aLockedRelativeReadingStaysFrozen() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+        model.update(with: .standing(rotatedBy: 25))
+
+        model.toggleLock()
+        model.update(with: .standing(rotatedBy: 40))
+        // Rolling onto another edge while locked does not drop the reference under the frozen figure.
+        model.update(with: .standing(rotatedBy: 90))
+
+        #expect(model.readout.isRelative)
+        #expect(abs(model.readout.angle - 5) < 1e-9)
+    }
+
+    @Test func zeroingWhileLockedTakesTheFrozenReading() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleLock()
+        model.update(with: .standing(rotatedBy: 30))
+
+        model.toggleReference()
+        #expect(model.readout.angle == 0)
+        model.toggleLock()
+
+        #expect(abs(model.readout.angle - 10) < 1e-9)
+    }
+
+    @Test func theReferenceIsNotSaved() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+
+        #expect(makeModel().reference == nil)
+    }
+
     @Test func theUnitIsDegreesUntilChosenAndThenSaved() {
         let model = makeModel()
         #expect(model.unit == .degrees)

@@ -1,7 +1,7 @@
 export const locales = ['it', 'en'] as const;
 export type Locale = (typeof locales)[number];
 
-/** Locale-neutral path ('' for home, 'apps/level') to the URL path of a locale. Italian sits at the root. */
+/** Locale-neutral path ('' for home, 'apps/habits') to the URL path of a locale. Italian sits at the root. */
 export function localePath(locale: Locale, path: string): string {
   const prefix = locale === 'it' ? '' : `/${locale}`;
   return path ? `${prefix}/${path}` : prefix || '/';
@@ -10,7 +10,7 @@ export function localePath(locale: Locale, path: string): string {
 export const ui = {
   it: {
     siteDescription: 'App gratuite per iPhone che fanno una cosa sola. Nessun abbonamento, nessun account, nessuna pubblicità.',
-    nav: { apps: 'App', principles: 'Principi', support: 'Supporto', blog: 'Blog', privacy: 'Privacy', levelTool: 'Livella online', subscriptionCost: 'Quanto spendi in abbonamenti', press: 'Stampa' },
+    nav: { apps: 'App', principles: 'Principi', support: 'Supporto', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Quanto spendi in abbonamenti', press: 'Stampa' },
     otherLocale: { label: 'English', lang: 'en' },
     skip: 'Vai al contenuto',
     navLabel: 'Principale',
@@ -30,7 +30,6 @@ export const ui = {
     shotCaption: (name: string) => `Così appare in ${name}`,
     alternativeLink: (originale: string) => `Usavi ${originale}? Leggi il confronto.`,
     privacyLink: (name: string) => `Privacy di ${name}`,
-    tryLevel: 'Prova la livella nel browser',
     backToApp: (name: string) => `Vai a ${name}`,
     checked: (date: string) => `Dati dell’App Store verificati il ${date}.`,
     footerNote: 'Questo sito non usa cookie né statistiche. I suoi script girano solo nel tuo browser e non inviano niente.',
@@ -43,7 +42,7 @@ export const ui = {
   },
   en: {
     siteDescription: 'Free iPhone apps that each do one thing. No subscription, no account, no ads.',
-    nav: { apps: 'Apps', principles: 'Principles', support: 'Support', blog: 'Blog', privacy: 'Privacy', levelTool: 'Bubble level online', subscriptionCost: 'Subscription cost', press: 'Press' },
+    nav: { apps: 'Apps', principles: 'Principles', support: 'Support', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Subscription cost', press: 'Press' },
     otherLocale: { label: 'Italiano', lang: 'it' },
     skip: 'Skip to content',
     navLabel: 'Main',
@@ -62,7 +61,6 @@ export const ui = {
     shotCaption: (name: string) => `How it looks in ${name}`,
     alternativeLink: (originale: string) => `Used ${originale}? Read the comparison.`,
     privacyLink: (name: string) => `${name} privacy`,
-    tryLevel: 'Try the level in your browser',
     backToApp: (name: string) => `Go to ${name}`,
     checked: (date: string) => `App Store facts checked on ${date}.`,
     footerNote: 'This site uses no cookies or analytics. Its scripts run only in your browser and send nothing.',

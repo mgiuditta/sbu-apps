@@ -103,7 +103,6 @@ const jsonLd = [
     )}
 
     <ul class="flex flex-col gap-2">
-      {app.slug === 'level' && <li><a href={localePath(locale, 'livella')}>{t.tryLevel}</a></li>}
       {alternative && <li><a href={localePath(locale, `alternatives/${alternative.slug}`)}>{t.alternativeLink(app.originale?.name ?? '')}</a></li>}
       <li><a href={localePath(locale, `privacy/${app.slug}`)}>{t.privacyLink(listing.name)}</a></li>
     </ul>

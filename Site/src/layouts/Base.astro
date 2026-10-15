@@ -7,7 +7,7 @@ import { allEngravings } from '../lib/apps';
 
 interface Props {
   locale: Locale;
-  /** Locale-neutral path: '' or 'apps/level'. */
+  /** Locale-neutral path: '' or 'apps/habits'. */
   path: string;
   alternates: Locale[];
   title: string;
@@ -44,11 +44,10 @@ const footer = [
   { href: localePath(locale, 'privacy'), label: t.nav.privacy },
   { href: localePath(locale, 'blog'), label: t.nav.blog },
   { href: localePath(locale, 'stampa'), label: t.nav.press },
-  { href: localePath(locale, 'livella'), label: t.nav.levelTool },
   { href: localePath(locale, 'abbonamenti'), label: t.nav.subscriptionCost },
 ];
 // The footer keeps the free tools apart from the pages about Sbu.
-const tools = new Set([localePath(locale, 'livella'), localePath(locale, 'abbonamenti')]);
+const tools = new Set([localePath(locale, 'abbonamenti')]);
 const here = localePath(locale, path);
 // The sheet lists the header's links first, then the footer's others.
 const more = footer.filter((item) => !nav.some((top) => top.href === item.href));

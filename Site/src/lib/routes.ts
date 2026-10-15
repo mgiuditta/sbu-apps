@@ -5,7 +5,6 @@ import { getAlternatives, getApps, getUpcoming, type Alternative, type App, type
 type View =
   | { view: 'home'; upcoming: UpcomingApp[] }
   | { view: 'principles' | 'support' | 'privacy' }
-  | { view: 'levelTool'; app: App }
   | { view: 'subscriptionCost' }
   | { view: 'press'; upcoming: UpcomingApp[] }
   | { view: 'app' | 'appPrivacy'; app: App }
@@ -14,7 +13,7 @@ type View =
   | { view: 'post'; post: Post };
 
 export type Route = View & {
-  /** Locale-neutral path, the same in every locale: '' or 'apps/level'. */
+  /** Locale-neutral path, the same in every locale: '' or 'apps/habits'. */
   path: string;
   locale: Locale;
   apps: App[];
@@ -30,7 +29,6 @@ export async function routes(): Promise<Route[]> {
   const upcoming = await getUpcoming();
   const posts = (await getCollection('blog', (post) => !post.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
 
-  const level = apps.find((app) => app.slug === 'level');
   const pages: (View & { path: string; locale: Locale })[] = [];
   for (const locale of locales) {
     const own = (post: Post) => post.id.startsWith(`${locale}/`);
@@ -41,8 +39,6 @@ export async function routes(): Promise<Route[]> {
       { view: 'privacy', path: 'privacy', locale },
       ...apps.map((app) => ({ view: 'app' as const, app, path: `apps/${app.slug}`, locale })),
       ...apps.map((app) => ({ view: 'appPrivacy' as const, app, path: `privacy/${app.slug}`, locale })),
-      // A free tool in the browser: the level for people who search for one, not for an app.
-      ...(level ? [{ view: 'levelTool' as const, app: level, path: 'livella', locale }] : []),
       { view: 'subscriptionCost', path: 'abbonamenti', locale },
       { view: 'press', upcoming, path: 'stampa', locale },
       { view: 'blog', posts: posts.filter(own), path: 'blog', locale },

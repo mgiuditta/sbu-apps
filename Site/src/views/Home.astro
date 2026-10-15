@@ -31,7 +31,6 @@ const copy = {
     promisesClose: 'Se un’app ne viola una, non esce.',
     principles: 'Leggi i principi',
     tools: 'Nel browser, senza app',
-    level: { title: 'Livella online', line: 'Appoggia il telefono e leggi l’inclinazione al decimo di grado.' },
     subscriptions: { title: 'Quanto spendi in abbonamenti', line: 'Scrivi gli abbonamenti che paghi e guarda il totale dell’anno.' },
   },
   en: {
@@ -53,7 +52,6 @@ const copy = {
     promisesClose: 'If an app breaks one, it does not ship.',
     principles: 'Read the principles',
     tools: 'In your browser, no app',
-    level: { title: 'Bubble level online', line: 'Lay your phone down and read the tilt to a tenth of a degree.' },
     subscriptions: { title: 'What your subscriptions cost', line: 'Write down the subscriptions you pay and see the yearly total.' },
   },
 }[locale];
@@ -80,7 +78,6 @@ const zero = formatPrice(0, locale);
 const words = copy.hero.split(' ');
 const markOf = (slug: string) => apps.find((app) => app.slug === slug)?.mark ?? upcoming.find((app) => app.slug === slug)?.mark;
 const tools = [
-  { href: localePath(locale, 'livella'), accent: 'accent-level', mark: markOf('level'), ...copy.level },
   { href: localePath(locale, 'abbonamenti'), accent: 'accent-subscriptions', mark: markOf('subscriptions'), ...copy.subscriptions },
 ];
 

@@ -3,13 +3,14 @@ import SbuKit
 import SwiftUI
 import UIKit
 
-/// The tool screen: the speed as the figure, the dial, the trip, Salva e azzera, and Viaggi in the toolbar.
+/// The tool screen: the speed as the figure, the dial, the trip, Salva e azzera, Parabrezza, and Viaggi in the toolbar.
 /// In portrait the trip sits under the dial; in landscape, as in a car mount, it sits beside the figure.
 struct MainView: View {
     let model: SpeedModel
 
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @State private var isShowingHUD = false
 
     /// The system sound played once when the speed goes over the limit.
     private static let limitSound: SystemSoundID = 1005
@@ -28,6 +29,16 @@ struct MainView: View {
                 layout
             }
         }
+        // An overlay, not a full-screen cover: the tool screen stays on screen, so its task keeps
+        // reading the position while the HUD shows.
+        .overlay {
+            if isShowingHUD {
+                HUDView(model: model, exit: hideHUD)
+            }
+        }
+        .toolbar(isShowingHUD ? .hidden : .automatic, for: .navigationBar)
+        .statusBarHidden(isShowingHUD)
+        .persistentSystemOverlays(isShowingHUD ? .hidden : .automatic)
         // A speedometer is read at a glance: the screen stays on while it is shown.
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
@@ -52,7 +63,7 @@ struct MainView: View {
     /// One tree for both orientations: turning the iPhone keeps the field and its open dialog.
     private var layout: some View {
         HStack(spacing: 0) {
-            SpeedToolField(model: model) {
+            SpeedToolField(model: model, showHUD: showHUD) {
                 if isLandscape {
                     QuickLimitPills(model: model)
                 } else {
@@ -68,6 +79,14 @@ struct MainView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+    }
+
+    private func showHUD() {
+        isShowingHUD = true
+    }
+
+    private func hideHUD() {
+        isShowingHUD = false
     }
 
     private func playLimitSound() {

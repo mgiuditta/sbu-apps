@@ -144,6 +144,30 @@ final class SpeedFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testParabrezzaShowsTheSpeedAndGoesBackWithATap() throws {
+        let app = launch()
+        let hud = app.buttons["Parabrezza"]
+        XCTAssertTrue(hud.waitForExistence(timeout: 5))
+
+        hud.tap()
+
+        // VoiceOver reads the speed unmirrored; the tool screen and its bar are out of the way.
+        let figure = app.descendants(matching: .any).matching(NSPredicate(format: "label == 'Velocità' AND value == '52 km/h'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Impostazioni"].isHittable)
+        XCTAssertFalse(app.buttons["Salva e azzera"].isHittable)
+
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+
+        app.buttons["Esci dal parabrezza"].tap()
+        XCTAssertTrue(app.buttons["Salva e azzera"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Impostazioni"].exists)
+    }
+
+    @MainActor
     func testSettingsOfferTheUnitAndPassTheAccessibilityAudit() throws {
         let app = launch()
 

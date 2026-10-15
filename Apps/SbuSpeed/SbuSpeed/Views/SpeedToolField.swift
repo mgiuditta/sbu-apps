@@ -2,9 +2,11 @@ import SbuKit
 import SwiftUI
 import UIKit
 
-/// The speed as the figure with its context line, what goes under it, and the pills.
+/// The speed as the figure with its context line, what goes under it, and the pills: Salva e azzera and Parabrezza.
 struct SpeedToolField<Indicator: View>: View {
     let model: SpeedModel
+    /// Opens Parabrezza, the mirrored HUD.
+    let showHUD: () -> Void
     /// Drawn under the figure: the dial and the trip in portrait, nothing in landscape where they sit beside.
     @ViewBuilder let indicator: Indicator
 
@@ -58,6 +60,9 @@ struct SpeedToolField<Indicator: View>: View {
                 } message: {
                     Text(model.canSaveTrip ? "Il viaggio va in Viaggi e riparte da zero." : "Il viaggio riparte da zero.")
                 }
+
+                Button("Parabrezza", action: showHUD)
+                    .buttonStyle(SbuFieldPillStyle())
             }
         }
     }
@@ -74,7 +79,7 @@ struct SpeedToolField<Indicator: View>: View {
 }
 
 #Preview("Light") {
-    SpeedToolField(model: SpeedModel()) {
+    SpeedToolField(model: SpeedModel(), showHUD: {}) {
         EmptyView()
     }
     .background(SbuTheme.surface)
@@ -82,7 +87,7 @@ struct SpeedToolField<Indicator: View>: View {
 }
 
 #Preview("Dark") {
-    SpeedToolField(model: SpeedModel()) {
+    SpeedToolField(model: SpeedModel(), showHUD: {}) {
         EmptyView()
     }
     .background(SbuTheme.surface)

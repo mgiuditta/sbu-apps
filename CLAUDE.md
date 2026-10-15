@@ -24,6 +24,7 @@ Direction **Carta e punto fermo**: Sbu fa una cosa sola e la chiude con un punto
 - Colors and metrics are generated: edit `Design/tokens.json`, run `python3 Tools/sync_tokens.py` (it fails if a promised contrast pair drops below WCAG). Never edit `SbuTheme+Tokens.swift` or the colorsets by hand.
 - The square is the full stop (`SbuFullStop`): exactly one per screen, closing the one figure (`SbuStat` or `SbuToolField`), in the app's accent; on the site it closes the page title. Size and gap come from `mark-size`/`mark-gap`, on the baseline. Never decorative, never two on a screen, never on list containers. VoiceOver ignores it.
 - One thing per app: one figure per screen, in `ink`; everything else secondary in `inkMuted`. Every screen, the tool screen included, sits on `surface`: no colored or dark fields.
+- The one exception: Sbu Speed's Parabrezza (windshield HUD) forces the dark scheme, mirrored figure on warm-black `surface` (ADR-0011). No other dark screen without a new ADR.
 - Native controls (`List .insetGrouped`, `Form`, `NavigationStack`, sheets). Every app runs inside `SbuAppShell`.
 - The only living color is the app's `accent*` (tint, the full stop, filled buttons). Text on an accent is `onAccent` (white in light, warm black in dark), never literal white. `brand` is the logo's warm black: logo, sbu.dev footer and splash. Never two accents on a screen.
 - Nothing that looks like a paywall: no gradients, colored-border cards, stars, "PRO", shadows.

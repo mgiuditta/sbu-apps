@@ -11,6 +11,16 @@
         }
       }
     },
+    "%@, oltre il limite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, over the limit"
+          }
+        }
+      }
+    },
     "Altitudine": {
       "localizations": {
         "en": {
@@ -187,6 +197,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete this trip?"
+          }
+        }
+      }
+    },
+    "Esci dal parabrezza": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exit HUD"
           }
         }
       }
@@ -457,6 +477,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Over the %@ limit"
+          }
+        }
+      }
+    },
+    "Parabrezza": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HUD"
           }
         }
       }

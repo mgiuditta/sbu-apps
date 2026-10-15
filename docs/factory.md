@@ -115,3 +115,36 @@ Gli accenti si aggiungono in `Design/tokens.json` con `sync_tokens.py` quando l'
 **Wave 3:** Lift, Collage, PDF, Words, Noise, Dark + Block.
 
 Le proposte che coincidevano con app già in coda (Cleanup e Swipewipe con Clean, CamScanner con Docs, StepsApp con Steps, Authenticator con Authenticator, i telecomandi TV con Remote, Flo con Cycle) restano dove sono nella coda qui sopra e non entrano nelle wave. Level è stata rifiutata il 14/10 e tolta dal sito il 15/10: "in corso" vale solo per la risposta al Resolution Center. Focus sta nella nicchia che ha fatto scartare Bear Focus Timer (Intervals), Alarm in quella della sveglia di Sbu Noise: vedi l'analisi.
+
+## Candidate da Android: gratis lì, a pagamento su iOS (15 ottobre 2026)
+
+Venti nicchie dove su Android c'è un'app gratuita (in grassetto le open source, soprattutto da F-Droid) e su iOS l'originale è a pagamento o ad abbonamento. Gli originali iOS sono verificati con la ricerca dell'App Store (US, 15/10); le valutazioni sono arrotondate. Stato: **candidate**, nessuna ricerca né spec ancora, tranne Paprika (`research/1303222868/`). Le app Android servono solo come riferimento: la spec si fa sull'originale iOS (ADR-0003) e non si decompila niente.
+
+| # | App Sbu | Android, gratis | Originale iOS (ID, valutazioni) | Nota o rischio |
+|---|---|---|---|---|
+| 1 | Exif | **Scrambled Exif** | Exif Metadata (1455197364, 6 mila) | Toglie posizione e metadati prima di condividere; solo il selettore Foto |
+| 2 | Vault | **Fossify Gallery** (cartelle nascoste) | Private Photo Vault (417571834, 1 milione) | Mercato enorme e ad abbonamento; nicchia affollata, 4.3(b) |
+| 3 | Mood | Daylio è a pagamento anche su Android: equivalente gratis da verificare | Daylio (1194023242, 62 mila) | Diario dell'umore; confine con Habits |
+| 4 | Scale | **openScale** | Happy Scale (532430574, 58 mila) | Peso con media mobile, HealthKit; dati sanitari mai su iCloud (5.1.3) |
+| 5 | Baby | Baby Daybook | Baby Tracker - Newborn Log (779656557, 227 mila) | Poppate, sonno, pannolini; dichiarare che non è un dispositivo medico |
+| 6 | Fuel | Fuelio | Fuelly (295905460, 30 mila) | Rifornimenti, consumi, scadenze; lontano dal registro viaggi di Speed |
+| 7 | Player | **Auxio** | Doppler (1468459747), FLAC Player+ (577346786) | Musica propria da File, FLAC compreso |
+| 8 | Comics | **Librera**, Seeneva | Panels (1236567663, 12 mila), YACReader (635717885) | Solo CBZ e PDF: CBR richiede unrar, con licenza non libera |
+| 9 | Camera | **Open Camera** | Halide (885697368), ProCam (730712409, 35 mila) | Fotocamera manuale e RAW; lavoro grande, 4.1 se imita Halide |
+| 10 | Net | **PortAuthority** | Network Analyzer Pro (557405467, 9 mila), Fing (430921107) | Scansione della propria rete (ADR-0007); ping limitato su iOS, entitlement multicast |
+| 11 | Sky | **Sky Map** (Apache 2.0) | Star Walk 2 (1112481571, 96 mila), SkyView (404990064) | Cataloghi di stelle di pubblico dominio; sovrapposizione con Moon da valutare |
+| 12 | Loyalty | **Catima** | Key Ring (372547556, 20 mila) | Tessere fedeltà con codice a barre; non chiamarla "Wallet" (5.2.5) |
+| 13 | Fasting | app gratuite di digiuno | Zero (1168348542, 445 mila) | Storico, fasi, Salute; non deve sembrare un "timer semplice" (4.3) |
+| 14 | Expenses | **My Expenses** | Money Manager (560481810, 20 mila), Spendee (635861140) | Spese giornaliere, non pagamenti ricorrenti: confine con Subscriptions |
+| 15 | Inventory | app gratuite di inventario | Sortly (529353551, 10 mila) | Oggetti di casa con foto e posizione; lettura codici, confine con Scanner |
+| 16 | Recipes | Recipe Keeper | Paprika 3 (1303222868, 4,99 $, 54 mila) | Import dal web con l'estensione di Safari sulla pagina aperta, senza rete dell'app |
+| 17 | Pixel | Pixel Studio | Pixel Art Maker (897806469), 8bit Painter (894301273) | Editor di pixel art con animazione |
+| 18 | GIF | **Image Toolbox** | ImgPlay (989843523, 45 mila) | Da video o foto a GIF; confine con Collage |
+| 19 | Ringtone | **Ringdroid** (Apache 2.0) | Ringtones Maker (1358107315, 439 mila) | Abbonamenti aggressivi; passo finale per impostare la suoneria su iOS da verificare |
+| 20 | Plants | app gratuite di promemoria | Planta (1410126781, 114 mila) | Solo calendario di cura e promemoria; l'identificazione richiede un server |
+
+Le più forti per paywall e distanza dal resto del catalogo: Vault, Ringtone, Baby, Exif, Loyalty, Comics. Le più rischiose: Camera (grande, vicina a 4.1), Sky, Expenses e Mood (sovrapposizione con Moon, Subscriptions e Habits).
+
+Scartate: registratore (Memo Vocali di Apple, sovrapposizione con Transcribe), calcolatrice e convertitori (nicchie piene), widget e temi (categoria sfondi, 4.3), farmaci (lo fa l'app Salute), metronomo (nicchia di Tuner, come TonalEnergy), meteo, podcast e RSS (servono la rete).
+
+Con 34 app già pianificate se ne sceglie poche: la regola 4.3 punisce il numero di invii, non la qualità.

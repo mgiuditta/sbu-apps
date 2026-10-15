@@ -14,6 +14,8 @@ final class SpeedModel {
     private(set) var trip = Trip()
     /// Altitude and course of the latest fix; never saved.
     private(set) var navigation = NavigationReading()
+    /// The trips kept by Salva e azzera.
+    let tripLog: TripLog
     /// Goes up by one at each crossing above the limit that should alert: the screen vibrates and sounds on each change.
     private(set) var limitAlerts = 0
 
@@ -65,8 +67,14 @@ final class SpeedModel {
     }
 
     /// - Parameter locale: Picks km/h or mph until the person chooses a unit.
-    init(source: any SpeedSource = LocationSpeedSource(), defaults: UserDefaults = .standard, locale: Locale = .current) {
+    init(
+        source: any SpeedSource = LocationSpeedSource(),
+        defaults: UserDefaults = .standard,
+        locale: Locale = .current,
+        tripLog: TripLog = TripLog()
+    ) {
         self.source = source
+        self.tripLog = tripLog
         self.defaults = defaults
         region = locale.region
         unit = defaults.string(forKey: Self.unitKey).flatMap(SpeedUnit.init(rawValue:)) ?? .preferred(for: locale)
@@ -109,6 +117,17 @@ final class SpeedModel {
     /// A quick limit: the one already on turns off, any other replaces it.
     func toggleLimit(_ limit: SpeedLimit) {
         speedLimit = speedLimit == limit ? nil : limit
+    }
+
+    /// Salva e azzera keeps the trip only when it went somewhere: otherwise it just resets.
+    var canSaveTrip: Bool { trip.distance > 0 }
+
+    /// Salva e azzera: the trip goes into the log, if it went somewhere, and a new one starts.
+    func saveAndResetTrip(now: Date = .now) {
+        if let record = TripRecord(trip: trip, now: now) {
+            tripLog.add(record)
+        }
+        resetTrip()
     }
 
     func resetTrip() {

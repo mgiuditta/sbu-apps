@@ -3,7 +3,7 @@ import SbuKit
 import SwiftUI
 import UIKit
 
-/// The tool screen: the speed as the figure, the dial, the trip, and Azzera viaggio.
+/// The tool screen: the speed as the figure, the dial, the trip, Salva e azzera, and Viaggi in the toolbar.
 /// In portrait the trip sits under the dial; in landscape, as in a car mount, it sits beside the figure.
 struct MainView: View {
     let model: SpeedModel
@@ -31,6 +31,17 @@ struct MainView: View {
         // A speedometer is read at a glance: the screen stays on while it is shown.
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                NavigationLink {
+                    TripLogView(log: model.tripLog, unit: model.unit)
+                } label: {
+                    Label("Viaggi", systemImage: "list.bullet")
+                }
+                // In ink, like the gear: on the tool screen the accent belongs to the full stop.
+                .tint(SbuTheme.ink)
+            }
+        }
         .sensoryFeedback(.warning, trigger: model.limitAlerts)
         .onChange(of: model.limitAlerts, playLimitSound)
         .task {

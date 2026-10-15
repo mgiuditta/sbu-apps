@@ -119,4 +119,29 @@ struct TripTests {
 
         #expect(trip.movingTimeSpokenText(locale: Locale(identifier: identifier)).withPlainSpaces == expected)
     }
+
+    @Test func timesSpanTheMovingFixes() {
+        // Still at first, then moving from 2 s to 4 s, then still again.
+        let result = trip([
+            .fix(at: 0, speed: 0),
+            .fix(at: 1, speed: 0),
+            .fix(at: 2, metersNorth: 10, speed: 10),
+            .fix(at: 3, metersNorth: 20, speed: 10),
+            .fix(at: 4, metersNorth: 30, speed: 10),
+            .fix(at: 5, metersNorth: 30, speed: 0),
+        ])
+
+        #expect(result.startedAt == SpeedSample.fix(at: 1, speed: 0).timestamp)
+        #expect(result.endedAt == SpeedSample.fix(at: 4, speed: 0).timestamp)
+    }
+
+    @Test func tripSavedByOnePointZeroDecodesWithoutTimes() throws {
+        let json = Data(#"{"maxSpeed":24,"distance":12400,"movingTime":970}"#.utf8)
+
+        let decoded = try JSONDecoder().decode(Trip.self, from: json)
+
+        #expect(decoded.distance == 12_400)
+        #expect(decoded.startedAt == nil)
+        #expect(decoded.endedAt == nil)
+    }
 }

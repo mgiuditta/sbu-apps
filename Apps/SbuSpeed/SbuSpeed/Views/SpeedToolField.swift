@@ -25,6 +25,11 @@ struct SpeedToolField<Indicator: View>: View {
         }
     }
 
+    /// Salva e azzera when the trip went somewhere, Azzera viaggio when there is nothing to keep.
+    private var resetTitle: LocalizedStringKey {
+        model.canSaveTrip ? "Salva e azzera" : "Azzera viaggio"
+    }
+
     var body: some View {
         SbuToolField(
             // With knots the speed is SOG, speed over ground, as on a chart plotter.
@@ -43,18 +48,22 @@ struct SpeedToolField<Indicator: View>: View {
                     .buttonStyle(SbuFieldPillStyle())
             } else {
                 // A pill like the others, not a full-width red button: a rare action stays light.
-                Button("Azzera viaggio") {
+                Button(resetTitle) {
                     isConfirmingReset = true
                 }
                 .buttonStyle(SbuFieldPillStyle())
                 .disabled(model.trip.isEmpty)
-                .confirmationDialog("Azzera viaggio", isPresented: $isConfirmingReset, titleVisibility: .visible) {
-                    Button("Azzera viaggio", role: .destructive, action: model.resetTrip)
+                .confirmationDialog(resetTitle, isPresented: $isConfirmingReset, titleVisibility: .visible) {
+                    Button(resetTitle, role: .destructive, action: resetTrip)
                 } message: {
-                    Text("Il viaggio riparte da zero.")
+                    Text(model.canSaveTrip ? "Il viaggio va in Viaggi e riparte da zero." : "Il viaggio riparte da zero.")
                 }
             }
         }
+    }
+
+    private func resetTrip() {
+        model.saveAndResetTrip()
     }
 
     private func openSettings() {

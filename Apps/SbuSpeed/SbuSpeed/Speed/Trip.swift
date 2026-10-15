@@ -18,6 +18,9 @@ nonisolated struct Trip: Codable, Equatable, Sendable {
     private(set) var distance = 0.0
     /// Seconds.
     private(set) var movingTime: TimeInterval = 0
+    /// When the trip first moved, and when it last moved: the times Salva e azzera saves with it.
+    private(set) var startedAt: Date?
+    private(set) var endedAt: Date?
     /// The previous fix. Not saved: after a relaunch the gap is too long to add distance anyway.
     private var last: SpeedSample?
 
@@ -31,25 +34,38 @@ nonisolated struct Trip: Codable, Equatable, Sendable {
 
     /// The time spent moving as a clock: "1:05:20".
     func movingTimeText(locale: Locale = .autoupdatingCurrent) -> String {
-        movingDuration.formatted(.time(pattern: .hourMinuteSecond).locale(locale))
+        Self.clockText(movingDuration, locale: locale)
     }
 
     /// The time spent moving in words, for VoiceOver: "1 ora, 5 minuti e 20 secondi".
     func movingTimeSpokenText(locale: Locale = .autoupdatingCurrent) -> String {
-        movingDuration.formatted(.units(allowed: [.hours, .minutes, .seconds], width: .wide).locale(locale))
+        Self.spokenText(movingDuration, locale: locale)
+    }
+
+    /// A duration as a clock: "1:05:20".
+    static func clockText(_ duration: Duration, locale: Locale = .autoupdatingCurrent) -> String {
+        duration.formatted(.time(pattern: .hourMinuteSecond).locale(locale))
+    }
+
+    /// A duration in words, for VoiceOver: "1 ora, 5 minuti e 20 secondi".
+    static func spokenText(_ duration: Duration, locale: Locale = .autoupdatingCurrent) -> String {
+        duration.formatted(.units(allowed: [.hours, .minutes, .seconds], width: .wide).locale(locale))
     }
 
     init() {}
 
     /// A trip with fixed totals, for screenshots and previews.
-    init(maxSpeed: Double, distance: Double, movingTime: TimeInterval) {
+    init(maxSpeed: Double, distance: Double, movingTime: TimeInterval, startedAt: Date? = nil, endedAt: Date? = nil) {
         self.maxSpeed = maxSpeed
         self.distance = distance
         self.movingTime = movingTime
+        self.startedAt = startedAt
+        self.endedAt = endedAt
     }
 
+    // Trips saved by 1.0 have no times: they decode with none.
     private enum CodingKeys: String, CodingKey {
-        case maxSpeed, distance, movingTime
+        case maxSpeed, distance, movingTime, startedAt, endedAt
     }
 
     mutating func record(_ sample: SpeedSample) {
@@ -65,5 +81,9 @@ nonisolated struct Trip: Codable, Equatable, Sendable {
         guard interval > 0, interval <= Self.maxGap, sample.hasValidSpeed, sample.speed >= Self.movingSpeed else { return }
         distance += sample.distance(from: last)
         movingTime += interval
+        if startedAt == nil {
+            startedAt = last.timestamp
+        }
+        endedAt = sample.timestamp
     }
 }

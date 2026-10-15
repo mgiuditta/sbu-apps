@@ -34,7 +34,7 @@ final class SpeedFlowTests: XCTestCase {
         XCTAssertEqual(app.descendants(matching: .any)["Altitudine"].value as? String, "122 metri")
         XCTAssertEqual(app.descendants(matching: .any)["Rotta"].value as? String, "247 gradi, sud-ovest")
         XCTAssertTrue(app.staticTexts["247° SO"].exists)
-        XCTAssertTrue(app.buttons["Azzera viaggio"].isEnabled)
+        XCTAssertTrue(app.buttons["Salva e azzera"].isEnabled)
 
         // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,
         // and the audit misreads the iOS 26 glass bar and the dial's decorative track.
@@ -57,7 +57,7 @@ final class SpeedFlowTests: XCTestCase {
         // Beside, not under: the trip starts right of the figure.
         XCTAssertGreaterThan(duration.frame.minX, figure.frame.maxX)
         // The pill stays on screen, after the rotation settles.
-        let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: app.buttons["Azzera viaggio"])
+        let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: app.buttons["Salva e azzera"])
         XCTAssertEqual(XCTWaiter.wait(for: [hittable], timeout: 5), .completed)
 
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
@@ -67,23 +67,63 @@ final class SpeedFlowTests: XCTestCase {
     }
 
     @MainActor
-    func testResetAsksBeforeClearingTheTrip() {
+    func testSaveAndResetAsksThenKeepsTheTripInViaggi() throws {
         let app = launch()
-        let reset = app.buttons["Azzera viaggio"]
-        XCTAssertTrue(reset.waitForExistence(timeout: 5))
-        XCTAssertTrue(reset.isEnabled)
+        let save = app.buttons["Salva e azzera"]
+        XCTAssertTrue(save.waitForExistence(timeout: 5))
 
-        reset.tap()
+        save.tap()
 
-        // The confirmation repeats the action: the trip is cleared only after the second tap.
+        // The confirmation repeats the action: the trip is saved and cleared only after the second tap.
         let dialog = app.sheets.firstMatch
-        let confirm = dialog.buttons["Azzera viaggio"]
+        let confirm = dialog.buttons["Salva e azzera"]
         XCTAssertTrue(confirm.waitForExistence(timeout: 5))
         confirm.tap()
         XCTAssertTrue(dialog.waitForNonExistence(timeout: 5))
 
-        let cleared = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isEnabled == false"), object: reset)
-        XCTAssertEqual(XCTWaiter.wait(for: [cleared], timeout: 5), .completed)
+        // Nothing left to keep: the pill is a plain, disabled reset.
+        let reset = app.buttons["Azzera viaggio"]
+        XCTAssertTrue(reset.waitForExistence(timeout: 5))
+        XCTAssertFalse(reset.isEnabled)
+
+        // The snapshot drive joins the three demo trips.
+        app.buttons["Viaggi"].tap()
+        XCTAssertTrue(app.navigationBars["Viaggi"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.buttons.matching(identifier: "trip").count, 4)
+    }
+
+    @MainActor
+    func testViaggiListsTheTripsAndPassesTheAccessibilityAudit() throws {
+        let app = launch()
+
+        app.buttons["Viaggi"].tap()
+        XCTAssertTrue(app.navigationBars["Viaggi"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.buttons.matching(identifier: "trip").count, 3)
+        XCTAssertTrue(app.buttons["Esporta CSV"].isEnabled)
+
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+
+        app.buttons.matching(identifier: "trip").firstMatch.tap()
+        let delete = app.buttons["Elimina viaggio"]
+        XCTAssertTrue(delete.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Massima"].exists)
+
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
+
+        // Deleting asks first, then goes back to a shorter list.
+        delete.tap()
+        let confirm = app.sheets.firstMatch.buttons["Elimina viaggio"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        XCTAssertTrue(app.navigationBars["Viaggi"].waitForExistence(timeout: 5))
+        let shorter = XCTNSPredicateExpectation(predicate: NSPredicate(format: "count == 2"), object: app.buttons.matching(identifier: "trip"))
+        XCTAssertEqual(XCTWaiter.wait(for: [shorter], timeout: 5), .completed)
     }
 
     @MainActor

@@ -1,1 +1,1 @@
-
+statistiche,messaggi,analisi,conversazioni,parole,emoji,grafici,risposta,wrapped,esporta,zip,txt

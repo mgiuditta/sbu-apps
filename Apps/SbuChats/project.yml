@@ -23,6 +23,22 @@ targets:
     sources: [SbuChats]
     dependencies:
       - package: SbuKit
+    info:
+      path: SbuChats/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # Exported chats arrive from the share sheet ("Copy to Sbu Chats") as .zip or .txt.
+        # Alternate: Sbu Chats offers to open them, never claims every ZIP or text file.
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Chat (.zip)
+            LSHandlerRank: Alternate
+            LSItemContentTypes: [public.zip-archive, com.pkware.zip-archive]
+          - CFBundleTypeName: Chat (.txt)
+            LSHandlerRank: Alternate
+            LSItemContentTypes: [public.plain-text, public.utf8-plain-text]
+        # A copy arrives in Documents/Inbox; the app reads it and deletes it.
+        LSSupportsOpeningDocumentsInPlace: false
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.chats

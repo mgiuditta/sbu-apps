@@ -1,0 +1,2 @@
+# Exports are byte-exact: iPhone uses CRLF, some start with a byte order mark.
+* -text

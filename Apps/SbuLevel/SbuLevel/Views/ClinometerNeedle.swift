@@ -6,13 +6,15 @@ import SwiftUI
 struct ClinometerNeedle: View {
     /// Calibrated device rotation in degrees (see `Gravity.rotation`).
     let rotation: Double
+    /// The dial's turn, 0 or 90 (see `DialGeometry`).
+    var dialTurn = 0.0
 
     var body: some View {
         Canvas { context, size in
             let radius = min(size.width, size.height) / 2
             let center = CGPoint(x: size.width / 2, y: size.height / 2)
-            let start = DialGeometry.wedgeStart(rotation: rotation)
-            let sweep = DialGeometry.wedgeSweep(rotation: rotation)
+            let start = DialGeometry.wedgeStart(rotation: rotation, dialTurn: dialTurn)
+            let sweep = DialGeometry.wedgeSweep(rotation: rotation, dialTurn: dialTurn)
             let needle = start + sweep
             let reach = radius - SbuTheme.space2
 

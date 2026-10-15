@@ -8,6 +8,8 @@ struct DialScale: View {
     private static let labelPositions = stride(from: 0.0, to: 360, by: 45)
 
     let showsValues: Bool
+    /// The dial's turn, 0 or 90 (see `DialGeometry`).
+    var dialTurn = 0.0
 
     var body: some View {
         Canvas { context, size in
@@ -32,7 +34,7 @@ struct DialScale: View {
             guard showsValues else { return }
             let labelRadius = radius - SbuTheme.space3 - SbuTheme.space5
             for position in Self.labelPositions {
-                let value = DialGeometry.value(at: position)
+                let value = DialGeometry.value(at: position, dialTurn: dialTurn)
                 let label = Text(verbatim: value.formatted(.number.precision(.fractionLength(0))) + "°")
                     .font(SbuTheme.caption.monospacedDigit())
                     .foregroundStyle(SbuTheme.inkMuted)

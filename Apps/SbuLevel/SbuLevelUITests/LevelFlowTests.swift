@@ -15,7 +15,7 @@ final class LevelFlowTests: XCTestCase {
         // Every test starts uncalibrated: a string where the calibration data goes reads as none.
         app.launchArguments += ["-calibration", "none"]
         // And in degrees to the tenth, whatever an earlier test chose: arguments win over saved settings.
-        app.launchArguments += ["-unit", "degrees", "-locksWhenSteady", "NO", "-speech", "off", "-playsSound", "NO", "-locksWithVolumeButton", "NO"]
+        app.launchArguments += ["-unit", "degrees", "-locksWhenSteady", "NO", "-speech", "off", "-playsSound", "NO", "-locksWithVolumeButton", "NO", "-dialTurn", "0"]
         app.launch()
         return app
     }
@@ -141,6 +141,27 @@ final class LevelFlowTests: XCTestCase {
         let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
         XCTAssertTrue(figure.label.contains("Lettura bloccata"), figure.label)
         XCTAssertTrue(figure.label.contains("32,4"), figure.label)
+    }
+
+    @MainActor
+    func testTurningTheDialReads0AtTheSides() throws {
+        let app = launch()
+        let dial = app.otherElements["Quadrante"]
+        XCTAssertTrue(dial.waitForExistence(timeout: 5))
+
+        // A quarter turn by hand, from the top of the dial round to its right side.
+        let top = dial.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.1))
+        let right = dial.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
+        top.press(forDuration: 0.1, thenDragTo: right)
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.label.contains("57,6"), figure.label)
+        XCTAssertEqual(dial.value as? String, "0° sui lati")
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        right.press(forDuration: 0.1, thenDragTo: top)
+        XCTAssertTrue(figure.label.contains("32,4"), figure.label)
+        XCTAssertEqual(dial.value as? String, "0° sui bordi in alto e in basso")
     }
 
     @MainActor

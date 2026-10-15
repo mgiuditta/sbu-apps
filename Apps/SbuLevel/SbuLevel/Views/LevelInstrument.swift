@@ -19,7 +19,7 @@ struct LevelInstrument: View {
                         volumeButtonAction: model.locksWithVolumeButton ? toggleLock : nil
                     )
                 } else {
-                    LevelIndicator(reading: model.reading)
+                    LevelIndicator(reading: model.reading, turnDial: model.turnDial)
                 }
             }
             .frame(maxWidth: 320)

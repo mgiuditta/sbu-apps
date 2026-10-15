@@ -21,6 +21,26 @@
         }
       }
     },
+    "0° sui bordi in alto e in basso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0° on the top and bottom edges"
+          }
+        }
+      }
+    },
+    "0° sui lati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0° on the sides"
+          }
+        }
+      }
+    },
     "1 a %@" : {
       "localizations" : {
         "en" : {
@@ -637,6 +657,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Flat"
+          }
+        }
+      }
+    },
+    "Quadrante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dial"
           }
         }
       }

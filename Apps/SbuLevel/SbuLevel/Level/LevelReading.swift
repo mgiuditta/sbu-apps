@@ -31,6 +31,8 @@ nonisolated struct LevelReading: Equatable, Sendable {
     /// along its height (positive with the top low), calibrated. Zero in edge mode.
     var tiltX = 0.0
     var tiltY = 0.0
+    /// The dial's turn the angle was read on: 0, or 90 with 0° at the sides (see `DialGeometry`).
+    var dialTurn = 0.0
 
     /// The angle as shown: rounded half away from zero to a tenth, never negative, so it reads
     /// "0,0" and never "-0,0". The figure formats exactly this value.
@@ -38,12 +40,11 @@ nonisolated struct LevelReading: Equatable, Sendable {
         abs((angle * 10).rounded(.toNearestOrAwayFromZero) / 10)
     }
 
-    /// The angle the figure shows when the iPhone is level: 90° on a side edge, 0° otherwise.
+    /// The angle the figure shows when the iPhone is level: 90° on a side edge, 0° otherwise, or
+    /// the other way round on a turned dial.
     var levelAngle: Double {
-        switch edge {
-        case .left, .right: 90
-        case .bottom, .top, nil: 0
-        }
+        guard let edge else { return 0 }
+        return DialGeometry.value(at: DialGeometry.needlePosition(rotation: edge.restingRotation), dialTurn: dialTurn)
     }
 
     /// Level when the figure shows the level angle: "In bolla" and the figure always agree.
@@ -77,8 +78,10 @@ nonisolated struct LevelReading: Equatable, Sendable {
     }
 
     /// Creates the reading for a gravity sample with a calibration applied.
-    /// - Parameter previous: The reading before this one; its mode and edge hold near the thresholds.
-    init(gravity: Gravity, calibration: Calibration, previous: LevelReading? = nil) {
+    /// - Parameters:
+    ///   - previous: The reading before this one; its mode and edge hold near the thresholds.
+    ///   - dialTurn: The dial's turn, 0 or 90, for the edge angle.
+    init(gravity: Gravity, calibration: Calibration, previous: LevelReading? = nil, dialTurn: Double = 0) {
         switch Self.mode(for: gravity, previous: previous?.mode) {
         case .flat:
             let x = gravity.x - calibration.flatX
@@ -103,12 +106,13 @@ nonisolated struct LevelReading: Equatable, Sendable {
             self.init(
                 mode: .edge,
                 edge: edge,
-                angle: DialGeometry.value(at: DialGeometry.needlePosition(rotation: rotation)),
+                angle: DialGeometry.value(at: DialGeometry.needlePosition(rotation: rotation), dialTurn: dialTurn),
                 deviation: edge.deviation(of: rotation),
                 rotation: rotation,
                 bubbleX: 0,
                 bubbleY: 0
             )
+            self.dialTurn = dialTurn
         }
     }
 

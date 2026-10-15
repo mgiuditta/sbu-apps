@@ -364,6 +364,50 @@ struct LevelModelTests {
         #expect(abs(SteadyLock.clamped(value) - expected) < 1e-9)
     }
 
+    @Test func turningTheDialReads0AtTheSidesAndIsSaved() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 0))
+        #expect(model.readout.isLevel)
+
+        model.turnDial(by: 80)
+
+        #expect(model.dialTurn == 90)
+        #expect(abs(model.readout.angle - 90) < 1e-9)
+        // Level still agrees with the figure: on the bottom edge a turned dial reads 90° level.
+        #expect(model.readout.isLevel)
+        #expect(makeModel().dialTurn == 90)
+    }
+
+    @Test func aRightEdgeReadsZeroLevelOnATurnedDial() {
+        let model = makeModel()
+        model.turnDial(by: 90)
+
+        model.update(with: .standing(rotatedBy: 90))
+
+        #expect(abs(model.readout.angle) < 1e-9)
+        #expect(model.readout.isLevel)
+    }
+
+    @Test func turningTheDialEndsTheLockAndTheReference() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 10))
+        model.toggleReference()
+        model.toggleLock()
+
+        model.turnDial(by: -90)
+
+        #expect(model.isLocked == false)
+        #expect(model.reference == nil)
+    }
+
+    @Test func aShortDragLeavesTheDial() {
+        let model = makeModel()
+
+        model.turnDial(by: 30)
+
+        #expect(model.dialTurn == 0)
+    }
+
     @Test func theVolumeButtonIsOffUntilChosenAndThenSaved() {
         #expect(makeModel().locksWithVolumeButton == false)
 

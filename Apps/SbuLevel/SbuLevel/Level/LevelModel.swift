@@ -12,6 +12,7 @@ final class LevelModel {
     private static let speechKey = "speech"
     private static let playsSoundKey = "playsSound"
     private static let locksWithVolumeButtonKey = "locksWithVolumeButton"
+    private static let dialTurnKey = "dialTurn"
 
     /// What the screen shows: the live reading, or the one frozen by the lock.
     private(set) var reading = LevelReading.level
@@ -69,6 +70,9 @@ final class LevelModel {
         didSet { defaults.set(locksWithVolumeButton, forKey: Self.locksWithVolumeButtonKey) }
     }
 
+    /// The dial's turn: 0 reads 0° on the bottom and top edges, 90 reads 0° on the sides. Saved.
+    private(set) var dialTurn: Double
+
     @ObservationIgnored private var steadySampler: StableSampler?
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let source: any GravitySource
@@ -99,6 +103,7 @@ final class LevelModel {
         locksWhenSteady = defaults.bool(forKey: Self.locksWhenSteadyKey)
         playsSound = defaults.bool(forKey: Self.playsSoundKey)
         locksWithVolumeButton = defaults.bool(forKey: Self.locksWithVolumeButtonKey)
+        dialTurn = defaults.double(forKey: Self.dialTurnKey) == DialGeometry.quarterTurn ? DialGeometry.quarterTurn : 0
         speech = defaults.string(forKey: Self.speechKey).flatMap(SpeechMode.init(rawValue:)) ?? .off
         steadyTolerance = SteadyLock.clamped(defaults.object(forKey: Self.steadyToleranceKey) as? Double ?? SteadyLock.defaultTolerance)
     }
@@ -148,7 +153,7 @@ final class LevelModel {
     private func makeReading(for sample: Gravity, calibration: Calibration) -> LevelReading {
         isSighting
             ? .sight(gravity: sample, calibration: calibration)
-            : LevelReading(gravity: sample, calibration: calibration, previous: liveReading)
+            : LevelReading(gravity: sample, calibration: calibration, previous: liveReading, dialTurn: dialTurn)
     }
 
     /// Turns the camera sight on or off. The lock and the reference belong to the other mode, so
@@ -190,6 +195,22 @@ final class LevelModel {
     private func cancelSteadyLock() {
         steadySampler = nil
         steadyProgress = nil
+    }
+
+    /// Turns the dial after a drag of `degrees`, snapping to a quarter, and saves it. The reference
+    /// and a locked figure were read on the old dial, so both end.
+    func turnDial(by degrees: Double) {
+        let turned = DialGeometry.turn(dialTurn, draggedBy: degrees)
+        guard turned != dialTurn else { return }
+        dialTurn = turned
+        defaults.set(turned, forKey: Self.dialTurnKey)
+        isLocked = false
+        cancelSteadyLock()
+        reference = nil
+        if let gravity {
+            liveReading = makeReading(for: gravity, calibration: calibration)
+        }
+        reading = liveReading
     }
 
     /// Takes the shown reading as zero, or goes back to the absolute angle. While locked, the

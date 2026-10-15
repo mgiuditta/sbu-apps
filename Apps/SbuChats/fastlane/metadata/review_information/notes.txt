@@ -1,0 +1,11 @@
+No account. Sbu Chats has no server and makes no network calls: no analytics, ads or tracking. Chats stay on the device in a local SQLite file, never synced (no iCloud).
+
+The app reads chats the user exports from WhatsApp ("Export Chat", .zip or .txt) and shares to Sbu Chats or picks in Files. It never reads another app's data. The App Store name, subtitle, keywords and description do not mention WhatsApp; the in-app help names it with the note "WhatsApp is a trademark of Meta Platforms, Inc. Sbu Chats is not affiliated with Meta."
+
+To review without a chat to export:
+1. On the first screen tap "Try a Sample Chat". It imports a made-up chat written by us (two invented people, about 5,000 messages).
+2. "Who Are You?" asks which sender is you: pick Emma, then Confirm.
+3. The chat screen shows the total messages and each person's numbers. Below: Activity (charts), Words and Emoji, Search Messages. "Period" narrows every number.
+4. Swipe the chat in the list to delete it (asks first).
+
+How it differs from the other Sbu apps: it is the only one that reads exported chats; the others measure, track habits, play sounds, scan codes or manage subscriptions and photos.

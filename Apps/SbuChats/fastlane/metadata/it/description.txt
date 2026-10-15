@@ -5,6 +5,21 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Esporta una chat dall'app di messaggi e Sbu Chats ne fa i numeri, sull'iPhone: quanti messaggi vi siete scritti, chi risponde prima, a che ora parlate.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Importa le chat esportate in .zip, con o senza media, o in .txt, dal foglio di condivisione o da File
+- Legge gli export di iPhone e di Android, in italiano, inglese e altre lingue, con orario a 12 o 24 ore
+- Il totale dei messaggi, poi per ognuno: messaggi, parole, foto e video, conversazioni iniziate e chiuse, giorni di fila
+- Tempo di risposta tipico e medio di ogni persona
+- Grafici per ora, giorno della settimana, mese e anno, i tuoi messaggi separati da quelli degli altri
+- Le parole e le emoji più usate, di tutti o di una persona
+- Cerca in tutti i messaggi, anche una frase esatta
+- Periodo: tutta la chat, ultimi 30 giorni, 6 mesi, un anno o le date che scegli
+- Esporti di nuovo la stessa chat e Sbu Chats aggiunge solo i messaggi nuovi
+- Se un file non si legge, ti dice perché e cosa fare
+- Ogni statistica gratis, senza limiti di chat o di analisi al giorno
+- Nessuna connessione a internet: le chat restano sull'iPhone e le elimini quando vuoi
+- Una chat di esempio per provare subito
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: trasforma una chat esportata nei suoi numeri, sul tuo iPhone.

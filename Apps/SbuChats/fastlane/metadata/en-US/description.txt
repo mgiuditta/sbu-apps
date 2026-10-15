@@ -5,6 +5,21 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Export a chat from your messaging app and Sbu Chats turns it into numbers, on your iPhone: how many messages you've sent each other, who replies faster, what time you talk.
 
-Sbu does one thing: __ONE_THING_EN__
+- Imports exported chats as .zip, with or without media, or .txt, from the share sheet or Files
+- Reads iPhone and Android exports, in English, Italian and other languages, with 12- or 24-hour times
+- The total of messages, then for each person: messages, words, photos and videos, conversations started and ended, longest streak
+- Typical and average reply time for each person
+- Charts by hour, weekday, month and year, your messages apart from everyone else's
+- The most used words and emoji, for everyone or one person
+- Search every message, exact phrases too
+- Period: the whole chat, last 30 days, 6 months, a year, or the dates you choose
+- Export the same chat again and Sbu Chats adds only the new messages
+- If a file can't be read, it tells you why and what to do
+- Every stat free, with no limit on chats or analyses per day
+- No internet connection: chats stay on your iPhone and you delete them whenever you want
+- A sample chat to try right away
+- Light and dark, Dynamic Type, VoiceOver
+
+Sbu does one thing: it turns an exported chat into its numbers, on your iPhone.

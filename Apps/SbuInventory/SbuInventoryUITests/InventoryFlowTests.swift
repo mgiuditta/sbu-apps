@@ -64,7 +64,7 @@ final class InventoryFlowTests: XCTestCase {
         app.buttons["Elimina"].tap()
         let alert = app.alerts.firstMatch
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
-        XCTAssertTrue(alert.staticTexts["Vanno via anche 1 voce che contiene, con le foto."].exists)
+        XCTAssertTrue(alert.staticTexts["Va via anche quello che contiene: 1 voce, con le foto."].exists)
         alert.buttons["Elimina"].tap()
         XCTAssertTrue(app.staticTexts["Inventario vuoto"].waitForExistence(timeout: 5))
     }

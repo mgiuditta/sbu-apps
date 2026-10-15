@@ -33,14 +33,14 @@ struct DeleteConfirmation: ViewModifier {
     private func message(for entry: InventoryEntry) -> Text {
         switch entry {
         case .item:
-            return Text("Vanno via anche le sue foto.")
+            return Text("Non si può annullare.")
         case let .folder(folder):
             let inside = total(folder)
             switch (inside.itemCount, inside.folderCount) {
             case (0, 0): return Text("La cartella è vuota.")
-            case let (items, 0): return Text("Vanno via anche ^[\(items) voce](inflect: true) che contiene, con le foto.")
-            case let (0, folders): return Text("Vanno via anche ^[\(folders) cartella](inflect: true) che contiene.")
-            case let (items, folders): return Text("Vanno via anche ^[\(items) voce](inflect: true) e ^[\(folders) cartella](inflect: true) che contiene, con le foto.")
+            case let (items, 0): return Text("Va via anche quello che contiene: ^[\(items) voce](inflect: true), con le foto.")
+            case let (0, folders): return Text("Va via anche quello che contiene: ^[\(folders) cartella](inflect: true).")
+            case let (items, folders): return Text("Va via anche quello che contiene: ^[\(items) voce](inflect: true) e ^[\(folders) cartella](inflect: true), con le foto.")
             }
         }
     }

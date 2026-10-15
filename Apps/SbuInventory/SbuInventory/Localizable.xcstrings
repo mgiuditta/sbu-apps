@@ -1069,6 +1069,16 @@
         }
       }
     },
+    "Non si può annullare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This can't be undone."
+          }
+        }
+      }
+    },
     "Note" : {
       "localizations" : {
         "en" : {
@@ -1589,58 +1599,48 @@
         }
       }
     },
+    "Va via anche quello che contiene: ^[%lld cartella](inflect: true)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What it holds goes too: ^[%lld folder](inflect: true)."
+          }
+        }
+      }
+    },
+    "Va via anche quello che contiene: ^[%lld voce](inflect: true) e ^[%lld cartella](inflect: true), con le foto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What it holds goes too: ^[%1$lld entry](inflect: true) and ^[%2$lld folder](inflect: true), with their photos."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Va via anche quello che contiene: ^[%1$lld voce](inflect: true) e ^[%2$lld cartella](inflect: true), con le foto."
+          }
+        }
+      }
+    },
+    "Va via anche quello che contiene: ^[%lld voce](inflect: true), con le foto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What it holds goes too: ^[%lld entry](inflect: true), with their photos."
+          }
+        }
+      }
+    },
     "Valore" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Value"
-          }
-        }
-      }
-    },
-    "Vanno via anche ^[%lld cartella](inflect: true) che contiene." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The ^[%lld folder](inflect: true) inside go too."
-          }
-        }
-      }
-    },
-    "Vanno via anche ^[%lld voce](inflect: true) che contiene, con le foto." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The ^[%lld entry](inflect: true) inside go too, with their photos."
-          }
-        }
-      }
-    },
-    "Vanno via anche ^[%lld voce](inflect: true) e ^[%lld cartella](inflect: true) che contiene, con le foto." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The ^[%1$lld entry](inflect: true) and ^[%2$lld folder](inflect: true) inside go too, with their photos."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Vanno via anche ^[%1$lld voce](inflect: true) e ^[%2$lld cartella](inflect: true) che contiene, con le foto."
-          }
-        }
-      }
-    },
-    "Vanno via anche le sue foto." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Its photos go too."
           }
         }
       }

@@ -14,6 +14,8 @@ final class LevelFlowTests: XCTestCase {
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES", "-FIXED_GRAVITY", gravity]
         // Every test starts uncalibrated: a string where the calibration data goes reads as none.
         app.launchArguments += ["-calibration", "none"]
+        // And in degrees to the tenth, whatever an earlier test chose: arguments win over saved settings.
+        app.launchArguments += ["-unit", "degrees"]
         app.launch()
         return app
     }
@@ -139,6 +141,26 @@ final class LevelFlowTests: XCTestCase {
         // Dynamic Type is left out as in the other apps: in the settings sheet the audit flags
         // every text as partially unsupported, system ones included.
         try audit(app, excluding: [.contrast, .dynamicType])
+    }
+
+    @MainActor
+    func testTheUnitChosenInSettingsReadsTheFigure() throws {
+        let app = launch()
+        app.buttons["Impostazioni"].tap()
+        let units = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Unità di misura'")).firstMatch
+        XCTAssertTrue(units.waitForExistence(timeout: 5))
+        units.tap()
+        let percent = app.buttons["Pendenza in %"]
+        XCTAssertTrue(percent.waitForExistence(timeout: 5))
+
+        percent.tap()
+        app.buttons["Fine"].tap()
+
+        // 32,4° is a 63,5 % slope; VoiceOver says the unit in words.
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.contains("63,5 per cento"), figure.label)
+        try audit(app, excluding: Self.toolScreenExclusions)
     }
 
     @MainActor

@@ -1,6 +1,46 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@ per cento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ percent"
+          }
+        }
+      }
+    },
+    "%@ su 12" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ in 12"
+          }
+        }
+      }
+    },
+    "1 a %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 in %@"
+          }
+        }
+      }
+    },
+    "Alzata su 12 (x:12)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rise on 12 (x:12)"
+          }
+        }
+      }
+    },
     "Annulla" : {
       "localizations" : {
         "en" : {
@@ -27,6 +67,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Place your iPhone on the same side as the first reading."
+          }
+        }
+      }
+    },
+    "Asse orizzontale %@, asse verticale %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horizontal axis %@, vertical axis %@"
           }
         }
       }
@@ -151,12 +201,42 @@
         }
       }
     },
+    "Fuori scala" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off scale"
+          }
+        }
+      }
+    },
     "Gira l'iPhone di 180° sullo stesso punto, sullo stesso lato, e tocca Misura." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn your iPhone 180° on the same spot, on the same side, and tap Measure."
+          }
+        }
+      }
+    },
+    "Gradi al decimo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Degrees to the tenth"
+          }
+        }
+      }
+    },
+    "Gradi interi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whole degrees"
           }
         }
       }
@@ -251,12 +331,12 @@
         }
       }
     },
-    "Lettura bloccata, %@°" : {
+    "Lettura bloccata, %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reading locked, %@°"
+            "value" : "Reading locked, %@"
           }
         }
       }
@@ -341,12 +421,32 @@
         }
       }
     },
+    "Pendenza in %" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slope in %"
+          }
+        }
+      }
+    },
     "Piano" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Flat"
+          }
+        }
+      }
+    },
+    "Rapporto 1V:H" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ratio 1V:H"
           }
         }
       }
@@ -427,6 +527,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "All sides"
+          }
+        }
+      }
+    },
+    "Unità di misura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unit"
+          }
+        }
+      }
+    },
+    "x:12 è l'alzata su 12 di base, come si legge un tetto. 1V:H è la base per 1 di alzata. Il quadrante resta in gradi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "x:12 is the rise on a run of 12, as a roof is read. 1V:H is the run for a rise of 1. The dial stays in degrees."
           }
         }
       }

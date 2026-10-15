@@ -4,8 +4,6 @@ import UIKit
 
 /// The tool screen: the angle as the figure, the clinometer dial or bubble, and the Calibra and Blocca pills.
 struct MainView: View {
-    private static let format = FloatingPointFormatStyle<Double>.number.precision(.fractionLength(1))
-
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -16,7 +14,7 @@ struct MainView: View {
     private var context: LocalizedStringKey {
         if model.isLocked {
             "Lettura bloccata"
-        } else if model.reading.isLevel {
+        } else if model.readout.isLevel {
             "In bolla"
         } else if model.reading.mode == .flat {
             "In piano"
@@ -31,6 +29,8 @@ struct MainView: View {
             : AnyLayout(HStackLayout(spacing: SbuTheme.space2))
     }
 
+    private var format: AngleFormatStyle { AngleFormatStyle(unit: model.unit) }
+
     private var keepsScreenOn: Bool {
         model.isMotionAvailable && model.keepsScreenOn(isActive: scenePhase == .active)
     }
@@ -40,14 +40,22 @@ struct MainView: View {
             if model.isMotionAvailable {
                 SbuToolField(
                     "Inclinazione",
-                    value: model.reading.displayedAngle,
-                    format: Self.format,
-                    unit: "°",
+                    value: model.readout.angle,
+                    format: format,
+                    unit: model.unit.symbol,
+                    spokenValue: Text(verbatim: format.spokenText(model.readout.angle)),
                     context: context,
                     contextSystemImage: model.isLocked ? "lock.fill" : nil
                 ) {
-                    LevelIndicator(reading: model.reading)
-                        .frame(maxWidth: 320)
+                    VStack(spacing: SbuTheme.space4) {
+                        LevelIndicator(reading: model.reading)
+                            .frame(maxWidth: 320)
+
+                        // Always laid out, so the dial does not jump when the iPhone lies down.
+                        BubbleAxes(tiltX: model.reading.tiltX, tiltY: model.reading.tiltY, unit: model.unit)
+                            .opacity(model.reading.mode == .flat ? 1 : 0)
+                            .accessibilityHidden(model.reading.mode != .flat)
+                    }
                 } pills: {
                     // Side by side, or stacked with accessibility text sizes, where they would break the words.
                     pillsLayout {
@@ -63,7 +71,7 @@ struct MainView: View {
                 }
             }
         }
-        .sensoryFeedback(.success, trigger: model.reading.isLevel) { _, isLevel in isLevel }
+        .sensoryFeedback(.success, trigger: model.readout.isLevel) { _, isLevel in isLevel }
         .sheet(isPresented: $isCalibrating, onDismiss: model.endCalibration) {
             CalibrationSheet(model: model)
         }
@@ -86,7 +94,7 @@ struct MainView: View {
     private func toggleLock() {
         model.toggleLock()
         let message = if model.isLocked {
-            String(localized: "Lettura bloccata, \(model.reading.displayedAngle.formatted(Self.format))°")
+            String(localized: "Lettura bloccata, \(format.spokenText(model.readout.angle))")
         } else {
             String(localized: "Lettura sbloccata")
         }

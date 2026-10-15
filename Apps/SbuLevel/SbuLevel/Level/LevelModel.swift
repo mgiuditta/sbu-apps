@@ -6,6 +6,7 @@ import Observation
 final class LevelModel {
     private static let calibrationKey = "calibration"
     private static let keepsScreenAwakeKey = "keepsScreenAwake"
+    private static let unitKey = "unit"
 
     /// What the screen shows: the live reading, or the one frozen by the lock.
     private(set) var reading = LevelReading.level
@@ -22,11 +23,19 @@ final class LevelModel {
         didSet { defaults.set(keepsScreenAwake, forKey: Self.keepsScreenAwakeKey) }
     }
 
+    /// How the figure reads the angle. Degrees to the tenth by default.
+    var unit: AngleUnit {
+        didSet { defaults.set(unit.rawValue, forKey: Self.unitKey) }
+    }
+
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let source: any GravitySource
     @ObservationIgnored private var gravity: Gravity?
 
     var isCalibrated: Bool { calibration != .none }
+
+    /// What the figure says for the shown reading.
+    var readout: Readout { Readout(reading: reading, unit: unit) }
 
     /// - Parameters:
     ///   - defaults: Where the calibration and settings are saved.
@@ -44,6 +53,7 @@ final class LevelModel {
         calibration = defaults.data(forKey: Self.calibrationKey)
             .flatMap { try? JSONDecoder().decode(Calibration.self, from: $0) } ?? .none
         keepsScreenAwake = defaults.object(forKey: Self.keepsScreenAwakeKey) as? Bool ?? true
+        unit = defaults.string(forKey: Self.unitKey).flatMap(AngleUnit.init(rawValue:)) ?? .standard
     }
 
     /// Reads the sensor until the calling task is cancelled.

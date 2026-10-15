@@ -180,6 +180,25 @@ struct LevelModelTests {
     @Test func aNormalLaunchUsesTheSensor() {
         #expect(FixedGravitySource.requested(in: defaults) == nil)
     }
+
+    @Test func theUnitIsDegreesUntilChosenAndThenSaved() {
+        let model = makeModel()
+        #expect(model.unit == .degrees)
+
+        model.unit = .pitch
+
+        #expect(makeModel().unit == .pitch)
+    }
+
+    @Test func theFigureFollowsTheUnit() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 45))
+
+        model.unit = .percent
+
+        #expect(model.readout.unit == .percent)
+        #expect(model.readout.unit.value(forDegrees: model.readout.angle) == 100)
+    }
 }
 
 /// A source with no motion sensor, like the simulator.

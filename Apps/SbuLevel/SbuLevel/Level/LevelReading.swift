@@ -25,6 +25,10 @@ nonisolated struct LevelReading: Equatable, Sendable {
     /// Bubble offset in -1...1, screen axes (x right, y down). Zero in edge mode.
     var bubbleX: Double
     var bubbleY: Double
+    /// Flat only: degrees of tilt along the screen's width (positive with the right side low) and
+    /// along its height (positive with the top low), calibrated. Zero in edge mode.
+    var tiltX = 0.0
+    var tiltY = 0.0
 
     /// The angle as shown: rounded half away from zero to a tenth, never negative, so it reads
     /// "0,0" and never "-0,0". The figure formats exactly this value.
@@ -48,7 +52,17 @@ nonisolated struct LevelReading: Equatable, Sendable {
         edge.map(CalibrationTarget.edge) ?? .flat
     }
 
-    init(mode: LevelMode, edge: Edge?, angle: Double, deviation: Double, rotation: Double, bubbleX: Double, bubbleY: Double) {
+    init(
+        mode: LevelMode,
+        edge: Edge?,
+        angle: Double,
+        deviation: Double,
+        rotation: Double,
+        bubbleX: Double,
+        bubbleY: Double,
+        tiltX: Double = 0,
+        tiltY: Double = 0
+    ) {
         self.mode = mode
         self.edge = edge
         self.angle = angle
@@ -56,6 +70,8 @@ nonisolated struct LevelReading: Equatable, Sendable {
         self.rotation = rotation
         self.bubbleX = bubbleX
         self.bubbleY = bubbleY
+        self.tiltX = tiltX
+        self.tiltY = tiltY
     }
 
     /// Creates the reading for a gravity sample with a calibration applied.
@@ -75,7 +91,9 @@ nonisolated struct LevelReading: Equatable, Sendable {
                 deviation: tilt,
                 rotation: 0,
                 bubbleX: Self.clamped(-x / range),
-                bubbleY: Self.clamped(y / range)
+                bubbleY: Self.clamped(y / range),
+                tiltX: Angles.degrees(fromRadians: asin(Self.clamped(x))),
+                tiltY: Angles.degrees(fromRadians: asin(Self.clamped(y)))
             )
         case .edge:
             let edge = Self.edge(for: gravity.rotation, previous: previous?.edge)

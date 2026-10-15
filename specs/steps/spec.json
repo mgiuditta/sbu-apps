@@ -1,0 +1,462 @@
+{
+  "name": "Sbu Steps",
+  "slug": "steps",
+  "in_repo": "Sbu Steps",
+  "replaces": [
+    {
+      "name": "StepsApp Pedometer",
+      "app_store_id": 1037595083,
+      "role": "originale",
+      "price_model": "Free with ads; PRO auto-renewing subscription (price not in the public lookup)",
+      "version": "8.15.3",
+      "rating": 4.81,
+      "rating_count": 300699
+    },
+    {
+      "name": "Stompers: Walking Step Counter",
+      "app_store_id": 6477849675,
+      "role": "concorrente",
+      "price_model": "Free; Super Stompers weekly 4.99 USD to yearly 59.99 USD with trial, coins and packs (rating from the it store, meta.json)",
+      "version": "1.9.8",
+      "rating": 3.86,
+      "rating_count": 14
+    }
+  ],
+  "one_thing": "Shows today's steps, the same number as Health, and how they add up over time.",
+  "features": [
+    {
+      "name": "Today's steps",
+      "description": "One figure: today's steps from HealthKit cumulative sum (same dedup as Health), live updates from CMPedometer while open; distance and floors secondary in inkMuted.",
+      "priority": "P0",
+      "reason": "Free in StepsApp but the base of every paid view.",
+      "source": "original"
+    },
+    {
+      "name": "Trends and records",
+      "description": "Week, month and year charts (Swift Charts), averages per day/weekday/hour, yearly total, best day, all from HKStatisticsCollectionQuery.",
+      "priority": "P0",
+      "reason": "'Advanced analytics & insights' is StepsApp's main PRO feature; a subscriber cancelled when it was cut.",
+      "source": "original"
+    },
+    {
+      "name": "Advanced goals",
+      "description": "Daily goal with 250-step increments, optional different goal per weekday.",
+      "priority": "P0",
+      "reason": "'Advanced goals' is PRO; review asks for 250-step increments.",
+      "source": "original"
+    },
+    {
+      "name": "Streak with free freezes",
+      "description": "Days at goal in a row; one freeze earned every 7 days up to a cap, never sold.",
+      "priority": "P0",
+      "reason": "Extra streak freezes are PRO; review asks for earned freezes instead of paid ones.",
+      "source": "original"
+    },
+    {
+      "name": "No ads",
+      "description": "No ads anywhere.",
+      "priority": "P0",
+      "reason": "'Fully ad-free experience' is PRO.",
+      "source": "original"
+    },
+    {
+      "name": "Same number as Health",
+      "description": "Read only HealthKit totals (respecting the user's source priority, so Watch/Garmin data counts); explain in Settings how to set source priority in Health.",
+      "priority": "P1",
+      "reason": "Steps differ from Health/Watch, missing steps or days (14).",
+      "source": "pain"
+    },
+    {
+      "name": "Nothing paid",
+      "description": "Every feature free, no trial, no PRO.",
+      "priority": "P1",
+      "reason": "Paywall for a steps app (5).",
+      "source": "pain"
+    },
+    {
+      "name": "Opens fast, never blank",
+      "description": "Today figure from a cached snapshot, then refreshed; no blocking launch work.",
+      "priority": "P1",
+      "reason": "Blank screen, freezes (3).",
+      "source": "pain"
+    },
+    {
+      "name": "Distance and floors from Health",
+      "description": "Use HealthKit distanceWalkingRunning and flightsClimbed, never a stride estimate.",
+      "priority": "P1",
+      "reason": "Distance/floors inconsistent (3).",
+      "source": "pain"
+    },
+    {
+      "name": "Watch data through Health",
+      "description": "No watchOS target needed: Watch steps arrive in HealthKit.",
+      "priority": "P1",
+      "reason": "Watch sync lost or wrong (2).",
+      "source": "pain"
+    },
+    {
+      "name": "No rating nags",
+      "description": "No in-app rating prompts beyond the system's own limit, never on launch.",
+      "priority": "P1",
+      "reason": "Repeated rating requests (1).",
+      "source": "pain"
+    },
+    {
+      "name": "Widgets",
+      "description": "Home and Lock Screen widgets with today's steps and goal (WidgetKit + HealthKit in the extension).",
+      "priority": "P2",
+      "reason": "Free in StepsApp; useful but not paid core.",
+      "source": "original"
+    },
+    {
+      "name": "Export CSV",
+      "description": "Daily steps, distance, floors exported to a CSV file via ShareLink.",
+      "priority": "P2",
+      "reason": "StepsApp 'export your data'.",
+      "source": "original"
+    },
+    {
+      "name": "Wheelchair pushes",
+      "description": "Count pushCount instead of steps when the user's Health wheelchair setting is on.",
+      "priority": "P2",
+      "reason": "StepsApp accessibility feature.",
+      "source": "original"
+    },
+    {
+      "name": "Day starts later (night shifts)",
+      "description": "Optional day boundary shift for shift workers.",
+      "priority": "P2",
+      "reason": "Stompers research: day ending at 21:00 hurt night workers.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Today",
+      "purpose": "Today's steps.",
+      "elements": [
+        "SbuStat steps + full stop",
+        "goal progress as text (inkMuted)",
+        "distance, floors (inkMuted)",
+        "streak row",
+        "Trends row"
+      ]
+    },
+    {
+      "name": "Trends",
+      "purpose": "How steps add up.",
+      "elements": [
+        "segmented week/month/year",
+        "Swift Charts bar chart (accent bars, no rings)",
+        "averages and records in List .insetGrouped"
+      ]
+    },
+    {
+      "name": "Day detail",
+      "purpose": "One past day.",
+      "elements": [
+        "hourly bars",
+        "totals"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Goal and data.",
+      "elements": [
+        "goal stepper (250)",
+        "per-weekday goals",
+        "day start",
+        "Health source priority help",
+        "Export CSV",
+        "Licences"
+      ]
+    },
+    {
+      "name": "Health access",
+      "purpose": "Ask for read access when needed.",
+      "elements": [
+        "one sentence",
+        "Connect to Health button",
+        "denied state with Settings link"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First launch",
+      "steps": [
+        "Today shows Motion count via CMPedometer",
+        "Connect to Health button",
+        "HealthKit read authorisation",
+        "history appears"
+      ]
+    },
+    {
+      "name": "Check the year",
+      "steps": [
+        "Today → Trends",
+        "Year",
+        "tap a month",
+        "Day detail"
+      ]
+    },
+    {
+      "name": "Set goal",
+      "steps": [
+        "Settings",
+        "goal stepper",
+        "Today updates goal text"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Goal",
+        "fields": [
+          {
+            "name": "daily",
+            "type": "Int",
+            "note": "steps, multiple of 250"
+          },
+          {
+            "name": "perWeekday",
+            "type": "[Int: Int]?",
+            "note": "optional"
+          }
+        ]
+      },
+      {
+        "name": "StreakState",
+        "fields": [
+          {
+            "name": "freezesAvailable",
+            "type": "Int",
+            "note": "earned, capped"
+          },
+          {
+            "name": "usedFreezeDays",
+            "type": "[Date]",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "DaySnapshot",
+        "fields": [
+          {
+            "name": "date",
+            "type": "Date",
+            "note": "cache for widget/launch, rebuilt from HealthKit"
+          },
+          {
+            "name": "steps",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "distance",
+            "type": "Measurement<UnitLength>",
+            "note": ""
+          },
+          {
+            "name": "floors",
+            "type": "Int",
+            "note": ""
+          }
+        ]
+      }
+    ],
+    "storage": "Health data is read from HealthKit, never copied beyond a small App Group cache for widgets; goal and streak in UserDefaults (App Group). Nothing on iCloud (5.1.3(ii)). Read-only HealthKit, no writes."
+  },
+  "monetization": {
+    "model": "Freemium: free with ads, PRO auto-renewing subscription",
+    "price": "Not in the public lookup; reviews do not quote prices",
+    "paywalled_features": [
+      "Advanced analytics and insights (trends, yearly totals, averages)",
+      "Advanced goals",
+      "Additional streak freezes",
+      "Ad-free",
+      "GPS workout tracking",
+      "Premium customisation (icons, themes)"
+    ],
+    "notes": "Step counting, daily goal, streaks, Health/Watch sync, widgets and export are free. The paid core is analytics + no ads, not the counter."
+  },
+  "pains": [
+    {
+      "pain": "Steps differ from Health/Watch, missing steps or days, counter stuck",
+      "mentions": 14,
+      "evidence": "many steps, sometimes days, that show on my iPhone and watch do not appear on the steps app",
+      "becomes": "Same number as Health"
+    },
+    {
+      "pain": "Have to pay, too many paid features",
+      "mentions": 5,
+      "evidence": "found out i had to pay for A STEPS APP",
+      "becomes": "Nothing paid"
+    },
+    {
+      "pain": "Ads",
+      "mentions": 3,
+      "evidence": "Now the program seems too filled with ads",
+      "becomes": "No ads"
+    },
+    {
+      "pain": "Crashes, blank screen on launch",
+      "mentions": 3,
+      "evidence": "When I launch the app nothing shows up on the screen",
+      "becomes": "Opens fast, never blank"
+    },
+    {
+      "pain": "Distance and floors inconsistent",
+      "mentions": 3,
+      "evidence": "Non conta i piani che dopo 20 ne conta 6",
+      "becomes": "Distance and floors from Health"
+    },
+    {
+      "pain": "Streak lost to glitches, freezes sold",
+      "mentions": 2,
+      "evidence": "La possibilità di aumentare il numero di freezes pagando è un non senso",
+      "becomes": "Streak with free freezes"
+    },
+    {
+      "pain": "Apple Watch sync broken",
+      "mentions": 2,
+      "evidence": "the last update caused me to loose the ability to use it on my apple watch 3",
+      "becomes": "Watch data through Health"
+    },
+    {
+      "pain": "Trends removed in an update",
+      "mentions": 1,
+      "evidence": "I could no longer view my trends such as total steps per year",
+      "becomes": "Trends and records"
+    },
+    {
+      "pain": "Rating prompts",
+      "mentions": 1,
+      "evidence": "you keep asking me for a rating",
+      "becomes": "No rating nags"
+    },
+    {
+      "pain": "Goal increments too coarse",
+      "mentions": 1,
+      "evidence": "maybe 250 step increments",
+      "becomes": "Advanced goals"
+    },
+    {
+      "pain": "Too much fluff",
+      "mentions": 1,
+      "evidence": "Keep it simple. Eliminate fluff.",
+      "becomes": "Today's steps"
+    },
+    {
+      "pain": "Wants gym workout notes, weather",
+      "mentions": 1,
+      "evidence": "Need Space for Gym / Home Gym Workout Space for Notes",
+      "becomes": "skip: different one thing (workout log; weather needs network)"
+    },
+    {
+      "pain": "Wants more health data",
+      "mentions": 1,
+      "evidence": "Più dati sulla salute non sarebbe male",
+      "becomes": "skip: outside the one thing, Health already shows it"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Challenges, groups, leaderboards, social sharing feed",
+      "reason": "Account and server."
+    },
+    {
+      "feature": "GPS workout tracking with routes and heart-rate zones",
+      "reason": "A different one thing (workout tracker), writes workouts to HealthKit; Fitness/Workout apps cover it."
+    },
+    {
+      "feature": "Garmin/Oura/Fitbit direct sync",
+      "reason": "Third-party accounts and network; their data arrives through Health."
+    },
+    {
+      "feature": "Awards and achievements, animations, custom icons and themes",
+      "reason": "Gamification and decoration against the design system."
+    },
+    {
+      "feature": "Apple Watch app",
+      "reason": "Watch steps already arrive in HealthKit; extra target not worth 3 days."
+    },
+    {
+      "feature": "Live Activity",
+      "reason": "No start/end for an all-day count."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "HealthKit",
+      "min_ios": "17.0",
+      "use": "Read stepCount, distanceWalkingRunning, flightsClimbed, pushCount; HKStatisticsQuery/HKStatisticsCollectionQuery; background delivery for widgets"
+    },
+    {
+      "name": "Core Motion",
+      "min_ios": "17.0",
+      "use": "CMPedometer live count and fallback without Health (7 days)"
+    },
+    {
+      "name": "Swift Charts",
+      "min_ios": "17.0",
+      "use": "Trends"
+    },
+    {
+      "name": "WidgetKit",
+      "min_ios": "17.0",
+      "use": "Home and Lock Screen widgets"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a) + 4.2.6 (lot rejection of 14/10, Resolution Center question 6 'why not a feature of another app')",
+      "risk": "Sbu Habits already reads HealthKit stepCount for step habits with goals and streaks: Steps looks like a feature of Habits from the same developer.",
+      "mitigation": "Decide before building: either Steps owns steps (trends, records, distance/floors) and Habits drops or links its step habit, or Steps is not built. State the split in review notes."
+    },
+    {
+      "rule": "4.3(b) well-established category",
+      "risk": "Step counters are saturated and Apple Health shows steps for free; StepsApp's counter itself is free, so the 'replaces a subscription' story is weak.",
+      "mitigation": "Lead with the paid core done free: yearly trends, records, per-weekday goals, earned freezes, numbers identical to Health."
+    },
+    {
+      "rule": "5.1.2(vi) / 5.1.3(ii)",
+      "risk": "Health data must not go to iCloud or be used for anything else.",
+      "mitigation": "Read-only HealthKit, no iCloud sync (ADR-0008 does not apply), only a local App Group cache; privacy label 'no data collected'."
+    },
+    {
+      "rule": "2.5.1 HealthKit",
+      "risk": "HealthKit only for health and fitness, integrated with Health.",
+      "mitigation": "Category Health & Fitness, read-only, HealthKit usage strings IT/EN tied to Connect to Health button, asked when tapped."
+    },
+    {
+      "rule": "Regulated medical device declaration (since 26/3/2026)",
+      "risk": "Mandatory for new Health & Fitness apps.",
+      "mitigation": "Declare 'not a regulated medical device'; no health claims."
+    },
+    {
+      "rule": "1.4.1",
+      "risk": "Inaccurate health data is scrutinised.",
+      "mitigation": "Numbers come straight from HealthKit; no calorie estimates or medical advice."
+    },
+    {
+      "rule": "5.2.5",
+      "risk": "Must not imitate Activity rings or the Health app.",
+      "mitigation": "No rings; one SbuStat figure and plain bar charts."
+    },
+    {
+      "rule": "5.1.1",
+      "risk": "Motion & Fitness and Health permissions.",
+      "mitigation": "Asked only on first need, with purpose strings."
+    }
+  ],
+  "estimate_days": 3,
+  "source": {
+    "listing": "research/steps/listing.json (US+IT lookup for 1037595083); research/apps/steps.md and research/6477849675 (Stompers, now Concorrente)",
+    "reviews": "research/steps/reviews.json: 32 reviews 1-3 stars (US 22, IT 10), each classified by hand",
+    "fetched": "2026-10-15"
+  }
+}

@@ -1,0 +1,595 @@
+{
+  "name": "Sbu PDF",
+  "slug": "pdf",
+  "in_repo": null,
+  "replaces": [
+    {
+      "name": "GoodReader PDF Editor & Viewer",
+      "app_store_id": "777310222",
+      "role": "originale",
+      "price_model": "paid upfront plus Pro Pack auto-renewing subscription",
+      "version": "6.0.1238",
+      "rating": 4.66,
+      "rating_count": 13805
+    }
+  ],
+  "one_thing": "Sbu PDF fixes a PDF you already have (pages, crop, notes, form fields) and saves it back to the same file.",
+  "boundary_with_sbu_docs": {
+    "sbu_docs": "Makes a PDF from paper: camera capture (VisionKit document camera), cropping and filters at capture, OCR text layer, its own archive folder of PDFs (ADR-0006).",
+    "sbu_pdf": "Starts from an existing PDF picked in Files (any provider, Sbu Docs' folder included): reads, reorders, rotates, deletes, merges, splits, crops pages, annotates, fills forms, writes back in place. No camera, no OCR, no archive, no images-to-PDF.",
+    "rule": "If a feature creates a PDF from something that is not a PDF (camera, photos, paper) it belongs to Sbu Docs; if it changes a PDF that exists, it belongs to Sbu PDF. Sbu Docs keeps only page operations on its own fresh scan (delete or reorder before saving); after save it opens the file in Sbu PDF via the share sheet, never duplicates the editor.",
+    "review_note": "How it differs from the other Sbu apps: Sbu Docs turns paper into a PDF, Sbu PDF edits a PDF you already have. Neither can do the other's job."
+  },
+  "features": [
+    {
+      "name": "Open from Files",
+      "description": "fileImporter / document browser for PDFs from any File Provider (iCloud Drive, On My iPhone, Sbu Docs folder, third-party providers already installed). Opened in place with security-scoped access, never copied into the app.",
+      "priority": "P0",
+      "reason": "Entry point of every task; GoodReader's import-into-app model is what traps files.",
+      "source": "original"
+    },
+    {
+      "name": "Read",
+      "description": "PDFKit view with continuous scroll, double-tap zoom, page thumbnails, search with result list, outline (table of contents) as a list, bookmarks stored in the PDF outline.",
+      "priority": "P0",
+      "reason": "GoodReader's base reading experience, used by every paying user.",
+      "source": "original"
+    },
+    {
+      "name": "Page tools",
+      "description": "Reorder by drag in a thumbnail grid, rotate, delete (confirmed, undoable), duplicate, extract selection to a new PDF, insert pages from another PDF.",
+      "priority": "P0",
+      "reason": "Rotate and delete pages are behind the Pro Pack: named in 3 reviews as the reason they felt scammed.",
+      "source": "original"
+    },
+    {
+      "name": "Merge and split",
+      "description": "Merge several PDFs in a chosen order into a new file; split at a page or every N pages.",
+      "priority": "P0",
+      "reason": "Merging is Pro Pack only (review us 27).",
+      "source": "original"
+    },
+    {
+      "name": "Real crop",
+      "description": "Crop margins per page or for all pages; writes the crop box so the exported file is actually cropped.",
+      "priority": "P0",
+      "reason": "GoodReader's crop only affects reading, applies to all pages: 2 reviews.",
+      "source": "original"
+    },
+    {
+      "name": "Annotate",
+      "description": "Highlight, underline, strike from text selection; ink with finger or Pencil; text box with system fonts and size; sticky note; undo/redo. Stored as standard PDF annotations readable by any viewer.",
+      "priority": "P0",
+      "reason": "GoodReader's star feature beyond reading; annotations must survive other apps (review us 11).",
+      "source": "original"
+    },
+    {
+      "name": "Save in place",
+      "description": "Every change saved back to the original file through file coordination; 'Salva una copia' for a new file. No proprietary sidecar, no import copy.",
+      "priority": "P1",
+      "reason": "Files lost, corrupted or stranded after updates or device changes: 11 reviews; files trapped in the app: 5.",
+      "source": "pain"
+    },
+    {
+      "name": "Share, print, open in",
+      "description": "ShareLink and print (UIPrintInteractionController) on every document; drag out on iPad.",
+      "priority": "P1",
+      "reason": "Cannot email, print or send to WhatsApp: 5 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Folders from Files",
+      "description": "Open a whole folder (iCloud Drive or local) with a security-scoped bookmark and list its PDFs; recents list. Not a file manager.",
+      "priority": "P1",
+      "reason": "Cannot open iCloud folders, only single files: 4 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Fill forms",
+      "description": "AcroForm text fields, checkboxes, choices filled with PDFKit widgets and saved.",
+      "priority": "P1",
+      "reason": "Forms not shown or not fillable: 2 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Simple, native interface",
+      "description": "List, NavigationStack, sheets; every tool reachable in two taps; no manual needed.",
+      "priority": "P1",
+      "reason": "Complex or dated UI, unusable help: 7 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Italian and English",
+      "description": "Full string catalog in both languages.",
+      "priority": "P1",
+      "reason": "Italian missing for years: 5 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Translate selection",
+      "description": "Selected text offers the system translation sheet (.translationPresentation, iOS 17.4+); on 17.0-17.3 the system edit menu's Translate item is the fallback.",
+      "priority": "P1",
+      "reason": "Translate directly on the file: 2 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Two places in one document",
+      "description": "Split view of the same PDF (top and bottom) to read text and its notes or figures together; switch between recent files.",
+      "priority": "P1",
+      "reason": "One document at a time, tabs and split view: 3 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Pencil draws, finger scrolls",
+      "description": "When a Pencil is used, ink responds only to Pencil and fingers keep scrolling (PencilKit drawing policy).",
+      "priority": "P1",
+      "reason": "Must toggle annotate/browse mode every time: 1 review.",
+      "source": "pain"
+    },
+    {
+      "name": "Faithful rendering",
+      "description": "PDFKit rendering only, no custom reflow; images and white-on-black pages shown as the file defines them.",
+      "priority": "P1",
+      "reason": "PDFs with missing images or text, white type on black not shown: 3 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Signature",
+      "description": "Draw a signature once, stored on device with complete file protection, place it as an ink annotation.",
+      "priority": "P2",
+      "reason": "Common need for a PDF fixer; not mentioned in reviews.",
+      "source": "original"
+    },
+    {
+      "name": "Password",
+      "description": "Open password-protected PDFs; add or remove a password on save (PDFKit write options, AES-256).",
+      "priority": "P2",
+      "reason": "GoodReader sells AES-256 security in the Pro Pack; this is the file-level equivalent.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Recents",
+      "purpose": "Start: recent PDFs and opened folders.",
+      "elements": [
+        "SbuAppShell with settings sheet",
+        "List .insetGrouped of recent files (name, folder, pages)",
+        "'Apri un PDF' and 'Apri una cartella' buttons",
+        "empty state"
+      ]
+    },
+    {
+      "name": "Document",
+      "purpose": "Read and annotate one PDF.",
+      "elements": [
+        "PDFView",
+        "toolbar: search, outline, pages, annotate, share",
+        "annotation tool bar of SbuKit controls (not a Markup clone)",
+        "page indicator 'Pagina 3 di 12' (statSmall)",
+        "undo/redo"
+      ]
+    },
+    {
+      "name": "Pages",
+      "purpose": "Page tools.",
+      "elements": [
+        "LazyVGrid of thumbnails with drag reorder",
+        "selection mode: rotate, delete (destructive, confirmed), extract, duplicate",
+        "insert from another PDF",
+        "crop entry"
+      ]
+    },
+    {
+      "name": "Crop",
+      "purpose": "Set margins.",
+      "elements": [
+        "page preview with four handles",
+        "apply to this page / all pages",
+        "VoiceOver adjustable margins"
+      ]
+    },
+    {
+      "name": "Merge",
+      "purpose": "Combine PDFs.",
+      "elements": [
+        "ordered list of chosen PDFs with drag",
+        "add file",
+        "output name",
+        "'Unisci' filled button"
+      ]
+    },
+    {
+      "name": "Outline and search",
+      "purpose": "Navigate.",
+      "elements": [
+        "outline list with disclosure",
+        "bookmarks",
+        "search results with page and snippet"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "SbuKit settings sheet.",
+      "elements": [
+        "save in place vs always save a copy",
+        "licences",
+        "sbu.dev link",
+        "privacy note"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Rotate and delete a page",
+      "steps": [
+        "Open a PDF from Files",
+        "Pages",
+        "Select page 2, rotate",
+        "Select page 5, delete, confirm",
+        "Back: file saved in place, 'Salvato'"
+      ]
+    },
+    {
+      "name": "Merge two PDFs",
+      "steps": [
+        "Recents: 'Unisci'",
+        "Pick two PDFs",
+        "Drag to order",
+        "Name the output, pick a folder",
+        "New PDF opens"
+      ]
+    },
+    {
+      "name": "Fill and send a form",
+      "steps": [
+        "Open form PDF",
+        "Tap fields and type",
+        "Share: Mail",
+        "Original file updated"
+      ]
+    },
+    {
+      "name": "Scan then fix",
+      "steps": [
+        "In Sbu Docs a scan is saved as PDF",
+        "Share to Sbu PDF (Open in)",
+        "Crop margins and annotate in Sbu PDF",
+        "Saved in place in Sbu Docs' folder"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "RecentItem",
+        "fields": [
+          {
+            "name": "bookmark",
+            "type": "Data",
+            "note": "security-scoped bookmark to a file or folder"
+          },
+          {
+            "name": "isFolder",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "displayName",
+            "type": "String",
+            "note": "cached, refreshed on resolve"
+          },
+          {
+            "name": "lastOpened",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "lastPage",
+            "type": "Int",
+            "note": "resume reading"
+          }
+        ]
+      },
+      {
+        "name": "Signature",
+        "fields": [
+          {
+            "name": "strokes",
+            "type": "PKDrawing data",
+            "note": "P2, stored in Application Support with complete file protection"
+          }
+        ]
+      },
+      {
+        "name": "PageEdit",
+        "fields": [
+          {
+            "name": "kind",
+            "type": "enum (rotate, delete, move, crop, insert)",
+            "note": "pure value type for undo and tests"
+          },
+          {
+            "name": "pageIndex",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "parameter",
+            "type": "Int / CGRect",
+            "note": "angle, destination, crop box"
+          }
+        ]
+      }
+    ],
+    "storage": "No database (same principle as ADR-0006): the PDF files are the truth and stay where the user keeps them. Recents are a small Codable JSON of security-scoped bookmarks in Application Support. Edits are applied to PDFDocument in memory and written back with NSFileCoordinator (or UIDocument), atomically; nothing in iCloud beyond the user's own iCloud Drive files."
+  },
+  "monetization": {
+    "model": "Paid upfront plus Pro Pack auto-renewing subscription (also offered as one-time purchase)",
+    "price": "$6.99 US / 7.99 EUR IT upfront; Pro Pack per reviews about $17 per year or $79 one-time, 20 EUR per year",
+    "paywalled_features": [
+      "page rotate, delete and merge (per reviews)",
+      "convert files to PDF",
+      "AES-256 app encryption",
+      "cloud sync (iCloud, Google Drive, Dropbox)",
+      "iPad split view / multi-window"
+    ],
+    "notes": "Long-time buyers resent features moved into a subscription after paying (21 of 97 low-star reviews). Ads for the subscription shown to paying users (2)."
+  },
+  "pains": [
+    {
+      "pain": "Paid app, then basic features behind a subscription",
+      "mentions": 21,
+      "evidence": "you pay for the App only to be locked behind a monthly membership paywall just to do simple tasks like rotating a PDF",
+      "becomes": "skip: free, nothing to unlock (Page tools and Merge and split are P0)"
+    },
+    {
+      "pain": "Files lost, corrupted or stranded after updates or new device",
+      "mentions": 11,
+      "evidence": "a large number of IMPORTANT FILES are Corrupt and unusable",
+      "becomes": "Save in place"
+    },
+    {
+      "pain": "Crashes or will not open",
+      "mentions": 10,
+      "evidence": "it crashes every single time I import a file/photo",
+      "becomes": "skip: quality bar, not a feature (covered by tests and Save in place)"
+    },
+    {
+      "pain": "Third-party cloud and server sync broken",
+      "mentions": 7,
+      "evidence": "Da circa un mese non permette più la sincronizzazione con Dropbox",
+      "becomes": "skip: network; File Providers of those services work through Open from Files"
+    },
+    {
+      "pain": "Complex, dated UI, no useful help",
+      "mentions": 7,
+      "evidence": "there's no useful overview",
+      "becomes": "Simple, native interface"
+    },
+    {
+      "pain": "Update regressions in layout and navigation",
+      "mentions": 5,
+      "evidence": "Zooming-in by double-tapping is annoyingly inaccurate now",
+      "becomes": "skip: quality bar, not a feature"
+    },
+    {
+      "pain": "Files trapped: cannot email, print, share",
+      "mentions": 5,
+      "evidence": "THE FILE WILL BE HELD AS A HOSTAGE",
+      "becomes": "Share, print, open in"
+    },
+    {
+      "pain": "No Italian localisation",
+      "mentions": 5,
+      "evidence": "è da anni che chiediamo la lingua italiana",
+      "becomes": "Italian and English"
+    },
+    {
+      "pain": "App feels abandoned, not updated for new iOS",
+      "mentions": 5,
+      "evidence": "It went ~ 2 years or more without being updated",
+      "becomes": "skip: not a feature"
+    },
+    {
+      "pain": "Cannot open iCloud Drive folders",
+      "mentions": 4,
+      "evidence": "it only lets me import them one at a time",
+      "becomes": "Folders from Files"
+    },
+    {
+      "pain": "Support does not answer",
+      "mentions": 4,
+      "evidence": "they'll get back in 1 to 3 days and never do",
+      "becomes": "skip: no support desk to build; sbu.dev contact link"
+    },
+    {
+      "pain": "Had to pay again for a new version",
+      "mentions": 3,
+      "evidence": "mi e toccato ricomprarla ex novo",
+      "becomes": "skip: free"
+    },
+    {
+      "pain": "PDF content not rendered",
+      "mentions": 3,
+      "evidence": "da qualche mese non apre le immagini in molti pdf",
+      "becomes": "Faithful rendering"
+    },
+    {
+      "pain": "Outline / table of contents hard to use",
+      "mentions": 3,
+      "evidence": "Some document outlines don't expand anymore",
+      "becomes": "Read"
+    },
+    {
+      "pain": "Importing photos slow or crashes",
+      "mentions": 3,
+      "evidence": "The photos import process is very slowly",
+      "becomes": "skip: images-to-PDF belongs to Sbu Docs (boundary)"
+    },
+    {
+      "pain": "Multiple documents or split view",
+      "mentions": 3,
+      "evidence": "Only ones one document at a time?",
+      "becomes": "Two places in one document"
+    },
+    {
+      "pain": "Epub, Office, HTML not supported",
+      "mentions": 3,
+      "evidence": "Need native epub support",
+      "becomes": "skip: one thing is PDF"
+    },
+    {
+      "pain": "Ads for the subscription",
+      "mentions": 2,
+      "evidence": "spams ads for a subscription service",
+      "becomes": "skip: no ads"
+    },
+    {
+      "pain": "Crop does not crop the file or each page",
+      "mentions": 2,
+      "evidence": "I cannot crop each page with different margins",
+      "becomes": "Real crop"
+    },
+    {
+      "pain": "Forms not supported",
+      "mentions": 2,
+      "evidence": "Non visualizza i campi modulo editabili",
+      "becomes": "Fill forms"
+    },
+    {
+      "pain": "Translate on the file",
+      "mentions": 2,
+      "evidence": "make the translation direct on the file",
+      "becomes": "Translate selection"
+    },
+    {
+      "pain": "Pencil vs finger not distinguished",
+      "mentions": 1,
+      "evidence": "non si riesca a distinguere tra dito e apple pencil",
+      "becomes": "Pencil draws, finger scrolls"
+    },
+    {
+      "pain": "Only one font in text boxes",
+      "mentions": 1,
+      "evidence": "non posso scegliere i font perché c'è uno solo",
+      "becomes": "Annotate"
+    },
+    {
+      "pain": "Reflow skips columns",
+      "mentions": 1,
+      "evidence": "reflow feature routinely skips one column",
+      "becomes": "skip: reflow is unreliable on multi-column PDFs; zoom instead"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Dropbox, OneDrive, Google Drive, Box, WebDAV, SMB, FTP, SFTP connections and sync",
+      "reason": "Network and accounts. Installed File Provider extensions still appear in Open from Files."
+    },
+    {
+      "feature": "Camera scan, OCR, images or Office files to PDF",
+      "reason": "Sbu Docs' job (boundary, 4.3(a))."
+    },
+    {
+      "feature": "File manager hub for all file types, TXT editor, audio and video player",
+      "reason": "Files and Quick Look already do it; 5.2.5 and not the one thing."
+    },
+    {
+      "feature": "App-level AES-256 encrypted vault (Pro Pack)",
+      "reason": "iOS Data Protection already encrypts the container; per-file password is P2 instead."
+    },
+    {
+      "feature": "PDF reflow",
+      "reason": "Unreliable on columns (review us 22), large effort."
+    },
+    {
+      "feature": "Notes module with categories, widgets, rich-text stripper, hyperlink creation",
+      "reason": "Outside the one thing."
+    },
+    {
+      "feature": "Multi-window iPad, Mac app",
+      "reason": "iPhone-first Sbu apps; can come later."
+    },
+    {
+      "feature": "Text editing of PDF content",
+      "reason": "Not in GoodReader, no public API on iOS 17."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "PDFKit",
+      "min_ios": "11.0",
+      "use": "Render, search, outline, annotations, form widgets, page operations, crop box, write with password options."
+    },
+    {
+      "name": "PencilKit (with PDFPageOverlayViewProvider)",
+      "min_ios": "16.0",
+      "use": "Ink annotations, pencil-only drawing policy, signature capture."
+    },
+    {
+      "name": "SwiftUI fileImporter / UIDocumentPickerViewController",
+      "min_ios": "14.0",
+      "use": "Open files and folders in place with security-scoped URLs."
+    },
+    {
+      "name": "Foundation NSFileCoordinator / UIKit UIDocument",
+      "min_ios": "5.0",
+      "use": "Coordinated, atomic write back to the original file."
+    },
+    {
+      "name": "Translation (.translationPresentation)",
+      "min_ios": "17.4",
+      "use": "Translate selected text; fallback on 17.0-17.3: system edit-menu Translate."
+    },
+    {
+      "name": "UIKit UIPrintInteractionController, ShareLink",
+      "min_ios": "16.0",
+      "use": "Print and share."
+    },
+    {
+      "name": "UniformTypeIdentifiers",
+      "min_ios": "14.0",
+      "use": "Declare PDF document type, 'Open in' Sbu PDF (LSSupportsOpeningDocumentsInPlace)."
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a) duplicates of the same developer",
+      "risk": "Sbu Docs (archive of PDF files, ADR-0006) and Sbu PDF both centre on PDF from the same developer, after the 14/10 lot rejection; Apple asks why it is not a feature of another app.",
+      "mitigation": "Hard boundary (boundary_with_sbu_docs): Docs creates from paper, PDF edits existing files; no camera, OCR or images-to-PDF in Sbu PDF, no editor in Docs beyond pre-save page order. Answer 'why not a feature of Sbu Docs' explicitly in the review notes; submit them weeks apart; distinct screenshots."
+    },
+    {
+      "rule": "5.2.5 Apple products",
+      "risk": "A PDF tool easily mimics Preview's page sidebar, Files' browser or the Markup toolbar.",
+      "mitigation": "No file browser (system picker only), annotation bar built from SbuKit controls and SF Symbols in the app's accent, no Markup icons or layout; PKToolPicker not used."
+    },
+    {
+      "rule": "4.3(b) saturated category (June 2026 rewrite)",
+      "risk": "PDF editors are a crowded Productivity niche.",
+      "mitigation": "Meaningful difference stated in notes: free page tools, real crop, in-place editing, no subscription; no 'PDF editor' keyword stuffing."
+    },
+    {
+      "rule": "4.1 copycats",
+      "risk": "Low: GoodReader's look is not copied.",
+      "mitigation": "Native SwiftUI design system; GoodReader never named in metadata."
+    },
+    {
+      "rule": "4.2.6 template or generated apps",
+      "risk": "Shared SbuKit shell.",
+      "mitigation": "Review note on authorship and shared code, as in the Resolution Center answers."
+    },
+    {
+      "rule": "5.1.1 privacy / data",
+      "risk": "Accessing user files.",
+      "mitigation": "Files only through the system picker, no background access, Data Not Collected; review note explains open-in-place."
+    }
+  ],
+  "estimate_days": 6,
+  "source": {
+    "listing": "research/pdf/listing.json",
+    "reviews": "research/pdf/reviews.json (97 reviews, 1-3 stars, US 46 + IT 51, all read and classified; IT feed reaches back to version 4.12)",
+    "fetched": "2026-10-15"
+  }
+}

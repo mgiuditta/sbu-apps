@@ -1,0 +1,517 @@
+{
+  "name": "Sbu Collage",
+  "slug": "collage",
+  "in_repo": null,
+  "replaces": [
+    {
+      "name": "SCRL: Photo Collage Maker",
+      "app_store_id": "1289057196",
+      "role": "originale",
+      "price_model": "freemium, auto-renewing SCRL Premium after a 7-day trial",
+      "version": "9.59",
+      "rating": 4.83,
+      "rating_count": 124774
+    }
+  ],
+  "one_thing": "Sbu Collage puts your photos into one grid, in a few taps, and saves it to Photos as one image or as equal slices.",
+  "features": [
+    {
+      "name": "Pick photos",
+      "description": "PhotosPicker, 2 to 20 photos, any format the system decodes (HEIC, HDR, ProRAW previews, screenshots). No library permission: the picker runs out of process and hands over only the chosen items.",
+      "priority": "P0",
+      "reason": "Every collage starts here; SCRL needs full or limited library access.",
+      "source": "original"
+    },
+    {
+      "name": "Layouts by photo count",
+      "description": "Layouts generated from the number of photos (rows, columns, one large plus small), not a template library. The list only ever shows layouts that fit exactly the photos picked.",
+      "priority": "P0",
+      "reason": "SCRL's paid templates are the paywalled core; reviews also ask to filter templates by number of photos.",
+      "source": "original"
+    },
+    {
+      "name": "Arrange",
+      "description": "Drag a photo onto another to swap, pinch and pan inside its cell, drag the divider between two cells to resize only those two.",
+      "priority": "P0",
+      "reason": "Core editing gesture of every collage tool.",
+      "source": "original"
+    },
+    {
+      "name": "Frame",
+      "description": "Spacing and outer border with a slider, corner rounding, background colour from ColorPicker (default paper white).",
+      "priority": "P0",
+      "reason": "Paywalled in SCRL (backgrounds, borders); used in every export.",
+      "source": "original"
+    },
+    {
+      "name": "Canvas shape",
+      "description": "Square 1:1, portrait 4:5, story 9:16, and wide: 2 to 10 portrait 4:5 slides side by side.",
+      "priority": "P0",
+      "reason": "SCRL Premium sells multi-frame canvases (more pages, more than 10 frames).",
+      "source": "original"
+    },
+    {
+      "name": "Save to Photos",
+      "description": "Renders off screen at full resolution (long side up to 4096 px per slide) and adds the image to Photos with add-only permission, asked at the Save button. ShareLink for every other destination.",
+      "priority": "P0",
+      "reason": "The output the paying user exports; reviews show export is where SCRL fails.",
+      "source": "original"
+    },
+    {
+      "name": "Save as slices",
+      "description": "A wide canvas is saved as N equal 4:5 images in order, numbered, ready for any multi-image post. No upper limit imposed by the app.",
+      "priority": "P0",
+      "reason": "What SCRL users pay for (more than 10 photos, continuous carousel). Offered as one export option, not as the app's identity (4.1).",
+      "source": "original"
+    },
+    {
+      "name": "Export that matches the editor",
+      "description": "One renderer draws both the editor preview and the export, so borders, crops and colours are identical. If saving fails the reason is shown (space, permission) and the draft stays intact.",
+      "priority": "P1",
+      "reason": "Export or render failures and borders missing from the final image: 8 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Draft kept on crash",
+      "description": "The current collage is autosaved after every change (layout, crop, spacing) and restored exactly at launch; one draft, no project gallery.",
+      "priority": "P1",
+      "reason": "Crashes, slowness and lost edits: 11 reviews (9 crash/slow, 2 edits lost or images moved after a crash).",
+      "source": "pain"
+    },
+    {
+      "name": "Any photo imports",
+      "description": "Images are loaded as data and downsampled with ImageIO; HDR and wide-gamut photos keep Display P3; unsupported items are named, not silently dropped.",
+      "priority": "P1",
+      "reason": "Photos that will not import, no HDR support: 2 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Three steps, nothing else",
+      "description": "Pick, arrange, save. No onboarding, no account, no social login, no feed.",
+      "priority": "P1",
+      "reason": "Too complicated, login every time: 4 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Cut out a subject",
+      "description": "Long-press a photo to lift its subject onto a transparent layer above the grid (Vision foreground instance mask, iOS 17, on device).",
+      "priority": "P1",
+      "reason": "Stickers from your own photos removed or paywalled, no object removal: 2 reviews. Object removal itself is skipped.",
+      "source": "pain"
+    },
+    {
+      "name": "Save as PDF",
+      "description": "Slices saved as one multi-page PDF through the share sheet.",
+      "priority": "P1",
+      "reason": "Asked in 1 review (it). Export format only; editing PDFs belongs to Sbu PDF.",
+      "source": "pain"
+    },
+    {
+      "name": "Video in a cell",
+      "description": "A short video plays in one cell and the collage exports as a video.",
+      "priority": "P2",
+      "reason": "Paywalled in SCRL, but AVFoundation composition and export roughly doubles the estimate; candidate for 1.1.",
+      "source": "original"
+    },
+    {
+      "name": "Text caption",
+      "description": "One line of SF text on the canvas, Dynamic Type sizes.",
+      "priority": "P2",
+      "reason": "SCRL offers fonts and text; not needed for the one thing.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Start",
+      "purpose": "Empty state or the restored draft.",
+      "elements": [
+        "SbuAppShell with settings sheet (ADR-0001)",
+        "PhotosPicker button 'Scegli le foto'",
+        "restored draft preview with 'Continua' and destructive 'Ricomincia' (confirmed)"
+      ]
+    },
+    {
+      "name": "Editor",
+      "purpose": "The one canvas: arrange the picked photos.",
+      "elements": [
+        "canvas preview on surface",
+        "layout strip filtered by photo count",
+        "canvas shape picker (segmented)",
+        "spacing and corner sliders, ColorPicker for background",
+        "drag-to-swap, pinch/pan in cell, divider handles with VoiceOver adjustable actions",
+        "toolbar: add or remove photos, undo/redo, 'Salva'"
+      ]
+    },
+    {
+      "name": "Save sheet",
+      "purpose": "Choose output and save.",
+      "elements": [
+        "single image or slices (when wide)",
+        "resolution note",
+        "'Salva in Foto' filled accent button",
+        "ShareLink (image, slices, PDF)",
+        "result: 'Salvata in Foto' or the failure reason"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Standard SbuKit settings sheet.",
+      "elements": [
+        "default spacing and background",
+        "licences (Bricolage Grotesque)",
+        "sbu.dev link (Safari)",
+        "privacy note: no data leaves the device"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First collage",
+      "steps": [
+        "Open app",
+        "Tap 'Scegli le foto', pick 4 photos in PhotosPicker",
+        "Editor shows layouts for 4 photos, first one applied",
+        "Swap two photos, pan one, widen spacing",
+        "Tap 'Salva', choose single image",
+        "First save asks add-only Photos permission, image saved, 'Salvata in Foto'"
+      ]
+    },
+    {
+      "name": "Wide post as slices",
+      "steps": [
+        "Pick 9 photos",
+        "Choose wide canvas, 3 slides",
+        "Arrange across slides",
+        "Save as slices: 3 numbered 4:5 images added to Photos in order"
+      ]
+    },
+    {
+      "name": "Crash recovery",
+      "steps": [
+        "App is killed mid-edit",
+        "Relaunch restores the draft exactly",
+        "Tap 'Continua'"
+      ]
+    },
+    {
+      "name": "Permission denied",
+      "steps": [
+        "Add-only permission denied",
+        "Save sheet explains and offers ShareLink and a Settings link",
+        "Draft untouched"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Draft",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "one draft at a time"
+          },
+          {
+            "name": "shape",
+            "type": "CanvasShape enum",
+            "note": "square, portrait, story, wide(slides: Int)"
+          },
+          {
+            "name": "layoutID",
+            "type": "String",
+            "note": "generated layout key for the photo count"
+          },
+          {
+            "name": "spacing",
+            "type": "Double",
+            "note": "points at 1080 px width, 0 to 40"
+          },
+          {
+            "name": "cornerRadius",
+            "type": "Double",
+            "note": ""
+          },
+          {
+            "name": "background",
+            "type": "RGBA (Display P3)",
+            "note": "user content colour, not a theme token"
+          },
+          {
+            "name": "cells",
+            "type": "[Cell]",
+            "note": "ordered"
+          },
+          {
+            "name": "updatedAt",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Cell",
+        "fields": [
+          {
+            "name": "imageFile",
+            "type": "String",
+            "note": "file name of the downsampled copy in Application Support/Draft"
+          },
+          {
+            "name": "frame",
+            "type": "CGRect (unit space)",
+            "note": "after divider moves"
+          },
+          {
+            "name": "crop",
+            "type": "scale + offset",
+            "note": "pan/zoom inside the cell"
+          },
+          {
+            "name": "cutoutFile",
+            "type": "String?",
+            "note": "PNG of the lifted subject"
+          }
+        ]
+      },
+      {
+        "name": "Layout",
+        "fields": [
+          {
+            "name": "photoCount",
+            "type": "Int",
+            "note": "pure value type, generated, unit-tested"
+          },
+          {
+            "name": "cells",
+            "type": "[CGRect]",
+            "note": "unit rectangles"
+          }
+        ]
+      }
+    ],
+    "storage": "One Codable JSON draft plus image copies in Application Support/Draft, written atomically after each change. No SwiftData: there is one draft, no history. Nothing in iCloud. Output goes to Photos only when the user saves."
+  },
+  "monetization": {
+    "model": "Free download with SCRL Premium auto-renewing subscription (weekly, monthly, yearly) after a 7-day free trial",
+    "price": "Not listed in the lookup; reviews cite about $50-$100 per year, 29 EUR per year, 5 EUR per week",
+    "paywalled_features": [
+      "most templates",
+      "video in designs",
+      "more frames and pages",
+      "Giphy library",
+      "gradient backgrounds",
+      "stickers and overlays",
+      "background removal / stickers from own photos (removed from free)"
+    ],
+    "notes": "Features that used to be free have moved behind Premium (17 of 59 low-star reviews); trial converts to annual without the promised reminder (6). Direct posting to Instagram and TikTok needs an account link."
+  },
+  "pains": [
+    {
+      "pain": "Features moved behind a subscription, wants free or one-time",
+      "mentions": 17,
+      "evidence": "they're now moving more and more things to require you paying",
+      "becomes": "skip: Sbu apps are free, nothing to unlock"
+    },
+    {
+      "pain": "Crashes, freezes, slow",
+      "mentions": 9,
+      "evidence": "si blocca in continuazione quando provi a tornare indietro",
+      "becomes": "Draft kept on crash"
+    },
+    {
+      "pain": "Export or render fails, output differs from editor",
+      "mentions": 8,
+      "evidence": "it refuses to render and save to camera roll",
+      "becomes": "Export that matches the editor"
+    },
+    {
+      "pain": "Trial charged immediately or without reminder, no refund",
+      "mentions": 6,
+      "evidence": "chose the free trial option ... immediately charged for an entire year",
+      "becomes": "skip: no subscription"
+    },
+    {
+      "pain": "Instagram connection or posting broken",
+      "mentions": 4,
+      "evidence": "Always looses connection to instagram",
+      "becomes": "skip: needs account and network; ShareLink and Save to Photos instead"
+    },
+    {
+      "pain": "Too complicated",
+      "mentions": 3,
+      "evidence": "Too complicated and not enough space for posting more that 10 pics",
+      "becomes": "Three steps, nothing else"
+    },
+    {
+      "pain": "Edits lost or images moved after a crash",
+      "mentions": 2,
+      "evidence": "the changes are not saved and everything disappears",
+      "becomes": "Draft kept on crash"
+    },
+    {
+      "pain": "Photos fail to import, no HDR",
+      "mentions": 2,
+      "evidence": "It can't handle certain files",
+      "becomes": "Any photo imports"
+    },
+    {
+      "pain": "Limited to 10 images per post",
+      "mentions": 2,
+      "evidence": "insta only allows for 10 carousel images",
+      "becomes": "Save as slices"
+    },
+    {
+      "pain": "No cut-out or stickers from own photos",
+      "mentions": 2,
+      "evidence": "hanno tolto anche la possibilità di creare gli adesivi dalle proprie foto",
+      "becomes": "Cut out a subject"
+    },
+    {
+      "pain": "Must log into pro account every launch",
+      "mentions": 1,
+      "evidence": "makes me log into my pro account every single time",
+      "becomes": "skip: no account"
+    },
+    {
+      "pain": "Cannot filter templates by number of photos",
+      "mentions": 1,
+      "evidence": "if you needed something with 7 pictures you could hit that number",
+      "becomes": "Layouts by photo count"
+    },
+    {
+      "pain": "Dragging a divider moves the whole collage",
+      "mentions": 1,
+      "evidence": "it moves the entire collage instead of just the line",
+      "becomes": "Arrange"
+    },
+    {
+      "pain": "No PDF export",
+      "mentions": 1,
+      "evidence": "non mi da la possibilità di creare un pdf",
+      "becomes": "Save as PDF"
+    },
+    {
+      "pain": "Poor on Mac",
+      "mentions": 1,
+      "evidence": "This just sucks on Mac",
+      "becomes": "skip: iPhone app; iPad/Mac-as-iPad not designed for in 1.0"
+    },
+    {
+      "pain": "Too few template styles for a niche",
+      "mentions": 1,
+      "evidence": "i do car photography and thats not an option",
+      "becomes": "skip: generated layouts instead of themed templates"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Designer template library",
+      "reason": "Curated, updated content is SCRL's distinctive asset (4.1) and needs a content pipeline; generated layouts by photo count instead."
+    },
+    {
+      "feature": "Pexels stock photos, Giphy",
+      "reason": "Network and third-party licensed content."
+    },
+    {
+      "feature": "Direct posting to Instagram and TikTok",
+      "reason": "Needs account linking and network; share sheet covers it."
+    },
+    {
+      "feature": "Sticker and overlay library",
+      "reason": "Licensed decorative assets; design system forbids decorative elements."
+    },
+    {
+      "feature": "Built-in photo editor (exposure, colour, filters)",
+      "reason": "Photos already does it; not the one thing."
+    },
+    {
+      "feature": "Object removal",
+      "reason": "Generative inpainting has no on-device public API on iOS 17."
+    },
+    {
+      "feature": "Gradient backgrounds",
+      "reason": "Design rule against gradients; solid colour only."
+    },
+    {
+      "feature": "Freeform layered canvas",
+      "reason": "Turns a grid tool into a design app; keeps the scope at 6 days."
+    },
+    {
+      "feature": "Account, cloud projects, Mac app",
+      "reason": "No accounts or network; iCloud sync not needed for a single draft."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "PhotosUI (PhotosPicker)",
+      "min_ios": "16.0",
+      "use": "Pick photos without library permission."
+    },
+    {
+      "name": "Photos (PHPhotoLibrary, add-only)",
+      "min_ios": "14.0",
+      "use": "Save the result; authorization .addOnly asked at the Save button."
+    },
+    {
+      "name": "ImageIO",
+      "min_ios": "4.0",
+      "use": "Downsample any decodable image, keep colour space."
+    },
+    {
+      "name": "Vision (VNGenerateForegroundInstanceMaskRequest)",
+      "min_ios": "17.0",
+      "use": "Cut out a subject on device."
+    },
+    {
+      "name": "UIKit UIGraphicsImageRenderer / UIGraphicsPDFRenderer",
+      "min_ios": "10.0",
+      "use": "One renderer for preview and export; PDF of slices."
+    },
+    {
+      "name": "CoreTransferable / ShareLink",
+      "min_ios": "16.0",
+      "use": "Share image, slices, PDF."
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(b) spam, saturated category (June 2026 rewrite)",
+      "risk": "Collage makers are one of the most crowded Photo & Video niches, and the developer already had six 1.0s rejected under 4.3 on 14/10.",
+      "mitigation": "Ship alone, not in a lot; answer the nine Resolution Center questions in the review notes up front; state the difference: no library permission, no account, no templates to buy, export identical to the editor, slices with no cap."
+    },
+    {
+      "rule": "4.1(a) copycats",
+      "risk": "SCRL's identity is the seamless carousel (one panorama scrolled across slides); copying its flow, wording ('seamless', 'carousel') or look invites 4.1.",
+      "mitigation": "The product is a grid collage; wide-to-slices is one export option. Generated layouts, own wording ('slices'), no SCRL screenshots or names in metadata (lesson of commit 909af97)."
+    },
+    {
+      "rule": "4.3(a) duplicates of the same developer",
+      "risk": "Shared SbuKit, same 'Sbu X' naming, same promise block, same icon grammar.",
+      "mitigation": "Review note 'How it differs from the other Sbu apps': only Sbu app that writes to Photos; Sbu Clean deletes from Photos, Sbu Docs scans paper. Distinct screenshots showing the editor."
+    },
+    {
+      "rule": "4.2.6 template or generated apps",
+      "risk": "Same shell and structure as other Sbu apps.",
+      "mitigation": "Distinct editor UI and gestures; review note on who wrote the code."
+    },
+    {
+      "rule": "5.1.1(iv) photos access",
+      "risk": "Requesting full library access for a collage would be rejected or flagged.",
+      "mitigation": "PhotosPicker needs no permission; add-only permission explained in NSPhotoLibraryAddUsageDescription and asked only at 'Salva in Foto'; app works with it denied (ShareLink)."
+    },
+    {
+      "rule": "5.1.1 privacy",
+      "risk": "Privacy label must match: no data collected.",
+      "mitigation": "Data Not Collected; privacy manifest declares file timestamp / UserDefaults reasons only."
+    }
+  ],
+  "estimate_days": 6,
+  "source": {
+    "listing": "research/collage/listing.json",
+    "reviews": "research/collage/reviews.json (59 reviews, 1-3 stars, US 33 + IT 26, all read and classified)",
+    "fetched": "2026-10-15"
+  }
+}

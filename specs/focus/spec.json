@@ -1,0 +1,610 @@
+{
+  "name": "Sbu Focus",
+  "slug": "focus",
+  "in_repo": null,
+  "replaces": [
+    {
+      "name": "Forest: Focus for Productivity",
+      "app_store_id": "866450515",
+      "role": "originale",
+      "price_model": "freemium with Forest Plus subscription (formerly paid upfront)",
+      "version": "5.30.0",
+      "rating": 4.8,
+      "rating_count": 49540
+    }
+  ],
+  "one_thing": "Blocks the apps you choose for as long as you want to focus.",
+  "features": [
+    {
+      "name": "Focus timer",
+      "description": "Countdown from a duration or stopwatch mode; the remaining time is the screen figure (SbuStat) closed by the full stop.",
+      "priority": "P0",
+      "reason": "Core loop of the original.",
+      "source": "original"
+    },
+    {
+      "name": "App blocking",
+      "description": "Choose apps and categories with FamilyActivityPicker; ManagedSettings shields them for the session; a DeviceActivityMonitor extension lifts the shield at the end even if the app was killed.",
+      "priority": "P0",
+      "reason": "Allow List editing is Plus-only in the original (reviews: \"Non posso più nemmeno modificare le app consentite\"). Without it the app is a simple timer (4.3).",
+      "source": "original"
+    },
+    {
+      "name": "Give up counts",
+      "description": "Ending early asks for confirmation and records the session as abandoned.",
+      "priority": "P0",
+      "reason": "The commitment mechanic of the original, without the withering tree.",
+      "source": "original"
+    },
+    {
+      "name": "Tags",
+      "description": "Optional tag per session (name + SF Symbol, no invented colors).",
+      "priority": "P0",
+      "reason": "Tags are paywalled in the original (review: \"per vedere i tag... devi abbonarti\").",
+      "source": "original"
+    },
+    {
+      "name": "History and statistics",
+      "description": "Day, week, month totals and per-tag breakdown in a List; Charts bar chart for the week.",
+      "priority": "P0",
+      "reason": "Statistics are a paid feature of the original.",
+      "source": "original"
+    },
+    {
+      "name": "One-tap restart",
+      "description": "Session end shows one inline result and a \"Restart\" button with the same duration and tag; no reward screens or animations.",
+      "priority": "P1",
+      "reason": "59 reviews: 3-4 taps and animated screens to start the next session.",
+      "source": "pain"
+    },
+    {
+      "name": "Duration on the main screen",
+      "description": "Presets and a wheel/stepper directly on the focus screen, no separate sheet.",
+      "priority": "P1",
+      "reason": "28 reviews miss the time ring and find the new slider slow.",
+      "source": "pain"
+    },
+    {
+      "name": "Favorites",
+      "description": "Save tag + duration pairs and start one with a single tap.",
+      "priority": "P1",
+      "reason": "11 reviews: favorites were removed in the redesign.",
+      "source": "pain"
+    },
+    {
+      "name": "Today's total on the main screen",
+      "description": "Today's focused minutes as secondary text (inkMuted) under the figure.",
+      "priority": "P1",
+      "reason": "8 reviews: total time no longer on the home screen.",
+      "source": "pain"
+    },
+    {
+      "name": "Lock-screen Live Activity",
+      "description": "Countdown on the Lock Screen and Dynamic Island with interactive Stop and Restart buttons (App Intents).",
+      "priority": "P1",
+      "reason": "Reviews: restarting from the lock screen broke.",
+      "source": "pain"
+    },
+    {
+      "name": "Grace period",
+      "description": "Leaving the app for a few seconds (notification, accidental swipe) does not fail the session when blocking is on; with blocking, leaving is allowed and nothing dies.",
+      "priority": "P1",
+      "reason": "6 reviews: sessions fail although the user did nothing wrong.",
+      "source": "pain"
+    },
+    {
+      "name": "Breaks and cycles",
+      "description": "Optional break timer after a session and repeated cycles (focus/break), free.",
+      "priority": "P1",
+      "reason": "4 reviews: pause and break timer removed or paywalled.",
+      "source": "pain"
+    },
+    {
+      "name": "Audio-friendly",
+      "description": "Never touches the audio session; allowed apps can include music and podcasts.",
+      "priority": "P1",
+      "reason": "4 reviews: paying to listen to music or podcasts while focusing.",
+      "source": "pain"
+    },
+    {
+      "name": "Local history, no account",
+      "description": "SwiftData on device; sessions never require login.",
+      "priority": "P1",
+      "reason": "7 reviews lost data or were logged out of their account.",
+      "source": "pain"
+    },
+    {
+      "name": "Scheduled blocking",
+      "description": "Recurring blocking windows via DeviceActivitySchedule.",
+      "priority": "P2",
+      "reason": "Time Guard in the original; nice to have.",
+      "source": "original"
+    },
+    {
+      "name": "iPad layout",
+      "description": "Regular-width layout.",
+      "priority": "P2",
+      "reason": "2 reviews: the redesign is unusable on iPad.",
+      "source": "pain"
+    },
+    {
+      "name": "Home Screen widget",
+      "description": "Today's total and a Start button.",
+      "priority": "P2",
+      "reason": "Convenience.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Focus",
+      "purpose": "Pick a duration and start; the only screen most users need.",
+      "elements": [
+        "duration figure (SbuStat + SbuFullStop in accent-focus)",
+        "presets and wheel inline",
+        "favorites row",
+        "tag picker",
+        "Blocked apps row (count)",
+        "Start (filled button)",
+        "today's total in inkMuted",
+        "settings button"
+      ]
+    },
+    {
+      "name": "Session",
+      "purpose": "Running countdown.",
+      "elements": [
+        "remaining time as the figure",
+        "tag",
+        "Give up (confirmation)",
+        "blocked apps count"
+      ]
+    },
+    {
+      "name": "Session result",
+      "purpose": "Inline result, no reward screens.",
+      "elements": [
+        "\"Completed\" or \"Abandoned\" with SF Symbol",
+        "minutes added to today",
+        "Restart (filled)",
+        "Break"
+      ]
+    },
+    {
+      "name": "Blocked apps",
+      "purpose": "Choose what to block.",
+      "elements": [
+        "FamilyActivityPicker",
+        "Screen Time authorization explained on the button"
+      ]
+    },
+    {
+      "name": "History",
+      "purpose": "Focused time over time.",
+      "elements": [
+        "segmented Day/Week/Month",
+        "Charts bars",
+        "List by tag",
+        "List of sessions"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Breaks, grace period, favorites, licences.",
+      "elements": [
+        "break length",
+        "cycles",
+        "grace period",
+        "manage tags and favorites",
+        "Licences",
+        "sbu.dev"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First session",
+      "steps": [
+        "Open Focus",
+        "Tap Blocked apps",
+        "Allow Screen Time (FamilyControls individual authorization)",
+        "Pick apps",
+        "Pick 25 min",
+        "Start",
+        "Shield appears on blocked apps",
+        "Session result",
+        "Restart"
+      ]
+    },
+    {
+      "name": "Repeat from lock screen",
+      "steps": [
+        "Session ends",
+        "Live Activity shows Restart",
+        "Tap Restart",
+        "New session with the same duration and tag"
+      ]
+    },
+    {
+      "name": "Give up",
+      "steps": [
+        "Tap Give up",
+        "Confirm",
+        "Shield removed",
+        "Session recorded as abandoned"
+      ]
+    },
+    {
+      "name": "Favorite",
+      "steps": [
+        "Pick tag and duration",
+        "Save as favorite",
+        "Next time: tap the favorite to start"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "FocusSession",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "start",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "planned",
+            "type": "Duration?",
+            "note": "nil in stopwatch mode"
+          },
+          {
+            "name": "actual",
+            "type": "Duration",
+            "note": ""
+          },
+          {
+            "name": "outcome",
+            "type": "enum completed|abandoned|running",
+            "note": ""
+          },
+          {
+            "name": "tag",
+            "type": "Tag?",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Tag",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "symbol",
+            "type": "String",
+            "note": "SF Symbol name, no custom colors"
+          }
+        ]
+      },
+      {
+        "name": "Favorite",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": ""
+          },
+          {
+            "name": "duration",
+            "type": "Duration",
+            "note": ""
+          },
+          {
+            "name": "tag",
+            "type": "Tag?",
+            "note": ""
+          },
+          {
+            "name": "sortIndex",
+            "type": "Int",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "BlockSelection",
+        "fields": [
+          {
+            "name": "selection",
+            "type": "FamilyActivitySelection (Codable)",
+            "note": "opaque tokens, App Group so extensions can read it"
+          }
+        ]
+      }
+    ],
+    "storage": "SwiftData on device for sessions, tags, favorites; App Group UserDefaults for the FamilyActivitySelection and the active session end date shared with the DeviceActivityMonitor and ShieldConfiguration extensions. No account, no server."
+  },
+  "monetization": {
+    "model": "Free download with Forest Plus subscription and free trial; was a paid upfront app; coins, ads for doubled rewards.",
+    "price": "Plus price not in the lookup data; reviews mention a monthly plan and an upfront price around $2-4 in the past",
+    "paywalled_features": [
+      "editing the Allow List / app blocking",
+      "tags",
+      "pausing the timer",
+      "focus sounds",
+      "Plus tree species and 3x coins",
+      "planting real trees"
+    ],
+    "notes": "Rating 4.8 overall but the 1-3 star reviews of Sept-Oct 2026 are almost all about the redesign (v5.26+) and the Plus paywall."
+  },
+  "pains": [
+    {
+      "pain": "Too many taps and animated reward screens to end a session and start the next",
+      "mentions": 59,
+      "evidence": "\"I have to click 4 times and wait until I can plant another tree\"",
+      "becomes": "One-tap restart"
+    },
+    {
+      "pain": "2026 redesign worse than the classic UI; wants it back or a toggle",
+      "mentions": 54,
+      "evidence": "\"Please bring back the old interface\"",
+      "becomes": "skip: one stable screen by design, nothing to revert"
+    },
+    {
+      "pain": "Time ring removed; setting a duration takes a separate slider or menu",
+      "mentions": 28,
+      "evidence": "\"BRING THE TIME RING BACK!!!\"",
+      "becomes": "Duration on the main screen"
+    },
+    {
+      "pain": "Paid users lost features to the Plus subscription (allow list, tags, pause, sounds)",
+      "mentions": 25,
+      "evidence": "\"ho perso l'accesso a ciò per cui avevo già pagato\"",
+      "becomes": "App blocking"
+    },
+    {
+      "pain": "Gamification bloat: coins, events, daily shop, pop-ups distract from focusing",
+      "mentions": 25,
+      "evidence": "\"A focus app shouldn't become a distraction\"",
+      "becomes": "skip: no coins, trees or rewards (one thing, 4.1)"
+    },
+    {
+      "pain": "Lag, crashes, glitches",
+      "mentions": 12,
+      "evidence": "\"incredibly laggy and crashes very often\"",
+      "becomes": "skip: generic stability, covered by tests"
+    },
+    {
+      "pain": "Favorites (tree + tag presets) removed",
+      "mentions": 11,
+      "evidence": "\"the loss of the favorite option has been extremely frustrating\"",
+      "becomes": "Favorites"
+    },
+    {
+      "pain": "Today's total focus time gone from the home screen",
+      "mentions": 8,
+      "evidence": "\"rimetteteci: Oggi sei rimasto concentrato per tot min\"",
+      "becomes": "Today's total on the main screen"
+    },
+    {
+      "pain": "Progress lost after login, account problems",
+      "mentions": 7,
+      "evidence": "\"if you try to link your email you will lose all your data\"",
+      "becomes": "Local history, no account"
+    },
+    {
+      "pain": "Session fails or tree dies without leaving the app",
+      "mentions": 6,
+      "evidence": "\"The tree should not die if you close the app by accident\"",
+      "becomes": "Grace period"
+    },
+    {
+      "pain": "Restart from the lock screen broken",
+      "mentions": 4,
+      "evidence": "\"bring back one-tap repeat from the lock screen\"",
+      "becomes": "Lock-screen Live Activity"
+    },
+    {
+      "pain": "App blocking lets apps through or stays on after the timer",
+      "mentions": 4,
+      "evidence": "\"anche se non metto instagram tra le app consentite me lo mostra\"",
+      "becomes": "App blocking"
+    },
+    {
+      "pain": "Pause and break timer removed or paywalled",
+      "mentions": 4,
+      "evidence": "\"Non si può nemmeno mettere in pausa il timer che bisogna pagare\"",
+      "becomes": "Breaks and cycles"
+    },
+    {
+      "pain": "Paying to listen to music or podcasts while focusing",
+      "mentions": 4,
+      "evidence": "\"I'd have to pay to listen to a podcast while in focus mode\"",
+      "becomes": "Audio-friendly"
+    },
+    {
+      "pain": "Ads in a paid app",
+      "mentions": 3,
+      "evidence": "\"paid for it and now they want to put ads on it\"",
+      "becomes": "skip: no ads (product rule)"
+    },
+    {
+      "pain": "Apple Health mindful-minutes sync broken",
+      "mentions": 2,
+      "evidence": "\"it stopped syncing... Mindful Minutes\"",
+      "becomes": "skip: HealthKit outside Health & Fitness invites 2.5.1 scrutiny"
+    },
+    {
+      "pain": "Redesign unusable on iPad",
+      "mentions": 2,
+      "evidence": "\"Practically unusable on my iPad\"",
+      "becomes": "iPad layout"
+    },
+    {
+      "pain": "Asks for too much personal data",
+      "mentions": 2,
+      "evidence": "\"all of a sudden it needed to know everything about me\"",
+      "becomes": "Local history, no account"
+    },
+    {
+      "pain": "Custom motivational phrases removed",
+      "mentions": 2,
+      "evidence": "\"They even took away custom phrases\"",
+      "becomes": "skip: decorative text, not the one thing"
+    },
+    {
+      "pain": "Plant Together / group sessions broken",
+      "mentions": 2,
+      "evidence": "\"Sharing session links, planting together... are all useless now\"",
+      "becomes": "skip: needs network and accounts"
+    },
+    {
+      "pain": "Tags paywalled, too few tag colors",
+      "mentions": 2,
+      "evidence": "\"per vedere i tag... devi abbonarti\"",
+      "becomes": "Tags"
+    },
+    {
+      "pain": "Real-tree planting limited to subscribers",
+      "mentions": 2,
+      "evidence": "\"you only get 5 chances to plant real trees\"",
+      "becomes": "skip: needs money flow and a partner backend"
+    },
+    {
+      "pain": "Cannot cancel the subscription",
+      "mentions": 1,
+      "evidence": "\"Scam imposible to cancel\"",
+      "becomes": "skip: no subscription"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Growing virtual tree, forest, coins, shop, achievements",
+      "reason": "Forest's distinctive metaphor (4.1 copycat) and the bloat reviewers hate; the figure is the remaining time."
+    },
+    {
+      "feature": "Plant Together, friends, leaderboard",
+      "reason": "Network and accounts."
+    },
+    {
+      "feature": "Real trees (Trees for the Future)",
+      "reason": "Money flow and partner backend."
+    },
+    {
+      "feature": "Mindful Space soundscapes and breathing",
+      "reason": "Second function; focus sounds are Sbu Noise's one thing."
+    },
+    {
+      "feature": "Apple Health mindful minutes",
+      "reason": "HealthKit in a Productivity app invites 2.5.1 scrutiny."
+    },
+    {
+      "feature": "Deep Focus (fail if you leave the app) as the only mechanism",
+      "reason": "Without blocking it is a simple timer (4.3 June 2026); kept only as grace-period logic."
+    },
+    {
+      "feature": "Account sync",
+      "reason": "No accounts; iCloud opt-in (ADR-0008) can come later if asked."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "FamilyControls",
+      "min_ios": "16.0",
+      "use": "individual authorization, FamilyActivityPicker; distribution entitlement per target"
+    },
+    {
+      "name": "ManagedSettings + ManagedSettingsUI",
+      "min_ios": "16.0",
+      "use": "shield blocked apps; ShieldConfiguration extension in Sbu style"
+    },
+    {
+      "name": "DeviceActivity",
+      "min_ios": "16.0",
+      "use": "DeviceActivityMonitor extension ends the shield at the session end; P2 schedules"
+    },
+    {
+      "name": "ActivityKit + App Intents",
+      "min_ios": "17.0",
+      "use": "Live Activity with interactive Stop/Restart"
+    },
+    {
+      "name": "SwiftData",
+      "min_ios": "17.0",
+      "use": "sessions, tags, favorites"
+    },
+    {
+      "name": "Swift Charts",
+      "min_ios": "16.0",
+      "use": "weekly bars"
+    },
+    {
+      "name": "UserNotifications",
+      "min_ios": "10.0",
+      "use": "session end when the app is in background"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a) / 4.3(b) (rewritten 8 June 2026) and the 14/10 lot rejection",
+      "risk": "Six Sbu 1.0 apps were rejected together on 14/10 for duplicates and opportunistic variants; same \"Sbu X\" naming, identical promise block, shared SbuKit.",
+      "mitigation": "Submit alone, never in a batch; answer the nine Resolution Center questions in the review notes; add a \"How it differs from the other Sbu apps\" line; distinct engraving icon and screenshots."
+    },
+    {
+      "rule": "4.2.6",
+      "risk": "Shared SbuKit and generated project can read as a template app.",
+      "mitigation": "Review notes state who wrote it, what is shared (design system only) and what is specific to this app."
+    },
+    {
+      "rule": "5.1.1",
+      "risk": "Privacy policy and permission strings.",
+      "mitigation": "Privacy policy in metadata and Settings; every permission asked only from the button that needs it, with an IT/EN string naming that button; label \"Data Not Collected\"."
+    },
+    {
+      "rule": "Family Controls entitlement and License Agreement 3.3.3(Q) (30/3/2026)",
+      "risk": "Distribution entitlement must be requested from Apple for the app and for each extension (ShieldConfiguration, ShieldAction, DeviceActivityMonitor); forum reports of weeks without answer (Mar-May 2026). Without it the app cannot ship blocking.",
+      "mitigation": "Request all three entitlements on day one, before writing code; comply with 3.3.3(Q) (tokens stay on device, no data use beyond blocking); do not submit a timer-only build."
+    },
+    {
+      "rule": "4.3 June 2026 rewrite (\"simple timers\" named) and 4.3(a) vs Sbu Intervals",
+      "risk": "A focus timer is a named well-established category; Bear Focus Timer was already dropped for overlapping Sbu Intervals (Seconds Pro) and Sbu Habits was rejected 14/10.",
+      "mitigation": "The one thing is blocking, not timing: screenshots and notes lead with the shield. Intervals is a workout interval timer with sound cues and no blocking; say so in the notes."
+    },
+    {
+      "rule": "4.1(a) / 4.1(b)",
+      "risk": "Forest's growing tree, coins and withering are distinctive.",
+      "mitigation": "No plant metaphor, no coins; no Forest name in metadata."
+    },
+    {
+      "rule": "5.2.5",
+      "risk": "\"Focus\" is the name of an iOS system feature (Focus modes) and Screen Time has its own UI.",
+      "mitigation": "Never use the Focus-mode crescent or Screen Time hourglass; metadata says \"focus timer that blocks apps\"; consider whether the name needs a check."
+    },
+    {
+      "rule": "2.5.1",
+      "risk": "Only public Screen Time APIs.",
+      "mitigation": "FamilyControls/ManagedSettings/DeviceActivity only, no private APIs, no VPN or MDM tricks."
+    }
+  ],
+  "estimate_days": 4,
+  "source": {
+    "listing": "research/focus/listing.json",
+    "reviews": "research/focus/reviews.json (163 reviews, 1-3 stars, US+IT)",
+    "fetched": "2026-10-15"
+  }
+}

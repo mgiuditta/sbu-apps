@@ -1,0 +1,555 @@
+{
+  "name": "Sbu Clean",
+  "slug": "sweep",
+  "in_repo": "Sbu Clean",
+  "replaces": [
+    {
+      "name": "Cleanup: Phone Storage Cleaner",
+      "app_store_id": 1510944943,
+      "role": "originale",
+      "price_model": "Free download, weekly or lifetime subscription, 7-day trial; free tier capped at about 5-25 deletions a day",
+      "version": "6.24.0",
+      "rating": 4.65,
+      "rating_count": 736574
+    },
+    {
+      "name": "Swipewipe: Photo Cleaner",
+      "app_store_id": 1583884012,
+      "role": "concorrente",
+      "price_model": "Free with ads (video ads gate deletion) or weekly/yearly subscription, 3-day trial; free swipes limited then 7-8 hour wait",
+      "version": "3.5.1",
+      "rating": 4.69,
+      "rating_count": 97501
+    }
+  ],
+  "one_thing": "Frees space in the Photos library one decision at a time and closes with the space freed.",
+  "features": [
+    {
+      "name": "Swipe to keep or delete",
+      "description": "Card deck over a month, recent items or a random set; swipe or tap Keep / Delete / Back, with VoiceOver actions.",
+      "priority": "P0",
+      "reason": "Paywalled core of both originals (deletion is what the free tier caps).",
+      "source": "original"
+    },
+    {
+      "name": "Month-by-month timeline",
+      "description": "List of months with progress per month, resumable.",
+      "priority": "P0",
+      "reason": "Swipewipe's main navigation, behind the limit.",
+      "source": "original"
+    },
+    {
+      "name": "Bin with review and confirm",
+      "description": "Everything marked goes to a bin; review grid, then one system delete via PHAssetChangeRequest with danger confirm.",
+      "priority": "P0",
+      "reason": "Both originals end with a review screen; deletion is the paywalled step.",
+      "source": "original"
+    },
+    {
+      "name": "Duplicates and similar photos",
+      "description": "Vision feature-print grouping with a tight threshold, best shot suggested (sharpness, face quality, favourite, edits), never auto-selected.",
+      "priority": "P0",
+      "reason": "Cleanup's headline paid category.",
+      "source": "original"
+    },
+    {
+      "name": "Screenshots and screen recordings",
+      "description": "Smart album of screenshots, bulk select.",
+      "priority": "P0",
+      "reason": "Cleanup paid category.",
+      "source": "original"
+    },
+    {
+      "name": "Large videos by size",
+      "description": "Videos sorted by file size with inline playback.",
+      "priority": "P0",
+      "reason": "Cleanup paid category.",
+      "source": "original"
+    },
+    {
+      "name": "Video compression",
+      "description": "AVAssetExportSession to a smaller preset, original deleted only after confirm.",
+      "priority": "P0",
+      "reason": "Cleanup paywalled feature.",
+      "source": "original"
+    },
+    {
+      "name": "Freeable and freed space figure",
+      "description": "One figure: space you can free, then space freed, closed by the full stop.",
+      "priority": "P0",
+      "reason": "Both show it; Sbu keeps it to one figure.",
+      "source": "original"
+    },
+    {
+      "name": "No limits, no trial, no ads",
+      "description": "Unlimited deletions from the first launch; no paywall, no card, no ad gate.",
+      "priority": "P1",
+      "reason": "Paywall/price (88), ads (36), trial charges (31) and daily limits (20) are the top pains.",
+      "source": "pain"
+    },
+    {
+      "name": "Progress that survives",
+      "description": "Decisions and per-month progress stored by PHAsset localIdentifier, migrated across versions; seen photos never reappear.",
+      "priority": "P1",
+      "reason": "Lost progress and reappearing photos after updates or freezes (7).",
+      "source": "pain"
+    },
+    {
+      "name": "Fast, crash-free on large libraries",
+      "description": "Incremental indexing in background tasks, paging fetches, no full-library load at launch; works on iOS 27.",
+      "priority": "P1",
+      "reason": "Crashes, freezes on delete, won't open on iOS 27 (29).",
+      "source": "pain"
+    },
+    {
+      "name": "Honest space note",
+      "description": "After deleting, say photos stay 30 days in Recently Deleted and space returns when it is emptied; freed space computed from PHAssetResource sizes, not estimates.",
+      "priority": "P1",
+      "reason": "Space not returned or overstated (3).",
+      "source": "pain"
+    },
+    {
+      "name": "Photos only, nothing else touched",
+      "description": "No contacts, mail or Hidden album handling; Hidden excluded unless the user opts in.",
+      "priority": "P1",
+      "reason": "Wrong deletions of contacts, emails, Hidden items (3).",
+      "source": "pain"
+    },
+    {
+      "name": "Video plays in the card",
+      "description": "Every video plays with sound before deciding.",
+      "priority": "P1",
+      "reason": "Videos not playable, deleted blind (2).",
+      "source": "pain"
+    },
+    {
+      "name": "Strict duplicates",
+      "description": "Exact duplicates separated from 'similar'; bursts shown as similar, never as duplicates.",
+      "priority": "P1",
+      "reason": "Duplicates that are not alike (3).",
+      "source": "pain"
+    },
+    {
+      "name": "Plain first screen",
+      "description": "Access screen then home list, no onboarding quiz.",
+      "priority": "P1",
+      "reason": "Confusing, no buttons, no instructions (4).",
+      "source": "pain"
+    },
+    {
+      "name": "Keep forever list",
+      "description": "Items marked keep never come back in the deck.",
+      "priority": "P2",
+      "reason": "Cleanup nice-to-have.",
+      "source": "original"
+    },
+    {
+      "name": "Live Photo to still",
+      "description": "Convert Live Photos to stills with confirm (loses the video part).",
+      "priority": "P2",
+      "reason": "Cleanup extra.",
+      "source": "original"
+    },
+    {
+      "name": "Albums one at a time",
+      "description": "Swipe through a single album.",
+      "priority": "P2",
+      "reason": "Swipewipe extra.",
+      "source": "original"
+    },
+    {
+      "name": "Free space widget",
+      "description": "WidgetKit small widget with free space.",
+      "priority": "P2",
+      "reason": "Cleanup widget, already built in Apps/SbuClean.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Access",
+      "purpose": "Explain and request Photos access; works with limited access.",
+      "elements": [
+        "one sentence",
+        "Allow access button",
+        "Open Settings when denied",
+        "limited access: manage selection"
+      ]
+    },
+    {
+      "name": "Home",
+      "purpose": "Freeable space and the categories.",
+      "elements": [
+        "SbuStat freeable space + full stop",
+        "storage bar (inkMuted)",
+        "List .insetGrouped: Months, Recent, Random, Duplicates, Similar, Screenshots, Videos, Live Photos, Compress",
+        "Bin row with count",
+        "settings"
+      ]
+    },
+    {
+      "name": "Months",
+      "purpose": "Pick a month to swipe.",
+      "elements": [
+        "List of months with item count and progress"
+      ]
+    },
+    {
+      "name": "Swipe",
+      "purpose": "Decide one item at a time.",
+      "elements": [
+        "card with photo or playing video",
+        "Keep / Delete / Back buttons",
+        "long press details (date, size, album)",
+        "progress in month"
+      ]
+    },
+    {
+      "name": "Groups",
+      "purpose": "Duplicates/similar groups with suggested best.",
+      "elements": [
+        "group sections",
+        "best suggestion label",
+        "select / deselect",
+        "add to bin"
+      ]
+    },
+    {
+      "name": "Videos and Compress",
+      "purpose": "Large videos by size; compress selected.",
+      "elements": [
+        "video rows with size",
+        "preview sheet",
+        "quality picker",
+        "progress"
+      ]
+    },
+    {
+      "name": "Bin",
+      "purpose": "Review before deleting.",
+      "elements": [
+        "grid",
+        "restore item",
+        "Delete button (danger, confirm)",
+        "Recently Deleted note"
+      ]
+    },
+    {
+      "name": "Result",
+      "purpose": "Space freed.",
+      "elements": [
+        "SbuStat freed space + full stop",
+        "Recently Deleted note",
+        "Done"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Swipe a month",
+      "steps": [
+        "Home → Months",
+        "pick month",
+        "swipe keep/delete",
+        "month done",
+        "open Bin",
+        "review",
+        "Delete → system confirm",
+        "Result"
+      ]
+    },
+    {
+      "name": "Clean duplicates",
+      "steps": [
+        "Home → Duplicates",
+        "review groups",
+        "keep suggested best or change",
+        "add rest to bin",
+        "Bin → Delete"
+      ]
+    },
+    {
+      "name": "Compress a video",
+      "steps": [
+        "Home → Compress",
+        "pick video",
+        "pick quality",
+        "export",
+        "confirm deleting original"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "SwipeDecision",
+        "fields": [
+          {
+            "name": "assetID",
+            "type": "String",
+            "note": "PHAsset localIdentifier"
+          },
+          {
+            "name": "decision",
+            "type": "enum keep|delete|later",
+            "note": ""
+          },
+          {
+            "name": "date",
+            "type": "Date",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "MonthProgress",
+        "fields": [
+          {
+            "name": "month",
+            "type": "YearMonth",
+            "note": ""
+          },
+          {
+            "name": "reviewed",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "total",
+            "type": "Int",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "ImageAnalysis",
+        "fields": [
+          {
+            "name": "assetID",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "featurePrint",
+            "type": "Data",
+            "note": "Vision feature print, cache"
+          },
+          {
+            "name": "sharpness",
+            "type": "Double",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "FreedSpace",
+        "fields": [
+          {
+            "name": "bytes",
+            "type": "Int64",
+            "note": "lifetime total"
+          }
+        ]
+      }
+    ],
+    "storage": "Local JSON/Codable files in Application Support (decisions, progress, analysis cache); no photos copied. Library is PhotoKit. No iCloud sync needed."
+  },
+  "monetization": {
+    "model": "Freemium subscription (Cleanup); ads + subscription (Swipewipe)",
+    "price": "Cleanup: weekly 6.99-13 EUR / 9.99-12 USD in reviews, yearly and lifetime tiers, 7-day trial with card; Swipewipe: 8 EUR / 9.99 USD weekly, 79.99 EUR yearly, 3-day trial",
+    "paywalled_features": [
+      "Deleting beyond ~5-25 items a day (Cleanup) or a few swipes then 7-8 h wait (Swipewipe)",
+      "All cleaning categories (duplicates, similar, screenshots, videos)",
+      "Video compression",
+      "Ad-free deletion (Swipewipe gates deletion behind video ads)",
+      "Going back to missed days, trim/crop (Swipewipe)"
+    ],
+    "notes": "Deletion itself is the paywall: the user does the sorting work, then pays to commit it."
+  },
+  "pains": [
+    {
+      "pain": "Not free: paywall, price too high, everything paid",
+      "mentions": 88,
+      "evidence": "dopo 20 o 30 minuti avevo finito di eliminare le foto, poi ho messo elimina e mi ha chiesto di pagare",
+      "becomes": "No limits, no trial, no ads"
+    },
+    {
+      "pain": "Too many ads, ads gate deletion, ad never ends",
+      "mentions": 36,
+      "evidence": "now you have to watch an ad at the end in order to delete your photos",
+      "becomes": "No limits, no trial, no ads"
+    },
+    {
+      "pain": "Trial charged immediately, cannot cancel, charged after cancel",
+      "mentions": 31,
+      "evidence": "Dice 7 giorni di prova gratis ma fa partire l'abbonamento settimanale da 13€ immediatamente",
+      "becomes": "No limits, no trial, no ads"
+    },
+    {
+      "pain": "Crashes, freezes, won't open (iOS 27)",
+      "mentions": 29,
+      "evidence": "I have spent an hour scanning everything it wants to delete, just to have it freeze when I hit the delete button",
+      "becomes": "Fast, crash-free on large libraries"
+    },
+    {
+      "pain": "Daily deletion limit or hours of waiting",
+      "mentions": 20,
+      "evidence": "Only 25 deleted photos per day without paying",
+      "becomes": "No limits, no trial, no ads"
+    },
+    {
+      "pain": "Useless, no better than doing it by hand in Photos",
+      "mentions": 8,
+      "evidence": "not any better than the free options that are available on the iPhone",
+      "becomes": "skip: positioning, answered by the free deck + duplicates; drives the 4.3 risk"
+    },
+    {
+      "pain": "Progress lost after update or freeze; seen photos reappear",
+      "mentions": 7,
+      "evidence": "Dopo l'ultimo aggiornamento ha tolto i mesi già cancellati, annullando settimane di lavoro",
+      "becomes": "Progress that survives"
+    },
+    {
+      "pain": "Offensive marketing ads (ageist)",
+      "mentions": 6,
+      "evidence": "I'm so sick of your ads insulting old people",
+      "becomes": "skip: about the original's marketing, Sbu runs no ads"
+    },
+    {
+      "pain": "Confusing, no instructions",
+      "mentions": 4,
+      "evidence": "When I open the app, there are no buttons to use the app",
+      "becomes": "Plain first screen"
+    },
+    {
+      "pain": "Duplicates that are not duplicates",
+      "mentions": 3,
+      "evidence": "Many duplicates or similar were in fact actually nothing alike",
+      "becomes": "Strict duplicates"
+    },
+    {
+      "pain": "Space not freed or overstated",
+      "mentions": 3,
+      "evidence": "Ho eliminato 15g di file multimediali e lo Spazio su i phone è rimasto identico",
+      "becomes": "Honest space note"
+    },
+    {
+      "pain": "Deleted contacts, emails or Hidden items",
+      "mentions": 3,
+      "evidence": "Mi ha cancellato non so quanti contatti",
+      "becomes": "Photos only, nothing else touched"
+    },
+    {
+      "pain": "Videos don't play, deleted blind",
+      "mentions": 2,
+      "evidence": "non fa vedere i video quindi ne ho eliminati molti per sbaglio",
+      "becomes": "Video plays in the card"
+    },
+    {
+      "pain": "Doesn't clean cache/system files or email",
+      "mentions": 2,
+      "evidence": "nessuna pulizzia utile a livello di cache o file del sistema",
+      "becomes": "skip: iOS sandbox forbids other apps' caches; email needs account and network"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Email cleaner and unsubscribe",
+      "reason": "Needs a mail account and network."
+    },
+    {
+      "feature": "iCloud storage cleanup",
+      "reason": "Network; iCloud Photos follows the local library anyway."
+    },
+    {
+      "feature": "Contacts merge",
+      "reason": "Outside the one thing, data-loss risk (reviews report deleted contacts)."
+    },
+    {
+      "feature": "Secret space / PIN vault",
+      "reason": "Different one thing."
+    },
+    {
+      "feature": "Charging animations, battery widget",
+      "reason": "Not cleaning; Cleanup padding."
+    },
+    {
+      "feature": "Memory map, AI enhancement, Supercut",
+      "reason": "Not cleaning; AI enhancement is server-side; place names need CLGeocoder (network)."
+    },
+    {
+      "feature": "Streaks, trophies, Wrapped, themes",
+      "reason": "Gamification against the design system and the one thing."
+    },
+    {
+      "feature": "On This Day widget",
+      "reason": "Nostalgia, not cleaning."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "PhotoKit",
+      "min_ios": "17.0",
+      "use": "Fetch, resources sizes, deletion, change observer, limited library picker"
+    },
+    {
+      "name": "Vision",
+      "min_ios": "17.0",
+      "use": "VNGenerateImageFeaturePrintRequest for similar/duplicates, VNDetectFaceCaptureQualityRequest for best shot"
+    },
+    {
+      "name": "AVFoundation / AVKit",
+      "min_ios": "17.0",
+      "use": "Video playback in cards, AVAssetExportSession compression"
+    },
+    {
+      "name": "WidgetKit",
+      "min_ios": "17.0",
+      "use": "Free space widget"
+    },
+    {
+      "name": "BackgroundTasks",
+      "min_ios": "17.0",
+      "use": "BGProcessingTask for library analysis on large libraries"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a)/4.3(b) + 4.2.6 (lot rejection of 14/10)",
+      "risk": "Sbu Clean 1.0 was already rejected in the 14/10 lot; photo cleaners are among the most crowded niches with dozens of clones.",
+      "mitigation": "Answer the 9 Resolution Center questions before any resubmit; submit alone, one per week; review notes list what differs (no deletion cap, on-device Vision duplicates, compression, honest Recently Deleted note); first line of the description about the function, not the promise block."
+    },
+    {
+      "rule": "4.1 Copycats",
+      "risk": "Swipe-left/right deck and month list mirror Swipewipe.",
+      "mitigation": "Native List/insetGrouped and SbuKit cards, own wording, no Swipewipe colours, mascots or copy; buttons equivalent to swipes."
+    },
+    {
+      "rule": "5.1.1(iv) / Photos limited access",
+      "risk": "App must work with limited or denied Photos access.",
+      "mitigation": "Limited access works on the selected set with a 'manage selection' row; denied shows Open Settings; purpose string IT/EN tied to the delete action."
+    },
+    {
+      "rule": "5.2.5",
+      "risk": "Bin/Recently Deleted could look like Photos.",
+      "mitigation": "SbuKit design, no Photos icons or layout; deletion uses the system confirmation dialog."
+    },
+    {
+      "rule": "2.5.1",
+      "risk": "Only public PhotoKit APIs; must not hang on iOS 27 large libraries.",
+      "mitigation": "Paged fetches, background analysis, test on iOS 27 with 50k-item library."
+    },
+    {
+      "rule": "Overlap with queue",
+      "risk": "Sbu Collage (wave 3) also reads Photos; Sbu Docs scans images.",
+      "mitigation": "Clean only deletes/compresses; Collage only composes; noted in review notes."
+    }
+  ],
+  "estimate_days": 6,
+  "source": {
+    "listing": "research/sweep/listing.json (US+IT lookup for 1510944943, 1583884012); research/apps/clean.md; research/1510944943, research/1583884012",
+    "reviews": "research/sweep/reviews.json: 205 reviews 1-3 stars (Cleanup US 40, IT 70; Swipewipe US 73, IT 22), each classified by hand",
+    "fetched": "2026-10-15"
+  }
+}

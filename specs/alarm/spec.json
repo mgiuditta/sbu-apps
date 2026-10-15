@@ -1,0 +1,577 @@
+{
+  "name": "Sbu Alarm",
+  "slug": "alarm",
+  "in_repo": null,
+  "replaces": [
+    {
+      "name": "Alarmy - Loud alarm clock",
+      "app_store_id": "1163786766",
+      "role": "originale",
+      "price_model": "freemium with ads, Premium subscription with 7-day trial",
+      "version": "26.36.2",
+      "rating": 4.76,
+      "rating_count": 249133
+    }
+  ],
+  "one_thing": "Wakes you up and does not stop until you have completed a mission.",
+  "features": [
+    {
+      "name": "Alarms",
+      "description": "Time, repeat days, label, on/off; list of alarms; next alarm as the screen figure.",
+      "priority": "P0",
+      "reason": "The base the paying user relies on.",
+      "source": "original"
+    },
+    {
+      "name": "Dismiss missions",
+      "description": "To stop the alarm for good you complete a mission: math problems, memory grid, shake count. Difficulty and count per alarm.",
+      "priority": "P0",
+      "reason": "Alarmy's core and its premium hook (\"Alarm Missions\").",
+      "source": "original"
+    },
+    {
+      "name": "Snooze limits",
+      "description": "Snooze length and maximum number of snoozes, or no snooze.",
+      "priority": "P0",
+      "reason": "Anti-Snooze for heavy sleepers in the listing.",
+      "source": "original"
+    },
+    {
+      "name": "Loud alarm sounds",
+      "description": "Bundled original CAF sounds (no assets from Alarmy), preview, gradual volume.",
+      "priority": "P0",
+      "reason": "Users stay for the loud effective sounds.",
+      "source": "original"
+    },
+    {
+      "name": "Wake-up check",
+      "description": "A few minutes after the mission a notification asks \"Are you up?\"; no answer re-rings the alarm.",
+      "priority": "P1",
+      "reason": "Review: \"I do the game and go back to sleep\"; premium in the original.",
+      "source": "pain"
+    },
+    {
+      "name": "Rings with the app closed",
+      "description": "iOS 26+: AlarmKit alarm that rings like the system Clock in silent mode and Focus. iOS 17-25 fallback: chain of time-sensitive local notifications with a 30 s sound each minute, cancelled by the mission; warning row if the ringer is likely muted.",
+      "priority": "P1",
+      "reason": "28 reviews: the alarm did not ring, rang late or only vibrated unless the app was open.",
+      "source": "pain"
+    },
+    {
+      "name": "No background drain",
+      "description": "Nothing runs at night: no silent audio, no background refresh, no sleep recording.",
+      "priority": "P1",
+      "reason": "16 reviews: 25-67% of the battery used in background.",
+      "source": "pain"
+    },
+    {
+      "name": "Mission guard alarm",
+      "description": "Stopping the system alert is not the end: a follow-up alarm is scheduled a few minutes later and cancelled only when the mission is done, so dismissing from the lock screen is safe.",
+      "priority": "P1",
+      "reason": "10 reviews: cannot dismiss from the lock screen, Face ID fights the alarm, must hunt for the app.",
+      "source": "pain"
+    },
+    {
+      "name": "Volume ramp and cap",
+      "description": "Fade-in over a chosen time and a maximum level; vibration follows the per-alarm toggle.",
+      "priority": "P1",
+      "reason": "4 reviews: forced max volume hurts or not loud enough; 3 about vibration ignoring the setting.",
+      "source": "pain"
+    },
+    {
+      "name": "Own sound from Files",
+      "description": "Import an audio file, trimmed and converted on device to a CAF under 30 s for both AlarmKit and the fallback.",
+      "priority": "P1",
+      "reason": "3 reviews: no custom sound, no mp3.",
+      "source": "pain"
+    },
+    {
+      "name": "Photo mission",
+      "description": "Take a photo of a chosen place (sink, book); Vision feature-print comparison on device.",
+      "priority": "P1",
+      "reason": "Alarmy's best-known mission; 3 reviews about it failing.",
+      "source": "original"
+    },
+    {
+      "name": "Barcode mission",
+      "description": "Scan a chosen barcode (VisionKit).",
+      "priority": "P2",
+      "reason": "Variant of the photo mission.",
+      "source": "original"
+    },
+    {
+      "name": "Spoken time",
+      "description": "AVSpeechSynthesizer reads the time and label after the mission.",
+      "priority": "P2",
+      "reason": "1 review asks for it.",
+      "source": "pain"
+    },
+    {
+      "name": "Bedtime reminder",
+      "description": "Local notification at a chosen bedtime.",
+      "priority": "P2",
+      "reason": "In the original; small.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Alarms",
+      "purpose": "All alarms; the next one is the figure.",
+      "elements": [
+        "next alarm time (SbuStat + SbuFullStop in accent-alarm)",
+        "time until it rings in inkMuted",
+        "List of alarms with toggles",
+        "+",
+        "warning rows (success/warning + SF Symbol + text): notifications off, AlarmKit denied, iOS 17-25 silent-mode limit",
+        "settings button"
+      ]
+    },
+    {
+      "name": "Edit alarm",
+      "purpose": "Configure one alarm.",
+      "elements": [
+        "time picker",
+        "repeat days",
+        "label",
+        "mission + difficulty + count",
+        "snooze length and limit",
+        "sound, fade-in, max volume, vibration",
+        "Delete (SbuButton .destructive)"
+      ]
+    },
+    {
+      "name": "Ringing",
+      "purpose": "Shown when the app opens from the alert or notification.",
+      "elements": [
+        "time as the figure",
+        "label",
+        "Start mission (filled)",
+        "Snooze (remaining count)"
+      ]
+    },
+    {
+      "name": "Mission",
+      "purpose": "Solve to stop.",
+      "elements": [
+        "math problem / memory grid / shake counter / camera",
+        "progress n of m",
+        "alarm keeps sounding at low volume in-app"
+      ]
+    },
+    {
+      "name": "Wake-up check",
+      "purpose": "Confirm you are up.",
+      "elements": [
+        "\"I'm up\" button",
+        "countdown before re-ring"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Defaults and licences.",
+      "elements": [
+        "default mission",
+        "wake-up check delay",
+        "own sounds",
+        "Licences",
+        "sbu.dev"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First alarm",
+      "steps": [
+        "Tap +",
+        "Pick time and days",
+        "Pick mission Math, 3 problems",
+        "Save",
+        "Allow alarms (AlarmKit authorization, iOS 26) or notifications (iOS 17-25) from the Save button"
+      ]
+    },
+    {
+      "name": "Wake up (iOS 26+)",
+      "steps": [
+        "AlarmKit alert rings on the lock screen",
+        "Tap Mission (secondary button opens the app via App Intent) or Stop",
+        "Mission solved: guard alarm cancelled",
+        "If Stop without mission: guard alarm rings after N minutes"
+      ]
+    },
+    {
+      "name": "Wake up (iOS 17-25)",
+      "steps": [
+        "Time-sensitive notification with 30 s sound, repeated every minute",
+        "Tap it: app opens on Ringing and plays the sound",
+        "Mission solved: pending notifications cancelled"
+      ]
+    },
+    {
+      "name": "Wake-up check",
+      "steps": [
+        "Mission solved",
+        "After 5 min notification \"Are you up?\"",
+        "Tap I'm up or the alarm rings again"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Alarm",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "also the AlarmKit alarm id"
+          },
+          {
+            "name": "hour",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "minute",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "weekdays",
+            "type": "Set<Locale.Weekday>",
+            "note": "empty = once"
+          },
+          {
+            "name": "label",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "isEnabled",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "sound",
+            "type": "String",
+            "note": "bundled or imported CAF in Library/Sounds"
+          },
+          {
+            "name": "fadeIn",
+            "type": "Duration",
+            "note": ""
+          },
+          {
+            "name": "maxVolume",
+            "type": "Double",
+            "note": "in-app playback only; AlarmKit uses system volume"
+          },
+          {
+            "name": "vibrates",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "snoozeMinutes",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "snoozeLimit",
+            "type": "Int?",
+            "note": "nil = unlimited, 0 = none"
+          },
+          {
+            "name": "mission",
+            "type": "Mission",
+            "note": ""
+          },
+          {
+            "name": "wakeUpCheck",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "guardAlarmIDs",
+            "type": "[UUID]",
+            "note": "pending AlarmKit guard alarms or notification ids"
+          }
+        ]
+      },
+      {
+        "name": "Mission",
+        "fields": [
+          {
+            "name": "kind",
+            "type": "enum math|memory|shake|photo|barcode",
+            "note": ""
+          },
+          {
+            "name": "difficulty",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "count",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "reference",
+            "type": "Data?",
+            "note": "photo feature print or barcode payload"
+          }
+        ]
+      }
+    ],
+    "storage": "SwiftData on device; imported sounds converted to CAF in Library/Sounds. Nothing in background, no server."
+  },
+  "monetization": {
+    "model": "Free with ads; Premium subscription with 7-day free trial; previous lifetime purchases moved to yearly.",
+    "price": "Reviews: €7.49/month, $60 after the trial, \"$100+ a year\"; exact plans not in the lookup data",
+    "paywalled_features": [
+      "ad removal",
+      "premium missions and heavy-sleeper options (Wake-up check, Anti-Snooze); exact split not in public data"
+    ],
+    "notes": "Listing says alarm, sleep tracker and sleep sounds are free. Subscription not Family Sharing (review)."
+  },
+  "pains": [
+    {
+      "pain": "Alarm does not ring, rings hours late or only vibrates / only notifies",
+      "mentions": 28,
+      "evidence": "\"Today the alarms didnt go off, made me miss work by 2 hours\"",
+      "becomes": "Rings with the app closed"
+    },
+    {
+      "pain": "Huge background battery drain",
+      "mentions": 16,
+      "evidence": "\"A whopping 67% of the battery usage was caused by this app\"",
+      "becomes": "No background drain"
+    },
+    {
+      "pain": "Cannot dismiss: lock screen, Face ID conflicts, must find and open the app",
+      "mentions": 10,
+      "evidence": "\"Make an option to disable the alarm on the lock screen\"",
+      "becomes": "Mission guard alarm"
+    },
+    {
+      "pain": "Subscription too expensive for an alarm ($60-100/year, €7.49/month), lifetime turned into yearly",
+      "mentions": 9,
+      "evidence": "\"7,50 AL MESE PER UNA SVEGLIA!\"",
+      "becomes": "skip: Sbu is free, no in-app purchase"
+    },
+    {
+      "pain": "Slow and crashing app",
+      "mentions": 6,
+      "evidence": "\"impiega 5/10s a clonare una sveglia\"",
+      "becomes": "skip: generic stability, covered by tests"
+    },
+    {
+      "pain": "Ads, even to set an alarm",
+      "mentions": 5,
+      "evidence": "\"per impostare l'orario bisogna sorbirsi la pubblicità\"",
+      "becomes": "skip: no ads (product rule)"
+    },
+    {
+      "pain": "Works only if the app stays open in background",
+      "mentions": 5,
+      "evidence": "\"se chiudi l'app la sveglia non suona ma vibra soltanto\"",
+      "becomes": "Rings with the app closed"
+    },
+    {
+      "pain": "Volume forced to max or not loud enough",
+      "mentions": 4,
+      "evidence": "\"it forces me to set the alarm at maximum volume\"",
+      "becomes": "Volume ramp and cap"
+    },
+    {
+      "pain": "Breaks CarPlay, Bluetooth headphones, calls, Dynamic Island",
+      "mentions": 4,
+      "evidence": "\"can't have the app open in the background of my phone and have CarPlay work\"",
+      "becomes": "No background drain"
+    },
+    {
+      "pain": "No custom sounds, no mp3",
+      "mentions": 3,
+      "evidence": "\"i hope we'll be able to at least use .mp3 files\"",
+      "becomes": "Own sound from Files"
+    },
+    {
+      "pain": "Photo/barcode mission stops recognizing",
+      "mentions": 3,
+      "evidence": "\"the camera methods haven't been working anymore\"",
+      "becomes": "Photo mission"
+    },
+    {
+      "pain": "Vibrates even when vibration is off",
+      "mentions": 3,
+      "evidence": "\"fa vibrare il telefono anche se... è disattivata la vibrazione\"",
+      "becomes": "Volume ramp and cap"
+    },
+    {
+      "pain": "What data is sent in background?",
+      "mentions": 2,
+      "evidence": "\"che dati inviano continuamente in background?\"",
+      "becomes": "No background drain"
+    },
+    {
+      "pain": "Solves the mission and goes back to sleep",
+      "mentions": 1,
+      "evidence": "\"faccio il giochino e poi mi rimetto a dormire\"",
+      "becomes": "Wake-up check"
+    },
+    {
+      "pain": "No voice reading the time",
+      "mentions": 1,
+      "evidence": "\"Non è possibile impostare una voce che dica l'orario\"",
+      "becomes": "Spoken time"
+    },
+    {
+      "pain": "Sleep data wrong, no Apple Health sync",
+      "mentions": 1,
+      "evidence": "\"spesso sbaglia i dati del sonno\"",
+      "becomes": "skip: sleep tracking needs all-night microphone (battery, 1.4.1)"
+    },
+    {
+      "pain": "Home widget poor on iOS 18",
+      "mentions": 1,
+      "evidence": "\"The home widget with iOS 18 is awful\"",
+      "becomes": "skip: P2 at most, not the one thing"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Sleep tracker and snore recording",
+      "reason": "All-night microphone and background audio: the battery drain users hate; health claims (1.4.1)."
+    },
+    {
+      "feature": "Sleep sounds",
+      "reason": "Sbu Noise's one thing."
+    },
+    {
+      "feature": "Weather, horoscope, lucky color/number",
+      "reason": "Network; not the one thing."
+    },
+    {
+      "feature": "Power Off Prevention",
+      "reason": "Not possible with public APIs on iOS (2.5.1)."
+    },
+    {
+      "feature": "Apple Music / Spotify as alarm sound",
+      "reason": "AlarmKit and notifications need a local sound file; DRM tracks cannot be used."
+    },
+    {
+      "feature": "Squat mission",
+      "reason": "Body-pose camera mission is heavy for the estimate; later P2."
+    },
+    {
+      "feature": "Critical alerts",
+      "reason": "Entitlement is for health and safety apps; not requested."
+    },
+    {
+      "feature": "Silent audio keep-alive",
+      "reason": "2.5.4: background audio only for audible content; Noise's in-app alarm works because a real sleep sound plays."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "AlarmKit",
+      "min_ios": "26.0",
+      "use": "system-grade alarms (silent mode, Focus), Stop + secondary Mission button, countdown snooze; fallback below 26: UserNotifications chain"
+    },
+    {
+      "name": "ActivityKit / WidgetKit",
+      "min_ios": "26.0",
+      "use": "AlarmKit presentation widget for countdown/paused states (Live Activity required by AlarmKit)"
+    },
+    {
+      "name": "App Intents",
+      "min_ios": "17.0",
+      "use": "secondary button opens the app on the mission; Stop/Snooze intents"
+    },
+    {
+      "name": "UserNotifications (time-sensitive)",
+      "min_ios": "15.0",
+      "use": "iOS 17-25 alarm chain and wake-up check"
+    },
+    {
+      "name": "AVFoundation",
+      "min_ios": "17.0",
+      "use": "in-app ringing with fade-in, sound import and CAF conversion"
+    },
+    {
+      "name": "Core Motion",
+      "min_ios": "4.0",
+      "use": "shake mission"
+    },
+    {
+      "name": "Vision + VisionKit",
+      "min_ios": "16.0",
+      "use": "photo feature print and barcode missions"
+    },
+    {
+      "name": "SwiftData",
+      "min_ios": "17.0",
+      "use": "alarms"
+    },
+    {
+      "name": "AVSpeechSynthesizer",
+      "min_ios": "7.0",
+      "use": "P2 spoken time"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a) / 4.3(b) (rewritten 8 June 2026) and the 14/10 lot rejection",
+      "risk": "Six Sbu 1.0 apps were rejected together on 14/10 for duplicates and opportunistic variants; same \"Sbu X\" naming, identical promise block, shared SbuKit.",
+      "mitigation": "Submit alone, never in a batch; answer the nine Resolution Center questions in the review notes; add a \"How it differs from the other Sbu apps\" line; distinct engraving icon and screenshots."
+    },
+    {
+      "rule": "4.2.6",
+      "risk": "Shared SbuKit and generated project can read as a template app.",
+      "mitigation": "Review notes state who wrote it, what is shared (design system only) and what is specific to this app."
+    },
+    {
+      "rule": "5.1.1",
+      "risk": "Privacy policy and permission strings.",
+      "mitigation": "Privacy policy in metadata and Settings; every permission asked only from the button that needs it, with an IT/EN string naming that button; label \"Data Not Collected\"."
+    },
+    {
+      "rule": "4.3(a) overlap with Sbu Noise (rejected 14/10)",
+      "risk": "Sbu Noise already ships an alarm with fade-in and an AlarmKit fallback (#417, #424); a second Sbu app with alarms and shared alarm code answers \"why not a feature of another app\" badly.",
+      "mitigation": "Noise wakes you gently while a sleep sound plays; Alarm makes you get up with missions and rings with no sound playing. Keep Noise's alarm as is, write the notes line, do not submit while Noise's 4.3 reply is pending."
+    },
+    {
+      "rule": "4.3(b) June 2026 rewrite",
+      "risk": "Alarm clocks sit next to \"simple timers\"; a plain alarm would be spam.",
+      "mitigation": "Missions, guard alarm and wake-up check are the difference; screenshots lead with a mission."
+    },
+    {
+      "rule": "4.1(a) / 4.1(b)",
+      "risk": "Alarmy's missions, sounds and screens are distinctive.",
+      "mitigation": "Own sounds, Sbu screens, no Alarmy name in metadata, mission set described generically."
+    },
+    {
+      "rule": "2.5.1 / 2.5.4",
+      "risk": "AlarmKit is iOS 26+ and needs NSAlarmKitUsageDescription; below 26 no public API rings in silent mode, and silent background audio is forbidden.",
+      "mitigation": "AlarmKit behind #available; iOS 17-25 uses notifications and says honestly (warning row) that silent mode mutes them."
+    },
+    {
+      "rule": "5.2.5",
+      "risk": "Must not look like the Clock app's alarm list or AlarmKit's system alert styled as Apple's.",
+      "mitigation": "Sbu design system; AlarmKit alert uses accent-alarm tint and app-specific title."
+    },
+    {
+      "rule": "5.1.1",
+      "risk": "Camera for photo/barcode missions.",
+      "mitigation": "Asked only when the user picks that mission; on-device Vision only."
+    }
+  ],
+  "estimate_days": 6,
+  "source": {
+    "listing": "research/alarm/listing.json",
+    "reviews": "research/alarm/reviews.json (76 reviews, 1-3 stars, US+IT)",
+    "fetched": "2026-10-15"
+  }
+}

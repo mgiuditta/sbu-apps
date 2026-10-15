@@ -1,0 +1,713 @@
+{
+  "name": "Sbu Lift",
+  "slug": "lift",
+  "in_repo": null,
+  "replaces": [
+    {
+      "name": "Hevy - Workout Tracker Gym Log",
+      "app_store_id": "1458862350",
+      "role": "originale",
+      "price_model": "Freemium: free tier with caps (routines, custom exercises, graph history); Hevy Pro monthly/yearly/lifetime subscription. IAP prices not in the lookup data.",
+      "version": "3.2.0",
+      "rating": 4.92,
+      "rating_count": 97895
+    },
+    {
+      "name": "Lyfta: Gym Workout Tracker Log",
+      "app_store_id": "6443740936",
+      "role": "concorrente",
+      "price_model": "Freemium advertised as free; Lyfta Pro 14-day trial then ~60 USD/year per reviews, required at the end of sign-up per several reviews",
+      "version": "1.164",
+      "rating": 4.81,
+      "rating_count": 6945
+    }
+  ],
+  "one_thing": "Logs the sets you lift and shows if you are getting stronger.",
+  "features": [
+    {
+      "name": "Workout logging",
+      "description": "Start empty or from a routine; per exercise a set table with previous values, weight and reps, set type (warm-up, normal, drop, failure), supersets, optional RPE and note; tap to complete a set.",
+      "priority": "P0",
+      "reason": "What every Hevy user does in the gym; free in Hevy but the base of all Pro features.",
+      "source": "original"
+    },
+    {
+      "name": "Unlimited routines",
+      "description": "Create, reorder and folder routines without limit; duplicate a routine.",
+      "priority": "P0",
+      "reason": "Hevy Pro: 'Create unlimited routines' (free tier capped at 4 per reviews).",
+      "source": "original"
+    },
+    {
+      "name": "Unlimited custom exercises",
+      "description": "Add exercises with name, primary/secondary muscle, equipment and kind (weight+reps, bodyweight reps, duration, distance+duration).",
+      "priority": "P0",
+      "reason": "Hevy Pro: 'Create unlimited custom exercises'.",
+      "source": "original"
+    },
+    {
+      "name": "Full progress history",
+      "description": "Per exercise: Swift Charts of best weight, estimated 1RM, session volume and total reps over the whole history; personal records list.",
+      "priority": "P0",
+      "reason": "Hevy Pro: 'unlimited access to graph history'.",
+      "source": "original"
+    },
+    {
+      "name": "Body measurements",
+      "description": "Body weight and tape measurements over time with a chart; weight read from/written to Apple Health if allowed.",
+      "priority": "P0",
+      "reason": "Hevy Pro: 'Track advanced measurements'.",
+      "source": "original"
+    },
+    {
+      "name": "Rest timer",
+      "description": "Per-exercise default rest that starts when a set is completed; +/-15 s; haptic and a time-sensitive local notification when it ends, Live Activity on the Lock Screen and Dynamic Island.",
+      "priority": "P0",
+      "reason": "Hevy core; Lyfta reviewer: rest notification does not vibrate.",
+      "source": "original"
+    },
+    {
+      "name": "One-rep max estimate",
+      "description": "Estimated 1RM per set (Epley/Brzycki shown by name) and a calculator.",
+      "priority": "P0",
+      "reason": "Listed in Hevy and Lyfta.",
+      "source": "original"
+    },
+    {
+      "name": "Workout calendar and history",
+      "description": "Calendar of trained days and a List of past workouts with duration, volume and sets; edit or delete a past workout.",
+      "priority": "P0",
+      "reason": "Hevy core.",
+      "source": "original"
+    },
+    {
+      "name": "Bundled exercise list",
+      "description": "About 200 exercises written by Sbu (IT/EN names, primary/secondary muscle with sub-regions such as upper chest and triceps heads, equipment, kind, unilateral flag), shipped in the app as JSON; no images or videos, SF Symbols per category. No wger data.",
+      "priority": "P0",
+      "reason": "Needed offline from the first launch. wger's exercise data is Creative Commons per entry (CC-BY-SA family) and its code is AGPL-3.0: not MIT/Apache, so not used.",
+      "source": "original"
+    },
+    {
+      "name": "Autosave every set",
+      "description": "Every change is saved immediately to SwiftData; a workout in progress survives app kill, crash or reboot and resumes on launch.",
+      "priority": "P1",
+      "reason": "Pain: workouts, routines or previous weights lost (5).",
+      "source": "pain"
+    },
+    {
+      "name": "Timed and distance sets",
+      "description": "Duration and distance+duration exercises with a countdown for the active phase (sound off, haptic and notification), which then starts the rest timer automatically.",
+      "priority": "P1",
+      "reason": "Pain: cardio/timed exercises tracked like reps, no countdown (3).",
+      "source": "pain"
+    },
+    {
+      "name": "Left and right sides",
+      "description": "Unilateral exercises log left and right reps/weight separately in the same set.",
+      "priority": "P1",
+      "reason": "Pain: cannot log left and right separately (1).",
+      "source": "pain"
+    },
+    {
+      "name": "Add any exercise mid-workout",
+      "description": "During a workout add any exercise or another routine's exercises without leaving the session.",
+      "priority": "P1",
+      "reason": "Pain: cannot add exercises from another routine during a workout (1).",
+      "source": "pain"
+    },
+    {
+      "name": "Export and import",
+      "description": "Export workouts, routines and custom exercises as JSON and workouts as CSV; import the JSON back.",
+      "priority": "P1",
+      "reason": "Pain: no export (1) and data loss (5); also the exit door users ask for.",
+      "source": "pain"
+    },
+    {
+      "name": "Apple Health workout export",
+      "description": "Save each finished workout to Health as a traditional strength training HKWorkout with start, end and duration; active energy only if the user enables it, and never when an Apple Watch workout overlaps the same interval.",
+      "priority": "P1",
+      "reason": "Pain: calories double-counted in Apple Health (1). Hevy exports to Health too.",
+      "source": "pain"
+    },
+    {
+      "name": "iCloud sync of routines and exercises",
+      "description": "Optional, off by default (ADR-0008): routines and custom exercises sync through the user's private CloudKit database; workouts, body measurements and anything from HealthKit stay on device.",
+      "priority": "P2",
+      "reason": "Second device convenience within 5.1.3(ii).",
+      "source": "original"
+    },
+    {
+      "name": "Live workout session on iPhone",
+      "description": "On iOS 26 run an HKWorkoutSession on iPhone for live heart rate from paired sensors; iOS 17-25 fall back to saving the finished workout with HKWorkoutBuilder.",
+      "priority": "P2",
+      "reason": "Nice to have; only iOS 26 has the iPhone workout session.",
+      "source": "original"
+    },
+    {
+      "name": "System countdown for rest",
+      "description": "On iOS 26 the rest timer can use AlarmKit so it alerts in silent mode and Focus; iOS 17-25 keep the time-sensitive notification.",
+      "priority": "P2",
+      "reason": "Addresses silent-mode misses; must be user-started and explained (AlarmKit permission).",
+      "source": "original"
+    },
+    {
+      "name": "Plate calculator",
+      "description": "Plates per side for a target weight and bar, kg or lb.",
+      "priority": "P2",
+      "reason": "Common gym helper, pure arithmetic.",
+      "source": "original"
+    },
+    {
+      "name": "Widget and Start routine intent",
+      "description": "Widget with the last workout and an App Intent 'Inizia allenamento' for Shortcuts/Siri.",
+      "priority": "P2",
+      "reason": "Hevy has widgets; WidgetKit/App Intents iOS 17.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Allenamento",
+      "purpose": "Home: start a workout; the one figure.",
+      "elements": [
+        "one figure: workouts this week (or days since the last), SbuStat closed by the full stop",
+        "'Inizia allenamento' filled button in accent",
+        "List of routines with Inizia",
+        "toolbar: Storico, Esercizi, settings sheet"
+      ]
+    },
+    {
+      "name": "Workout in progress",
+      "purpose": "Log sets fast with gloves-on targets.",
+      "elements": [
+        "elapsed time and volume in statSmall",
+        "per exercise: set table (Precedente, kg, Ripetizioni, done check), set type menu, L/R columns for unilateral",
+        "rest timer bar with -15/+15",
+        "Aggiungi esercizio",
+        "Termina (confirm) / Annulla (danger, confirmed)"
+      ]
+    },
+    {
+      "name": "Routine editor",
+      "purpose": "Build a routine.",
+      "elements": [
+        "name",
+        "exercise list with target sets/reps/rest, reorder, superset grouping",
+        "Aggiungi esercizio"
+      ]
+    },
+    {
+      "name": "Esercizi",
+      "purpose": "Bundled and custom exercises.",
+      "elements": [
+        "search",
+        "filters by muscle and equipment",
+        "List with SF Symbol per category",
+        "Nuovo esercizio"
+      ]
+    },
+    {
+      "name": "Esercizio (detail)",
+      "purpose": "Progress of one exercise.",
+      "elements": [
+        "chart picker: carico massimo, 1RM stimato, volume, ripetizioni",
+        "personal records",
+        "history of sets"
+      ]
+    },
+    {
+      "name": "Storico",
+      "purpose": "Past workouts.",
+      "elements": [
+        "month calendar of trained days",
+        "List of workouts with duration, volume, sets",
+        "workout detail with edit/delete"
+      ]
+    },
+    {
+      "name": "Misure",
+      "purpose": "Body measurements.",
+      "elements": [
+        "weight chart",
+        "List of entries",
+        "Aggiungi misura"
+      ]
+    },
+    {
+      "name": "Impostazioni (sheet)",
+      "purpose": "Inside SbuAppShell.",
+      "elements": [
+        "unità kg/lb",
+        "riposo predefinito",
+        "Apple Salute",
+        "iCloud (routines and exercises only, off)",
+        "Esporta/Importa",
+        "Licenze (Bricolage Grotesque), sbu.dev"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Train from a routine",
+      "steps": [
+        "Tap Inizia on a routine",
+        "Previous values are prefilled",
+        "Type weight and reps, tap done: rest timer starts",
+        "Timer ends with haptic and notification",
+        "Termina: summary with volume and new records; Health save if enabled"
+      ]
+    },
+    {
+      "name": "Timed set",
+      "steps": [
+        "Exercise of kind duration",
+        "Tap start: countdown runs",
+        "At zero: haptic, set completed, rest timer starts"
+      ]
+    },
+    {
+      "name": "Recover an interrupted workout",
+      "steps": [
+        "App killed mid-workout",
+        "Relaunch",
+        "The workout reopens where it was"
+      ]
+    },
+    {
+      "name": "Check progress",
+      "steps": [
+        "Esercizi > pick one",
+        "Chart of estimated 1RM over all time",
+        "Records list"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Exercise",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "note": "stable slug for bundled ones, UUID for custom"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "localized key for bundled, free text for custom"
+          },
+          {
+            "name": "kind",
+            "type": "ExerciseKind",
+            "note": "weightReps, bodyweightReps, assistedReps, duration, distanceDuration"
+          },
+          {
+            "name": "primaryMuscle",
+            "type": "Muscle",
+            "note": "enum with sub-regions (upperChest, tricepsLongHead...)"
+          },
+          {
+            "name": "secondaryMuscles",
+            "type": "[Muscle]",
+            "note": ""
+          },
+          {
+            "name": "equipment",
+            "type": "Equipment",
+            "note": "barbell, dumbbell, machine, cable, bodyweight, band, kettlebell, other"
+          },
+          {
+            "name": "isUnilateral",
+            "type": "Bool",
+            "note": "enables L/R logging"
+          },
+          {
+            "name": "isCustom",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "defaultRest",
+            "type": "Int",
+            "note": "seconds"
+          }
+        ]
+      },
+      {
+        "name": "Routine",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "folder",
+            "type": "String?",
+            "note": ""
+          },
+          {
+            "name": "items",
+            "type": "[RoutineItem]",
+            "note": "ordered: exercise, targetSets, targetReps, restSeconds, supersetGroup"
+          }
+        ]
+      },
+      {
+        "name": "Workout",
+        "fields": [
+          {
+            "name": "start",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "end",
+            "type": "Date?",
+            "note": "nil while in progress (resume on launch)"
+          },
+          {
+            "name": "routineName",
+            "type": "String?",
+            "note": "snapshot"
+          },
+          {
+            "name": "note",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "healthKitUUID",
+            "type": "UUID?",
+            "note": "saved HKWorkout"
+          }
+        ]
+      },
+      {
+        "name": "WorkoutSet",
+        "fields": [
+          {
+            "name": "exerciseID",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "order",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "type",
+            "type": "SetType",
+            "note": "warmup, normal, drop, failure"
+          },
+          {
+            "name": "weightKg",
+            "type": "Double?",
+            "note": "stored in kg, shown with Measurement<UnitMass> in the user's unit"
+          },
+          {
+            "name": "reps",
+            "type": "Int?",
+            "note": ""
+          },
+          {
+            "name": "repsLeft/repsRight",
+            "type": "Int?",
+            "note": "unilateral"
+          },
+          {
+            "name": "duration",
+            "type": "Duration?",
+            "note": ""
+          },
+          {
+            "name": "distanceMeters",
+            "type": "Double?",
+            "note": ""
+          },
+          {
+            "name": "rpe",
+            "type": "Double?",
+            "note": ""
+          },
+          {
+            "name": "completedAt",
+            "type": "Date?",
+            "note": "nil = not done"
+          }
+        ]
+      },
+      {
+        "name": "BodyMeasurement",
+        "fields": [
+          {
+            "name": "date",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "kind",
+            "type": "enum",
+            "note": "bodyWeight, waist, chest, arm, thigh, hips, bodyFat"
+          },
+          {
+            "name": "value",
+            "type": "Double",
+            "note": "SI units"
+          }
+        ]
+      }
+    ],
+    "storage": "SwiftData on device, saved on every change. Bundled exercise list as a JSON resource written by Sbu. Optional iCloud (ADR-0008, off by default) only for Routine and custom Exercise; Workout, WorkoutSet and BodyMeasurement never leave the device except via user export or Apple Health (5.1.3(ii))."
+  },
+  "monetization": {
+    "model": "Freemium. Hevy is free with caps; Hevy Pro removes them. Lyfta advertises free but asks for Pro (14-day trial) at the end of sign-up.",
+    "price": "Hevy Pro: monthly, yearly and lifetime IAP (amounts not in the lookup data). Lyfta Pro ~60 USD/year per reviews (us#2, us#6).",
+    "paywalled_features": [
+      "unlimited routines",
+      "unlimited custom exercises",
+      "full graph history",
+      "advanced body measurements",
+      "(Lyfta) advanced analytics, expert programs, progression tools"
+    ],
+    "notes": "Hevy's free tier is generous, so its 1-3 star reviews are few (8); most pains come from Lyfta (26). Hevy's social feed and exercise videos need accounts and licensed media and are skipped."
+  },
+  "pains": [
+    {
+      "pain": "Advertised as free, subscription demanded after onboarding; unwanted charges",
+      "mentions": 8,
+      "evidence": "'it's free for 2 weeks and then $60/year'",
+      "becomes": "Unlimited routines"
+    },
+    {
+      "pain": "Exercise library: duplicates, poor or offensive names, missing exercises",
+      "mentions": 6,
+      "evidence": "'multiple of the same looking exercises'; 'Libreria scarsa'",
+      "becomes": "Bundled exercise list"
+    },
+    {
+      "pain": "Workouts, routines or previous weights lost or not saved",
+      "mentions": 5,
+      "evidence": "'Returned to the app being refreshed and lost program'",
+      "becomes": "Autosave every set"
+    },
+    {
+      "pain": "Time-based and cardio exercises tracked like reps; no countdown",
+      "mentions": 3,
+      "evidence": "'it tracks cardio the same way as weights in terms of reps and sets'",
+      "becomes": "Timed and distance sets"
+    },
+    {
+      "pain": "Account and sign-up required before use",
+      "mentions": 3,
+      "evidence": "'As soon as you create a login... you're required to start a subscription'",
+      "becomes": "skip: Sbu has no account"
+    },
+    {
+      "pain": "No Garmin or Huawei wearable support",
+      "mentions": 2,
+      "evidence": "'non posso collegare HUAWEI fit pro 5'",
+      "becomes": "skip: vendor SDKs and clouds (network, third-party code)"
+    },
+    {
+      "pain": "Muscle groups too coarse (upper/lower chest, triceps heads)",
+      "mentions": 2,
+      "evidence": "'add medial, lateral, and long head'",
+      "becomes": "Bundled exercise list"
+    },
+    {
+      "pain": "Exercises or workouts do not load",
+      "mentions": 2,
+      "evidence": "'da 2 mesi che non si caricano gli esercizi'",
+      "becomes": "Bundled exercise list"
+    },
+    {
+      "pain": "Apple Watch connection problems or dropped support",
+      "mentions": 2,
+      "evidence": "'constant connection issues between iPhone and Apple Watch'",
+      "becomes": "skip: no watchOS app in v1; the iPhone app works alone"
+    },
+    {
+      "pain": "Rest timer notification does not vibrate",
+      "mentions": 1,
+      "evidence": "'Rest timer notifications are not vibrating, just the sound'",
+      "becomes": "Rest timer"
+    },
+    {
+      "pain": "Progress photo cannot be saved back",
+      "mentions": 1,
+      "evidence": "'once you upload it you don't have a way to download it'",
+      "becomes": "skip: progress photos are not the one thing; the Photos app keeps them"
+    },
+    {
+      "pain": "No export of workouts and routines (JSON)",
+      "mentions": 1,
+      "evidence": "'Sarebbe magnifico poter esportare un json'",
+      "becomes": "Export and import"
+    },
+    {
+      "pain": "Free tier capped at 4 routines",
+      "mentions": 1,
+      "evidence": "'il limite di 4 schede massimo... per la versione gratuita'",
+      "becomes": "Unlimited routines"
+    },
+    {
+      "pain": "Cannot log left and right side separately",
+      "mentions": 1,
+      "evidence": "'inserire la destra e la sinistra nelle serie'",
+      "becomes": "Left and right sides"
+    },
+    {
+      "pain": "Cannot add an exercise from another routine during a workout",
+      "mentions": 1,
+      "evidence": "'preclude la possibilità di segnare esercizi inseriti in altre schede'",
+      "becomes": "Add any exercise mid-workout"
+    },
+    {
+      "pain": "Calories double-counted in Apple Health",
+      "mentions": 1,
+      "evidence": "'my active calories in the Fitness app is doubled'",
+      "becomes": "Apple Health workout export"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Social feed, following friends, copying their workouts, public profile",
+      "reason": "Accounts and server."
+    },
+    {
+      "feature": "Exercise videos and images",
+      "reason": "Licensed media or network; SF Symbols per category and a short text cue instead."
+    },
+    {
+      "feature": "wger exercise database",
+      "reason": "Code AGPL-3.0, exercise data and images under per-entry Creative Commons (CC-BY-SA family): not MIT/Apache, so not a dependency. Sbu writes its own list."
+    },
+    {
+      "feature": "Named programs (StrongLifts 5x5, nSuns, GZCL...)",
+      "reason": "Third-party program names/trademarks and editorial content; users build their own routines."
+    },
+    {
+      "feature": "Challenges, leaderboards, streak gamification",
+      "reason": "Server; not the one thing."
+    },
+    {
+      "feature": "Apple Watch app",
+      "reason": "Out of v1 scope; Live Activity covers the wrist via notifications."
+    },
+    {
+      "feature": "Garmin, Huawei, Strava",
+      "reason": "Vendor SDKs, clouds and accounts."
+    },
+    {
+      "feature": "Progress photos",
+      "reason": "Not the one thing."
+    },
+    {
+      "feature": "AI coach / generated plans",
+      "reason": "Server or medical-ish advice; out of scope."
+    },
+    {
+      "feature": "iMessage stickers",
+      "reason": "Decoration."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "SwiftData",
+      "min_ios": "17.0",
+      "use": "Workouts, sets, routines, exercises, measurements"
+    },
+    {
+      "name": "Swift Charts",
+      "min_ios": "17.0",
+      "use": "Progress and measurement charts"
+    },
+    {
+      "name": "HealthKit HKWorkoutBuilder",
+      "min_ios": "17.0",
+      "use": "Save finished strength workouts; read/write bodyMass"
+    },
+    {
+      "name": "HealthKit HKWorkoutSession on iPhone",
+      "min_ios": "26.0",
+      "use": "P2 live workout session; fallback HKWorkoutBuilder after the workout on iOS 17-25"
+    },
+    {
+      "name": "ActivityKit",
+      "min_ios": "17.0",
+      "use": "Live Activity and Dynamic Island for rest timer and workout"
+    },
+    {
+      "name": "UserNotifications",
+      "min_ios": "17.0",
+      "use": "Time-sensitive rest/countdown notifications with sound and haptic"
+    },
+    {
+      "name": "AlarmKit",
+      "min_ios": "26.0",
+      "use": "P2 rest countdown that alerts in silent mode; fallback time-sensitive notification on iOS 17-25"
+    },
+    {
+      "name": "SwiftUI fileExporter/fileImporter",
+      "min_ios": "17.0",
+      "use": "JSON/CSV export and import"
+    },
+    {
+      "name": "WidgetKit + App Intents",
+      "min_ios": "17.0",
+      "use": "P2 widget and start-routine intent"
+    },
+    {
+      "name": "CloudKit (via SwiftData ModelConfiguration)",
+      "min_ios": "17.0",
+      "use": "P2 opt-in sync of routines and custom exercises only, separate store"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(b) Saturated category / 4.3(a) duplicates",
+      "risk": "Workout loggers are a crowded category and the account already had six 4.3 rejections.",
+      "mitigation": "Review notes: no caps, no account, autosave, timed/unilateral sets, own exercise list; difference from Sbu Steps and other Sbu apps; submit alone."
+    },
+    {
+      "rule": "4.1 Copycats",
+      "risk": "Hevy's set table and layout are distinctive.",
+      "mitigation": "Native Form/List in Sbu paper design, own copy and icon; no Hevy wording."
+    },
+    {
+      "rule": "5.1.3(ii) Health data in iCloud",
+      "risk": "Syncing workouts, body weight or HealthKit-derived data to iCloud.",
+      "mitigation": "Sync limited to routines and custom exercises in a separate CloudKit store; workouts and measurements local only."
+    },
+    {
+      "rule": "2.5.1 / 5.1.2(vi) HealthKit",
+      "risk": "HealthKit entitlement must serve fitness and be visible in UI; data not used otherwise.",
+      "mitigation": "Apple Salute toggle explaining workouts and body weight; usage strings IT/EN; privacy policy."
+    },
+    {
+      "rule": "Regulated medical device declaration (since 26/3/2026)",
+      "risk": "New Health & Fitness app must answer the declaration.",
+      "mitigation": "Declare not a medical device; no injury, rehab or health-outcome claims; 1RM labelled as estimate."
+    },
+    {
+      "rule": "5.2.1 Intellectual property",
+      "risk": "Named commercial programs or copied exercise descriptions/images.",
+      "mitigation": "Self-written generic exercise names and muscles; no named programs; no third-party media."
+    },
+    {
+      "rule": "AlarmKit usage (iOS 26)",
+      "risk": "Alarm permission asked without a clear user action.",
+      "mitigation": "Only behind a 'Avviso anche in silenzioso' toggle, asked on enable; P2."
+    }
+  ],
+  "estimate_days": 8,
+  "source": {
+    "listing": "research/lift/listing.json",
+    "reviews": "research/lift/reviews.json (34 reviews 1-3 stars, US+IT: Hevy 8, Lyfta 26, classified by hand)",
+    "fetched": "2026-10-15"
+  }
+}

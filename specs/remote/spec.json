@@ -1,0 +1,534 @@
+{
+  "name": "Sbu Remote",
+  "slug": "remote",
+  "in_repo": "Sbu Remote",
+  "replaces": [
+    {
+      "name": "TV Remote - Universal Control",
+      "app_store_id": "1539090879",
+      "role": "originale",
+      "price_model": "Free with ads; subscription after a few taps: weekly 4.99-6.99 USD, monthly 8.99, yearly 19.99-39.99 (3-day trial), lifetime 44.99-49.99",
+      "version": "2.1.4",
+      "rating": 4.44,
+      "rating_count": 622812
+    },
+    {
+      "name": "Universal TV Remote ·",
+      "app_store_id": "1439422220",
+      "role": "concorrente",
+      "price_model": "Free with ads every few taps; Premium yearly 19.99 USD in the description, 34.99 in app per reviews; weekly plan with trial; lifetime ~40",
+      "version": "2.1.44",
+      "rating": 4.58,
+      "rating_count": 93174
+    }
+  ],
+  "one_thing": "Turns the iPhone into the remote of your own smart TV over the home Wi-Fi, every key free.",
+  "features": [
+    {
+      "name": "TV discovery on the home Wi-Fi",
+      "description": "List the TVs on the same Wi-Fi with name and brand: Bonjour (Android TV/Google TV) and SSDP (Samsung, LG, Sony), plus manual entry by IP address when discovery finds nothing.",
+      "priority": "P0",
+      "reason": "Free in the original but useless without the keys; without it there is no remote. Local network only (ADR-0007).",
+      "source": "original"
+    },
+    {
+      "name": "Pairing per brand",
+      "description": "Samsung: Allow prompt on the TV, token kept. LG: prompt, client-key kept. Android TV/Google TV: 6-character code shown on the TV, client certificate kept. Sony Bravia: PIN or pre-shared key. Secrets in the Keychain, this device only.",
+      "priority": "P0",
+      "reason": "Every protocol except Roku needs it; the paid user never sees it again after the first time.",
+      "source": "original"
+    },
+    {
+      "name": "Remote keys",
+      "description": "Power, Home, Back, D-pad with OK, volume up/down, mute, channel up/down, media keys (rewind, play/pause, forward), all free with no tap limit. Long press repeats (Click/Press/Release, START_LONG/END_LONG).",
+      "priority": "P0",
+      "reason": "The paywalled core: the original stops after 4-15 taps; the most cited pain (81 reviews).",
+      "source": "original"
+    },
+    {
+      "name": "Touchpad",
+      "description": "Swipe moves the focus one step per direction, tap is OK; on LG the real webOS pointer. Sits on surface paper, no dark field.",
+      "priority": "P0",
+      "reason": "Paywalled hero feature of the original; same key events, only SwiftUI gestures.",
+      "source": "original"
+    },
+    {
+      "name": "Keyboard to the TV",
+      "description": "A text field sends typed text live to the focused search box on the TV (Samsung SendInputString, LG insertText, Android TV IME, Sony setTextForm).",
+      "priority": "P0",
+      "reason": "Paywalled in the original; typing with a D-pad is the worst part of a physical remote.",
+      "source": "original"
+    },
+    {
+      "name": "App shortcuts",
+      "description": "Launch an app on the TV from a list read from the TV (LG, Samsung, Sony) or user-defined deep links (Android TV). Plain text names and SF Symbols, no logos; the user picks three for the remote screen.",
+      "priority": "P0",
+      "reason": "Paywalled 'Channels' in the original. Logos are third-party trademarks, so text only.",
+      "source": "original"
+    },
+    {
+      "name": "Automatic reconnect",
+      "description": "Keep one persistent socket per TV; reconnect silently when the app returns to the foreground (scenePhase) or the network changes, with a visible status line ('Connessa', 'Riconnessione').",
+      "priority": "P1",
+      "reason": "Pain: drops the connection and must be reconnected (14), slow to connect (17).",
+      "source": "pain"
+    },
+    {
+      "name": "Connection troubleshooting",
+      "description": "When nothing is found or a TV refuses: plain checks in order (same Wi-Fi, Local Network permission with a link to Settings, TV setting to enable per brand, guest network/VLAN), then manual IP.",
+      "priority": "P1",
+      "reason": "Pain: does not connect or does not work at all (41).",
+      "source": "pain"
+    },
+    {
+      "name": "Pairing guide per brand",
+      "description": "Before pairing, one screen says what will appear on the TV and which TV setting is needed (Samsung 'Only the first time', LG Connect Apps, Sony remote start). Honest that the first Samsung/LG Allow prompt needs a button on the TV or its remote; Android TV needs only the code on screen.",
+      "priority": "P1",
+      "reason": "Pain: pairing needs the physical remote, TV settings or a PIN that never appears (9).",
+      "source": "pain"
+    },
+    {
+      "name": "Low-latency key sending",
+      "description": "Send each key on the open socket without HTTP round-trips; haptic feedback (sensoryFeedback) on send, and a failed key shows an error instead of being swallowed.",
+      "priority": "P1",
+      "reason": "Pain: slow and laggy (17), single keys silently not working (5).",
+      "source": "pain"
+    },
+    {
+      "name": "Power on from standby",
+      "description": "Wake-on-LAN to the stored MAC or the brand's network power-on, with a line saying which TV setting must be on. Shown only when the TV supports it.",
+      "priority": "P1",
+      "reason": "Pain: cannot turn the TV on without the physical remote (1, and the competitor's description admits it).",
+      "source": "pain"
+    },
+    {
+      "name": "Several TVs",
+      "description": "Remember every paired TV and switch from the TV name at the top; the last used opens by default.",
+      "priority": "P2",
+      "reason": "Useful in homes with more TVs; small local list.",
+      "source": "original"
+    },
+    {
+      "name": "Input source",
+      "description": "Pick HDMI 1-4/AV/tuner where the protocol exposes inputs (LG, Sony); Source key elsewhere.",
+      "priority": "P2",
+      "reason": "Listed by the original; not on every brand.",
+      "source": "original"
+    },
+    {
+      "name": "On-device voice search",
+      "description": "Dictate a phrase with on-device speech recognition and send it as text through the keyboard path. Hidden when the language has no on-device model.",
+      "priority": "P2",
+      "reason": "Paywalled in the original; only acceptable fully on device.",
+      "source": "original"
+    },
+    {
+      "name": "Volume shortcut in Control Center and Siri",
+      "description": "App Intents for volume, mute and power on the last TV; a Control Center control on iOS 18+, Shortcuts/Siri on iOS 17.",
+      "priority": "P2",
+      "reason": "Not in the original; quick volume without opening the app.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Remote",
+      "purpose": "Control the connected TV; the one screen of the app.",
+      "elements": [
+        "TV name at the top as the one figure (SbuStat-style title closed by the full stop), tap to switch TV",
+        "status line in inkMuted: Connessa / Riconnessione",
+        "segmented control D-pad / Touchpad",
+        "D-pad with OK or touchpad area on surface",
+        "Power, Home, Back",
+        "volume and channel rockers, mute",
+        "media keys row",
+        "keyboard button",
+        "three app shortcuts as text buttons",
+        "settings sheet button (ADR-0001, no tab bar)"
+      ]
+    },
+    {
+      "name": "Find TV",
+      "purpose": "First run and adding a TV.",
+      "elements": [
+        "one line: phone and TV on the same Wi-Fi",
+        "button 'Cerca TV' that triggers the Local Network prompt",
+        "List .insetGrouped of TVs found with brand",
+        "'Inserisci indirizzo IP' row",
+        "troubleshooting checklist when the list stays empty"
+      ]
+    },
+    {
+      "name": "Pairing",
+      "purpose": "Pair one TV.",
+      "elements": [
+        "what will appear on the TV, per brand",
+        "TV setting to enable, per brand",
+        "code field (Android TV, Sony)",
+        "result: Associata"
+      ]
+    },
+    {
+      "name": "Keyboard",
+      "purpose": "Type into the TV's search box.",
+      "elements": [
+        "TextField with focus",
+        "live send",
+        "Invio"
+      ]
+    },
+    {
+      "name": "App",
+      "purpose": "Launch and pick shortcuts.",
+      "elements": [
+        "List of apps read from the TV or added by deep link",
+        "toggle for the three shortcuts"
+      ]
+    },
+    {
+      "name": "Settings (sheet)",
+      "purpose": "TVs and app info inside SbuAppShell.",
+      "elements": [
+        "paired TVs with Forget (danger, confirmed)",
+        "haptics toggle",
+        "Wake-on-LAN help per TV",
+        "Local Network permission status with link to Settings",
+        "Licenze, sbu.dev"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First connection",
+      "steps": [
+        "Open the app: Find TV",
+        "Tap Cerca TV; system Local Network prompt",
+        "Pick the TV (or enter its IP)",
+        "Read the pairing guide, accept on the TV or type the code",
+        "Remote opens with the TV name"
+      ]
+    },
+    {
+      "name": "Return later",
+      "steps": [
+        "Open the app",
+        "Silent reconnect to the last TV with the stored token",
+        "Keys work immediately; status shows Riconnessione only if it takes more than a moment"
+      ]
+    },
+    {
+      "name": "Search by typing",
+      "steps": [
+        "Open the search box on the TV with the D-pad",
+        "Tap the keyboard button",
+        "Type; text appears on the TV",
+        "Invio"
+      ]
+    },
+    {
+      "name": "Turn the TV on",
+      "steps": [
+        "Tap Power while the TV is in standby",
+        "Wake-on-LAN or network power-on is sent",
+        "If the TV does not support it, a line says which TV setting to enable"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "PairedTV",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "note": "USN, serial or Bonjour name"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "note": "friendly name reported by the TV"
+          },
+          {
+            "name": "platform",
+            "type": "enum",
+            "note": "samsungTizen, lgWebOS, androidTV, sonyBravia (roku pending terms decision)"
+          },
+          {
+            "name": "host",
+            "type": "String",
+            "note": "last known IP or Bonjour host"
+          },
+          {
+            "name": "macAddress",
+            "type": "String?",
+            "note": "for Wake-on-LAN"
+          },
+          {
+            "name": "credentialRef",
+            "type": "Keychain item",
+            "note": "token, client-key, PSK/cookie or client certificate; kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly, never synchronizable"
+          },
+          {
+            "name": "lastUsed",
+            "type": "Date",
+            "note": "default TV at launch"
+          }
+        ]
+      },
+      {
+        "name": "AppShortcut",
+        "fields": [
+          {
+            "name": "tvID",
+            "type": "String",
+            "note": "PairedTV.id"
+          },
+          {
+            "name": "appID",
+            "type": "String",
+            "note": "app id, channel id or deep link per protocol"
+          },
+          {
+            "name": "title",
+            "type": "String",
+            "note": "as reported by the TV or typed by the user"
+          },
+          {
+            "name": "position",
+            "type": "Int?",
+            "note": "0-2 when pinned on the remote screen"
+          }
+        ]
+      },
+      {
+        "name": "RemoteSettings",
+        "fields": [
+          {
+            "name": "navigationMode",
+            "type": "enum",
+            "note": "dpad, touchpad"
+          },
+          {
+            "name": "haptics",
+            "type": "Bool",
+            "note": "default true"
+          }
+        ]
+      }
+    ],
+    "storage": "Codable file in Application Support (or UserDefaults) for TVs, shortcuts and settings; pairing secrets in the Keychain, device-only. No iCloud: nothing worth syncing, and secrets are bound to this device. Only traffic: commands to the user's own TV on the LAN (ADR-0007)."
+  },
+  "monetization": {
+    "model": "Freemium with ads and a hard tap paywall: the remote stops after 4-15 taps until a trial or subscription starts.",
+    "price": "Free; IAP weekly 4.99-6.99 USD, monthly 8.99, yearly 19.99-39.99 with 3-day trial, lifetime 44.99-49.99 (IT reviews: 19, 32.99, 44, 60 EUR).",
+    "paywalled_features": [
+      "all keys after a few taps, volume included",
+      "touchpad",
+      "keyboard",
+      "voice search",
+      "channels/app shortcuts",
+      "cast",
+      "ad removal"
+    ],
+    "notes": "Privacy label declares tracking for ads. The competitor (Kraftwerk 9) plays 30-90 s video ads every few taps instead. Reviewers mention free alternatives (Samsung SmartThings, Roku, LG ThinQ apps), so Sbu Remote's case is: one app for all four platforms, no account, Italian, nothing to pay."
+  },
+  "pains": [
+    {
+      "pain": "Basic keys locked behind a subscription after a few taps",
+      "mentions": 81,
+      "evidence": "'only get like 10 button clicks for free'; 'Manco alzare il volume'",
+      "becomes": "Remote keys"
+    },
+    {
+      "pain": "Price, unwanted charges, trial converted, cannot cancel",
+      "mentions": 52,
+      "evidence": "'$69.90 in 10 weeks for a remote control app'; 'mi ha preso 32,99€'",
+      "becomes": "skip: Sbu has no purchases or trials; nothing to build"
+    },
+    {
+      "pain": "Ads and upgrade pop-ups interrupt every few taps",
+      "mentions": 47,
+      "evidence": "'Every 4 buttons i press there is a 30 second add'",
+      "becomes": "skip: no ads by product rule; nothing to build"
+    },
+    {
+      "pain": "Does not connect or does not work at all",
+      "mentions": 41,
+      "evidence": "'it says connecting even 30 minutes later'",
+      "becomes": "Connection troubleshooting"
+    },
+    {
+      "pain": "Slow, laggy, long to connect",
+      "mentions": 17,
+      "evidence": "'really slow to type and it takes a long time to scroll'",
+      "becomes": "Low-latency key sending"
+    },
+    {
+      "pain": "Drops the connection, must reconnect, works only half the time",
+      "mentions": 14,
+      "evidence": "'I have to reconnect the app to my tv every time I close my phone'",
+      "becomes": "Automatic reconnect"
+    },
+    {
+      "pain": "Pairing needs the physical remote, TV settings or a PIN that never appears",
+      "mentions": 9,
+      "evidence": "'I can't pair unless I have a remote'; 'mi chiede di aprire le impostazioni sulla tv'",
+      "becomes": "Pairing guide per brand"
+    },
+    {
+      "pain": "Single keys do not work (volume, mute, OK, arrows)",
+      "mentions": 5,
+      "evidence": "'the volume and the mute functions do not work'",
+      "becomes": "Low-latency key sending"
+    },
+    {
+      "pain": "Keyboard missing or slow to type",
+      "mentions": 2,
+      "evidence": "'No keyboard'",
+      "becomes": "Keyboard to the TV"
+    },
+    {
+      "pain": "Crashes",
+      "mentions": 2,
+      "evidence": "'crashes all the time'",
+      "becomes": "skip: release quality, covered by tests and TestFlight on a real TV, not a feature"
+    },
+    {
+      "pain": "Cannot turn the TV on",
+      "mentions": 1,
+      "evidence": "'senza telecomando non puoi accendere il televisore' (LG)",
+      "becomes": "Power on from standby"
+    },
+    {
+      "pain": "Rating prompt every launch",
+      "mentions": 1,
+      "evidence": "'every single time I open the app they ask me to rate it'",
+      "becomes": "skip: Sbu never prompts for ratings; nothing to build"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Ads, trial and subscription",
+      "reason": "Product rules: no ads, no purchases."
+    },
+    {
+      "feature": "Roku (ECP)",
+      "reason": "Roku's ECP docs say commands may not be sent from third-party mobile apps; out of v1 until the open terms decision. Mostly US, marginal in Italy."
+    },
+    {
+      "feature": "Fire TV",
+      "reason": "No documented remote protocol; ADB needs developer mode, studying the official app is extraction (forbidden)."
+    },
+    {
+      "feature": "Hisense VIDAA, Philips JointSpace pairing",
+      "reason": "Known implementations rely on secrets/certificates extracted from the official apps (forbidden). Philips and Hisense with Android/Google TV are covered by the Android TV protocol."
+    },
+    {
+      "feature": "Vizio SmartCast",
+      "reason": "US only, undocumented key codes; not worth v1 scope."
+    },
+    {
+      "feature": "Apple TV",
+      "reason": "Already in Control Center; Companion protocol is private (2.5.1) and imitating it risks 5.2.5."
+    },
+    {
+      "feature": "Cast photos/videos, screen mirroring",
+      "reason": "System AirPlay already does it; DLNA needs a local media server and Google Cast needs Google's SDK (third-party dependency)."
+    },
+    {
+      "feature": "Brand and streaming-app logos",
+      "reason": "Third-party trademarks and non-SF icons; text and SF Symbols instead."
+    },
+    {
+      "feature": "Manufacturer cloud control (SmartThings, ThinQ)",
+      "reason": "Internet and accounts; ADR-0007 allows only the LAN."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "Network",
+      "min_ios": "17.0",
+      "use": "NWBrowser (Bonjour), NWConnection UDP for SSDP M-SEARCH and Wake-on-LAN, TCP/TLS and NWProtocolWebSocket to the TV, NWPathMonitor for reconnect"
+    },
+    {
+      "name": "Foundation URLSession",
+      "min_ios": "17.0",
+      "use": "HTTP/REST to Samsung info endpoint and Sony JSON-RPC/IRCC"
+    },
+    {
+      "name": "Security + CryptoKit",
+      "min_ios": "17.0",
+      "use": "Self-signed client certificate and key for Android TV Remote v2, SHA-256 pairing hash, per-host pinning of the TV's self-signed certificate; Keychain for secrets"
+    },
+    {
+      "name": "SwiftUI",
+      "min_ios": "17.0",
+      "use": "Remote screen, DragGesture/SpatialTapGesture touchpad, sensoryFeedback, scenePhase reconnect"
+    },
+    {
+      "name": "Speech",
+      "min_ios": "17.0",
+      "use": "P2 voice search with requiresOnDeviceRecognition only"
+    },
+    {
+      "name": "App Intents",
+      "min_ios": "17.0",
+      "use": "P2 volume/mute/power intents for Siri and Shortcuts"
+    },
+    {
+      "name": "WidgetKit ControlWidget",
+      "min_ios": "18.0",
+      "use": "P2 Control Center volume control; behind if #available, Shortcuts covers iOS 17"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a)/(b) Spam, saturated category",
+      "risk": "TV remote apps are a crowded category and six Sbu apps were rejected under 4.3 on 14/10; another 'Sbu X' in a saturated niche is the likeliest rejection.",
+      "mitigation": "Review notes: what it does differently (four platforms, no tap limit, no account, Italian), how it differs from other Sbu apps, own code per protocol. Do not submit together with other Sbu apps; distinct screenshots."
+    },
+    {
+      "rule": "2.1 App completeness",
+      "risk": "The reviewer may have no compatible TV on the review network, so the app looks like it does nothing.",
+      "mitigation": "Demo video of pairing and control on a real TV attached in App Review notes; clear empty-state copy; no fake demo TV (would look like fabricated functionality)."
+    },
+    {
+      "rule": "5.1.1 / Local Network privacy (TN3179)",
+      "risk": "Local Network prompt without explanation, or at launch.",
+      "mitigation": "NSLocalNetworkUsageDescription in IT/EN naming the TV; prompt triggered only by the 'Cerca TV' button; denied state explained with a link to Settings. Privacy label: Data Not Collected."
+    },
+    {
+      "rule": "Multicast entitlement (com.apple.developer.networking.multicast)",
+      "risk": "SSDP and Wake-on-LAN need an entitlement Apple must grant; without it Samsung/LG/Sony discovery and power-on fail.",
+      "mitigation": "Request it at project start with the justification; v1 works without it via Bonjour (Android TV) and manual IP; WOL hidden until granted."
+    },
+    {
+      "rule": "2.5.1 Public APIs",
+      "risk": "Any private API for AirPlay or Apple TV control.",
+      "mitigation": "Only Network/URLSession/Security; no Apple TV support; no MediaRemote."
+    },
+    {
+      "rule": "5.2.5 Apple products",
+      "risk": "Layout resembling the Apple TV Remote in Control Center (black touchpad, round grey buttons).",
+      "mitigation": "Sbu paper design: surface background, ink keys, one accent; no Apple TV wording or imagery."
+    },
+    {
+      "rule": "5.2.1 / 4.1 Trademarks and copycats",
+      "risk": "TV brand or streaming app names/logos in the app name, subtitle, keywords, icon or screenshots; copying the original's layout.",
+      "mitigation": "No brand names in name/subtitle/keywords; one compatibility line in the description ('works with TVs running Tizen, webOS, Android TV/Google TV, Sony Bravia') plus 'not affiliated' disclaimer; no logos anywhere; own layout."
+    },
+    {
+      "rule": "ATS / 2.5.1",
+      "risk": "Plain HTTP and self-signed TLS to the TV.",
+      "mitigation": "NSAllowsLocalNetworking only; per-host certificate pinning recorded at pairing; no global ATS exception."
+    }
+  ],
+  "estimate_days": 10,
+  "source": {
+    "listing": "research/remote/listing.json",
+    "reviews": "research/remote/reviews.json (230 reviews 1-3 stars, US+IT, classified by hand; also research/1539090879/ incl. protocols.md and research/apps/remote.md)",
+    "fetched": "2026-10-15"
+  }
+}

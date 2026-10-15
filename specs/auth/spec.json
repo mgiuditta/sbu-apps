@@ -1,0 +1,570 @@
+{
+  "name": "Sbu Authenticator",
+  "slug": "auth",
+  "in_repo": "Sbu Authenticator",
+  "replaces": [
+    {
+      "name": "Authenticator ℠ App",
+      "app_store_id": "6754900760",
+      "role": "originale",
+      "price_model": "freemium, weekly subscription with 3-day trial",
+      "version": "1.4.1",
+      "rating": 4.32,
+      "rating_count": 5883
+    }
+  ],
+  "one_thing": "Shows your two-factor codes, on your iPhone only, and never locks them.",
+  "features": [
+    {
+      "name": "TOTP codes",
+      "description": "Time-based 6-8 digit codes (RFC 6238) per account with a countdown ring; never locked, works offline.",
+      "priority": "P0",
+      "reason": "The paywalled core of the original: after the trial the codes are hidden until you pay.",
+      "source": "original"
+    },
+    {
+      "name": "otpauth parameters and HOTP",
+      "description": "SHA1/SHA256/SHA512, 6-8 digits, custom period, counter-based HOTP (RFC 4226) from otpauth:// URIs.",
+      "priority": "P0",
+      "reason": "Real QR codes use them; without them some accounts generate wrong codes (\"Does not provide code\").",
+      "source": "original"
+    },
+    {
+      "name": "Add from camera QR",
+      "description": "Scan the otpauth:// QR shown by the site; issuer and account filled in.",
+      "priority": "P0",
+      "reason": "Main setup flow of the original.",
+      "source": "original"
+    },
+    {
+      "name": "Manual secret entry",
+      "description": "Issuer, account and Base32 secret typed in a Form, with advanced options.",
+      "priority": "P0",
+      "reason": "Listed in the original; needed when the QR does not scan.",
+      "source": "original"
+    },
+    {
+      "name": "Copy with one tap",
+      "description": "Tap a row to copy the current code; clipboard entry is local-only and expires.",
+      "priority": "P0",
+      "reason": "The daily use of the app; review: \"I can copy but no where to paste\".",
+      "source": "original"
+    },
+    {
+      "name": "Code list with search",
+      "description": "List .insetGrouped of accounts with search; codes in statSmall; no full stop on the list.",
+      "priority": "P0",
+      "reason": "Main screen of the original.",
+      "source": "original"
+    },
+    {
+      "name": "Edit, reorder, delete",
+      "description": "Rename issuer/account, reorder, delete with destructive confirmation.",
+      "priority": "P0",
+      "reason": "\"Full control over your 2FA accounts\" in the listing.",
+      "source": "original"
+    },
+    {
+      "name": "App lock",
+      "description": "Face ID / Touch ID / device passcode on open and after backgrounding; content hidden in the app switcher.",
+      "priority": "P0",
+      "reason": "Paywalled feature of the original (screenshot 5).",
+      "source": "original"
+    },
+    {
+      "name": "Transfer export as QR",
+      "description": "Show the selected accounts as otpauth-migration QR codes after authentication, to move them to another phone.",
+      "priority": "P0",
+      "reason": "Export Codes screen of the original.",
+      "source": "original"
+    },
+    {
+      "name": "Encrypted file backup",
+      "description": "Export all accounts to a password-encrypted file (CryptoKit AES-GCM, key from password) via fileExporter, and import it back; reminder when no recent backup.",
+      "priority": "P1",
+      "reason": "Reviews: \"I opened the app I lost all my codes\". Nothing leaves the device unless the user saves the file.",
+      "source": "pain"
+    },
+    {
+      "name": "Import from other authenticators",
+      "description": "Read otpauth-migration://offline?data= QR batches (hand-written protobuf decoder, no dependency) and plain otpauth:// lists.",
+      "priority": "P1",
+      "reason": "Users arrived looking for the Google or Microsoft app; let them bring their accounts from the real one. Metadata does not name third-party apps.",
+      "source": "pain"
+    },
+    {
+      "name": "Add from image",
+      "description": "PhotosPicker + Vision barcode detection on a screenshot, no photo-library permission.",
+      "priority": "P1",
+      "reason": "Review: \"It won't recognize the QR codes\"; the QR is often on the same phone.",
+      "source": "pain"
+    },
+    {
+      "name": "Guided first code",
+      "description": "Empty state explains in two sentences what a 2FA code is and offers Scan / From image / Type; after adding, a one-line hint: copy the code and paste it on the site.",
+      "priority": "P1",
+      "reason": "18 reviews find setup impossible, 9 do not understand what the app is for.",
+      "source": "pain"
+    },
+    {
+      "name": "Folders",
+      "description": "Optional grouping of accounts.",
+      "priority": "P2",
+      "reason": "Seen in the original; useful only with many accounts.",
+      "source": "original"
+    },
+    {
+      "name": "iCloud Keychain sync",
+      "description": "Opt-in toggle in Settings, off by default (ADR-0008): kSecAttrSynchronizable items.",
+      "priority": "P2",
+      "reason": "Codes lost with the phone; ADR-0008 allows it only as opt-in.",
+      "source": "original"
+    },
+    {
+      "name": "One-time code AutoFill",
+      "description": "Credential provider extension offering codes above the keyboard (ASOneTimeCodeCredential).",
+      "priority": "P2",
+      "reason": "iOS 18+ only: behind #available, no fallback needed (copy stays).",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Codes",
+      "purpose": "Accounts with their current code.",
+      "elements": [
+        "large title",
+        "search",
+        "rows: issuer, account, code in statSmall, countdown ring",
+        "+ menu: Scan, From image, Type",
+        "Edit",
+        "settings button (SbuAppShell, no tab bar, ADR-0001)"
+      ]
+    },
+    {
+      "name": "Code detail",
+      "purpose": "One account, its code as the screen figure.",
+      "elements": [
+        "SbuStat code closed by SbuFullStop in accent-authenticator",
+        "time left",
+        "Copy (filled button)",
+        "Edit",
+        "Delete (SbuButton .destructive)"
+      ]
+    },
+    {
+      "name": "Add",
+      "purpose": "Create an account.",
+      "elements": [
+        "camera scanner",
+        "From image (PhotosPicker)",
+        "manual Form: issuer, account, secret, advanced (algorithm, digits, period, type)"
+      ]
+    },
+    {
+      "name": "Lock",
+      "purpose": "Cover the codes until authentication.",
+      "elements": [
+        "redacted content",
+        "Unlock button (LocalAuthentication)"
+      ]
+    },
+    {
+      "name": "Transfer",
+      "purpose": "Move accounts to another phone.",
+      "elements": [
+        "account selection",
+        "migration QR pages",
+        "authentication before showing"
+      ]
+    },
+    {
+      "name": "Backup",
+      "purpose": "Encrypted file export/import.",
+      "elements": [
+        "password + confirm",
+        "Export (fileExporter)",
+        "Import (fileImporter)",
+        "last backup date"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "Lock, backup, opt-in iCloud, licences.",
+      "elements": [
+        "App lock toggle",
+        "Auto-lock delay",
+        "Backup",
+        "iCloud sync (off)",
+        "Licences",
+        "sbu.dev link"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First code",
+      "steps": [
+        "Open: empty state explains 2FA",
+        "Tap Scan",
+        "Grant camera from that button",
+        "Account created",
+        "Hint: copy and paste on the site"
+      ]
+    },
+    {
+      "name": "Use a code",
+      "steps": [
+        "Open",
+        "Unlock",
+        "Search",
+        "Tap row to copy",
+        "Paste on the site"
+      ]
+    },
+    {
+      "name": "Switch from another authenticator",
+      "steps": [
+        "In the other app, export as QR",
+        "Tap + then Scan",
+        "Batch QR decoded",
+        "Confirm the list of accounts"
+      ]
+    },
+    {
+      "name": "Back up",
+      "steps": [
+        "Settings > Backup",
+        "Set a password",
+        "Save the file",
+        "Last backup date updated"
+      ]
+    },
+    {
+      "name": "New phone",
+      "steps": [
+        "Open Transfer or import the backup file",
+        "Authenticate",
+        "Accounts restored"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "OTPAccount",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID",
+            "note": "stable identity, Keychain account attribute"
+          },
+          {
+            "name": "issuer",
+            "type": "String",
+            "note": "from the URI, editable"
+          },
+          {
+            "name": "accountName",
+            "type": "String",
+            "note": "email or username"
+          },
+          {
+            "name": "secret",
+            "type": "Data",
+            "note": "Base32-decoded, Keychain only"
+          },
+          {
+            "name": "kind",
+            "type": "enum totp|hotp",
+            "note": ""
+          },
+          {
+            "name": "algorithm",
+            "type": "enum sha1|sha256|sha512",
+            "note": "default sha1"
+          },
+          {
+            "name": "digits",
+            "type": "Int",
+            "note": "6-8"
+          },
+          {
+            "name": "period",
+            "type": "Int",
+            "note": "seconds, TOTP only, default 30"
+          },
+          {
+            "name": "counter",
+            "type": "UInt64",
+            "note": "HOTP only"
+          },
+          {
+            "name": "folder",
+            "type": "String?",
+            "note": "P2"
+          },
+          {
+            "name": "sortIndex",
+            "type": "Int",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "BackupFile",
+        "fields": [
+          {
+            "name": "version",
+            "type": "Int",
+            "note": "format version"
+          },
+          {
+            "name": "salt",
+            "type": "Data",
+            "note": "key derivation salt"
+          },
+          {
+            "name": "sealedBox",
+            "type": "Data",
+            "note": "AES-GCM of the JSON account list"
+          }
+        ]
+      },
+      {
+        "name": "LockSettings",
+        "fields": [
+          {
+            "name": "isEnabled",
+            "type": "Bool",
+            "note": ""
+          },
+          {
+            "name": "autoLockDelay",
+            "type": "Duration",
+            "note": "immediately or after a delay"
+          }
+        ]
+      }
+    ],
+    "storage": "Keychain kSecClassGenericPassword, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, one item per account (secret + JSON metadata). Opt-in iCloud Keychain (kSecAttrSynchronizable) only when the user turns it on (ADR-0008). Settings in UserDefaults. No server."
+  },
+  "monetization": {
+    "model": "Free download, weekly auto-renewing subscription with 3-day trial; codes hidden without it; ads and tracking (ATT).",
+    "price": "Weekly plans $5.99-$14.90 (reviews: $7.99-$9.99/week)",
+    "paywalled_features": [
+      "viewing codes after the first period",
+      "password manager",
+      "private browser",
+      "VPN",
+      "ad removal"
+    ],
+    "notes": "Privacy label declares identifiers and usage data used to track. Name and imagery suggest Google/Microsoft Authenticator. Previous research: research/6754900760/spec.json, research/apps/authenticator.md."
+  },
+  "pains": [
+    {
+      "pain": "Weekly price ($4-10/week) and a \"free trial\" that charges immediately",
+      "mentions": 29,
+      "evidence": "\"Says 3 day trial, they charge you right away\"",
+      "becomes": "skip: Sbu is free, no in-app purchase"
+    },
+    {
+      "pain": "Cannot cancel; charged after cancelling or deleting",
+      "mentions": 27,
+      "evidence": "\"Charged me for a subscription that I canceled\"",
+      "becomes": "skip: nothing to cancel, no subscription"
+    },
+    {
+      "pain": "Confusing, impossible to set up, not for seniors",
+      "mentions": 18,
+      "evidence": "\"Impossible to set up!!\"",
+      "becomes": "Guided first code"
+    },
+    {
+      "pain": "Looks like Google/Microsoft Authenticator; users installed it by mistake",
+      "mentions": 11,
+      "evidence": "\"everyone thought Authenticator App was Microsoft Authenticator\"",
+      "becomes": "Import from other authenticators"
+    },
+    {
+      "pain": "Users do not know what 2FA is or why they need the app",
+      "mentions": 9,
+      "evidence": "\"why with an iPhone do I need it?!\"",
+      "becomes": "Guided first code"
+    },
+    {
+      "pain": "Does not produce a working code",
+      "mentions": 8,
+      "evidence": "\"Does not provide code\"",
+      "becomes": "otpauth parameters and HOTP"
+    },
+    {
+      "pain": "All codes disappeared, locked out of accounts",
+      "mentions": 5,
+      "evidence": "\"I opened the app I lost all my codes\"",
+      "becomes": "Encrypted file backup"
+    },
+    {
+      "pain": "Fear of data harvesting and scam messages after install",
+      "mentions": 5,
+      "evidence": "\"designed to collect personal information\"",
+      "becomes": "skip: no network, no data collected (product rule)"
+    },
+    {
+      "pain": "Codes hidden behind the paywall after accounts were added",
+      "mentions": 4,
+      "evidence": "\"The next day... it's not letting me view the code\"",
+      "becomes": "TOTP codes"
+    },
+    {
+      "pain": "QR codes not recognized",
+      "mentions": 1,
+      "evidence": "\"It won't recognize the QR codes\"",
+      "becomes": "Add from image"
+    },
+    {
+      "pain": "Unclear where to paste the code",
+      "mentions": 1,
+      "evidence": "\"I can copy but no where to paste\"",
+      "becomes": "Guided first code"
+    },
+    {
+      "pain": "Pop-up ads before using a work tool",
+      "mentions": 1,
+      "evidence": "\"spend a few minutes closing ads\"",
+      "becomes": "skip: no ads (product rule)"
+    },
+    {
+      "pain": "Crashes",
+      "mentions": 1,
+      "evidence": "\"L'app crasha inspiegabilmente\"",
+      "becomes": "skip: generic stability, covered by tests"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Password manager and generator",
+      "reason": "Second function; iOS already has the Passwords app."
+    },
+    {
+      "feature": "Leaked-password alerts",
+      "reason": "Needs a network breach service."
+    },
+    {
+      "feature": "Private browser",
+      "reason": "Network and a second function."
+    },
+    {
+      "feature": "VPN",
+      "reason": "Network and servers."
+    },
+    {
+      "feature": "Service logos",
+      "reason": "Third-party trademarks, downloading them needs network; SF Symbols and initials instead."
+    },
+    {
+      "feature": "Subscription, ads, ATT",
+      "reason": "Product rules."
+    },
+    {
+      "feature": "Code widgets",
+      "reason": "Secrets visible outside the locked app."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "CryptoKit",
+      "min_ios": "13.0",
+      "use": "HMAC SHA1/256/512 for codes, AES-GCM and HKDF for the backup file"
+    },
+    {
+      "name": "Security (Keychain)",
+      "min_ios": "2.0",
+      "use": "secrets, ThisDeviceOnly; synchronizable only when opted in"
+    },
+    {
+      "name": "LocalAuthentication",
+      "min_ios": "8.0",
+      "use": "app lock with biometrics or device passcode"
+    },
+    {
+      "name": "VisionKit DataScannerViewController",
+      "min_ios": "16.0",
+      "use": "QR scanning; AVFoundation metadata output on devices without support"
+    },
+    {
+      "name": "Vision + PhotosUI",
+      "min_ios": "16.0",
+      "use": "QR from an image without library permission"
+    },
+    {
+      "name": "Core Image CIQRCodeGenerator",
+      "min_ios": "13.0",
+      "use": "transfer QR codes"
+    },
+    {
+      "name": "SwiftUI fileExporter/fileImporter",
+      "min_ios": "14.0",
+      "use": "encrypted backup file"
+    },
+    {
+      "name": "AuthenticationServices ASOneTimeCodeCredential",
+      "min_ios": "18.0",
+      "use": "P2 AutoFill extension behind #available; fallback is copy"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a) / 4.3(b) (rewritten 8 June 2026) and the 14/10 lot rejection",
+      "risk": "Six Sbu 1.0 apps were rejected together on 14/10 for duplicates and opportunistic variants; same \"Sbu X\" naming, identical promise block, shared SbuKit.",
+      "mitigation": "Submit alone, never in a batch; answer the nine Resolution Center questions in the review notes; add a \"How it differs from the other Sbu apps\" line; distinct engraving icon and screenshots."
+    },
+    {
+      "rule": "4.2.6",
+      "risk": "Shared SbuKit and generated project can read as a template app.",
+      "mitigation": "Review notes state who wrote it, what is shared (design system only) and what is specific to this app."
+    },
+    {
+      "rule": "5.1.1",
+      "risk": "Privacy policy and permission strings.",
+      "mitigation": "Privacy policy in metadata and Settings; every permission asked only from the button that needs it, with an IT/EN string naming that button; label \"Data Not Collected\"."
+    },
+    {
+      "rule": "4.3(b) (June 2026 rewrite)",
+      "risk": "Authenticators are a crowded category full of near-identical apps; a free clone with no difference can be read as opportunistic.",
+      "mitigation": "Review notes list what is concrete and different: codes never locked, encrypted file backup, import from other authenticators, HOTP and otpauth parameters, no network at all."
+    },
+    {
+      "rule": "4.1(a) / 4.1(b)",
+      "risk": "The original is reported for impersonating Google/Microsoft Authenticator; any echo in name, keywords or screenshots is impersonation.",
+      "mitigation": "Name \"Sbu Authenticator\", engraved Sbu icon, no third-party app names in metadata (lesson of commit 909af97); import described as \"from other authenticator apps\"."
+    },
+    {
+      "rule": "5.2.5",
+      "risk": "iOS 18 Passwords app also shows verification codes.",
+      "mitigation": "No key icon or Passwords-like layout; Sbu design system; notes explain why a separate app (no iCloud by default, HOTP, file backup)."
+    },
+    {
+      "rule": "4.3(a) overlap with Sbu Scanner",
+      "risk": "Sbu Scanner already reads QR codes; reviewer may ask why codes are not a Scanner feature.",
+      "mitigation": "Scanner decodes and forgets; Authenticator stores secrets in the Keychain behind app lock. State it in the review notes."
+    },
+    {
+      "rule": "2.5.1",
+      "risk": "ASOneTimeCodeCredential is iOS 18+.",
+      "mitigation": "Behind #available; deployment target stays iOS 17 (ADR-0002)."
+    },
+    {
+      "rule": "Export compliance",
+      "risk": "App uses encryption (AES-GCM backup).",
+      "mitigation": "Declare standard encryption for authentication/data protection in App Store Connect (ITSAppUsesNonExemptEncryption reviewed before submit)."
+    }
+  ],
+  "estimate_days": 3,
+  "source": {
+    "listing": "research/auth/listing.json",
+    "reviews": "research/auth/reviews.json (122 reviews, 1-3 stars, US+IT)",
+    "fetched": "2026-10-15"
+  }
+}

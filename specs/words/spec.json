@@ -1,0 +1,578 @@
+{
+  "name": "Sbu Words",
+  "slug": "words",
+  "in_repo": null,
+  "replaces": [
+    {
+      "name": "Vocabulary - Learn words daily",
+      "app_store_id": "1084540807",
+      "role": "originale",
+      "price_model": "freemium, Vocabulary Premium auto-renewing subscription after a 3-day trial",
+      "version": "7.5.0",
+      "rating": 4.77,
+      "rating_count": 220044
+    }
+  ],
+  "one_thing": "Sbu Words shows you one new word a day, with a checked definition, on your Lock Screen.",
+  "features": [
+    {
+      "name": "Word of the day",
+      "description": "One word per day (Italian or English, the user's choice) with part of speech, short definition, one example, and the date. The single figure of the screen is the word.",
+      "priority": "P0",
+      "reason": "The product; Vocabulary's free tier shows it but buries it under upsells.",
+      "source": "original"
+    },
+    {
+      "name": "Lock and Home Screen widgets",
+      "description": "WidgetKit accessory (Lock Screen) and small/medium Home Screen widgets showing today's word; same word and same settings on every widget, refreshed at local midnight.",
+      "priority": "P0",
+      "reason": "Widget customisation is paywalled in Vocabulary and is why most users install it.",
+      "source": "original"
+    },
+    {
+      "name": "Saved words",
+      "description": "Save a word with one tap; list with search; works with no purchase.",
+      "priority": "P0",
+      "reason": "Viewing saved words is paywalled in Vocabulary (2 reviews call it dishonest).",
+      "source": "original"
+    },
+    {
+      "name": "Review",
+      "description": "Short review of saved words: see the word, recall, reveal, mark 'La sapevo' / 'Non ancora'; spaced intervals (1, 3, 7, 21 days) as a pure, tested scheduler. No timed games, no streaks.",
+      "priority": "P0",
+      "reason": "Practice games are the paywalled core of Premium; review of saved words also asked in 1 review.",
+      "source": "original"
+    },
+    {
+      "name": "Level and topics",
+      "description": "Level and topic choice when the user wants it (default works without setup).",
+      "priority": "P0",
+      "reason": "Paywalled personalisation in Vocabulary.",
+      "source": "original"
+    },
+    {
+      "name": "Pace you choose",
+      "description": "Words per period: 1 a day (default), 3 a week, 1 a week. Notifications off by default; if on, at most one local notification per new word, at the chosen time. Never promotional.",
+      "priority": "P1",
+      "reason": "Notification spam, pop-ups, no way to slow down: 9 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Definitions you can trust",
+      "description": "Definitions only from the bundled, licence-cleared word list (see dependencies), reviewed before shipping; 'Apri nel dizionario' opens the iOS system dictionary (UIReferenceLibraryViewController) for the full entry. No generated definitions.",
+      "priority": "P1",
+      "reason": "Wrong definitions, wrong synonyms, invented words: 11 reviews; distrust of AI content: 5.",
+      "source": "pain"
+    },
+    {
+      "name": "Difficulty by frequency",
+      "description": "Level is a frequency band from a corpus rank (very common to rare) with a 5-step slider, not three labels; words above the user's band are skipped.",
+      "priority": "P1",
+      "reason": "Too easy or uselessly obscure, no fine control: 12 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Start without setup",
+      "description": "First launch shows today's word immediately. Level and topics are optional, in settings. No quiz, no questionnaire.",
+      "priority": "P1",
+      "reason": "Long setup quiz then paywall: 8 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Clean list",
+      "description": "Vulgar, sexual and slur entries excluded at build time; neologism/fictional sources (e.g. invented-word books) excluded; topic toggles to hide categories.",
+      "priority": "P1",
+      "reason": "Sexual terms on the Lock Screen, invented words: 4 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "No repeats, skip known",
+      "description": "A word is never shown twice unless saved for review; 'La so già' replaces it with the next word and lowers its weight.",
+      "priority": "P1",
+      "reason": "Words repeat, cannot skip known ones: 5 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Pronunciation",
+      "description": "AVSpeechSynthesizer with the system voice for the word's language, user-selectable voice; IPA text from the data where licensed. Plays even with the ring switch on silent via audio session category, shows a clear message if volume is zero.",
+      "priority": "P1",
+      "reason": "Wrong pronunciation, voice locked, button silent: 5 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Widget that just works",
+      "description": "Widget reads a shared App Group snapshot; no feature removed if the user never opens the app.",
+      "priority": "P1",
+      "reason": "Widget inconsistent, not working, revoked: 4 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Italian and English words",
+      "description": "Italian UI and an Italian word list as well as English; when both lists cover the same meaning, show the other language's word.",
+      "priority": "P1",
+      "reason": "Cannot use in Italian, wants foreign words with meaning in own language: 3 reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Etymology",
+      "description": "One-line origin of the word, only if a licence-compatible source exists.",
+      "priority": "P2",
+      "reason": "Asked in 1 review; Wiktionary has it but is CC BY-SA (conflict).",
+      "source": "pain"
+    },
+    {
+      "name": "Extra example sentence (on device)",
+      "description": "On iOS 26 with Apple Intelligence available, an optional second example generated by Foundation Models, labelled 'Esempio generato', off by default. Fallback on iOS 17-25 or unsupported devices: the feature is hidden.",
+      "priority": "P2",
+      "reason": "Nice to have; reviews punish AI content, so never for definitions.",
+      "source": "original"
+    }
+  ],
+  "screens": [
+    {
+      "name": "Today",
+      "purpose": "Today's word, the one figure.",
+      "elements": [
+        "SbuAppShell with settings sheet",
+        "word (stat style, ink) closed by SbuFullStop",
+        "part of speech, definition, example in inkMuted",
+        "pronounce button",
+        "save toggle",
+        "'La so già'",
+        "'Apri nel dizionario'"
+      ]
+    },
+    {
+      "name": "Saved",
+      "purpose": "Saved words.",
+      "elements": [
+        "List .insetGrouped with search",
+        "swipe to remove",
+        "'Ripassa' button with count due today"
+      ]
+    },
+    {
+      "name": "Review",
+      "purpose": "Recall saved words.",
+      "elements": [
+        "word",
+        "'Mostra' reveals definition",
+        "'La sapevo' / 'Non ancora'",
+        "end: 'Ripasso finito'"
+      ]
+    },
+    {
+      "name": "Settings",
+      "purpose": "SbuKit settings sheet.",
+      "elements": [
+        "language of words (Italiano, English)",
+        "pace",
+        "level slider",
+        "topics",
+        "notifications (off by default, time picker)",
+        "voice",
+        "licences and data attribution",
+        "sbu.dev link"
+      ]
+    },
+    {
+      "name": "Widgets",
+      "purpose": "Lock Screen (rectangular, inline) and Home Screen (small, medium).",
+      "elements": [
+        "word",
+        "short definition (medium)",
+        "full stop only on the in-app screen, not on widgets with lists"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "First launch",
+      "steps": [
+        "Open app",
+        "Today's word shown at once in the device language",
+        "Tap pronounce",
+        "Add Lock Screen widget from the system editor"
+      ]
+    },
+    {
+      "name": "Slow pace",
+      "steps": [
+        "Settings: pace '1 a settimana'",
+        "Widget and Today keep the same word for 7 days"
+      ]
+    },
+    {
+      "name": "Save and review",
+      "steps": [
+        "Save today's word",
+        "Three days later Saved shows 'Ripassa (2)'",
+        "Review: reveal, 'La sapevo'",
+        "Interval grows"
+      ]
+    },
+    {
+      "name": "Known word",
+      "steps": [
+        "Tap 'La so già'",
+        "Next word in band replaces it, widget reloads timeline"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "Word (bundled, read-only)",
+        "fields": [
+          {
+            "name": "id",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "lemma",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "language",
+            "type": "String",
+            "note": "it or en"
+          },
+          {
+            "name": "partOfSpeech",
+            "type": "String",
+            "note": ""
+          },
+          {
+            "name": "definition",
+            "type": "String",
+            "note": "short gloss, reviewed"
+          },
+          {
+            "name": "example",
+            "type": "String?",
+            "note": ""
+          },
+          {
+            "name": "frequencyBand",
+            "type": "Int 1-5",
+            "note": "difficulty"
+          },
+          {
+            "name": "topics",
+            "type": "[String]",
+            "note": ""
+          },
+          {
+            "name": "conceptID",
+            "type": "String?",
+            "note": "shared ID linking IT and EN entries (e.g. ILI of Open Multilingual Wordnet)"
+          },
+          {
+            "name": "source",
+            "type": "String",
+            "note": "dataset and licence, for attribution"
+          }
+        ]
+      },
+      {
+        "name": "SavedWord (SwiftData)",
+        "fields": [
+          {
+            "name": "wordID",
+            "type": "Int",
+            "note": ""
+          },
+          {
+            "name": "savedAt",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "dueAt",
+            "type": "Date",
+            "note": "review scheduler"
+          },
+          {
+            "name": "step",
+            "type": "Int",
+            "note": "interval index"
+          }
+        ]
+      },
+      {
+        "name": "Shown (SwiftData)",
+        "fields": [
+          {
+            "name": "wordID",
+            "type": "Int",
+            "note": "never repeat"
+          },
+          {
+            "name": "shownOn",
+            "type": "Date",
+            "note": ""
+          },
+          {
+            "name": "known",
+            "type": "Bool",
+            "note": "'La so già'"
+          }
+        ]
+      },
+      {
+        "name": "Settings",
+        "fields": [
+          {
+            "name": "language, pace, band, topics, notifyAt, voiceID",
+            "type": "AppStorage in App Group defaults",
+            "note": "shared with the widget"
+          }
+        ]
+      }
+    ],
+    "storage": "Dictionary: read-only SQLite in the bundle (libsqlite3), built offline by a repo tool from licence-cleared sources, about 3000 entries per language. User state: SwiftData in the App Group container, read by the widget through a small snapshot of today's word. Optional iCloud sync per ADR-0008, off by default."
+  },
+  "monetization": {
+    "model": "Free download with Vocabulary Premium auto-renewing subscription (weekly/monthly/yearly) after a 3-day trial",
+    "price": "Not in the lookup; reviews cite $3.99/month, $35.99-$64.94 per year, four annual tiers between $10 and $60",
+    "paywalled_features": [
+      "viewing saved words",
+      "practice games and journey chapters",
+      "widget and theme customisation",
+      "quiz results",
+      "categories"
+    ],
+    "notes": "The paywall appears after a long setup quiz (8 reviews); the promised pre-renewal reminder does not arrive (20 reviews on trial charges). Marketing pushed through notifications and Live Activities."
+  },
+  "pains": [
+    {
+      "pain": "Everything paywalled, wants free or one-time",
+      "mentions": 22,
+      "evidence": "to view ur saved/hearted words, u have to join their membership",
+      "becomes": "skip: free, nothing to unlock (Saved words, Review, widgets are P0)"
+    },
+    {
+      "pain": "Charged after trial without the promised reminder, or after cancelling",
+      "mentions": 20,
+      "evidence": "I explicitly checked the option to notify me before the subscription was renewed. It did not notify me",
+      "becomes": "skip: no subscription"
+    },
+    {
+      "pain": "Difficulty wrong: too easy or uselessly obscure",
+      "mentions": 12,
+      "evidence": "there absolutely needs be a way to fine-tune the difficulty",
+      "becomes": "Difficulty by frequency"
+    },
+    {
+      "pain": "Wrong definitions, synonyms or examples",
+      "mentions": 11,
+      "evidence": "A lot of the definitions or uses of words are flat out incorrect",
+      "becomes": "Definitions you can trust"
+    },
+    {
+      "pain": "Notification spam, pop-ups, cannot set the pace",
+      "mentions": 9,
+      "evidence": "notifying about 30 times a day",
+      "becomes": "Pace you choose"
+    },
+    {
+      "pain": "Long setup quiz, then paywall",
+      "mentions": 8,
+      "evidence": "spend 5 minutes setting up your preferences are you presented with the paywall",
+      "becomes": "Start without setup"
+    },
+    {
+      "pain": "Mispronunciation or pronunciation button silent",
+      "mentions": 5,
+      "evidence": "the AI voice mispronounces words. It said \"solace\" as \"soul-less.\"",
+      "becomes": "Pronunciation"
+    },
+    {
+      "pain": "Distrust of AI-generated words, images, ads",
+      "mentions": 5,
+      "evidence": "it gave me a word that doesn't exist",
+      "becomes": "Definitions you can trust"
+    },
+    {
+      "pain": "Words repeat, cannot skip known words",
+      "mentions": 5,
+      "evidence": "I've had Smellfungus 3 or 4 times in the first two months",
+      "becomes": "No repeats, skip known"
+    },
+    {
+      "pain": "Sexual or invented words, no category filter",
+      "mentions": 4,
+      "evidence": "it seems to push sexual terms, specifically on the widget",
+      "becomes": "Clean list"
+    },
+    {
+      "pain": "Widget inconsistent or not working",
+      "mentions": 4,
+      "evidence": "Inconsistency between widgets on home and lock screen",
+      "becomes": "Widget that just works"
+    },
+    {
+      "pain": "No Italian, wants other languages",
+      "mentions": 3,
+      "evidence": "I can't change the language to italian",
+      "becomes": "Italian and English words"
+    },
+    {
+      "pain": "UI bugs (truncated word, blank screen, small text)",
+      "mentions": 3,
+      "evidence": "the box that held the word was too small",
+      "becomes": "skip: quality bar; Dynamic Type and accessibility audits"
+    },
+    {
+      "pain": "Wants review of learnt words",
+      "mentions": 1,
+      "evidence": "the possibility to review words so as to easily remember words",
+      "becomes": "Review"
+    },
+    {
+      "pain": "Wants etymology",
+      "mentions": 1,
+      "evidence": "accompagnate le vostre parole ... della sua etimologia",
+      "becomes": "Etymology"
+    },
+    {
+      "pain": "Wants Vision Pro or Apple TV",
+      "mentions": 1,
+      "evidence": "Needs to be on Vision Pro",
+      "becomes": "skip: iPhone only in 1.0"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Themes and paid backgrounds",
+      "reason": "Design system: paper surface only, no decorative themes."
+    },
+    {
+      "feature": "Journey, games, streaks, achievements",
+      "reason": "Gamification for retention; Review covers learning."
+    },
+    {
+      "feature": "AI-generated images and definitions",
+      "reason": "Accuracy pain and review distrust."
+    },
+    {
+      "feature": "Live Activities, promotional notifications",
+      "reason": "Used for marketing in the original; 4.5.4 forbids push marketing without consent."
+    },
+    {
+      "feature": "Apple Watch, Vision Pro, Apple TV",
+      "reason": "Out of 5-day scope."
+    },
+    {
+      "feature": "Account, analytics, cloud word sync",
+      "reason": "Product rules."
+    },
+    {
+      "feature": "Wiktionary IT import as-is",
+      "reason": "CC BY-SA share-alike conflicts with the MIT/Apache-only rule (see dependencies)."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "WidgetKit (accessory widgets)",
+      "min_ios": "16.0",
+      "use": "Lock and Home Screen widgets, timeline at midnight."
+    },
+    {
+      "name": "SwiftData",
+      "min_ios": "17.0",
+      "use": "Saved words and history in the App Group container."
+    },
+    {
+      "name": "SQLite3 (libsqlite3)",
+      "min_ios": "2.0",
+      "use": "Read-only bundled dictionary."
+    },
+    {
+      "name": "AVFoundation (AVSpeechSynthesizer)",
+      "min_ios": "7.0",
+      "use": "Pronunciation with system voices."
+    },
+    {
+      "name": "UIKit UIReferenceLibraryViewController",
+      "min_ios": "5.0",
+      "use": "Full entry in the iOS system dictionary, no data licence needed."
+    },
+    {
+      "name": "UserNotifications",
+      "min_ios": "10.0",
+      "use": "Optional local notification per new word, asked only when enabled."
+    },
+    {
+      "name": "FoundationModels",
+      "min_ios": "26.0",
+      "use": "P2 optional extra example, labelled; fallback on iOS 17-25 or without Apple Intelligence: hidden."
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "Princeton WordNet 3.0/3.1",
+      "kind": "data",
+      "licence": "WordNet 3.0 licence (Princeton University; permissive, BSD-like, attribution and copyright notice required)",
+      "use": "English lemmas, glosses, synsets",
+      "conflict": "Not MIT or Apache. Permissive and compatible in practice, but the user's rule is MIT/Apache only: needs an explicit decision. Data is from 2006-2011 and its glosses are dated and terse, which feeds the 'wrong definition' pain.",
+      "alternative": "Open English WordNet (2024 edition, CC BY 4.0, maintained fork of WordNet) — also not MIT/Apache, attribution only; or the self-curated list below."
+    },
+    {
+      "name": "Wiktionary (Italian)",
+      "kind": "data",
+      "licence": "CC BY-SA 4.0 (and GFDL), share-alike with attribution to contributors",
+      "use": "Italian lemmas, definitions, etymology",
+      "conflict": "Strong conflict: share-alike means the derived word database must itself be distributed under CC BY-SA with attribution, which the MIT/Apache-only rule excludes. Do not import.",
+      "alternative": "Italian wordnet linked through Open Multilingual Wordnet (ItalWordNet ODC-BY 1.0 or MultiWordNet-IT CC BY 3.0, licences to verify) — attribution, not share-alike, still not MIT/Apache; or the self-curated list."
+    },
+    {
+      "name": "Recommended: self-curated list",
+      "kind": "data",
+      "licence": "Own work (Sbu), no third-party licence",
+      "use": "About 3000 words per language chosen by frequency band, short glosses and examples written and reviewed in-house; full entry via the iOS system dictionary (UIReferenceLibraryViewController)",
+      "conflict": "None. Cost: curation effort not included in the 5-day estimate (about 2-3 extra days per language, or ship with a smaller list).",
+      "alternative": "If a dataset is accepted, Open English WordNet (CC BY 4.0) for English with attribution in Impostazioni → Licenze."
+    }
+  ],
+  "review_risks": [
+    {
+      "rule": "4.3(b) saturated category (June 2026 rewrite)",
+      "risk": "Word-of-the-day apps are crowded and close to the 'well established' categories; Apple asks for a meaningfully different experience.",
+      "mitigation": "State the difference: no subscription, bilingual Italian/English list, definitions reviewed, pace control, Review without games. Submit alone, not with a lot."
+    },
+    {
+      "rule": "4.1(a) copycats",
+      "risk": "Vocabulary's look (big word on a themed photo background, vertical swipe feed, onboarding quiz) is distinctive.",
+      "mitigation": "Paper surface, one word per day (no infinite feed), no themes, no onboarding; never name Vocabulary in metadata."
+    },
+    {
+      "rule": "5.2.1 intellectual property / data licences",
+      "risk": "Shipping a dictionary derived from CC BY-SA or attribution-only data without the required notices, or Wiktionary content under the wrong licence.",
+      "mitigation": "Use only cleared data (dependencies), attribution in Impostazioni → Licenze, build tool records source and licence per entry."
+    },
+    {
+      "rule": "4.5.4 push notifications",
+      "risk": "Notifications used for engagement or marketing (the original's pain).",
+      "mitigation": "Local notifications only, off by default, one per new word, asked at the toggle."
+    },
+    {
+      "rule": "4.3(a) / 4.2.6 same developer, template",
+      "risk": "Shared SbuKit and naming after the 14/10 lot rejection.",
+      "mitigation": "Review note 'How it differs from the other Sbu apps'; no other Sbu app overlaps (education, words)."
+    },
+    {
+      "rule": "5.1.1 privacy and License Agreement 3.3.8(I) Foundation Models",
+      "risk": "Generated content presented as fact; data collection claims.",
+      "mitigation": "Foundation Models only for an optional, labelled example on iOS 26, off by default; Data Not Collected."
+    }
+  ],
+  "estimate_days": 5,
+  "source": {
+    "listing": "research/words/listing.json",
+    "reviews": "research/words/reviews.json (102 reviews, 1-3 stars, US 88 + IT 14, all read and classified)",
+    "fetched": "2026-10-15"
+  }
+}

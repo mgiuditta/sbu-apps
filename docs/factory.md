@@ -93,3 +93,32 @@ Le 5 fatte (Level, Habits, Noise, Moon, Speed) più 20. Dalle classifiche top-pa
 **Riserve**, se una delle prime salta: Due (promemoria insistenti, it24), AutoSnore (it72), Sun Seeker (us91), Print to Size (us68), Color Wheel (it87).
 
 Scartate per ora: servono server o rete (Blitzer, Threema, Veicolo+, Rilevatore Terremoto, IPTV, Goblin Tools), sono troppo grandi per ottobre (Procreate, Nomad Sculpt, LumaFusion, FL Studio), oppure stanno in una nicchia che abbiamo già (TonalEnergy con Tuner, Bear Focus Timer con Intervals).
+
+## Roadmap a wave: 12 app che sostituiscono un abbonamento (15 ottobre 2026)
+
+Dodici app in priorità, ognuna sostituisce un'app ad abbonamento. Dati pubblici in `research/<slug>/` (`listing.json`, `reviews.json`: lookup e recensioni 1-3 stelle US e IT), spec in `specs/<slug>/spec.json`, analisi dei rischi in `docs/roadmap-review-2026-10.md`. Stato di tutte: **planned**.
+
+Cinque di queste coincidono con app già in coda o già scritte: non diventano una seconda App Sbu (ADR-0004, regola 4.3 qui sopra), il nome della colonna "In repo" vince. Dove ci sono due originali, il primo è l'**Originale**, il secondo un **Concorrente**.
+
+| # | App | Slug | In repo | Originale (ID US) | Concorrente (ID) | Categoria | Accento | Giorni |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Sbu Sweep | `sweep` | **Sbu Clean** (`Apps/SbuClean`, 1.0 rifiutata 4.3 il 14/10) | Cleanup (1510944943) | Swipewipe (1583884012) | Utility | `accent-clean` | 6 |
+| 2 | Sbu Scan | `scan` | **Sbu Docs** (in coda, Originale da definire, #445) | CamScanner (388627783) | | Produttività | `accent-docs` | 7 |
+| 3 | Sbu Steps | `steps` | **Sbu Steps** (in coda su Stompers) | StepsApp (1037595083) | Stompers (6477849675) | Salute e fitness | `accent-steps` | 3 |
+| 4 | Sbu Auth | `auth` | **Sbu Authenticator** (in coda) | Authenticator App (6754900760) | | Utility | `accent-authenticator` | 3 |
+| 5 | Sbu Focus | `focus` | nuova | Forest (866450515) | | Produttività | `accent-focus` (da creare) | 4 |
+| 6 | Sbu Alarm | `alarm` | nuova | Alarmy (1163786766) | | Utility | `accent-alarm` (da creare) | 6 |
+| 7 | Sbu Remote | `remote` | **Sbu Remote** (in coda) | TV Remote Universal (1539090879) | Universal TV Remote (1439422220) | Utility | `accent-remote` | 10 |
+| 8 | Sbu Cycle | `cycle` | **Sbu Cycle** (in coda) | Flo (1038369065) | WomanLog Pro (429135422) | Salute e fitness | `accent-cycle` | 6 |
+| 9 | Sbu Lift | `lift` | nuova | Hevy (1458862350) | Lyfta (6443740936) | Salute e fitness | `accent-lift` (da creare) | 8 |
+| 10 | Sbu Collage | `collage` | nuova | SCRL (1289057196) | | Foto e video | `accent-collage` (da creare) | 6 |
+| 11 | Sbu PDF | `pdf` | nuova | GoodReader (777310222) | | Produttività | `accent-pdf` (da creare) | 6 |
+| 12 | Sbu Words | `words` | nuova | Vocabulary (1084540807) | | Istruzione | `accent-words` (da creare) | 5 |
+
+Gli accenti "da creare" vanno aggiunti in `Design/tokens.json` con `sync_tokens.py` quando l'app parte, non prima: nessun colore inventato in anticipo.
+
+**Wave 1:** Level, Sweep (Clean), Scan (Docs), Steps, Auth, Chats.
+**Wave 2:** Focus, Alarm, Cycle, Habits, Cards.
+**Wave 3:** Remote, Lift, Collage, PDF, Words, Noise, Dark + Block.
+
+Note sulle wave: Level è stata rifiutata il 14/10 e tolta dal sito il 15/10, quindi "in corso" vale solo per la risposta al Resolution Center. Chats non ha traccia nella repo (nessuna spec, nessun ticket): da definire prima di entrare in Wave 1. Focus sta nella nicchia che ha già fatto scartare Bear Focus Timer (Intervals), Alarm in quella della sveglia di Sbu Noise: vedi l'analisi.

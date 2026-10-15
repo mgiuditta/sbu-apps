@@ -1,0 +1,96 @@
+{
+  "name": "Sbu Chats",
+  "slug": "chats",
+  "in_repo": null,
+  "replaces": [
+    {"name": "The Cringe: Chat Wrapped", "app_store_id": "6766070732", "role": "originale", "price_model": "free download, subscription required for all detailed stats and reports", "version": "1.1.5", "rating": 4.14, "rating_count": 446},
+    {"name": "ChatScope: Message Analysis", "app_store_id": "6745802989", "role": "concorrente", "price_model": "free download, in-app purchase", "version": "1.0.30", "rating": 4.45, "rating_count": 139},
+    {"name": "ChatRecap AI - Chat Analysis", "app_store_id": "6738325645", "role": "concorrente", "price_model": "free for WhatsApp only, $3.99-4.99/week, one analysis per 24h, server-side AI", "version": "3.0.1", "rating": 3.88, "rating_count": 228}
+  ],
+  "reference_outside_app_store": "WhatStat (Google Play, com.whatstats, L. Scialpi): feature list used as a checklist only. ADR-0003: the spec is grounded on the App Store apps above.",
+  "one_thing": "Turns an exported chat into its numbers, on the phone, and closes on one figure: how many messages you and the other person have sent.",
+  "features": [
+    {"name": "Import an exported chat", "description": "Receive a .zip (with or without media) or .txt from the share sheet or Files; iOS and Android export formats; streaming line by line, never the whole file in memory.", "priority": "P0", "reason": "Every original's entry point. CFBundleDocumentTypes + UTImportedTypeDeclarations for public.zip-archive and public.plain-text; fileImporter for Files.", "source": "original"},
+    {"name": "Who are you", "description": "On first import, pick which sender is you; remembered across chats.", "priority": "P0", "reason": "The export doesn't say who the owner is; every 'you vs them' stat needs it.", "source": "original"},
+    {"name": "Chat overview", "description": "Total messages as the one figure, then per sender: messages, words, media, who starts and who ends conversations, longest streak of consecutive days.", "priority": "P0", "reason": "The Cringe's paywalled dashboard: 'total message count for each person', 'complete statistical dashboard'.", "source": "original"},
+    {"name": "Response time", "description": "Median and average reply time per sender, from sender changes, capped at 24 h so overnight gaps don't skew it.", "priority": "P0", "reason": "Headline paid stat in The Cringe and ChatScope ('who replies faster').", "source": "original"},
+    {"name": "Activity charts", "description": "Messages by hour, weekday, month and year, split by sender, with touch selection.", "priority": "P0", "reason": "Swift Charts, one GROUP BY strftime query per axis.", "source": "original"},
+    {"name": "Top words and emoji", "description": "Most used words (stopwords removed, IT/EN/DE/ES/FR/PT) and emoji per sender, emoji counted per grapheme cluster (ZWJ, skin tones).", "priority": "P0", "reason": "The Cringe 'word frequencies', Luvlog 'most used words, emojis'. NLTokenizer + Character.unicodeScalars properties.", "source": "original"},
+    {"name": "Date range filter", "description": "All, 30 days, 6 months, 1 year, custom range; applies to every stat.", "priority": "P0", "reason": "Needed to read any trend; DatePicker.", "source": "original"},
+    {"name": "Every stat free, no daily limit", "description": "No 'locked' cards, no 24 h cooldown between analyses, unlimited chats.", "priority": "P1", "reason": "21 of 45 reviews: everything paid, weekly price, one analysis per 24 h, stats shown as 'locked'.", "source": "pain"},
+    {"name": "Import that tells you why it failed", "description": "Parser tolerant to locales (dd/mm vs mm/dd detected from values > 12, 12/24 h, U+200E and U+202F), localized 'media omitted' strings in 8 languages; when a file isn't read, a plain error naming the line format found, never an endless spinner.", "priority": "P1", "reason": "17 of 45 reviews: upload freezes, 'error', 'only found a few messages' on Spanish chats.", "source": "pain"},
+    {"name": "Truncation notice", "description": "Onboarding and the overview say WhatsApp exports at most about 40,000 messages without media and 10,000 with media, the most recent ones; the overview shows the first date found.", "priority": "P1", "reason": "Honest numbers: the 'reliability of figures' doubt (2 reviews) and the export limit.", "source": "pain"},
+    {"name": "Re-import and merge", "description": "Importing a newer export of the same chat merges it: key = chat name + hash of overlapping lines; duplicates dropped.", "priority": "P1", "reason": "Only way to build history past the export limit.", "source": "original"},
+    {"name": "Word search", "description": "Search every message, exact phrase, AND/OR, filter by sender; shows who said it and when.", "priority": "P1", "reason": "WhatStat 'Word Radar'; system SQLite FTS5.", "source": "original"},
+    {"name": "Milestone forecast", "description": "When the chat reaches 10k/50k/100k or a custom count, at the pace of the last 30 or 90 days.", "priority": "P2", "reason": "WhatStat feature; 0.5 day.", "source": "original"},
+    {"name": "Media gallery", "description": "Photos and videos from a with-media export, grid by date, QuickLook viewer; text-only import by default, media on request, delete media per chat; media excluded from backup.", "priority": "P2", "reason": "WhatStat feature; zips reach GB, so off by default.", "source": "original"},
+    {"name": "Share card", "description": "One stat rendered as a 1080x1920 PNG with ImageRenderer and shared with ShareLink.", "priority": "P2", "reason": "'Wrapped' is The Cringe's hook; no third-party URL schemes.", "source": "original"},
+    {"name": "Monthly reminder to re-export", "description": "Optional local notification, off by default.", "priority": "P2", "reason": "Replaces WhatStat's live Root Mode, impossible on iOS.", "source": "original"}
+  ],
+  "screens": [
+    {"name": "Chats", "purpose": "List of imported chats (List .insetGrouped), import button, empty state explaining how to export from the messaging app.", "elements": ["chat rows: name, messages, date range", "Import (fileImporter)", "Settings sheet"]},
+    {"name": "Chat", "purpose": "The tool screen on surface: one figure (total messages, SbuStat + SbuFullStop), range filter, then per-sender sections.", "elements": ["SbuStat total messages", "range picker", "you vs them: messages, words, media, starts, ends", "response time median", "streak"]},
+    {"name": "Activity", "purpose": "Charts by hour, weekday, month, year.", "elements": ["Swift Charts BarMark/LineMark", "chartXSelection", "sender split"]},
+    {"name": "Words", "purpose": "Top words and emoji per sender, and search.", "elements": ["ranked lists", "searchable field with AND/OR"]},
+    {"name": "Who are you", "purpose": "First-import sheet to pick the owner among senders.", "elements": ["sender list", "Conferma"]},
+    {"name": "Import error", "purpose": "Explains a file that couldn't be read.", "elements": ["what was found", "how to export again", "mailto with the first line, only if the user chooses"]}
+  ],
+  "flows": [
+    {"name": "First import", "steps": ["In the messaging app: chat > Export chat > without media", "Share sheet > Sbu Chats", "Parse with progress", "Pick who you are", "Chat screen with the total"]},
+    {"name": "Update a chat", "steps": ["Export the same chat again", "Share to Sbu Chats", "App recognises the chat and merges", "Overview says how many new messages were added"]},
+    {"name": "Delete", "steps": ["Swipe a chat > Elimina", "Confirm (SbuButton .destructive)", "Messages, index and media removed"]}
+  ],
+  "data_model": {
+    "entities": [
+      {"name": "chat", "fields": [{"name": "id", "type": "INTEGER", "note": "primary key"}, {"name": "title", "type": "TEXT", "note": "from file name"}, {"name": "owner_sender", "type": "TEXT", "note": "who you are"}, {"name": "first_at", "type": "REAL", "note": ""}, {"name": "last_at", "type": "REAL", "note": ""}, {"name": "source_format", "type": "TEXT", "note": "ios | android"}]},
+      {"name": "message", "fields": [{"name": "id", "type": "INTEGER", "note": ""}, {"name": "chat_id", "type": "INTEGER", "note": "FK"}, {"name": "sent_at", "type": "REAL", "note": "indexed with chat_id"}, {"name": "sender", "type": "TEXT", "note": "NULL for system messages"}, {"name": "text", "type": "TEXT", "note": ""}, {"name": "kind", "type": "TEXT", "note": "text | media | omitted_media | system"}, {"name": "line_hash", "type": "BLOB", "note": "for merge de-dup"}]},
+      {"name": "media", "fields": [{"name": "message_id", "type": "INTEGER", "note": ""}, {"name": "file_name", "type": "TEXT", "note": "Application Support/<chat>/media, isExcludedFromBackup"}, {"name": "type", "type": "TEXT", "note": "photo | video | audio | document"}]},
+      {"name": "message_fts", "fields": [{"name": "text", "type": "FTS5", "note": "unicode61, content=message"}, {"name": "sender", "type": "FTS5 UNINDEXED", "note": ""}]}
+    ],
+    "storage": "System SQLite (libsqlite3, FTS5 included) in Application Support, not SwiftData: 40k+ rows per chat and full-text search. Wrapped in a small type with Swift Testing tests. No iCloud: chats contain other people's personal data."
+  },
+  "monetization": {"model": "free download with subscription", "price": "The Cringe: subscription for all detailed stats; ChatRecap AI $3.99-4.99/week, one analysis per 24 h", "paywalled_features": ["response times", "word frequencies", "full statistical dashboard", "platforms other than WhatsApp (ChatRecap)", "more than one analysis per day (ChatRecap)"], "notes": "ChatRecap uploads chats for server AI analysis; The Cringe and ChatScope claim on-device processing."},
+  "pains": [
+    {"pain": "Everything paid: subscription for any detail, weekly price, one analysis per 24 h, stats shown as 'locked', no trial", "mentions": 21, "evidence": "\"$3.99 a week to only be able to use it once a day.\"", "becomes": "Every stat free, no daily limit"},
+    {"pain": "Import or analysis fails: upload freezes, endless loading, error on files, few messages found on non-English chats", "mentions": 17, "evidence": "\"Solo se encontraron unos pocos mensajes. Verifica que exportaste\"", "becomes": "Import that tells you why it failed"},
+    {"pain": "Only works with WhatsApp; wants iMessage, Instagram", "mentions": 8, "evidence": "\"the fact that the only free option is whatsapp is CRAZY\"", "becomes": "skip: iMessage has no export on iOS; Instagram data download is a different, changing format (P2 later, not v1)"},
+    {"pain": "Doesn't tell senders apart or figures not trustworthy", "mentions": 2, "evidence": "\"non so quanto siano affidabili le cifre\"", "becomes": "Truncation notice"},
+    {"pain": "Privacy fear: 'steals your information'", "mentions": 1, "evidence": "\"This is a scam, it steals ur information\"", "becomes": "No network at all; stated in onboarding and Settings promises"}
+  ],
+  "pains_note": "45 reviews from The Cringe, ChatScope, ChatRecap AI and RealTalk (research/chats/reviews.json), counted by hand. Luvlog's 14 reviews are excluded: it is an 'online status tracker' that needs a server, a different and riskier niche.",
+  "skipped": [
+    {"feature": "Live reading of the messaging app's database (WhatStat Root Mode)", "reason": "Impossible on iOS: no app can read another app's container."},
+    {"feature": "AI relationship analysis ('what they feel')", "reason": "Server-side in ChatRecap and RealTalk; on-device Foundation Models could do it but it judges third parties from their private messages: out of the one thing and a 5.1.2 risk."},
+    {"feature": "Online status tracking (Luvlog)", "reason": "Needs a server and the other person's account: surveillance, not stats."},
+    {"feature": "Trophies and badges", "reason": "Gamification outside the design system; the streak stays as a number."},
+    {"feature": "Instagram Stories deep link", "reason": "ShareLink covers it without a third-party URL scheme."},
+    {"feature": "Ads, free vs pro", "reason": "Sbu principles."}
+  ],
+  "system_frameworks": [
+    {"name": "SQLite3 (FTS5)", "min_ios": "17", "use": "storage, aggregates, full-text search"},
+    {"name": "Compression (raw DEFLATE)", "min_ios": "17", "use": "unzip: own reader of the ZIP central directory (stored + deflate), streamed; no third-party unzip library"},
+    {"name": "Swift Charts", "min_ios": "17", "use": "activity charts, chartXSelection"},
+    {"name": "NaturalLanguage", "min_ios": "17", "use": "NLTokenizer for words, language detection for stopwords"},
+    {"name": "UniformTypeIdentifiers", "min_ios": "17", "use": "document types, share sheet"},
+    {"name": "QuickLook, AVFoundation, ImageIO", "min_ios": "17", "use": "media gallery thumbnails and viewer (P2)"},
+    {"name": "UserNotifications", "min_ios": "17", "use": "monthly reminder (P2)"}
+  ],
+  "dependencies": [],
+  "dependencies_note": "The feasibility note proposed GRDB.swift and ZIPFoundation (both MIT). CLAUDE.md allows apps to depend only on SbuKit and Apple frameworks, so both are replaced: system sqlite3 and a ZIP reader on the Compression framework (about 150 lines, tested on real exports).",
+  "review_risks": [
+    {"rule": "4.3(a)/(b) and 4.2.6, lot rejection of 14/10", "risk": "New Sbu app while six are in the Resolution Center; 'chat wrapped' apps are a small but growing niche.", "mitigation": "Submit only after Apple answers the 14/10 lot, one per week; review notes: the only Sbu app that reads files from another app's export, no overlap with the others."},
+    {"rule": "5.2.5 and trademark, 2.3.7 metadata", "risk": "Using 'WhatsApp' in name, subtitle, icon or keywords.", "mitigation": "Never in name, subtitle, keywords or screenshots. docs/factory.md forbids third-party app names in Store metadata: the description says 'chat esportate (.txt o .zip)'; the WhatsApp how-to lives on sbu.dev and in the in-app help, with 'WhatsApp è un marchio di Meta Platforms, Inc.; Sbu non è affiliata'."},
+    {"rule": "5.1.1 / 5.1.2(i)", "risk": "Exports contain other people's personal data.", "mitigation": "Nothing leaves the device, no iCloud, Privacy label 'Data Not Collected', delete per chat; review notes say so. No AI judgement of third parties."},
+    {"rule": "2.1 completeness", "risk": "Reviewer has no chat to export.", "mitigation": "Bundled sample chat (written by us) behind 'Prova con una chat di esempio', and a screen recording in the notes."},
+    {"rule": "2.5.1 public APIs", "risk": "Any attempt to read another app's data.", "mitigation": "Only files the user shares or picks."},
+    {"rule": "4.1 copycats", "risk": "Copying The Cringe's 'wrapped' look.", "mitigation": "Sbu design system, one figure on surface, own copy and icon."}
+  ],
+  "decisions_needed": [
+    "Target iOS 17 (ADR-0002), not iOS 26 as in the feasibility note.",
+    "No full-field coloured dashboard: every screen sits on surface (CLAUDE.md).",
+    "Store description without the word WhatsApp, or an exception to the factory rule."
+  ],
+  "estimate_days": 12,
+  "estimate_note": "12-15 days for 1.0; a first release with import, overview, response time, charts, words, filter and merge is about 8 days.",
+  "source": {"listing": "research/chats/listing.json (5 App Store apps, US and IT)", "reviews": "research/chats/reviews.json (59 reviews 1-3 stars, 45 used)", "fetched": "2026-10-15", "feasibility": "WhatStat feasibility note pasted by Matteo, 2026-10-15"}
+}

@@ -9,6 +9,7 @@ struct RootView: View {
         SbuAppShell("Sbu Level", slug: "level", accent: SbuTheme.accentLevel, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
+            InfoSection()
             UnitSection(model: model)
             LockSection(model: model)
             VoiceSection(model: model)

@@ -165,6 +165,22 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheInfoPageExplainsModesUnitsAndLimits() throws {
+        let app = launch()
+        app.buttons["Impostazioni"].tap()
+        let info = app.buttons["Come si usa"]
+        XCTAssertTrue(info.waitForExistence(timeout: 5))
+
+        info.tap()
+
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Sul bordo'")).firstMatch.waitForExistence(timeout: 5))
+        let limits = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'I limiti del sensore'")).firstMatch
+        XCTAssertTrue(scroll(app, to: limits))
+        // As in the sheets: the audit flags the bar of the iOS 26 sheet ("no element"), not the rows.
+        try audit(app, excluding: [.contrast, .dynamicType, .textClipped])
+    }
+
+    @MainActor
     func testFlatShowsTheBubbleAndItsAxesWithoutTheDial() throws {
         let app = launch(gravity: "flat")
         let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
@@ -257,13 +273,18 @@ final class LevelFlowTests: XCTestCase {
         let app = launch()
 
         app.buttons["Impostazioni"].tap()
-        XCTAssertTrue(app.switches["Schermo sempre acceso"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.switches["Schermo sempre acceso"].value as? String, "1")
-        XCTAssertTrue(app.buttons["Calibra"].exists)
-        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggi ad alta voce'")).firstMatch.exists)
+        XCTAssertTrue(app.buttons["Come si usa"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Unità di misura'")).firstMatch.exists)
         XCTAssertTrue(app.switches["Blocca a lettura stabile"].exists)
-        XCTAssertTrue(app.switches["Suono alla misura"].exists)
         XCTAssertTrue(app.switches["Blocca col tasto volume nel mirino"].exists)
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggi ad alta voce'")).firstMatch.exists)
+        try audit(app, excluding: [.contrast, .dynamicType])
+
+        let screenOn = app.switches["Schermo sempre acceso"]
+        XCTAssertTrue(scroll(app, to: screenOn))
+        XCTAssertEqual(screenOn.value as? String, "1")
+        XCTAssertTrue(app.switches["Suono alla misura"].exists)
+        XCTAssertTrue(scroll(app, to: app.collectionViews.buttons["Calibra"]))
 
         // Dynamic Type is left out as in the other apps: in the settings sheet the audit flags
         // every text as partially unsupported, system ones included.

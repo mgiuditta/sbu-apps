@@ -5,6 +5,20 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Fotografa le cose che hai, mettile in cartelle come i posti di casa e sai sempre dove sono e quante. In alto vedi il totale: quanti oggetti hai.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Nessun limite di oggetti, cartelle o foto
+- Fino a 8 foto per oggetto, dalla fotocamera o dalle tue foto, già dritte e leggere
+- Cartelle dentro cartelle, quanto vuoi: Casa › Garage › Scatola 3
+- Quantità con − e +, oppure scritta a mano; ogni cartella conta tutto quello che contiene
+- Cerca per nome, note, tag, etichetta e campi, in tutto l'inventario o in una cartella, con il percorso di ogni risultato
+- Tag con suggerimenti, e la ricerca per tag
+- Campi tuoi: testo, numero, data o importo, come Numero di serie o Garanzia fino al
+- Prezzo e data d'acquisto, con il valore di ogni cartella e di tutto l'inventario
+- Trova dall'etichetta: inquadra un codice a barre o un QR già su un oggetto o su una scatola e si apre. Il codice è solo un'etichetta per ritrovare le cose
+- Da ricomprare: una quantità minima per oggetto, l'elenco di cosa manca e, se lo attivi, un promemoria all'ora che scegli
+- Esporta tutto in CSV o in un archivio con le foto, e reimportalo quando vuoi
+- Prova con un esempio, per vedere com'è prima di cominciare
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: tiene in un posto tutto quello che hai, con la foto, dove si trova e quanti sono.

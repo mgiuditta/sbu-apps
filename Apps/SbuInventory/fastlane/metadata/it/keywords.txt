@@ -1,1 +1,1 @@
-
+inventario,casa,oggetti,cartelle,scatole,trasloco,magazzino,etichette,codice a barre,foto,garanzia

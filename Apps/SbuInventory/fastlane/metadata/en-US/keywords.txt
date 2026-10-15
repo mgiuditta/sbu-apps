@@ -1,1 +1,1 @@
-
+home inventory,belongings,storage,boxes,moving,stock,catalog,barcode,labels,warranty,organizer

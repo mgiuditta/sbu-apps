@@ -96,11 +96,41 @@ with zipfile.ZipFile(os.path.join(OUT, "WhatsApp Chat - Anna Rossi.zip"), "w", z
     z.writestr("__MACOSX/._chat.txt", b"resource fork")
 with zipfile.ZipFile(os.path.join(OUT, "android-stored.zip"), "w", zipfile.ZIP_STORED) as z:
     z.writestr("WhatsApp Chat with Marta.txt", ("\n".join(android_it) + "\n").encode("utf-8"))
-with zipfile.ZipFile(os.path.join(OUT, "zip64.zip"), "w", zipfile.ZIP_DEFLATED, allowZip64=True) as z:
+zip64 = os.path.join(OUT, "zip64.zip")
+with zipfile.ZipFile(zip64, "w", zipfile.ZIP_DEFLATED, allowZip64=True) as z:
     with z.open("_chat.txt", "w", force_zip64=True) as f:
         f.write(ios_text)
+# Python writes the 64-bit end records only past the 32-bit limits: add them, as big exports have,
+# and point the classic end record at them.
+data = open(zip64, "rb").read()
+end = data.rfind(b"PK\x05\x06")
+count = int.from_bytes(data[end + 10:end + 12], "little")
+cd_size = int.from_bytes(data[end + 12:end + 16], "little")
+cd_offset = int.from_bytes(data[end + 16:end + 20], "little")
+end64_offset = cd_offset + cd_size
+end64 = (b"PK\x06\x06" + (44).to_bytes(8, "little") + (45).to_bytes(2, "little") * 2 + bytes(8)
+         + count.to_bytes(8, "little") * 2 + cd_size.to_bytes(8, "little") + cd_offset.to_bytes(8, "little"))
+locator = b"PK\x06\x07" + bytes(4) + end64_offset.to_bytes(8, "little") + (1).to_bytes(4, "little")
+classic = b"PK\x05\x06" + bytes(4) + b"\xff\xff" * 2 + b"\xff\xff\xff\xff" * 2 + bytes(2)
+with open(zip64, "wb") as f:
+    f.write(data[:end64_offset] + end64 + locator + classic)
 with zipfile.ZipFile(os.path.join(OUT, "photos-only.zip"), "w", zipfile.ZIP_DEFLATED) as z:
     z.writestr("IMG-20250113-WA0001.jpg", b"\xff\xd8\xff not a real photo")
+
+# Hostile archives. A ratio bomb: 8 MB of the same byte deflates more than a thousand times.
+with zipfile.ZipFile(os.path.join(OUT, "bomb-ratio.zip"), "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+    z.writestr("_chat.txt", b"[1/2/24, 10:00:00] Ada: " + b"a" * (8 * 1024 * 1024))
+
+# A lying bomb: 1 MB of text declared as 100 bytes in both headers, so the ratio looks harmless.
+lying = os.path.join(OUT, "bomb-lying-size.zip")
+with zipfile.ZipFile(lying, "w", zipfile.ZIP_DEFLATED) as z:
+    z.writestr("_chat.txt", ("[1/2/24, 10:00:00] Ada: ciao\n" * 36000).encode("utf-8"))
+data = bytearray(open(lying, "rb").read())
+local_size_at = 22  # uncompressed size in the local header
+data[local_size_at:local_size_at + 4] = (100).to_bytes(4, "little")
+central = data.rfind(b"PK\x01\x02")
+data[central + 24:central + 28] = (100).to_bytes(4, "little")
+open(lying, "wb").write(bytes(data))
 
 # A newer export of the iPhone chat: the two oldest lines cut by the export limit, three new messages
 # (two identical ones in the same minute, which must both stay).

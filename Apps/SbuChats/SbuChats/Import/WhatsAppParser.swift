@@ -46,11 +46,16 @@ nonisolated struct WhatsAppParser: ChatExportParser {
             let (kind, text) = MessageClassifier.classify(sender: current.header.sender, body: body)
             try emit(ParsedMessage(sentAt: date, sender: current.header.sender, kind: kind, text: text))
         }
+        // A message is bounded like a line: endless continuation lines never pile up in memory.
+        var pendingBytes = 0
         try source.forEachLine(progress: { progress(0.4 + $0 * 0.6) }) { line in
             if let header = WhatsAppLineScanner.header(of: line), order.accepts(header.dateFields) {
                 try flush()
                 pending = (header, [header.body])
-            } else {
+                pendingBytes = header.body.utf8.count
+            } else if pending != nil {
+                pendingBytes += line.utf8.count + 1
+                guard pendingBytes <= source.maximumLineBytes else { throw ImportFailure.lineTooLong }
                 pending?.lines.append(line)
             }
         }

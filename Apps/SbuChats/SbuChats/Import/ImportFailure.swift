@@ -16,6 +16,10 @@ nonisolated enum ImportFailure: Error, Equatable, Sendable {
     case unreadableDates(sampleLine: String)
     /// The file is empty, or only has system lines.
     case noMessages
+    /// More text than any export holds, or a ZIP that inflates far beyond its size.
+    case tooLarge
+    /// A line or a message longer than any message can be: a file without line breaks.
+    case lineTooLong
 
     /// What went wrong, as a title.
     var title: LocalizedStringResource {
@@ -27,6 +31,8 @@ nonisolated enum ImportFailure: Error, Equatable, Sendable {
         case .unrecognizedFormat: "Non riconosco il formato"
         case .unreadableDates: "Non riesco a leggere le date"
         case .noMessages: "La chat è vuota"
+        case .tooLarge: "Il file è troppo grande"
+        case .lineTooLong: "Il file non va a capo"
         }
     }
 
@@ -47,6 +53,10 @@ nonisolated enum ImportFailure: Error, Equatable, Sendable {
             "Le righe hanno data e ora, ma le date non tornano in nessun ordine di giorno, mese e anno. Qui sotto c'è una delle righe."
         case .noMessages:
             "Nel file non ci sono messaggi scritti da qualcuno, solo avvisi dell'app o nessuna riga."
+        case .tooLarge:
+            "Il testo supera 200 MB, molto più di qualsiasi chat esportata. Sbu Chats si ferma per non riempire l'iPhone."
+        case .lineTooLong:
+            "Una riga supera 1 MB, più di qualsiasi messaggio: il file non è una chat esportata, o è danneggiato."
         }
     }
 

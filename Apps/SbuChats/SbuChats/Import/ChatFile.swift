@@ -15,6 +15,8 @@ nonisolated struct ChatFile {
             let archive: ZipArchive
             do {
                 archive = try ZipArchive(url: url)
+            } catch .tooLarge {
+                throw .tooLarge
             } catch {
                 throw .damagedArchive
             }
@@ -26,7 +28,7 @@ nonisolated struct ChatFile {
             }
             // Encrypted, or compressed in a way only desktop archivers use.
             if case .unsupported = chat.method { throw .damagedArchive }
-            source = ChatTextSource(archive: archive, entry: chat)
+            source = try ChatTextSource(archive: archive, entry: chat)
             title = ChatTitle.title(fromFileName: url.lastPathComponent) ?? ChatTitle.title(fromFileName: chat.fileName)
             hasMedia = files.count > texts.count
         } else if ["txt", "text", ""].contains(fileExtension) {

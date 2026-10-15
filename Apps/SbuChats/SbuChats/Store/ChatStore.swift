@@ -138,6 +138,8 @@ actor ChatStore {
             throw error
         } catch is CancellationError {
             throw CancellationError()
+        } catch ZipError.tooLarge {
+            throw ImportFailure.tooLarge
         } catch is ZipError {
             throw ImportFailure.damagedArchive
         } catch let error as SQLiteError {

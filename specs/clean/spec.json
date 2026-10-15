@@ -1,0 +1,178 @@
+{
+  "name": "Sbu Clean",
+  "slug": "clean",
+  "alias_in_brief": "Sweep",
+  "in_repo": "Apps/SbuClean",
+  "status": "built; 1.0 rejected 14/10 (4.3), Resolution Center reply pending",
+  "accent": "accent-clean",
+  "replaces": [
+    {
+      "name": "Cleanup: Phone Storage Cleaner",
+      "app_store_id": "1510944943",
+      "role": "originale",
+      "price_model": "free download, deletion behind a weekly subscription",
+      "paywall_weekly": {
+        "it": "5,95-12,99 €",
+        "us": "$5.95-$11.99",
+        "checked": "2026-10-15"
+      },
+      "also_listed": "Cleanup Pro 1 anno 24,99 € (IT)",
+      "paywall_yearly_equiv": "675 € (12,99 € x 52)",
+      "rating_count": 737118
+    },
+    {
+      "name": "Swipewipe: Photo Cleaner",
+      "app_store_id": "1583884012",
+      "role": "concorrente",
+      "paywall_weekly": {
+        "it": "fino a 9,99 €",
+        "us": "$3.99-$9.99",
+        "checked": "2026-10-15"
+      },
+      "also_listed": "$29.99/year (US)",
+      "paywall_yearly_equiv": "519 € (9,99 € x 52)",
+      "rating_count": 97551
+    }
+  ],
+  "one_thing": "Frees space in Photos, one decision at a time, and ends on the space freed.",
+  "features": [
+    {
+      "name": "Swipe keep/delete",
+      "description": "Month by month, Recent, Random; buttons Tieni, Elimina, Indietro equivalent to the gesture, VoiceOver actions.",
+      "priority": "P0",
+      "reason": "Core of both originals; locked by daily limits.",
+      "source": "original"
+    },
+    {
+      "name": "Duplicates and similar",
+      "description": "Vision feature prints on device; best photo suggested (favourite, edited, face quality, sharpness), preselected but never deleted without the bin review.",
+      "priority": "P0",
+      "reason": "Cleanup's main paid feature.",
+      "source": "original"
+    },
+    {
+      "name": "Screenshots and videos by size",
+      "description": "Smart album and PHAssetResource fileSize; every video plays before deciding.",
+      "priority": "P0",
+      "reason": "Paid in Cleanup; pain: videos deleted blind.",
+      "source": "original"
+    },
+    {
+      "name": "Bin review",
+      "description": "All marked items reviewed in one place; delete only through PHPhotoLibrary.shared().performChanges { PHAssetChangeRequest.deleteAssets } so iOS shows its own confirmation; no other deletion path exists in the code (Apps/SbuClean/SbuClean/Library/PhotoKitLibrary.swift).",
+      "priority": "P0",
+      "reason": "Pain: wrong deletions; Apple requires the system dialog anyway.",
+      "source": "pain"
+    },
+    {
+      "name": "Recently Deleted explained",
+      "description": "After deletion: 'Le foto restano 30 giorni in Eliminati di recente' and how to get the space now.",
+      "priority": "P0",
+      "reason": "Pain: space that doesn't come back.",
+      "source": "pain"
+    },
+    {
+      "name": "Stable progress",
+      "description": "Decisions stored by PhotoKit local identifier, survive updates.",
+      "priority": "P0",
+      "reason": "Pain: months reset after updates.",
+      "source": "pain"
+    },
+    {
+      "name": "Limited Photos access",
+      "description": "Works on the selected subset, says so in a row, offers presentLimitedLibraryPicker; never nags.",
+      "priority": "P0",
+      "reason": "iOS 14+ limited access is common; the space figure must say it counts only the visible photos.",
+      "source": "pain"
+    }
+  ],
+  "tool_screen": {
+    "component": "SbuToolField on surface",
+    "caption": "Spazio liberabile",
+    "figure": "bytes you can free, ByteCountFormatStyle(.file), statHero, closed by SbuFullStop in accent-clean",
+    "context": "after deletion: space freed, with the Recently Deleted note",
+    "pills": [
+      "Mesi",
+      "Doppioni",
+      "Video",
+      "Screenshot"
+    ]
+  },
+  "flows": [
+    {
+      "name": "Onboarding",
+      "steps": [
+        "One screen with the promise and Inizia",
+        "Photos permission asked on Inizia (full or limited)",
+        "Tool screen with the space figure as soon as the scan of sizes ends"
+      ]
+    },
+    {
+      "name": "Clean a month",
+      "steps": [
+        "Mesi > pick month",
+        "Swipe or buttons",
+        "Bin review",
+        "Elimina (danger) > iOS confirmation",
+        "Space freed + Recently Deleted note"
+      ]
+    },
+    {
+      "name": "Permission denied",
+      "steps": [
+        "Explains why, button to Settings, no dead end"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "Email, contacts, calendar, iCloud cleanup",
+      "reason": "Network or second function."
+    },
+    {
+      "feature": "Streaks, trophies, confetti, 'hours saved'",
+      "reason": "Design system and one thing."
+    },
+    {
+      "feature": "Subscription, daily limits, ads",
+      "reason": "Product rules."
+    }
+  ],
+  "network": "No server and no account. An iCloud original is downloaded by PhotoKit only when the user asks to watch or compress it: say 'nessun server', not 'zero rete'.",
+  "review_risks": [
+    {
+      "rule": "4.3",
+      "risk": "Rejected 14/10 in the lot of six.",
+      "mitigation": "Resolution Center reply; if refused, resubmit alone in slot 2 with the differences from Apple Photos Duplicates in the notes."
+    },
+    {
+      "rule": "5.1.1",
+      "risk": "Full Photos access.",
+      "mitigation": "Purpose string says what is read and that nothing leaves the iPhone; limited access fully supported."
+    }
+  ],
+  "estimate_days": 0,
+  "launch_tier": "spearhead",
+  "launch_assets": {
+    "url": "https://sbu.dev/apps/clean",
+    "privacy_url": "https://sbu.dev/privacy/clean",
+    "folder": "marketing/clean/",
+    "files": [
+      "hooks.md",
+      "showhn.md",
+      "reddit.md",
+      "press.md",
+      "video.md",
+      "linkedin.md"
+    ],
+    "screenshots_for_press": "3 Sbu screens only (tool screen, list or bin, settings with the promises); never the Originale's icon or screenshots on the site",
+    "video": "20 s vertical 1080x1920, same file on Reels, Shorts and TikTok, from a simulator screen recording (marketing/<slug>/video.md)",
+    "trademark_line": "<Originale> è un marchio del rispettivo proprietario; Sbu non è affiliata.",
+    "requires_public_repo": true
+  },
+  "source": {
+    "summary": "research/apps/clean.md",
+    "originals": "research/1510944943/, research/1583884012/",
+    "prices_checked": "2026-10-15"
+  }
+}

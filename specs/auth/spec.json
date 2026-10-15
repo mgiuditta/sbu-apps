@@ -1,0 +1,431 @@
+{
+  "name": "Sbu Auth",
+  "slug": "auth",
+  "in_repo": null,
+  "status": "ready_for_dev",
+  "accent": "accent-authenticator",
+  "replaces": [
+    {
+      "name": "Authenticator ℠ App",
+      "app_store_id": "6754900760",
+      "role": "originale",
+      "price_model": "free download, codes locked behind a weekly subscription after a 3-day trial",
+      "paywall_weekly": {
+        "it": "6,99-9,99 €",
+        "us": "$5.99-$14.90",
+        "checked": "2026-10-15",
+        "source": "apps.apple.com in-app purchase list"
+      },
+      "paywall_yearly_equiv": "519 € (9,99 € x 52)",
+      "rating_count": 5896
+    }
+  ],
+  "one_thing": "Shows the two-factor code of your accounts, on this iPhone only.",
+  "features": [
+    {
+      "name": "TOTP codes",
+      "description": "RFC 6238 with CryptoKit HMAC SHA1/SHA256/SHA512, 6-8 digits, any period; correct at period boundaries and with clock skew of the device (tests with RFC 6238 Appendix B vectors).",
+      "priority": "P0",
+      "reason": "The one thing; locked behind the paywall in the original.",
+      "source": "original"
+    },
+    {
+      "name": "HOTP codes",
+      "description": "RFC 4226 counter codes, counter advanced only on explicit tap, persisted before the code is shown (RFC 4226 test vectors).",
+      "priority": "P0",
+      "reason": "Real otpauth:// QR codes use it; missing in most clones.",
+      "source": "original"
+    },
+    {
+      "name": "Add from QR (camera)",
+      "description": "DataScannerViewController (fallback AVCaptureMetadataOutput) reads otpauth:// URIs; camera permission asked only on tap.",
+      "priority": "P0",
+      "reason": "Main setup flow of the original.",
+      "source": "original"
+    },
+    {
+      "name": "Add from image",
+      "description": "PhotosPicker (no library permission) + Vision barcode detection, for QR codes shown on the same iPhone.",
+      "priority": "P0",
+      "reason": "Users with one device; reviews.",
+      "source": "pain"
+    },
+    {
+      "name": "Manual entry",
+      "description": "Issuer, account, Base32 secret (spaces and lowercase tolerated), advanced: algorithm, digits, period, type.",
+      "priority": "P0",
+      "reason": "QR not readable.",
+      "source": "original"
+    },
+    {
+      "name": "Copy with one tap",
+      "description": "Tap a row copies the current code with UIPasteboard localOnly + expiration at the end of the period; VoiceOver announces Copiato.",
+      "priority": "P0",
+      "reason": "Reviews: users don't know where to paste; codes must not linger in the clipboard or reach Universal Clipboard.",
+      "source": "pain"
+    },
+    {
+      "name": "Account list",
+      "description": "List .insetGrouped with search, codes as statSmall, countdown as text in inkMuted; edit, reorder, delete with SbuButton(kind: .destructive) confirm.",
+      "priority": "P0",
+      "reason": "Full control is the original's listing promise.",
+      "source": "original"
+    },
+    {
+      "name": "Face ID lock",
+      "description": "LocalAuthentication with device passcode fallback, on by default; privacy cover in the app switcher (scenePhase); auto-lock on background.",
+      "priority": "P0",
+      "reason": "Paid in the original; expected by a security user.",
+      "source": "original"
+    },
+    {
+      "name": "Secure storage",
+      "description": "Secrets in Keychain, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, never synchronizable; metadata (order, names) in the same item; nothing in UserDefaults.",
+      "priority": "P0",
+      "reason": "Data stays on the device; no iCloud (decision below).",
+      "source": "original"
+    },
+    {
+      "name": "Encrypted backup (mandatory)",
+      "description": "Export all accounts to one .sbuauth file: AES-GCM 256, key from passphrase via PBKDF2-SHA256 (600k iterations, random 16-byte salt) since CryptoKit has no Argon2; versioned header; fileExporter, user picks where. Import with fileImporter, merge without duplicates. After the first account is added and every 5 new accounts, an inline row in the list asks for a backup until one exists; Settings shows the date of the last backup.",
+      "priority": "P0",
+      "reason": "Pain 4: lost codes means locked out of accounts. Without it Auth cannot launch: the first HN question is 'what if I lose my phone'.",
+      "source": "pain"
+    },
+    {
+      "name": "Import from Google Authenticator",
+      "description": "Decode otpauth-migration://offline?data= (protobuf hand-written decoder, multi-QR batches), from camera or image.",
+      "priority": "P0",
+      "reason": "Switch in one minute; the original can't.",
+      "source": "pain"
+    },
+    {
+      "name": "Export as QR",
+      "description": "One account at a time as otpauth:// QR (after Face ID), and all accounts as Google Authenticator migration QRs.",
+      "priority": "P0",
+      "reason": "No lock-in: users can leave Sbu as easily as they arrived.",
+      "source": "original"
+    },
+    {
+      "name": "Folders",
+      "description": "Group accounts.",
+      "priority": "P2",
+      "reason": "Useful with many accounts, not needed at launch.",
+      "source": "original"
+    }
+  ],
+  "tool_screen": {
+    "component": "SbuToolField on surface",
+    "caption": "Codice",
+    "figure": "the current code of the selected account in statHero, digits grouped 3+3 for reading, tabular figures, closed by SbuFullStop in accent-authenticator",
+    "context": "issuer and account in inkMuted",
+    "indicator": "seconds left as a linear bar in the accent plus the number of seconds as text for VoiceOver (accessibilityValue), no colored warning field; under 5 s the context line says 'Sta per cambiare' with an SF Symbol",
+    "pills": [
+      "Copia",
+      "Account"
+    ],
+    "notes": "One figure per screen: the list does not carry the full stop. Default selection: last copied account."
+  },
+  "screens": [
+    {
+      "name": "Codice (tool screen)",
+      "purpose": "The figure: the code of the selected account and its countdown.",
+      "elements": [
+        "SbuToolField as above",
+        "Copia (filled button)",
+        "Account picker pill"
+      ]
+    },
+    {
+      "name": "Account",
+      "purpose": "All accounts, search, copy.",
+      "elements": [
+        "List .insetGrouped with statSmall codes",
+        "search",
+        "+ menu: Scansiona QR, Da immagine, Inserisci a mano, Importa da Google Authenticator, Importa backup",
+        "backup reminder row until a backup exists"
+      ]
+    },
+    {
+      "name": "Aggiungi",
+      "purpose": "Camera scanner or manual Form.",
+      "elements": [
+        "DataScanner",
+        "Form for manual entry with advanced section"
+      ]
+    },
+    {
+      "name": "Impostazioni",
+      "purpose": "SbuAppShell settings sheet.",
+      "elements": [
+        "Blocco con Face ID",
+        "Backup cifrato: Esporta, Importa, ultimo backup",
+        "Esporta per un'altra app",
+        "promises, licences, sbu.dev links"
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "name": "Onboarding (first launch)",
+      "steps": [
+        "One screen: 'I codici restano su questo iPhone. Se lo perdi, ti serve un backup.' with Aggiungi il primo account",
+        "No permission asked until the user taps Scansiona QR",
+        "After the first account: backup row appears in the list"
+      ]
+    },
+    {
+      "name": "Add from QR",
+      "steps": [
+        "Tap +",
+        "Scansiona QR",
+        "Allow camera",
+        "QR read",
+        "Account added, tool screen shows its code"
+      ]
+    },
+    {
+      "name": "Switch from Google Authenticator",
+      "steps": [
+        "In Google Authenticator: Transfer accounts > Export",
+        "In Sbu Auth: + > Importa da Google Authenticator",
+        "Scan each QR",
+        "Summary: N accounts added, M already present"
+      ]
+    },
+    {
+      "name": "Backup",
+      "steps": [
+        "Settings > Backup cifrato > Esporta",
+        "Passphrase twice, strength hint, no recovery warning",
+        "fileExporter",
+        "'Backup salvato' with date"
+      ]
+    },
+    {
+      "name": "Restore on a new iPhone",
+      "steps": [
+        "+ > Importa backup",
+        "fileImporter",
+        "Passphrase",
+        "Accounts merged"
+      ]
+    },
+    {
+      "name": "Delete account",
+      "steps": [
+        "Swipe or Edit",
+        "Destructive confirm that says the account can't be recovered without a backup"
+      ]
+    }
+  ],
+  "data_model": {
+    "entities": [
+      {
+        "name": "OTPAccount",
+        "fields": [
+          {
+            "name": "id",
+            "type": "UUID"
+          },
+          {
+            "name": "issuer",
+            "type": "String"
+          },
+          {
+            "name": "label",
+            "type": "String"
+          },
+          {
+            "name": "secret",
+            "type": "Data",
+            "note": "Keychain only"
+          },
+          {
+            "name": "kind",
+            "type": "enum totp|hotp"
+          },
+          {
+            "name": "algorithm",
+            "type": "enum sha1|sha256|sha512"
+          },
+          {
+            "name": "digits",
+            "type": "Int (6-8)"
+          },
+          {
+            "name": "period",
+            "type": "Int seconds"
+          },
+          {
+            "name": "counter",
+            "type": "UInt64",
+            "note": "HOTP"
+          },
+          {
+            "name": "order",
+            "type": "Int"
+          }
+        ]
+      },
+      {
+        "name": "BackupFile",
+        "fields": [
+          {
+            "name": "magic+version",
+            "type": "header"
+          },
+          {
+            "name": "salt",
+            "type": "16 bytes"
+          },
+          {
+            "name": "iterations",
+            "type": "UInt32"
+          },
+          {
+            "name": "sealed",
+            "type": "AES.GCM.SealedBox of JSON [OTPAccount]"
+          }
+        ]
+      }
+    ]
+  },
+  "monetization": {
+    "model": "none",
+    "sbu": "free, no IAP, no ads, no account"
+  },
+  "pains": [
+    {
+      "pain": "Can't cancel, charged after cancelling",
+      "mentions": 24,
+      "becomes": "nothing to cancel"
+    },
+    {
+      "pain": "Codes visible only after paying",
+      "mentions": "frequent",
+      "becomes": "codes never locked"
+    },
+    {
+      "pain": "Lost all codes",
+      "mentions": "several",
+      "becomes": "mandatory encrypted backup + export"
+    },
+    {
+      "pain": "Confused with Google/Microsoft Authenticator",
+      "mentions": 9,
+      "becomes": "honest name, engraved icon, no lookalike (4.1)"
+    },
+    {
+      "pain": "Hard to set up, QR not recognised",
+      "mentions": 15,
+      "becomes": "camera, image, manual, migration import"
+    }
+  ],
+  "skipped": [
+    {
+      "feature": "iCloud sync",
+      "reason": "Decided: off. The promise of Auth is 'codes never leave this iPhone'; the encrypted file is the backup. ADR-0008 sync stays unused here."
+    },
+    {
+      "feature": "Widgets",
+      "reason": "Secrets visible outside the locked app."
+    },
+    {
+      "feature": "AutoFill of codes",
+      "reason": "ASOneTimeCodeCredential is iOS 18+ only; v1.1 behind #available."
+    },
+    {
+      "feature": "Service logos",
+      "reason": "Third-party marks and network; issuer initials in a circle are not used either (no custom icons): SF Symbol key.fill."
+    },
+    {
+      "feature": "Password manager, breach alerts, browser, VPN",
+      "reason": "Second functions, network."
+    },
+    {
+      "feature": "Subscription, trial, ads, ATT",
+      "reason": "Product rules."
+    }
+  ],
+  "system_frameworks": [
+    {
+      "name": "CryptoKit",
+      "min_ios": "13",
+      "use": "HMAC, AES-GCM, SHA256"
+    },
+    {
+      "name": "CommonCrypto",
+      "min_ios": "2",
+      "use": "PBKDF2 (CCKeyDerivationPBKDF)"
+    },
+    {
+      "name": "Security",
+      "use": "Keychain"
+    },
+    {
+      "name": "LocalAuthentication",
+      "use": "Face ID"
+    },
+    {
+      "name": "VisionKit / AVFoundation",
+      "use": "QR scanning"
+    },
+    {
+      "name": "PhotosUI + Vision",
+      "use": "QR from image"
+    },
+    {
+      "name": "CoreImage",
+      "use": "QR generation"
+    }
+  ],
+  "dependencies": [],
+  "review_risks": [
+    {
+      "rule": "4.3(a)/(b)",
+      "risk": "Authenticator apps are a crowded category; account under 4.3 watch after 14/10.",
+      "mitigation": "Submit alone; review notes: Google Authenticator import/export, encrypted backup, HOTP, no network; how it differs from other Sbu apps."
+    },
+    {
+      "rule": "4.1 / 5.2.5",
+      "risk": "Lookalike of Google or Microsoft Authenticator.",
+      "mitigation": "Name 'Sbu Auth', engraved icon, no third-party names in metadata."
+    },
+    {
+      "rule": "2.1",
+      "risk": "Reviewer has no 2FA account.",
+      "mitigation": "Review notes include a test otpauth:// QR and its secret (a throwaway, not a real account)."
+    },
+    {
+      "rule": "5.1.1",
+      "risk": "Camera permission.",
+      "mitigation": "Asked only on Scansiona QR, purpose string IT/EN; PhotosPicker needs none."
+    }
+  ],
+  "estimate_days": 3,
+  "launch_tier": "spearhead",
+  "launch_assets": {
+    "url": "https://sbu.dev/apps/auth",
+    "privacy_url": "https://sbu.dev/privacy/auth",
+    "folder": "marketing/auth/",
+    "files": [
+      "hooks.md",
+      "showhn.md",
+      "reddit.md",
+      "press.md",
+      "video.md",
+      "linkedin.md"
+    ],
+    "screenshots_for_press": "3 Sbu screens only (tool screen, list or bin, settings with the promises); never the Originale's icon or screenshots on the site",
+    "video": "20 s vertical 1080x1920, same file on Reels, Shorts and TikTok, from a simulator screen recording (marketing/<slug>/video.md)",
+    "trademark_line": "<Originale> è un marchio del rispettivo proprietario; Sbu non è affiliata.",
+    "requires_public_repo": true
+  },
+  "source": {
+    "listing": "research/6754900760/meta.json, spec.json, ux.md",
+    "reviews": "research/6754900760/reviews.json (122 reviews 1-3 stars)",
+    "summary": "research/apps/authenticator.md",
+    "prices_checked": "2026-10-15"
+  }
+}

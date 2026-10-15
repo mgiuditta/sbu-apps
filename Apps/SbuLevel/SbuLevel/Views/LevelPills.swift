@@ -5,6 +5,7 @@ import SwiftUI
 struct LevelPills: View {
     let isRelative: Bool
     let isLocked: Bool
+    let isWaitingForSteady: Bool
     let isSighting: Bool
     let toggleReference: () -> Void
     let toggleLock: () -> Void
@@ -14,8 +15,7 @@ struct LevelPills: View {
         Button(isRelative ? "Assoluto" : "Azzera qui", systemImage: "angle", action: toggleReference)
             .buttonStyle(SbuFieldPillStyle(isSelected: isRelative))
 
-        Button(isLocked ? "Sblocca" : "Blocca", systemImage: isLocked ? "lock.fill" : "lock.open", action: toggleLock)
-            .buttonStyle(SbuFieldPillStyle(isSelected: isLocked))
+        LockPill(isLocked: isLocked, isWaitingForSteady: isWaitingForSteady, action: toggleLock)
 
         Button("Mirino", systemImage: "camera.viewfinder", action: toggleSight)
             .buttonStyle(SbuFieldPillStyle(isSelected: isSighting))
@@ -24,7 +24,7 @@ struct LevelPills: View {
 
 #Preview("Light") {
     HStack(spacing: SbuTheme.space2) {
-        LevelPills(isRelative: false, isLocked: false, isSighting: false, toggleReference: {}, toggleLock: {}, toggleSight: {})
+        LevelPills(isRelative: false, isLocked: false, isWaitingForSteady: false, isSighting: false, toggleReference: {}, toggleLock: {}, toggleSight: {})
     }
     .padding(SbuTheme.space4)
     .background(SbuTheme.surface)
@@ -32,7 +32,7 @@ struct LevelPills: View {
 
 #Preview("Dark") {
     HStack(spacing: SbuTheme.space2) {
-        LevelPills(isRelative: true, isLocked: true, isSighting: true, toggleReference: {}, toggleLock: {}, toggleSight: {})
+        LevelPills(isRelative: true, isLocked: false, isWaitingForSteady: true, isSighting: true, toggleReference: {}, toggleLock: {}, toggleSight: {})
     }
     .padding(SbuTheme.space4)
     .background(SbuTheme.surface)

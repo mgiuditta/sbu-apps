@@ -2,6 +2,8 @@ import Foundation
 
 /// The one line under the figure: what the figure means right now.
 nonisolated enum LevelStatus: Equatable, Sendable {
+    /// After Blocca with the steady lock: waiting for the reading to hold still.
+    case waitingForSteady
     case locked(isRelative: Bool)
     case relative(atZero: Bool)
     case level
@@ -13,12 +15,14 @@ nonisolated enum LevelStatus: Equatable, Sendable {
     case cameraUnavailable
     case cameraDenied
 
-    init(readout: Readout, isLocked: Bool, camera: CameraAccess? = nil) {
+    init(readout: Readout, isLocked: Bool, isWaitingForSteady: Bool = false, camera: CameraAccess? = nil) {
         let isSight = readout.reading.mode == .sight
         if isSight, camera == .unavailable {
             self = .cameraUnavailable
         } else if isSight, camera == .denied {
             self = .cameraDenied
+        } else if isWaitingForSteady {
+            self = .waitingForSteady
         } else if isLocked {
             self = .locked(isRelative: readout.isRelative)
         } else if readout.isRelative {
@@ -35,6 +39,7 @@ nonisolated enum LevelStatus: Equatable, Sendable {
     /// The SF Symbol before the words, if any.
     var systemImage: String? {
         switch self {
+        case .waitingForSteady: "hourglass"
         case .locked: "lock.fill"
         case .cameraUnavailable, .cameraDenied: "camera"
         default: nil

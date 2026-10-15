@@ -15,7 +15,7 @@ final class LevelFlowTests: XCTestCase {
         // Every test starts uncalibrated: a string where the calibration data goes reads as none.
         app.launchArguments += ["-calibration", "none"]
         // And in degrees to the tenth, whatever an earlier test chose: arguments win over saved settings.
-        app.launchArguments += ["-unit", "degrees"]
+        app.launchArguments += ["-unit", "degrees", "-locksWhenSteady", "NO"]
         app.launch()
         return app
     }
@@ -36,6 +36,16 @@ final class LevelFlowTests: XCTestCase {
             XCTFail("\(issue.compactDescription):\(issue.element?.debugDescription ?? "no element")")
             return true
         }
+    }
+
+    /// Scrolls settings up until `element` is on screen: the calibration rows sit below the fold.
+    @MainActor
+    private func scroll(_ app: XCUIApplication, to element: XCUIElement) -> Bool {
+        _ = app.collectionViews.firstMatch.waitForExistence(timeout: 5)
+        for _ in 0..<5 where element.isHittable == false {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        return element.isHittable
     }
 
     @MainActor
@@ -114,6 +124,26 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheSteadyLockWaitsForAStillReadingThenLocks() throws {
+        let app = launch()
+        app.buttons["Impostazioni"].tap()
+        let steady = app.switches["Blocca a lettura stabile"]
+        XCTAssertTrue(steady.waitForExistence(timeout: 5))
+        steady.switches.firstMatch.tap()
+        XCTAssertTrue(app.sliders["Tolleranza"].waitForExistence(timeout: 5))
+        app.buttons["Fine"].tap()
+
+        app.buttons["Blocca"].tap()
+
+        // The fixed tilt is perfectly still: two seconds, then the lock.
+        XCTAssertTrue(app.buttons["In attesa"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.buttons["Sblocca"].waitForExistence(timeout: 5))
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        XCTAssertTrue(figure.label.contains("Lettura bloccata"), figure.label)
+        XCTAssertTrue(figure.label.contains("32,4"), figure.label)
+    }
+
+    @MainActor
     func testTwoStepCalibrationThenResetInSettings() throws {
         // 0,6° off on the bottom edge: within what a calibration accepts.
         let app = launch(gravity: "nearlyLevel")
@@ -140,7 +170,7 @@ final class LevelFlowTests: XCTestCase {
 
         app.buttons["Impostazioni"].tap()
         let reset = app.buttons["Ripristina calibrazione"]
-        XCTAssertTrue(reset.waitForExistence(timeout: 5))
+        XCTAssertTrue(scroll(app, to: reset))
         reset.tap()
 
         // The confirmation names the side: it is reset only after the second tap.
@@ -209,7 +239,7 @@ final class LevelFlowTests: XCTestCase {
         let app = launch(gravity: "nearlyLevel")
         app.buttons["Impostazioni"].tap()
         let row = app.collectionViews.buttons["Calibra"]
-        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(scroll(app, to: row))
 
         row.tap()
 

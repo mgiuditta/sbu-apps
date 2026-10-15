@@ -4,6 +4,7 @@ extension LevelStatus {
     /// The words, for the context line of the tool screen.
     var text: LocalizedStringKey {
         switch self {
+        case .waitingForSteady: "Tieni fermo l'iPhone"
         case .locked(isRelative: true): "Lettura bloccata, relativa"
         case .locked(isRelative: false): "Lettura bloccata"
         case .relative(atZero: true): "Relativo, allo zero"

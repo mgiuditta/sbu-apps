@@ -15,7 +15,12 @@ struct MainView: View {
     private var format: AngleFormatStyle { AngleFormatStyle(unit: model.unit) }
 
     private var status: LevelStatus {
-        LevelStatus(readout: model.readout, isLocked: model.isLocked, camera: model.isSighting ? camera.access : nil)
+        LevelStatus(
+            readout: model.readout,
+            isLocked: model.isLocked,
+            isWaitingForSteady: model.steadyProgress != nil,
+            camera: model.isSighting ? camera.access : nil
+        )
     }
 
     private var keepsScreenOn: Bool {
@@ -46,6 +51,7 @@ struct MainView: View {
                         LevelPills(
                             isRelative: model.readout.isRelative,
                             isLocked: model.isLocked,
+                            isWaitingForSteady: model.steadyProgress != nil,
                             isSighting: model.isSighting,
                             toggleReference: toggleReference,
                             toggleLock: toggleLock,
@@ -76,6 +82,9 @@ struct MainView: View {
         .sensoryFeedback(.success, trigger: model.readout.isLevel) { _, isLevel in isLevel }
         .sheet(isPresented: $isCalibrating, onDismiss: model.endCalibration) {
             CalibrationSheet(model: model)
+        }
+        .onChange(of: model.lockCount) {
+            announceLock()
         }
         .onChange(of: keepsScreenOn, initial: true) { _, keepsOn in
             UIApplication.shared.isIdleTimerDisabled = keepsOn
@@ -109,12 +118,18 @@ struct MainView: View {
     }
 
     private func toggleLock() {
+        let wasLocked = model.isLocked
         model.toggleLock()
-        let message = if model.isLocked {
-            String(localized: "Lettura bloccata, \(format.spokenText(model.readout.angle))")
-        } else {
-            String(localized: "Lettura sbloccata")
+        // A new lock is announced when it lands, by hand or once the reading holds still.
+        if model.steadyProgress != nil {
+            AccessibilityNotification.Announcement(String(localized: "Tieni fermo l'iPhone")).post()
+        } else if wasLocked {
+            AccessibilityNotification.Announcement(String(localized: "Lettura sbloccata")).post()
         }
+    }
+
+    private func announceLock() {
+        let message = String(localized: "Lettura bloccata, \(format.spokenText(model.readout.angle))")
         AccessibilityNotification.Announcement(message).post()
     }
 

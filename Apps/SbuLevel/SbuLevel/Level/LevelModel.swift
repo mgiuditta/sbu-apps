@@ -7,6 +7,8 @@ final class LevelModel {
     private static let calibrationKey = "calibration"
     private static let keepsScreenAwakeKey = "keepsScreenAwake"
     private static let unitKey = "unit"
+    private static let locksWhenSteadyKey = "locksWhenSteady"
+    private static let steadyToleranceKey = "steadyTolerance"
 
     /// What the screen shows: the live reading, or the one frozen by the lock.
     private(set) var reading = LevelReading.level
@@ -15,6 +17,11 @@ final class LevelModel {
     private(set) var calibration: Calibration
     private(set) var isMotionAvailable = true
     private(set) var isLocked = false
+    /// Progress, 0..<1, of the wait for a steady reading after Blocca; `nil` when not waiting.
+    private(set) var steadyProgress: Double?
+    /// Counts the locks made, by hand or once the reading held still: a change means a new
+    /// figure was just captured.
+    private(set) var lockCount = 0
     /// Whether the camera sight is on: the figure is then the elevation of the line of sight.
     /// Never saved: the app opens on the level.
     private(set) var isSighting = false
@@ -34,6 +41,17 @@ final class LevelModel {
         didSet { defaults.set(unit.rawValue, forKey: Self.unitKey) }
     }
 
+    /// After Blocca, wait for the reading to hold still, then freeze the average. Off by default.
+    var locksWhenSteady: Bool {
+        didSet { defaults.set(locksWhenSteady, forKey: Self.locksWhenSteadyKey) }
+    }
+
+    /// How far, in degrees either way, the reading may move while the steady lock waits.
+    var steadyTolerance: Double {
+        didSet { defaults.set(steadyTolerance, forKey: Self.steadyToleranceKey) }
+    }
+
+    @ObservationIgnored private var steadySampler: StableSampler?
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let source: any GravitySource
     @ObservationIgnored private var gravity: Gravity?
@@ -60,6 +78,8 @@ final class LevelModel {
             .flatMap { try? JSONDecoder().decode(Calibration.self, from: $0) } ?? .none
         keepsScreenAwake = defaults.object(forKey: Self.keepsScreenAwakeKey) as? Bool ?? true
         unit = defaults.string(forKey: Self.unitKey).flatMap(AngleUnit.init(rawValue:)) ?? .standard
+        locksWhenSteady = defaults.bool(forKey: Self.locksWhenSteadyKey)
+        steadyTolerance = SteadyLock.clamped(defaults.object(forKey: Self.steadyToleranceKey) as? Double ?? SteadyLock.defaultTolerance)
     }
 
     /// Reads the sensor until the calling task is cancelled.
@@ -74,6 +94,20 @@ final class LevelModel {
     func update(with sample: Gravity) {
         gravity = sample
         liveReading = makeReading(for: sample, calibration: calibration)
+        if var sampler = steadySampler {
+            switch sampler.add(sample) {
+            case .collecting(let progress):
+                steadyProgress = progress
+            case .moved:
+                steadyProgress = 0
+            case .stable(let mean):
+                finishSteadyLock(with: mean)
+            }
+            // Still waiting: keep the samples. Finished: the sampler is gone.
+            if steadyProgress != nil {
+                steadySampler = sampler
+            }
+        }
         if isLocked == false {
             reading = liveReading
             // A reference from another mode or edge would compare two different angles.
@@ -101,17 +135,40 @@ final class LevelModel {
     func toggleSight() {
         isSighting.toggle()
         isLocked = false
+        cancelSteadyLock()
         reference = nil
         liveReading = gravity.map { makeReading(for: $0, calibration: calibration) } ?? .level
         reading = liveReading
     }
 
-    /// Freezes the shown reading, or lets it follow the sensor again.
+    /// Freezes the shown reading, or lets it follow the sensor again. With `locksWhenSteady`, it
+    /// first waits for the reading to hold still; tapping again while waiting gives up.
     func toggleLock() {
-        isLocked.toggle()
-        if isLocked == false {
+        if isLocked {
+            isLocked = false
             reading = liveReading
+        } else if steadyProgress != nil {
+            cancelSteadyLock()
+        } else if locksWhenSteady {
+            steadySampler = SteadyLock.sampler(tolerance: steadyTolerance)
+            steadyProgress = 0
+        } else {
+            isLocked = true
+            lockCount += 1
         }
+    }
+
+    private func finishSteadyLock(with mean: Gravity) {
+        cancelSteadyLock()
+        liveReading = makeReading(for: mean, calibration: calibration)
+        reading = liveReading
+        isLocked = true
+        lockCount += 1
+    }
+
+    private func cancelSteadyLock() {
+        steadySampler = nil
+        steadyProgress = nil
     }
 
     /// Takes the shown reading as zero, or goes back to the absolute angle. While locked, the

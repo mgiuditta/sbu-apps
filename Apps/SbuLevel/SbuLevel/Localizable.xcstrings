@@ -141,6 +141,26 @@
         }
       }
     },
+    "Blocca a lettura stabile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock when steady"
+          }
+        }
+      }
+    },
+    "Blocco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock"
+          }
+        }
+      }
+    },
     "Bordo destro" : {
       "localizations" : {
         "en" : {
@@ -241,6 +261,16 @@
         }
       }
     },
+    "Dopo Blocca, la lettura si ferma quando resta entro la tolleranza per due secondi, e mostra la media." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After Lock, the reading stops once it stays within the tolerance for two seconds, and shows the average."
+          }
+        }
+      }
+    },
     "Durante la misura" : {
       "localizations" : {
         "en" : {
@@ -327,6 +357,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The side you pick goes back to the raw sensor reading."
+          }
+        }
+      }
+    },
+    "In attesa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting"
           }
         }
       }
@@ -667,6 +707,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "On its edge"
+          }
+        }
+      }
+    },
+    "Tieni fermo l'iPhone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold your iPhone still"
+          }
+        }
+      }
+    },
+    "Tolleranza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tolerance"
           }
         }
       }

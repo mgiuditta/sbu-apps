@@ -283,6 +283,87 @@ struct LevelModelTests {
         #expect(makeModel().isSighting == false)
     }
 
+    // MARK: - Steady lock
+
+    private func steadyModel(tolerance: Double = 0.5) -> LevelModel {
+        let model = makeModel()
+        model.locksWhenSteady = true
+        model.steadyTolerance = tolerance
+        return model
+    }
+
+    @Test func theSteadyLockIsOffByDefaultAndSaved() {
+        #expect(makeModel().locksWhenSteady == false)
+        #expect(makeModel().steadyTolerance == SteadyLock.defaultTolerance)
+
+        _ = steadyModel(tolerance: 1.2)
+
+        #expect(makeModel().locksWhenSteady)
+        #expect(makeModel().steadyTolerance == 1.2)
+    }
+
+    @Test func theSteadyLockWaitsThenFreezesTheMean() {
+        let model = steadyModel()
+        model.update(with: .standing(rotatedBy: 20))
+
+        model.toggleLock()
+        #expect(model.isLocked == false)
+        #expect(model.steadyProgress == 0)
+
+        for index in 0..<SteadyLock.sampleCount {
+            model.update(with: .standing(rotatedBy: index.isMultiple(of: 2) ? 20.2 : 19.8))
+        }
+
+        #expect(model.isLocked)
+        #expect(model.steadyProgress == nil)
+        #expect(model.lockCount == 1)
+        #expect(abs(model.reading.angle - 20) < 0.01)
+
+        model.update(with: .standing(rotatedBy: 35))
+        #expect(abs(model.reading.angle - 20) < 0.01)
+    }
+
+    @Test func movingPastTheToleranceStartsTheWaitOver() {
+        let model = steadyModel(tolerance: 0.3)
+        model.toggleLock()
+        for _ in 0..<(SteadyLock.sampleCount - 1) {
+            model.update(with: .standing(rotatedBy: 20))
+        }
+
+        model.update(with: .standing(rotatedBy: 21))
+
+        #expect(model.isLocked == false)
+        #expect(model.steadyProgress == 0)
+    }
+
+    @Test func tappingWhileWaitingGivesUp() {
+        let model = steadyModel()
+        model.toggleLock()
+
+        model.toggleLock()
+        for _ in 0..<SteadyLock.sampleCount {
+            model.update(with: .standing(rotatedBy: 20))
+        }
+
+        #expect(model.steadyProgress == nil)
+        #expect(model.isLocked == false)
+        #expect(model.lockCount == 0)
+    }
+
+    @Test func aLockByHandCountsAtOnce() {
+        let model = makeModel()
+
+        model.toggleLock()
+
+        #expect(model.isLocked)
+        #expect(model.lockCount == 1)
+    }
+
+    @Test(arguments: [(0.0, 0.1), (0.04, 0.1), (0.54, 0.5), (1.26, 1.3), (9, 3)])
+    func toleranceStaysInTheRangeToATenth(value: Double, expected: Double) {
+        #expect(abs(SteadyLock.clamped(value) - expected) < 1e-9)
+    }
+
     @Test func theUnitIsDegreesUntilChosenAndThenSaved() {
         let model = makeModel()
         #expect(model.unit == .degrees)

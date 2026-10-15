@@ -1,0 +1,245 @@
+{
+ "name": "Sbu Duo",
+ "slug": "duo",
+ "in_repo": null,
+ "replaces": [
+  {
+   "name": "Just Between Us - Couples Chat",
+   "app_store_id": "1498275568",
+   "role": "originale",
+   "price_model": "free download with ads, account required; in-app upgrade (subscription) for no ads, chat history over 30 days, videos, saving and deleting photos",
+   "version": "2.6.7",
+   "rating": 4.0,
+   "rating_count": 1962
+  },
+  {
+   "name": "Between, Couples Love Tracker",
+   "app_store_id": "458035189",
+   "role": "concorrente",
+   "price_model": "free with ads, account required; Between Plus $2.99/month, $12.99/6 months, $13.99/year or $26.99 lifetime for themes, love letters, longer videos, no ads",
+   "version": "5.14.03",
+   "rating": 4.8,
+   "rating_count": 21232
+  }
+ ],
+ "reference_outside_app_store": "None.",
+ "one_thing": "One private conversation with one person, behind Face ID, through your own iCloud. Closes on one figure: the days since the conversation began.",
+ "features": [
+  {
+   "name": "Pair with one person",
+   "description": "The first launch creates one CloudKit record zone and a CKShare with readWrite permission for one participant, sent with the system share sheet (UICloudSharingController / ShareLink, Messages, AirDrop). The other person opens the link, accepts with their Apple ID, and the app opens on the conversation. One conversation per app, ever: no list of chats, no contacts lookup.",
+   "priority": "P0",
+   "reason": "Originale: 'It ONLY works with the one person that you're synced with'; there it needs an account and a sync code. Here the Apple ID replaces both (ADR-0011).",
+   "source": "original"
+  },
+  {
+   "name": "Messages",
+   "description": "Text messages as CKRecords in the shared zone, text in encryptedValues. Append-only: each person writes only their own records, so nothing to merge. Local store in SwiftData, CloudKit changes fetched with CKFetchRecordZoneChangesOperation (owner: private database, participant: shared database). Sent, delivered (on the server) and failed states with a word and a symbol; failed messages retry with 'Riprova'.",
+   "priority": "P0",
+   "reason": "The thing itself. Reviews of the originale: 'Consistently fails to send messages', 'Keep receiving messages but I can't see anything', 'decryption key error'. CloudKit encryption is managed by Apple: no key to lose.",
+   "source": "original"
+  },
+  {
+   "name": "Photos",
+   "description": "Photos from PhotosPicker or the camera, stored as CKAsset, downscaled to 2048 px. Blurred in the thread until tapped (toggle in Settings, on by default). Save to Photos and delete always available, multi-select delete in the gallery.",
+   "priority": "P0",
+   "reason": "Originale: 'I love the blurred out images'; 'You can't save photos or videos without paying AND you can't delete them without paying'; 'wish we could delete multiple photos at once'.",
+   "source": "original"
+  },
+  {
+   "name": "Lock",
+   "description": "Face ID / Touch ID / passcode with LocalAuthentication at launch and on return from background; privacy cover in the app switcher. On by default.",
+   "priority": "P0",
+   "reason": "Originale: 'The app is password protected', 'four children at home'.",
+   "source": "original"
+  },
+  {
+   "name": "Silent notifications",
+   "description": "CKDatabaseSubscription (shouldSendContentAvailable) wakes the app; it fetches changes and posts a local notification with fixed text 'Nuovo messaggio' and no preview, ever. Tapping it still asks for Face ID first.",
+   "priority": "P0",
+   "reason": "Originale: 'my kid has my wife's phone ... notification pops up and she taps the notification' (opens the chat without the password). Between: 'notifications just disappear'.",
+   "source": "original"
+  },
+  {
+   "name": "Days together",
+   "description": "The one figure: days since a date the two choose (default: the day the conversation began), SbuStat + SbuFullStop, on the conversation's info screen. Either person can change the date; last write wins, shown to both.",
+   "priority": "P1",
+   "reason": "Between's 'automatically calculates the count down ... special days'. Gives the screen its figure without decorating the chat.",
+   "source": "competitor"
+  },
+  {
+   "name": "Disappearing messages",
+   "description": "Optional, off by default: messages delete themselves for both after 1 day or 7 days. The sender's device deletes its own expired records; the receiver hides them locally at expiry.",
+   "priority": "P1",
+   "reason": "Privacy without a fake icon. Originale reviews mention videos that vanished without warning: here it is a choice, shown in the thread header with a word.",
+   "source": "sbu"
+  },
+  {
+   "name": "Alternate icon",
+   "description": "A second, quieter icon in the Sbu grammar (same engraving, greys only), chosen in Settings with setAlternateIconName. Same app name, no disguise.",
+   "priority": "P1",
+   "reason": "Discretion allowed by Apple; a disguised app (calculator, notes) is not (2.3.1).",
+   "source": "sbu"
+  },
+  {
+   "name": "End the conversation",
+   "description": "Owner: delete the zone (removes everything for both). Participant: leave the share (removes it from their device). Both confirm with SbuButton(kind: .destructive).",
+   "priority": "P0",
+   "reason": "Between: 'Account info isn't available', data lost without control. Here the user decides and the result is clear.",
+   "source": "original"
+  }
+ ],
+ "screens": [
+  {
+   "name": "Conversation",
+   "purpose": "The tool screen on surface: thread of messages, own bubbles in the accent with onAccent text, the other's in surfaceRaised with ink. No figure here: the figure lives on Info.",
+   "elements": [
+    "thread with day separators (Date.FormatStyle)",
+    "composer: text field, photo button, send (accent)",
+    "status per message: Inviato, Non inviato + Riprova",
+    "toolbar: the other person's name -> Info"
+   ]
+  },
+  {
+   "name": "Info",
+   "purpose": "One figure: days together, SbuStat + SbuFullStop. Secondary rows in inkMuted.",
+   "elements": [
+    "SbuStat days",
+    "since date picker",
+    "photos gallery link",
+    "disappearing messages: off / 1 day / 7 days",
+    "Termina la conversazione (danger)"
+   ]
+  },
+  {
+   "name": "Gallery",
+   "purpose": "Grid of all photos, multi-select to save or delete.",
+   "elements": [
+    "LazyVGrid",
+    "select, Salva, Elimina"
+   ]
+  },
+  {
+   "name": "Pairing",
+   "purpose": "First run, before a partner joins.",
+   "elements": [
+    "one line: 'Scrivi con una persona sola.'",
+    "Invita (filled accent) -> share sheet",
+    "waiting state: 'In attesa che accetti'",
+    "iCloud missing: explanation + link to Settings"
+   ]
+  },
+  {
+   "name": "Lock",
+   "purpose": "Plain surface with the app name and 'Sblocca'.",
+   "elements": [
+    "Sblocca button"
+   ]
+  },
+  {
+   "name": "Settings",
+   "purpose": "SbuAppShell settings sheet.",
+   "elements": [
+    "lock toggle",
+    "blur photos toggle",
+    "alternate icon",
+    "licences",
+    "sbu.dev"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "name": "First run, inviter",
+   "steps": [
+    "Pairing screen",
+    "Invita -> share sheet with the CKShare URL",
+    "Waiting state",
+    "Partner accepts: the conversation opens on both sides"
+   ]
+  },
+  {
+   "name": "First run, invitee",
+   "steps": [
+    "Taps the iCloud link, app installs from the App Store if missing",
+    "System asks to accept (userDidAcceptCloudKitShareWith)",
+    "Conversation opens"
+   ]
+  },
+  {
+   "name": "Message in the pocket",
+   "steps": [
+    "Silent push wakes the app",
+    "Fetch changes into SwiftData",
+    "Local notification 'Nuovo messaggio', no preview",
+    "Tap -> Face ID -> conversation"
+   ]
+  }
+ ],
+ "data_model": {
+  "Message (SwiftData + CKRecord)": "id, sender (CKRecord creator userRecordID), sentAt, text (encrypted), photo (CKAsset, optional), expiresAt (optional), state (local: pending, sent, failed)",
+  "Conversation (one per install)": "zoneID, share URL, isOwner, partnerName (from CKShare participant), sinceDate",
+  "Settings (UserDefaults)": "lockEnabled, blurPhotos, alternateIcon"
+ },
+ "monetization": "Free. Promise block unchanged; the store page adds that messages go through each person's own iCloud.",
+ "pains": [
+  "Lost photos and chats on the developer's server (Between, 14 of 27 reviews).",
+  "Messages that fail to send or arrive empty, decryption key errors, glitches (Just Between Us, 38 of 49).",
+  "Paywall on saving, deleting, videos and history over 30 days.",
+  "Notifications that open the chat without the password.",
+  "Ads, forced rating prompt, spam emails after signup."
+ ],
+ "pains_note": "Keyword counts on unique 1-3 star reviews US+IT fetched 2026-10-15; one review can hit several pains.",
+ "skipped": [
+  "Calls and video calls: FaceTime does it.",
+  "Video messages in 1.0: CKAsset size and upload reliability; P2 after 1.0.",
+  "Shared calendar, love letters, stickers, games: not the one thing.",
+  "Disguised icon or hidden app: guideline 2.3.1.",
+  "More than one conversation: Messages does it."
+ ],
+ "system_frameworks": ["SwiftUI", "SwiftData", "CloudKit", "LocalAuthentication", "PhotosUI", "UserNotifications"],
+ "dependencies": [],
+ "dependencies_note": "Apple frameworks only. Capabilities: iCloud (CloudKit container), Push Notifications (for CloudKit subscriptions), Background Modes: remote-notification.",
+ "review_risks": [
+  {
+   "rule": "2.1 completeness",
+   "risk": "The reviewer has one device and one Apple ID: cannot pair.",
+   "mitigation": "Review notes with a video of two devices; a 'Prova da solo' mode where the app answers with sample messages written by us, local only."
+  },
+  {
+   "rule": "1.2 user-generated content",
+   "risk": "Apple may ask for report and block in apps with user content.",
+   "mitigation": "Private one-to-one with a person the user invited; 'Termina la conversazione' is the block. State it in the review notes."
+  },
+  {
+   "rule": "2.3.1 hidden features",
+   "risk": "Lock and alternate icon read as hiding.",
+   "mitigation": "Same name and engraving on both icons, everything described in the listing."
+  },
+  {
+   "rule": "4.3 spam",
+   "risk": "Chat apps are crowded; Sbu Chats exists in repo.",
+   "mitigation": "Chats analyses exported chats offline, Duo is a live conversation: no shared code or screens. Run originality-check before the submit."
+  },
+  {
+   "rule": "5.1.1 privacy",
+   "risk": "Messages and photos of two people leave the device.",
+   "mitigation": "Only through each user's own iCloud (ADR-0011), Data Not Collected, privacy page explains CloudKit sharing and how to stop."
+  }
+ ],
+ "decisions_needed": [
+  "Name: Sbu Duo (slug duo) or another.",
+  "Positioning: couples with a shared home (the originale's angle) or 'one person' without naming the relationship.",
+  "Accent for Duo (not yet in Design/tokens.json).",
+  "Icon engraving: the real instrument behind the app (a sealed letter with wax seal is the proposal).",
+  "Days together in 1.0 (P1) or later."
+ ],
+ "estimate_days": 10,
+ "estimate_note": "CloudKit sharing, subscriptions and the silent-push fetch are the critical days (about 4) and need two devices with two Apple IDs to test. P0 only is about 7 days.",
+ "source": {
+  "listing": "research/1498275568/meta.json, research/458035189/meta.json",
+  "reviews": "research/1498275568/reviews.json (49 unique, 1-3 stars), research/458035189/reviews.json (27 unique)",
+  "competitors": "iTunes Search API, 2026-10-15",
+  "fetched": "2026-10-15"
+ }
+}

@@ -2,7 +2,29 @@
 
 Obiettivo: ogni app a pagamento che non ha bisogno di un server ha la sua App Sbu gratuita. Riferimento pubblico: [ArtCraft](https://propakistani.pk/2026/10/09/free-open-source-copies-of-photoshop-premiere-and-lightroom-are-here/), sette cloni gratuiti e open source delle app Adobe costruiti con Claude Opus 5.5.
 
-Traguardi: **25 app in revisione entro il 31 ottobre 2026, 100 entro fine anno.** Il codice non è il collo di bottiglia: lo sono la revisione Apple e il test insieme.
+Traguardi: ~~25 app in revisione entro il 31 ottobre 2026, 100 entro fine anno~~, abbandonati dopo il rifiuto 4.3 del 14/10: conta la salute dell'account (vedi il calendario sotto). Il codice non è il collo di bottiglia: lo sono la revisione Apple e il test insieme.
+
+## Calendario degli invii dopo il rifiuto 4.3 (15 ottobre 2026)
+
+Criterio: l'abbonamento è stupido da pagare se la funzione non ha bisogno di un server; una App Sbu per ogni nicchia così, l'affollamento non esclude. Dati: `research/it-top-grossing-2026-10-15.md`, `research/us-top-grossing-2026-10-15.md`, `research/niches/`.
+
+Regole: uno slot a settimana dalla risposta di Apple; app nuove e reinvii (Level 1.1, Speed 1.1) si alternano; prima le app già in corso, poi gli strumenti veri, le app veloci in nicchie sature solo dopo; al massimo un'app con dati sanitari al mese; fuori le nicchie che si sovrappongono a un'App Sbu finché il confine non è deciso. Scanner 2.0 è un aggiornamento e parte appena passa il test insieme.
+
+| Settimana | Invio | Originale | Stato al 15/10 |
+|---|---|---|---|
+| 1 | Chats | The Cringe | pronta per il test insieme |
+| 2 | Level 1.1 | Clinometer | reinvio |
+| 3 | Fuel | Fuelly | pronta per il test insieme |
+| 4 | Speed 1.1 | Speedometer 55 | reinvio |
+| 5 | Inventory | Sortly | in costruzione |
+| 6 | Leggi | Speechify | ricerca fatta |
+| 7 | Russare | SnoreLab | ricerca fatta, salute |
+| 8 | Ricalco | AR Drawing | ricerca fatta |
+| 9 | Digiuno | BodyFast, Zero | ricerca fatta, salute |
+| 10 | Suonerie | Garage Ringtones | ricerca fatta |
+
+Riserve, in ordine: Calcolatrice, Font, Frasi, Impostore, Dividi, Spese, Collage.
+Ferme finché non si decide il confine: Pdf (con Docs), Cassaforte e Duo, Quaderno (con Pdf). Patente: aspetta la licenza del catalogo ministeriale. Ritocco e Gravidanza grandi; Palestra e Turni con paywall debole.
 
 ## Cosa copiamo, cosa no
 
@@ -35,7 +57,7 @@ Apple rifiuta, e al limite chiude l'account, se uno sviluppatore pubblica molte 
 
 - Una **Cosa sola** diversa per app, mai due app nella stessa nicchia (ADR-0004). Due timer, due fotocamere o due tracker dello stesso tipo: se ne sceglie uno.
 - Ogni app ha una funzione vera, non banale: niente app che sono una sola schermata con un numero.
-- Invii scaglionati: **3 a settimana** finché non arrivano rifiuti 4.3, poi si sale. Al primo rifiuto 4.3 ci si ferma e si rivede la coda.
+- Invii scaglionati: **uno a settimana**, solo dopo la risposta di Apple sul lotto del 14/10. Gli aggiornamenti di app già pubblicate non occupano lo slot.
 - Nelle note per la revisione, una riga su cosa fa l'app e perché è diversa dalle altre App Sbu.
 
 ## Checklist del test insieme

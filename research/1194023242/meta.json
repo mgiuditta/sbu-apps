@@ -1,0 +1,36 @@
+{
+  "id": "1194023242",
+  "name": "Daylio Journal - Mood Tracker",
+  "developer": "Relaxio s.r.o.",
+  "bundle_id": "net.daylio.Daylio",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Lifestyle",
+  "genres": [
+    "Lifestyle",
+    "Health & Fitness"
+  ],
+  "description": "Self-Care Bullet Journal with Goals - Mood Diary & Happiness Tracker\n\nDaylio enables you to keep a private journal without having to type a single line. Try this beautifully designed & stunningly simple micro-diary app right now for FREE!\n\n\n** WHAT IS DAYLIO **\n\nDaylio is a very versatile app, and you can turn it in whatever you need to track. Your fitness goal pal. Your mental health coach. Your food log. Your gratitude diary. Mood tracker. Exercise, meditate, eat, and be grateful. Take care of your mental, emotional, and physical health. Good self-care is a key to improved mood and reduced anxiety.\n\nThis is the time for your wellbeing, self-improvement, and self-care. Use Daylio as your daily bullet journal. We build it on three principles:\n\n1.) Reach happiness and self-improvement by being mindful of your days.\n2.) Validate your hunches. How does your new hobby influence your life?\n3.) Form a new habit in an obstacle-free environment—no learning curve. Daylio is super simple to use, create your first entry in two steps.\n\nFor anxiety and stress relief, make sure to include activities that help you to cope with negativity. Everybody can use a mood boost! You can measure their impact on your mood in stats. \n\n\n** HOW DOES IT WORK **\n\nPick your mood and add activities you have been doing during the day. You can also add notes and keep an old school diary. Daylio is collecting recorded moods and activities in the statistics and calendar. This format will help you to understand your habits better. Keep track of your activities and create patterns to become more productive!\n\nYou can review all entries in the statistics on charts or the calendar and share them with your friends.\n\nTo make it even better, Daylio allows you:\n- Make reflection a daily habit\n- Discover what makes you happy\n- Use a big database of beautiful icons for your personalized activities \n- Mix and match your own moods using funny emojis\n- Explore exciting statistics about your life on weekly, monthly or yearly charts\n- Deep dive into advanced statistics for every mood, activity or group\n- Customize color themes\n- Enjoy nights with dark mode\n- See your whole year in 'Year in Pixels'\n- Create daily, weekly or monthly goals and motivate yourself\n- Build habits and collect achievements\n- Share statistics with your friends\n- Safely back up and restore your entries via your private Google Drive\n- Set reminders and never forget to create a memory\n- Turn on PIN lock and keep your diary safe\n- Export PDF and CSV documents to share or print your entries\n\n\n** PRIVACY AND SECURITY **\n\nWe are a top private journal since we do not store or collect your data.\n\nAt Daylio, we believe in transparency and honesty. Your data is stored locally on your phone. You can optionally schedule backups to your private cloud storage or take your backup file with you anywhere. Data are entirely under your control at all times.\n\nData stored in the app's private directories are not accessible by any other apps or processes. Your backups are transferred to the iCloud Drive via the secure (encrypted) channels.\n\nJournaling has never been easier!\n\n---\nRead our full Terms of Use and our Privacy Policy:\n\nTerms of Use:\nhttps://daylio.net/faq/terms-of-use/\n\nPrivacy Policy:\nhttps://daylio.net/faq/privacy-policy/",
+  "release_notes": "We've given the app a new coat of paint. Things look a bit crisper, and you can now pick a custom font to make your entries feel more like your own.",
+  "version": "1.77.1",
+  "current_version_release_date": "2026-10-14T18:22:25Z",
+  "rating": 4.77243,
+  "rating_count": 62037,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/us/app/daylio-journal-mood-tracker/id1194023242?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/53/b5/f8/53b5f820-c0cc-371d-4c7e-0e51bfd712a2/en_ios_65_01.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/bd/24/9a/bd249ac0-732e-831e-f614-eb2bbae7880c/en_ios_65_02.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/32/03/11/320311a6-6173-6101-2456-d3f4eaf0120d/en_ios_65_03.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6f/ea/1b/6fea1b7f-9d61-2d70-3462-00037038a49d/en_ios_65_4.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f8/c5/6a/f8c56aec-c39c-39e5-e72f-110999fd747c/en_ios_65_05.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ed/85/68/ed856893-cc2e-b3c9-07fb-c5519d20e880/en_ios_65_06.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ac/19/7c/ac197c29-b83f-0c38-a988-87dd8e434f6c/en_ios_65_07.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6d/75/0e/6d750e48-8b91-65d5-a43a-526e61a5a063/en_ios_65_08.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/95/62/c6/9562c649-f7f7-9c98-4319-c504744a1f50/en_ios_65_09.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2e/3b/56/2e3b56a6-5d27-bf9d-525f-5dae464c3839/en_ios_65_10.jpg/320x480bb.jpg"
+  ]
+}

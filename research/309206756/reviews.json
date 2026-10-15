@@ -1,0 +1,212 @@
+[
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Too inconsistent",
+    "text": "The meter is too inconsistent compared to other meters. Wouldn’t recommend paying for this.",
+    "version": "11.1"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Don’t buy here’s why",
+    "text": "Don’t purchase this app. The meters are inconsistent. You’ll get a measurement then it changes completely. Not stable.",
+    "version": "11.0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Price",
+    "text": "It Said it was .99 but charged me 6.99",
+    "version": "11.0"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "The app doesn't scale to screen...",
+    "text": "... with iOS 10.3.2 on iPad. It used to be full screen. What happened? Or is this by design?",
+    "version": "9.2"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Blurry UI",
+    "text": "Since the current update my interface for this app is blurry, very low looking resolution, looked great before this update.  Please fix.",
+    "version": "9.0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Forget It",
+    "text": "Tiny image of what appears to a copy of the Radio Shack db meter from the 1970s. Screen does nothing except show current db number you need a magnifying glass to see it. A $.99 joke. Ha! Doesn't Apple really examine any of these apps before allowing people to steal your money? Zero stars.",
+    "version": "7.8"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Ruined the interface with this update",
+    "text": "Not sure why the interface was made so much smaller? Wish I hadn't updated.",
+    "version": "7.7"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "App does not work on 6s Plus",
+    "text": "This app use to be great on my 6 but now the screen is all mixed up.",
+    "version": "7.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "6s+ unusable",
+    "text": "Excellent until I upgraded to 6s+. Screen is totally jumbled.",
+    "version": "7.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "App doesn't work on 6s plus",
+    "text": "This app doesn't work on 6s plus (the screen is all mixed up). Waste of money.",
+    "version": "7.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Stopped working.",
+    "text": "Downloaded it a few days ago and it worked fine, but now it doesn't. Now it just says 999db and the needle no longer moves. Uninstalled.",
+    "version": "7.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Doesn't work. Looks horrible",
+    "text": "Doesn't actually do what you think. Keeps bugging you to buy some pro thing. Avoid.",
+    "version": "7.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Not compatible to iOS8",
+    "text": "Current version is not compatible to iOS8; graphic is messed up.",
+    "version": "7.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Glitchy",
+    "text": "Waste of a dollar.  Every time I inadvertently tipped my iPhone4 into landscape mode, and then uprighted it, the program display would get all screwed up--as if I had zoomed in to see just the lower left part of the display.  And it would remain that way until I killed the program and restarted.  Very annoying.  Crashed once as well.  Deleted and wrote it off as a loss.  However, when it worked it seemed OK.  Plain, easy to read meter, quick response, etc. FWIW.",
+    "version": "6.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "No gods after upgrade!!!",
+    "text": "This ap worked perfectly until the last \"upgrade\".  From what I can see, the only thing this change did was add a commercial for an expensive, external microphone while taking away the ability to adjust the \"MAX\" signal level.  It really is a shame to see them mess up a nice ap try and get you to pay them more money.  I used to rate this as a five star ap, now I'm going to delete it if it's not fixed.  Very disappointed!",
+    "version": "6.0"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Good for basics after tweeks",
+    "text": "I bought this app to properly set the levels on my new home theater. By default the readings were way low in comparison with my RadioShack meter. After tweaking the trim extensively it matches up pretty well. However even when calibrated and using c weight and slow response my iPhone 4s with this app was completely incapable of picking up my subwoofer test tone for subwoofer level setting.",
+    "version": "5.2"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "SPL Not Consistent",
+    "text": "Does not give consistent readings.  Varies by 10 to 20 dB.  Does not alway turn on when app is touched, have to tap fast/slow button to get to start.",
+    "version": "5.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Dosent",
+    "text": "Not able to identify my sub-woofer. I'm using iphone 4s for this app & when I play my sub-woofer for configuration this meter sits ideal.",
+    "version": "5.1"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Not bad for basic home use",
+    "text": "The db knob is way to touchy. A three point calibration would be beneficial, as it is not accurate at all. I calibrated it on my iPhone4 at 85db. At 115db it indicates 96 and at 45db it indicates 58. These test were done using a professionally calibrated meter.",
+    "version": "3.0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Meh!",
+    "text": "I was hoping this meter would measure bass but it doesnt. Very dissapointed. But for .99 can't really complain. lol",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Neat but...",
+    "text": "Well I don't know how accurate it is. Seemed to max out at around 90db with internal mic. Don't have an external. \nOne thing that is annoying is the round scale knob. It seems to be be very touchy and a pain to set it to a value. \n\nRunning on 4g iPod touch.",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Useless with ipod touch and blue mikey v1",
+    "text": "If you try to use this with an ipod touch and a blue mikey, all you get is screeching horrible feedback.  No option to turn off playback/mic.  Completely and utterly useless.",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "It crashes!",
+    "text": "After downloading latest update it simply crashes!  I liked it before this.",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Was loving it...",
+    "text": "Was loving it on iPad, but now that it crashes, I cannot tell if I love it.",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "A \"Sound\" App! :)",
+    "text": "Working as a sound tech with some friends, a buddy got this app and we compared it to a \"real\" decibel-meter. It was about 10 dB off, but then a quick calibration brought it in to be accurate. Will prove very helpful as we travel venues and locales. P.S. To the guy who gave it 1-star, I would ask if you don't know what the controls are for, you don't know what this is really used for...why rate the app low for YOUR lack of understanding?\n\n2.7: has a bug. if you flip phone so speakers an micro pointed up, you can only see the bottom corner of the app.",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "db Meter",
+    "text": "The readings are seldom within 10db of an accurate meter.",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Something wrong with this app",
+    "text": "Shows 50db all the time, even in total silence. This needs to be fixed",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Update=not working",
+    "text": "1 star until fixed. Was amazing, new update and it is WAYY off, more than +10db, not calibration issue, I use factory default 3gs and it's all screwy now, not consistent, needle jumping up (always up up up) please fix! Was better before!!!! Registers 50 db in totally silent bedroom at night etc",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "review",
+    "text": "this is ok, is not great. with loud sound it does a little better then with low sound. When using with low sound it way off, i mean 10+ dBs off. But for the price, what can you ask.\n\nMy base of comparison was an OSHA sound meter",
+    "version": "0"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "difficult to use",
+    "text": "I found this difficult to use, and the interface hard to understand. What are all those controls for?",
+    "version": "0"
+  }
+]

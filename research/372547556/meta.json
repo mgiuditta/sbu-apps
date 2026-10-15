@@ -1,0 +1,30 @@
+{
+  "id": "372547556",
+  "name": "Key Ring Rewards Card Wallet",
+  "developer": "inMarket Media, LLC",
+  "bundle_id": "com.mobestream.keyring",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Shopping",
+  "genres": [
+    "Shopping",
+    "Lifestyle"
+  ],
+  "description": "Never carry loyalty, membership, or library cards again! Key Ring is the app for loyalty cards and savings while shopping. Plan, save, and organize by carrying your cards and your shopping lists – all in one app.\n\nNo more forgetting your reward cards at home or holding up the checkout line while you dig through your wallet. Give your keychain, wallet, or purse a rest and digitally store those loyalty cards.\n\n   • Saving money at the store is effortless when you have your shopper cards handy\n   • Easily earn your loyalty rewards by scanning your card from your phone\n   • Your cards are safely backed up in the cloud with a free Key Ring account\n\nSay goodbye to switching between multiple accounts to view your membership cards. You can now link those accounts to your Key Ring cards! Here are the retailers you can now link accounts for (with more to come):\n\nAmazon \nBest Buy \nCVS \nChewy\nGrubhub \nHome Depot \nInstacart \nKohl's \nKroger \nLowe's \nMacy's\nPublix \nQFC\nRalph’s\nSephora \nShipt\nStaples \nStarbucks \nTarget\nWalgreens \nWalmart\nWalmart Grocery\nWegmans\n\nIf you like to plan ahead, you can build shopping lists to plan your next trip to the store.\n\n   • Shopping lists can be shared with family members or friends\n   • Add pictures to your shopping list to ensure you get the right item when you’re shopping\n   • Real-time syncing between accounts means you always have the most updated list whether you’re planning at home or shopping at the store\n\nWho Recommends Us?\n\nKey Ring has been featured in Real Simple, Martha Stewart Living, Family Circle, and on the Today Show as an “app for all ages.”\n\nWhy Should You Use Key Ring?\n\n   • Always carry your loyalty, membership, and library cards without weighing down your keychain, wallet, or purse\n   • Discover great savings\n   • Easily browse weekly ads and see what’s on sale from your phone\n   • Create and share shopping lists so you won’t forget a deal at the store\n\nFeatures Include:\n\n   • Barcode scanner: Add your loyalty cards by scanning the barcode\n   • Loyalty card database: Support for over 2,000 barcode and non-barcode loyalty, membership, and library cards\n   • Remote cloud backup: Never worry about losing your loyalty cards again\n   • Favorites: Put your favorite reward cards and circulars at your fingertips\n   • Shopping Lists: Stay organized and plan your shopping trip before you go to the store\n   • Sharing: Share loyalty cards, savings, and shopping lists with family and friends\n   • Notifications: Always remember to use your reward card or get reminded of sales with alerts about local savings (Optional- continued use of GPS running in the background can decrease battery life)",
+  "release_notes": "Minor improvements and fixes.",
+  "version": "11.64",
+  "current_version_release_date": "2026-06-15T11:23:37Z",
+  "rating": 4.57583,
+  "rating_count": 20077,
+  "minimum_os": "16.0",
+  "url": "https://apps.apple.com/us/app/key-ring-rewards-card-wallet/id372547556?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4f/25/2a/4f252afb-c07a-d53d-3e87-6fc26ea44c24/f1a177e5-4a08-49ee-b801-8e3dd1e3fdd6_iPhone_8_Plus_-_1.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/52/e4/65/52e4651e-43a0-5ebb-1f95-70b027c2ee15/5b395998-88fa-45e9-9e2a-97de9e0d94c9_iPhone_8_Plus_-_2.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/bb/d0/ad/bbd0ada1-721d-8fe1-d3fa-025e011fc0bc/846bf9ca-cec9-4f7f-a734-403f556352f4_iPhone_8_Plus_-_4.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9b/40/06/9b400695-0c92-3686-df06-06dd43956f0a/c1c14734-519f-46ec-8fb6-89d1f0dbe9f6_iPhone_8_Plus_-_3.jpg/392x696bb.jpg"
+  ]
+}

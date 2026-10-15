@@ -1,0 +1,34 @@
+{
+  "id": "1468459747",
+  "name": "Doppler MP3 & FLAC Player",
+  "developer": "Brushed Type Ltd",
+  "bundle_id": "co.brushedtype.doppler-ios",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Music",
+  "genres": [
+    "Music",
+    "Utilities"
+  ],
+  "description": "Doppler is a beautifully designed FLAC player and MP3 player with support for many file formats. Import music and playlists to listen offline, and edit song and album artwork and info without syncing.\n\nDoppler's design adapts itself to match your music, and offers quick access to your now playing queue. Tap straight into a recently added album or use search to browse your music.\n\nMusic and playlists are always stored local on your device, so you have your full Library whenever you need it — even offline. Doppler even  imports new files automatically to make sure your Library is always up to date.\n\nDoppler supports a wide variety of different music file formats, including FLAC, MP3, WAV, AAC, M4A and many more. Music files are stored local on your device for offline playback. Doppler works great for flights and the metro where you don't have WiFi.\n\nDoppler supports Bluetooth and AirPlay 2 so you can listen in your Car or through AirPods, HomePod or any bluetooth enabled speaker. Doppler now also includes a CarPlay app.\n\nTo help keep your Library organised Doppler supports editing metadata for Songs and Albums — directly on your device and without the need for a computer. Doppler also offers the option to find and download missing artwork.\n\nFeatures:\n\n- Beautiful, intuitive design\n- Reliable offline and local playback\n- Support for MP3, FLAC, AAC, WAV and many other audio formats\n- Create and edit playlists\n- Edit song metadata\n- Recently Added albums\n- Full library search\n- Import your existing albums and playlists\n- Edit your now playing queue as you listen\n- Listen through AirPods, HomePod or any bluetooth enabled speaker\n- Import new music automatically\n- Share album infomation quickly with friends\n- Support for Last.fm\n- Search and download album artwork\n- Import music from Safari, Dropbox, Google Drive and more\n- Import music from your computer over WiFi\n- Listening Reports / Year in review\n\n---\n\nPlease note:\nDoppler works as an offline music player and supports local music files.\nDoppler is not able to import your songs or playlists from Apple Music.",
+  "release_notes": "- Added support for iOS 26 and Liquid Glass\n- Added support for dark mode and clear app icons\n- Fixed playback issues in CarPlay\n- Fixed yearly listening reports not appearing for some years\n- Fixed various playback issues\n- Fixed various issues importing some files\n- Fixed various UI issues\n\n---\n\nIf you’ve liked Doppler’s recent updates, please leave a review on the App Store. Reviews help Doppler reach more people and it means a lot. Thanks!",
+  "version": "3.2",
+  "current_version_release_date": "2025-10-03T15:44:52Z",
+  "rating": 4.62389,
+  "rating_count": 1582,
+  "minimum_os": "26.0",
+  "url": "https://apps.apple.com/us/app/doppler-mp3-flac-player/id1468459747?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/68/ad/28/68ad2893-bdaf-359a-6a89-cf48cda14bdf/App_Store_1_Large.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ae/65/53/ae65531c-9711-d759-aea3-e7fde26d07a4/App_Store_2_Large.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/56/c7/56/56c756ed-830c-776c-2f0a-ab9891347f98/App_Store_3_Large.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cb/d9/21/cbd921a3-35c1-6d73-5423-76284daf4495/App_Store_4_Large.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/77/80/8d/77808d8f-1e69-2f8f-1077-d57caf2b9b1b/App_Store_5_Large.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/b2/2d/a0/b22da0be-a22f-8a45-9f92-6a74516f1589/App_Store_6_Large.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f0/0b/81/f00b81f9-d36a-0e07-1786-b4f6e7c42500/App_Store_7_Large.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e4/8b/42/e48b426e-a768-3d45-f5ae-242be0c4942e/App_Store_8_Large.jpg/320x480bb.jpg"
+  ]
+}

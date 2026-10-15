@@ -1,0 +1,35 @@
+{
+  "id": "1168348542",
+  "name": "Zero: Fasting & Food Tracker",
+  "developer": "Zero Longevity Science, Inc.",
+  "bundle_id": "com.courtneycircle.Radiant",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Health & Fitness",
+  "genres": [
+    "Health & Fitness",
+    "Lifestyle"
+  ],
+  "description": "Zero is the all-in-one fasting tracker and nutrition app built for real results. Most fasting and weight loss apps stop at simply tracking fasts or calories. Zero connects the full picture — fasting, protein, meals, hydration, and habits — so you actually change your body composition, not just your eating schedule.\n\nHere’s how Zero helps you get there: \n\n• Track your intermittent fasting — Engage timers, streaks, and insights keep you stay motivated and consistent across your entire fasting journey.\n\n• Log meals the smart way — Skip the tedious manual meal entry routine. With Zero Plus, snap a photo and get instant macros, protein composition, and clarity on how effectively your meals support your goals. Your first meal logs are on us, so you can try it before you subscribe.\n\n• Hit your Protein Score — Zero Plus tracks a personalized daily protein target that adapts to your weight and goals. Better protein = better satiety, better muscle retention, better weight loss. Zero makes it automatic.\n\n• Complete the equation: Fasting + Protein — Most people fast or track meals. Zero brings them together so you lose weight, protect muscle, and avoid the pressure and guilt of traditional calorie trackers.\n\n• Stay hydrated to power your fasts — Water tracking with Zero Plus helps you maintain energy, reduce cravings, and support metabolic function throughout the day.\n\n• Build healthy habits that actually matter — Track movement, sleep, mood, and other daily pillars that reinforce your fasting and fueling routine.\n\n• Challenge yourself — Hit protein targets, maintain fasting streaks, and stay accountable with motivating challenges built around outcomes, not vanity metrics.\n\n• Learn the real science — Understand how fasting, protein, and hydration work together for sustainable weight loss and metabolic health — with insights from leading experts.\n\n• See measurable progress — Watch your streaks grow, your protein consistency rise, and your body composition improve with clean, insightful trend views.\n\nWhether you’re starting out or optimizing an existing routine, Zero gives you the structure, guidance, and clarity most apps miss.\n\nZero is not a medical device and does not provide medical advice, diagnosis, or treatment. Always consult your doctor or qualified healthcare provider before making any changes to your diet, fasting routine, or health regimen.\n\nZero is free to download, with fasting timers, streaks, weekly trends, expert articles, and challenges included. Zero Plus is an optional subscription that unlocks photo meal logging and your Protein Score, water tracking, custom fasts and saved presets, Fat-Burning Mode, the mood journal and daily habit insights, premium articles and Plus-only challenges, and monthly, yearly, and correlated charts. A free trial is available.\n\nPayment for Zero Plus will be charged to your Apple Account when you subscribe. Subscriptions automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Manage your subscription in your Account Settings.\n\nRead more terms & conditions:\nTerms of use: https://www.zerolongevity.com/terms-of-use\nPrivacy policy: https://www.zerolongevity.com/privacy-policy",
+  "release_notes": "Fasting, hands-free.\n\nThis update makes Zero easier to reach when you're on the go, with enhanced Siri support for fasting and a quicker way into meal logging.\n\n• Fasting with Siri: Start, end, or check on your fast just by asking — try \"Start my fast in Zero.\" Zero now works with Siri automatically, with no setup needed, and is updated for the new Siri in iOS 27.\n\n• Quicker Meal Logging: Add the new Log Meal control to your Lock Screen, Control Center, or Action button to jump straight into logging a meal. Requires iOS 18 or later.\n\n• Bug Fixes: Fixed an issue that could prevent logging your weight on iOS 27, and improved compatibility with the latest version of iOS.",
+  "version": "7.15.0",
+  "current_version_release_date": "2026-10-05T14:37:07Z",
+  "rating": 4.82064,
+  "rating_count": 445295,
+  "minimum_os": "17.0",
+  "url": "https://apps.apple.com/us/app/zero-fasting-food-tracker/id1168348542?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7e/f7/ab/7ef7ab11-8e25-8070-6c9f-8ffe6a26f537/1290_2796_1.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/fb/2d/41/fb2d41ed-2388-a5f0-b06b-508f2d2ec6fb/1290_2796_2.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/6e/b8/bb/6eb8bb54-7c8e-78de-e2e3-cff6e75e8e2f/1290_2796_3.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c1/47/6b/c1476b52-ce95-028d-095c-6d1d58971617/1290_2796_4.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5d/c7/18/5dc71839-8f24-7453-da90-9e178f43453f/1290_2796_5.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ba/7f/da/ba7fda74-0403-671d-3087-27b8b5e3c7fa/1290_2796_6.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d6/1e/8b/d61e8b8e-7d6a-fef1-2fc7-a4ce4d5d3713/1290_2796_7.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/01/db/53/01db530d-253c-0014-6f5f-a4d9bd06e9eb/1290_2796_8.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/97/54/b7/9754b7a9-e86d-2e28-9fd6-c3614608fe5a/9-Zero-apple-screenshot.png/320x480bb.jpg"
+  ]
+}

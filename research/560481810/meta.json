@@ -1,0 +1,34 @@
+{
+  "id": "560481810",
+  "name": "Money Manager Expense & Budget",
+  "developer": "Realbyte Inc.",
+  "bundle_id": "com.realbyteapps.MoneyManager2",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Finance",
+  "genres": [
+    "Finance",
+    "Lifestyle"
+  ],
+  "description": "“Money Manager Expense & Budget ” is an optimized application for personal account management.  \n \nHousehold account management is complicated. But we make it simple by simplifying the things that are complex.  The default settings will get you started, and once you get used to it, you can alter the settings according to your needs with the highly flexible and customizable functions available. \n\n- Super easy and simple to enter data anytime, anywhere.\n- View your spending tendencies graphically.\n- View statistics by simply entering the data.\n- Search and calculator functions.\n- Set up sub-categories and main categories as necessary.\n- Manage all your accounts at once.\n- Use multiple currencies.\n- Check weekly, monthly, and annual statistics.\n- Use the calendar view.\n- Use budget planning features to plan weekly, monthly, and annual budgets.\n- Change the start date of the month.\n\n※ Applying double entry bookkeeping\nIt facilitates efficient account management. Automatic double entry bookkeeping.\n\n※ PC manager function\nYou can view ‘“Money Manager” application using Wi-Fi.  You can edit and sort the data by date, category or account group on the screen of your PC. In addition, you can see fluctuations of your accounts indicated on graphs on your PC.\n \n※ Budget management function\nYou can manage your budget. It shows your budget and expenditures on a graph so you can compare a number of your expenditures against your budget quickly.\n \n※ Credit Card / Debit Card management function\nWhen entering a future payment date, you can see the payment amount and outstanding balance on the accounts page. You can connect your debit card to your accounts so that expenses are automatically recorded under a specific account.\n \n ※ Passcode\nYou can specify the desired time lapse before the app requests a passcode.\n \n※ Automatic money transfer and frequency functions\nYou can set up automatic money transfers between your accounts and configure the frequency of those transfers.\n \n※ Sort expenses by the recipient\nYou can sort your expenses by the recipient and view this information graphically.\n \n※ Payment Profiles\nYou can easily enter frequent expenditures by creating payment profiles.\n \n※ Backup / Restore\nYou can backup and restore your data via email, iTunes and iCloud. \n\n※ Multiple currency support – you can have individual entries in multiple currencies, and configure each account to calculate the total balance in your desired currency.\n\nIn Full Version. (https://itunes.apple.com/app/id564730202?mt=8)\nManage from PC is available.\nThere are no Ads.  \nThere is no limit the accounts.  \n(In the lite version, 10 accounts is available.)\n\n\nSubscription pricing and terms:\n\nMoney Manager offers auto-renewing monthly subscription at US$2.49/month and an auto-renewing yearly subscription at US$19.99/year to provide you with unlimited access to the Money Manager Data Sync Service while you maintain an active subscription.\n\nPayment will be charged to the credit card connected to your iTunes Account when you confirm the initial subscription purchase.\nSubscriptions automatically renew unless auto-renew is turned off at least 24-hours before the end of the current subscription period. Your account will be charged for renewal within 24-hours prior to the end of the current period, and the cost of the renewal will be identified. \nYou may manage your subscription and auto-renewal may be turned off by going to your Account Settings after the purchase. \n\nRead more about our terms and conditions here:\nhttps://realbyteapps.com/policy/terms.html\n\nPrivacy Policy:\nhttps://realbyteapps.com/policy/privacy.html",
+  "release_notes": "Tag feature has been added.\nIt is possible to add tags when recording transactions.\nIt is possible to search by tag on the Search page.",
+  "version": "2.15.1",
+  "current_version_release_date": "2026-10-15T00:56:05Z",
+  "rating": 4.81494,
+  "rating_count": 19519,
+  "minimum_os": "15.6",
+  "url": "https://apps.apple.com/us/app/money-manager-expense-budget/id560481810?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/d0/5c/a4/d05ca415-fb91-04b1-4485-4a0f7603351e/f2cb8063-1444-4f07-8aac-373e403603c1_iPhonePlus_U0028ENG_U0029_-_1.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/6d/c2/9b/6dc29bda-6984-36e1-3db3-ff15da676daf/e43d0a5c-2937-40b1-a2b2-577217aec852_iPhonePlus_U0028ENG_U0029_-_2.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/e3/a6/10/e3a610ed-91f7-6f4e-edbd-09e2fc1b7235/04f3f0e3-7656-4d58-9e4a-ff96170c3660_iPhonePlus_U0028ENG_U0029_-_3.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/43/7d/41/437d41eb-9246-8a90-7cd5-7442ae02aa6b/3b063284-8050-4209-a960-5119190c92fd_iPhonePlus_U0028ENG_U0029_-_4.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/05/6e/66/056e6613-ca47-9888-b81d-99b56ca0f99f/76803027-792b-46f5-b599-1f09e2abe972_iPhonePlus_U0028ENG_U0029_-_5.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/02/39/08/02390897-f35d-412d-d1f2-fc31d7dbe441/5ad989ef-236c-4a45-845e-86a9443555b8_iPhonePlus_U0028ENG_U0029_-_6.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/68/e6/a7/68e6a7d1-99b1-9ca9-3a75-eb23a1eedba7/4dae8de4-96a5-4e71-aece-9905ed3bec48_iPhonePlus_U0028ENG_U0029_-_7.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/4e/66/8e/4e668eec-ada1-7c1a-75d3-9c5d96945ae1/7e0728d0-e007-4af1-b96d-42ae7bcf67ef_iPhonePlus_U0028ENG_U0029_-_8.png/392x696bb.png"
+  ]
+}

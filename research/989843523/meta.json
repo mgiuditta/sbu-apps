@@ -1,0 +1,34 @@
+{
+  "id": "989843523",
+  "name": "ImgPlay: GIF Maker & Meme",
+  "developer": "ImgBase, Inc.",
+  "bundle_id": "me.imgbase.imgplay",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Photo & Video",
+  "genres": [
+    "Photo & Video",
+    "Productivity"
+  ],
+  "description": "ImgPlay makes creating high-quality GIFs on iPhone incredibly simple. Turn videos, Live Photos, burst shots, still images, and even screen recordings into clean, smooth animations in just seconds. Whether you're making memes or polished short loops, ImgPlay offers the tools you need with no learning curve.\n\nCreate your perfect animation now with ImgPlay!\n\nConvert Any Media into Professional GIFs\n- Video to GIF Conversion: Use precise trimming to transform any video into a perfect looping GIF\n- Convert Live Photos and burst shots into seamless animations\n- Combine multiple images to create stop-motion, slideshows, animated collages, or loops\n- Easily import files from iCloud, Dropbox, Wi-Fi, or iTunes\n- Turn screen recordings into editable GIFs instantly\n- 4 Camera Modes: Capture new content with hands-free, normal, stop-motion, and boomerang modes\n\nSmart Editing & AI Power: Next-Level GIF Quality\nElevate your GIF creations using our cutting-edge AI technology and professional editing tools.\n- Remove backgrounds instantly with AI background removal\n- Use canvas ratios tailored for Instagram, TikTok, Stories, Reels, X, and more (1:1, 4:5, 9:16, 16:9)\n- Adjust playback speed from 0.02 to 1 second per frame\n- Choose loop settings: infinite, 1, 3, or 5 loops\n- Switch playback direction: forward, reverse, or back-and-forth\n- Set video FPS to 5, 10, 15, 20, 24, 30 or 60 for the motion style you want\n- Crop, rotate, flip, zoom, and refine any part of your animation\n\nFrame-Level Editing for Total Control\n- View and edit every frame at once\n- Reorder frames with simple drag-and-drop\n- Remove unwanted frames instantly\n- Combine GIFs, photos, videos, and Live Photos within a single project\n- Save any frame as a standalone image\n\nText, Stickers, & Meme Creator: Personalize Your Content\n- Import your own fonts or use over 20 built-in animated text effects\n- Advanced Meme Maker: Features a meme canvas with multiple text areas and an auto-text canvas that adapts to your caption\n- Custom Stickers: Use your own images, PNGs, GIFs, and clipboard items as stickers, applying 23 unique motion effects\n- Visual Enhancements: Access 45 filters and full visual adjustments, including Brightness, Exposure, Contrast, Saturation, Temperature, Sharpness and Clarity, Hue, Shadows, and Midtones\n- Privacy Tools: Apply Mosaic and Blur functions to conceal sensitive or unwanted areas\n\nCreative Overlays & Styling Tools\n- Add your own Logo for personalized branding\n- Colored or Patterned Backgrounds\n- Various Borders to frame your GIF perfectly\n- Sketch with Pen Drawing\n\nHigh-Quality Export & Social Optimization\nShare your creations instantly with optimized file sizes and the highest possible quality.\n- Clean and sharp high-quality GIF output using dithering technology\n- File Size Optimization: Reduce file size with built-in tools for faster loading and sharing\n- Multiple Export Formats: Export as GIF, MP4, APNG, or WebP\n- Customized resolutions or pixel sizes available\n- One-Tap Sharing: Instantly share to Instagram, TikTok, Reels, X, Facebook, WhatsApp and more major platforms\n- Quickly share GIFs via iMessage\n\nUnlock All GIF Editing Features with ImgPlay Premium\n- Watermark Removal and Advanced Saving Options\n- Weekly, monthly, or yearly subscription options are available\n- Charged to your iTunes account upon purchase\n- Auto-renews unless turned off 24 hours before renewal\n- Manage or cancel anytime in Account Settings\n- No partial refunds; access continues until the billing period ends\n\nYour feedback helps us keep improving ImgPlay. Share your thoughts anytime.\n\nEmail: imgplay.ios@imgbase.me\nTerms of Use: https://www.imgbase.me/imgplay/terms/termsofuse.html",
+  "release_notes": "- Added support for higher output resolutions on the latest devices.\n- Improved stability during camera capture and editing.\n- Fixed issues that could occur when combining media.\n\nFor further questions, email us at imgplay.ios@imgbase.me. We always listen to our users’ feedback.",
+  "version": "6.7.3",
+  "current_version_release_date": "2026-09-02T19:41:39Z",
+  "rating": 4.75325,
+  "rating_count": 45491,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/us/app/imgplay-gif-maker-meme/id989843523?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0e/28/44/0e284452-0d88-f50a-b23c-9967b1fbd35c/796b18e1-f617-4112-b762-f1ecf35b5164_screenShot_8plus_en_03.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/90/10/00/9010004a-6a2e-4f4a-ae5b-e600bdeb4f11/c15cffd0-ed4d-4f47-9af0-e8d12bc10cab_screenShot_8plus_en_01.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/db/2a/5b/db2a5b05-64cb-1a13-3fc7-7db1bccb0a40/282279c6-6127-4e1b-a4e1-68c8cce7c0ab_screenShot_8plus_en_02.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/46/f0/14/46f01450-3a42-e0c3-f327-884fe2fc1ede/97c3d38d-2bf9-4bad-81ef-d7b25f7b472a_screenShot_8plus_en_04.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/67/a1/e9/67a1e9d5-0de2-734f-49e7-16f7238a1e77/e44ef72e-de2d-4a87-ad4f-dde6cf48a0a8_screenShot_8plus_en_05.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c4/3d/8f/c43d8f37-ffe4-714a-a2e7-725ba57dabc6/64ccb727-2ac9-46fb-8f8a-70302de53534_screenShot_8plus_en_06.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0e/5d/38/0e5d38cf-762c-be4a-b979-84ea7d44b02f/3848ec89-b6ed-4d3e-b694-127cb45791f0_screenShot_8plus_en_07.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9f/66/e9/9f66e9c3-7690-1760-6430-ba1e2e7af868/1d623a34-5b4a-4247-89fa-0a677833d83e_screenShot_8plus_en_08.png/392x696bb.png"
+  ]
+}

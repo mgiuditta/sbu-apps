@@ -1,0 +1,33 @@
+{
+  "id": "1455197364",
+  "name": "Exif Metadata",
+  "developer": "New Marketing Lab, Inc",
+  "bundle_id": "com.newmarketinglab.ExifMetadata",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Photo & Video",
+  "genres": [
+    "Photo & Video",
+    "Utilities"
+  ],
+  "description": "Exif Metadata lets you quickly and easily view, edit, and remove metadata, including GPS location, from your iPhone and iPad photos. It is a must-have tool for serious photographers and casual iPhoneographers alike. \n\n10 reasons to use Exif Metadata:\n- It's free to try\n- View, edit, or remove Exif metadata on the fly\n- View, edit, or remove location data from your photos\n- Bulk edit multiple photos at the same time\n- Filter photos missing location or metadata\n- Your photos are processed on device and never sent to a server\n- Extension lets you view metadata directly from the Photos app\n- Works on both iPhone and iPad\n- Supports Dark Mode\n- Highly rated with an average of 4.5 stars\n\nREAL REVIEWS FROM REAL USERS\n\n\"Still the best app for editing Exif metadata.\" -- by iPad User 0222\n\n\"As a conscientious parent, I am reluctant to share photos of my children on-line.  This app clears any personal data and eases my concerns.  Plus it is very straight forward and easy to use.\" -- by T puffin\n\n\"This app is perfect in its simplicity. It’s the only exif app i have found which allows you to view metadata within the camera roll - awesome!\" -- by Fshhshsns\n\n\"EXIF Metadata does exactly what it says it will do. It’s extremely easy to use and the customer support is great. The inexpensive lifetime Pro version is worth every penny.\" -- by Apple TV Fan\n\n\"Very clean interface, does its job very well. If you want to bulk update the metadata on a collection of photos (eg imported from somewhere else) this is your solution. Highly recommend.\" -- by JT Player\n\nFEATURES SPOTLIGHT\n\nView Exif metadata:\n- View basic photo information at a glance\n- View 50+ metadata tags\n- View location data such as GPS data, address, map location\n\nEdit Exif metadata:\n- Edit aperture, exposure, date, time, author, description, copyright, and more\n- Edit geotags or spoof location\n\nFilter photos:\n- Pro users can filter photos missing location and Exif metadata\n\nRemove Exif metadata:\n- Remove GPS location data independently of other Exif data\n- Remove all metadata at once\n\nBulk edit metadata:\n- Pro users can edit metadata of multiple photos at once\n\nClean & simple design:\n- Optimized for iPhone and iPad\n- Supports Dark Mode\n\nPhoto extension: \n- Access metadata of your photos directly from the Photos app\n\nProtect your privacy:\n- Easily share photos online without any metadata\n\nThis app works with:\n- All photos in your iPhone or iPad camera roll, except ProRAW photos\n- Photos in iCloud Photo Library\n- Photos in Photo Stream\n\nExif Metadata Pro:\n\nThe Pro version of Exif Metadata can be purchased via an annual subscription or one-time payment to remove ads and gain the ability to edit metadata for multiple photos at once.\n\nPayment will be charged to your Apple ID account at the confirmation of purchase. The subscription automatically renews every year unless it is canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscriptions by going to your App Store account settings after purchase.\n\nTerms of use: https://www.sixstarapps.com/terms/\nPrivacy policy: https://www.sixstarapps.com/privacy/\n\nHAVE QUESTIONS OR NEED HELP?\n\nIf you have any question about the app, or need help about something, please do not hesitate to contact us at www.SixStarApps.com. We’ll be happy to help!",
+  "release_notes": "This update makes small improvements to how photos inside an existing album are saved to that same album after being edited.",
+  "version": "3.5",
+  "current_version_release_date": "2026-05-03T16:56:44Z",
+  "rating": 4.55935,
+  "rating_count": 6057,
+  "minimum_os": "13.0",
+  "url": "https://apps.apple.com/us/app/exif-metadata/id1455197364?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e1/cb/b8/e1cbb861-e0fa-eeec-1ee8-d8bb3e6606a9/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b0/f9/cd/b0f9cdd9-0641-8900-e7ca-0f58ad56abf0/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ea/9d/4d/ea9d4d5b-137f-8f8a-5d36-b9343b109c47/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d4/ab/e0/d4abe01d-3c0e-17cc-178c-20648bee13f4/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/eb/a4/d3/eba4d3d0-319a-36a1-5f66-dfae3f11cea6/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f8/bc/b3/f8bcb3af-c92b-c607-0cb9-e894b65e1aef/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d0/14/67/d0146787-2220-fa54-d94e-ba8be85c8a65/pr_source.jpg/392x696bb.jpg"
+  ]
+}

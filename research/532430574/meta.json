@@ -1,0 +1,36 @@
+{
+  "id": "532430574",
+  "name": "Happy Scale",
+  "developer": "Front Pocket Software LLC",
+  "bundle_id": "com.frontpocketsoftware.happyscale",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Health & Fitness",
+  "genres": [
+    "Health & Fitness",
+    "Medical"
+  ],
+  "description": "Dieting is hard enough. But when you work hard, hop on the scale, and see a number that’s higher than yesterday? Well, that’s just not fair!\n\nIt’s time to tame the scale!\n\nHappy Scale helps you make sense of the frustrating ups and downs of weigh-ins by using mathematical analysis to make sense of your scale weights.\n\nYou’ll:\n• understand your true trend,\n• take the sting out of plateaus, and\n• be able to predict what you’ll weigh for an upcoming event\n\n• SEE YOUR TRUE PROGRESS: Happy Scale uses sophisticated math to learn the true trend of your progress. You can see what you’re really losing each week.\n\n• NO MORE PLATEAUS: Use the moving average progress tracking options to see steady progress every day!\n\n• SLOW AND STEADY WINS THE RACE: Have a lot to lose? Break your weight loss goal into small, incremental milestone goals so you can focus on short-term, achievable goals!\n\n• THE PERFECT SUPPLEMENT: Use this app in conjunction with other popular apps. Weight entries can be automatically imported from apps that support exporting to the Apple Health app, and Happy Scale will export all your weights to Apple Health so other apps can see them.\n\n• IMAGINE YOUR SUCCESS: See predictions about what you’ll weigh in the future if you keep up your current trends, and set commitment goals for yourself!\n\n• KNOW YOUR NUMBERS: Our new BMI calculator shows you exactly where you stand and what weight ranges you need to hit for different health categories. No more guessing if you’re almost there!\n\n• WORKS ON ALL YOUR DEVICES: Seamlessly sync between your iPhone and iPad!\n\nSo, have your previous diets failed because you lost motivation? Try Happy Scale today and join thousands of users who use this app to TAME THE SCALE!\n\n------------------\n\nThis app optionally integrates with Apple Health. It is an opt-in feature that’s accessible from the Settings menu.\n\n------------------\n\nIf you purchase a monthly or yearly subscription, payment will be charged to your iTunes account. Your account will automatically be charged for renewal within 24-hours prior to the end of the current subscription unless you disable auto-renew. You can turn off auto-renewal at any time by going to your Account Settings on the App Store after purchase.\n\nPrivacy Policy: https://happyscale.com/privacy\n\nTerms of Use: https://happyscale.com/terms",
+  "release_notes": "NOTES IN CSV EXPORTS\n\nYou can now include your Logbook notes when you export a CSV file. Notes will appear in their own column next to that day's weight.\n\n\nIMPROVED ACCESSIBILITY\n\nVoiceOver and Voice Control support is improved in the Weight Chart and elsewhere, and many screens now better handle large text sizes.\n\n\nMORE RELIABLE DROPBOX SYNC\n\nDropbox sync now repairs a rare mix-up that could prevent your devices from syncing.\n\n\nFIXES AND TWEAKS\n\nDo we care a little too much about how polished this app is? Maybe?? We've been refining little things all over the place.",
+  "version": "2026.8",
+  "current_version_release_date": "2026-10-14T18:26:18Z",
+  "rating": 4.88818,
+  "rating_count": 58082,
+  "minimum_os": "16.0",
+  "url": "https://apps.apple.com/us/app/happy-scale/id532430574?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5b/d5/dd/5bd5ddd8-3766-8ed1-8f7a-681813ab8dad/56F19F2B-6366-4366-8957-8FAA99882254-iPhone69-01.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/19/b8/33/19b83364-058f-58da-993d-ac7e29500ed1/1A3FB207-FFA6-4127-8349-E92474D5C61C-iPhone69-02.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d4/5b/cb/d45bcb41-dbab-afeb-0c1d-82cb824575fd/6DF2EDCF-CDA9-42EC-9D65-4D0EF9C361C0-iPhone69-03.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/71/2e/e0/712ee02d-f6b8-9fcc-ba53-f05511d6878a/50467339-3BF8-4049-BD9B-404AAC6FBCCF-iPhone69-04.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/19/3a/1a/193a1a14-2afb-a8ce-7665-3f573c01d4da/C34DD528-046D-4A09-9FB7-789FE53D80B8-iPhone69-05.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/98/6c/e0/986ce07f-5a28-65e9-e64d-4cef2f74101f/8C9FB16B-37E1-4187-B90E-541AB01EF455-iPhone69-06.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1c/fd/38/1cfd385b-90b3-45ef-a178-6ac647e3d15f/CAE5DC8B-BCC4-4415-8A18-51E4F9A4BADF-iPhone69-07.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e8/f2/63/e8f2633a-da59-89dc-acff-dbc009d11679/3A210A11-5E8D-477D-9B2A-76D80FFDEBB4-iPhone69-08.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7b/df/1f/7bdf1f63-2843-1423-07ac-ae623f972889/83202BC2-6572-45A4-B5A1-4E871836B0E2-iPhone69-09.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a8/8a/b3/a88ab3a0-2a30-5ef9-a701-a431911c0d6d/0A219839-3E3B-45A6-9030-57271348B4D4-iPhone69-10.png/320x480bb.jpg"
+  ]
+}

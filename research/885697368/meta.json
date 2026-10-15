@@ -1,0 +1,36 @@
+{
+  "id": "885697368",
+  "name": "Halide Mark III - Pro Camera",
+  "developer": "Lux Optics Incorporated",
+  "bundle_id": "com.chromanoir.Zeit",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Photo & Video",
+  "genres": [
+    "Photo & Video",
+    "Utilities"
+  ],
+  "description": "Halide unleashes your iPhone’s camera. Disable iPhone processing for natural photos, apply powerful film situations, access manual controls, and more. Halide has over 24,000 5-star ratings and is an App Store Editors’ Choice and Apple Design Award winner.\n\nHalide’s Looks are built into the camera itself, changing how your photo is captured and processed - not just a color filter applied after the fact. These are the best photos you can get out of an iPhone. Start with Process Zero for natural, film-like results, without any AI or computational photography. Explore our rich set of creative Looks developed with Hollywood colorist Cullen Kelly, and powered by sophisticated film simulation. \n\nFor nine years, Halide has set the standard for professional iPhone camera control. Nail your manual focus with Focus Peaking and the Focus Loupe. Compose your shots with intention using sophisticated framing guides, from a basic grid and rule of thirds, to the golden ratio and rabatment of the rectangle. Get perfect macro shots with Halide's dedicated Macro Mode.\n\nHate editing? Halide gives you amazing results straight out of the camera. But when you need to fine-tune, Photo Lab makes it fast and intuitive.  Try dramatically different Looks, adjust framing and exposure, experiment with film simulation, or rescue details in highlights and shadows with Tone Fusion.\n\nYou can even import and load RAWs from other apps, such as Apple’s own camera app, or standalone cameras by Canon, Nikon, Sony, Leica, Fujifilm, and Hasselblad. Specific formats are listed below.\n\n*Halide is a paid app. Try it free for 7 days with an annual membership, or buy it outright with a one-time purchase — no subscription required.*\n\nFeatures:\n- Shoot without Apple’s computational photography for stronger contrast and more natural results.\n- Photographic Looks developed in collaboration with esteemed Hollywood colorist Cullen Kelly.\n- Rescue details in shadows and highlights with a Tone Fusion slider inspired by darkroom dodging and burning.\n- Try any Look on existing ProRAW files - including photos shot in Apple’s camera app.\n- Become a better photographer by signing up for our 10-day tutorial directly from the app.\n- Full manual exposure controls including shutter speed, ISO and white balance.\n- Technical Readout to view all details of your iPhone camera hardware.\n- Also runs on iPad, for an amazing Photo Lab experience.\n\nRAW File Support:\n- DNG (iPhone, Leica)\n- CR2 (Canon)\n- CR3 (Canon)\n- NEF (Nikon)\n- RAF (Fujifilm)\n- ARW (Sony)\n- FFF (Hasselblad)\n\nTerms of Use can be found here: https://halide.cam/terms\n\nPrivacy: https://www.lux.camera/privacy/",
+  "release_notes": "Welcome to Halide 3.2, which adds support for the new adjustable aperture on the iPhone 18 Pro. In addition to offering a fully variable aperture, we've added a new Aperture Priority mode. At last our logo has meaning!\n\nWe're also excited to introduce two new Looks! DAWN features filmic warmth in midtones and highlights, paired with rich yet gentle shadows and subtle complementary cool colors. QuickSilver's high contrast and muted color simulate a silver-retention alternative process. As a reminder, all of Halide's film simulations are available on all devices. Not just the iPhone 18 Pro.\n\nIf you have any other feedback, please let us know at support@lux.camera or hop into our Discord. Stay tuned, as we have a lot more planned for this Fall!\n\n- Team Halide",
+  "version": "3.2.1",
+  "current_version_release_date": "2026-10-02T16:38:12Z",
+  "rating": 4.44929,
+  "rating_count": 13586,
+  "minimum_os": "18.0",
+  "url": "https://apps.apple.com/us/app/halide-mark-iii-pro-camera/id885697368?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/18/42/11/184211f5-7b1c-23bb-bfd3-be2eb600b696/5ffe57d2-d636-4b17-bbdb-bc4be089574c_55_App_Store_Screen_1.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e8/74/5a/e8745ac8-a414-3ddd-8f33-7e0c6045d3b6/786972e1-d2b2-4411-b7f6-9f8591e595f6_Untitled-2.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/74/72/5c/74725ca7-ff69-eb0d-f7a3-42e2d44aad3b/113a60cb-733d-499d-a4a3-718ec45d2f23_55_App_Store_Screen_8.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1d/72/5a/1d725a60-27af-d943-5e77-66a334bda95a/8c05f609-feba-4c0e-9a84-4eb7559caee9_55_App_Store_Screen_3.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ce/21/46/ce214679-8f6e-0a1b-e62a-8624f16f9941/85c2b261-8d55-41c8-ae9b-597cb9e00ed1_55_App_Store_Screen_4.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/20/a1/bf/20a1bf0a-e29d-4691-ea38-b7f258edc002/50d64d06-b68a-43eb-a496-0ebd960929f9_55_App_Store_Screen_5.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d3/b2/1d/d3b21d11-7d40-ea0a-7447-de84266a49ab/154bbd5e-fc64-4a15-a7b8-e77eff04fc02_55_App_Store_Screen_6.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b9/a1/16/b9a11614-74c1-85a9-c1d3-53fdbce57c44/2e7682c9-5e41-4548-9212-cd7d2812beae_55_App_Store_Screen_7.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b5/4d/ca/b54dca53-2a7c-f7d5-b8e7-b4c5c91ed190/06c8895b-8ec2-4d15-be4a-6791d6f36e6b_55_App_Store_Screen_9.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d4/9a/12/d49a124a-0475-5472-75c5-ca46e34ec1a0/3b5954c7-5cd7-4a58-902d-85b5756f8b1b_55_App_Store_Screen_10_copy.png/392x696bb.png"
+  ]
+}

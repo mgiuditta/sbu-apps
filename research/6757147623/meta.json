@@ -1,32 +1,32 @@
 {
   "id": "6757147623",
-  "name": "GrayZone - Esposimetro",
+  "name": "GrayZone - Light Meter",
   "developer": "Massimiliano Schenetti",
   "bundle_id": "it.maxdouglas.grayzone",
-  "store_country": "it",
+  "store_country": "us",
   "ranks": {},
   "price": 2.99,
-  "formatted_price": "2,99 €",
-  "currency": "EUR",
+  "formatted_price": "$2.99",
+  "currency": "USD",
   "genre": "Photo & Video",
   "genres": [
-    "Foto e video",
-    "Utility"
+    "Photo & Video",
+    "Utilities"
   ],
-  "description": "GrayZone misura la luce dove tu decidi, non dove decide \nla fotocamera.\n\nCreata da Max di max&douglas — fotografo \nprofessionista con 25 anni di esperienza nel settore \npubblicitario ed editoriale.\n\nModalità Sistema Zonale\nMisura prima un’area di riferimento (Zona V), poi controlla dove cadranno le altre zone e la relativa differenza in EV, per un’esposizione precisa e coerente.\n\nLettura esposimetrica SPOT.\nMisura la luce esclusivamente nell'area indicata.\nIdeale per ritratti, luce complessa e situazioni critiche.\nCalibrata per riportare l'area selezionata a grigio neutro.\n\nControllo diretto dell'esposizione\nISO impostabili prima della misurazione.\nCombinazioni precise di tempi e diaframmi.\nBlocco esposizione con AE LOCK.\nSupporto ai mezzi stop.\nModalità MANUAL con scala sovra-sottoesposizione.\n\nInterfaccia essenziale\nAnteprima live nel rapporto nativo del sensore.\nNuova inversione colori dell'interfaccia.\nMostra solo ciò che serve. Niente distrazioni.\n\nPrivacy totale\nNessuna pubblicità. Nessuna foto salvata. \nNessun dato raccolto o trasmesso.\n\nPer chi fotografa in manuale — su pellicola o digitale.\nNon sostituisce la tua fotocamera. Lavora insieme a lei.",
-  "release_notes": "Grazie per continuare a seguire GrayZone!\nAbbiamo lavorato sodo per seguire tutte le vostre richieste: ora potete decidere se usare la app come semplice strumento di misurazione SPOT o accedere ad una più avanzata versione del Sistema Zonale dove finalmente potrete assegnare la zona che volete alla prima misurazione e vedere dove cadranno le altre zone di conseguenza.\nAbbiamo implementato gli step a 1/3 di stop per un balzo in avanti nella precisione.\nAbbiamo aggiunto un bel pulsante per ricevere supporto direttamente e infine un pò di pulizia del codice e dell' interfaccia grafica oltre, ovviamente, alla compatibilità con iOS 27.",
+  "description": "GrayZone reads light where you decide — not where \nyour camera guesses.\n\nBuilt by Max of max&douglas — professional \nphotographer with 25 years in editorial and \nadvertising photography.\n\nZone System Mode\nMeasure a reference area first (Zone V), then check where the other tones will fall and their relative EV difference, for precise and consistent exposure.\n\nReal SPOT Metering\nReads light exclusively in the area you select.\nIdeal for portraits, complex lighting and critical \nsituations.\nCalibrated to render the selected area as neutral gray.\n\nDirect Exposure Control\nSet ISO before metering, like a dedicated light meter.\nInstant precise combinations of shutter speed \nand aperture.\nExposure lock with AE LOCK.\nHalf-stop support for finer control.\nMANUAL mode with over/underexposure scale.\n\nEssential Interface\nLive preview in your sensor's native ratio.\nNEW UI color inversion\nShows only what you need. Nothing else.\n\nComplete Privacy\nNo ads. No photos saved.\nNo data collected or transmitted.\n\nFor manual shooters — on film or digital.\nIt does not replace your camera. It works alongside it.",
+  "release_notes": "Thanks for continuing to follow GrayZone!\nWe’ve been working hard to keep up with all your requests. You can now choose to use the app as a simple SPOT meter, or switch to a more advanced version of the Zone System, where you can finally assign the zone you want to your first reading and see where all the other zones fall accordingly.\nWe’ve also added 1/3-stop increments, taking precision one step further.\nThere’s now a nice little button for contacting support directly, plus some good old code and interface cleanup — and, of course, full compatibility with iOS 27.",
   "version": "3.5",
   "current_version_release_date": "2026-09-18T14:55:18Z",
-  "rating": 4.84999,
-  "rating_count": 20,
+  "rating": 2.8,
+  "rating_count": 5,
   "minimum_os": "18.6",
-  "url": "https://apps.apple.com/it/app/grayzone-esposimetro/id6757147623?uo=4",
+  "url": "https://apps.apple.com/us/app/grayzone-light-meter/id6757147623?uo=4",
   "screenshot_urls": [
-    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/76/49/30/7649304f-9a71-e33d-7a70-bdd76e06cebf/screenshot_V3_2-1-ita.png/320x480bb.jpg",
-    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/25/12/3d/25123d7c-abe8-7002-69d2-6fe5ba321125/screenshot_V3_5-6-ita.png/320x480bb.jpg",
-    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/32/f8/14/32f8146e-57b4-df26-62cf-a0265a8cc3d6/screenshot_V3_2-3-ita.png/320x480bb.jpg",
-    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/02/82/44/0282443e-6508-7f39-9225-e907d1476f9b/screenshot_V3_2-4-ita.png/320x480bb.jpg",
-    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/15/0f/c4/150fc47c-469b-1aa0-14aa-28d513ba2404/screenshot_V3_5-2-ita.png/320x480bb.jpg",
-    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8d/24/bb/8d24bbfd-b565-3502-a14a-adc459faf8b2/screenshot_V3-5-ita.png/320x480bb.jpg"
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e1/ef/ad/e1efadde-f46f-84ed-34b5-e21a505c96ad/screenshot_V3_2-1-eng.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0d/bf/2f/0dbf2ffe-10ae-3070-6cd4-47c65f089df1/screenshot_V3_5-6-eng.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3c/2c/f2/3c2cf24a-d337-c0b6-bf69-ee9bc9c2439f/screenshot_V3_2-3-eng.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/79/2a/94/792a9415-97a2-c984-da73-2bffbde791c2/screenshot_V3_2-4-eng.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/86/f9/52/86f952b8-d7f1-0e64-bd2c-b5a2c1d87ad6/screenshot_V3_5-2-eng.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9a/10/fd/9a10fd07-f7c5-46c0-4933-b8759f185ccf/screenshot_V3-5-eng.png/320x480bb.jpg"
   ]
 }

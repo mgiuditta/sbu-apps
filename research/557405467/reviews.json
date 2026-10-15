@@ -1,0 +1,177 @@
+[
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Very bad and useless app.",
+    "text": "Waste",
+    "version": "9.1"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Network Analyzer",
+    "text": "Scam",
+    "version": "9.0.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Weak",
+    "text": "Not worth buying",
+    "version": "9.0.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Decent",
+    "text": "Good but not many features and only half the information one needs or wants",
+    "version": "9.0.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Removing features ?",
+    "text": "The only reason for having this app was taking a viewing the speed history. Now when using the report, the most valuable metric ( the name of the network being scanned ) is now removed, and then the value to me of this app was also removed.",
+    "version": "9.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Ease Of Use",
+    "text": "This was the very first app i ever downloaded in regards to network stuff. Before i knew what an ip was. Anyway that was like 6 years ago. Love the app and i appreciate the work yall have done with it!",
+    "version": "9.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "The app keeps crashing",
+    "text": "I recently got a new phone and initially the iPhone 14 worked perfectly but with the iPhone 17 Pro it has issues it crashes when I try to do a second DNS scan and I can't type or select anything the app keeps crashing that never happened to me on the iPhone 14",
+    "version": "9.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Subscription",
+    "text": "Can not cancel the subscription.  No option within app to cancel.",
+    "version": "9.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Limited",
+    "text": "I need to know what channels are being used for wifi to prevent wifi collisions. \n\nThis “pro” version is rudimentary and limited.\n\nDisappointed",
+    "version": "9.0.1"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "It does not check upload speed",
+    "text": "It can measure download speed, and the results are pretty close to other apps, however, when it comes to check the upload speed, it gives no data whatsoever.",
+    "version": "8.2.1"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Great app to give you an overview",
+    "text": "I’m not a network professional.  Rather, I’m a person that has been around computers, networks, group collaboration since its very beginning in the 1980’s \n\nPeople who know me are always asking for help. \n\nNetwork Analyzer is a great app to give you an overview of the network and its configuration. It solves so many of the basic problems that happen on smaller networks that aren't actively monitored. \n\nI can sollve simple problems by combining my basic knowledge with the facts supplied by the app.",
+    "version": "8.2.1"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Does nothing",
+    "text": "They have turned off all the useful features,",
+    "version": "8.2.1"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "iOS security handicaps",
+    "text": "The iOS security changes effectively remove the valuable features that made this app worthwhile.  The awareness of other active networks near me, manufacturers of hardware, MAC addresses etc was extremely helpful to triage and troubleshoot wireless issues when helping customers.  Now, it's basically a router login page.  This is unfortunate because it's not the developer's fault but the premium version now lacks premium features.",
+    "version": "8.2.1"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Love it on:",
+    "text": "Initially got and paid for this app year’s ago on my pixel phone. It’s great. But on the iPhone Apple restricted so many things it’s barely usable for networking. The pro version provides many things for Apple some may like; me, I’ll pass.",
+    "version": "8.2.1"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Good App",
+    "text": "Update May 26 2025. Upload speed test just doesn’t work…………..I have used this app for years and love all the tools and net/lan information. The only drawback is the speed test being off by about 15%. Show slower than actual.",
+    "version": "8.2.1"
+  },
+  {
+    "country": "it",
+    "rating": 1,
+    "title": "Analisi di spedizione test",
+    "text": "Funziona proprio male",
+    "version": "8.2"
+  },
+  {
+    "country": "it",
+    "rating": 3,
+    "title": "Migliorabile;",
+    "text": "È migliorabile perchè manca la possibilità di condividere un singolo esito di test velocità,ping,traceroute con Facebook",
+    "version": "7.7.6"
+  },
+  {
+    "country": "it",
+    "rating": 2,
+    "title": "Senza accesso alla ARP table non è un granché",
+    "text": "Pensavo fosse un’app completa, pagata senza indugio. Il problema l’ho riscontrato quando, fatta la prima scan di rete, mi compariva un messaggio con su scritto che non avrei potuto conoscere i Mac address dei singoli dispositivi connessi. Questo è un grande svantaggio anche perché cercare di capire chi è cosa dal DNS è difficile, sopratutto quando anche questo è N/A",
+    "version": "7.7"
+  },
+  {
+    "country": "it",
+    "rating": 1,
+    "title": "Non scannerizza le reti wifi",
+    "text": "Non scannerizza le reti wifi ma dolo lan :(",
+    "version": "7.6.2"
+  },
+  {
+    "country": "it",
+    "rating": 3,
+    "title": "Net Analyzer x IOS",
+    "text": "Ottima applicazione... peccato pero’ che nella versione x IOS non si possano visualizzare gli indirizzi mac dei dispositivi.Altrimenti avrei dato 5 stelle.",
+    "version": "7.6.1"
+  },
+  {
+    "country": "it",
+    "rating": 3,
+    "title": "Buona...manca la scansione del Wi-FI",
+    "text": "Manca la funzione di scansione delle reti Wi-FI",
+    "version": "7.4.2"
+  },
+  {
+    "country": "it",
+    "rating": 2,
+    "title": "Ha perso la sua utilità …",
+    "text": "… non potendo più leggere il MAC ADDRESS dei devices connessi !!\nNon potendo più (dopo iOS 11) memorizzare in modo univoco e permanente il nome dei devices connessi nella lista dei dispositivi trovati non si capisce più se sulla rete sono presenti “friends or foes” !!\nCapisco che non è un problema dello Sviluppatore, ma una nuova policy imposta da Apple, ma comunque sapere il solo IP ADDRESS dei devices connessi serve a poco per capire se ci sono connessioni esterne non autorizzate alla propria rete domestica … funzione che era molto utile nelle precedenti versioni di iOS.\nPECCATO !!",
+    "version": "7.4.2"
+  },
+  {
+    "country": "it",
+    "rating": 2,
+    "title": "Pensavo meglio",
+    "text": "Sulla parte di rete cellulare è imprecisa e non riconosce la rete a cui il telefono è collegato",
+    "version": "7.3.1"
+  },
+  {
+    "country": "it",
+    "rating": 1,
+    "title": "È una bufala",
+    "text": "Non fa lo scan delle reti wifi come lasciano intendere.\nSoldi rubati.",
+    "version": "4.0"
+  },
+  {
+    "country": "it",
+    "rating": 2,
+    "title": "Ottima!!! Soddisfatto...",
+    "text": "App molto utile e completa per l'analisi base della rete, scan ports, traceroute, ping e speedtest!\nVale la pena acquistata!",
+    "version": "2.0"
+  }
+]

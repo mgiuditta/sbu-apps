@@ -1,0 +1,109 @@
+{
+  "name": "Sbu Inventory",
+  "slug": "inventory",
+  "in_repo": null,
+  "replaces": [
+    {"name": "Sortly: Inventory Simplified", "app_store_id": "529353551", "role": "originale", "price_model": "free download capped at 100 items, then monthly or annual subscription (reviews quote $4.99-49.99/month, $299-2,700/year after repeated price hikes)", "version": "10.27.5", "rating": 4.73, "rating_count": 9528},
+    {"name": "Home Contents", "app_store_id": "420151922", "role": "concorrente", "price_model": "free download, in-app purchase", "version": "9.1", "rating": 4.70, "rating_count": 1459},
+    {"name": "Boxes: Storage made simple", "app_store_id": "1335784284", "role": "concorrente", "price_model": "free download, in-app purchase", "version": "8.3", "rating": 4.84, "rating_count": 955}
+  ],
+  "reference_outside_app_store": null,
+  "one_thing": "Keeps everything you own in one place, with photo, where it is and how many, and closes on one figure: how many things you have.",
+  "features": [
+    {"name": "Items with photos", "description": "Name, up to 8 photos (camera or PhotosPicker, no library permission), quantity, notes; photos downscaled to 2048 px HEIC with EXIF orientation applied, thumbnails cached.", "priority": "P0", "reason": "Sortly's core card: 'Item photos'. Orientation fixed at import: 'orientation of pictures is not quite good' (3 reviews), 'photos have to be snapped from within app'.", "source": "original"},
+    {"name": "Places and folders", "description": "Nested folders for locations and containers (Casa > Garage > Scatola 3), any depth; move items or folders by drag, swipe or 'Sposta in'; breadcrumb path on every item.", "priority": "P0", "reason": "Sortly's 'Custom folders' is the organizing model; Boxes builds the whole app on containers.", "source": "original"},
+    {"name": "Quantities", "description": "Integer quantity per item with a stepper and direct entry; folder rows show item count and total quantity of everything inside.", "priority": "P0", "reason": "Sortly's '+/-' on every item; 'Random quantity jumps' review: a stepper that only changes on tap, no gesture side effects.", "source": "original"},
+    {"name": "Search", "description": "One search field over name, notes, tags and custom field values, across every folder, results with breadcrumb; filter by tag and by folder.", "priority": "P0", "reason": "Finding a thing is the reason to have the list. SwiftData #Predicate on a normalised (diacritic- and case-folded) search key.", "source": "original"},
+    {"name": "Total figure", "description": "Main screen shows one SbuStat: total quantity of items in the inventory (or in the open folder), closed by the full stop; value is a secondary line in inkMuted when values exist.", "priority": "P0", "reason": "Design system: one figure per screen. Count is always defined; value is optional data.", "source": "original"},
+    {"name": "No item cap, everything free", "description": "Unlimited items, folders, photos, fields and exports; no trial, no account, no plan screen.", "priority": "P0", "reason": "130 of 216 reviews: price, subscription, price hikes; 26 name the 100-item free cap.", "source": "pain"},
+    {"name": "Your data never held hostage", "description": "Data lives in SwiftData on the device; export of the whole inventory as CSV (one row per item, folder path column) and as a ZIP with CSV + photos, from Settings at any time; import from the same CSV.", "priority": "P0", "reason": "19 reviews: data lost after an update, locked behind login, 'digital hostage taking', 'export within 3 days or lose it'.", "source": "pain"},
+    {"name": "Custom fields", "description": "Per-item fields from a user list: text, number, date, money; field templates reused across items (e.g. Numero di serie, Garanzia fino al).", "priority": "P1", "reason": "Sortly 'Custom fields & tags'; one review asks for purchase date and serial in exports.", "source": "original"},
+    {"name": "Value and purchase data", "description": "Optional price per unit, purchase date, currency from Locale; folder and total value computed with Decimal and shown with .currency format.", "priority": "P1", "reason": "Home inventory for insurance is the main personal use (23 reviews from home users priced out).", "source": "pain"},
+    {"name": "Tags", "description": "Free tags with autocomplete, tag filter in search.", "priority": "P1", "reason": "Sortly 'Custom fields & tags'; 'Tags no longer available' review.", "source": "original"},
+    {"name": "Find by label", "description": "Scan a barcode or QR already on an item or box (VisionKit DataScannerViewController) to open it or attach that code to it; manual code entry when the scanner is unsupported.", "priority": "P1", "reason": "Sortly 'Mobile barcode & QR code scanning'. Boundary with Sbu Scanner: only as an item label inside the inventory, never a generic reader, never shows URLs or content of unknown codes.", "source": "original"},
+    {"name": "Low quantity reminder", "description": "Optional minimum per item; items at or below it get a word + SF Symbol badge ('Da ricomprare') and a filter; optional local notification, off by default.", "priority": "P1", "reason": "Sortly 'Low stock alerts', paywalled; one review asks for an alert below 3 qty.", "source": "original"},
+    {"name": "Attachments", "description": "PDF receipts, manuals, warranties attached to an item from Files, QuickLook viewer.", "priority": "P2", "reason": "'Please add attachments!' review: manuals and warranties.", "source": "pain"},
+    {"name": "Date reminders", "description": "Local notification on a date field (warranty end, expiry), off by default.", "priority": "P2", "reason": "Sortly 'Date-based alerts'.", "source": "original"},
+    {"name": "PDF report", "description": "Printable PDF of a folder or the whole inventory with photo, path, quantity, value, purchase date and custom fields, via ImageRenderer/UIGraphicsPDFRenderer and ShareLink.", "priority": "P2", "reason": "Insurance use; 'PDF export samples show almost no data' review.", "source": "pain"},
+    {"name": "iCloud sync", "description": "Opt-in in Settings, off by default (ADR-0008): SwiftData with CloudKit private database; photos as external storage assets.", "priority": "P2", "reason": "Sortly 'Automatic syncing across all devices'; without a server. 'Long standing sync error' review: sync never required to use the app.", "source": "original"},
+    {"name": "iPad layout", "description": "NavigationSplitView: folders sidebar, items list, item detail; camera code works on iPad.", "priority": "P2", "reason": "3 reviews: freezes on iPad, camera assumes iPhone, can't upload photos on iPad.", "source": "pain"}
+  ],
+  "screens": [
+    {"name": "Inventory", "purpose": "Root folder on surface: one figure (total items, SbuStat + SbuFullStop), then folders and items (List .insetGrouped), search, add.", "elements": ["SbuStat total quantity", "inkMuted line: folders count, total value if any", "folder rows: name, item count", "item rows: thumbnail, name, quantity", ".searchable", "Aggiungi menu: oggetto, cartella", "scan button (P1)", "Settings sheet"]},
+    {"name": "Folder", "purpose": "Same layout one level down, breadcrumb title; figure is the folder's total.", "elements": ["SbuStat folder total", "subfolders", "items", "Sposta, Rinomina, Elimina"]},
+    {"name": "Item", "purpose": "Detail: photo carousel, quantity stepper, path, fields.", "elements": ["TabView photos, tap for full screen", "Stepper quantity", "path breadcrumb with 'Sposta in'", "value, purchase date", "custom fields", "tags", "code label", "attachments (P2)"]},
+    {"name": "Edit item", "purpose": "Form sheet to create or edit.", "elements": ["PhotosPicker + camera", "name", "quantity", "folder picker", "price, date", "custom fields", "tags", "minimum quantity"]},
+    {"name": "Search", "purpose": "Results across all folders.", "elements": ["results with breadcrumb", "tag and folder scopes", "empty state with ContentUnavailableView.search"]},
+    {"name": "Scan label", "purpose": "DataScannerViewController for barcode/QR; opens the matching item or offers to attach the code.", "elements": ["live scanner", "'Nessun oggetto con questo codice' with Collega a un oggetto", "manual entry"]},
+    {"name": "Settings", "purpose": "SbuAppShell settings sheet: export, import, iCloud toggle, fields, licences.", "elements": ["Esporta CSV", "Esporta archivio (CSV + foto)", "Importa CSV", "Sincronizza con iCloud (off)", "Campi personalizzati", "Licenze"]}
+  ],
+  "flows": [
+    {"name": "First item", "steps": ["Empty state: 'Aggiungi il primo oggetto'", "Take a photo or pick one", "Name, quantity, folder (default: Inventario)", "Salva", "Total shows 1"]},
+    {"name": "Organize a move", "steps": ["Create folder 'Scatola 3' inside 'Garage'", "Add items with photos", "Stick the box's existing barcode/QR, scan it, Collega a 'Scatola 3'", "Later: scan the box, folder opens with its contents"]},
+    {"name": "Find a thing", "steps": ["Search 'trapano'", "Result shows Casa > Garage > Scatola 3", "Tap, item detail"]},
+    {"name": "Leave with your data", "steps": ["Settings > Esporta archivio", "ZIP with inventory.csv and photos/", "Share sheet or Files"]},
+    {"name": "Delete", "steps": ["Swipe an item or folder > Elimina", "Confirm (SbuButton .destructive), folder confirm states how many items go with it", "Items, photos and attachments removed"]}
+  ],
+  "data_model": {
+    "entities": [
+      {"name": "Folder", "fields": [{"name": "id", "type": "UUID", "note": ""}, {"name": "name", "type": "String", "note": ""}, {"name": "parent", "type": "Folder?", "note": "nil = root; nullify, delete cascades children after confirm"}, {"name": "children", "type": "[Folder]", "note": "cascade"}, {"name": "items", "type": "[Item]", "note": "cascade"}, {"name": "code", "type": "String?", "note": "scanned label"}, {"name": "createdAt", "type": "Date", "note": ""}]},
+      {"name": "Item", "fields": [{"name": "id", "type": "UUID", "note": ""}, {"name": "name", "type": "String", "note": ""}, {"name": "searchKey", "type": "String", "note": "folded name + notes + tags + field values, for #Predicate"}, {"name": "quantity", "type": "Int", "note": ">= 0"}, {"name": "minimumQuantity", "type": "Int?", "note": "low quantity reminder"}, {"name": "unitPrice", "type": "Decimal?", "note": ""}, {"name": "purchaseDate", "type": "Date?", "note": ""}, {"name": "notes", "type": "String", "note": ""}, {"name": "tags", "type": "[String]", "note": ""}, {"name": "code", "type": "String?", "note": "barcode/QR payload, indexed"}, {"name": "folder", "type": "Folder?", "note": ""}, {"name": "photos", "type": "[ItemPhoto]", "note": "cascade, ordered"}, {"name": "fieldValues", "type": "[FieldValue]", "note": "cascade"}, {"name": "updatedAt", "type": "Date", "note": ""}]},
+      {"name": "ItemPhoto", "fields": [{"name": "data", "type": "Data", "note": "@Attribute(.externalStorage), HEIC 2048 px"}, {"name": "thumbnail", "type": "Data", "note": "256 px"}, {"name": "order", "type": "Int", "note": ""}]},
+      {"name": "FieldDefinition", "fields": [{"name": "name", "type": "String", "note": ""}, {"name": "kind", "type": "String", "note": "text | number | date | money"}]},
+      {"name": "FieldValue", "fields": [{"name": "definition", "type": "FieldDefinition", "note": ""}, {"name": "text", "type": "String?", "note": ""}, {"name": "number", "type": "Decimal?", "note": ""}, {"name": "date", "type": "Date?", "note": ""}]},
+      {"name": "Attachment", "fields": [{"name": "fileName", "type": "String", "note": "P2"}, {"name": "data", "type": "Data", "note": "@Attribute(.externalStorage)"}]}
+    ],
+    "storage": "SwiftData in Application Support, CloudKit-compatible from day one (optionals or defaults on every property, no unique constraints, optional relationships) so the opt-in iCloud sync (ADR-0008) needs no migration. Totals computed with fetchCount and a pure aggregator type tested with Swift Testing. CSV writer/reader and ZIP writer (stored, no compression needed for HEIC) are pure types with tests; no third-party library."
+  },
+  "monetization": {"model": "free download, 100-item cap, then subscription", "price": "Reviews quote $4.99/month in the past, now $24-49.99/month or $299-450/year for Advanced, $1,068-2,700/year for Ultra; repeated price hikes on renewal", "paywalled_features": ["more than 100 items", "low stock alerts", "custom fields", "label generation", "Bluetooth scanner", "reports", "more than one user"], "notes": "Account required to use the app; data stored on Sortly's servers. Pivoted from home users ('My Things') to businesses."},
+  "pains": [
+    {"pain": "Price: subscription, repeated price hikes at renewal, home users priced out, charges after cancelling", "mentions": 130, "evidence": "\"$50/month or $300/year is a crazy price for a household app.\"", "becomes": "No item cap, everything free"},
+    {"pain": "100-item free cap discovered after entering items", "mentions": 26, "evidence": "\"only to find that there is a cap for the free account- it is 100 items\"", "becomes": "No item cap, everything free"},
+    {"pain": "Bugs, crashes, slowness, sync errors, broken after updates", "mentions": 25, "evidence": "\"It either doesn't save or looses data. It freezes the entire iPad.\"", "becomes": "Local SwiftData, no sync needed to work; iPad layout (P2)"},
+    {"pain": "Home users abandoned: app turned business-only", "mentions": 23, "evidence": "\"too expensive for personal use where you're not recovering your cost\"", "becomes": "One thing for the home: places, photos, quantities; no pick lists, users, sales"},
+    {"pain": "Data lost, locked behind login or held hostage to force upgrade", "mentions": 19, "evidence": "\"Your current plan doesn't allow this feature. Please upgrade your plan.\" (on password reset)", "becomes": "Your data never held hostage: on device, CSV and ZIP export always"},
+    {"pain": "Forced account, sign-up and cancellation problems", "mentions": 10, "evidence": "\"You download the app and it won't even let you create an account\"", "becomes": "No account"},
+    {"pain": "Photo orientation, photos only from in-app camera, can't upload on iPad", "mentions": 4, "evidence": "\"Photos have to be snapped from within app\"", "becomes": "Items with photos (PhotosPicker + camera, EXIF orientation)"},
+    {"pain": "No dark mode, hard-to-read new UI", "mentions": 3, "evidence": "\"the app is blinding when 99% of your other apps are using dark mode\"", "becomes": "SbuTheme light and dark"}
+  ],
+  "pains_note": "216 reviews 1-3 stars of Sortly, US and IT (research/paywall-pain:research/529353551/reviews.json), counted by keyword pass then skimmed; a review can count in more than one pain. Scanning complaints (barcode lookup finds no product, Bluetooth scanner paywalled) are business needs and stay out.",
+  "skipped": [
+    {"feature": "Team users, permissions, multi-user sync", "reason": "Server-side and business-only; no accounts (CLAUDE.md). Sharing one folder read-only via iCloud (ADR-0009) is possible later, not v1."},
+    {"feature": "Web app and cloud storage", "reason": "No network; data stays on the device or in the user's iCloud."},
+    {"feature": "Barcode/QR label generation and printing", "reason": "No QR generator (boundary with Sbu Scanner); the user labels with codes already on boxes or any printed sticker."},
+    {"feature": "Generic code reader, product lookup by barcode", "reason": "Sbu Scanner's job, and lookup needs a network database."},
+    {"feature": "Pick lists, sales, stock movements, purchase orders, Bluetooth scanners, integrations (QuickBooks)", "reason": "Business inventory, out of the one thing for the home."},
+    {"feature": "Reports dashboard with charts", "reason": "One figure per screen; a PDF report (P2) covers insurance."},
+    {"feature": "AI item recognition from photo", "reason": "Server-side in competitors; not needed to write a name."}
+  ],
+  "system_frameworks": [
+    {"name": "SwiftData", "min_ios": "17", "use": "storage, #Predicate search, externalStorage photos"},
+    {"name": "CloudKit (via SwiftData ModelConfiguration)", "min_ios": "17", "use": "opt-in iCloud sync, private database (P2)"},
+    {"name": "PhotosUI", "min_ios": "17", "use": "PhotosPicker, no library permission"},
+    {"name": "AVFoundation / UIImagePickerController", "min_ios": "17", "use": "camera capture (NSCameraUsageDescription)"},
+    {"name": "ImageIO", "min_ios": "17", "use": "downscale, HEIC encode, orientation, thumbnails"},
+    {"name": "VisionKit", "min_ios": "17", "use": "DataScannerViewController for item labels (P1), isSupported check"},
+    {"name": "UniformTypeIdentifiers", "min_ios": "17", "use": "CSV import/export, fileImporter, attachments"},
+    {"name": "QuickLook", "min_ios": "17", "use": "attachments viewer (P2)"},
+    {"name": "UserNotifications", "min_ios": "17", "use": "low quantity and date reminders, off by default"},
+    {"name": "PDFKit / UIGraphicsPDFRenderer", "min_ios": "17", "use": "PDF report (P2)"}
+  ],
+  "dependencies": [],
+  "dependencies_note": "Apple frameworks and SbuKit only. ZIP export uses stored entries (HEIC is already compressed), a writer of about 100 lines with CRC32 from zlib (libz is a system library).",
+  "review_risks": [
+    {"rule": "4.3(a)/(b) and 4.2.6, lot rejection of 14/10", "risk": "New Sbu app while the 14/10 lot is in the Resolution Center; Inventory is listed as low risk in niche-crowding (leader 14k US, 144 IT ratings).", "mitigation": "Submit only after Apple answers, one per week; review notes describe a multi-screen tool (folders, photos, search, export) with no overlap with the catalog."},
+    {"rule": "4.3 internal overlap with Sbu Scanner", "risk": "Scanning barcodes in two Sbu apps.", "mitigation": "Scanner is not reachable as a reader: it only opens or links inventory items, unknown codes are never shown as content or URLs; no QR generator. Stated in review notes."},
+    {"rule": "5.2.5 / 2.3.7 metadata", "risk": "Using 'Sortly' in name, subtitle or keywords.", "mitigation": "Never; docs/factory.md forbids third-party app names in Store metadata."},
+    {"rule": "5.1.1 permissions", "risk": "Camera purpose string vague.", "mitigation": "NSCameraUsageDescription in IT/EN: photographing items and reading labels; PhotosPicker needs no permission."},
+    {"rule": "2.1 completeness", "risk": "Reviewer opens an empty inventory.", "mitigation": "'Prova con un esempio' adds a sample folder with items and our own photos, removable in one tap."},
+    {"rule": "4.1 copycats", "risk": "Copying Sortly's grid and red style.", "mitigation": "Sbu design system, native List, own copy and icon."}
+  ],
+  "decisions_needed": [
+    "Main figure: total quantity of items (proposed, always defined) or total value (only when prices are entered).",
+    "iCloud sync in 1.0 or 1.1: CloudKit-ready model from day one either way; P2 proposed.",
+    "Label scanning in Inventory (P1, VisionKit) accepted as not overlapping Sbu Scanner, or v1 ships without scanning."
+  ],
+  "estimate_days": 9,
+  "estimate_note": "P0 about 6 days (model, folders, item form with photos, search, totals, CSV/ZIP export-import, tests); P1 +2 (fields, value, tags, label scan, low quantity); P2 +3-4 (attachments, reminders, PDF, iCloud, iPad).",
+  "source": {"listing": "research/paywall-pain:research/529353551/listing.json and meta.json (US and IT)", "reviews": "research/paywall-pain:research/529353551/reviews.json (216 reviews 1-3 stars)", "competitors": "iTunes Search API 'home inventory', US, 2026-10-15", "niche": "research/niche-crowding:research/niche-crowding-2026-10.md, Inventory row", "fetched": "2026-10-15"}
+}

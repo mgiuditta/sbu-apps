@@ -102,5 +102,9 @@
       "it": "Contapersone",
       "en": "Tally counter"
     }
+  },
+  "inventory": {
+    "accent": "accent-inventory",
+    "subject": "an old wooden card-catalogue drawer with a brass label holder and pull ring"
   }
 }

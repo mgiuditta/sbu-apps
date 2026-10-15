@@ -1,6 +1,5 @@
 # Sbu Auth: LinkedIn e X
 
-> Le righe su "codice aperto" valgono solo quando la repo mgiuditta/sbu-apps è pubblica.
 > Ogni post con lo screenshot del paywall porta la riga: "Authenticator ℠ App è un marchio del rispettivo proprietario; Sbu non è affiliata." Link sempre a sbu.dev/apps/auth, mai solo all'App Store. `[N]` da riempire con i dati veri.
 
 ## Headline del profilo

@@ -1,6 +1,5 @@
 # Sbu Auth: Show HN
 
-> Pubblicare solo quando la repo mgiuditta/sbu-apps è pubblica: Show HN senza codice da guardare non regge, e "open source" oggi non è vero.
 > Giorno 1 dalla release, martedì-giovedì, 14:00-16:00 ora italiana (mattina US East). Resta nel thread per 4 ore e rispondi a tutto.
 
 ## Titolo (max 80 caratteri)
@@ -42,7 +41,7 @@ Happy to be told what I got wrong.
 Nothing leaves the device, so there's no cloud copy by design. That's why the backup is mandatory: on first setup and after every new account the app asks you to export an AES-GCM encrypted file with a passphrase to Files, iCloud Drive or a USB stick, your choice. You can also export everything as Google Authenticator migration QRs and print them. Keep recovery codes from each service too; that's the real last line.
 
 **2. "Why should I trust a student and AI-assisted code with my 2FA secrets?"**
-You shouldn't trust me, you should check. The app has no network code path to exfiltrate anything, and the App Store privacy label is "Data Not Collected". The repo is public, the crypto is CryptoKit (no hand-rolled primitives), and the TOTP/HOTP tests use the RFC 4226/6238 vectors. AI wrote drafts; I reviewed every line touching secrets. If you find something, open an issue and I'll fix it in public.
+You shouldn't trust me, you should check. The app has no network code path to exfiltrate anything, and the App Store privacy label is "Data Not Collected". The repo is public, the crypto is CryptoKit (no hand-rolled primitives), and the TOTP/HOTP tests use the RFC 4226/6238 vectors. AI wrote drafts; I reviewed every line touching secrets. If you find something, report it through GitHub's private vulnerability reporting on the repo and I'll fix it in public.
 
 **3. "How is this different from Raivo?"**
 Raivo was a good open-source app that was sold in 2023; an update then wiped codes for some users and trust collapsed. Sbu Auth can't be "sold" into a data business: no account, no server, no network, and the code stays public. And the backup is mandatory precisely because of what happened to Raivo users.

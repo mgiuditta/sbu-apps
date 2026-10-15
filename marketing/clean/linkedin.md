@@ -30,7 +30,7 @@ X: `How I built a free photo cleaner in <ore> hours: public App Store data only,
 ## Giorno 14: il numero
 
 > Due settimane di Sbu Clean.
-> <download> download. <stelle> stelle su GitHub [solo se la repo è pubblica].
+> <download> download. <stelle> stelle su GitHub.
 > Cosa è andato storto: <errore>.
 > Cosa rifaccio uguale: <cosa>.
 > La prossima app parte dallo stesso numero: un paywall settimanale.

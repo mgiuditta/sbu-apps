@@ -54,7 +54,7 @@ Direction **Carta e punto fermo**: Sbu fa una cosa sola e la chiude con un punto
 
 ### Issue tracker
 
-GitHub Issues of mgiuditta/sbu-apps, via `gh`. See `docs/agents/issue-tracker.md`.
+GitHub Issues of mgiuditta/sbu-apps-private (the public repo mgiuditta/sbu-apps has issues off), via `gh`. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

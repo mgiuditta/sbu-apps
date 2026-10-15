@@ -11,7 +11,7 @@ Issues and PRDs for this repo live as GitHub issues. Use the `gh` CLI for all op
 - **Apply / remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`
 - **Close**: `gh issue close <number> --comment "..."`
 
-Infer the repo from `git remote -v` — `gh` does this automatically when run inside a clone.
+Issues live in the private repo `mgiuditta/sbu-apps-private`; the public code repo `mgiuditta/sbu-apps` has issues off. `gh repo set-default mgiuditta/sbu-apps-private` is set in this clone; in a fresh clone pass `-R mgiuditta/sbu-apps-private`.
 
 ## When a skill says "publish to the issue tracker"
 

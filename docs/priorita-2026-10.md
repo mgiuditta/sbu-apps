@@ -40,13 +40,20 @@ Lo slot è uno a settimana e parte solo dopo la risposta di Apple sul lotto del 
 5. **Il tempo reale di Matteo.** Università e ripetizioni. Il piano chiede: giorno 1 sei ore di presenza su HN, giorni 1-3 un'ora al giorno su Reddit, i test insieme. Tutto il resto lo prepara un agente. Se una settimana non c'è tempo, salta il lancio e non la qualità: un loop dimezzato brucia l'app.
 
 Altri due vincoli trovati in repo:
-- **La repo è privata.** "Codice aperto" è metà della storia. Prima di renderla pubblica: controllo dei segreti nella cronologia (fastlane, note di revisione, chiavi), licenza.
+- ~~La repo è privata~~: pubblica dal 15/10 (vedi sotto).
 - **Il totale "oltre 2.000 €" usa Heartica**, che non ha un'App Sbu. Va bene per raccontare il fenomeno, non nel post "4 app, 0 €" (con le quattro app vere il totale è circa 1.550 €). Vedi `docs/lancio-sbu.md`, sezione d.
 
 ## Endpoint Apple
 
 Tutti hanno risposto il 15/10: `itunes.apple.com/lookup` (valutazioni e prezzo d'acquisto) e le pagine apps.apple.com IT e US (acquisti in-app). Il lookup non elenca gli acquisti in-app, quindi i prezzi settimanali vengono dalla pagina dello Store.
 
+## Repo pubblica (fatto il 15/10)
+
+- `mgiuditta/sbu-apps` è **pubblica**, licenza MIT, con la cronologia di `main` riscritta: il numero di telefono di App Review non c'è in nessun commit (il file resta solo sul Mac, ignorato da git). La vecchia repo è `mgiuditta/sbu-apps-private`: tiene le 466 issue, le PR e i 21 branch non uniti, che vanno riportati sulla nuova cronologia con `cherry-pick` se servono, mai con merge (riporterebbero la vecchia cronologia). Backup completo: `~/dev/sbu-apps-backup-2026-10-15.bundle`.
+- Remote locali: `origin` = pubblica, `private` = privata. `gh` punta di default alla privata per le issue.
+- Permessi della pubblica: `main` non si può cancellare né riscrivere (ruleset), token delle Actions in sola lettura, approvazione obbligatoria per i workflow da fork esterni, secret scanning e push protection, segnalazione privata delle vulnerabilità, issue/wiki/progetti spenti.
+- Le Actions su una repo pubblica sono gratuite, anche macOS: la CI ripartita da sola al primo push.
+
 ## La prima azione di domani
 
-**Rendere pubblica la repo**, dopo un controllo dei segreti (`git log -p | grep -iE "key|token|password|secret"` più `gitleaks` se lo installi), e intanto chiedere l'entitlement FamilyControls per Focus. Poi partire con Sbu Auth: `Tools/new_app.sh`, spec in `specs/auth/spec.json`, tre giorni.
+Chiedere l'entitlement FamilyControls per Focus. Poi partire con Sbu Auth: `Tools/new_app.sh`, spec in `specs/auth/spec.json`, tre giorni.

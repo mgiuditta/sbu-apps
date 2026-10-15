@@ -6,7 +6,7 @@ La strategia in una riga: **un'app sola come punta di lancia, un numero scandalo
 
 Ordine: Sbu Auth (punta di lancia), Sbu Clean (il "Sweep" del brief, secondo colpo), poi Steps e Docs (lo "Scan" del brief) con il loop. La suite si lancia solo dopo Auth e Clean pubblicate. Roadmap in `docs/factory.md`, rischi in `docs/priorita-2026-10.md`.
 
-**Prerequisito di tutto il piano:** la repo `mgiuditta/sbu-apps` oggi è **privata**. "Codice aperto" è vero solo dopo averla resa pubblica (prima: controllo segreti in `fastlane/`, `.env`, note di revisione, cronologia git). Senza repo pubblica niente Show HN e niente r/opensource.
+**Repo pubblica dal 15/10/2026:** https://github.com/mgiuditta/sbu-apps, licenza MIT, cronologia ripulita dai dati personali. Issue e PR di lavoro restano nella privata `mgiuditta/sbu-apps-private`. Le segnalazioni di sicurezza arrivano dalla "private vulnerability reporting" di GitHub.
 
 ## a. Il numero
 
@@ -95,7 +95,7 @@ Nota Steps: in Stompers il contapassi è gratis; il paywall è sulla giornata in
 - Attaccare app una tantum a prezzo equo (Streaks, AnkiMobile, Noir, Wipr, Clinometer).
 - Comprare follower, upvote o pubblicità. Budget: 0 €.
 - Mettere icone o screenshot dei concorrenti sul sito (solo testo, uso nominativo).
-- Dire "open source" prima che la repo sia pubblica. Dire "zero rete" per Clean (scarica da iCloud l'originale quando lo chiedi tu: si dice "nessun server, nessun account").
+- Dire "zero rete" per Clean (scarica da iCloud l'originale quando lo chiedi tu: si dice "nessun server, nessun account").
 - Più di un Show HN a settimana, o lo stesso commento copiato in più sub.
 
 ## g. Metriche per contenuto

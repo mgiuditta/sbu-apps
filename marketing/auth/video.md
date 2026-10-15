@@ -1,6 +1,5 @@
 # Sbu Auth: video 20 secondi
 
-> "Open" vale solo quando la repo mgiuditta/sbu-apps è pubblica. Prima: "gratis, zero rete".
 > File unico verticale 1080×1920, 30 fps, H.264, senza voce. Caricato nativo su Reels, Shorts e TikTok (mai link a YouTube). Musica: solo dalla libreria della piattaforma, oppure silenzio.
 > Sottotitoli bruciati nel video in due versioni (IT e EN), testo in SF bianco su fascia `surface` scura, centro schermo in basso, mai sopra la cifra.
 > Nella descrizione del post e negli ultimi 2 secondi, piccola: "Authenticator ℠ App è un marchio del rispettivo proprietario; Sbu non è affiliata." / "Authenticator ℠ App is a trademark of its owner; Sbu is not affiliated."

@@ -1,6 +1,5 @@
 # Sbu Auth: Reddit
 
-> Il codice "open source" vale solo quando la repo mgiuditta/sbu-apps è pubblica. In r/opensource non postare prima.
 > Regola generale: solo thread reali che chiedono già una soluzione. Mai post-link. Rispondi da utente: prima la risposta alla domanda, poi l'app come un'opzione tra altre, dichiarando che l'hai fatta tu. Screenshot vero di Sbu Auth (codice con countdown), mai il paywall dell'originale nei commenti. Chiudi con sbu.dev/apps/auth.
 > Le regole dei sub qui sotto sono quelle note al 15/10/2026: **rileggi la sidebar e le regole fissate prima di ogni post**. Account con storia e karma prima del lancio: commenta nei sub per qualche settimana senza link.
 
@@ -41,7 +40,7 @@ Ricerca Reddit, "new" e "top this month": `authenticator subscription`, `2fa app
 
 ## r/opensource
 
-- **Thread da cercare:** post propri ammessi se il progetto è davvero open source (licenza OSI, repo pubblica). Solo dopo che la repo è pubblica.
+- **Thread da cercare:** post propri ammessi se il progetto è davvero open source (licenza OSI, repo pubblica).
 - **Regole:** il progetto deve essere open source; niente post puramente commerciali; spiega licenza e come contribuire.
 - **Post modello (testo):**
   > Title: Free, open-source TOTP authenticator for iOS, no network code at all

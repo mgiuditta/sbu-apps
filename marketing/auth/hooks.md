@@ -1,6 +1,5 @@
 # Sbu Auth: 10 hook
 
-> Il riferimento a codice "open" o "open source" vale solo quando la repo mgiuditta/sbu-apps è pubblica. Oggi è privata.
 > Prezzi letti il 15/10/2026 su apps.apple.com (elenco degli acquisti in-app mostrato dallo Store): Authenticator ℠ App, US da 5,99 a 14,90 $ a settimana (il più frequente 9,99 $), IT da 6,99 a 9,99 € a settimana. Si dice sempre "fino a" o "prezzo di listino".
 > `[N]` = numero da riempire a app finita (giorni, ore, righe). Ogni hook chiude con sbu.dev/apps/auth.
 

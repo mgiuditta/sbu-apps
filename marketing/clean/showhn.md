@@ -20,7 +20,7 @@ Alternativa: `Show HN: Free iPhone photo cleaner, no server, vs. a $623/year pay
 >
 > What it does NOT do: email cleanup, contacts merge, iCloud "cleaning", AI enhance, streaks. One thing.
 >
-> Repo: github.com/mgiuditta/sbu-apps [SOLO QUANDO PUBBLICA]. Page: https://sbu.dev/apps/clean
+> Repo: github.com/mgiuditta/sbu-apps. Page: https://sbu.dev/apps/clean
 
 ## Risposte pronte
 

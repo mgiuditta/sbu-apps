@@ -1,6 +1,5 @@
 # Sbu Auth: mail alla stampa
 
-> "Open source" vale solo quando la repo mgiuditta/sbu-apps è pubblica. Prima togli la riga del codice.
 > Mandare tra il giorno 4 e il 7, **solo se** il thread HN o Reddit ha preso. Allegare il link al thread. Una mail per testata, mai in copia.
 
 **Screenshot da allegare (solo schermate Sbu, nessuna dell'originale):**

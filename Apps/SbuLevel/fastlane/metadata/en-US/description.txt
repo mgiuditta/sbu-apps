@@ -1,19 +1,16 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
+A builder's level and clinometer: the bubble when flat, the angle on every edge, and a camera sight to measure a slope from a distance.
 
-Lay your iPhone on a surface and the bubble tells you if it is level. Stand it on an edge and it becomes a clinometer: read the angle to a tenth of a degree.
-
-- Tilt in degrees, one large readable figure
-- Clinometer from 0° to 90° with dial and needle, on all four edges
-- Bubble level when flat, picked automatically
-- Lock the reading and read it later
+- Tilt in tenths of a degree, whole degrees, percent, x:12 or 1V:H
+- Clinometer from 0° to 90° with dial and needle, on all four edges; the dial rotates
+- Bubble level when flat, with the tilt on both axes
+- Sight: look through the camera and read the angle of your line of sight, with horizon and crosshair. No photo is saved
+- Zero here: measure the angle against a surface that isn't level
+- Lock the reading by hand or automatically once it's steady, also with the volume button in the sight
+- The voice reads the angle when it settles, so you can measure without looking at the screen
 - Two-step calibration for each side, even on a surface that isn't level
-- Screen stays on while you measure
-- A tap of haptic feedback when you are exactly level
+- Full screen with one tap, screen kept on, sound and vibration when level
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it tells you if something is straight.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

@@ -1,7 +1,14 @@
-No account. Sbu Level has no server and sends nothing: no analytics, ads or tracking. All data (the calibration) stays on the device. It asks for no permissions.
+No account. Sbu Level has no server and sends nothing: no analytics, ads or tracking. All data (calibration and settings) stays on the device. The only permission is the camera, asked only when you turn on "Sight"; the camera shows a live preview and nothing is captured or saved.
 
-The app opens on the tool screen. Lay the iPhone flat: it shows the bubble level. Stand it on an edge: it becomes a clinometer and shows the tilt to a tenth of a degree on a dial.
+The app opens on the tool screen. Lay the iPhone flat: it shows the bubble level with the tilt on both axes. Stand it on an edge: it becomes a clinometer and shows the tilt to a tenth of a degree on a dial.
 
-- "Lock" freezes the reading; tap again to release it.
-- "Calibrate" walks through two readings for the current side, turning the iPhone 180 degrees between them, so it works even on a surface that is not level.
-- The gear opens Settings: Keep screen on, the calibration of each side with a reset, the privacy policy and the licences.
+New in 1.1:
+- "Sight": the rear camera inside the dial, with a crosshair and a level horizon; the figure is the elevation of the line of sight. While it runs, the volume button locks the reading.
+- "Zero here": the angle relative to the current surface.
+- Units in Settings: degrees, whole degrees, %, x:12, 1V:H.
+- Automatic lock once the reading is steady, and a voice that reads the angle (both off by default, in Settings).
+- The dial can be rotated by dragging; a tap on the dial hides the bars for full screen.
+- "Calibrate" (level icon, top bar) walks through two readings per side, turning the iPhone 180 degrees between them.
+- Settings opens with "How to use".
+
+How it differs from the other Sbu apps: Sbu Level is the only one that reads the motion sensors and the camera to measure angles; the others do unrelated things (speed from GPS, sound level, habits, moon phases, photo cleanup). Each Sbu app has its own code for its own instrument; they share only the design system.

@@ -1,1 +1,4 @@
-First release.
+One-tap speed limits under the trip, with the right values for car, bike and boat, and any value in Settings.
+Altitude and course under the figure; with knots, SOG and COG.
+Trips: Save and reset keeps every trip, numbers and times only, no positions. Export CSV.
+HUD: the figure mirrored, to read in the windshield at night.

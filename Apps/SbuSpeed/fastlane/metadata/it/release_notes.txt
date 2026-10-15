@@ -1,1 +1,4 @@
-Prima versione.
+Limiti a un tocco sotto il viaggio, con i valori giusti per auto, bici e barca, e un valore libero in Impostazioni.
+Altitudine e rotta sotto la cifra; con i nodi, SOG e COG.
+Viaggi: Salva e azzera tiene ogni viaggio, solo numeri e orari, nessuna posizione. Esporta CSV.
+Parabrezza: la cifra specchiata da leggere nel riflesso del vetro di notte.

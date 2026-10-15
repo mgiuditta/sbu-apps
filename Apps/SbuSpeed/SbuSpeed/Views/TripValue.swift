@@ -1,9 +1,11 @@
 import SbuKit
 import SwiftUI
 
-/// One value of the trip: an uppercase caption over the value, both secondary in `inkMuted`.
+/// One value of the trip, or of the latest fix: an uppercase caption over the value, both secondary in `inkMuted`.
 struct TripValue: View {
     let label: LocalizedStringKey
+    /// What VoiceOver reads instead of `label`, when the label is an abbreviation like COG.
+    var spokenLabel: LocalizedStringKey?
     let value: String
     /// What VoiceOver reads instead of `value`, when the value on screen reads badly aloud, like a clock.
     var spokenValue: String?
@@ -25,7 +27,7 @@ struct TripValue: View {
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(label)
+        .accessibilityLabel(spokenLabel ?? label)
         .accessibilityValue(spokenValue ?? value)
     }
 }

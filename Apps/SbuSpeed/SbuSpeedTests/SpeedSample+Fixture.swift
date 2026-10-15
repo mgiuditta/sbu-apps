@@ -8,7 +8,10 @@ extension SpeedSample {
         metersNorth: Double = 0,
         speed: Double,
         speedAccuracy: Double = 0.5,
-        horizontalAccuracy: Double = 5
+        horizontalAccuracy: Double = 5,
+        altitude: Double = 0,
+        verticalAccuracy: Double = -1,
+        course: Double = -1
     ) -> SpeedSample {
         // Core Location measures on a sphere: one degree of latitude is about 111.2 km.
         SpeedSample(
@@ -17,7 +20,11 @@ extension SpeedSample {
             speedAccuracy: speedAccuracy,
             latitude: 45.4642 + metersNorth / 111_195,
             longitude: 9.19,
-            horizontalAccuracy: horizontalAccuracy
+            horizontalAccuracy: horizontalAccuracy,
+            altitude: altitude,
+            verticalAccuracy: verticalAccuracy,
+            course: course,
+            courseAccuracy: course >= 0 ? 5 : -1
         )
     }
 }

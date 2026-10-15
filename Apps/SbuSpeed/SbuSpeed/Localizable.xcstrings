@@ -1,6 +1,56 @@
 {
   "sourceLanguage": "it",
   "strings": {
+    "%@, %@, massima %@, media %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, %2$@, top %3$@, average %4$@"
+          }
+        }
+      }
+    },
+    "%@, oltre il limite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, over the limit"
+          }
+        }
+      }
+    },
+    "Altitudine": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altitude"
+          }
+        }
+      }
+    },
+    "Altro valore": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other value"
+          }
+        }
+      }
+    },
+    "Annulla": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
     "Apri Impostazioni": {
       "localizations": {
         "en": {
@@ -17,6 +67,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reset trip"
+          }
+        }
+      }
+    },
+    "COG": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "COG"
           }
         }
       }
@@ -51,12 +111,32 @@
         }
       }
     },
+    "Da %lld a %lld %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From %1$lld to %2$lld %3$@."
+          }
+        }
+      }
+    },
     "Distanza": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Distance"
+          }
+        }
+      }
+    },
+    "Distanza (%@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Distance (%@)"
           }
         }
       }
@@ -71,12 +151,92 @@
         }
       }
     },
+    "Durata (s)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time (s)"
+          }
+        }
+      }
+    },
+    "E": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E"
+          }
+        }
+      }
+    },
+    "Elimina": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
+          }
+        }
+      }
+    },
+    "Elimina viaggio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete trip"
+          }
+        }
+      }
+    },
+    "Eliminare questo viaggio?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this trip?"
+          }
+        }
+      }
+    },
+    "Esci dal parabrezza": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exit HUD"
+          }
+        }
+      }
+    },
+    "Esporta CSV": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export CSV"
+          }
+        }
+      }
+    },
     "Fermo": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Stopped"
+          }
+        }
+      }
+    },
+    "Fine": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End"
           }
         }
       }
@@ -91,6 +251,26 @@
         }
       }
     },
+    "Il viaggio va in Viaggi e riparte da zero.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The trip goes to Trips and starts over from zero."
+          }
+        }
+      }
+    },
+    "Imposta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set"
+          }
+        }
+      }
+    },
     "In movimento": {
       "localizations": {
         "en": {
@@ -101,12 +281,32 @@
         }
       }
     },
+    "Inizio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
+          }
+        }
+      }
+    },
     "La distanza segue la velocità: chilometri, miglia o miglia nautiche.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Distance follows speed: kilometres, miles or nautical miles."
+          }
+        }
+      }
+    },
+    "La durata e la media contano solo il tempo in movimento.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time and average count only the time spent moving."
           }
         }
       }
@@ -141,6 +341,26 @@
         }
       }
     },
+    "Massima %@ · Media %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top %1$@ · Average %2$@"
+          }
+        }
+      }
+    },
+    "Massima (%@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top (%@)"
+          }
+        }
+      }
+    },
     "Media": {
       "localizations": {
         "en": {
@@ -151,12 +371,62 @@
         }
       }
     },
+    "Media (%@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average (%@)"
+          }
+        }
+      }
+    },
     "Miglia orarie": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Miles per hour"
+          }
+        }
+      }
+    },
+    "N": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "N"
+          }
+        }
+      }
+    },
+    "NE": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NE"
+          }
+        }
+      }
+    },
+    "NO": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NW"
+          }
+        }
+      }
+    },
+    "Nessun viaggio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No trips"
           }
         }
       }
@@ -181,12 +451,42 @@
         }
       }
     },
+    "Non disponibile": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not available"
+          }
+        }
+      }
+    },
+    "O": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "W"
+          }
+        }
+      }
+    },
     "Oltre il limite di %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Over the %@ limit"
+          }
+        }
+      }
+    },
+    "Parabrezza": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HUD"
           }
         }
       }
@@ -211,6 +511,86 @@
         }
       }
     },
+    "Rotta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Course"
+          }
+        }
+      }
+    },
+    "Rotta sul fondo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Course over ground"
+          }
+        }
+      }
+    },
+    "S": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "S"
+          }
+        }
+      }
+    },
+    "SE": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SE"
+          }
+        }
+      }
+    },
+    "SO": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SW"
+          }
+        }
+      }
+    },
+    "SOG": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SOG"
+          }
+        }
+      }
+    },
+    "Salva e azzera": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save and reset"
+          }
+        }
+      }
+    },
+    "Salva e azzera un viaggio per trovarlo qui.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save and reset a trip to find it here."
+          }
+        }
+      }
+    },
     "Sbu Speed": {
       "localizations": {
         "en": {
@@ -231,6 +611,16 @@
         }
       }
     },
+    "Solo numeri e orari: nessuna posizione.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only numbers and times: no positions."
+          }
+        }
+      }
+    },
     "Unità": {
       "localizations": {
         "en": {
@@ -247,6 +637,96 @@
           "stringUnit": {
             "state": "translated",
             "value": "Speed"
+          }
+        }
+      }
+    },
+    "Viaggi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trips"
+          }
+        }
+      }
+    },
+    "est": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "east"
+          }
+        }
+      }
+    },
+    "nord": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "north"
+          }
+        }
+      }
+    },
+    "nord-est": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "north-east"
+          }
+        }
+      }
+    },
+    "nord-ovest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "north-west"
+          }
+        }
+      }
+    },
+    "ovest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "west"
+          }
+        }
+      }
+    },
+    "sud": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "south"
+          }
+        }
+      }
+    },
+    "sud-est": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "south-east"
+          }
+        }
+      }
+    },
+    "sud-ovest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "south-west"
           }
         }
       }

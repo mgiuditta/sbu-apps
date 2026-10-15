@@ -4,13 +4,15 @@ import Testing
 
 struct SpeedModelTests {
     private let defaults: UserDefaults
+    /// In memory: the tests never touch the trips saved on the simulator.
+    private let tripLog = TripLog(trips: [])
 
     init() throws {
         defaults = try #require(UserDefaults(suiteName: "SpeedModelTests-\(UUID().uuidString)"))
     }
 
     private func model(_ events: [SpeedEvent] = [], locale: String = "it_IT") -> SpeedModel {
-        SpeedModel(source: FakeSpeedSource(events), defaults: defaults, locale: Locale(identifier: locale))
+        SpeedModel(source: FakeSpeedSource(events), defaults: defaults, locale: Locale(identifier: locale), tripLog: tripLog)
     }
 
     @Test func runShowsTheLatestSpeedAndRecordsTheTrip() async {
@@ -19,7 +21,7 @@ struct SpeedModelTests {
             .sample(.fix(at: 0, metersNorth: 0, speed: 10)),
             .sample(.fix(at: 1, metersNorth: 14, speed: 14)),
         ])
-        let model = SpeedModel(source: source, defaults: defaults, locale: Locale(identifier: "it_IT"))
+        let model = SpeedModel(source: source, defaults: defaults, locale: Locale(identifier: "it_IT"), tripLog: tripLog)
 
         await model.run()
 
@@ -185,7 +187,7 @@ struct SpeedModelTests {
 
         let second = model(locale: "it_IT")
         #expect(second.unit == .knots)
-        #expect(second.speedLimit == SpeedLimit(value: 25, unit: .knots))
+        #expect(second.speedLimit == SpeedLimit(value: 27, unit: .knots))
     }
 
     @Test func dialAndLimitAlertWorkInKnots() async {
@@ -227,7 +229,7 @@ struct SpeedModelTests {
     @Test func snapshotModeShowsAFixedDriveWithoutReadingTheSource() async {
         defaults.set(true, forKey: "FASTLANE_SNAPSHOT")
         let source = FakeSpeedSource([.access(.denied)])
-        let model = SpeedModel(source: source, defaults: defaults, locale: Locale(identifier: "it_IT"))
+        let model = SpeedModel(source: source, defaults: defaults, locale: Locale(identifier: "it_IT"), tripLog: tripLog)
 
         await model.run()
 
@@ -235,6 +237,79 @@ struct SpeedModelTests {
         #expect(SpeedFigureStyle(unit: .kilometersPerHour).locale(Locale(identifier: "it_IT")).format(model.speed) == "52")
         #expect(source.isStopped == false)
         defaults.removeObject(forKey: "FASTLANE_SNAPSHOT")
-        #expect(SpeedModel(source: FakeSpeedSource([]), defaults: defaults).trip.isEmpty)
+        #expect(SpeedModel(source: FakeSpeedSource([]), defaults: defaults, tripLog: tripLog).trip.isEmpty)
+    }
+
+    @Test func quickLimitTurnsOnAndOffWithATap() {
+        let model = model(locale: "it_IT")
+        let limit = SpeedLimit(value: 90, unit: .kilometersPerHour)
+
+        model.toggleLimit(limit)
+        #expect(model.speedLimit == limit)
+
+        model.toggleLimit(SpeedLimit(value: 130, unit: .kilometersPerHour))
+        #expect(model.speedLimit?.value == 130)
+
+        model.toggleLimit(SpeedLimit(value: 130, unit: .kilometersPerHour))
+        #expect(model.speedLimit == nil)
+    }
+
+    @Test(arguments: [("en_US", [25, 55, 65, 70]), ("en_GB", [20, 30, 60, 70])])
+    func quickLimitsInMilesFollowTheRegion(locale: String, expected: [Int]) {
+        let model = model(locale: locale)
+        model.unit = .milesPerHour
+
+        #expect(model.quickLimits.map(\.value) == expected)
+    }
+
+    @Test func navigationFollowsTheLatestFixAndClearsWithoutAccess() async {
+        let moving = model([
+            .access(.granted),
+            .sample(.fix(at: 0, speed: 10, altitude: 120, verticalAccuracy: 5, course: 90)),
+            .sample(.fix(at: 1, speed: 10, altitude: 125, verticalAccuracy: 5, course: 95)),
+        ])
+        await moving.run()
+        #expect(moving.navigation == NavigationReading(altitude: 125, course: 95))
+
+        let lost = model([
+            .access(.granted),
+            .sample(.fix(at: 0, speed: 10, altitude: 120, verticalAccuracy: 5, course: 90)),
+            .access(.denied),
+        ])
+        await lost.run()
+        #expect(lost.navigation == NavigationReading())
+    }
+
+    @Test func saveAndResetKeepsATripThatWentSomewhere() async throws {
+        let model = model([
+            .access(.granted),
+            .sample(.fix(at: 0, metersNorth: 0, speed: 10)),
+            .sample(.fix(at: 1, metersNorth: 14, speed: 14)),
+        ])
+        await model.run()
+        #expect(model.canSaveTrip)
+
+        model.saveAndResetTrip()
+
+        let saved = try #require(tripLog.trips.first)
+        #expect(tripLog.trips.count == 1)
+        #expect(saved.maxSpeed == 14)
+        #expect(abs(saved.distance - 14) < 0.5)
+        #expect(saved.startedAt == SpeedSample.fix(at: 0, speed: 10).timestamp)
+        #expect(saved.endedAt == SpeedSample.fix(at: 1, speed: 14).timestamp)
+        #expect(model.trip.isEmpty)
+    }
+
+    @Test func saveAndResetWithoutDistanceOnlyResets() async {
+        // One fix: a top speed but no distance.
+        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 10))])
+        await model.run()
+        #expect(model.canSaveTrip == false)
+        #expect(model.trip.isEmpty == false)
+
+        model.saveAndResetTrip()
+
+        #expect(tripLog.trips.isEmpty)
+        #expect(model.trip.isEmpty)
     }
 }

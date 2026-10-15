@@ -71,7 +71,7 @@ final class QAScreenshotTests: XCTestCase {
         capture("12-main-landscape", app)
         XCUIDevice.shared.orientation = .portrait
 
-        let reset = app.buttons[isItalian ? "Azzera viaggio" : "Reset trip"]
+        let reset = app.buttons[isItalian ? "Salva e azzera" : "Save and reset"]
         if reset.waitForExistence(timeout: 3) {
             reset.tap()
             capture("13-reset-confirm", app)
@@ -79,6 +79,17 @@ final class QAScreenshotTests: XCTestCase {
         // A fresh launch, so no dialog is left in the way.
         app.terminate()
         app = launch(["-FASTLANE_SNAPSHOT", "YES"])
+
+        app.buttons[isItalian ? "Parabrezza" : "HUD"].tap()
+        capture("20-hud", app)
+        app.buttons[isItalian ? "Esci dal parabrezza" : "Exit HUD"].tap()
+
+        app.buttons[isItalian ? "Viaggi" : "Trips"].tap()
+        capture("21-trips", app)
+        app.buttons.matching(identifier: "trip").firstMatch.tap()
+        capture("22-trip-detail", app)
+        app.navigationBars.buttons.firstMatch.tap()
+        app.navigationBars.buttons.firstMatch.tap()
 
         app.buttons[isItalian ? "Impostazioni" : "Settings"].tap()
         _ = app.buttons[isItalian ? "Fine" : "Done"].waitForExistence(timeout: 3)
@@ -92,7 +103,7 @@ final class QAScreenshotTests: XCTestCase {
         if limit.waitForExistence(timeout: 3) {
             limit.tap()
             capture("16-limit-menu-knots", app)
-            app.buttons.matching(NSPredicate(format: "label BEGINSWITH '25'")).firstMatch.tap()
+            app.buttons.matching(NSPredicate(format: "label BEGINSWITH '20'")).firstMatch.tap()
         }
         capture("17-settings-knots", app)
         let done = app.buttons[isItalian ? "Fine" : "Done"]
@@ -101,8 +112,11 @@ final class QAScreenshotTests: XCTestCase {
         } else {
             app.swipeDown(velocity: .fast)
         }
-        // 52 km/h is 28 kn: over the 25 kn limit.
+        // 52 km/h is 28 kn: over the 20 kn limit.
         capture("18-main-knots-over-limit", app)
+        app.buttons[isItalian ? "Parabrezza" : "HUD"].tap()
+        capture("23-hud-over-limit", app)
+        app.buttons[isItalian ? "Esci dal parabrezza" : "Exit HUD"].tap()
         XCUIDevice.shared.orientation = .landscapeLeft
         capture("19-over-limit-landscape", app)
         XCUIDevice.shared.orientation = .portrait

@@ -2,9 +2,11 @@ import SbuKit
 import SwiftUI
 import UIKit
 
-/// The speed as the figure with its context line, what goes under it, and the pills.
+/// The speed as the figure with its context line, what goes under it, and the pills: Salva e azzera and Parabrezza.
 struct SpeedToolField<Indicator: View>: View {
     let model: SpeedModel
+    /// Opens Parabrezza, the mirrored HUD.
+    let showHUD: () -> Void
     /// Drawn under the figure: the dial and the trip in portrait, nothing in landscape where they sit beside.
     @ViewBuilder let indicator: Indicator
 
@@ -25,9 +27,15 @@ struct SpeedToolField<Indicator: View>: View {
         }
     }
 
+    /// Salva e azzera when the trip went somewhere, Azzera viaggio when there is nothing to keep.
+    private var resetTitle: LocalizedStringKey {
+        model.canSaveTrip ? "Salva e azzera" : "Azzera viaggio"
+    }
+
     var body: some View {
         SbuToolField(
-            "Velocità",
+            // With knots the speed is SOG, speed over ground, as on a chart plotter.
+            model.unit == .knots ? "SOG" : "Velocità",
             value: model.speed,
             format: SpeedFigureStyle(unit: model.unit),
             unit: model.unit.symbol,
@@ -42,18 +50,25 @@ struct SpeedToolField<Indicator: View>: View {
                     .buttonStyle(SbuFieldPillStyle())
             } else {
                 // A pill like the others, not a full-width red button: a rare action stays light.
-                Button("Azzera viaggio") {
+                Button(resetTitle) {
                     isConfirmingReset = true
                 }
                 .buttonStyle(SbuFieldPillStyle())
                 .disabled(model.trip.isEmpty)
-                .confirmationDialog("Azzera viaggio", isPresented: $isConfirmingReset, titleVisibility: .visible) {
-                    Button("Azzera viaggio", role: .destructive, action: model.resetTrip)
+                .confirmationDialog(resetTitle, isPresented: $isConfirmingReset, titleVisibility: .visible) {
+                    Button(resetTitle, role: .destructive, action: resetTrip)
                 } message: {
-                    Text("Il viaggio riparte da zero.")
+                    Text(model.canSaveTrip ? "Il viaggio va in Viaggi e riparte da zero." : "Il viaggio riparte da zero.")
                 }
+
+                Button("Parabrezza", action: showHUD)
+                    .buttonStyle(SbuFieldPillStyle())
             }
         }
+    }
+
+    private func resetTrip() {
+        model.saveAndResetTrip()
     }
 
     private func openSettings() {
@@ -64,7 +79,7 @@ struct SpeedToolField<Indicator: View>: View {
 }
 
 #Preview("Light") {
-    SpeedToolField(model: SpeedModel()) {
+    SpeedToolField(model: SpeedModel(), showHUD: {}) {
         EmptyView()
     }
     .background(SbuTheme.surface)
@@ -72,7 +87,7 @@ struct SpeedToolField<Indicator: View>: View {
 }
 
 #Preview("Dark") {
-    SpeedToolField(model: SpeedModel()) {
+    SpeedToolField(model: SpeedModel(), showHUD: {}) {
         EmptyView()
     }
     .background(SbuTheme.surface)

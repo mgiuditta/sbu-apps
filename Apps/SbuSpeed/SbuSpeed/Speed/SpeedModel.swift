@@ -12,6 +12,10 @@ final class SpeedModel {
     /// Metres per second; `nil` until a fix carries a valid speed.
     private(set) var speed: Double?
     private(set) var trip = Trip()
+    /// Altitude and course of the latest fix; never saved.
+    private(set) var navigation = NavigationReading()
+    /// The trips kept by Salva e azzera.
+    let tripLog: TripLog
     /// Goes up by one at each crossing above the limit that should alert: the screen vibrates and sounds on each change.
     private(set) var limitAlerts = 0
 
@@ -32,6 +36,8 @@ final class SpeedModel {
     @ObservationIgnored private let source: any SpeedSource
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private var alarm = SpeedLimitAlarm()
+    /// Picks the US or the UK quick limits in mph.
+    @ObservationIgnored private let region: Locale.Region?
 
     var status: SpeedStatus { SpeedStatus(access: access, speed: speed) }
 
@@ -51,6 +57,9 @@ final class SpeedModel {
         return min(1, unit.value(ofMetersPerSecond: speed) / dialFullScale)
     }
 
+    /// The four limits one tap away on the tool screen, in the current unit.
+    var quickLimits: [SpeedLimit] { SpeedLimit.quickPresets(for: unit, region: region) }
+
     /// The speed on screen is above the limit.
     var isOverLimit: Bool {
         guard let speed, let speedLimit else { return false }
@@ -58,9 +67,16 @@ final class SpeedModel {
     }
 
     /// - Parameter locale: Picks km/h or mph until the person chooses a unit.
-    init(source: any SpeedSource = LocationSpeedSource(), defaults: UserDefaults = .standard, locale: Locale = .current) {
+    init(
+        source: any SpeedSource = LocationSpeedSource(),
+        defaults: UserDefaults = .standard,
+        locale: Locale = .current,
+        tripLog: TripLog = TripLog()
+    ) {
         self.source = source
+        self.tripLog = tripLog
         self.defaults = defaults
+        region = locale.region
         unit = defaults.string(forKey: Self.unitKey).flatMap(SpeedUnit.init(rawValue:)) ?? .preferred(for: locale)
         trip = Self.load(Trip.self, forKey: Self.tripKey, from: defaults) ?? Trip()
         speedLimit = Self.load(SpeedLimit.self, forKey: Self.limitKey, from: defaults)?.converted(to: unit)
@@ -85,15 +101,33 @@ final class SpeedModel {
             access = newAccess
             if newAccess != .granted {
                 speed = nil
+                navigation = NavigationReading()
             }
         case .sample(let sample):
             speed = sample.hasValidSpeed ? sample.speed : nil
+            navigation = NavigationReading(sample: sample)
             trip.record(sample)
             save(trip, forKey: Self.tripKey)
             if alarm.shouldAlert(speed: speed, limit: speedLimit) {
                 limitAlerts += 1
             }
         }
+    }
+
+    /// A quick limit: the one already on turns off, any other replaces it.
+    func toggleLimit(_ limit: SpeedLimit) {
+        speedLimit = speedLimit == limit ? nil : limit
+    }
+
+    /// Salva e azzera keeps the trip only when it went somewhere: otherwise it just resets.
+    var canSaveTrip: Bool { trip.distance > 0 }
+
+    /// Salva e azzera: the trip goes into the log, if it went somewhere, and a new one starts.
+    func saveAndResetTrip(now: Date = .now) {
+        if let record = TripRecord(trip: trip, now: now) {
+            tripLog.add(record)
+        }
+        resetTrip()
     }
 
     func resetTrip() {
@@ -120,6 +154,7 @@ final class SpeedModel {
         // Not saved: the screenshot drive must not replace the person's trip.
         access = .granted
         speed = metersPerSecond(52)
+        navigation = NavigationReading(altitude: 122, course: 247)
         trip = Trip(maxSpeed: metersPerSecond(87), distance: 12_400, movingTime: 12_400 / metersPerSecond(46))
     }
 }

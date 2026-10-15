@@ -72,6 +72,22 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
             .formatted(.measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0))).locale(locale))
     }
 
+    /// The unit of the altitude: metres with km/h, feet with mph; with knots, what the region uses.
+    func altitudeLength(locale: Locale) -> UnitLength {
+        switch self {
+        case .kilometersPerHour: .meters
+        case .milesPerHour: .feet
+        case .knots: locale.measurementSystem == .metric ? .meters : .feet
+        }
+    }
+
+    /// An altitude in metres, whole, in the unit that goes with this speed: "122 m", "400 ft".
+    func altitudeText(meters: Double, width: Measurement<UnitLength>.FormatStyle.UnitWidth, locale: Locale = .autoupdatingCurrent) -> String {
+        Measurement(value: meters, unit: UnitLength.meters)
+            .converted(to: altitudeLength(locale: locale))
+            .formatted(.measurement(width: width, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0))).locale(locale))
+    }
+
     /// A distance in metres, in km, mi or nautical miles to one decimal: "12,4 km".
     func distanceText(meters: Double, locale: Locale = .autoupdatingCurrent) -> String {
         Measurement(value: meters, unit: UnitLength.meters)

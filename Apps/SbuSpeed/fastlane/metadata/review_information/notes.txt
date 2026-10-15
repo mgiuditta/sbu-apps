@@ -1,9 +1,10 @@
-No account. Sbu Speed has no server and sends nothing: no analytics, ads or tracking. Location is used only while the app is open (When In Use) and stays on the device.
+No account. Sbu Speed has no server and sends nothing: no analytics, ads or tracking. Location is used only while the app is open (When In Use), never in the background, and no position is stored or logged.
 
-The app opens on the speedometer and iOS asks for location. The current speed from GPS shows as one large number, with the trip below: top speed, average speed while moving, distance and time.
+The app opens on the speedometer and iOS asks for location. The current speed from GPS shows as one large number; under it altitude and course (in knots: SOG and COG), the dial, the trip (top speed, average while moving, distance, time) and four one-tap speed limits.
 
-- "Reset trip" clears the trip after a confirmation.
-- The gear opens Settings: units (km/h, mph or knots) and an optional speed limit; going over it vibrates and plays a sound once.
-- In landscape, as in a car mount, the number sits on the left and the trip on the right.
-The app needs no interaction while driving: the screen stays on and only shows the speed. The optional limit alert helps the driver stay under the limit.
-Without movement the speed reads 0; testing needs a walk or a drive. With location denied, the screen says so and offers to open Settings.
+New in 1.1:
+- One-tap limits under the trip (km/h 50/90/110/130, mph by region, knots 3/6/10/20); a tap on the active one turns it off. Any whole value in Settings, "Other value". Going over vibrates and plays a sound once.
+- "Save and reset" keeps the trip in Trips (list icon, top left): start and end time, distance, time, top and average speed. Numbers only, no positions. Trips can be deleted and exported as CSV.
+- "HUD": the number mirrored on a dark screen at full brightness, to place on the dashboard at night and read in the windshield reflection. Tap anywhere to go back.
+
+The app needs no interaction while driving: the screen stays on and only shows the speed. Without movement the speed reads 0 and the course shows a dash; testing needs a walk or a drive. With location denied, the screen says so and offers to open Settings.

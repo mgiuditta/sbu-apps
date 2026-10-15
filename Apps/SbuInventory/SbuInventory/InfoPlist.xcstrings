@@ -1,0 +1,59 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "The app's name under its icon.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Inventory"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Inventory"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SbuInventory"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SbuInventory"
+          }
+        }
+      }
+    },
+    "NSCameraUsageDescription" : {
+      "comment" : "The camera permission prompt: photos of items and reading labels already on them. Nothing leaves the device.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Inventory uses the camera to photograph your things and read the labels you put on them. Photos and codes stay on this iPhone."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Inventory usa la fotocamera per fotografare i tuoi oggetti e leggere le etichette che ci hai messo. Foto e codici restano su questo iPhone."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

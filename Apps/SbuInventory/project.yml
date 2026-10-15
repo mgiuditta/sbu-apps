@@ -30,6 +30,8 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Inventory
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        # Italian source; the English one is in InfoPlist.xcstrings. PhotosPicker needs no library permission.
+        INFOPLIST_KEY_NSCameraUsageDescription: "Sbu Inventory usa la fotocamera per fotografare i tuoi oggetti e leggere le etichette che ci hai messo. Foto e codici restano su questo iPhone."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

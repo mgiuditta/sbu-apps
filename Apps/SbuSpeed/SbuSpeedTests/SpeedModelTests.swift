@@ -185,7 +185,7 @@ struct SpeedModelTests {
 
         let second = model(locale: "it_IT")
         #expect(second.unit == .knots)
-        #expect(second.speedLimit == SpeedLimit(value: 25, unit: .knots))
+        #expect(second.speedLimit == SpeedLimit(value: 27, unit: .knots))
     }
 
     @Test func dialAndLimitAlertWorkInKnots() async {
@@ -236,5 +236,27 @@ struct SpeedModelTests {
         #expect(source.isStopped == false)
         defaults.removeObject(forKey: "FASTLANE_SNAPSHOT")
         #expect(SpeedModel(source: FakeSpeedSource([]), defaults: defaults).trip.isEmpty)
+    }
+
+    @Test func quickLimitTurnsOnAndOffWithATap() {
+        let model = model(locale: "it_IT")
+        let limit = SpeedLimit(value: 90, unit: .kilometersPerHour)
+
+        model.toggleLimit(limit)
+        #expect(model.speedLimit == limit)
+
+        model.toggleLimit(SpeedLimit(value: 130, unit: .kilometersPerHour))
+        #expect(model.speedLimit?.value == 130)
+
+        model.toggleLimit(SpeedLimit(value: 130, unit: .kilometersPerHour))
+        #expect(model.speedLimit == nil)
+    }
+
+    @Test(arguments: [("en_US", [25, 55, 65, 70]), ("en_GB", [20, 30, 60, 70])])
+    func quickLimitsInMilesFollowTheRegion(locale: String, expected: [Int]) {
+        let model = model(locale: locale)
+        model.unit = .milesPerHour
+
+        #expect(model.quickLimits.map(\.value) == expected)
     }
 }

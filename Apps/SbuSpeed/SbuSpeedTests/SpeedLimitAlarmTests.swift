@@ -29,4 +29,15 @@ struct SpeedLimitAlarmTests {
     @Test func noLimitNeverAlerts() {
         #expect(alerts([30, 200, 300], limit: nil) == [false, false, false])
     }
+
+    @Test func smallLimitReArmsOneUnitBelow() {
+        // 3 kn re-arms at 2 kn: a fixed margin of 3 never would.
+        var alarm = SpeedLimitAlarm()
+        let limit = SpeedLimit(value: 3, unit: .knots)
+        let knots = [4.0, 2.5, 4, 1.9, 4]
+
+        let alerts = knots.map { alarm.shouldAlert(speed: $0 * 1852 / 3600, limit: limit) }
+
+        #expect(alerts == [true, false, false, false, true])
+    }
 }

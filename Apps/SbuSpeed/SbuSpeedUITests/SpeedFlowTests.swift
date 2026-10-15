@@ -81,6 +81,23 @@ final class SpeedFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testQuickLimitTurnsOnWithATapAndOffWithAnother() {
+        let app = launch()
+        // The snapshot drive goes at 52 km/h.
+        let limit = app.buttons["50 km/h"]
+        XCTAssertTrue(limit.waitForExistence(timeout: 5))
+
+        limit.tap()
+        XCTAssertTrue(limit.isSelected)
+        let warning = app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Oltre il limite di 50'")).firstMatch
+        XCTAssertTrue(warning.waitForExistence(timeout: 5))
+
+        limit.tap()
+        XCTAssertFalse(limit.isSelected)
+        XCTAssertTrue(warning.waitForNonExistence(timeout: 5))
+    }
+
+    @MainActor
     func testSettingsOfferTheUnitAndPassTheAccessibilityAudit() throws {
         let app = launch()
 

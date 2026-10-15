@@ -1,6 +1,26 @@
 {
   "sourceLanguage": "it",
   "strings": {
+    "Altro valore": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other value"
+          }
+        }
+      }
+    },
+    "Annulla": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
     "Apri Impostazioni": {
       "localizations": {
         "en": {
@@ -51,6 +71,16 @@
         }
       }
     },
+    "Da %lld a %lld %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From %1$lld to %2$lld %3$@."
+          }
+        }
+      }
+    },
     "Distanza": {
       "localizations": {
         "en": {
@@ -87,6 +117,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "The trip starts over from zero."
+          }
+        }
+      }
+    },
+    "Imposta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set"
           }
         }
       }

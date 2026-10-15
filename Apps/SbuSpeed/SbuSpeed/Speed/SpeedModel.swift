@@ -32,6 +32,8 @@ final class SpeedModel {
     @ObservationIgnored private let source: any SpeedSource
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private var alarm = SpeedLimitAlarm()
+    /// Picks the US or the UK quick limits in mph.
+    @ObservationIgnored private let region: Locale.Region?
 
     var status: SpeedStatus { SpeedStatus(access: access, speed: speed) }
 
@@ -51,6 +53,9 @@ final class SpeedModel {
         return min(1, unit.value(ofMetersPerSecond: speed) / dialFullScale)
     }
 
+    /// The four limits one tap away on the tool screen, in the current unit.
+    var quickLimits: [SpeedLimit] { SpeedLimit.quickPresets(for: unit, region: region) }
+
     /// The speed on screen is above the limit.
     var isOverLimit: Bool {
         guard let speed, let speedLimit else { return false }
@@ -61,6 +66,7 @@ final class SpeedModel {
     init(source: any SpeedSource = LocationSpeedSource(), defaults: UserDefaults = .standard, locale: Locale = .current) {
         self.source = source
         self.defaults = defaults
+        region = locale.region
         unit = defaults.string(forKey: Self.unitKey).flatMap(SpeedUnit.init(rawValue:)) ?? .preferred(for: locale)
         trip = Self.load(Trip.self, forKey: Self.tripKey, from: defaults) ?? Trip()
         speedLimit = Self.load(SpeedLimit.self, forKey: Self.limitKey, from: defaults)?.converted(to: unit)
@@ -94,6 +100,11 @@ final class SpeedModel {
                 limitAlerts += 1
             }
         }
+    }
+
+    /// A quick limit: the one already on turns off, any other replaces it.
+    func toggleLimit(_ limit: SpeedLimit) {
+        speedLimit = speedLimit == limit ? nil : limit
     }
 
     func resetTrip() {

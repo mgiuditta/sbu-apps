@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The dial over the trip: under the figure in portrait, beside it in landscape.
+/// The dial over the trip and the quick limits: under the figure in portrait, beside it in landscape.
 /// At accessibility text sizes the dial, only a drawing of the figure, gives its room to the text.
 struct DialAndTrip: View {
     let model: SpeedModel
@@ -16,6 +16,8 @@ struct DialAndTrip: View {
             }
 
             TripSummary(trip: model.trip, unit: model.unit)
+
+            QuickLimitPills(model: model)
         }
     }
 }

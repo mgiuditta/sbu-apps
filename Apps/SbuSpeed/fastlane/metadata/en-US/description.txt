@@ -1,20 +1,15 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
-Open the app and read your speed in large digits, from your iPhone's GPS. On a bike, on a run, on a boat or in a car: one number, readable from a distance.
+A GPS speedometer built like a dashboard instrument: your speed in large digits, a trip log, a windshield reflection. On a bike, on a run, on a boat or in a car.
 
 - Current speed in km/h, mph or knots, one large whole number
-- Top speed, average speed, distance and time of the trip, kept until you reset it
-- With knots, distance is in nautical miles and the limits are the ones on the water
+- Altitude and course with the compass point under the number; with knots they become SOG and COG
+- Top speed, average speed, distance and time of the trip
+- Trip log: every trip saved with date, time, distance, top and average speed, ready to export as CSV. No location is saved
+- One-tap speed limits: US and UK limits in mph, 50, 90, 110, 130 km/h, the ones on the water in knots, or your own value
+- Go over the limit and the line under the number says so, and your iPhone vibrates and plays a sound once
+- HUD: the number mirrored and the screen at full brightness, to lay on the dashboard at night and read in the reflection
 - The average counts only time spent moving: stops do not lower it
-- Optional speed limit: go over it and the line under the number says so, and your iPhone vibrates and plays a sound once
 - The dial adapts like a car's: 40, 80, 130 or 200 mph
 - In landscape, in a car mount, the number sits on the left and the trip on the right
-- Reset the trip with a confirmation
 - The screen stays on while you watch your speed
 - Location is used only while the app is open and stays on your iPhone
 - Light and dark mode, Dynamic Type, VoiceOver
@@ -22,3 +17,5 @@ Open the app and read your speed in large digits, from your iPhone's GPS. On a b
 When driving, mount your iPhone before you set off and don't touch it while moving. GPS speed is a guide: your vehicle's speedometer and the law always come first.
 
 Sbu does one thing: it tells you how fast you are going.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

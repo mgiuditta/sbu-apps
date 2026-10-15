@@ -1,20 +1,15 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
-Apri l'app e leggi la tua velocità in grande, dal GPS dell'iPhone. In bici, di corsa, in barca o in auto: un numero solo, leggibile da lontano.
+Un tachimetro GPS da strumento di bordo: la velocità in grande, il registro dei viaggi, il riflesso sul parabrezza. In bici, di corsa, in barca o in auto.
 
 - Velocità attuale in km/h, mph o nodi, una cifra grande e intera
-- Velocità massima, velocità media, distanza e durata del viaggio, salvate finché non lo azzeri
-- Con i nodi la distanza è in miglia nautiche, e i limiti sono quelli in acqua
+- Altitudine e rotta con il punto cardinale sotto la cifra; con i nodi diventano SOG e COG
+- Velocità massima, velocità media, distanza e durata del viaggio
+- Registro dei viaggi: ogni viaggio salvato con data, durata, distanza, massima e media, da esportare in CSV. Nessuna posizione salvata
+- Limiti di velocità a un tocco: 50, 90, 110, 130 km/h, i limiti americani e britannici in mph, quelli in acqua in nodi, o un valore tuo
+- Quando superi il limite lo leggi sotto la cifra, e l'iPhone vibra e suona una volta
+- Parabrezza: la cifra specchiata e lo schermo al massimo, da appoggiare sul cruscotto di notte e leggere nel riflesso
 - La media conta solo il tempo in movimento: le soste non la abbassano
-- Limite di velocità facoltativo: quando lo superi lo leggi sotto la cifra, e l'iPhone vibra e suona una volta
 - Il quadrante si adatta come in auto: 60, 120, 200 o 300 km/h
 - In orizzontale, nel supporto dell'auto, la cifra sta a sinistra e il viaggio a destra
-- Azzera il viaggio con una conferma
 - Lo schermo resta acceso mentre guardi la velocità
 - La posizione si usa solo con l'app aperta e resta sull'iPhone
 - Tema chiaro e scuro, testo dinamico, VoiceOver
@@ -22,3 +17,5 @@ Apri l'app e leggi la tua velocità in grande, dal GPS dell'iPhone. In bici, di 
 Alla guida, fissa l'iPhone a un supporto prima di partire e non toccarlo in movimento. La velocità del GPS è indicativa: valgono sempre il tachimetro del veicolo e il codice della strada.
 
 Sbu fa una cosa sola: ti dice quanto vai veloce.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

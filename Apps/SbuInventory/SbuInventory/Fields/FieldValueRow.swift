@@ -25,3 +25,16 @@ struct FieldValueRow: View {
         }
     }
 }
+
+#Preview("Light") {
+    let value = FieldValue(definition: FieldDefinition(name: "Numero di serie", kind: .text, order: 0), item: Item(name: "Trapano"))
+    value.text = "SN-42"
+    return List { FieldValueRow(value: value) }
+}
+
+#Preview("Dark") {
+    let value = FieldValue(definition: FieldDefinition(name: "Garanzia fino al", kind: .date, order: 0), item: Item(name: "Trapano"))
+    value.date = .now
+    return List { FieldValueRow(value: value) }
+        .preferredColorScheme(.dark)
+}

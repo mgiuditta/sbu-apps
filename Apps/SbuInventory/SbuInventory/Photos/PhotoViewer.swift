@@ -37,3 +37,14 @@ struct PhotoViewer: View {
         dismiss()
     }
 }
+
+#Preview("Light") {
+    @Previewable @State var selection = 0
+    PhotoViewer(photos: ItemPhoto.previewSamples(), selection: $selection)
+}
+
+#Preview("Dark") {
+    @Previewable @State var selection = 1
+    PhotoViewer(photos: ItemPhoto.previewSamples(), selection: $selection)
+        .preferredColorScheme(.dark)
+}

@@ -30,3 +30,14 @@ struct PhotoView: View {
         PhotoProcessor.image(data, maxPixelSize: maxPixelSize)
     }
 }
+
+#Preview("Light") {
+    PhotoView(photo: ItemPhoto.previewSamples(1)[0], maxPixelSize: 600)
+        .frame(width: 300, height: 200)
+}
+
+#Preview("Dark") {
+    PhotoView(photo: ItemPhoto.previewSamples(1)[0], maxPixelSize: 600, contentMode: .fit)
+        .frame(width: 300, height: 200)
+        .preferredColorScheme(.dark)
+}

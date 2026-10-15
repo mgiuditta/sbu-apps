@@ -34,3 +34,14 @@ struct PhotoCarousel: View {
         }
     }
 }
+
+#Preview("Light") {
+    PhotoCarousel(photos: ItemPhoto.previewSamples())
+        .padding(SbuTheme.space4)
+}
+
+#Preview("Dark") {
+    PhotoCarousel(photos: ItemPhoto.previewSamples())
+        .padding(SbuTheme.space4)
+        .preferredColorScheme(.dark)
+}

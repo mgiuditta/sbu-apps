@@ -1,4 +1,5 @@
 import SbuKit
+import SwiftData
 import SwiftUI
 
 /// What the search found, from every folder searched, each with the path to where it is.
@@ -36,5 +37,31 @@ struct SearchResults: View {
 
     private func path(of folder: Folder?) -> String {
         FolderPath.text(tree.path(of: folder?.uuid), root: String(localized: "Inventario"))
+    }
+}
+
+#Preview("Light") {
+    SearchResultsPreview()
+        .modelContainer(.preview)
+}
+
+#Preview("Dark") {
+    SearchResultsPreview()
+        .modelContainer(.preview)
+        .preferredColorScheme(.dark)
+}
+
+private struct SearchResultsPreview: View {
+    @Query private var folders: [Folder]
+    @Query private var items: [Item]
+
+    var body: some View {
+        NavigationStack {
+            List {
+                SearchResults(folders: Array(folders.prefix(2)), items: items,
+                              tree: InventoryTree(folders: folders.map(\.node), items: items.map(\.node)),
+                              move: { _ in }, delete: { _ in })
+            }
+        }
     }
 }

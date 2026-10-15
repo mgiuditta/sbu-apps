@@ -12,7 +12,7 @@ struct FolderPicker: View {
     let choose: (Folder?) -> Void
 
     @Query private var folders: [Folder]
-    @ScaledMetric(relativeTo: .body) private var indent = SbuTheme.space4
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         let tree = InventoryTree(folders: folders.map(\.node), items: [])
@@ -36,15 +36,25 @@ struct FolderPicker: View {
         .background(SbuTheme.surface)
     }
 
+    /// One step per level, a smaller step and fewer levels at the accessibility sizes, so a name never
+    /// gets squeezed to a few letters per line.
+    private func indent(for depth: Int) -> CGFloat {
+        dynamicTypeSize.isAccessibilitySize
+            ? CGFloat(min(depth, 2)) * SbuTheme.space2
+            : CGFloat(min(depth, 6)) * SbuTheme.space4
+    }
+
     private func row(name: String, systemImage: String, depth: Int, isSelected: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack(spacing: SbuTheme.space3) {
                 // Not a `Label`: beside the indent it sized the name to the symbol and clipped it.
-                Image(systemName: systemImage)
-                    .fontWeight(.medium)
-                    .foregroundStyle(SbuTheme.inkMuted)
-                    .padding(.leading, CGFloat(min(depth, 6)) * indent)
-                    .accessibilityHidden(true)
+                // At the accessibility sizes the symbol goes and the name gets the width, as in SbuListRow.
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Image(systemName: systemImage)
+                        .fontWeight(.medium)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                        .accessibilityHidden(true)
+                }
                 Text(name)
                     .foregroundStyle(SbuTheme.ink)
                 Spacer(minLength: 0)
@@ -54,6 +64,7 @@ struct FolderPicker: View {
                         .foregroundStyle(.tint)
                 }
             }
+            .padding(.leading, indent(for: depth))
         }
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityValue(depth > 1 ? Text("Livello \(depth)") : Text(verbatim: ""))

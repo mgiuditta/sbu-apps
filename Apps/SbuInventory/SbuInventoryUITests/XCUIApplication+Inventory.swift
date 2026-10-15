@@ -66,7 +66,7 @@ extension XCUIElement {
     /// Taps the button that backs out: Annulla in a sheet or an alert, the search's close button.
     @MainActor
     func tapCancel() {
-        let labels = ["Annulla", "Cancel", "Chiudi", "Close"]
+        let labels = ["Annulla", "Cancel", "Chiudi", "Close", "chiudi", "close"]
         buttons.element(matching: NSPredicate(format: "label IN %@", labels)).firstMatch.tap()
     }
 }
@@ -77,12 +77,10 @@ extension XCUIApplication {
         descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@ OR value CONTAINS %@", text, text)).firstMatch
     }
 
-    /// Empties the search field and puts the keyboard away, so the screen shows its folders again.
+    /// Closes the search, so the screen shows its folders again.
     @MainActor
     func clearSearch() {
-        let search = searchFields.firstMatch
-        search.buttons.element(boundBy: 0).tap()
-        search.typeText("\n")
+        tapCancel()
     }
 
     /// Adds an item from the + menu of the screen on top, with a name and, if not 1, a quantity typed in.

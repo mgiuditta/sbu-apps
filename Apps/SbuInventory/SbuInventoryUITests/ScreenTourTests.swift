@@ -23,6 +23,24 @@ final class ScreenTourTests: XCTestCase {
         try? app.screenshot().pngRepresentation.write(to: url)
     }
 
+    /// Scrolls until the element is on screen, as at the largest text sizes most rows start below the fold.
+    @MainActor
+    private func reveal(_ element: XCUIElement, in app: XCUIApplication) -> XCUIElement {
+        var tries = 0
+        // Clear of the search field floating at the bottom, too.
+        while !(element.exists && element.isHittable && element.frame.maxY < app.frame.maxY * 0.75), tries < 6 {
+            app.swipeUp(velocity: .slow)
+            tries += 1
+        }
+        return element
+    }
+
+    /// The sample's names in the language of the tour.
+    private func sample(_ italian: String) -> String {
+        guard ProcessInfo.processInfo.environment["SBU_SHOTS_LANGUAGE"] == "en" else { return italian }
+        return ["Casa": "Home", "Garage": "Garage", "Pile AA": "AA batteries"][italian] ?? italian
+    }
+
     @MainActor
     private func launch(_ store: XCUIApplication.Store) -> XCUIApplication {
         let environment = ProcessInfo.processInfo.environment
@@ -42,17 +60,17 @@ final class ScreenTourTests: XCTestCase {
 
         let app = launch(.sample)
         save(app, "04-home")
-        app.element("folder-Casa").tap()
+        app.element("folder-\(sample("Casa"))").tap()
         save(app, "05-folder")
-        app.element("folder-Garage").tap()
+        app.element("folder-\(sample("Garage"))").tap()
         save(app, "06-garage")
         app.element("folderMenu").tap()
         save(app, "07-folder-menu")
-        app.buttons["Sposta in"].firstMatch.tap()
+        app.buttons.element(matching: NSPredicate(format: "label == %@ OR label == %@", "Sposta in", "Move to")).firstMatch.tap()
         save(app, "08-move")
         app.tapCancel()
 
-        app.element("item-Pile AA").firstMatch.tap()
+        reveal(app.element("item-\(sample("Pile AA"))"), in: app).tap()
         save(app, "09-item")
         app.swipeUp()
         save(app, "10-item-bottom")
@@ -73,14 +91,14 @@ final class ScreenTourTests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        app.element("folder-Garage").swipeLeft()
+        reveal(app.element("folder-\(sample("Garage"))"), in: app).swipeLeft()
         save(app, "14-swipe")
         app.buttons.element(matching: NSPredicate(format: "label == %@ OR label == %@", "Elimina", "Delete")).firstMatch.tap()
         save(app, "15-folder-delete")
         app.alerts.firstMatch.tapCancel()
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        app.element("lowStock").tap()
+        reveal(app.element("lowStock"), in: app).tap()
         save(app, "16-low-stock")
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
@@ -101,7 +119,7 @@ final class ScreenTourTests: XCTestCase {
         save(app, "20-settings")
         app.swipeUp()
         save(app, "21-settings-bottom")
-        app.element("fields").tap()
+        reveal(app.element("fields"), in: app).tap()
         save(app, "22-fields-empty")
         app.element("addField").tap()
         save(app, "23-new-field")

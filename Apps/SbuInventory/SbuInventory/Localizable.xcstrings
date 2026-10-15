@@ -493,6 +493,16 @@
         }
       }
     },
+    "Continua a modificare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep editing"
+          }
+        }
+      }
+    },
     "Crea" : {
       "localizations" : {
         "en" : {
@@ -749,6 +759,16 @@
         }
       }
     },
+    "Ignora le modifiche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard changes"
+          }
+        }
+      }
+    },
     "Il file è vuoto o non si legge." : {
       "localizations" : {
         "en" : {
@@ -905,6 +925,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Missing folders are created. Items already here stay as they are."
+          }
+        }
+      }
+    },
+    "Le modifiche non sono salvate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your changes aren't saved"
+          }
+        }
+      }
+    },
+    "Lettura del file" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading the file"
           }
         }
       }

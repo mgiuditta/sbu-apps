@@ -16,6 +16,11 @@ struct SbuInventoryApp: App {
         if defaults.bool(forKey: "SBU_EMPTY_STORE"), let container = try? ModelContainer.inventory(inMemory: true) {
             return container
         }
+        // The relaunch test keeps a store file of its own, so it never touches yours.
+        if let name = ProcessInfo.processInfo.environment["SBU_STORE_FILE"],
+           let container = try? ModelContainer.inventory(url: .temporaryDirectory.appending(path: name)) {
+            return container
+        }
         do {
             return try ModelContainer.inventory()
         } catch {

@@ -17,6 +17,7 @@ struct ItemFormSheet: View {
     @State private var draft: ItemDraft
     private let original: ItemDraft
     @FocusState private var isNameFocused: Bool
+    @State private var isConfirmingDiscard = false
 
     init(editor: ItemEditor, saved: @escaping (Item) -> Void = { _ in }) {
         self.editor = editor
@@ -115,6 +116,10 @@ struct ItemFormSheet: View {
                 }
             }
             .interactiveDismissDisabled(draft != original)
+            .alert("Le modifiche non sono salvate", isPresented: $isConfirmingDiscard) {
+                Button("Ignora le modifiche", role: .destructive, action: discard)
+                Button("Continua a modificare", role: .cancel) {}
+            }
             .onAppear {
                 if case .new = editor.mode { isNameFocused = true }
             }
@@ -162,7 +167,12 @@ struct ItemFormSheet: View {
         saved(item)
     }
 
+    /// Annulla goes at once with nothing changed, and asks first when something would be lost.
     private func close() {
+        if draft == original { dismiss() } else { isConfirmingDiscard = true }
+    }
+
+    private func discard() {
         dismiss()
     }
 }

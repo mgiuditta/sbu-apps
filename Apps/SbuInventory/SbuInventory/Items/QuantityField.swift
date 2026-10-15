@@ -23,10 +23,14 @@ struct QuantityField: View {
                 }
             }
         } else {
-            Stepper(value: $value, in: 0...999_999) {
-                LabeledContent(title) {
-                    field
-                }
+            // Laid out by hand: a `LabeledContent` inside the stepper squeezed the title's height.
+            HStack(spacing: SbuTheme.space3) {
+                Text(title)
+                Spacer(minLength: SbuTheme.space2)
+                field
+                Stepper(title, value: $value, in: 0...999_999)
+                    .labelsHidden()
+                    .fixedSize()
             }
         }
     }

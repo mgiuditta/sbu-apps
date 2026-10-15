@@ -13,6 +13,7 @@ struct RootView: View {
     private static var isDemo: Bool {
         let defaults = UserDefaults.standard
         return defaults.bool(forKey: "FASTLANE_SNAPSHOT") || defaults.bool(forKey: "SBU_EMPTY_STORE") || defaults.bool(forKey: "SBU_SAMPLE_STORE")
+            || ProcessInfo.processInfo.environment["SBU_STORE_FILE"] != nil
     }
 
     var body: some View {

@@ -13,23 +13,33 @@ struct DataSection: View {
     @State private var pending: ImportFile?
     @State private var failure: ImportFile.Failure?
     @State private var result: ImportResult?
+    @State private var isReading = false
 
     var body: some View {
         let isEmpty = items.isEmpty && folders.isEmpty
         Section {
             // Words only: beside a symbol the audit finds the title clipped at larger text (as in Sbu Habits).
-            ShareLink(item: InventoryCSVFile(container: context.container), preview: SharePreview(Text("Inventario CSV"))) {
-                Text("Esporta CSV")
+            // An empty inventory has nothing to export, so only Importa shows.
+            if !isEmpty {
+                ShareLink(item: InventoryCSVFile(container: context.container), preview: SharePreview(Text("Inventario CSV"))) {
+                    Text("Esporta CSV")
+                }
+                .accessibilityIdentifier("exportCSV")
+                ShareLink(item: InventoryArchiveFile(container: context.container), preview: SharePreview(Text("Inventario con foto"))) {
+                    Text("Esporta archivio con foto")
+                }
+                .accessibilityIdentifier("exportArchive")
             }
-            .disabled(isEmpty)
-            .accessibilityIdentifier("exportCSV")
-            ShareLink(item: InventoryArchiveFile(container: context.container), preview: SharePreview(Text("Inventario con foto"))) {
-                Text("Esporta archivio con foto")
+            if isReading {
+                HStack(spacing: SbuTheme.space3) {
+                    ProgressView()
+                    Text("Lettura del file")
+                        .foregroundStyle(SbuTheme.inkMuted)
+                }
+            } else {
+                Button("Importa") { isImporting = true }
+                    .accessibilityIdentifier("import")
             }
-            .disabled(isEmpty)
-            .accessibilityIdentifier("exportArchive")
-            Button("Importa") { isImporting = true }
-                .accessibilityIdentifier("import")
         } header: {
             Text("Dati")
         } footer: {
@@ -68,17 +78,27 @@ struct DataSection: View {
 
     private func read(_ picked: Result<URL, any Error>) {
         guard let url = try? picked.get() else { return }
+        isReading = true
+        Task {
+            let outcome = await Self.readFile(at: url)
+            isReading = false
+            switch outcome {
+            case let .success(file): if file.rows.isEmpty { failure = .unreadable } else { pending = file }
+            case let .failure(error): failure = error
+            }
+        }
+    }
+
+    /// Reads and unpacks the file away from the main thread: an archive with hundreds of photos takes a while.
+    @concurrent
+    private nonisolated static func readFile(at url: URL) async -> Result<ImportFile, ImportFile.Failure> {
         let access = url.startAccessingSecurityScopedResource()
         defer { if access { url.stopAccessingSecurityScopedResource() } }
-        guard let data = try? Data(contentsOf: url, options: .mappedIfSafe) else {
-            failure = .unreadable
-            return
-        }
+        guard let data = try? Data(contentsOf: url, options: .mappedIfSafe) else { return .failure(.unreadable) }
         do {
-            let file = try ImportFile(data: data, calendar: .current)
-            if file.rows.isEmpty { failure = .unreadable } else { pending = file }
+            return .success(try ImportFile(data: data, calendar: .current))
         } catch {
-            failure = error
+            return .failure(error)
         }
     }
 

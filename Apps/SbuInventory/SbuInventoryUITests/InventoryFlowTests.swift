@@ -104,6 +104,40 @@ final class InventoryFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testInventorySurvivesRelaunch() throws {
+        let file = "uitest-\(UUID().uuidString).store"
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
+        app.launchEnvironment["SBU_STORE_FILE"] = file
+        app.launch()
+        app.element("addSample").tap()
+        XCTAssertTrue(app.element("folder-Esempio").waitForExistence(timeout: 5))
+
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.element("folder-Esempio").waitForExistence(timeout: 5))
+        XCTAssertTrue(app.element("total").label.contains("41"), app.element("total").label)
+    }
+
+    @MainActor
+    func testCancelWithChangesAsksFirst() throws {
+        let app = XCUIApplication.inventory(.empty)
+        app.element("addFirst").tap()
+        let name = app.textFields["itemName"]
+        XCTAssertTrue(name.waitForExistence(timeout: 5))
+        name.tap()
+        name.typeText("Trapano")
+        app.tapCancel()
+        let alert = app.alerts.firstMatch
+        XCTAssertTrue(alert.waitForExistence(timeout: 5))
+        alert.buttons["Continua a modificare"].tap()
+        XCTAssertEqual(name.value as? String, "Trapano")
+        app.tapCancel()
+        app.alerts.firstMatch.buttons["Ignora le modifiche"].tap()
+        XCTAssertTrue(app.staticTexts["Inventario vuoto"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testLowStockListAndScope() throws {
         let app = XCUIApplication.inventory(.sample)
         app.element("lowStock").tap()

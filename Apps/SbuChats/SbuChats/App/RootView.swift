@@ -3,20 +3,22 @@ import SwiftUI
 
 /// The app inside the standard Sbu shell.
 struct RootView: View {
+    let library: ChatLibrary
+
     var body: some View {
         SbuAppShell("Sbu Chats", slug: "chats", accent: SbuTheme.accentChats, appIcon: Image(.appIconArtwork)) {
-            Color.clear
+            ChatsListView(library: library)
         } settings: {
-            EmptyView()
+            ChatsSettingsSection(knownOwners: library.knownOwners)
         }
     }
 }
 
 #Preview("Light") {
-    RootView()
+    RootView(library: .preview)
 }
 
 #Preview("Dark") {
-    RootView()
+    RootView(library: .preview)
         .preferredColorScheme(.dark)
 }

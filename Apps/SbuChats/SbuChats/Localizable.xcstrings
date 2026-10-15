@@ -1,14 +1,1424 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-    "Sbu Chats" : {
+    "%@" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Chats" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
       }
     },
-    "Valore" : {
+    "%@ · %@" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · %@"
+          }
+        }
+      }
+    },
+    "%lld giorni" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorno"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld giorni"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld messaggi" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld message"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld messages"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld messaggio"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld messaggi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld messaggi, qui i %lld più recenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld messages, the %lld most recent here"
+          }
+        }
+      }
+    },
+    "%lld volte" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld time"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld times"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volta"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld volte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Aggiunti %lld messaggi nuovi" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Added %lld new message"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Added %lld new messages"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Aggiunto %lld messaggio nuovo"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Aggiunti %lld messaggi nuovi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Al" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To"
+          }
+        }
+      }
+    },
+    "Anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Apri la chat in WhatsApp e tocca il suo nome in alto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the chat in WhatsApp and tap its name at the top."
+          }
+        }
+      }
+    },
+    "Apri la chat in WhatsApp, tocca ⋮, poi Altro e Esporta chat." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the chat in WhatsApp, tap ⋮, then More and Export chat."
+          }
+        }
+      }
+    },
+    "Attività" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity"
+          }
+        }
+      }
+    },
+    "Azioni della chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat Actions"
+          }
+        }
+      }
+    },
+    "Cerca nei messaggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Messages"
+          }
+        }
+      }
+    },
+    "Chi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Who"
+          }
+        }
+      }
+    },
+    "Chi sei in questa chat?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Who are you in this chat?"
+          }
+        }
+      }
+    },
+    "Chi sei?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Who Are You?"
+          }
+        }
+      }
+    },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Come esportare una chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to Export a Chat"
+          }
+        }
+      }
+    },
+    "Conferma" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    },
+    "Conversazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversations"
+          }
+        }
+      }
+    },
+    "Conversazioni chiuse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversations ended"
+          }
+        }
+      }
+    },
+    "Conversazioni iniziate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversations started"
+          }
+        }
+      }
+    },
+    "Così i tuoi numeri si separano da quelli degli altri." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "So your numbers stand apart from everyone else's."
+          }
+        }
+      }
+    },
+    "Da Android" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From Android"
+          }
+        }
+      }
+    },
+    "Da iPhone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From iPhone"
+          }
+        }
+      }
+    },
+    "Dal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From"
+          }
+        }
+      }
+    },
+    "Di chi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whose"
+          }
+        }
+      }
+    },
+    "Elimina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Elimina la chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Chat"
+          }
+        }
+      }
+    },
+    "Eliminare “%@”?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete “%@”?"
+          }
+        }
+      }
+    },
+    "Emoji" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emoji"
+          }
+        }
+      }
+    },
+    "Fino all'ultimo messaggio della chat, il %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up to the chat's last message, on %@."
+          }
+        }
+      }
+    },
+    "Foto, video e altri file" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photos, videos and other files"
+          }
+        }
+      }
+    },
+    "Giorni con messaggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days with messages"
+          }
+        }
+      }
+    },
+    "Giorni di fila, record" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Longest streak"
+          }
+        }
+      }
+    },
+    "Giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day"
+          }
+        }
+      }
+    },
+    "Gli altri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Others"
+          }
+        }
+      }
+    },
+    "I messaggi e i numeri di questa chat spariscono da Sbu Chats. La chat nell'app di messaggi resta com'è." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This chat's messages and numbers leave Sbu Chats. The chat in your messaging app stays as it is."
+          }
+        }
+      }
+    },
+    "Il file non si apre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file doesn't open"
+          }
+        }
+      }
+    },
+    "Il file non va a capo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file has no line breaks"
+          }
+        }
+      }
+    },
+    "Il file è troppo grande" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file is too large"
+          }
+        }
+      }
+    },
+    "Il momento più attivo: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busiest: %@"
+          }
+        }
+      }
+    },
+    "Il testo supera 200 MB, molto più di qualsiasi chat esportata. Sbu Chats si ferma per non riempire l'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The text is over 200 MB, far more than any exported chat. Sbu Chats stops so it doesn't fill your iPhone."
+          }
+        }
+      }
+    },
+    "Importa una chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import a Chat"
+          }
+        }
+      }
+    },
+    "Importazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import"
+          }
+        }
+      }
+    },
+    "In una chat nuova con uno di questi nomi Sbu Chats sa già chi sei. Scorri a sinistra per dimenticare un nome." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In a new chat with one of these names, Sbu Chats already knows who you are. Swipe left to forget a name."
+          }
+        }
+      }
+    },
+    "La chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Chat"
+          }
+        }
+      }
+    },
+    "La chat resta su questo iPhone. Sbu Chats non si collega a internet, non usa iCloud e non legge altro che i file che gli dai. Puoi eliminare una chat in ogni momento." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chat stays on this iPhone. Sbu Chats doesn't connect to the internet, doesn't use iCloud and reads nothing but the files you give it. You can delete a chat at any time."
+          }
+        }
+      }
+    },
+    "La chat resta su questo iPhone: Sbu Chats non si collega a internet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chat stays on this iPhone: Sbu Chats doesn't connect to the internet."
+          }
+        }
+      }
+    },
+    "La chat è vuota" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chat is empty"
+          }
+        }
+      }
+    },
+    "Le righe del file non iniziano con data e ora come in una chat esportata. Qui sotto c'è la prima riga trovata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file's lines don't start with a date and time like an exported chat. The first line found is below."
+          }
+        }
+      }
+    },
+    "Le righe hanno data e ora, ma le date non tornano in nessun ordine di giorno, mese e anno. Qui sotto c'è una delle righe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The lines have a date and time, but the dates don't work in any order of day, month and year. One of the lines is below."
+          }
+        }
+      }
+    },
+    "Leggo la chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading the chat"
+          }
+        }
+      }
+    },
+    "Lettura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading"
+          }
+        }
+      }
+    },
+    "Lo ZIP contiene solo foto o altri file, nessun testo della chat. Esporta di nuovo la chat dall'app di messaggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ZIP holds only photos or other files, no chat text. Export the chat again from your messaging app."
+          }
+        }
+      }
+    },
+    "Lo ZIP si è interrotto o è protetto da password. Esporta di nuovo la chat, senza comprimerla con altre app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ZIP is cut short or protected by a password. Export the chat again, without compressing it with other apps."
+          }
+        }
+      }
+    },
+    "Lo ZIP è danneggiato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ZIP is damaged"
+          }
+        }
+      }
+    },
+    "Manda il file all'iPhone, per esempio per email o con un servizio cloud, e aprilo con Sbu Chats." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send the file to your iPhone, for example by email or a cloud service, and open it with Sbu Chats."
+          }
+        }
+      }
+    },
+    "Mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month"
+          }
+        }
+      }
+    },
+    "Messaggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages"
+          }
+        }
+      }
+    },
+    "Messaggi al giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages per day"
+          }
+        }
+      }
+    },
+    "Messaggi per anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages by year"
+          }
+        }
+      }
+    },
+    "Messaggi per giorno della settimana" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages by day of the week"
+          }
+        }
+      }
+    },
+    "Messaggi per mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages by month"
+          }
+        }
+      }
+    },
+    "Messaggi per ora del giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages by hour of the day"
+          }
+        }
+      }
+    },
+    "Mostra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show"
+          }
+        }
+      }
+    },
+    "Nel colore dell'app i tuoi messaggi, in grigio quelli degli altri. Tocca o trascina sul grafico per leggere una barra." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your messages in the app's color, everyone else's in grey. Tap or drag on the chart to read a bar."
+          }
+        }
+      }
+    },
+    "Nel file non ci sono messaggi scritti da qualcuno, solo avvisi dell'app o nessuna riga." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file has no messages written by anyone, only app notices or no lines at all."
+          }
+        }
+      }
+    },
+    "Nel foglio di condivisione tocca Sbu Chats. Se non c'è, tocca Salva su File e poi, in Sbu Chats, Importa una chat." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the share sheet, tap Sbu Chats. If it isn't there, tap Save to Files, then Import a Chat in Sbu Chats."
+          }
+        }
+      }
+    },
+    "Nell'app di messaggi apri una chat, scegli Esporta chat e condividila con Sbu Chats. Oppure salvala in File e sceglila da qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In your messaging app, open a chat, choose Export chat and share it with Sbu Chats. Or save it to Files and choose it from here."
+          }
+        }
+      }
+    },
+    "Nello ZIP non c'è una chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There's no chat in the ZIP"
+          }
+        }
+      }
+    },
+    "Nessun messaggio in questo periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No messages in this period"
+          }
+        }
+      }
+    },
+    "Nessun messaggio nuovo: la chat era già aggiornata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No new messages: the chat was already up to date"
+          }
+        }
+      }
+    },
+    "Nessuna chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Chats"
+          }
+        }
+      }
+    },
+    "Nessuna emoji in questo periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No emoji in this period"
+          }
+        }
+      }
+    },
+    "Nessuna parola in questo periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No words in this period"
+          }
+        }
+      }
+    },
+    "Nessuna risposta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No replies"
+          }
+        }
+      }
+    },
+    "Nessuno di questi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None of these"
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Non riconosco il formato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The format isn't recognized"
+          }
+        }
+      }
+    },
+    "Non riesco a leggere le date" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The dates can't be read"
+          }
+        }
+      }
+    },
+    "Nulla è stato importato. Il file resta dov'era." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing was imported. The file stays where it was."
+          }
+        }
+      }
+    },
+    "Ora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hour"
+          }
+        }
+      }
+    },
+    "Parole" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Words"
+          }
+        }
+      }
+    },
+    "Parole da cercare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Words to search"
+          }
+        }
+      }
+    },
+    "Parole ed emoji" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Words and Emoji"
+          }
+        }
+      }
+    },
+    "Per aggiornare una chat, esportala di nuovo: Sbu Chats aggiunge solo i messaggi nuovi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To update a chat, export it again: Sbu Chats adds only the new messages."
+          }
+        }
+      }
+    },
+    "Periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Period"
+          }
+        }
+      }
+    },
+    "Personalizzato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
+    "Persone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People"
+          }
+        }
+      }
+    },
+    "Privacy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
+        }
+      }
+    },
+    "Prova con una chat di esempio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try a Sample Chat"
+          }
+        }
+      }
+    },
+    "Quando" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When"
+          }
+        }
+      }
+    },
+    "Quanti messaggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How Many Messages"
+          }
+        }
+      }
+    },
+    "Questo file non è una chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file isn't a chat"
+          }
+        }
+      }
+    },
+    "Raggruppa per" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group by"
+          }
+        }
+      }
+    },
+    "Riga trovata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line Found"
+          }
+        }
+      }
+    },
+    "Rinomina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "Rinomina la chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename Chat"
+          }
+        }
+      }
+    },
+    "Risposta media" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average reply"
+          }
+        }
+      }
+    },
+    "Risposta tipica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typical reply"
+          }
+        }
+      }
+    },
+    "Sbu Chats" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Chats"
+          }
+        }
+      }
+    },
+    "Sbu Chats legge le chat esportate come .txt o .zip; questo file è .%@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Chats reads chats exported as .txt or .zip; this file is .%@."
+          }
+        }
+      }
+    },
+    "Sbu Chats non riesce a leggere il file. Esporta di nuovo la chat e condividila con Sbu Chats." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Chats can't read the file. Export the chat again and share it with Sbu Chats."
+          }
+        }
+      }
+    },
+    "Scegli Senza media." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Without Media."
+          }
+        }
+      }
+    },
+    "Scegli Senza media: è più veloce e i numeri sono gli stessi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Without Media: it's faster and the numbers are the same."
+          }
+        }
+      }
+    },
+    "Scegli chi sei" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Who You Are"
+          }
+        }
+      }
+    },
+    "Scegli un file" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a File"
+          }
+        }
+      }
+    },
+    "Scorri in fondo e tocca Esporta chat." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scroll to the bottom and tap Export Chat."
+          }
+        }
+      }
+    },
+    "Scrivi una o più parole: trovi i messaggi che le contengono tutte. Metti una frase tra virgolette per cercarla esatta, scrivi OR tra due parole per trovare l'una o l'altra." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type one or more words to find the messages that contain them all. Put a phrase in quotes to find it exactly, type OR between two words to find either."
+          }
+        }
+      }
+    },
+    "Sei tu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You"
+          }
+        }
+      }
+    },
+    "Senza le parole più comuni della lingua della chat (articoli, preposizioni, pronomi), senza link e numeri." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without the most common words of the chat's language (articles, prepositions, pronouns), links and numbers."
+          }
+        }
+      }
+    },
+    "Serve a separare i tuoi numeri da quelli degli altri. Sbu Chats lo ricorda per le prossime chat." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It sets your numbers apart from everyone else's. Sbu Chats remembers it for your next chats."
+          }
+        }
+      }
+    },
+    "Sull'iPhone, senza internet. Una chat lunga richiede qualche secondo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On your iPhone, without the internet. A long chat takes a few seconds."
+          }
+        }
+      }
+    },
+    "Tocca o trascina sul grafico per leggere una barra. Scegli chi sei per separare i tuoi messaggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap or drag on the chart to read a bar. Choose who you are to set your messages apart."
+          }
+        }
+      }
+    },
+    "Tu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You"
+          }
+        }
+      }
+    },
+    "Tu · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You · %@"
+          }
+        }
+      }
+    },
+    "Tutta la chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whole chat"
+          }
+        }
+      }
+    },
+    "Tutti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everyone"
+          }
+        }
+      }
+    },
+    "Ultimi 30 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 30 days"
+          }
+        }
+      }
+    },
+    "Ultimi 6 mesi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 6 months"
+          }
+        }
+      }
+    },
+    "Ultimo anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last year"
+          }
+        }
+      }
+    },
+    "Un export contiene al massimo circa 40.000 messaggi senza media o 10.000 con i media, i più recenti: questa chat parte dal %@. Esportala di nuovo più avanti e Sbu Chats aggiunge i messaggi nuovi a questi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An export holds at most about 40,000 messages without media or 10,000 with media, the most recent ones: this chat starts on %@. Export it again later and Sbu Chats adds the new messages to these."
+          }
+        }
+      }
+    },
+    "Un export contiene al massimo circa 40.000 messaggi senza media o 10.000 con i media: i più recenti. Per tenere la storia, esporta di nuovo la stessa chat più avanti: Sbu Chats la riconosce e aggiunge solo i messaggi nuovi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An export holds at most about 40,000 messages without media or 10,000 with media: the most recent ones. To keep the history, export the same chat again later: Sbu Chats recognizes it and adds only the new messages."
+          }
+        }
+      }
+    },
+    "Una conversazione ricomincia dopo 6 ore di silenzio. Le risposte arrivate dopo più di 24 ore non entrano nei tempi di risposta. Messaggi al giorno conta solo i giorni con messaggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A conversation starts again after 6 hours of silence. Replies that came more than 24 hours later don't count in reply times. Messages per day counts only days with messages."
+          }
+        }
+      }
+    },
+    "Una riga supera 1 MB, più di qualsiasi messaggio: il file non è una chat esportata, o è danneggiato." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A line is over 1 MB, more than any message: the file isn't an exported chat, or it's damaged."
+          }
+        }
+      }
+    },
+    "WhatsApp è un marchio di Meta Platforms, Inc. Sbu Chats non è affiliata a Meta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WhatsApp is a trademark of Meta Platforms, Inc. Sbu Chats is not affiliated with Meta."
+          }
+        }
+      }
+    },
+    "alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "at %@"
+          }
+        }
       }
     }
   },

@@ -94,5 +94,13 @@
       "it": "Ramazza",
       "en": "Besom"
     }
+  },
+  "chats": {
+    "accent": "accent-chats",
+    "subject": "a mechanical hand tally counter with a thumb lever and a four-number wheel window",
+    "name": {
+      "it": "Contapersone",
+      "en": "Tally counter"
+    }
   }
 }

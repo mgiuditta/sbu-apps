@@ -162,7 +162,7 @@
   },
   {
    "name": "Info",
-   "purpose": "Partner name, disappearing messages, notifications text, change code, Termina la conversazione (danger). No figure: the calculator holds it.",
+   "purpose": "Partner name, disappearing messages, notifications text, change code, Termina la conversazione (danger). No figure: the cover holds it.",
    "elements": [
     "disappearing messages",
     "notification on/off and text",
@@ -240,7 +240,7 @@
   "Video messages in 1.0: CKAsset size and upload reliability; P2 after 1.0.",
   "Shared calendar, love letters, stickers, games: not the one thing.",
   "More than one conversation: Messages does it.",
-  "Copying Apple's Calculator icon or name: impersonation.",
+  "Copying Apple's Calculator, Notes or Clock icons or names: impersonation.",
   "Covers that need network (weather, news): not allowed in Sbu apps.",
   "Changing the home-screen name per cover: iOS does not allow it."
  ],
@@ -281,7 +281,7 @@
   {
    "rule": "2.3.7 / 5.2 impersonation",
    "risk": "Covers looking like Apple's Calculator, Notes or Clock.",
-   "mitigation": "Sbu engraving icon, Sbu name, SF keypad in Sbu tokens, no Apple icon or 'Calculator' alone as the name."
+   "mitigation": "Sbu engraving icons, Sbu tokens, no Apple icon or Apple app name."
   },
   {
    "rule": "Brand",

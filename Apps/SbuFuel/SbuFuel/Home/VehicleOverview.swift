@@ -1,4 +1,5 @@
 import SbuKit
+import SwiftData
 import SwiftUI
 
 /// The sections of the tool screen for one vehicle: the figure, the way into the log, the next
@@ -45,5 +46,31 @@ struct VehicleOverview: View {
         if !records.isEmpty {
             SpendingSection(costs: costs, distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume)
         }
+    }
+}
+
+#Preview("Light") {
+    VehicleOverviewPreview()
+        .modelContainer(.preview)
+}
+
+#Preview("Dark") {
+    VehicleOverviewPreview()
+        .modelContainer(.preview)
+        .preferredColorScheme(.dark)
+}
+
+private struct VehicleOverviewPreview: View {
+    @Query private var vehicles: [Vehicle]
+
+    var body: some View {
+        NavigationStack {
+            List {
+                if let vehicle = vehicles.first {
+                    VehicleOverview(vehicle: vehicle, units: UnitSettings(), notifications: ReminderNotifications(center: SilentReminderCenter()))
+                }
+            }
+        }
+        .tint(SbuTheme.accentFuel)
     }
 }

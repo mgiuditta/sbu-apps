@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 
 /// The form a `HistorySheet` stands for.
@@ -15,6 +16,27 @@ struct HistorySheetContent: View {
         case let .service(service): ServiceForm(vehicle: vehicle, service: service)
         case .newReminder: ReminderForm(vehicle: vehicle, reminder: nil, notifications: notifications)
         case let .reminder(reminder): ReminderForm(vehicle: vehicle, reminder: reminder, notifications: notifications)
+        }
+    }
+}
+
+#Preview("Light") {
+    HistorySheetPreview()
+        .modelContainer(.preview)
+}
+
+#Preview("Dark") {
+    HistorySheetPreview()
+        .modelContainer(.preview)
+        .preferredColorScheme(.dark)
+}
+
+private struct HistorySheetPreview: View {
+    @Query private var vehicles: [Vehicle]
+
+    var body: some View {
+        if let vehicle = vehicles.first {
+            HistorySheetContent(sheet: .newService, vehicle: vehicle, units: UnitSettings())
         }
     }
 }

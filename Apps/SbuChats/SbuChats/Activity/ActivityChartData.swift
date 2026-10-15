@@ -6,7 +6,7 @@ nonisolated struct ActivityChartData: Equatable, Sendable {
     struct Slot: Identifiable, Equatable, Sendable {
         /// The slot value from `ActivityPoint`.
         let id: Int
-        /// What the axis shows: "21", "lun", "mar 24", "2024".
+        /// What the axis shows: "21", "lun", "mar 2024", "2024".
         let label: String
     }
 
@@ -83,12 +83,12 @@ nonisolated struct ActivityChartData: Equatable, Sendable {
         return date.formatted(style)
     }
 
-    /// "mar 24": abbreviated month and two-digit year.
+    /// "mar 2024": abbreviated month and year; "Sep 26" would read as a day in English.
     private static func monthLabel(_ id: Int, calendar: Calendar, locale: Locale) -> String {
         let components = DateComponents(year: id / 12, month: id % 12 + 1, day: 1)
         guard let date = calendar.date(from: components) else { return String(id) }
         var style = Date.FormatStyle(locale: locale, calendar: calendar, timeZone: calendar.timeZone)
-        style = style.month(.abbreviated).year(.twoDigits)
+        style = style.month(.abbreviated).year(.defaultDigits)
         return date.formatted(style)
     }
 }

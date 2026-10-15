@@ -90,7 +90,7 @@ final class ChatsFlowTests: XCTestCase {
         XCTAssertTrue(sample.waitForExistence(timeout: 10))
         sample.tap()
 
-        XCTAssertTrue(app.staticTexts["Chi sei in questa chat?"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.buttons["Nessuno di questi"].waitForExistence(timeout: 20))
         let confirm = app.buttons["Conferma"]
         XCTAssertFalse(confirm.isEnabled)
         try audit(app)
@@ -168,6 +168,19 @@ final class ChatsFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testAFileThatIsNotAChatSaysWhy() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES",
+                                "-DEMO_IMPORT_TEXT", "Lista della spesa"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Non riconosco il formato"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["Lista della spesa"].exists)
+        try audit(app)
+        app.buttons["Chiudi"].tap()
+        XCTAssertTrue(app.staticTexts["Nessuna chat"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testDeletingAChatAsksFirst() throws {
         let app = launch(seeded: true)
         let row = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Chat di esempio'")).firstMatch
@@ -185,7 +198,7 @@ final class ChatsFlowTests: XCTestCase {
         openSampleChat(app)
         app.buttons["Azioni della chat"].tap()
         app.buttons["Chi sei?"].tap()
-        XCTAssertTrue(app.staticTexts["Chi sei in questa chat?"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Nessuno di questi"].waitForExistence(timeout: 5))
         app.buttons["Marco"].tap()
         app.buttons["Conferma"].tap()
         XCTAssertTrue(app.staticTexts["Tu · Marco"].waitForExistence(timeout: 10))

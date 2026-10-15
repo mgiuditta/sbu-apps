@@ -10,6 +10,8 @@ struct ActivityChart: View {
     let seriesName: (ActivitySeries) -> String
     let height: CGFloat
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         Chart(data.bars) { bar in
             BarMark(
@@ -67,14 +69,27 @@ struct ActivityChart: View {
         series.map { $0 == .others ? SbuTheme.inkMuted : SbuTheme.accentChats }
     }
 
-    /// Every hour would crowd the axis: one label in three, one in six for months past two years.
+    /// Every hour would crowd the axis: one label in three (six at the accessibility sizes); months
+    /// about four labels (one). Never a label on the first bar, nor a month on the last, where it
+    /// would run past the chart's edge and be cut.
     private var axisValues: [String] {
         let labels = data.slots.map(\.label)
-        let stride = switch axis {
-        case .hour: 3
-        case .weekday, .year: 1
-        case .month: max(1, labels.count / 6)
+        let isLarge = dynamicTypeSize.isAccessibilitySize
+        switch axis {
+        case .hour:
+            let step = isLarge ? 6 : 3
+            return labels.enumerated().filter { $0.offset > 0 && $0.offset.isMultiple(of: step) }.map(\.element)
+        case .weekday, .year:
+            return labels
+        case .month:
+            // At the accessibility sizes a month's name is wider than a third of the chart: one, mid-way.
+            if isLarge { return labels.isEmpty ? [] : [labels[labels.count / 2]] }
+            let count = 4
+            guard labels.count > count else { return labels }
+            let stride = max(1, (labels.count - 2) / count)
+            return labels.enumerated()
+                .filter { $0.offset > 0 && $0.offset < labels.count - 1 && ($0.offset - 1).isMultiple(of: stride) }
+                .map(\.element)
         }
-        return labels.enumerated().filter { $0.offset % stride == 0 }.map(\.element)
     }
 }

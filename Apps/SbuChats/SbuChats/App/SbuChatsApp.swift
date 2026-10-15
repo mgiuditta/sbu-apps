@@ -33,6 +33,13 @@ struct SbuChatsApp: App {
 
     /// Screenshots and flow tests start with the sample chat and you chosen.
     private static func seedIfNeeded(_ library: ChatLibrary) async {
+        if let text = LaunchMode.demoImportText {
+            let folder = URL.temporaryDirectory.appending(path: "demo-\(UUID().uuidString)")
+            let url = folder.appending(path: "Lista.txt")
+            try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            try? Data(text.utf8).write(to: url)
+            library.importFile(at: url)
+        }
         guard LaunchMode.seedsSample else { return }
         let language = SampleChat.appLanguage
         let folder = URL.temporaryDirectory.appending(path: "seed-\(UUID().uuidString)")

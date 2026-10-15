@@ -30,10 +30,8 @@ struct WhoAreYouView: View {
                 ChoiceRow(title: Text("Nessuno di questi"), isSelected: selection == .nobody) {
                     selection = .nobody
                 }
-            } header: {
-                Text("Chi sei in questa chat?")
             } footer: {
-                Text("Serve a separare i tuoi numeri da quelli degli altri. Sbu Chats lo ricorda per le prossime chat.")
+                Text("Scegli il tuo nome: serve a separare i tuoi numeri da quelli degli altri. Sbu Chats lo ricorda per le prossime chat.")
             }
             .listRowBackground(SbuTheme.surfaceRaised)
         }

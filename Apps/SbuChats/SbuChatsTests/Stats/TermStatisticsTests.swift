@@ -18,6 +18,15 @@ struct TermStatisticsTests {
         #expect(stats.wordsBySender["Luca"]?.contains(RankedTerm(term: "pizza", count: 1)) == true)
     }
 
+    @Test func italianElisionsCountTheWordAfterTheApostrophe() {
+        let stats = TermStatistics(texts: [
+            SenderText(sender: "Anna", text: "Esco ora dall'ufficio, poi passo all'ufficio postale e dall’ufficio di Marco"),
+            SenderText(sender: "Luca", text: "Va bene, ci vediamo dopo l'ufficio, l'amore mio"),
+        ])
+        #expect(stats.words.first == RankedTerm(term: "ufficio", count: 4))
+        #expect(!stats.words.contains { $0.term.contains("'") || $0.term.contains("’") })
+    }
+
     @Test func countsEmojiAsPeopleSeeThem() {
         let stats = TermStatistics(texts: [
             SenderText(sender: "Anna", text: "👍🏽👍🏽 👍 ok"),

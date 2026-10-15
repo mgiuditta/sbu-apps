@@ -14,6 +14,9 @@ struct ActivityView: View {
     @State private var selectedLabel: String?
     @ScaledMetric(relativeTo: .body) private var chartHeight: CGFloat = 240
 
+    /// The chart grows with the text, but past this it pushed the bars off the screen.
+    private static let maximumChartHeight: CGFloat = 360
+
     var body: some View {
         let data = ActivityChartData(axis: axis, points: statistics.activity[axis] ?? [])
         List {
@@ -30,7 +33,7 @@ struct ActivityView: View {
 
             Section {
                 ActivitySummary(data: data, axis: axis, selectedLabel: selectedLabel, seriesName: seriesName)
-                ActivityChart(data: data, axis: axis, selectedLabel: $selectedLabel, seriesName: seriesName, height: chartHeight)
+                ActivityChart(data: data, axis: axis, selectedLabel: $selectedLabel, seriesName: seriesName, height: min(chartHeight, Self.maximumChartHeight))
             } footer: {
                 if owner != nil {
                     Text("Nel colore dell'app i tuoi messaggi, in grigio quelli degli altri. Tocca o trascina sul grafico per leggere una barra.")

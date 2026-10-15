@@ -231,12 +231,12 @@
         }
       }
     },
-    "Apri la chat in WhatsApp, tocca ⋮, poi Altro e Esporta chat." : {
+    "Apri la chat in WhatsApp, tocca ⋮, poi Altro e infine Esporta chat." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open the chat in WhatsApp, tap ⋮, then More and Export chat."
+            "value" : "Open the chat in WhatsApp, tap ⋮, then More, then Export chat."
           }
         }
       }
@@ -277,16 +277,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Who"
-          }
-        }
-      }
-    },
-    "Chi sei in questa chat?" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Who are you in this chat?"
           }
         }
       }
@@ -1211,6 +1201,16 @@
         }
       }
     },
+    "Scegli il tuo nome: serve a separare i tuoi numeri da quelli degli altri. Sbu Chats lo ricorda per le prossime chat." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose your name: it sets your numbers apart from everyone else's. Sbu Chats remembers it for your next chats."
+          }
+        }
+      }
+    },
     "Scegli un file" : {
       "localizations" : {
         "en" : {
@@ -1257,16 +1257,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Without the most common words of the chat's language (articles, prepositions, pronouns), links and numbers."
-          }
-        }
-      }
-    },
-    "Serve a separare i tuoi numeri da quelli degli altri. Sbu Chats lo ricorda per le prossime chat." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "It sets your numbers apart from everyone else's. Sbu Chats remembers it for your next chats."
           }
         }
       }
@@ -1416,7 +1406,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "at %@"
+            "value" : "%@"
           }
         }
       }

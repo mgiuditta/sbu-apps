@@ -6,6 +6,8 @@ struct ChatPeriodSection: View {
     @Binding var period: ChatPeriod
     let chat: ChatSummary
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         Section {
             Picker(selection: $period.option) {
@@ -18,6 +20,7 @@ struct ChatPeriodSection: View {
             }
             // In ink: on this screen the accent belongs to the figure's full stop.
             .tint(SbuTheme.ink)
+            .modifier(PeriodPickerStyle(isAccessibilitySize: dynamicTypeSize.isAccessibilitySize))
 
             if period.option == .custom {
                 DatePicker(selection: $period.customStart, in: dayRange, displayedComponents: .date) {

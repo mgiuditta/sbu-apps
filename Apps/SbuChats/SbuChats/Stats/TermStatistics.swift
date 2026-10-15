@@ -14,7 +14,10 @@ nonisolated struct TermStatistics: Equatable, Sendable {
     static let empty = TermStatistics(texts: [])
 
     init(texts: [SenderText], limit: Int = 50) {
-        let stopwords = Stopwords.words(for: Self.dominantLanguage(of: texts))
+        let language = Self.dominantLanguage(of: texts)
+        let stopwords = Stopwords.words(for: language)
+        // Italian and French glue articles and prepositions to the next word: "dall'ufficio" is "ufficio".
+        let elides = language == .italian || language == .french
         let tokenizer = NLTokenizer(unit: .word)
         var wordCounts: [String: [String: Int]] = [:]
         var emojiCounts: [String: [String: Int]] = [:]
@@ -26,7 +29,12 @@ nonisolated struct TermStatistics: Equatable, Sendable {
             let text = Self.withoutLinks(message.text)
             tokenizer.string = text
             tokenizer.enumerateTokens(in: text.startIndex ..< text.endIndex) { range, _ in
-                let word = text[range].lowercased()
+                var word = text[range].lowercased().replacing("’", with: "'")
+                if elides, let apostrophe = word.lastIndex(where: { $0 == "'" || $0 == "’" }),
+                   word.distance(from: word.startIndex, to: apostrophe) <= 5 {
+                    let tail = word[word.index(after: apostrophe)...]
+                    if tail.count >= 2 { word = String(tail) }
+                }
                 if Self.isRankable(word), !stopwords.contains(word) {
                     wordCounts[message.sender, default: [:]][word, default: 0] += 1
                 }

@@ -37,6 +37,8 @@ struct WordsView: View {
                     } label: {
                         Text("Di chi").foregroundStyle(SbuTheme.ink)
                     }
+                    // In ink, as on the chat screen: the same control looks the same everywhere.
+                    .tint(SbuTheme.ink)
                 }
                 .listRowBackground(SbuTheme.surfaceRaised)
             }

@@ -31,7 +31,8 @@ nonisolated enum Stopwords {
     a about after all also am an and any are as at be because been but by can could did do does doing don't for from \
     get got had has have he her here him his how i i'm if in into is it it's its just like me my no not now of on one \
     or our out so some than that that's the their them then there they this to too up us was we were what when where \
-    which who will with would yeah yes you your you're im dont
+    which who will with would yeah yes you your you're im dont i'll i've i'd you'll you've we're we'll they're \
+    can't won't didn't isn't wasn't doesn't let's there's what's ill ive
     """)
 
     static let german = list("""

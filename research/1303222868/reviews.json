@@ -1,1 +1,779 @@
-[]
+[
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Misleading",
+    "text": "You cannot download recipes that you saved on Facebook and instagram",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Family recipe",
+    "text": "The app is really great for recipe you find online. However, I have a lot of family recipes written that I thought I could just take a picture of and store in this app. Apparently you cannot so it’s really doing me. No good to have this.",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Great, but needs more",
+    "text": "Love the app, but would love more features. Like easy recipe import from TikTok or instagram. Also, AI help and generation, with recommendations based on what’s in your collection (and might also like from popular sites)",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "No barcode scanner?",
+    "text": "I should have read closer before buying. I’m not manually entering my whole pantry. I’ll probably still use for recipes but pretty disappointed the pantry feature is so basic.",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Will not import google doc recipes",
+    "text": "I have all my recipes in Google Docs. They are well formatted, but this application will not bring it in without me cutting and pasting each individual component. Waste of time.",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Have to buy the MacOS app again",
+    "text": "I’ve been a user of Paprika for over a decade. Love the app. But with a recent MacOS upgrade I’m being told I have to buy the Paprika app all over again. Not happy.",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Sync and Notes tab please 🙏",
+    "text": "I generally like paprika but... \n- true calendar SYNC please! aka “subscribed“ calendar not manual export that I’m supposed to remember each time i want add to Calendar app\n- recipe view needs tabs for Notes!  (and maybe Nutrition Facts) next to existing tabs Ingredients and Directions please!\n\n- sometimes I want to view more than one store at once, as a merged list, not actually moving items between lists. That way, I can easily look in store X, when I'm there, for things I usually or preferably buy at store Y. Sometimes any store will do, just to get what I need. Other times, only one store ever has what I need. So combining several stores' lists as a view, as needed and on-the-fly, would solve all my problems and probably bring peace to Earth.",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Didn’t download Instagram/facebook recipes",
+    "text": "Great price but you have to copy/paste internet URL into paprika.  Might as well use Pinterest for free.",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "No IPhone Widget",
+    "text": "The paprika guide says this app is supposed to have a widget but I’ve spent hours trying to “fix” it but still no widget. I would have never bought if I knew there wasn’t a widget.",
+    "version": "3.8.5"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Great app, no support",
+    "text": "The app itself is great although it is missing some modern day features. The ability to add a recipe from a PDF or to scan a recipe in from a magazine or a book come to mine\nThat said, there is absolutely zero support with emails going unanswered. \nFor anyone thinking of purchasing these apps, as needs to purchase for each platform, you might want to keep that in mind",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Love this but lately it is struggling",
+    "text": "I absolutely loveD this app for years!!  I have encouraged many others to buy it.  However, lately it struggles to download or download the information correctly. I’m not sure if an update is necessary from the developers or what.  It spins in “downloading” and I have to force quit the app. Other times it downloads it in double or leaves out information. I love this app for the ability to scroll and download great recipes. If I wanted a copy and paste version, I could have that for free.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Crashes Upon Opening",
+    "text": "Loved it up until now. Can’t even open it.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Terrible organization",
+    "text": "There is no way to edit or delete categories, despite the user guide saying there is. You can only add categories.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Nothing behind the scenes",
+    "text": "I’ve had this app for a few years, I paid for the app on a Black Friday special. I’ve reach out to change my email, and cannot get anyone to reach back out! They have all sort of rules, “won’t tolerate anyone being rude to customer service” how about customer service does their job? Highly annoyed!",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Browser doesn’t work anymore",
+    "text": "I used to like this app but now I cannot get any new recipes because it redirects to google from the browser",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Terrible",
+    "text": "It has no quality of life features and the design is so basic and ugly. It’s like a free app that comes with a knock off device that feels hastily built and sketchy. I have no idea how it has 5 star reviews. Something’s fishy, this app is not good.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Not downloading recipes",
+    "text": "No longer able to download recipes.  What happened",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Currently broken",
+    "text": "I can no longer import recipes or sync my account. Website appears to be down as well.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Won’t download recipes",
+    "text": "This has worked great for years with no issues. This month has been a problem. I tried again today and it just hangs up. Please update this!!!",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Has the developer gone out of business?",
+    "text": "I have used Paprika for well over a decade. It’s an amazing recipe manager. Unfortunately it no longer works properly. It has a built-in browser for downloading recipes from the internet, but that no longer works. Thinking that there might be an issue with the app in my phone, u deleted it and then downloaded it again. I went to sign in and cannot. It’s not connecting to the paprika server. I fear that this developer is no more.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Used to be Awesome",
+    "text": "This has been my go-to recipe app for years with absolutely no problems. For the last month or so, it randomly will not import recipes - just get a spinning wheel. Contacted support - heard nothing. But then it did work for a few days. Then today, it is even worse. Getting “server maintenance” and “recipe can’t be imported from this site” and “not working.” It sticks in the spinning wheel for a long time unless you kill the app. Eventually it works but it takes up a long time. The app has also started kicking me out occasionally while having these problems. But there apparently is no support so I cannot recommend.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Not syncing",
+    "text": "Not syncing",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Buggy lately",
+    "text": "I have been using this app for a very long time with a five star experience. But lately, the app has been very buggy. It refuses to download recipes even after I clear the cash and does not sync properly between my devices.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Help Paprika",
+    "text": "Seems Paprika is no longer downloading NYTCooking recipes! Have the latest iOS software updates! This is really not good! I LOVE this app but downloading recipes even from the browser is not working!",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Love the app but…",
+    "text": "Every time I try to use it lately it spins and says downloading but it does nothing. Eventually it crashes. Not sure if this is due to an Apple update or what.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Not intuitive",
+    "text": "UI is terrible. App not intuitive to use at all. Regret this purchase",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Would give 5 star if it allows batch import from pdfs and from safari bookmarks",
+    "text": "I just purchased it and trying the functions, so far I like the concept that you can manage recipes, meal plans, grocery shopping all in one place. A few things can improve in order of priority preferences: 1. I like that they have a native browser where dozens of recipe websites to browse but I wish they would also allow to batch import bookmarks or bookmark folders from safari, and to allow import from PDFs so it’s easy to start using the app. There is “import recipe”in the setting,  further clicking “browse” button takes to the file folder but it would not recognize any recipes saved in pdf format, so not sure what exactly can be imported. It is painful to have to navigate to 100 recipe websites which I’ve already bookmarked overtime on the phone, to be able to save them to the app. 2. For the phone app, the menu bar is hidden and requires to click the 3 lines, I wish they are permanent icons at the top or bottom of the screen for easy navigation. 3. There should be some common pantry items that you can easily browse and select so you can setup an existing pantry in a few clicks. 4. It would be great if the app comes with some existing recipes already loaded, so one can start using the app right after downloading.\nHope these can be added to future updates and I’d gradly change my rating to 5 stars.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Really",
+    "text": "Links don’t work when pasted from instagram which is as far as I can tell the only reliable way to get recipes.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Recipes won’t download anymore and no support!",
+    "text": "There is no one to help if something goes wrong and help links don’t address issue.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Useless!!!",
+    "text": "This is a glorified notetaking app. Literally just either create a category on your notes app or get another app. This is the lamest app ever!!!!",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Cannot Contact Tech Support",
+    "text": "I have an issue with recipes not transferring from the Paprika 3 iPhone app to the Paprika 3 iPad app, iOS 26.4.1 version for both devices. I submitted two requests and received a message that my request was not submitted and to resubmit it.  I did and received the same message, again,  that I needed to resubmit my request.  I would greatly appreciate someone reaching out to offer some help to resolve this issue.  Thank You Very Much",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Recipes no longer import properly",
+    "text": "Long time user/fan of Paprika, but… In the last 2-3 months all of my recipes that I import from websites look weird and don’t convert into grocery lists properly. Can this glitch be fixed?",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Disappointed",
+    "text": "Really liked the app until I went to import a recipe from Instagram and can’t. Surprised they don’t support that feature. Recipe keeper does.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "LOST MY RECIPES",
+    "text": "Super sad.  I have used previous version for YEARS.  I upgraded by previously paying for V 3 on my iPad.  When I was unable to transfer my recipes from previous version, I also purchased V3 for my computer.  I have written to the support team twice with no response.  All of my recipes are lost unless someone can please respond!",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Good app, but…",
+    "text": "I’ve used Paprika since it first launched, but I’ve moved on until they fix the broken printing in the iOS app. Text is clipped off the right side, and though many users have pointed it out, they haven’t fixed it in many months.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Meh, better free options",
+    "text": "After using Paprika for a while I decided just to switch to my Notes app. Biggest reason why: it syncs to web for free. I can access it from any device. Paprika makes you pay another $30 if you want the computer version. Yeah Notes doesn’t have a lot of the features Paprika does but I don’t need all those extra features. The automatic scan would be the main thing I miss but that doesn’t even work great and now with LLMs like ChatGPT and Gemini I can pull things more accurately and consistently myself. The UI is also a bit outdated and not pleasant to look at.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Waste of money",
+    "text": "Download option never works I always have to add everything manually",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Missing Feature",
+    "text": "This app seems to be missing one major feature which is the ability to print or export all recipes by category into an organized cookbook.  It means that if you use this app to organization, you seem to have to use another app if you want to print a nice looking cookbook.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Where are the updates?",
+    "text": "I agree with a lot of the reviewers — it’s a great app, but where are the updates? Looking through the version/update history, it’s clear this app is on life support and nothing more. It wouldn’t take much for me to jump to another app at this point. My latest gripe is that there doesn’t appear to be any Siri support — I’d love to be able to speak to Siri and say, “Hey Siri, add to Paprika: milk”.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Terrible app",
+    "text": "This app does not do what it says you cannot save recipes from social media apps!! Would love to get my money back!!",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Recipes are not downloading",
+    "text": "I absolutely love this app however recently my recipes are not downloading. Very frustrating.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "No way to add ingredients",
+    "text": "I downloaded the app and added my first recipe. When I tried to add ingredients it showed none were available. I went to the pantry and add some items. Still was not able to add any ingredients to the recipe. I read the user guide and there is no mention of how to actually add ingredients to a recipe. The app is completely broken",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Needs Several Obvious Additions",
+    "text": "I bought this for the grocery list and pantry list. I’ve was using the free AnyList app.. and its grocery list had better features than paprika. When shopping, choosing an item that you have picked up should be crossed out.. not just check marked. You should be able to delete ALL completed items. This shortens your grocery list and makes it easier to see and manage the remaining items. And why are item’s names not capitalized?! It is a minor thing, but makes the product look childish and unprofessional having all lowercase.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Disaster",
+    "text": "Importing recipes from Instagram impossible. Went round and round in circles. Wasted $4.99 and pulled out my hair for over an hour 🤬 Had to give one star to upload review but this is a zero star app.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Time to change",
+    "text": "I’ve used paprika for years and it’s been great. Unfortunately it might be time to move on. Paprika can’t save recipes from TikTok or IG. Is very cumbersome to get them imported into Paprika. I hope they decide to continue developing the software",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Needs better insta integration",
+    "text": "I’ve been using Paprika for years and my one complaint is how difficult/cumbersome it is to add a recipe from Instagram. \n\nIt’s very wonky\n\nPlease add/improve this feature !",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Pricing structure sucks",
+    "text": "The app itself is great and is very intuitive and user friendly.  Love the ease of downloading recipes and being able to keep items organized.  The downfall is the pricing structure between all the different platforms.  As a user with both iOS devices, Mac computers, alternate tablets and windows based computers - creating a different purchasing option for each device is extremely frustrating.  \n\nThere should be some sort of user account or even family plan structure where you can sync to a limited amount of authenticated devices. \n\nThe pricing structure makes me want to look for other options.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Not printing properly",
+    "text": "I LOVED this app until the recent update.  I usually print the recipes to make notes while making them for the first few times.  Since the last update, the recipe directions are cut off at the right margin.  This happens no matter the number of columns chosen, with or without wrapping the text, and regardless of print size.  I use an iPad - all looks good on the screen.  However, text is truncated (missing) when printed.  I hope this problem can be fixed soon.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "This was great, but hasn't kept up with current tech",
+    "text": "This app was revolutionary for me... but it hasn't kept up with how recipes are distributed now.  Being able to copy and paste a web link and get an ingredient and formatted directions was fantastic.  But fewer recipes are on blogs; they are on instagram and tiktok.  There are apps that can peel the recipe off the reels.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Print function no longer works",
+    "text": "Since the last update, the print function no longer works, regardless where I print it from. I have Paprika version three on my laptop, iPad and iPhone and all three results in a printed recipe that has the right margin truncated. Have reported this to the developer and received no response.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Poor Importing",
+    "text": "I guess they removed the ocr features which was the main reason I purchased based on what are featured but older reviews.  I’m requesting a refund and feel l got a bait and switch.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Print function is not working correctly",
+    "text": "I have had no problem with this application in the past versions 1, 2, 3. \nSuddenly 12/2025 the print function in version 3 is not working correctly. When I print a recipe from my iPad Pro the right side of the page gets cut off. Nothing has changed with my devices or my printer. All other print functions from my Windows PC and my iPad work as expected (I tested extensively). Please help!",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "A Good Thing Gone Bad",
+    "text": "Been using this app for years now.  ALL OF MY RECIPES! ALL OF THEM.  I’ve bought the IOS version.  I’ve bought the Android version.  And now.  I cannot get ANYTHING now.  ALL of my recipes - no access.  I’ve emailed and emailed the developer.  Nothing.  Crickets.  Years of favorite recipes.  Brokenhearted.  And they don’t even respond.",
+    "version": "3.8.4"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Fine app, terrible UI",
+    "text": "The app is fine, it does what you need for a recipe manager. The real issue is how visually unappealing the user interface is. I cannot get past it, from the color scheme to the actual components of the app it is beyond unpleasant to look at and therefore use. I ended up looking elsewhere for a recipe app.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Love the app don’t like that it’s not usable across different platforms",
+    "text": "I have had this app for quite some time and love it for its ability to upload recipes and even edit them to how I make them for my family, however, I have a Cozyla calendar in my kitchen and have an iPhone and don’t like that the recipes seem to be saved with the app, not on the platform. Because of this, I can’t pull up the app on my Cozyla (android) to access the same recipes I saved on my phone while away from home. It doesn’t stop me from using the app but it is a bit obnoxious for a paid app.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Problems with downloading recipes",
+    "text": "I spent over a half hour trying to download a recipe from all recipes and I get error messages",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Recipe Keeper is Better",
+    "text": "I got this app recently but I can’t edit the categories. There’s no way go even delete them. All I can do is add new ones. It’s also really unintuitive to look at categories of recipes. This is a major oversight. Also, this app can’t scan recipes from books like Recipe Keeper can. Oh, and the help links in the settings do not work. Not exactly helpful for those running into all of these issues.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Nonexistent customer service",
+    "text": "I love this app for organizing my recipes and being able to sync across different platforms.  But I recently purchased the full product after working on a trial basis and all of my recipe photos have disappeared.  I’ve reached out twice for customer support to see how I can fix this issue, but have received absolutely zero response. It’s really disappointing.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Feels really old",
+    "text": "This app feels 20 years old. Nothing has changed in the years since I got it. Importing a recipe from the web is cool, but after you import it doesn’t take you to your recipe. You can’t swipe between instructions and ingredients, I may as well have a note card. You can attach a photo, but not a video, and the UI is glitchy. This is a great app 15 years ago, but it is really showing its age.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Cant paste or import anything anymore.",
+    "text": "Nothing happened when allow to paste from website. I click allow paste, and nothing get imported. \nAnd there is no update for it. The UI is very hard to use. Please update this.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Is this app dead?",
+    "text": "App continues to function but in a competitive market where many other offerings are adding new, interesting features, paprika 3 is showing its age. Long standing UI glitches have never been addressed, the import functionality has not been updated in years, there are no widgets or live activity support, and the developer has been promising v4 for years now. I will happily pay a subscription for a true upgrade to Paprika but am now looking at crouton and other well known recipe app alternatives. Long live paprika!",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Can’t view multiple categories at one time.",
+    "text": "Lame.  Came view multiple categories at a time. Have to select it from drop down to see. Basic UI programming 🙁",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "IOS 26 Compatible?",
+    "text": "I really love (loved) this app.  Trying to use since upgrading to IOS26.  Doesn’t seem to be working.  Recipe doesn’t open after selecting Allow paste, and download option in lower right isn’t appearing except on the General page, which doesn’t allow that feature to work on that page.  Anyone else having this issue?",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Eh…",
+    "text": "Spouse bought it so we use it but it makes very dumb decisions and there are no settings for certain things. Sometimes, despite adding items with caps, it’ll randomly decide to make things lower case. And sometimes it adds the item name as the quantity. And I’d you try to fix it, the app will so helpfully put it back to what it wants - not what you want. I spend far too much time yelling at it to stop changing my items… The recipe part is cool though.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Badddddd",
+    "text": "The app is bad",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Disappointment",
+    "text": "Wish I had known it doesn’t interface with Instagram. Just purchased and already disappointed even after reading reviews of how easy it was to use.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Heads up: a problem",
+    "text": "While Paprika’s always been reliable, suddenly on the laptop version, it is impossible to add a new recipe. Please fix the software.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Hard to use very frustrating",
+    "text": "Can’t figure out how to use it a waste of money",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Can’t see using this",
+    "text": "I don’t see using this. The User guide and help do not work nothing happens when trying to access them. I have to input so much data by hand I may as well use notes (free) and no known way to import existing data or what file format to use.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Stopped working forced to buy another license",
+    "text": "I have vers 1 & 3 and three has stopped working and being told I have to but another license. I tried contacting support but no one has replied in over a month.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Would be perfect if",
+    "text": "The app had the ability to pull a recipe from a photo. (Like recipe keeper). I downloaded it thinking it could. I wish I could have my $5 back.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Forced to buy it again",
+    "text": "The old version was discontinued and somehow made to crash instantly upon running it and I was forced to buy the new one despite V2 working fine before \nVile greedy anti consumer behavior",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Fraudulently charged me money",
+    "text": "I did not approve any charges for this app, it is not in my active subscriptions, and yet it is charging me 4.99??",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Very buggy",
+    "text": "Recipe pages get stuck and unable to get to home browsing page even with typing in paprika home page.  Help button not working.  Giving up after about an hour. Requested delete app but not sure if this process provides  refund.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "All of a sudden the app is useless",
+    "text": "I’ve been happy with this app for several years, all of a sudden the only thing I can get is a invalid certificate error. I can’t even contact support because of this",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Error",
+    "text": "Been using the app for years. I really liked it. Today every site I go to, to download a recipe I get an error. Please fix this. Even sites that I have downloaded recipes from before I’m getting an error.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Huge waste of time and money",
+    "text": "Every site i tried didn’t work. Said i can use the clipboard, oh like every other app? Why would i bother? Awful! Very basic. Can’t even follow anyone to get recipes easier. Very basic layout. Getting a refund.",
+    "version": "3.8.3"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "No updates have caused major issues",
+    "text": "This is my most-used app of all time. But with no updates in over a year, the app is failing to transfer my recipes accurately. I have been in the middle of cooking a recipe and realized that a crucial part of the recipe was missing. Now I have to doublecheck all recipe transfers and edit them on my own. The app used to work flawlessly. That is no longer the case.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Bait and switch",
+    "text": "This is a common practice for companies that really want you to sign up for their product. I paid five dollars. It didn't do what it said, but it said it would do it if I paid $50 ridiculous this does not automatically turn your social media posts that you find into a cookbook of any sort, you have to copy and paste it all yourself. I can do that in Apple notes.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Great app, except for…",
+    "text": "This is a great app.  The only issue is that you can’t save recipes from Instagram or TikTok.   I wish that the app developers could figure it out.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Can’t import from Social Media?",
+    "text": "I see a lot of apps allow you to import from social media. This does not.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "No easy Copy/Paste",
+    "text": "Found it difficult to use. Waste of money.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Nothing great about this app",
+    "text": "I don’t like anything about this app.  I don’t like how the recipes are viewed or a thing else.  I didn’t know that My Recipe Book wasn’t being supported until today when I tried to sync my recipes.  And I can’t get my recipes loaded on Paprika!",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Abandoned",
+    "text": "No new updates, features in almost a year.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Horrible",
+    "text": "Horrible. Do not buy. Waste of 4.99",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Support for TikTok, Instagram, YouTube and Facebook",
+    "text": "New apps, such as ReciMe, allow you to import recipes from the sites mentioned in this review's description.\n\nAny plans to do the same?",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Program Crashes after last update",
+    "text": "Every time I try to access the shopping cart tab the program crashes. This happened immediately after the last update. I’ve contacted the help desk days ago. Still no response.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Not Really Impressed",
+    "text": "It really needs an overhaul on the UX, starting with adding a recipe page having import options (from website, from pdf, from camera, from screenshot, etc.), and the ability to put in your own domains in the search for a recipe page. Also the \"browse for recipe\" acting as a tab no no no no no no. That's bad. It should take you to the browse page every time and not act like a browser window with the last thing I was looking at. I actually didn't get to check out the other features because the things I hoped would be right there and easy were needlessly obtuse. I have lots of recipes from different sources and none of those are Allrecipes.com. Sorry.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Do NOT use with iPhone",
+    "text": "Any recipes copied to iPhone  app print the list of ingredients twice. It’s a pain and when I contact Paprika to fix the bug  they don’t reply. I would not recommend this app until they learn how to correct this problem.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Ads in Recipe Search",
+    "text": "It’s unacceptable that a paid app like this would inject so many ads into their in-app browser",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Not a great app",
+    "text": "The app does not receive many updates. It’s poorly maintained and has not adopted new features in a very long time. The app doesn’t even match the aspect ratio of the phone.\n\nBuyer beware. Expect a poor product with the possibility that the app will die a slow death into buggy oblivion.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "No support for issues",
+    "text": "I was excited about Paprika. It had good ratings in a lot of functionality.  I liked that it was available for both Mac and iOS and that it was a purchase rather than a subscription. The problem was with support. Shortly after I started using it, I ran into an issue that was not addressed in the user manual or the knowledge base. I posted a help request through the online portal, but no one ever bothered to reply. I can’t spend a lot of time learning an app if there is not going to be any support for problems. Initially, I had planned to buy the Mac app, but I’m glad that I bought the ISO app as a trial. I hope that I can get a refund for it.\n\nHere is my issue. I added an item to the grocery list. Let’s say it was Water. I open the item and added a Note. After purchasing the Water, I checked it off and cleared it from the grocery list. The next time I added water to my grocery list, the Note field was empty. I could not find any way to save a Note. I can’t see the value of  a self clearing Note field. I don't know if this is by design or a bug.\n\nWhen working on this issue I discovered a second issue. When I start to add a grocery item, Paprika populates a list of possible choices. If I enter “Milk” it gives me a list of items beginning with Milk, but the list does not include Soy Milk. If I enter “Milk S” the list includes all items beginning with  “S.” If I enter “Soy” the list includes Soy Milk and other items that begin with Soy. If I enter “Soy Milk” the list includes items that begin with Milk, but not Soy Milk. This is crazy!",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Lost all recipes / Zero product support",
+    "text": "After divorcing, I had to open my own account but couldn’t get my recipes to copy over. I tried several times with oddly inconsistent results (sometimes nothing, sometimes some of them, but there no longer synced across devices). \nEvery time I contacted support they took weeks to reply and just repeated, word for word, their prior email even when I said it didn’t work.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Customer support terrible",
+    "text": "The rating might be misleading….but truthful.  I love the app….but the customer support component is NON-EXISTANT.   I have sent numerous requests for help and never once got a response.  I was fully willing to purchase an additional license so syncing was seamless….but I can’t get anyone to help me with an account issue.   Very disappointing when the app purchases aren’t cheap.   C’mon Paprika, you have a great product, now support it!!",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Upgrade is needed",
+    "text": "Ingredients and quantities needs to be sorted and other language support.\nDistinguishing between 1 cup to 1 tablespoon spoon needs to be integrated.\nVisually old fashioned.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Does not import recipes",
+    "text": "Trying so hard to get images in from my many hardcover cookbooks. I get the info saved as a .json file and then into a .paprikarecipe or .paprikarecipes file extension. A few weeks ago, this would work and I could import the recipes, but now the app crashes any time I try to import a recipe. SO FRUSTRATING.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "I’m so angry",
+    "text": "I have been a faithful user of Paprika since 2015.  Today I was using the app and it cut off in the middle of using it.  I could no longer get it to open.  I reset my device and everything.  We googled the issue and it stated that the app is no longer supported.  I had to pay for it again.  That frustrated me, but I went ahead and paid again.  I signed in and noticed that some of my recipes are gone.  I lost recipes that I will never be able to get back.  I am so angry right now.  The new app doesn’t work as well as the old one.  Importing recipes is harder than before.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Used to be great",
+    "text": "I’ve had this app for 6 years and use it multiple times per week. I have 8,500 recipes in Paprika. I had an issue at the end of 2024 and was corresponding with support. I just read another review that said it’s no longer supported. I’m angry, as I followed some of Paprika’s own instructions and now all of my former sub-categories are listed singly instead of under main categories. The entire app is a huge mess now, as the list of categories is long/unwieldy. This app has gone from great to terrible. Switching to an alternative hardly seems possible with so many recipes and the now/partial organization.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 3,
+    "title": "Needs improvement",
+    "text": "I downloaded this an within 10 minutes of playing around I can confidently say this app is missing a lot of features. I used to use Recipe keeper and the import recipe function was extremely dynamic. You could import recipes from Instagram links, pdfs, and photos which are common ways I acquire recipes. Paprika only allows you to import from select websites. And on top of the the pictures do not automatically load into the recipe. There should also be a way to choose how you want to view your recipes - more than just alphabetically and by latest. I’d like to be able to view by category. Please make updates to the next iteration and your users will be very thankful.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Why is this still on App Store?",
+    "text": "You can’t make an account with Paprika - it says the option is “closed”. There are complaints the app is no longer supported. Why is it still a paid app on the App Store. Requested a refund.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "17 rating means kids can’t use it",
+    "text": "I like almost everything about Paprika, but the 17+ rating on the app means that my kids cannot have it on their phones because of iOS restrictions. So when it’s their turn to make dinner I have to print out the recipe which defeats the purpose of having everything in an app.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Can’t link old Paprika!",
+    "text": "I loved this app until the original THAT I PURCHASED wouldn’t work. I thought it would be easy to just get the new app PURCHASE IT AGAIN, and it would upload all of my old recipes. NOPE. Years of recipes lost. I don’t know if I can trust the new one.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Bait and switch",
+    "text": "To use this with a PC requires a separate, $30 purchase. The app itself isn’t that special. I tried to get a refund from my App Store purchase but could not.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Unrealistic",
+    "text": "It’s easier to keep record with a notebook, features are clumsy and not worth the effort to use.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Disappointing",
+    "text": "I got this app so I didn’t have to dig through websites for recipes- turns out, I get an error every time I try to download one. Pretty excited for this but total disappointment. If I wanted to use the clipboard option I wouldn’t have spent money to copy and paste.",
+    "version": "3.8.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "App no longer supported",
+    "text": "Loved the app until it stopped working, why are they still selling it for iOS  if they no longer support it?",
+    "version": "3.8.2"
+  },
+  {
+    "country": "it",
+    "rating": 1,
+    "title": "Scaricare",
+    "text": "Impossibile scaricare ricetta da social network",
+    "version": "3.8.5"
+  },
+  {
+    "country": "it",
+    "rating": 1,
+    "title": "Doesn’t work",
+    "text": "It downloads only the ingredients but no the making method. Just a waste of money",
+    "version": "3.8.4"
+  },
+  {
+    "country": "it",
+    "rating": 2,
+    "title": "Per ora negativa",
+    "text": "Cerco da stamattina di aprire la pagina di supporto ma non funziona. Vorrei capire se la App che ho pagato esiste in lingua ITALIANA (immagino di sì…) e come si fa a cambiare l’impostazione. \nQualcuno mi aiuta? 🙏",
+    "version": "3.8.1"
+  },
+  {
+    "country": "it",
+    "rating": 1,
+    "title": "Had to buy a second time",
+    "text": "I’ve had this app for years and loved it. Then it stopped working, it would only show half the ingredients or half the directions. In order to see everything you have to look edit and re-save the recipe. \nI reached out to the developers who said the only way to work around it was to buy the new version of the app. So much for a one off payment…",
+    "version": "3.7.8"
+  },
+  {
+    "country": "it",
+    "rating": 1,
+    "title": "Grave mancanza",
+    "text": "Non scarica gli ingredienti dalle ricette di Giallo Zafferano, cosa che invece fanno tranquillamente altre app gratuite. Soldi buttati senza questo aggiornamento.",
+    "version": "3.6.1"
+  }
+]

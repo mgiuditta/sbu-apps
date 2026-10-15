@@ -1,0 +1,30 @@
+[
+  {
+    "country": "us",
+    "rating": 2,
+    "title": "Could be better.",
+    "text": "I like the idea of taking readings of different areas. But why not display the average of all? \n\nIt needs work.",
+    "version": "3.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "Not really the “Zone System”",
+    "text": "Maybe this app can be more useful with future revisions. For now it seems the most value is for determining the number of stops between dark and light to stay within the dynamic range of your selected film. To use the zone system effectively one needs to be able to measure the value (EV) of the brightest highlight, or the darkest shadow where details are to be retained, and to place that on a desired zone (e.g. zone VII/VIII for highlights, or zone VII/VIII for shadows). Then with your ISO set, use the corresponding shutter speed and aperture associated with the selected zone. This app just makes whatever you measure zone V and subsequent measurements are based off of that. That means that in order to effectively place everything in the scene in the proper zone you would have to always point the spot meter at something that’s actually neutral gray (zone V). Without the ability to read EV, place it on the desired zone and then select your desired shutter speed and aperture combination, this app has little value.",
+    "version": "3.2"
+  },
+  {
+    "country": "us",
+    "rating": 1,
+    "title": "No placement of reference reading.",
+    "text": "I don’t get it, for zone system controls one needs to read an important shadow and then place it on the zone scale. For this example point at a shadow which becomes the reference or zone V. Unless I am missing something I can’t find a way to place the reference reading at say zone III. Without being able to place a shadow reading at say zone III then any other readings are useless. Correct me if I am wrong.\n\nWith a spot meter I point at an important shadow, place that shadow, say zone III, then read the highlights. With the shadow placed at zone III then the highlight reading will fall at say zone VIII. With that N-1 processing would be needed.\n\nCan the reference reading be placed at say zone III? If not what is the point.",
+    "version": "3.2"
+  },
+  {
+    "country": "it",
+    "rating": 2,
+    "title": "great idea, but wrong measurements",
+    "text": "It would be the perfect exposure meter app, too bad the measurements are completely wrong.",
+    "version": "3.2"
+  }
+]

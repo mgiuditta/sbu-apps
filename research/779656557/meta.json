@@ -1,0 +1,35 @@
+{
+  "id": "779656557",
+  "name": "Baby Tracker - Newborn Log",
+  "developer": "Nighp Software LLC",
+  "bundle_id": "com.nighp.babytracker",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Medical",
+  "genres": [
+    "Medical",
+    "Health & Fitness"
+  ],
+  "description": "Baby Tracker makes it simple to record feedings, sleep, diaper changes, pumping, growth, health, and milestones—all in one place. Designed by busy parents, for busy parents, it keeps everyday tracking quick, clear, and easy to share with caregivers.\n\nWHAT’S NEXT\n\nOne more helpful cue for your baby’s day.\n\nWhat’s Next uses on-device AI to turn recent activity logs into personalized timing cues. Depending on what you’ve logged, it may show:\n\n• A likely wind-down window before sleep\n• An estimated length for the next nap or sleep\n• An approximate wake-up window\n• An estimated time for the next feed\n• A suggested time to check the diaper\n\nCues can start appearing after just a few logs. Regular, complete logging helps make them more personal to your baby’s developing routine.\n\nWhat’s Next is optional. You can hide it in Settings → Preferences.\n\nGUIDANCE, NOT A SCHEDULE\n\nUse What’s Next alongside your baby’s own cues and your judgment—not as a fixed schedule or instruction.\n\nWhat’s Next is not medical advice. Contact a healthcare professional if you have concerns about your baby’s health, sleep, or feeding.\n\nPRIVATE BY DESIGN\n\nWhat’s Next cues are created directly on your device. Your baby’s logs aren’t sent to us to generate them.\n\nFEEDING TRACKER\n\n• Track breastfeeding with an easy nursing timer\n• Record which side you last used and time spent on each breast\n• Log bottles, formula, expressed milk, and solids\n• Record pumping sessions and amounts\n• Add notes about preferences, reactions, or other details\n\nSLEEP TRACKER\n\n• Record naps and nighttime sleep\n• Use a convenient sleep timer\n• Review sleep patterns over time\n• Set reminders and alarms\n• See personalized What’s Next sleep and wake-up cues\n\nDIAPER TRACKER\n\n• Log wet, dirty, and mixed diapers\n• Quickly see when the last diaper change occurred\n• Review diaper patterns and share records with caregivers or healthcare professionals\n\nGROWTH, HEALTH, AND DEVELOPMENT\n\n• Track height, weight, and head circumference\n• Compare measurements against World Health Organization growth standards\n• Record medications, vaccinations, and temperature\n• Save important health notes and history\n• Capture milestones with photos and journal entries\n\nCHARTS AND REPORTS\n\n• Review activity by day, week, or month\n• Recognize patterns across sleep, feeding, and diaper records\n• Export records as a PDF\n• Email or print reports for caregivers and healthcare professionals\n\nMADE FOR THE WHOLE FAMILY\n\n• Sync records across multiple devices\n• Keep caregivers up to date\n• Use Home Screen and Lock Screen widgets for quick information\n• Track active sessions with Live Activities\n• Record and review activities from Apple Watch\n• Use Siri Shortcuts for convenient hands-free logging\n• Use Quick Log to describe an activity to Siri in your own words. Requires iOS 26 with Apple Intelligence turned on.\n\nBABY TRACKER PLUS\n\nBaby Tracker’s core tracking stays free, and existing purchases continue to work.\n\nTry What’s Next with a free 3-day preview—no subscription required to start. After the preview, continue with your own Baby Tracker Plus subscription or one shared through your sync group.\n\nPlus includes ad-free tracking and personalized sleep, feed, and diaper cues. With Group Plus, one Plus subscription unlocks Plus for everyone in your sync group.\n\nBaby Tracker Plus is an auto-renewing subscription. Pricing and renewal terms are shown before you subscribe. You can manage or cancel your subscription in App Store settings.\n\nFrom late-night feedings to first steps, Baby Tracker helps you spend less time managing records and more time with your baby.\n\nTerms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\n\nPrivacy Policy: https://www.nighp.com/babytracker/babytracker_pp.html",
+  "release_notes": "This update brings new ways to share Plus and log your baby’s day:\n• Group Plus: One Plus subscription now unlocks Plus for everyone in your sync group.\n• Quick Log: Use Siri to describe an activity in your own words and add it to Baby Tracker. Requires iOS 26 with Apple Intelligence turned on.\n• Bug fixes and reliability improvements.\nWhat’s Next remains optional. Baby Tracker’s core tracking remains free, and existing purchases continue to work as before.",
+  "version": "6.03.01",
+  "current_version_release_date": "2026-10-02T23:50:43Z",
+  "rating": 4.80093,
+  "rating_count": 227347,
+  "minimum_os": "15",
+  "url": "https://apps.apple.com/us/app/baby-tracker-newborn-log/id779656557?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/dc/6d/ec/dc6deca6-7eb0-0a75-2392-edb03249b967/0.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/00/ed/31/00ed318d-894b-534f-35fd-654b36531fc2/1.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/27/7a/cf/277acf71-7412-bca5-7504-0e249d01f44b/2.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/86/ba/ac/86baacf9-6fe3-a804-4aa2-bdb7b7825d54/3.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/85/86/fd/8586fdf4-9afc-3ce7-0a96-179a8237a730/4.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d5/f1/23/d5f12389-1ead-b5f6-c9d1-e8d3c7ec35e7/5.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/90/0d/4c/900d4c14-af62-db89-9109-0d8c7deb2e99/6.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7e/90/00/7e9000fb-5f05-8cb5-1cde-d39a03296fb2/7.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ad/db/93/addb9306-dd86-6352-4f87-0c168d3b1f16/8.png/320x480bb.jpg"
+  ]
+}

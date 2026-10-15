@@ -1,0 +1,31 @@
+{
+  "id": "897806469",
+  "name": "Pixel Art Maker",
+  "developer": "Nekomimimi",
+  "bundle_id": "jp.nekomimi.dot-iOS",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Lifestyle",
+  "genres": [
+    "Lifestyle",
+    "Developer Tools"
+  ],
+  "description": "\"Pixel Art Maker\" is a drawing tool for pixel art like retro games.\n\n◇ Easy to use\nYou can start drawing pixel art immediately after launching the app.\nThe canvas can also be resized while drawing.\n\n◇ Import a photo\nConvert photos into pixel art.\n\n◇ Create animated pixel art\nDraw one pixel art image, duplicate it, and create animations.\n\nFeatures:\n\n- Draw pixel art on canvases from 1×1 up to 256×256 pixels.\n\n- Change the color palette (up to 256 colors).\nThe basic palette includes 32 colors.\nThe free version supports up to 65 colors.\n*Each palette color can be set to transparent or opaque.\n\n- Save your color palettes and reuse them in other artworks or when importing photos.\n\n- Watch an ad to temporarily unlock:\n  • 256-color palette\n  • Canvas size up to 1024×1024\n\n- Premium\nRemoves ads and permanently unlocks the full 256-color palette and canvas sizes up to 1024×1024.\n\n- Zoom in and out with two-finger pinch.\n\n- Save, load, and delete your drawings.\n\n- Import photos and animated GIFs.\nAPNG animation is not supported; only the first frame is imported.\n\n- Import photos with built-in retro-style palettes and adjustable dithering.\nIndexed PNG files keep their original palette.\n\n- Import images from other apps via the Share sheet.\n\n- Export with transparency.\n\n- Scale your artwork on export from 1× to 64×, depending on canvas size, up to 4096×4096.\n\n- Save to Photos.\n\n- Share with other apps.\n\n- Create and export animated GIFs.\n*GIFs may not animate in Photos.\n\n- Finger Mode\nDraw directly with your finger.\n\n- Cursor Mode\nMove a cursor and place pixels with the \"PIXEL\" button.\n(Menu → Settings → Change Drawing Mode)\n\n* On Apple Silicon Macs (iPad version), animated image import may be limited, and photos may be imported at reduced resolution.",
+  "release_notes": "This update makes it easier to find artworks on the Load screen, especially if you have saved many.\n\n• Move artworks to the top\nOn the Load screen, choose \"To Top\" and tap an artwork to move it to the top.\n\n• Color labels and filtering\nOn the Load screen, choose \"Color\" to mark artworks with one of 6 colors, then use the color buttons above the list to show only that color.\n\n• Fixed the palette selection frame sometimes appearing on the wrong color after importing a photo.\n\n• Fixed minor issues.",
+  "version": "3.0.6",
+  "current_version_release_date": "2026-10-02T05:38:29Z",
+  "rating": 4.80686,
+  "rating_count": 10614,
+  "minimum_os": "15.5",
+  "url": "https://apps.apple.com/us/app/pixel-art-maker/id897806469?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/18/7f/ef/187fef5c-5dea-ca4e-2bd4-5aa859dcb6be/mzl.kwppeisp.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/66/c7/b2/66c7b28a-2f8f-ebbe-16e9-1d8ff8f74043/mzl.cdpkflpq.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/d6/68/0a/d6680a75-0b72-918a-e4a9-fd5e3e2c9c05/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/7c/8a/ef/7c8aef4a-bda6-d6fc-9ca2-0f3b662fb42c/mzl.vxefelqy.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/2a/29/d1/2a29d118-5e4b-2313-3f01-7ad572a98efe/mzl.dlqlhttj.png/392x696bb.png"
+  ]
+}

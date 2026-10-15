@@ -1,0 +1,31 @@
+{
+  "id": "295905460",
+  "name": "Fuelly: MPG & Service Tracker",
+  "developer": "Fuelly, LLC",
+  "bundle_id": "com.appcubby.gascubby",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Finance",
+  "genres": [
+    "Finance",
+    "Productivity"
+  ],
+  "description": "Easily track your vehicle’s fuel economy and vehicle maintenance records.  Set up reminders to keep on top of maintenance tasks such as oil changes and tire rotations.  Fuelly makes it easy for you to save money with gas mileage calculations (MPG) and service reminders.\n\nThe Fuelly app seamlessly integrates with Fuelly.com, the web’s most used gas mileage tracking website.  Easily manage the cars in your garage and log each fuel-up.  At each fuel-up, just add the miles, gallons and price per gallon and see your MPG data grow.  All data is beautifully displayed and perfectly synchronized with your vehicle on Fuelly.com\n\nFeatures:\n• Tracks gas mileage and vehicle maintenance\n• Attachments to store photos and PDFs\n• Online sync to Fuelly.com\n• Charts: MPG, stats, gas price, gas expenses, service expenses\n• Customizable service reminders, with presets like oil changes, tire rotations, and more\n• Priority support via in app messaging\n• Supports multiple vehicles\n• Store vehicle data: VIN, License Plate, etc.\n• Excel compatible email reports (CSV attachment)\n• International Units: MPG (US), MPG (Canada), MPG (UK), MPG (Imperial), L/100km, gal/100mi (US), gal/100mi (Imperial), km/L, km/gal (US), km/gal (Imperial), and mi/L\n\n\"App Store Pick of the Week.\" —Apple\n\n\"Gas Cubby makes its mark not only with its power, but with its flexibility.\" —Kyle Baxter - Macworld\n\nFor more information visit: www.Fuelly.com\nFor priority support, contact us via in app messaging.  Or you can contact us at support@fuelly.com\n\n---\n\nAlso available from Fuelly:\n\nFUELLY PREMIUM \n• Remove ads\n• Add photos and PDFs to records\n• Auto completion of locations when adding fuel or services\n\n---\n\nPrice may vary by location. Subscriptions will be charged to your credit card through your iTunes account. Your subscription will automatically renew unless canceled at least 24 hours before the end of the current period. You will not be able to cancel the subscription once activated. Manage your subscriptions in Account Settings after purchase.\n\n---\n\nPrivacy Policy: http://www.fuelly.com/privacy\nTerms of Service: http://www.fuelly.com/terms",
+  "release_notes": "- Bug fixes and improvements",
+  "version": "3.3.7",
+  "current_version_release_date": "2024-06-03T07:55:33Z",
+  "rating": 4.7379,
+  "rating_count": 29618,
+  "minimum_os": "9.3",
+  "url": "https://apps.apple.com/us/app/fuelly-mpg-service-tracker/id295905460?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/59/15/65/591565fb-e0c7-8cd5-09c1-399413570f5f/mzl.ipdrceys.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/1a/e9/35/1ae93564-1233-5f2e-df20-6620647f3245/mzl.dcmwiltl.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/4a/84/37/4a843754-a07d-1771-4119-5284f88e2139/mzl.iikwgpvu.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/b6/58/47/b6584703-5684-ab43-fb13-4356176838ae/mzl.qlehxzvi.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/4c/4f/a6/4c4fa697-55e1-b55b-8cd8-546e4d0b1608/mzl.kneyugqr.png/392x696bb.png"
+  ]
+}

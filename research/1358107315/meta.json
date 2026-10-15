@@ -1,0 +1,29 @@
+{
+  "id": "1358107315",
+  "name": "Ringtones Maker - the ring app",
+  "developer": "苏娟 陈",
+  "bundle_id": "com.csj.ling",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Productivity",
+  "genres": [
+    "Productivity",
+    "Utilities"
+  ],
+  "description": "A completely free ringtone production software. Without connection to the computer, the ringtone can be produced via iPhone. Set the song collected by you as ringtone. \n\nThe APP size is only about 20Mb after optimization (slight difference between different models). Your iPhone ringtone can be produced quickly after quick downloading. Based on the latest production method, the ringtone production can be completed within several seconds. \n\n[Service concept] \nEach iPhone user can successfully produce the ringtone. In case of any problem arising in the process of producing the ringtone, directly contact us as per the contact way in the app to get one-to-one help free of charge. \n\n[Advantage] \n-Many ringtones: The real-time update of popular ringtone, funny ringtone, the latest ringtone and SMS ringtone is realized. \n-Supports iOS26 one-click setting as ringtone, only takes 1 second.\n-Many tutorials: Two methods for producing the ringtone (including GarageBand and iTunes) are provided. \n-Super detailed iPhone ringtone production image-text and video tutorial are detailed into each click with 100% successful setting. \n-Cover all iPhone models from iPhone4s to the latest iPhone17/Pro/Max. \n\n[Feature] \n-Choose the video from the album and automatically extract the audio from the video. \n-Import the audio via UTI(Uniform Type Identifier): Import the audio directly from other APPs (such as WeChat and QQ). \n-Upload the audios (such as mp3 and m4a) to iPhone from the computer via http service. \n-Accurate to 0.1s ringtone clipping. \n-Support the fade-in fade-out setting within 1-5s. \n-Support the video and audio converted to mp3 and m4r formats. \n-Support the splicing of many ringtone audio files. \n-Set the audio as charging tone. \n-Share the ringtone to your friends. \n\n[Contact us] \nMail: contact@iuuapp.com\nYour suggestions are very important for me. You can contact me via \"Feedback\" in the app.",
+  "release_notes": "Fixed known issues and improved app stability.",
+  "version": "1.9.24",
+  "current_version_release_date": "2026-07-15T22:00:03Z",
+  "rating": 4.67497,
+  "rating_count": 439242,
+  "minimum_os": "12.0",
+  "url": "https://apps.apple.com/us/app/ringtones-maker-the-ring-app/id1358107315?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/59/f7/c2/59f7c281-e50c-4fee-ba67-ac2422ecf4c3/mzl.ekyctdyb.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/fa/62/1c/fa621c7f-5719-5d8b-74bd-f655deee5fdc/a5703bb6-f102-45df-b041-4eef98f392ea_5en.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/f1/4d/76/f14d760c-42d9-1bfd-20a7-f3587af42023/mzl.rmldayxt.jpg/392x696bb.jpg"
+  ]
+}

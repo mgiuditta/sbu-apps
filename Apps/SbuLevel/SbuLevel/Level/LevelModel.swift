@@ -15,6 +15,9 @@ final class LevelModel {
     private(set) var calibration: Calibration
     private(set) var isMotionAvailable = true
     private(set) var isLocked = false
+    /// Whether the camera sight is on: the figure is then the elevation of the line of sight.
+    /// Never saved: the app opens on the level.
+    private(set) var isSighting = false
     /// The reading "Azzera qui" took as zero. Never saved: it ends with the app, with "Assoluto",
     /// or when the iPhone changes mode or edge.
     private(set) var reference: LevelReading?
@@ -70,7 +73,7 @@ final class LevelModel {
 
     func update(with sample: Gravity) {
         gravity = sample
-        liveReading = LevelReading(gravity: sample, calibration: calibration, previous: liveReading)
+        liveReading = makeReading(for: sample, calibration: calibration)
         if isLocked == false {
             reading = liveReading
             // A reference from another mode or edge would compare two different angles.
@@ -85,6 +88,22 @@ final class LevelModel {
                 save(result)
             }
         }
+    }
+
+    private func makeReading(for sample: Gravity, calibration: Calibration) -> LevelReading {
+        isSighting
+            ? .sight(gravity: sample, calibration: calibration)
+            : LevelReading(gravity: sample, calibration: calibration, previous: liveReading)
+    }
+
+    /// Turns the camera sight on or off. The lock and the reference belong to the other mode, so
+    /// both end.
+    func toggleSight() {
+        isSighting.toggle()
+        isLocked = false
+        reference = nil
+        liveReading = gravity.map { makeReading(for: $0, calibration: calibration) } ?? .level
+        reading = liveReading
     }
 
     /// Freezes the shown reading, or lets it follow the sensor again.
@@ -108,7 +127,9 @@ final class LevelModel {
 
     // MARK: - Calibration
 
+    /// Starts calibrating the side the iPhone rests on; the sight closes, since it rests on none.
     func startCalibration() {
+        if isSighting { toggleSight() }
         calibrationSession = CalibrationSession()
     }
 
@@ -132,7 +153,7 @@ final class LevelModel {
         // ponytail: try? is safe here, encoding six Doubles cannot fail.
         defaults.set(try? JSONEncoder().encode(newValue), forKey: Self.calibrationKey)
         if let gravity {
-            liveReading = LevelReading(gravity: gravity, calibration: newValue, previous: liveReading)
+            liveReading = makeReading(for: gravity, calibration: newValue)
             if isLocked == false {
                 reading = liveReading
             }

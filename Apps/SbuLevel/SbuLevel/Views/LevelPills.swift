@@ -1,12 +1,14 @@
 import SbuKit
 import SwiftUI
 
-/// The tool screen's pills: Azzera qui or Assoluto, and Blocca or Sblocca, laid out by the container.
+/// The tool screen's pills: Azzera qui or Assoluto, Blocca or Sblocca, and Mirino, laid out by the container.
 struct LevelPills: View {
     let isRelative: Bool
     let isLocked: Bool
+    let isSighting: Bool
     let toggleReference: () -> Void
     let toggleLock: () -> Void
+    let toggleSight: () -> Void
 
     var body: some View {
         Button(isRelative ? "Assoluto" : "Azzera qui", systemImage: "angle", action: toggleReference)
@@ -14,12 +16,15 @@ struct LevelPills: View {
 
         Button(isLocked ? "Sblocca" : "Blocca", systemImage: isLocked ? "lock.fill" : "lock.open", action: toggleLock)
             .buttonStyle(SbuFieldPillStyle(isSelected: isLocked))
+
+        Button("Mirino", systemImage: "camera.viewfinder", action: toggleSight)
+            .buttonStyle(SbuFieldPillStyle(isSelected: isSighting))
     }
 }
 
 #Preview("Light") {
     HStack(spacing: SbuTheme.space2) {
-        LevelPills(isRelative: false, isLocked: false, toggleReference: {}, toggleLock: {})
+        LevelPills(isRelative: false, isLocked: false, isSighting: false, toggleReference: {}, toggleLock: {}, toggleSight: {})
     }
     .padding(SbuTheme.space4)
     .background(SbuTheme.surface)
@@ -27,7 +32,7 @@ struct LevelPills: View {
 
 #Preview("Dark") {
     HStack(spacing: SbuTheme.space2) {
-        LevelPills(isRelative: true, isLocked: true, toggleReference: {}, toggleLock: {})
+        LevelPills(isRelative: true, isLocked: true, isSighting: true, toggleReference: {}, toggleLock: {}, toggleSight: {})
     }
     .padding(SbuTheme.space4)
     .background(SbuTheme.surface)

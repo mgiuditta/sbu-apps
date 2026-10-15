@@ -252,6 +252,37 @@ struct LevelModelTests {
         #expect(makeModel().reference == nil)
     }
 
+    @Test func theSightMeasuresTheLineOfSightAndEndsLockAndReference() {
+        let model = makeModel()
+        model.update(with: .standing(rotatedBy: 20))
+        model.toggleReference()
+        model.toggleLock()
+
+        model.toggleSight()
+        model.update(with: Gravity(x: 0, y: -cos(.pi / 18), z: sin(.pi / 18)))
+
+        #expect(model.isSighting)
+        #expect(model.isLocked == false)
+        #expect(model.reference == nil)
+        #expect(model.reading.mode == .sight)
+        #expect(abs(model.readout.angle - 10) < 1e-9)
+    }
+
+    @Test func calibratingClosesTheSight() {
+        let model = makeModel()
+        model.toggleSight()
+
+        model.startCalibration()
+
+        #expect(model.isSighting == false)
+    }
+
+    @Test func theSightIsNotSaved() {
+        makeModel().toggleSight()
+
+        #expect(makeModel().isSighting == false)
+    }
+
     @Test func theUnitIsDegreesUntilChosenAndThenSaved() {
         let model = makeModel()
         #expect(model.unit == .degrees)

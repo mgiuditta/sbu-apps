@@ -92,6 +92,27 @@ final class LevelFlowTests: XCTestCase {
         XCTAssertTrue(figure.label.contains("32,4"), figure.label)
     }
 
+    /// The simulator has no camera: the sight says so, still reads the line of sight, and closes again.
+    @MainActor
+    func testTheSightMeasuresTheLineOfSightAndSaysWhenThereIsNoCamera() throws {
+        let app = launch()
+        let sight = app.buttons["Mirino"]
+        XCTAssertTrue(sight.waitForExistence(timeout: 5))
+
+        sight.tap()
+
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Linea di mira'")).firstMatch
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.contains("Fotocamera non disponibile"), figure.label)
+        XCTAssertTrue(sight.isSelected)
+        XCTAssertFalse(app.buttons["Calibra"].exists)
+        try audit(app, excluding: Self.toolScreenExclusions)
+
+        sight.tap()
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Calibra"].exists)
+    }
+
     @MainActor
     func testTwoStepCalibrationThenResetInSettings() throws {
         // 0,6° off on the bottom edge: within what a calibration accepts.

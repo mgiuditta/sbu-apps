@@ -16,11 +16,13 @@ nonisolated struct LevelReading: Equatable, Sendable {
     /// The edge resting on the surface; `nil` when flat.
     var edge: Edge?
     /// The angle shown, 0...90. Flat: tilt from horizontal. Edge: the dial reading, 0° when the
-    /// bottom or top edge is level and 90° when a side edge is.
+    /// bottom or top edge is level and 90° when a side edge is. Sight: the elevation of the line of
+    /// sight, -90...90, negative below the horizon.
     var angle: Double
     /// Signed degrees from level: of the surface when flat, of the resting edge when standing.
     var deviation: Double
-    /// Calibrated device rotation in degrees (see `Gravity.rotation`); zero when flat.
+    /// Calibrated device rotation in degrees (see `Gravity.rotation`); zero when flat. In sight, the
+    /// roll that tilts the horizon.
     var rotation: Double
     /// Bubble offset in -1...1, screen axes (x right, y down). Zero in edge mode.
     var bubbleX: Double
@@ -95,7 +97,7 @@ nonisolated struct LevelReading: Equatable, Sendable {
                 tiltX: Angles.degrees(fromRadians: asin(Self.clamped(x))),
                 tiltY: Angles.degrees(fromRadians: asin(Self.clamped(y)))
             )
-        case .edge:
+        case .edge, .sight:
             let edge = Self.edge(for: gravity.rotation, previous: previous?.edge)
             let rotation = Angles.normalized(gravity.rotation - calibration.offset(for: edge))
             self.init(
@@ -110,12 +112,29 @@ nonisolated struct LevelReading: Equatable, Sendable {
         }
     }
 
+    /// The reading through the camera sight. The flat calibration corrects it: it measures how
+    /// the sensor sits in the iPhone, and so the tilt of the line of sight too.
+    static func sight(gravity: Gravity, calibration: Calibration) -> LevelReading {
+        let flatZ = -max(0, 1 - calibration.flatX * calibration.flatX - calibration.flatY * calibration.flatY).squareRoot()
+        let corrected = gravity.correcting(level: Gravity(x: calibration.flatX, y: calibration.flatY, z: flatZ))
+        let elevation = corrected.elevation
+        return LevelReading(
+            mode: .sight,
+            edge: nil,
+            angle: elevation,
+            deviation: elevation,
+            rotation: corrected.rotation,
+            bubbleX: 0,
+            bubbleY: 0
+        )
+    }
+
     /// Flat when the screen faces up or down within 45°; past that, the previous mode holds for 5° more.
     static func mode(for gravity: Gravity, previous: LevelMode? = nil) -> LevelMode {
         let threshold = switch previous {
         case .flat: modeThreshold + hysteresis
         case .edge: modeThreshold - hysteresis
-        case nil: modeThreshold
+        case .sight, nil: modeThreshold
         }
         return gravity.tiltFromFlat < threshold ? .flat : .edge
     }

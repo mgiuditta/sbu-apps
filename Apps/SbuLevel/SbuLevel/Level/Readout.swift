@@ -19,11 +19,11 @@ nonisolated struct Readout: Equatable, Sendable {
     var isRelative: Bool { reference != nil }
 
     /// The degrees the figure converts. Relative and signed from the reference: on an edge the
-    /// turn since then, clockwise positive; flat the change in tilt.
+    /// turn since then, clockwise positive; flat the change in tilt; in sight the change in elevation.
     var angle: Double {
         guard let reference else { return reading.angle }
         switch reading.mode {
-        case .flat: return reading.angle - reference.angle
+        case .flat, .sight: return reading.angle - reference.angle
         case .edge: return Angles.normalized(reading.rotation - reference.rotation)
         }
     }

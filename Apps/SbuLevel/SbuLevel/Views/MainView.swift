@@ -2,67 +2,55 @@ import SbuKit
 import SwiftUI
 import UIKit
 
-/// The tool screen: the angle as the figure, the clinometer dial or bubble, Calibra in the bar
-/// as in Clinometer, and the Azzera qui and Blocca pills.
+/// The tool screen: the angle as the figure, the clinometer dial, bubble or camera sight, Calibra
+/// in the bar as in Clinometer, and the Azzera qui, Blocca and Mirino pills.
 struct MainView: View {
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let model: LevelModel
 
+    @State private var camera = SightCamera()
     @State private var isCalibrating = false
-
-    private var context: LocalizedStringKey {
-        if model.isLocked {
-            model.readout.isRelative ? "Lettura bloccata, relativa" : "Lettura bloccata"
-        } else if model.readout.isRelative {
-            model.readout.isLevel ? "Relativo, allo zero" : "Relativo"
-        } else if model.readout.isLevel {
-            "In bolla"
-        } else if model.reading.mode == .flat {
-            "In piano"
-        } else {
-            "Sul bordo"
-        }
-    }
-
-    private var pillsLayout: AnyLayout {
-        dynamicTypeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(spacing: SbuTheme.space2))
-            : AnyLayout(HStackLayout(spacing: SbuTheme.space2))
-    }
 
     private var format: AngleFormatStyle { AngleFormatStyle(unit: model.unit) }
 
+    private var status: LevelStatus {
+        LevelStatus(readout: model.readout, isLocked: model.isLocked, camera: model.isSighting ? camera.access : nil)
+    }
+
     private var keepsScreenOn: Bool {
         model.isMotionAvailable && model.keepsScreenOn(isActive: scenePhase == .active)
+    }
+
+    /// The camera runs only while the sight is on screen.
+    private var showsCamera: Bool {
+        model.isSighting && scenePhase == .active
     }
 
     var body: some View {
         Group {
             if model.isMotionAvailable {
                 SbuToolField(
-                    "Inclinazione",
+                    model.isSighting ? "Linea di mira" : "Inclinazione",
                     value: model.readout.angle,
                     format: format,
                     unit: model.unit.symbol,
                     spokenValue: Text(verbatim: format.spokenText(model.readout.angle)),
-                    context: context,
-                    contextSystemImage: model.isLocked ? "lock.fill" : nil
+                    context: status.text,
+                    contextSystemImage: status.systemImage
                 ) {
-                    VStack(spacing: SbuTheme.space4) {
-                        LevelIndicator(reading: model.reading)
-                            .frame(maxWidth: 320)
-
-                        // Always laid out, so the dial does not jump when the iPhone lies down.
-                        BubbleAxes(tiltX: model.reading.tiltX, tiltY: model.reading.tiltY, unit: model.unit)
-                            .opacity(model.reading.mode == .flat ? 1 : 0)
-                            .accessibilityHidden(model.reading.mode != .flat)
-                    }
+                    LevelInstrument(model: model, camera: camera)
                 } pills: {
-                    // Side by side, or stacked with accessibility text sizes, where they would break the words.
-                    pillsLayout {
-                        LevelPills(isRelative: model.readout.isRelative, isLocked: model.isLocked, toggleReference: toggleReference, toggleLock: toggleLock)
+                    // In one row, wrapping onto more where they would not fit, as with large text sizes.
+                    PillsLayout(spacing: SbuTheme.space2) {
+                        LevelPills(
+                            isRelative: model.readout.isRelative,
+                            isLocked: model.isLocked,
+                            isSighting: model.isSighting,
+                            toggleReference: toggleReference,
+                            toggleLock: toggleLock,
+                            toggleSight: toggleSight
+                        )
                     }
                 }
             } else {
@@ -75,8 +63,8 @@ struct MainView: View {
             }
         }
         .toolbar {
-            // Without a motion sensor there is nothing to calibrate.
-            if model.isMotionAvailable {
+            // Without a motion sensor there is nothing to calibrate, and the sight rests on no side.
+            if model.isMotionAvailable, model.isSighting == false {
                 ToolbarItem(placement: .topBarLeading) {
                     // A symbol in ink, like the gear: the accent belongs to the figure's full stop, and
                     // a symbol in the bar shows in the large content viewer at any text size.
@@ -97,6 +85,11 @@ struct MainView: View {
         }
         .task {
             await model.run()
+        }
+        .task(id: showsCamera) {
+            if showsCamera {
+                await camera.run()
+            }
         }
     }
 
@@ -123,6 +116,10 @@ struct MainView: View {
             String(localized: "Lettura sbloccata")
         }
         AccessibilityNotification.Announcement(message).post()
+    }
+
+    private func toggleSight() {
+        model.toggleSight()
     }
 }
 

@@ -31,6 +31,16 @@
         }
       }
     },
+    "All'orizzonte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On the horizon"
+          }
+        }
+      }
+    },
     "Alzata su 12 (x:12)" : {
       "localizations" : {
         "en" : {
@@ -221,6 +231,16 @@
         }
       }
     },
+    "Consenti la fotocamera" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow the camera"
+          }
+        }
+      }
+    },
     "Durante la misura" : {
       "localizations" : {
         "en" : {
@@ -237,6 +257,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        }
+      }
+    },
+    "Fotocamera non consentita" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera not allowed"
+          }
+        }
+      }
+    },
+    "Fotocamera non disponibile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera not available"
           }
         }
       }
@@ -401,12 +441,32 @@
         }
       }
     },
+    "Linea di mira" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line of sight"
+          }
+        }
+      }
+    },
     "Lo schermo non si spegne mentre l'app è aperta." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "The screen stays on while the app is open."
+          }
+        }
+      }
+    },
+    "Mirino" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sight"
           }
         }
       }
@@ -577,6 +637,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Motion sensor unavailable"
+          }
+        }
+      }
+    },
+    "Sopra l'orizzonte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Above the horizon"
+          }
+        }
+      }
+    },
+    "Sotto l'orizzonte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Below the horizon"
           }
         }
       }

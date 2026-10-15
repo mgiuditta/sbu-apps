@@ -11,6 +11,7 @@ struct RootView: View {
         } settings: {
             UnitSection(model: model)
             LockSection(model: model)
+            VoiceSection(model: model)
             MeasureSection(model: model)
             CalibrationSection(model: model)
         }

@@ -9,6 +9,7 @@ final class LevelModel {
     private static let unitKey = "unit"
     private static let locksWhenSteadyKey = "locksWhenSteady"
     private static let steadyToleranceKey = "steadyTolerance"
+    private static let speechKey = "speech"
 
     /// What the screen shows: the live reading, or the one frozen by the lock.
     private(set) var reading = LevelReading.level
@@ -51,6 +52,11 @@ final class LevelModel {
         didSet { defaults.set(steadyTolerance, forKey: Self.steadyToleranceKey) }
     }
 
+    /// When the iPhone reads the figure aloud. Off by default.
+    var speech: SpeechMode {
+        didSet { defaults.set(speech.rawValue, forKey: Self.speechKey) }
+    }
+
     @ObservationIgnored private var steadySampler: StableSampler?
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let source: any GravitySource
@@ -79,6 +85,7 @@ final class LevelModel {
         keepsScreenAwake = defaults.object(forKey: Self.keepsScreenAwakeKey) as? Bool ?? true
         unit = defaults.string(forKey: Self.unitKey).flatMap(AngleUnit.init(rawValue:)) ?? .standard
         locksWhenSteady = defaults.bool(forKey: Self.locksWhenSteadyKey)
+        speech = defaults.string(forKey: Self.speechKey).flatMap(SpeechMode.init(rawValue:)) ?? .off
         steadyTolerance = SteadyLock.clamped(defaults.object(forKey: Self.steadyToleranceKey) as? Double ?? SteadyLock.defaultTolerance)
     }
 

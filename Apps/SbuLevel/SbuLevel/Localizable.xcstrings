@@ -421,6 +421,16 @@
         }
       }
     },
+    "La voce dell'iPhone legge la cifra e ogni blocco, così allinei senza guardare lo schermo. Funziona senza rete." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your iPhone's voice reads the figure and every lock, so you can line things up without looking at the screen. It works offline."
+          }
+        }
+      }
+    },
     "Lato" : {
       "localizations" : {
         "en" : {
@@ -437,6 +447,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The two readings balance out: the sensor error is corrected even if the surface isn't level."
+          }
+        }
+      }
+    },
+    "Leggi ad alta voce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read aloud"
           }
         }
       }
@@ -501,6 +521,16 @@
         }
       }
     },
+    "Mai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
+          }
+        }
+      }
+    },
     "Mirino" : {
       "localizations" : {
         "en" : {
@@ -537,6 +567,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not calibrated"
+          }
+        }
+      }
+    },
+    "Ogni 3 secondi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every 3 seconds"
           }
         }
       }
@@ -587,6 +627,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Flat"
+          }
+        }
+      }
+    },
+    "Quando si ferma" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When it settles"
           }
         }
       }

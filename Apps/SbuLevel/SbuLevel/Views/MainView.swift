@@ -10,6 +10,7 @@ struct MainView: View {
     let model: LevelModel
 
     @State private var camera = SightCamera()
+    @State private var speaker = ReadingSpeaker()
     @State private var isCalibrating = false
 
     private var format: AngleFormatStyle { AngleFormatStyle(unit: model.unit) }
@@ -86,6 +87,9 @@ struct MainView: View {
         .onChange(of: model.lockCount) {
             announceLock()
         }
+        .onChange(of: model.readout) { _, readout in
+            speaker.update(mode: model.speech, degrees: readout.angle, text: format.spokenText(readout.angle))
+        }
         .onChange(of: keepsScreenOn, initial: true) { _, keepsOn in
             UIApplication.shared.isIdleTimerDisabled = keepsOn
         }
@@ -128,9 +132,14 @@ struct MainView: View {
         }
     }
 
+    /// Says a new lock: VoiceOver announces it, otherwise the voice reads it when it is on.
     private func announceLock() {
         let message = String(localized: "Lettura bloccata, \(format.spokenText(model.readout.angle))")
-        AccessibilityNotification.Announcement(message).post()
+        if UIAccessibility.isVoiceOverRunning {
+            AccessibilityNotification.Announcement(message).post()
+        } else if model.speech != .off {
+            speaker.speak(message)
+        }
     }
 
     private func toggleSight() {

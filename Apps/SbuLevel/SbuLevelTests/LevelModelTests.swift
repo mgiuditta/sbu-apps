@@ -364,6 +364,14 @@ struct LevelModelTests {
         #expect(abs(SteadyLock.clamped(value) - expected) < 1e-9)
     }
 
+    @Test func theVoiceIsOffUntilChosenAndThenSaved() {
+        #expect(makeModel().speech == .off)
+
+        makeModel().speech = .whenSettled
+
+        #expect(makeModel().speech == .whenSettled)
+    }
+
     @Test func theUnitIsDegreesUntilChosenAndThenSaved() {
         let model = makeModel()
         #expect(model.unit == .degrees)

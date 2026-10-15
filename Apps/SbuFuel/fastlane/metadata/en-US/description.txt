@@ -1,0 +1,23 @@
+No subscription.
+No in-app purchases.
+No account.
+No ads.
+No tracking.
+Data stays on your device.
+
+Log each fuel-up with the odometer, the quantity and what you paid: at the top you see your vehicle's average consumption, worked out from full tank to full tank.
+
+- Full-to-full consumption: partial fills add to the stretch, a missed fuel-up never skews the average
+- Entries in any order: add a forgotten receipt or years of history, consumption is worked out again
+- Odometer check: it names the entry a reading doesn't fit with
+- mpg (US), mpg (UK), L/100 km and km/L; gallons or liters; miles or kilometers per vehicle
+- Several vehicles: car, motorcycle, van, with optional plate and VIN
+- Spending this month and this year, fuel cost per mile, average price per gallon
+- Charts of consumption, monthly spending and fuel price, over 3 months, 12 months or all
+- Maintenance: oil change, tires, brakes, inspection, insurance, road tax or anything you name
+- Reminders by distance, by months or both, with a notification on the day it's due
+- Export as CSV and import a CSV, from other services too, picking the columns
+- Sample data to try it right away
+- Light and dark, Dynamic Type, VoiceOver
+
+Sbu does one thing: it tells you how much fuel your vehicle uses, from full tank to full tank.

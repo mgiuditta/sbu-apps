@@ -1,0 +1,2026 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
+    "%@ %@, %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@, %@ %@"
+          }
+        }
+      }
+    },
+    "%@ chilometri al litro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ kilometers per liter"
+          }
+        }
+      }
+    },
+    "%@ litri ogni 100 chilometri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ liters per 100 kilometers"
+          }
+        }
+      }
+    },
+    "%@ miglia per gallone UK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ miles per UK gallon"
+          }
+        }
+      }
+    },
+    "%@ miglia per gallone USA" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ miles per US gallon"
+          }
+        }
+      }
+    },
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · %@"
+          }
+        }
+      }
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %@"
+          }
+        }
+      }
+    },
+    "%@: il contachilometri segnava %@, meno di questa lettura. Controlla la lettura o la data." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: the odometer read %@, less than this reading. Check the reading or the date."
+          }
+        }
+      }
+    },
+    "%@: il contachilometri segnava già %@. Controlla la lettura o la data." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: the odometer already read %@. Check the reading or the date."
+          }
+        }
+      }
+    },
+    "12 mesi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "12 months"
+          }
+        }
+      }
+    },
+    "3 mesi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 months"
+          }
+        }
+      }
+    },
+    "Aggiungi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "Aggiungi il tuo veicolo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your vehicle"
+          }
+        }
+      }
+    },
+    "Aggiungi promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add reminder"
+          }
+        }
+      }
+    },
+    "Aggiungi rifornimento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add fuel-up"
+          }
+        }
+      }
+    },
+    "Aggiungi un veicolo per esportare o importare i suoi dati." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a vehicle to export or import its data."
+          }
+        }
+      }
+    },
+    "Aggiungi veicolo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add vehicle"
+          }
+        }
+      }
+    },
+    "Aggiungine uno con +." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add one with +."
+          }
+        }
+      }
+    },
+    "Al gallone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per gallon"
+          }
+        }
+      }
+    },
+    "Al litro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per liter"
+          }
+        }
+      }
+    },
+    "Altro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        }
+      }
+    },
+    "Anno, mese, giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year, month, day"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Anteprima di %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preview of %@"
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Assicurazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insurance"
+          }
+        }
+      }
+    },
+    "Attiva le notifiche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on notifications"
+          }
+        }
+      }
+    },
+    "Auto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Car"
+          }
+        }
+      }
+    },
+    "Auto di esempio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sample car"
+          }
+        }
+      }
+    },
+    "Benzina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Petrol"
+          }
+        }
+      }
+    },
+    "Bollo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Road tax"
+          }
+        }
+      }
+    },
+    "Cambio olio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oil change"
+          }
+        }
+      }
+    },
+    "Carburante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuel"
+          }
+        }
+      }
+    },
+    "Carburante %@ · interventi %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuel %@ · services %@"
+          }
+        }
+      }
+    },
+    "Carburante al km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuel per km"
+          }
+        }
+      }
+    },
+    "Carburante al miglio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuel per mile"
+          }
+        }
+      }
+    },
+    "Chilometri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilometers"
+          }
+        }
+      }
+    },
+    "Colonna %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Column %lld"
+          }
+        }
+      }
+    },
+    "Colonne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Columns"
+          }
+        }
+      }
+    },
+    "Con queste colonne non si legge nessuna riga." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With these columns no row can be read."
+          }
+        }
+      }
+    },
+    "Consumo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumption"
+          }
+        }
+      }
+    },
+    "Consumo in %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumption in %@"
+          }
+        }
+      }
+    },
+    "Consumo medio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average consumption"
+          }
+        }
+      }
+    },
+    "Contachilometri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odometer"
+          }
+        }
+      }
+    },
+    "Contachilometri in" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odometer in"
+          }
+        }
+      }
+    },
+    "Costo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cost"
+          }
+        }
+      }
+    },
+    "Da importare: %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To import: %lld."
+          }
+        }
+      }
+    },
+    "Da importare: %lld. Già presenti o ripetute: %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To import: %lld. Already in your log or repeated: %lld."
+          }
+        }
+      }
+    },
+    "Da importare: %lld. Già presenti o ripetute: %lld. Senza data, contachilometri o quantità: %lld." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To import: %lld. Already in your log or repeated: %lld. Missing a date, odometer or quantity: %lld."
+          }
+        }
+      }
+    },
+    "Da pieno a pieno, su %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full tank to full tank, over %@"
+          }
+        }
+      }
+    },
+    "Dai tuoi rifornimenti, oggi arrivi a %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From your fuel-ups, today you reach %@."
+          }
+        }
+      }
+    },
+    "Data" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
+          }
+        }
+      }
+    },
+    "Date" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dates"
+          }
+        }
+      }
+    },
+    "Dati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data"
+          }
+        }
+      }
+    },
+    "Distributore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Station"
+          }
+        }
+      }
+    },
+    "Domani" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tomorrow"
+          }
+        }
+      }
+    },
+    "Dopo un salto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After a missed one"
+          }
+        }
+      }
+    },
+    "Elimina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Elimina intervento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete service"
+          }
+        }
+      }
+    },
+    "Elimina promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete reminder"
+          }
+        }
+      }
+    },
+    "Elimina rifornimento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete fuel-up"
+          }
+        }
+      }
+    },
+    "Elimina veicolo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete vehicle"
+          }
+        }
+      }
+    },
+    "Eliminare questa voce?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this entry?"
+          }
+        }
+      }
+    },
+    "Eliminare questo intervento?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this service?"
+          }
+        }
+      }
+    },
+    "Eliminare questo promemoria?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this reminder?"
+          }
+        }
+      }
+    },
+    "Eliminare questo rifornimento?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this fuel-up?"
+          }
+        }
+      }
+    },
+    "Eliminare “%@” con tutti i suoi rifornimenti e interventi?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete “%@” with all its fuel-ups and services?"
+          }
+        }
+      }
+    },
+    "Esporta CSV di %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export CSV of %@"
+          }
+        }
+      }
+    },
+    "Esporta crea un file con i rifornimenti e gli interventi del veicolo: lo salvi dove vuoi tu. Importa legge un file CSV, anche da altri servizi, e ti fa scegliere le colonne." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export makes a file with the vehicle’s fuel-ups and services, for you to keep wherever you like. Import reads a CSV file, from other services too, and lets you pick the columns."
+          }
+        }
+      }
+    },
+    "Facoltativa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optional"
+          }
+        }
+      }
+    },
+    "Facoltativi. Restano solo su questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optional. They stay on this iPhone only."
+          }
+        }
+      }
+    },
+    "Facoltativo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optional"
+          }
+        }
+      }
+    },
+    "Fai il prossimo pieno per vedere il consumo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill up to the brim next time to see your consumption."
+          }
+        }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Freni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brakes"
+          }
+        }
+      }
+    },
+    "Furgone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Van"
+          }
+        }
+      }
+    },
+    "GPL" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LPG"
+          }
+        }
+      }
+    },
+    "Galloni UK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UK gallons"
+          }
+        }
+      }
+    },
+    "Galloni USA" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "US gallons"
+          }
+        }
+      }
+    },
+    "Gasolio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diesel"
+          }
+        }
+      }
+    },
+    "Gestisci veicoli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage vehicles"
+          }
+        }
+      }
+    },
+    "Giorno, mese, anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day, month, year"
+          }
+        }
+      }
+    },
+    "Hai superato %@: è ora di farlo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’re past %@: it’s time to do it."
+          }
+        }
+      }
+    },
+    "I chilometri o le miglia li scegli per ogni veicolo. Cambiare unità non cambia i dati salvati." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilometers or miles you pick for each vehicle. Changing units doesn’t change the saved data."
+          }
+        }
+      }
+    },
+    "I consumi si ricalcolano senza." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumption is worked out again without it."
+          }
+        }
+      }
+    },
+    "I promemoria restano qui, ma senza notifiche nessuno ti avvisa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders stay here, but without notifications nothing tells you."
+          }
+        }
+      }
+    },
+    "Il contachilometri è facoltativo, per esempio per bollo e assicurazione." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The odometer is optional, for road tax and insurance for example."
+          }
+        }
+      }
+    },
+    "Il file non si legge." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file can’t be read."
+          }
+        }
+      }
+    },
+    "Il grafico compare con almeno due pieni nel periodo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chart shows up with at least two full tanks in the period."
+          }
+        }
+      }
+    },
+    "Il grafico compare con almeno due rifornimenti pagati nel periodo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chart shows up with at least two paid fuel-ups in the period."
+          }
+        }
+      }
+    },
+    "Il grafico compare con almeno due tratti da pieno a pieno nel periodo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chart shows up with at least two full-to-full stretches in the period."
+          }
+        }
+      }
+    },
+    "Il migliore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best"
+          }
+        }
+      }
+    },
+    "Il peggiore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Worst"
+          }
+        }
+      }
+    },
+    "Il serbatoio è facoltativo: serve a segnalarti una quantità che non ci sta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tank is optional: it flags a quantity that wouldn’t fit."
+          }
+        }
+      }
+    },
+    "Importa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import"
+          }
+        }
+      }
+    },
+    "Importa CSV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import CSV"
+          }
+        }
+      }
+    },
+    "Importa CSV in %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import CSV into %@"
+          }
+        }
+      }
+    },
+    "Importo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amount"
+          }
+        }
+      }
+    },
+    "Importo totale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total amount"
+          }
+        }
+      }
+    },
+    "In media al mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average per month"
+          }
+        }
+      }
+    },
+    "Interventi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Services"
+          }
+        }
+      }
+    },
+    "Interventi fatti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Services done"
+          }
+        }
+      }
+    },
+    "Intervento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service"
+          }
+        }
+      }
+    },
+    "L'ultima volta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last time"
+          }
+        }
+      }
+    },
+    "L'unità resta questa: il veicolo ha già delle voci. Il serbatoio è facoltativo: serve a segnalarti una quantità che non ci sta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The unit stays as it is: the vehicle already has entries. The tank is optional: it flags a quantity that wouldn’t fit."
+          }
+        }
+      }
+    },
+    "L/100 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L/100 km"
+          }
+        }
+      }
+    },
+    "La notifica arriva alle 9:00 del giorno in cui scade. Per i chilometri, il giorno lo stima dai tuoi rifornimenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The notification arrives at 9:00 on the day it’s due. For distance, the day is estimated from your fuel-ups."
+          }
+        }
+      }
+    },
+    "Le righe con tipo “intervento” diventano interventi, le altre rifornimenti. Senza la colonna Pieno, ogni rifornimento conta come pieno." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rows of type “service” become services, the others fuel-ups. Without a Full tank column, every fuel-up counts as a full tank."
+          }
+        }
+      }
+    },
+    "Litri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liters"
+          }
+        }
+      }
+    },
+    "Mai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
+          }
+        }
+      }
+    },
+    "Manutenzione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintenance"
+          }
+        }
+      }
+    },
+    "Mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month"
+          }
+        }
+      }
+    },
+    "Mese, giorno, anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month, day, year"
+          }
+        }
+      }
+    },
+    "Metano" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CNG"
+          }
+        }
+      }
+    },
+    "Miglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miles"
+          }
+        }
+      }
+    },
+    "Mostra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show"
+          }
+        }
+      }
+    },
+    "Moto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motorcycle"
+          }
+        }
+      }
+    },
+    "Nel file non ci sono righe da importare: serve una riga di intestazione e almeno una voce." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no rows to import in the file: it needs a header row and at least one entry."
+          }
+        }
+      }
+    },
+    "Nessun intervento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No services"
+          }
+        }
+      }
+    },
+    "Nessun rifornimento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No fuel-ups"
+          }
+        }
+      }
+    },
+    "Nessun veicolo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No vehicles"
+          }
+        }
+      }
+    },
+    "Nessuna" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Nessuna spesa nel periodo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No spending in the period."
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Note" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        }
+      }
+    },
+    "Notifiche spente per Sbu Fuel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications are off for Sbu Fuel"
+          }
+        }
+      }
+    },
+    "Ogni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every"
+          }
+        }
+      }
+    },
+    "Ogni %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every %@"
+          }
+        }
+      }
+    },
+    "Ogni %@ o ^[%lld mese](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every %@ or ^[%lld month](inflect: true)"
+          }
+        }
+      }
+    },
+    "Ogni ^[%lld mese](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every ^[%lld month](inflect: true)"
+          }
+        }
+      }
+    },
+    "Oppure ogni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Or every"
+          }
+        }
+      }
+    },
+    "Parziale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partial"
+          }
+        }
+      }
+    },
+    "Per esempio Panda" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For example Civic"
+          }
+        }
+      }
+    },
+    "Per esempio cambio olio ogni 15.000 km o 12 mesi: ti avvisa il giorno in cui scade." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For example an oil change every 15,000 km or 12 months: you get a notification on the day it’s due."
+          }
+        }
+      }
+    },
+    "Periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Period"
+          }
+        }
+      }
+    },
+    "Pieno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full tank"
+          }
+        }
+      }
+    },
+    "Pieno: hai riempito il serbatoio. Rifornimento saltato: prima di questo ne hai fatto uno senza registrarlo; il consumo riparte da qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full tank: you filled it to the brim. Missed fuel-up: before this one you made one you didn’t log; consumption starts again from here."
+          }
+        }
+      }
+    },
+    "Più di quanto tiene il serbatoio (%@): controlla la quantità." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More than the tank holds (%@): check the quantity."
+          }
+        }
+      }
+    },
+    "Pneumatici" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tires"
+          }
+        }
+      }
+    },
+    "Poi registra i rifornimenti: dal secondo pieno vedi quanto consuma." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Then log your fuel-ups: from the second full tank you see how much it uses."
+          }
+        }
+      }
+    },
+    "Prezzo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price"
+          }
+        }
+      }
+    },
+    "Prezzo al gallone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price per gallon"
+          }
+        }
+      }
+    },
+    "Prezzo al litro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price per liter"
+          }
+        }
+      }
+    },
+    "Prezzo medio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average price"
+          }
+        }
+      }
+    },
+    "Prezzo per unità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price per unit"
+          }
+        }
+      }
+    },
+    "Prezzo: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price: %@"
+          }
+        }
+      }
+    },
+    "Promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminder"
+          }
+        }
+      }
+    },
+    "Prossime scadenze" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming up"
+          }
+        }
+      }
+    },
+    "Prossimo intervento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next service"
+          }
+        }
+      }
+    },
+    "Prova con dati di esempio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try with sample data"
+          }
+        }
+      }
+    },
+    "Quando" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When"
+          }
+        }
+      }
+    },
+    "Quando registri un intervento, il promemoria dello stesso tipo riparte da lì." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When you log a service, the reminder of the same kind starts again from there."
+          }
+        }
+      }
+    },
+    "Quantità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quantity"
+          }
+        }
+      }
+    },
+    "Quello che registri compare qui, dal più recente. Puoi aggiungere anche voci passate: i consumi si ricalcolano." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What you log shows up here, newest first. You can add past entries too: consumption is worked out again."
+          }
+        }
+      }
+    },
+    "Quest'anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This year"
+          }
+        }
+      }
+    },
+    "Questo mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This month"
+          }
+        }
+      }
+    },
+    "Registra intervento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log service"
+          }
+        }
+      }
+    },
+    "Registra un pieno per iniziare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log a full tank to start."
+          }
+        }
+      }
+    },
+    "Revisione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inspection"
+          }
+        }
+      }
+    },
+    "Rifornimenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuel-ups"
+          }
+        }
+      }
+    },
+    "Rifornimento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuel-up"
+          }
+        }
+      }
+    },
+    "Rifornimento saltato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missed fuel-up"
+          }
+        }
+      }
+    },
+    "Salva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "Sbu Fuel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Fuel"
+          }
+        }
+      }
+    },
+    "Scade oggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due today."
+          }
+        }
+      }
+    },
+    "Scaduto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overdue"
+          }
+        }
+      }
+    },
+    "Scegli i chilometri, i mesi o entrambi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick the distance, the months, or both."
+          }
+        }
+      }
+    },
+    "Scrivi il contachilometri dell'ultima volta: da lì contano i chilometri." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type the odometer of last time: the distance counts from there."
+          }
+        }
+      }
+    },
+    "Serbatoio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tank"
+          }
+        }
+      }
+    },
+    "Spesa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spending"
+          }
+        }
+      }
+    },
+    "Spesa al mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spending per month"
+          }
+        }
+      }
+    },
+    "Spese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spending"
+          }
+        }
+      }
+    },
+    "Spese e grafici" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Costs and charts"
+          }
+        }
+      }
+    },
+    "Speso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spent"
+          }
+        }
+      }
+    },
+    "Storico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        }
+      }
+    },
+    "Targa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "License plate"
+          }
+        }
+      }
+    },
+    "Telaio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VIN"
+          }
+        }
+      }
+    },
+    "Tipo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type"
+          }
+        }
+      }
+    },
+    "Tipo di voce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entry type"
+          }
+        }
+      }
+    },
+    "Totale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total"
+          }
+        }
+      }
+    },
+    "Totale: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total: %@"
+          }
+        }
+      }
+    },
+    "Tra %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In %@"
+          }
+        }
+      }
+    },
+    "Tra ^[%lld giorno](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In ^[%lld day](inflect: true)"
+          }
+        }
+      }
+    },
+    "Tutto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "Ultima lettura: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last reading: %@"
+          }
+        }
+      }
+    },
+    "Ultimo pieno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last full tank"
+          }
+        }
+      }
+    },
+    "Un altro rifornimento ha già questa lettura (%@)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Another fuel-up already has this reading (%@)."
+          }
+        }
+      }
+    },
+    "Unità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Units"
+          }
+        }
+      }
+    },
+    "Unità del file" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Units in the file"
+          }
+        }
+      }
+    },
+    "Vale quello che arriva prima." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whichever comes first."
+          }
+        }
+      }
+    },
+    "Veicoli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vehicles"
+          }
+        }
+      }
+    },
+    "Veicolo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vehicle"
+          }
+        }
+      }
+    },
+    "Veicolo: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vehicle: %@"
+          }
+        }
+      }
+    },
+    "Voce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entry"
+          }
+        }
+      }
+    },
+    "^[%lld mese](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld month](inflect: true)"
+          }
+        }
+      }
+    },
+    "km/L" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "km/L"
+          }
+        }
+      }
+    },
+    "mpg (galloni UK)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mpg (UK gallons)"
+          }
+        }
+      }
+    },
+    "mpg (galloni USA)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mpg (US gallons)"
+          }
+        }
+      }
+    },
+    "parziale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "partial"
+          }
+        }
+      }
+    },
+    "pieno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "full"
+          }
+        }
+      }
+    },
+    "È ora di farlo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It’s time to do it."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

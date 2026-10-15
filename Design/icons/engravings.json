@@ -102,5 +102,13 @@
       "it": "Contapersone",
       "en": "Tally counter"
     }
+  },
+  "fuel": {
+    "accent": "accent-fuel",
+    "subject": "an old analogue car fuel gauge dial, needle between E and F",
+    "name": {
+      "it": "Indicatore del carburante",
+      "en": "Fuel gauge"
+    }
   }
 }

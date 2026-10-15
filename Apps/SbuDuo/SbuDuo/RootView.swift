@@ -5,7 +5,7 @@ import SwiftUI
 struct RootView: View {
     var body: some View {
         SbuAppShell("Sbu Duo", slug: "duo", accent: SbuTheme.accentDuo, appIcon: Image(.appIconArtwork)) {
-            MainView()
+            GiftsView()
         } settings: {
             EmptyView()
         }
@@ -14,9 +14,11 @@ struct RootView: View {
 
 #Preview("Light") {
     RootView()
+        .modelContainer(.duoPreview)
 }
 
 #Preview("Dark") {
     RootView()
+        .modelContainer(.duoPreview)
         .preferredColorScheme(.dark)
 }

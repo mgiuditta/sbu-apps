@@ -259,4 +259,22 @@ struct SpeedModelTests {
 
         #expect(model.quickLimits.map(\.value) == expected)
     }
+
+    @Test func navigationFollowsTheLatestFixAndClearsWithoutAccess() async {
+        let moving = model([
+            .access(.granted),
+            .sample(.fix(at: 0, speed: 10, altitude: 120, verticalAccuracy: 5, course: 90)),
+            .sample(.fix(at: 1, speed: 10, altitude: 125, verticalAccuracy: 5, course: 95)),
+        ])
+        await moving.run()
+        #expect(moving.navigation == NavigationReading(altitude: 125, course: 95))
+
+        let lost = model([
+            .access(.granted),
+            .sample(.fix(at: 0, speed: 10, altitude: 120, verticalAccuracy: 5, course: 90)),
+            .access(.denied),
+        ])
+        await lost.run()
+        #expect(lost.navigation == NavigationReading())
+    }
 }

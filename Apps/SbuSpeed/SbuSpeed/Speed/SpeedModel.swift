@@ -12,6 +12,8 @@ final class SpeedModel {
     /// Metres per second; `nil` until a fix carries a valid speed.
     private(set) var speed: Double?
     private(set) var trip = Trip()
+    /// Altitude and course of the latest fix; never saved.
+    private(set) var navigation = NavigationReading()
     /// Goes up by one at each crossing above the limit that should alert: the screen vibrates and sounds on each change.
     private(set) var limitAlerts = 0
 
@@ -91,9 +93,11 @@ final class SpeedModel {
             access = newAccess
             if newAccess != .granted {
                 speed = nil
+                navigation = NavigationReading()
             }
         case .sample(let sample):
             speed = sample.hasValidSpeed ? sample.speed : nil
+            navigation = NavigationReading(sample: sample)
             trip.record(sample)
             save(trip, forKey: Self.tripKey)
             if alarm.shouldAlert(speed: speed, limit: speedLimit) {
@@ -131,6 +135,7 @@ final class SpeedModel {
         // Not saved: the screenshot drive must not replace the person's trip.
         access = .granted
         speed = metersPerSecond(52)
+        navigation = NavigationReading(altitude: 122, course: 247)
         trip = Trip(maxSpeed: metersPerSecond(87), distance: 12_400, movingTime: 12_400 / metersPerSecond(46))
     }
 }

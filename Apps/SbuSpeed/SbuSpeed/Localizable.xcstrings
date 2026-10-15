@@ -1,6 +1,16 @@
 {
   "sourceLanguage": "it",
   "strings": {
+    "Altitudine": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altitude"
+          }
+        }
+      }
+    },
     "Altro valore": {
       "localizations": {
         "en": {
@@ -37,6 +47,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reset trip"
+          }
+        }
+      }
+    },
+    "COG": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "COG"
           }
         }
       }
@@ -97,6 +117,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Time"
+          }
+        }
+      }
+    },
+    "E": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E"
           }
         }
       }
@@ -201,6 +231,36 @@
         }
       }
     },
+    "N": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "N"
+          }
+        }
+      }
+    },
+    "NE": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NE"
+          }
+        }
+      }
+    },
+    "NO": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NW"
+          }
+        }
+      }
+    },
     "Nessuno": {
       "localizations": {
         "en": {
@@ -217,6 +277,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Knots"
+          }
+        }
+      }
+    },
+    "Non disponibile": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not available"
+          }
+        }
+      }
+    },
+    "O": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "W"
           }
         }
       }
@@ -247,6 +327,66 @@
           "stringUnit": {
             "state": "translated",
             "value": "When you go over it, your iPhone vibrates and plays a sound once."
+          }
+        }
+      }
+    },
+    "Rotta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Course"
+          }
+        }
+      }
+    },
+    "Rotta sul fondo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Course over ground"
+          }
+        }
+      }
+    },
+    "S": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "S"
+          }
+        }
+      }
+    },
+    "SE": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SE"
+          }
+        }
+      }
+    },
+    "SO": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SW"
+          }
+        }
+      }
+    },
+    "SOG": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SOG"
           }
         }
       }
@@ -287,6 +427,86 @@
           "stringUnit": {
             "state": "translated",
             "value": "Speed"
+          }
+        }
+      }
+    },
+    "est": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "east"
+          }
+        }
+      }
+    },
+    "nord": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "north"
+          }
+        }
+      }
+    },
+    "nord-est": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "north-east"
+          }
+        }
+      }
+    },
+    "nord-ovest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "north-west"
+          }
+        }
+      }
+    },
+    "ovest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "west"
+          }
+        }
+      }
+    },
+    "sud": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "south"
+          }
+        }
+      }
+    },
+    "sud-est": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "south-east"
+          }
+        }
+      }
+    },
+    "sud-ovest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "south-west"
           }
         }
       }

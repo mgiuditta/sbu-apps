@@ -42,7 +42,9 @@ struct MainView: View {
     private var layout: some View {
         HStack(spacing: 0) {
             SpeedToolField(model: model) {
-                if !isLandscape {
+                if isLandscape {
+                    QuickLimitPills(model: model)
+                } else {
                     // First call on the height left: the dial grows to its full size before the gap above the pills.
                     DialAndTrip(model: model)
                         .layoutPriority(1)
@@ -50,7 +52,7 @@ struct MainView: View {
             }
 
             if isLandscape {
-                DialAndTrip(model: model)
+                DialAndTrip(model: model, showsLimits: false)
                     .padding(SbuTheme.space4)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }

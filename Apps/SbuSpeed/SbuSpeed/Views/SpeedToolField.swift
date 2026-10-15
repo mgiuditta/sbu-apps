@@ -27,7 +27,8 @@ struct SpeedToolField<Indicator: View>: View {
 
     var body: some View {
         SbuToolField(
-            "Velocità",
+            // With knots the speed is SOG, speed over ground, as on a chart plotter.
+            model.unit == .knots ? "SOG" : "Velocità",
             value: model.speed,
             format: SpeedFigureStyle(unit: model.unit),
             unit: model.unit.symbol,

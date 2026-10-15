@@ -48,7 +48,7 @@ final class SimulatedDriveTests: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Velocità'")).firstMatch
+        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'SOG'")).firstMatch
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("20"), figure.label)
         XCTAssertTrue(figure.label.contains("kn"), figure.label)

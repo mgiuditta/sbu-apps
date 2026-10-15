@@ -3,8 +3,11 @@ import XCTest
 /// Drives the tool screen and the settings sheet, and runs the accessibility audit on both.
 /// Runs in Italian with the fixed snapshot drive, so the simulator needs no GPS and shows no location prompt.
 final class SpeedFlowTests: XCTestCase {
+    @MainActor
     override func setUp() {
         continueAfterFailure = false
+        // A failed landscape test may leave the simulator on its side.
+        XCUIDevice.shared.orientation = .portrait
     }
 
     @MainActor
@@ -28,6 +31,9 @@ final class SpeedFlowTests: XCTestCase {
         XCTAssertTrue(figure.label.contains("52"), figure.label)
         XCTAssertTrue(app.descendants(matching: .any)["Massima"].exists)
         XCTAssertEqual(app.descendants(matching: .any)["Durata"].value as? String, "16 minuti e 10 secondi")
+        XCTAssertEqual(app.descendants(matching: .any)["Altitudine"].value as? String, "122 metri")
+        XCTAssertEqual(app.descendants(matching: .any)["Rotta"].value as? String, "247 gradi, sud-ovest")
+        XCTAssertTrue(app.staticTexts["247° SO"].exists)
         XCTAssertTrue(app.buttons["Azzera viaggio"].isEnabled)
 
         // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,

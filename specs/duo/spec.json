@@ -13,6 +13,15 @@
    "rating_count": 1962
   },
   {
+   "name": "Calculator# Hide Photos Videos",
+   "app_store_id": "1165276801",
+   "role": "concorrente",
+   "price_model": "free with heavy ads, auto-renewing subscription for no ads and more storage; account for its cloud backup",
+   "version": "3.4.12",
+   "rating": 4.39,
+   "rating_count": 28918
+  },
+  {
    "name": "Between, Couples Love Tracker",
    "app_store_id": "458035189",
    "role": "concorrente",
@@ -23,8 +32,29 @@
   }
  ],
  "reference_outside_app_store": "None.",
- "one_thing": "One private conversation with one person, behind Face ID, through your own iCloud. Closes on one figure: the days since the conversation began.",
+ "one_thing": "Looks and works like a calculator. A secret code followed by '=' opens one private conversation with one person, through your own iCloud. The calculator's one figure is the result on the display.",
  "features": [
+  {
+   "name": "Calculator cover",
+   "description": "The app opens on a real, complete calculator: + - × ÷ %, ±, decimal, history tape, copy result; Decimal and FormatStyle, locale separators. The display is the screen's one figure (SbuToolField, SbuFullStop in the accent). Typing the secret code and '=' opens the conversation; any other input computes normally. Pure Calculator type with parameterized Swift Testing tests.",
+   "priority": "P0",
+   "reason": "Calculator# review: 'it could use being able to do math. It's a bit sus if you click and nothing happens'. The cover only holds if it is a real tool.",
+   "source": "competitor"
+  },
+  {
+   "name": "Secret code",
+   "description": "Set at first run (4 to 8 digits, typed twice), stored in the Keychain as a salted SHA256 hash (CryptoKit), never in UserDefaults. Wrong code: the calculator shows the number like any other input, no error. Forgotten code: long-press on the display asks for the device passcode or Face ID (LAPolicy.deviceOwnerAuthentication) and lets you set a new code; documented in the listing.",
+   "priority": "P0",
+   "reason": "Calculator#: 17 reviews about a forgotten password with no recovery.",
+   "source": "competitor"
+  },
+  {
+   "name": "Back to the calculator",
+   "description": "Leaving the app, locking the phone or turning it face down (CMMotionManager gravity) closes the conversation and shows the calculator with an empty display. The app switcher snapshot shows the calculator.",
+   "priority": "P0",
+   "reason": "The cover must hold when someone picks up the phone.",
+   "source": "competitor"
+  },
   {
    "name": "Pair with one person",
    "description": "The first launch creates one CloudKit record zone and a CKShare with readWrite permission for one participant, sent with the system share sheet (UICloudSharingController / ShareLink, Messages, AirDrop). The other person opens the link, accepts with their Apple ID, and the app opens on the conversation. One conversation per app, ever: no list of chats, no contacts lookup.",
@@ -47,25 +77,18 @@
    "source": "original"
   },
   {
-   "name": "Lock",
-   "description": "Face ID / Touch ID / passcode with LocalAuthentication at launch and on return from background; privacy cover in the app switcher. On by default.",
-   "priority": "P0",
+   "name": "Face ID after the code",
+   "description": "Optional second step after the secret code, LocalAuthentication.",
+   "priority": "P1",
    "reason": "Originale: 'The app is password protected', 'four children at home'.",
    "source": "original"
   },
   {
    "name": "Silent notifications",
-   "description": "CKDatabaseSubscription (shouldSendContentAvailable) wakes the app; it fetches changes and posts a local notification with fixed text 'Nuovo messaggio' and no preview, ever. Tapping it still asks for Face ID first.",
+   "description": "CKDatabaseSubscription (shouldSendContentAvailable) wakes the app; it fetches changes and, only if the user turned it on, posts a local notification with neutral text chosen in Settings (default off; options like 'Promemoria'). Never a preview. Tapping it opens the calculator.",
    "priority": "P0",
    "reason": "Originale: 'my kid has my wife's phone ... notification pops up and she taps the notification' (opens the chat without the password). Between: 'notifications just disappear'.",
    "source": "original"
-  },
-  {
-   "name": "Days together",
-   "description": "The one figure: days since a date the two choose (default: the day the conversation began), SbuStat + SbuFullStop, on the conversation's info screen. Either person can change the date; last write wins, shown to both.",
-   "priority": "P1",
-   "reason": "Between's 'automatically calculates the count down ... special days'. Gives the screen its figure without decorating the chat.",
-   "source": "competitor"
   },
   {
    "name": "Disappearing messages",
@@ -76,9 +99,9 @@
   },
   {
    "name": "Alternate icon",
-   "description": "A second, quieter icon in the Sbu grammar (same engraving, greys only), chosen in Settings with setAlternateIconName. Same app name, no disguise.",
+   "description": "Default icon: the Sbu engraving of a calculator (icon grammar: the real instrument behind the app). No imitation of Apple's Calculator icon or name.",
    "priority": "P1",
-   "reason": "Discretion allowed by Apple; a disguised app (calculator, notes) is not (2.3.1).",
+   "reason": "Discretion through the cover itself; copying Apple's Calculator icon or name would be impersonation (2.3.7, 5.2).",
    "source": "sbu"
   },
   {
@@ -91,6 +114,16 @@
  ],
  "screens": [
   {
+   "name": "Calculator",
+   "purpose": "The tool screen on surface and the app's face: display as the one figure (SbuToolField + SbuFullStop), native-feeling keypad, history tape in a sheet.",
+   "elements": [
+    "display",
+    "keypad",
+    "history",
+    "Settings sheet only from the conversation, never from the calculator"
+   ]
+  },
+  {
    "name": "Conversation",
    "purpose": "The tool screen on surface: thread of messages, own bubbles in the accent with onAccent text, the other's in surfaceRaised with ink. No figure here: the figure lives on Info.",
    "elements": [
@@ -98,17 +131,6 @@
     "composer: text field, photo button, send (accent)",
     "status per message: Inviato, Non inviato + Riprova",
     "toolbar: the other person's name -> Info"
-   ]
-  },
-  {
-   "name": "Info",
-   "purpose": "One figure: days together, SbuStat + SbuFullStop. Secondary rows in inkMuted.",
-   "elements": [
-    "SbuStat days",
-    "since date picker",
-    "photos gallery link",
-    "disappearing messages: off / 1 day / 7 days",
-    "Termina la conversazione (danger)"
    ]
   },
   {
@@ -130,13 +152,6 @@
    ]
   },
   {
-   "name": "Lock",
-   "purpose": "Plain surface with the app name and 'Sblocca'.",
-   "elements": [
-    "Sblocca button"
-   ]
-  },
-  {
    "name": "Settings",
    "purpose": "SbuAppShell settings sheet.",
    "elements": [
@@ -146,9 +161,29 @@
     "licences",
     "sbu.dev"
    ]
+  },
+  {
+   "name": "Info",
+   "purpose": "Partner name, disappearing messages, notifications text, change code, Termina la conversazione (danger). No figure: the calculator holds it.",
+   "elements": [
+    "disappearing messages",
+    "notification on/off and text",
+    "change code",
+    "Face ID toggle",
+    "Termina la conversazione"
+   ]
   }
  ],
  "flows": [
+  {
+   "name": "First run",
+   "steps": [
+    "Calculator screen with a one-line hint 'Scegli un codice, poi premi ='",
+    "Code typed twice",
+    "Pairing screen: Invita",
+    "From now on the app opens as a plain calculator"
+   ]
+  },
   {
    "name": "First run, inviter",
    "steps": [
@@ -171,15 +206,16 @@
    "steps": [
     "Silent push wakes the app",
     "Fetch changes into SwiftData",
-    "Local notification 'Nuovo messaggio', no preview",
-    "Tap -> Face ID -> conversation"
+    "Optional neutral local notification",
+    "Tap -> calculator -> code + '=' -> conversation"
    ]
   }
  ],
  "data_model": {
   "Message (SwiftData + CKRecord)": "id, sender (CKRecord creator userRecordID), sentAt, text (encrypted), photo (CKAsset, optional), expiresAt (optional), state (local: pending, sent, failed)",
   "Conversation (one per install)": "zoneID, share URL, isOwner, partnerName (from CKShare participant), sinceDate",
-  "Settings (UserDefaults)": "lockEnabled, blurPhotos, alternateIcon"
+  "Settings (UserDefaults)": "faceIDAfterCode, blurPhotos, notificationsOn, notificationText",
+  "Secret (Keychain)": "salt + SHA256 of the code, kSecAttrAccessibleWhenUnlockedThisDeviceOnly"
  },
  "monetization": "Free. Promise block unchanged; the store page adds that messages go through each person's own iCloud.",
  "pains": [
@@ -187,17 +223,29 @@
   "Messages that fail to send or arrive empty, decryption key errors, glitches (Just Between Us, 38 of 49).",
   "Paywall on saving, deleting, videos and history over 30 days.",
   "Notifications that open the chat without the password.",
-  "Ads, forced rating prompt, spam emails after signup."
+  "Ads, forced rating prompt, spam emails after signup.",
+  "Calculator#: ads every few seconds (50 of 183), media lost after reinstall or new phone (48), forgotten password with no recovery (17), a calculator that does not calculate."
  ],
  "pains_note": "Keyword counts on unique 1-3 star reviews US+IT fetched 2026-10-15; one review can hit several pains.",
  "skipped": [
   "Calls and video calls: FaceTime does it.",
   "Video messages in 1.0: CKAsset size and upload reliability; P2 after 1.0.",
   "Shared calendar, love letters, stickers, games: not the one thing.",
-  "Disguised icon or hidden app: guideline 2.3.1.",
-  "More than one conversation: Messages does it."
+  "More than one conversation: Messages does it.",
+  "Copying Apple's Calculator icon or name: impersonation.",
+  "Hiding photos from the camera roll (vault): not the one thing."
  ],
- "system_frameworks": ["SwiftUI", "SwiftData", "CloudKit", "LocalAuthentication", "PhotosUI", "UserNotifications"],
+ "system_frameworks": [
+  "SwiftUI",
+  "SwiftData",
+  "CloudKit",
+  "LocalAuthentication",
+  "PhotosUI",
+  "UserNotifications",
+  "CryptoKit",
+  "Security",
+  "CoreMotion"
+ ],
  "dependencies": [],
  "dependencies_note": "Apple frameworks only. Capabilities: iCloud (CloudKit container), Push Notifications (for CloudKit subscriptions), Background Modes: remote-notification.",
  "review_risks": [
@@ -212,11 +260,6 @@
    "mitigation": "Private one-to-one with a person the user invited; 'Termina la conversazione' is the block. State it in the review notes."
   },
   {
-   "rule": "2.3.1 hidden features",
-   "risk": "Lock and alternate icon read as hiding.",
-   "mitigation": "Same name and engraving on both icons, everything described in the listing."
-  },
-  {
    "rule": "4.3 spam",
    "risk": "Chat apps are crowded; Sbu Chats exists in repo.",
    "mitigation": "Chats analyses exported chats offline, Duo is a live conversation: no shared code or screens. Run originality-check before the submit."
@@ -225,20 +268,35 @@
    "rule": "5.1.1 privacy",
    "risk": "Messages and photos of two people leave the device.",
    "mitigation": "Only through each user's own iCloud (ADR-0011), Data Not Collected, privacy page explains CloudKit sharing and how to stop."
+  },
+  {
+   "rule": "2.3.1 hidden features",
+   "risk": "An app that hides a chat behind a calculator.",
+   "mitigation": "Documented, not hidden: name, subtitle, description and screenshots say it is a calculator with a private conversation behind a code, as Calculator# does (approved, 28,918 ratings). Review notes give a test code and a sample conversation."
+  },
+  {
+   "rule": "2.3.7 / 5.2 impersonation",
+   "risk": "Looking like Apple's Calculator.",
+   "mitigation": "Sbu engraving icon, Sbu name, SF keypad in Sbu tokens, no Apple icon or 'Calculator' alone as the name."
+  },
+  {
+   "rule": "Brand",
+   "risk": "Viral as an affair app reflects on sbu.dev and the other apps on the account.",
+   "mitigation": "Listing and site speak of privacy at home and personal safety; never of partners to hide from. Decision for Matteo: same developer account or not."
   }
  ],
  "decisions_needed": [
-  "Name: Sbu Duo (slug duo) or another.",
-  "Positioning: couples with a shared home (the originale's angle) or 'one person' without naming the relationship.",
-  "Accent for Duo (not yet in Design/tokens.json).",
-  "Icon engraving: the real instrument behind the app (a sealed letter with wax seal is the proposal).",
-  "Days together in 1.0 (P1) or later."
+  "Store name and home-screen name: 'Sbu Calc' on the home screen? The store name must also say what is behind (e.g. 'Sbu Calc: calcolatrice e chat privata').",
+  "Same developer account as the other Sbu apps, given the 4.3 history and the brand risk.",
+  "Accent for Duo/Calc (not yet in Design/tokens.json).",
+  "Neutral notifications in 1.0 or off entirely.",
+  "Reset path for a forgotten code."
  ],
- "estimate_days": 10,
- "estimate_note": "CloudKit sharing, subscriptions and the silent-push fetch are the critical days (about 4) and need two devices with two Apple IDs to test. P0 only is about 7 days.",
+ "estimate_days": 12,
+ "estimate_note": "About 12 days: calculator with tests 2, code and Keychain 1, CloudKit sharing and push 4, conversation and photos 3, cover behaviour and polish 2. Two devices with two Apple IDs for testing.",
  "source": {
-  "listing": "research/1498275568/meta.json, research/458035189/meta.json",
-  "reviews": "research/1498275568/reviews.json (49 unique, 1-3 stars), research/458035189/reviews.json (27 unique)",
+  "listing": "research/1498275568/meta.json, research/458035189/meta.json, research/1165276801/meta.json",
+  "reviews": "research/1498275568/reviews.json (49 unique, 1-3 stars), research/458035189/reviews.json (27 unique), research/1165276801/reviews.json (183 unique)",
   "competitors": "iTunes Search API, 2026-10-15",
   "fetched": "2026-10-15"
  }

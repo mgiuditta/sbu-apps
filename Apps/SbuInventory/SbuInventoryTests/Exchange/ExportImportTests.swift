@@ -145,10 +145,12 @@ struct ExportImportTests {
         defer { try? FileManager.default.removeItem(at: url) }
         let processed = try photo()
         let writer = try ZipWriter(url: url)
+        try writer.add("Inventario/._inventory.csv", data: Data([0, 5, 22, 7]))
         try writer.add("Inventario/inventory.csv", data: Data("nome,foto\nVaso,photos/v.heic\n".utf8))
         try writer.add("Inventario/photos/v.heic", data: processed.data)
         try writer.finish()
         let file = try ImportFile(data: Data(contentsOf: url), calendar: calendar)
         #expect(file.photos["photos/v.heic"] == processed.data)
+        #expect(file.rows.map(\.name) == ["Vaso"])
     }
 }

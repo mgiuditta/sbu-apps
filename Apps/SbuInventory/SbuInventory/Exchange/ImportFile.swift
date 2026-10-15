@@ -38,7 +38,10 @@ nonisolated struct ImportFile: Sendable {
                 throw .unreadable
             }
             // Ours is inventory.csv; any CSV will do for an archive zipped by hand, the shortest path first.
-            let csvNames = files.keys.filter { $0.lowercased().hasSuffix(".csv") && !$0.hasPrefix("__MACOSX") }
+            // Finder adds __MACOSX/ and "._" files beside the real ones: never the inventory.
+            let csvNames = files.keys.filter { name in
+                name.lowercased().hasSuffix(".csv") && !name.hasPrefix("__MACOSX") && !(name.split(separator: "/").last ?? "").hasPrefix("._")
+            }
             guard let name = csvNames.first(where: { $0.hasSuffix(InventoryExport.csvName) }) ?? csvNames.min(by: { $0.count < $1.count }),
                   let csv = files[name] else { throw .noCSV }
             text = String(decoding: csv, as: UTF8.self)

@@ -1,0 +1,111 @@
+{
+  "name": "Sbu Fuel",
+  "slug": "fuel",
+  "in_repo": null,
+  "replaces": [
+    {"name": "Fuelly: MPG & Service Tracker", "app_store_id": "295905460", "role": "originale", "price_model": "free download with ads, Fuelly Premium subscription (monthly or yearly) for no ads, photos and PDFs, fuel-up location; account on Fuelly.com required", "version": "3.3.7", "rating": 4.74, "rating_count": 29618},
+    {"name": "Road Trip MPG", "app_store_id": "298398207", "role": "concorrente", "price_model": "paid $6.99, one-time, no ads, no subscription; Lite version free", "version": "21.0", "rating": 4.9, "rating_count": 628},
+    {"name": "Drivvo - Car Expense Tracker", "app_store_id": "1206041425", "role": "concorrente", "price_model": "free download, in-app purchase for Pro", "version": "11.2.4", "rating": 4.69, "rating_count": 973}
+  ],
+  "reference_outside_app_store": "None. Fuelly's Android sibling (aCar) is cited in reviews as richer; only what iOS reviews say about it is used (ADR-0003).",
+  "one_thing": "Logs every fuel-up you type in and closes on one figure: the average consumption of the selected vehicle, in L/100 km or mpg.",
+  "features": [
+    {"name": "Add a fuel-up", "description": "Date, odometer, quantity, total price (or unit price, the third is computed), full tank yes/no, missed previous fill-up, fuel type, optional note. Odometer typed by hand, prefilled with nothing; last odometer shown as a hint, never forced.", "priority": "P0", "reason": "Fuelly's core: 'At each fuel-up, just add the miles, gallons and price per gallon'.", "source": "original"},
+    {"name": "Average consumption", "description": "Full-to-full method: a segment runs from one full tank to the next; partial fills in between add their fuel to the segment; a 'missed fill-up' flag breaks the chain. Average = distance of closed segments / fuel of closed segments, never an average of averages. Shown per vehicle as the one figure, plus last segment, best and worst.", "priority": "P0", "reason": "The figure the whole app exists for; pure type with parameterized Swift Testing tests (partial, missed, out of order, km and mi odometers).", "source": "original"},
+    {"name": "Vehicles", "description": "Name, kind (car, motorcycle, van, other), fuel type, odometer unit (km or mi, fixed per vehicle), tank size optional, plate and VIN optional as free text. Multiple vehicles, one selected at a time.", "priority": "P0", "reason": "Fuelly 'Supports multiple vehicles', 'Store vehicle data: VIN, License Plate'. Free text, no make/model database.", "source": "original"},
+    {"name": "Units, IT and US", "description": "Stored in SI (kilometres, litres). Shown via Measurement<UnitFuelEfficiency> and FormatStyle: L/100 km, km/L, mpg (US), mpg (UK); volume litres or US/UK gallons; distance from the vehicle's odometer unit. Defaults from Locale.measurementSystem; currency from Locale, every amount with .currency(code:).", "priority": "P0", "reason": "Fuelly lists 11 unit systems; we keep the four people use. Swedish-kronor and decimal-comma confusion (review) solved by Locale formatting.", "source": "original"},
+    {"name": "History", "description": "List of fuel-ups and services of the selected vehicle, newest first, with consumption of each closed segment; edit any field of any entry, swipe to delete with confirm.", "priority": "P0", "reason": "'No obvious way to correct mistakes', and the log is the record.", "source": "original"},
+    {"name": "Entries in any order", "description": "Entries are sorted by odometer, not by insertion: a forgotten receipt or 15 years of past services can be added later with any date and odometer; every average is recomputed. Validation: odometer must sit between its neighbours, otherwise a plain message naming the conflicting entry.", "priority": "P0", "reason": "24 of 239 reviews: wrong mpg, partial fills, cannot add a missed or past fuel-up, no recalculate.", "source": "pain"},
+    {"name": "Costs", "description": "Fuel and service spending per month and year, cost per km or mile, average price per litre or gallon; 0-priced fuel-ups (rewards) counted in consumption, not in average price.", "priority": "P0", "reason": "Fuelly charts 'gas price, gas expenses, service expenses'; '$0 fuel entries' and 'doesn't total' reviews.", "source": "original"},
+    {"name": "Service log and reminders", "description": "Service entries (oil, tyres, brakes, inspection, insurance, tax, custom) with date, odometer, cost, note. Reminders by distance, by time or both, whichever comes first: due date as a local notification; due distance estimated from the vehicle's average km per day and checked when a fuel-up is added. Presets: oil change, tyre rotation, revisione, bollo.", "priority": "P0", "reason": "Fuelly 'Customizable service reminders, with presets'. 11 reviews say its notifications never arrive: ours are local, scheduled with UserNotifications and listed in the app.", "source": "original"},
+    {"name": "Everything free, no account", "description": "No sign-in, no subscription, no ads, no nag screens, no review prompts beyond SKStoreReviewController's system limit; fuel-up location as free text, never paywalled.", "priority": "P0", "reason": "71 reviews: subscription nags, paying twice, restore broken, location moved behind Premium in 3.3.2. 42 more: forced login, sync errors, data lost.", "source": "pain"},
+    {"name": "CSV export and import", "description": "Export fuel-ups and services per vehicle as CSV (ShareLink, fileExporter); import a CSV with a column-mapping sheet and unit choice, preview of the first rows, duplicates skipped by date + odometer.", "priority": "P1", "reason": "Data ownership: 'exporting data is broken', 'no way to import from my exported Android app', 'you can't export anything'. CSV is also the way out of Fuelly.", "source": "pain"},
+    {"name": "Charts", "description": "Consumption per segment over time, cost per month, price per unit over time; Swift Charts with chartXSelection and a 3/12 months/all range.", "priority": "P1", "reason": "Fuelly 'Charts: MPG, stats, gas price, gas expenses, service expenses'; 'the app has one graph, maybe two' (review).", "source": "original"},
+    {"name": "iCloud sync, off by default", "description": "SwiftData with a CloudKit private database container, switched on in Settings (ADR-0008); off means a local store only. Plus a JSON backup file to Files.", "priority": "P1", "reason": "'Switched phones and lost everything' (several reviews) without bringing back an account.", "source": "pain"},
+    {"name": "Receipt photo", "description": "One photo per entry from camera or library, stored as external data (included in backups: it is the user's record), downscaled to 2048 px HEIC.", "priority": "P2", "reason": "Fuelly Premium 'photos and PDFs'; PhotosPicker, no camera permission for the library.", "source": "original"},
+    {"name": "Station as remembered text", "description": "Free-text station name with suggestions from the user's own past entries; no map, no lookup.", "priority": "P2", "reason": "9 reviews about stations not saved or not found; a local suggestion list fixes it without network.", "source": "pain"},
+    {"name": "Trip tag", "description": "Optional tag on a fuel-up (towing, highway, city) and a filter on averages by tag.", "priority": "P2", "reason": "'needs towing mode', 'set filters for my logs and see statistics update' (reviews).", "source": "pain"},
+    {"name": "Add fuel-up from Shortcuts", "description": "One App Intent 'Aggiungi rifornimento' that opens the add sheet with the selected vehicle.", "priority": "P2", "reason": "Android 'Fuelly Fillup' quick-entry app (review); 0.5 day.", "source": "pain"}
+  ],
+  "screens": [
+    {"name": "Vehicle", "purpose": "The tool screen on surface: one figure (average consumption of the selected vehicle, SbuStat + SbuFullStop, unit as secondary text), vehicle picker in the toolbar, then secondary rows in inkMuted.", "elements": ["SbuStat average consumption", "vehicle Menu picker", "last segment, cost per km, spent this month", "next service due", "Aggiungi rifornimento (filled accent button)", "Settings sheet (ADR-0001)"]},
+    {"name": "Add / edit fuel-up", "purpose": "Form sheet, odometer field focused first, numeric keyboards.", "elements": ["date", "odometer", "quantity", "total price / unit price", "Pieno toggle", "Rifornimento saltato toggle", "fuel type", "note", "Salva"]},
+    {"name": "History", "purpose": "List .insetGrouped of fuel-ups and services, sections by month.", "elements": ["rows: date, quantity, price, segment consumption or 'parziale'", "swipe to delete with confirm", "filter fuel / service"]},
+    {"name": "Costs", "purpose": "Spending and charts.", "elements": ["month / year totals", "cost per km or mile", "Swift Charts consumption, cost, price", "range picker"]},
+    {"name": "Services", "purpose": "Service log and reminders of the vehicle.", "elements": ["due reminders with status word (scaduto, tra 800 km)", "service history", "Aggiungi promemoria"]},
+    {"name": "Vehicles", "purpose": "List and edit vehicles.", "elements": ["vehicle rows", "add / edit form", "delete with confirm (removes its entries)"]},
+    {"name": "Settings", "purpose": "SbuAppShell settings sheet.", "elements": ["units: consumption, volume", "iCloud sync toggle (off)", "export / import CSV, JSON backup", "licences", "sbu.dev"]}
+  ],
+  "flows": [
+    {"name": "First run", "steps": ["Empty state: 'Aggiungi il tuo veicolo'", "Vehicle form: name, fuel, odometer unit", "First fuel-up: fill to full", "Vehicle screen says 'Fai il prossimo pieno per vedere il consumo'", "Second full tank: the figure appears"]},
+    {"name": "Fuel-up at the pump", "steps": ["Open app on Vehicle", "Aggiungi rifornimento", "Odometer, litres, total; Pieno on", "Salva", "Figure updates; due distance reminders checked"]},
+    {"name": "Late entry", "steps": ["History > Aggiungi", "Past date and odometer", "Validation against neighbours", "Saved; segments and averages recomputed"]},
+    {"name": "Service reminder", "steps": ["Services > Aggiungi promemoria > Cambio olio", "Every 15,000 km or 12 months", "Local notification on the date or when the estimated odometer is reached", "Log the service: reminder rolls forward"]},
+    {"name": "Leave Fuelly", "steps": ["Export CSV from Fuelly.com", "Share to Sbu Fuel or Settings > Importa", "Map columns, pick units", "Preview, import, averages computed"]}
+  ],
+  "data_model": {
+    "entities": [
+      {"name": "Vehicle", "fields": [{"name": "id", "type": "UUID", "note": "default value, no @Attribute(.unique) (CloudKit)"}, {"name": "name", "type": "String", "note": ""}, {"name": "kind", "type": "String", "note": "car | motorcycle | van | other"}, {"name": "fuelType", "type": "String", "note": "petrol | diesel | lpg | cng | other"}, {"name": "odometerUnit", "type": "String", "note": "km | mi, fixed once entries exist"}, {"name": "tankLitres", "type": "Double?", "note": "optional"}, {"name": "plate", "type": "String?", "note": ""}, {"name": "vin", "type": "String?", "note": ""}, {"name": "createdAt", "type": "Date", "note": ""}]},
+      {"name": "FuelUp", "fields": [{"name": "id", "type": "UUID", "note": ""}, {"name": "vehicle", "type": "Vehicle?", "note": "optional relationship, cascade from Vehicle"}, {"name": "date", "type": "Date", "note": ""}, {"name": "odometerKm", "type": "Double", "note": "stored in km whatever the vehicle unit"}, {"name": "litres", "type": "Double", "note": ""}, {"name": "totalPrice", "type": "Decimal", "note": "0 allowed"}, {"name": "currencyCode", "type": "String", "note": "from Locale at entry"}, {"name": "isFull", "type": "Bool", "note": ""}, {"name": "missedPrevious", "type": "Bool", "note": "breaks the full-to-full chain"}, {"name": "station", "type": "String?", "note": "free text"}, {"name": "tag", "type": "String?", "note": "P2"}, {"name": "note", "type": "String?", "note": ""}, {"name": "photo", "type": "Data?", "note": "@Attribute(.externalStorage), P2"}]},
+      {"name": "ServiceEntry", "fields": [{"name": "id", "type": "UUID", "note": ""}, {"name": "vehicle", "type": "Vehicle?", "note": ""}, {"name": "kind", "type": "String", "note": "preset key or custom"}, {"name": "title", "type": "String", "note": ""}, {"name": "date", "type": "Date", "note": ""}, {"name": "odometerKm", "type": "Double?", "note": ""}, {"name": "cost", "type": "Decimal", "note": ""}, {"name": "note", "type": "String?", "note": ""}]},
+      {"name": "Reminder", "fields": [{"name": "id", "type": "UUID", "note": "also the notification identifier"}, {"name": "vehicle", "type": "Vehicle?", "note": ""}, {"name": "kind", "type": "String", "note": ""}, {"name": "everyKm", "type": "Double?", "note": ""}, {"name": "everyMonths", "type": "Int?", "note": "at least one of the two"}, {"name": "lastDoneDate", "type": "Date", "note": ""}, {"name": "lastDoneOdometerKm", "type": "Double?", "note": ""}]}
+    ],
+    "storage": "SwiftData, local store by default; with the iCloud toggle on, a second ModelConfiguration with cloudKitDatabase: .private (ADR-0008), so every attribute has a default and every relationship is optional. Canonical units SI; ConsumptionCalculator and ReminderSchedule are nonisolated pure types tested with Swift Testing. A few thousand rows per vehicle: no need for sqlite3."
+  },
+  "monetization": {"model": "free download with ads and subscription", "price": "Fuelly Premium monthly or yearly (price not in the listing); Road Trip MPG $6.99 one-time", "paywalled_features": ["remove ads", "photos and PDFs on records", "fuel-up location (moved to Premium in 3.3.2)", "location autocomplete"], "notes": "Fuelly also requires a Fuelly.com account and syncs every entry to its server; reviews report clipboard reads on launch, forced App Store redirects from ads and a claim of data shared with insurers (unverified)."},
+  "pains": [
+    {"pain": "Paywall and nags: subscription prompt at every launch, paid Gas Cubby users asked to pay again, restore purchase broken, location moved behind Premium", "mentions": 71, "evidence": "\"Suddenly recording fuel up location is a premium feature. Time to find a different app.\"", "becomes": "Everything free, no account"},
+    {"pain": "Forced login, sync errors and lost data: logged out with an HTML error, years of records gone after an update or a phone change", "mentions": 42, "evidence": "\"I have 4 cars' worth of maintenance and fuel records that I now can't access.\"", "becomes": "Everything free, no account; iCloud sync off by default; CSV and JSON backup"},
+    {"pain": "Wrong or missing mpg: partial fills, missed fill-ups, entries out of order, past entries impossible, no recalculate", "mentions": 24, "evidence": "\"you cannot add a missed fuelup without deleting all of the fuelups after it\"", "becomes": "Average consumption (full-to-full) and Entries in any order"},
+    {"pain": "Ads that redirect to the App Store or Safari, review nags", "mentions": 12, "evidence": "\"it keeps opening the app store asking me to download Shein\"", "becomes": "No ads, system review prompt only"},
+    {"pain": "Privacy: clipboard read on launch, public profiles, data sold (claimed)", "mentions": 12, "evidence": "\"App pastes from clipboard every time I open it.\"", "becomes": "No network, no pasteboard access, Data Not Collected"},
+    {"pain": "Service reminders never notify", "mentions": 11, "evidence": "\"I've never received a single service reminder once.\"", "becomes": "Service log and reminders (local notifications, listed in app)"},
+    {"pain": "Abandoned app, no updates for years", "mentions": 11, "evidence": "\"No updates for over two years\"", "becomes": "Native iOS 17 app, current keyboard and controls"},
+    {"pain": "Make/model database missing the car, add vehicle hangs", "mentions": 9, "evidence": "\"It hangs up without loading any model years.\"", "becomes": "Vehicles as free text, no database"},
+    {"pain": "Stations not found or not saved", "mentions": 9, "evidence": "\"It doesn't save the location ever.\"", "becomes": "Station as remembered text (P2)"},
+    {"pain": "Fewer charts and features than the Android version", "mentions": 9, "evidence": "\"The app has one graph, maybe two.\"", "becomes": "Charts (P1)"},
+    {"pain": "No export or import", "mentions": 4, "evidence": "\"I could find no way in the app to import data ... from my exported Android app.\"", "becomes": "CSV export and import"}
+  ],
+  "pains_note": "239 reviews 1-3 stars of Fuelly (research/paywall-pain:research/295905460/reviews.json, 235 US, 4 IT), counted by hand; one review can count in more than one pain. The Italian ones add: 'presuppongono che uno debba fare il pieno ad ogni rifornimento', answered by partial fills inside the full-to-full method.",
+  "skipped": [
+    {"feature": "Fuelly.com account, community averages, online sync", "reason": "No accounts, no network; iCloud only opt-in (ADR-0008)."},
+    {"feature": "Gas station map and nearby lookup, fuel price APIs", "reason": "Network and location; the station is free text."},
+    {"feature": "GPS trip tracking, mileage log for business trips (MileIQ, Fuelly trips)", "reason": "That is Sbu Speed's trip log; the odometer is typed by hand."},
+    {"feature": "OBD-II adapters", "reason": "Bluetooth accessory, out of the one thing; a review cites conflicts with other apps."},
+    {"feature": "Make/model/engine database", "reason": "Needs a maintained dataset; 9 reviews say it is the part that breaks. Free text instead."},
+    {"feature": "Electric and plug-in hybrid kWh tracking", "reason": "Second figure and second unit family (kWh/100 km); PHEV complaint noted, possible 1.1."},
+    {"feature": "11 unit systems (gal/100 mi, km/gal, mi/L...)", "reason": "Four cover IT and US; the rest add settings without users."},
+    {"feature": "Multiple currencies per vehicle", "reason": "Locale currency stored per entry; no conversion (needs rates from the network)."},
+    {"feature": "In-app support messaging", "reason": "Mail link to sbu.dev support, as every Sbu app."},
+    {"feature": "Ads, Premium", "reason": "Sbu principles."}
+  ],
+  "system_frameworks": [
+    {"name": "SwiftData (+ CloudKit private database)", "min_ios": "17", "use": "storage; sync only when switched on"},
+    {"name": "Foundation Measurement / FormatStyle", "min_ios": "17", "use": "UnitFuelEfficiency, UnitVolume, UnitLength, currency, dates"},
+    {"name": "Swift Charts", "min_ios": "17", "use": "consumption, cost, price charts (P1)"},
+    {"name": "UserNotifications", "min_ios": "17", "use": "service reminders by date and estimated distance"},
+    {"name": "UniformTypeIdentifiers", "min_ios": "17", "use": "CSV and JSON import/export"},
+    {"name": "PhotosUI", "min_ios": "17", "use": "receipt photo (P2)"},
+    {"name": "App Intents", "min_ios": "17", "use": "Aggiungi rifornimento shortcut (P2)"},
+    {"name": "StoreKit", "min_ios": "17", "use": "requestReview only, no purchases"}
+  ],
+  "dependencies": [],
+  "dependencies_note": "SbuKit and Apple frameworks only. CSV parser written in-app (RFC 4180, quoted fields, ; and , separators for IT exports), tested.",
+  "review_risks": [
+    {"rule": "4.3(a)/(b) and 4.2.6, lot rejection of 14/10", "risk": "New Sbu app while six are in the Resolution Center; Speed (also car-related) was rejected.", "mitigation": "Submit only after Apple answers the lot, one per week. Review notes: a log with several screens (vehicles, fuel-ups, services, reminders, costs), no GPS, no sensor, nothing in common with Speed. niche-crowding marks Fuel low risk (IT niche under 200 ratings)."},
+    {"rule": "4.3 internal overlap", "risk": "Overlap with Sbu Speed (trip log) and a future Sbu Expenses (car costs).", "mitigation": "Fuel never measures distance or speed; Expenses, if built, must not have a vehicle category with consumption. Recorded in decisions_needed."},
+    {"rule": "5.2.1 / 2.3.7 trademark", "risk": "Using 'Fuelly' or 'Gas Cubby' in name, subtitle or keywords.", "mitigation": "Never in metadata; the CSV import help says 'export da altri servizi' and names Fuelly only on sbu.dev."},
+    {"rule": "5.1.1 privacy", "risk": "Vehicle data and VIN.", "mitigation": "On device, Data Not Collected, no pasteboard reads, iCloud off by default."},
+    {"rule": "2.1 completeness", "risk": "Empty app at first launch hides the figure.", "mitigation": "Review notes with steps (two full tanks) and a 'Prova con dati di esempio' sample vehicle, removable."},
+    {"rule": "4.0 design / 4.2 minimum functionality", "risk": "Looks like a form plus a number.", "mitigation": "Reminders with notifications, charts, CSV import and late entries make it a real log."}
+  ],
+  "decisions_needed": [
+    "Accent for Fuel (not yet in Design/tokens.json), distinct from Speed's.",
+    "Ship 1.0 with or without iCloud sync (P1): without it the estimate drops by 1.5 days but reviews ask for it after phone changes.",
+    "Boundary with a future Sbu Expenses: car costs stay only in Fuel.",
+    "Default consumption unit in IT: L/100 km (Europe standard) or km/L (common in Italian speech); the spec assumes L/100 km with km/L as an option."
+  ],
+  "estimate_days": 9,
+  "estimate_note": "9-11 days for 1.0 with P0 and P1; P0 only (vehicles, fuel-ups, calculator, history, costs, services and reminders) is about 6 days. The calculator with its tests is the critical day.",
+  "source": {"listing": "research/paywall-pain:research/295905460/listing.json and meta.json (US and IT)", "reviews": "research/paywall-pain:research/295905460/reviews.json (239 reviews 1-3 stars)", "niche": "research/niche-crowding:research/niche-crowding-2026-10.md (Fuel row: low risk)", "competitors": "iTunes Search API, 2026-10-15 (Road Trip MPG, Drivvo)", "fetched": "2026-10-15"}
+}

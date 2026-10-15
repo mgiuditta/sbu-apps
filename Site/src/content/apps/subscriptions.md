@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuSubscriptions/fastlane/metadata. Do not repeat them here.
 app: SbuSubscriptions
 accent: accent-subscriptions
-order: 3
+order: 2
 status: building
 appStoreId: 6780154928
 category: FinanceApplication

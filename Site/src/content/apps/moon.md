@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuMoon/fastlane/metadata. Do not repeat them here.
 app: SbuMoon
 accent: accent-moon
-order: 11
+order: 10
 status: building
 appStoreId: null
 category: UtilitiesApplication

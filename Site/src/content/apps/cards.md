@@ -2,7 +2,7 @@
 # Not built yet: no Apps/SbuCards listing, so no page. The teaser is the home's one line until the listing exists.
 app: SbuCards
 accent: accent-cards
-order: 7
+order: 6
 status: building
 appStoreId: null
 category: EducationalApplication

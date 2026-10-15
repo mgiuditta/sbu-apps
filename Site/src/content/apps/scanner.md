@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuScanner/fastlane/metadata. Do not repeat them here.
 app: SbuScanner
 accent: accent-scanner
-order: 4
+order: 3
 status: building
 appStoreId: null
 category: UtilitiesApplication

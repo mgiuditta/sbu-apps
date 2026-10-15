@@ -2,7 +2,7 @@
 # Not built yet: no Apps/SbuDark listing, so no page. The teaser is the home's one line until the listing exists.
 app: SbuDark
 accent: accent-dark
-order: 9
+order: 8
 status: building
 appStoreId: null
 category: UtilitiesApplication

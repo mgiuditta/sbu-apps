@@ -2,7 +2,7 @@
 # Not built yet: no Apps/SbuDocs listing, so no page. The teaser is the home's one line until the listing exists.
 app: SbuDocs
 accent: accent-docs
-order: 6
+order: 5
 status: building
 appStoreId: null
 category: BusinessApplication

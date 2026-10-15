@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuClean/fastlane/metadata. Do not repeat them here.
 app: SbuClean
 accent: accent-clean
-order: 12
+order: 11
 status: building
 appStoreId: null
 category: UtilitiesApplication

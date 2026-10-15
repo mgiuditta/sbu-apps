@@ -6,12 +6,18 @@ import SwiftUI
 struct LevelInstrument: View {
     let model: LevelModel
     let camera: SightCamera
+    /// Blocca, for a volume button in the sight.
+    let toggleLock: () -> Void
 
     var body: some View {
         VStack(spacing: SbuTheme.space4) {
             Group {
                 if model.isSighting {
-                    SightView(camera: camera, rotation: model.reading.rotation)
+                    SightView(
+                        camera: camera,
+                        rotation: model.reading.rotation,
+                        volumeButtonAction: model.locksWithVolumeButton ? toggleLock : nil
+                    )
                 } else {
                     LevelIndicator(reading: model.reading)
                 }
@@ -27,13 +33,13 @@ struct LevelInstrument: View {
 }
 
 #Preview("Light") {
-    LevelInstrument(model: LevelModel(source: FixedGravitySource.flat), camera: SightCamera())
+    LevelInstrument(model: LevelModel(source: FixedGravitySource.flat), camera: SightCamera(), toggleLock: {})
         .padding(SbuTheme.space4)
         .background(SbuTheme.surface)
 }
 
 #Preview("Dark") {
-    LevelInstrument(model: LevelModel(source: FixedGravitySource.screenshot), camera: SightCamera())
+    LevelInstrument(model: LevelModel(source: FixedGravitySource.screenshot), camera: SightCamera(), toggleLock: {})
         .padding(SbuTheme.space4)
         .background(SbuTheme.surface)
         .preferredColorScheme(.dark)

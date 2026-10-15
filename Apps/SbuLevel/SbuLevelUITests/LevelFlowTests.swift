@@ -15,7 +15,7 @@ final class LevelFlowTests: XCTestCase {
         // Every test starts uncalibrated: a string where the calibration data goes reads as none.
         app.launchArguments += ["-calibration", "none"]
         // And in degrees to the tenth, whatever an earlier test chose: arguments win over saved settings.
-        app.launchArguments += ["-unit", "degrees", "-locksWhenSteady", "NO", "-speech", "off", "-playsSound", "NO"]
+        app.launchArguments += ["-unit", "degrees", "-locksWhenSteady", "NO", "-speech", "off", "-playsSound", "NO", "-locksWithVolumeButton", "NO"]
         app.launch()
         return app
     }
@@ -211,6 +211,7 @@ final class LevelFlowTests: XCTestCase {
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggi ad alta voce'")).firstMatch.exists)
         XCTAssertTrue(app.switches["Blocca a lettura stabile"].exists)
         XCTAssertTrue(app.switches["Suono alla misura"].exists)
+        XCTAssertTrue(app.switches["Blocca col tasto volume nel mirino"].exists)
 
         // Dynamic Type is left out as in the other apps: in the settings sheet the audit flags
         // every text as partially unsupported, system ones included.

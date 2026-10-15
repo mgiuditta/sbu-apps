@@ -10,6 +10,8 @@ struct SightView: View {
     let camera: SightCamera
     /// Calibrated device roll in degrees, for the horizon.
     let rotation: Double
+    /// What a volume button does while the camera runs; `nil` leaves the buttons to the volume.
+    var volumeButtonAction: (() -> Void)?
 
     var body: some View {
         ZStack {
@@ -19,6 +21,12 @@ struct SightView: View {
             if camera.access == .allowed {
                 CameraPreview(session: camera.session)
                     .clipShape(.circle)
+                    .accessibilityHidden(true)
+            }
+
+            if camera.isRunning, let volumeButtonAction {
+                VolumeButtonTrigger(action: volumeButtonAction)
+                    .frame(width: 0, height: 0)
                     .accessibilityHidden(true)
             }
 

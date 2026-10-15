@@ -151,6 +151,16 @@
         }
       }
     },
+    "Blocca col tasto volume nel mirino" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock with a volume button in the sight"
+          }
+        }
+      }
+    },
     "Blocco" : {
       "localizations" : {
         "en" : {
@@ -261,12 +271,12 @@
         }
       }
     },
-    "Dopo Blocca, la lettura si ferma quando resta entro la tolleranza per due secondi, e mostra la media." : {
+    "Dopo Blocca, la lettura si ferma quando resta entro la tolleranza per due secondi, e mostra la media. Nel mirino, con la fotocamera accesa, anche un tasto volume blocca e sblocca." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "After Lock, the reading stops once it stays within the tolerance for two seconds, and shows the average."
+            "value" : "After Lock, the reading stops once it stays within the tolerance for two seconds, and shows the average. In the sight, with the camera on, a volume button locks and unlocks too."
           }
         }
       }

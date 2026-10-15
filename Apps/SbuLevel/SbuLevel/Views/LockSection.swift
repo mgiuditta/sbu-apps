@@ -28,10 +28,15 @@ struct LockSection: View {
                     .accessibilityValue(Text(verbatim: tolerance))
                 }
             }
+
+            // iOS hands the volume buttons to an app only from 17.2, and only while the camera runs.
+            if VolumeButtonTrigger.isSupported {
+                Toggle("Blocca col tasto volume nel mirino", isOn: $model.locksWithVolumeButton)
+            }
         } header: {
             Text("Blocco")
         } footer: {
-            Text("Dopo Blocca, la lettura si ferma quando resta entro la tolleranza per due secondi, e mostra la media.")
+            Text("Dopo Blocca, la lettura si ferma quando resta entro la tolleranza per due secondi, e mostra la media. Nel mirino, con la fotocamera accesa, anche un tasto volume blocca e sblocca.")
         }
     }
 }

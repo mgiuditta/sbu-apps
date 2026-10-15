@@ -45,7 +45,7 @@ struct MainView: View {
                     context: status.text,
                     contextSystemImage: status.systemImage
                 ) {
-                    LevelInstrument(model: model, camera: camera)
+                    LevelInstrument(model: model, camera: camera, toggleLock: toggleLock)
                 } pills: {
                     // In one row, wrapping onto more where they would not fit, as with large text sizes.
                     PillsLayout(spacing: SbuTheme.space2) {

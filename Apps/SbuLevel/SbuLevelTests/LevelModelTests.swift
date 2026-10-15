@@ -364,6 +364,14 @@ struct LevelModelTests {
         #expect(abs(SteadyLock.clamped(value) - expected) < 1e-9)
     }
 
+    @Test func theVolumeButtonIsOffUntilChosenAndThenSaved() {
+        #expect(makeModel().locksWithVolumeButton == false)
+
+        makeModel().locksWithVolumeButton = true
+
+        #expect(makeModel().locksWithVolumeButton)
+    }
+
     @Test func theSoundIsOffUntilChosenAndThenSaved() {
         #expect(makeModel().playsSound == false)
 

@@ -8,7 +8,7 @@ struct DeviceRow: View {
 
     let device: NearbyDevice
 
-    @ScaledMetric(relativeTo: .headline) private var ringSide: CGFloat = 56
+    @ScaledMetric(relativeTo: .headline) private var ringSide = SbuTheme.controlRound
 
     var body: some View {
         HStack(spacing: SbuTheme.space4) {

@@ -101,6 +101,16 @@
         }
       }
     },
+    "Apri Sbu Find per continuare la ricerca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sbu Find to keep searching"
+          }
+        }
+      }
+    },
     "Auricolari" : {
       "localizations" : {
         "en" : {
@@ -481,6 +491,16 @@
         }
       }
     },
+    "Non si sente più" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No longer heard"
+          }
+        }
+      }
+    },
     "Oltre una decina di metri, e meno tra muri e metallo. Il numero dice quanto è forte il segnale, non quanto è lontano." : {
       "localizations" : {
         "en" : {
@@ -787,6 +807,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "It comes back by itself in a few seconds."
+          }
+        }
+      }
+    },
+    "Trovato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found"
           }
         }
       }

@@ -27,6 +27,11 @@ nonisolated struct Proximity: Equatable, Comparable, Sendable {
         self.init(rssi: Double(rssi))
     }
 
+    /// A proximity already on the scale, as a Live Activity carries it; clamped to 0-100.
+    init(value: Int) {
+        self.value = min(max(value, 0), 100)
+    }
+
     /// The value as a fraction of 1, for `.percent` formatting: 80 is 0,8, shown "80%".
     var percent: Double {
         Double(value) / 100

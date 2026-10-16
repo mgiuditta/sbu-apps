@@ -23,10 +23,13 @@ targets:
     sources: [SbuFind]
     dependencies:
       - package: SbuKit
+      - target: SbuFindWidget
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.find
         GENERATE_INFOPLIST_FILE: YES
+        # The search on the Lock Screen and in the Dynamic Island.
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Find
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
@@ -40,6 +43,36 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+  SbuFindWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuFindWidget
+      # The Live Activity shares its attributes, the scale, the words and the ring with the app.
+      - SbuFind/Activity/SearchActivityAttributes.swift
+      - SbuFind/Signal/Proximity.swift
+      - SbuFind/Signal/Warmth.swift
+      - SbuFind/Signal/RingFill.swift
+      - SbuFind/Views/SignalRing.swift
+      - SbuFind/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    info:
+      path: SbuFindWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Find
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.find.widget
+        TARGETED_DEVICE_FAMILY: "1"
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES

@@ -70,6 +70,8 @@ final class ScanModel {
     @ObservationIgnored private let location: any LocationProvider
     @ObservationIgnored private let sightingStore: SightingStore
     @ObservationIgnored private var recorder = SightingRecorder()
+    @ObservationIgnored private let activity: any SearchActivityPresenter
+    @ObservationIgnored private var activityPlan = SearchActivityPlan()
     @ObservationIgnored private var isRunning = false
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let clock: () -> Date
@@ -92,6 +94,7 @@ final class ScanModel {
         notifier: (any LostNotifier)? = nil,
         location: (any LocationProvider)? = nil,
         sightingStore: SightingStore = SightingStore(),
+        activity: (any SearchActivityPresenter)? = nil,
         defaults: UserDefaults = .standard,
         clock: @escaping () -> Date = { .now }
     ) {
@@ -100,6 +103,7 @@ final class ScanModel {
         self.notifier = notifier ?? (fixed != nil ? AcceptingLostNotifier() : UserNotificationLostNotifier())
         self.location = location ?? (fixed != nil ? FixedLocationProvider() : CoreLocationProvider())
         self.sightingStore = sightingStore
+        self.activity = activity ?? (fixed != nil ? NoSearchActivity() : LiveSearchActivity())
         sightings = sightingStore.load()
         remembersPlaces = defaults.bool(forKey: Self.remembersPlacesKey)
         self.defaults = defaults
@@ -235,7 +239,15 @@ final class ScanModel {
         tracked = nil
         warmthTracker.reset()
         foundMoment.reset()
+        activity.apply(activityPlan.close())
         updateTracked(at: clock())
+        if let tracked {
+            let attributes = SearchActivityAttributes(
+                deviceName: tracked.device.name ?? String(localized: "Senza nome"),
+                systemImage: tracked.device.kind.systemImage
+            )
+            activity.apply(activityPlan.begin(attributes, state: .init(tracked: tracked), at: clock()))
+        }
     }
 
     /// The finder closed.
@@ -244,6 +256,7 @@ final class ScanModel {
         tracked = nil
         warmthTracker.reset()
         foundMoment.reset()
+        activity.apply(activityPlan.close())
     }
 
     /// Avvisami se lo perdi on: asks for notifications the first time, then watches the device.
@@ -305,12 +318,17 @@ final class ScanModel {
         // The word moves only on a new reading; while silent it keeps the last one.
         let isNewReading = device.lastSeen != tracked?.device.lastSeen
         let warmth = isNewReading ? warmthTracker.update(with: device.proximity) : tracked?.warmth ?? device.warmth
-        if isNewReading, foundMoment.update(with: device.proximity) {
+        let isFound = isNewReading && foundMoment.update(with: device.proximity)
+        if isFound {
             foundMoments += 1
         }
         let updated = TrackedDevice(device: device, warmth: warmth, silence: max(0, now.timeIntervalSince(device.lastSeen)))
         if updated != tracked {
             tracked = updated
+        }
+        activity.apply(activityPlan.follow(.init(tracked: updated), at: now))
+        if isFound {
+            activity.apply(activityPlan.found(.init(tracked: updated)))
         }
     }
 

@@ -1,7 +1,7 @@
 import Foundation
 
 /// The hot and cold game, in four words: how near the device sounds.
-nonisolated enum Warmth: Int, CaseIterable, Comparable, Sendable {
+nonisolated enum Warmth: Int, CaseIterable, Comparable, Codable, Sendable {
     case cold
     case warm
     case hot

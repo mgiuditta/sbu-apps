@@ -14,12 +14,51 @@ struct ScanModelTests {
         defaults = try #require(UserDefaults(suiteName: "ScanModelTests-\(UUID().uuidString)"))
     }
 
+    let activity = FakeSearchActivity()
+
     private func makeModel() -> ScanModel {
-        ScanModel(scanner: scanner, notifier: notifier, location: location, sightingStore: store, defaults: defaults, clock: clock.read)
+        ScanModel(scanner: scanner, notifier: notifier, location: location, sightingStore: store, activity: activity, defaults: defaults, clock: clock.read)
     }
 
     private func reopen() -> ScanModel {
-        ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), location: FixedLocationProvider(), sightingStore: store, defaults: defaults)
+        ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), location: FixedLocationProvider(), sightingStore: store, activity: NoSearchActivity(), defaults: defaults)
+    }
+
+    @Test func openingTheFinderStartsTheLiveActivityAndLeavingEndsIt() {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(name: "Buds Pro", rssi: -64)))
+        model.track(Advertisement.testID(1))
+        let attributes = SearchActivityAttributes(deviceName: "Buds Pro", systemImage: "airpods")
+        #expect(activity.steps == [.start(attributes, .init(percent: 60, warmth: .hot))])
+
+        model.stopTracking()
+        #expect(activity.steps.last == .end(nil))
+    }
+
+    @Test func theLiveActivityFollowsTheSignalAndEndsWhenFound() {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(rssi: -70)))
+        model.track(Advertisement.testID(1))
+        var second = 0.0
+        for _ in 0..<30 {
+            second += 0.25
+            model.handle(.advertisement(.fixture(rssi: -42, after: second)))
+            model.refresh(at: Advertisement.start.addingTimeInterval(second))
+        }
+        let updates = activity.steps.filter { if case .update = $0 { true } else { false } }
+        #expect(!updates.isEmpty)
+        guard case .end(let final?) = activity.steps.last else {
+            Issue.record("The activity did not end with a final state: \(activity.steps)")
+            return
+        }
+        #expect(final.isFound)
+        #expect(final.percent >= FoundMoment.threshold)
+    }
+
+    @Test func aDeviceNeverHeardStartsNoActivity() {
+        let model = makeModel()
+        model.track(Advertisement.testID(9))
+        #expect(activity.steps.isEmpty)
     }
 
     @Test func placesAreOffUntilTurnedOn() {

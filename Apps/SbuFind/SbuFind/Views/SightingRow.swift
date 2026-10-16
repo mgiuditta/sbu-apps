@@ -7,7 +7,7 @@ struct SightingRow: View {
 
     let sighting: Sighting
 
-    @ScaledMetric(relativeTo: .headline) private var symbolSide: CGFloat = 56
+    @ScaledMetric(relativeTo: .headline) private var symbolSide = SbuTheme.controlRound
 
     var body: some View {
         HStack(spacing: SbuTheme.space4) {

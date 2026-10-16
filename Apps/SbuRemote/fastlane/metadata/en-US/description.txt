@@ -1,0 +1,25 @@
+Sbu Remote controls your TV from your iPhone, over your home Wi-Fi, with no limit on taps.
+
+- Finds the TV on your Wi-Fi, or you add it by typing its IP address
+- Guided pairing per brand: it tells you what shows on the TV and which setting to turn on
+- Power, Home, Back, arrows and OK, with a light tap of haptics on every key
+- Touchpad: swipe to move through menus, tap for OK; on LG it moves the pointer
+- Volume, mute and channels; held down, a key repeats as on the remote
+- Rewind, play and pause, fast forward, replay and options
+- Keyboard: text reaches the TV's search box as you type
+- Voice search recognized on the iPhone: the audio never leaves the phone
+- The TV's apps in a list, and up to three pinned under the keys
+- HDMI inputs read from the TV on LG and Sony, the Source key on the others
+- Power on with Wake-on-LAN, with the setting to turn on for your TV
+- Several TVs: tap the name at the top to switch
+- Reconnects on its own when you come back to the app or change Wi-Fi
+- Widget with volume, mute, play and power; Shortcuts and Siri; power in Control Center from iOS 18
+- Light and dark theme, Dynamic Type, VoiceOver
+
+Works with Samsung Tizen from 2016, LG webOS, Android TV and Google TV (Sony, TCL, Philips, Xiaomi, Hisense, Chromecast with Google TV) and Sony Bravia. Does not work with Fire TV, Hisense VIDAA, Philips without Android, Roku and Apple TV: for Apple TV, the remote is already in Control Center.
+
+Sbu Remote talks only to your TV, on your home network: that is why iOS asks for the Local Network permission. No data goes to the internet.
+
+Sbu does one thing: it controls your TV from your phone.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

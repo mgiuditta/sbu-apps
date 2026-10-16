@@ -1,0 +1,8 @@
+scheme("SbuRemoteSnapshots")
+project("./SbuRemote.xcodeproj")
+devices(["iPhone 17 Pro Max"])
+languages(["it", "en-US"])
+output_directory("./fastlane/screenshots")
+clear_previous_screenshots(true)
+override_status_bar(true)
+only_testing(["SbuRemoteUITests/SnapshotTests"])

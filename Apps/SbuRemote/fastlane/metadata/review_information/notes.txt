@@ -1,0 +1,14 @@
+No account. Sbu Remote has no server: no analytics, ads or tracking. Its only network traffic goes to the user's own TV on the home Wi-Fi (Local Network permission, Bonjour services _androidtvremote2._tcp and _airplay._tcp), never to the internet. Data stays on the device; TV credentials are kept in the Keychain.
+
+The iPhone has no infrared, so the remote works over Wi-Fi with each TV's local control protocol: Samsung Tizen (WebSocket), LG webOS (SSAP), Android TV / Google TV (Android TV Remote v2, TLS with a client certificate made on the device) and Sony Bravia (IP control). Fire TV, Hisense VIDAA, Philips JointSpace and Roku are not supported, and the listing says so.
+
+To review without a TV:
+1. On launch, "Aggiungi una TV" (Add a TV) opens the search. iOS asks for Local Network; the list shows TVs on the Wi-Fi, if any.
+2. Under "Per indirizzo" (By address) you can type any IP and choose a system to see the guided pairing screen: it says what appears on the TV (a prompt, or a code to type) and which TV setting to turn on.
+3. Without a reachable TV, pairing ends with "La TV non risponde" (The TV does not answer).
+
+With a supported TV on the same Wi-Fi: pair it, then the remote shows Home, Power, the arrows or the touchpad, the media keys, volume and channel, and in the top bar the keyboard, voice search (recognized on the device only), the TV's apps and the TV's name to switch between saved TVs. Settings lists saved TVs, each with "Dimentica questa TV" (Forget this TV).
+
+The widget and the Shortcuts actions send volume, mute, play/pause and power to the last TV used.
+
+How it differs from the other Sbu apps: it is the only one that controls a device, the user's TV, and the only one that uses the local network.

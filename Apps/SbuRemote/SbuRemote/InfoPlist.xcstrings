@@ -1,0 +1,38 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "The app's name under its icon. Localized so the bundle declares Italian as well as English.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote" } }
+      }
+    },
+    "NSMicrophoneUsageDescription" : {
+      "comment" : "Microphone permission for voice search (#337).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The microphone listens to the search you dictate to the TV. The audio stays on the iPhone." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Il microfono ascolta la ricerca che detti alla TV. L'audio resta sull'iPhone." } }
+      }
+    },
+    "NSSpeechRecognitionUsageDescription" : {
+      "comment" : "Speech recognition permission; recognition is on-device only (#337).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The words you dictate become text on the iPhone, without the internet, and go to the TV's search box." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Le parole che detti diventano testo sull'iPhone, senza internet, e vanno alla casella di ricerca della TV." } }
+      }
+    },
+    "NSLocalNetworkUsageDescription" : {
+      "comment" : "Local network permission prompt (ADR-0007): the app only talks to the user's TV on the home Wi-Fi.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote looks for your TV on your Wi-Fi and sends it the keys you press. Nothing leaves your home network." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote cerca la tua TV sulla Wi-Fi e le manda i tasti che premi. Nulla esce dalla rete di casa." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

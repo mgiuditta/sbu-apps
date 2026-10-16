@@ -23,6 +23,12 @@ targets:
     sources: [SbuLibretto]
     dependencies:
       - package: SbuKit
+      - target: SbuLibrettoWidget
+    entitlements:
+      path: SbuLibretto/SbuLibretto.entitlements
+      properties:
+        # Only the widget's snapshot lives here: the libretto stays in the app's own store.
+        com.apple.security.application-groups: [group.dev.sbu.libretto]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.libretto
@@ -39,6 +45,42 @@ targets:
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES
+  SbuLibrettoWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuLibrettoWidget
+      # The widget never opens the store: it reads the snapshot the app writes, with the app's words and formats.
+      - path: SbuLibretto/Widget
+        includes: [WidgetSnapshot.swift, WidgetSnapshot+Timeline.swift, UserDefaults+AppGroup.swift]
+      - path: SbuLibretto/Countdown
+        includes: [CountdownDay.swift]
+      - path: SbuLibretto/Shared
+        includes: [LibrettoFormat.swift]
+      - SbuLibretto/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuLibrettoWidget/SbuLibrettoWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.libretto]
+    info:
+      path: SbuLibrettoWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Libretto
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.libretto.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
   SbuLibrettoTests:
     type: bundle.unit-test
     platform: iOS

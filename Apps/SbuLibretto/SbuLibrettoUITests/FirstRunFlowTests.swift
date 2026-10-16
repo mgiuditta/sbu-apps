@@ -55,8 +55,11 @@ final class FirstRunFlowTests: LibrettoUITestCase {
         XCTAssertTrue(app.textFields["examName"].waitForExistence(timeout: 5))
         app.textFields["examName"].typeText("Fisica")
         type("6", into: app.textFields["credits"])
+        // The decimal keypad has no return key: Fine closes it.
+        app.buttons["Fine"].tap()
+        XCTAssertTrue(app.keyboards.firstMatch.waitForNonExistence(timeout: 5))
         app.switches["isTaken"].switches.firstMatch.tap()
-        XCTAssertFalse(app.buttons["grade"].exists)
+        XCTAssertTrue(app.buttons["grade"].waitForNonExistence(timeout: 5))
         XCTAssertTrue(app.switches["hasDate"].waitForExistence(timeout: 5))
         attach(app, "da sostenere")
         try audit(app)

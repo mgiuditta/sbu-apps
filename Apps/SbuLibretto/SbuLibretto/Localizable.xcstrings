@@ -41,6 +41,26 @@
         }
       }
     },
+    "%@/%@ CFU" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@/%@ credits"
+          }
+        }
+      }
+    },
+    "%lld giorni fa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days ago"
+          }
+        }
+      }
+    },
     "%lld° anno" : {
       "localizations" : {
         "en" : {
@@ -81,12 +101,42 @@
         }
       }
     },
+    "Aggiungi lezione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add lesson"
+          }
+        }
+      }
+    },
+    "Aggiungi un esame da sostenere con la data dell'appello: qui vedi quanti giorni mancano." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add an exam still to take with its sitting date: here you see how many days are left."
+          }
+        }
+      }
+    },
     "Algoritmi e strutture dati" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Algorithms and Data Structures"
+          }
+        }
+      }
+    },
+    "Alle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To"
           }
         }
       }
@@ -157,6 +207,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sitting"
+          }
+        }
+      }
+    },
+    "Aula" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Room"
           }
         }
       }
@@ -291,6 +351,16 @@
         }
       }
     },
+    "Corso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Course"
+          }
+        }
+      }
+    },
     "Crediti" : {
       "localizations" : {
         "en" : {
@@ -331,6 +401,16 @@
         }
       }
     },
+    "Dalle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From"
+          }
+        }
+      }
+    },
     "Data" : {
       "localizations" : {
         "en" : {
@@ -351,6 +431,26 @@
         }
       }
     },
+    "Data passata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date passed"
+          }
+        }
+      }
+    },
+    "Domani" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tomorrow"
+          }
+        }
+      }
+    },
     "Elimina" : {
       "localizations" : {
         "en" : {
@@ -367,6 +467,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete exam"
+          }
+        }
+      }
+    },
+    "Elimina lezione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete lesson"
+          }
+        }
+      }
+    },
+    "Eliminare questa lezione?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this lesson?"
           }
         }
       }
@@ -411,6 +531,16 @@
         }
       }
     },
+    "Facoltativa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optional"
+          }
+        }
+      }
+    },
     "Fine" : {
       "localizations" : {
         "en" : {
@@ -451,6 +581,26 @@
         }
       }
     },
+    "Giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day"
+          }
+        }
+      }
+    },
+    "Gli orari restano come li imposti, senza scambi tra mattina e pomeriggio." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Times stay as you set them: morning never swaps with afternoon."
+          }
+        }
+      }
+    },
     "Idoneità" : {
       "localizations" : {
         "en" : {
@@ -471,6 +621,16 @@
         }
       }
     },
+    "Ieri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yesterday"
+          }
+        }
+      }
+    },
     "Il grafico compare dal secondo voto." : {
       "localizations" : {
         "en" : {
@@ -487,6 +647,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your libretto is empty"
+          }
+        }
+      }
+    },
+    "In arrivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming up"
           }
         }
       }
@@ -521,12 +691,42 @@
         }
       }
     },
+    "La fine deve venire dopo l'inizio." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The end must come after the start."
+          }
+        }
+      }
+    },
     "La tua media attuale" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your current average"
+          }
+        }
+      }
+    },
+    "La tua media ponderata e i giorni al prossimo esame." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your weighted average and the days to your next exam."
+          }
+        }
+      }
+    },
+    "Lezione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesson"
           }
         }
       }
@@ -561,12 +761,32 @@
         }
       }
     },
+    "Media %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average %@"
+          }
+        }
+      }
+    },
     "Media aritmetica" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arithmetic average"
+          }
+        }
+      }
+    },
+    "Media e prossimo appello" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average and next sitting"
           }
         }
       }
@@ -611,6 +831,26 @@
         }
       }
     },
+    "Nessun appello" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sittings"
+          }
+        }
+      }
+    },
+    "Nessun appello in arrivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sittings coming up"
+          }
+        }
+      }
+    },
     "Nessun esame" : {
       "localizations" : {
         "en" : {
@@ -637,6 +877,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No grades yet: the average will be the grade of the next exam."
+          }
+        }
+      }
+    },
+    "Nessuna lezione in questo giorno." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No lessons on this day."
           }
         }
       }
@@ -677,6 +927,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Target"
+          }
+        }
+      }
+    },
+    "Oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
+    },
+    "Orario lezioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timetable"
           }
         }
       }
@@ -741,6 +1011,16 @@
         }
       }
     },
+    "Prossimi appelli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next sittings"
+          }
+        }
+      }
+    },
     "Prossimo esame" : {
       "localizations" : {
         "en" : {
@@ -781,12 +1061,32 @@
         }
       }
     },
+    "Registra il primo voto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record your first grade"
+          }
+        }
+      }
+    },
     "Registra il primo voto per vedere la media." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Record your first grade to see the average."
+          }
+        }
+      }
+    },
+    "Registra il voto, o sposta la data al prossimo appello." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record the grade, or move the date to the next sitting."
           }
         }
       }
@@ -877,6 +1177,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you haven't taken it yet, it stays among the exams to take and out of the average."
+          }
+        }
+      }
+    },
+    "Senza data" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No date"
+          }
+        }
+      }
+    },
+    "Si sovrappone a %@, %@–%@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overlaps %@, %@–%@."
           }
         }
       }
@@ -991,6 +1311,16 @@
         }
       }
     },
+    "Tra %lld giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In %lld days"
+          }
+        }
+      }
+    },
     "Tutti" : {
       "localizations" : {
         "en" : {
@@ -1081,12 +1411,32 @@
         }
       }
     },
+    "dalle %@ alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "from %@ to %@"
+          }
+        }
+      }
+    },
     "fuori media" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "out of the average"
+          }
+        }
+      }
+    },
+    "lezioni: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "lessons: %lld"
           }
         }
       }

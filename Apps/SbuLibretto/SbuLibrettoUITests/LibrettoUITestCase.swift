@@ -34,12 +34,17 @@ class LibrettoUITestCase: XCTestCase {
 
     /// Contrast comes from the design tokens, checked against WCAG by `Tools/sync_tokens.py`, and Dynamic Type
     /// is checked by hand at AX5, as in the other apps; every other issue fails the test.
+    /// - Parameter scrolled: The screen is scrolled, so rows sit half under the navigation bar's glass:
+    ///   the audit then reports text "that may be clipped" without naming any element. Only those go.
     @MainActor
-    func audit(_ app: XCUIApplication) throws {
+    func audit(_ app: XCUIApplication, scrolled: Bool = false) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
             // SbuKit's uppercase captions are tracked, and the audit reads the last letter's tracking as a
             // clipped fraction of a point; on screen they are whole (as in Sbu Clean and Sbu Fuel).
             if issue.auditType == .textClipped, let label = issue.element?.label, label == label.uppercased() {
+                return true
+            }
+            if scrolled, issue.auditType == .textClipped, issue.element == nil {
                 return true
             }
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")

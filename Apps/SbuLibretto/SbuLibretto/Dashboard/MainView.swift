@@ -11,11 +11,13 @@ struct MainView: View {
     let settings: CourseSettings
 
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.calendar) private var calendar
     @Query(sort: \Exam.createdAt) private var exams: [Exam]
     @State private var isRegistering = false
 
     var body: some View {
         let transcript = Transcript(exams.map(\.record), rules: settings.rules)
+        let countdown = ExamCountdown(exams.map(\.planItem), now: .now, calendar: calendar)
         List {
             if !exams.isEmpty {
                 Section {
@@ -41,6 +43,18 @@ struct MainView: View {
                         OverviewLink(title: "Piano di studi", systemImage: "list.bullet.rectangle")
                     }
                     .accessibilityIdentifier("studyPlan")
+                    NavigationLink {
+                        UpcomingExamsView()
+                    } label: {
+                        OverviewLink(title: "Prossimi appelli", systemImage: "calendar", detail: countdown.next?.day.text)
+                    }
+                    .accessibilityIdentifier("upcoming")
+                    NavigationLink {
+                        TimetableView()
+                    } label: {
+                        OverviewLink(title: "Orario lezioni", systemImage: "clock")
+                    }
+                    .accessibilityIdentifier("timetable")
                 }
                 .listRowBackground(SbuTheme.surfaceRaised)
                 StatisticsSection(transcript: transcript, names: Dictionary(exams.map { ($0.id, $0.name) }, uniquingKeysWith: { first, _ in first }))
@@ -53,6 +67,9 @@ struct MainView: View {
             if exams.isEmpty {
                 FirstExamView(addExam: register, addSample: addSample)
             }
+        }
+        .task(id: WidgetSnapshot(transcript: transcript, countdown: countdown)) {
+            WidgetSync.publish(WidgetSnapshot(transcript: transcript, countdown: countdown))
         }
         .sheet(isPresented: $isRegistering) {
             ExamForm(exam: nil, startsTaken: true, courseYear: exams.map(\.courseYear).max() ?? 1)

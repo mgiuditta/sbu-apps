@@ -11,7 +11,7 @@ final class LibrettoFlowTests: LibrettoUITestCase {
         app.swipeUp()
         XCTAssertTrue(app.descendants(matching: .any)["Base di laurea"].waitForExistence(timeout: 5))
         attach(app, "statistiche")
-        try audit(app)
+        try audit(app, scrolled: true)
         app.swipeDown()
 
         app.buttons["studyPlan"].tap()

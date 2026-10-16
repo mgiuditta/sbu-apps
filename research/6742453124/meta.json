@@ -1,0 +1,28 @@
+{
+  "id": "6742453124",
+  "name": "Video Compressor + Resizer!",
+  "developer": "超 赵",
+  "bundle_id": "com.tool.video.compresion",
+  "store_country": "us",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Free",
+  "currency": "USD",
+  "genre": "Utilities",
+  "genres": [
+    "Utilities"
+  ],
+  "description": "Video Compressor - Fast and High-Quality Compression\n\nEasily compress your videos while keeping great quality.\nWhether you want to save storage space or share videos faster, this app makes video compression simple, efficient, and secure.\n\nKey Features\n\t•\tCompress videos from Photos or Files\n\t•\tAdjustable size and quality settings\n\t•\tPreview before saving\n\t•\tSave to Photos or export to other apps\n\t•\t100 percent offline processing, your videos never leave your device\n\nPerfect for users who need quick and reliable video compression without complicated tools.\n\nIn-App Purchases:\nSome features are available through an auto-renewable subscription.\nPayment will be charged to your iTunes account.\nYour subscription will automatically renew unless you turn off auto-renewal at least 24 hours before the end of the current period.\nAfter purchase, you can manage your subscriptions in your account settings.\nYou cannot cancel the current subscription during the active period.\n\nPrivacy Policy: https://docs.qq.com/doc/DVm5NcGV5d2t3V2Rt\nTerms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nContact Us: vid_reduce_help@gmail.com",
+  "release_notes": "Thank you all for your love and support!\nIn this new version, we’ve improved compression speed, fixed several bugs, and enhanced overall stability.\nWe invite you to download and give it a try!",
+  "version": "2.0",
+  "current_version_release_date": "2026-03-02T02:59:03Z",
+  "rating": 0,
+  "rating_count": 0,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/us/app/video-compressor-resizer/id6742453124?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/41/31/32/413132ba-319b-1e91-730a-de53e9ae6b77/iPhone_X_white1.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/86/12/67/8612677f-7336-05a0-7fa4-6dadf4725486/iPhone_X_white2.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/bf/d8/40/bfd84067-a24b-b976-e153-bf1a1690dcc5/iPhone_X_white3.png/320x480bb.jpg"
+  ]
+}

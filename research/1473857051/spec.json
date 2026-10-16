@@ -1,0 +1,55 @@
+{
+  "features": [
+    {"name": "Pick videos from Photos", "description": "Multi-select videos from the photo library; thumbnails show each file size.", "priority": "core", "reason": "Entry point of the app."},
+    {"name": "Frame rate slider", "description": "Slider for output frame rate, with a hint not to go under 24 fps.", "priority": "core", "reason": "One of the two compression settings shown in the settings screen."},
+    {"name": "Video dimensions slider", "description": "Scales resolution as a percentage of the original (80% suggested).", "priority": "core", "reason": "The other compression setting."},
+    {"name": "Total size of the selection", "description": "Shows the summed size of the selected videos before compressing.", "priority": "core", "reason": "Sets up the before/after comparison."},
+    {"name": "Batch compression with per-video progress", "description": "Overall ring with percent, 'video N of M', per-file progress bars, cancel button.", "priority": "core", "reason": "Pro feature in the original; free in Sbu."},
+    {"name": "Result with before, after, savings", "description": "Done screen with three numbers and the count of saved videos.", "priority": "core", "reason": "The payoff of the app."},
+    {"name": "Delete or keep originals", "description": "After compressing, choose to delete originals (destructive) or keep them.", "priority": "core", "reason": "Frees space, which is the app's promise."},
+    {"name": "Save to library and a dedicated album", "description": "Output goes to the camera roll and to an album named for compressed videos.", "priority": "core", "reason": "Lets users find the results."},
+    {"name": "Input formats", "description": "Reads H.264, HEVC, .mov, .mp4, .m4v.", "priority": "core", "reason": "AVFoundation handles all of them."},
+    {"name": "Daily compression limit, ads, Pro subscription", "description": "Free tier limits videos per day and shows ads; Pro (monthly, annual, lifetime) removes them and unlocks batch.", "priority": "skip", "reason": "Paywall and ads are forbidden in Sbu."},
+    {"name": "Third-party ad tracking", "description": "Privacy label declares location, device ID, advertising and diagnostics data used to track.", "priority": "skip", "reason": "No tracking in Sbu."}
+  ],
+  "screens": [
+    {"name": "Home / picker", "purpose": "Start: pick one or more videos.", "elements": ["Photos picker (multi-select)", "Pro upsell"]},
+    {"name": "Compression Settings", "purpose": "Tune and start.", "elements": ["Frame rate slider with hint", "Video dimensions slider with hint", "Thumbnail strip with sizes (+N)", "Total size", "Compress button"]},
+    {"name": "Compressing Videos", "purpose": "Progress.", "elements": ["Overall percent ring", "Video N of M", "Per-file name and progress bar", "Cancel (destructive outline)"]},
+    {"name": "Done", "purpose": "Result and cleanup.", "elements": ["Success check", "N videos saved to library", "Before / After / Savings", "Delete Originals", "Keep N Originals"]}
+  ],
+  "flows": [
+    {"name": "Compress and free space", "steps": ["Pick videos", "Adjust frame rate and dimensions", "Compress", "Watch progress", "See before/after/savings", "Delete or keep originals"]}
+  ],
+  "data_model": {
+    "entities": [
+      {"name": "CompressionSettings", "fields": [
+        {"name": "frameRate", "type": "Int", "note": "24 suggested"},
+        {"name": "dimensionScale", "type": "Double", "note": "0.8 suggested"}
+      ]},
+      {"name": "Job", "fields": [
+        {"name": "asset", "type": "PHAsset id", "note": "source video"},
+        {"name": "originalBytes", "type": "Int64", "note": ""},
+        {"name": "compressedBytes", "type": "Int64?", "note": ""},
+        {"name": "progress", "type": "Double", "note": "0...1"}
+      ]}
+    ],
+    "storage": "No persistent data; output written to the photo library."
+  },
+  "monetization": {
+    "model": "Freemium with ads and subscription",
+    "price": "Free; Pro $4.99/month, $5.99/year, $14.99 lifetime (US listing)",
+    "paywalled_features": ["Batch (more than one video at a time)", "Unlimited videos per day", "No ads"],
+    "notes": "Ratings: 4.68 from 17,701 (US), 4.64 from 260 (IT), v2.16 of 2026-04-28."
+  },
+  "user_pains": [
+    {"pain": "Lost progress and failed compressions", "evidence": "One review on the US listing page (Lmno61830); the 1-3 star RSS feed returned no entries on 2026-10-16.", "mentions": 1}
+  ],
+  "source": {
+    "app_id": "1473857051",
+    "name": "Compress Videos & Resize Video",
+    "url": "https://apps.apple.com/us/app/compress-videos-resize-video/id1473857051",
+    "model": "written by the research agent from meta.json, screenshots and the public listing (spec.py had no ANTHROPIC_API_KEY in this session)",
+    "reviews": 0
+  }
+}

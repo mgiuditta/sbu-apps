@@ -50,8 +50,7 @@ struct CancelHelpSection: View {
     }
 
     private func markCancelled() {
-        subscription.status = .cancelled
-        subscription.record(.cancelled)
+        subscription.setStatus(.cancelled)
         try? modelContext.save()
     }
 }

@@ -106,6 +106,18 @@ struct SubscriptionDraft {
         }
     }
 
+    /// Recurring or a one-off payment. Back to recurring from a one-off, it is monthly.
+    var isRecurring: Bool {
+        get { cycleChoice != .once }
+        set {
+            if !newValue {
+                cycleChoice = .once
+            } else if cycleChoice == .once {
+                cycleChoice = .monthly
+            }
+        }
+    }
+
     var canSave: Bool {
         !name.trimmingCharacters(in: .whitespaces).isEmpty && price != nil
     }

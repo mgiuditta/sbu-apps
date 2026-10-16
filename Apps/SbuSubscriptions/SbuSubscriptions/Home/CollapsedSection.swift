@@ -5,6 +5,7 @@ struct CollapsedSection: View {
     let title: LocalizedStringKey
     let subscriptions: [Subscription]
     let today: Date
+    let open: (Subscription) -> Void
 
     @State private var isExpanded = false
 
@@ -13,9 +14,7 @@ struct CollapsedSection: View {
             Section {
                 DisclosureGroup(isExpanded: $isExpanded) {
                     ForEach(subscriptions) { subscription in
-                        NavigationLink(value: subscription) {
-                            SubscriptionRow(subscription: subscription, today: today)
-                        }
+                        SubscriptionButton(subscription: subscription, today: today, open: open)
                     }
                 } label: {
                     LabeledContent(title) {

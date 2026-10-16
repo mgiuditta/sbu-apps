@@ -2,7 +2,7 @@ import Foundation
 import Observation
 
 /// Where Siri, Shortcuts or Spotlight asked the app to go.
-enum AppRoute: Equatable {
+nonisolated enum AppRoute: Equatable, Sendable {
     case subscription(UUID)
     case calendar
     case add

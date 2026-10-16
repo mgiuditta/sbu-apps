@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// One subscription on the home: its sign, name and cycle, then the price and when it's due.
+/// One subscription on the home: its sign and name, when it renews in days and as a date, then the price and cycle.
 struct SubscriptionRow: View {
     let subscription: Subscription
     let today: Date
@@ -15,44 +15,52 @@ struct SubscriptionRow: View {
             iconBackground: SbuTheme.surfaceSunken,
             iconForeground: SbuTheme.inkMuted,
             amount: subscription.price.formatted(.currency(code: subscription.currencyCode)),
-            status: status
+            status: subscription.cycle.label
         )
     }
 
     private var subtitle: LocalizedStringKey {
-        guard let category = subscription.category else { return subscription.cycle.label }
-        return "\(category.name) · \(Text(subscription.cycle.label))"
-    }
-
-    private var status: LocalizedStringKey {
-        switch subscription.status {
+        let renewal = RenewalStatus(
+            status: subscription.status,
+            trialEnd: subscription.isInTrial(on: today) ? subscription.trialEndDate : nil,
+            nextPayment: subscription.nextPayment(after: today),
+            today: today,
+            calendar: .current
+        )
+        switch renewal {
         case .paused: return "In pausa"
         case .cancelled: return "Annullato"
-        case .active: break
-        }
-        if subscription.isInTrial(on: today), let end = subscription.trialEndDate {
-            switch DueDay(end, from: today, in: .current) {
-            case .today: return "La prova finisce oggi"
-            case .tomorrow: return "La prova finisce domani"
-            case let .inDays(days): return "Prova: ancora \(days) giorni"
-            case .on: return "Prova fino al \(end.formatted(.dateTime.day().month()))"
+        case .finished: return "Concluso"
+        case let .renews(days, date):
+            let day = Self.shortDate(date)
+            switch days {
+            case 0: return "Rinnova oggi · \(day)"
+            case 1: return "Rinnova domani · \(day)"
+            default: return "Rinnova tra ^[\(days) giorno](inflect: true) · \(day)"
+            }
+        case let .trialEnds(days, date):
+            let day = Self.shortDate(date)
+            switch days {
+            case 0: return "La prova finisce oggi · \(day)"
+            case 1: return "La prova finisce domani · \(day)"
+            default: return "La prova finisce tra ^[\(days) giorno](inflect: true) · \(day)"
             }
         }
-        guard let next = subscription.nextPayment(after: today) else { return "Concluso" }
-        switch DueDay(next, from: today, in: .current) {
-        case .today: return "Oggi"
-        case .tomorrow: return "Domani"
-        case let .inDays(days): return "Tra \(days) giorni"
-        case let .on(date): return "\(date.formatted(.dateTime.day().month()))"
-        }
+    }
+
+    /// "19 ott", kept on one line: the row may wrap before the date, never inside it.
+    private static func shortDate(_ date: Date) -> String {
+        date.formatted(.dateTime.day().month(.abbreviated)).replacing(" ", with: "\u{00A0}")
     }
 }
 
 #Preview("Light") {
     List { SubscriptionRow(subscription: .preview, today: .now) }
+        .modelContainer(.preview)
 }
 
 #Preview("Dark") {
     List { SubscriptionRow(subscription: .preview, today: .now) }
+        .modelContainer(.preview)
         .preferredColorScheme(.dark)
 }

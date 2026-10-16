@@ -11,7 +11,9 @@ struct RootView: View {
     @State private var currency = CurrencySettings()
     @Environment(ListSharing.self) private var sharing
     @Environment(ReceivedLists.self) private var received
-    @State private var reminders = Reminders(center: Self.isDemo ? SilentReminderCenter() : SystemReminderCenter())
+    @Environment(AppRouter.self) private var router
+    @State private var tab = AppTab.subscriptions
+    @State private var reminders = Reminders(center: Self.isDemo ? SilentReminderCenter(answer: Self.demoAccess) : SystemReminderCenter())
 
     /// Screenshots and UI tests run on made-up data and must never touch the device's notifications.
     /// The device notification test opts back in with SBU_REAL_NOTIFICATIONS, on its own empty store.
@@ -21,10 +23,20 @@ struct RootView: View {
         return defaults.bool(forKey: "FASTLANE_SNAPSHOT") || defaults.bool(forKey: "SBU_EMPTY_STORE")
     }
 
+    /// A flow test asks for notifications refused with SBU_NOTIFICATIONS_DENIED, to see the form's warning.
+    private static var demoAccess: NotificationAccess {
+        UserDefaults.standard.bool(forKey: "SBU_NOTIFICATIONS_DENIED") ? .denied : .notDetermined
+    }
+
     var body: some View {
-        SbuAppShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork),
-                    dataLocation: Self.syncsWithICloud ? .yourDevices : .thisDevice) {
-            MainView(currency: currency)
+        SbuTabShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork),
+                    dataLocation: Self.syncsWithICloud ? .yourDevices : .thisDevice, selection: $tab, settingsTab: AppTab.settings) {
+            SbuTab("Abbonamenti", systemImage: "creditcard", value: AppTab.subscriptions) {
+                MainView(currency: currency)
+            }
+            SbuTab("Calendario", systemImage: "calendar", value: AppTab.calendar) {
+                PaymentsCalendarView(currency: currency)
+            }
         } settings: {
             TotalSection()
             ReminderSection(reminders: reminders)
@@ -32,6 +44,14 @@ struct RootView: View {
             OrganizeSection()
             DataSection(currency: currency)
             LegacyImportSection()
+        }
+        // The add and edit forms warn when iOS holds back the reminders.
+        .environment(reminders)
+        // A route from Siri, Shortcuts or Spotlight first brings its tab forward; the tab follows the rest.
+        .onChange(of: router.pending, initial: true) {
+            guard let route = router.pending else { return }
+            tab = AppTab(route)
+            if route == .calendar { router.pending = nil }
         }
         .onChange(of: scenePhase, initial: true) {
             guard scenePhase == .active else { return }

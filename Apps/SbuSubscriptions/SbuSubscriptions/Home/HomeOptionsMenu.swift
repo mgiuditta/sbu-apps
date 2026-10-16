@@ -15,12 +15,15 @@ struct HomeOptionsMenu: View {
 
     var body: some View {
         Menu {
-            Picker("Ordina per", selection: $sort) {
-                Text("Prossimo pagamento").tag(HomeSort.nextPayment)
-                Text("Nome").tag(HomeSort.name)
-                Text("Prezzo al mese").tag(HomeSort.monthlyPrice)
+            // Grouped by state, the order is on the Attivi header; by cycle or category there is no such header.
+            if grouping != .status {
+                Picker("Ordina per", selection: $sort) {
+                    Text("Prossimo pagamento").tag(HomeSort.nextPayment)
+                    Text("Prezzo al mese").tag(HomeSort.monthlyPrice)
+                    Text("Nome").tag(HomeSort.name)
+                }
+                .pickerStyle(.menu)
             }
-            .pickerStyle(.menu)
             Picker("Raggruppa per", selection: $grouping) {
                 Text("Stato").tag(HomeGrouping.status)
                 Text("Ciclo").tag(HomeGrouping.cycle)

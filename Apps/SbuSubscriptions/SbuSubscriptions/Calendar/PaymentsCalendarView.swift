@@ -10,6 +10,7 @@ struct PaymentsCalendarView: View {
     @State private var grid = MonthGrid(containing: .now, calendar: .current)
     @State private var selected = Calendar.current.startOfDay(for: .now)
     @State private var addFrom: AddStart?
+    @State private var opened: Subscription?
     @ScaledMetric(relativeTo: .title2) private var totalSize = SbuTheme.statSmallSize
 
     var body: some View {
@@ -28,9 +29,16 @@ struct PaymentsCalendarView: View {
                         .foregroundStyle(SbuTheme.inkMuted)
                 }
                 ForEach(payments) { payment in
-                    NavigationLink(value: payment.subscription) {
-                        LabeledContent(payment.subscription.name) {
+                    Button {
+                        opened = payment.subscription
+                    } label: {
+                        // Not a LabeledContent: inside a button it stacked the price under the name.
+                        HStack {
+                            Text(payment.subscription.name)
+                                .foregroundStyle(SbuTheme.ink)
+                            Spacer()
                             Text(payment.subscription.price, format: .currency(code: payment.subscription.currencyCode))
+                                .foregroundStyle(SbuTheme.inkMuted)
                         }
                     }
                 }
@@ -41,8 +49,9 @@ struct PaymentsCalendarView: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
-        .navigationTitle("Calendario")
-        .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $opened) { subscription in
+            SubscriptionDetailView(subscription: subscription, currency: currency)
+        }
         .sheet(item: $addFrom) { start in
             AddSubscriptionSheet(currency: currency, startDate: start.date)
         }

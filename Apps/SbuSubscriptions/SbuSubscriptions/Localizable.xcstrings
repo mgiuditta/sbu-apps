@@ -211,6 +211,16 @@
         }
       }
     },
+    "Abbonamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscriptions"
+          }
+        }
+      }
+    },
     "Abbonamenti dell'App Store" : {
       "localizations" : {
         "en" : {
@@ -227,6 +237,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Subscription"
+          }
+        }
+      }
+    },
+    "Abbonato da" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribed for"
           }
         }
       }
@@ -417,6 +437,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancelled"
+          }
+        }
+      }
+    },
+    "Annullato non entra nel totale e non ti ricorda i pagamenti. Riattivalo quando vuoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelled, it stays out of the total and sends no reminders. Reactivate it whenever you like."
           }
         }
       }
@@ -941,6 +971,16 @@
         }
       }
     },
+    "Durata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duration"
+          }
+        }
+      }
+    },
     "Elimina %@" : {
       "localizations" : {
         "en" : {
@@ -1077,6 +1117,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Family"
+          }
+        }
+      }
+    },
+    "Fatturazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Billing"
           }
         }
       }
@@ -1401,12 +1451,42 @@
         }
       }
     },
+    "La prova finisce domani · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends tomorrow · %@"
+          }
+        }
+      }
+    },
     "La prova finisce oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trial ends today"
+          }
+        }
+      }
+    },
+    "La prova finisce oggi · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends today · %@"
+          }
+        }
+      }
+    },
+    "La prova finisce tra ^[%lld giorno](inflect: true) · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends in ^[%lld day](inflect: true) · %@"
           }
         }
       }
@@ -1587,6 +1667,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Modifica lo storico dei pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit billing history"
           }
         }
       }
@@ -1787,6 +1877,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes"
+          }
+        }
+      }
+    },
+    "Notifiche disattivate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications off"
           }
         }
       }
@@ -2101,6 +2201,16 @@
         }
       }
     },
+    "Per sempre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Until you cancel"
+          }
+        }
+      }
+    },
     "Personalizzato" : {
       "localizations" : {
         "en" : {
@@ -2177,6 +2287,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reminder"
+          }
+        }
+      }
+    },
+    "Prossimo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
           }
         }
       }
@@ -2331,6 +2451,16 @@
         }
       }
     },
+    "Ricorrente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recurring"
+          }
+        }
+      }
+    },
     "Riga %lld: ciclo non riconosciuto «%@»" : {
       "localizations" : {
         "en" : {
@@ -2397,6 +2527,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove list"
+          }
+        }
+      }
+    },
+    "Rinnova domani · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews tomorrow · %@"
+          }
+        }
+      }
+    },
+    "Rinnova oggi · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews today · %@"
+          }
+        }
+      }
+    },
+    "Rinnova tra ^[%lld giorno](inflect: true) · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews in ^[%lld day](inflect: true) · %@"
           }
         }
       }
@@ -2691,6 +2851,16 @@
         }
       }
     },
+    "Speso finora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spent so far"
+          }
+        }
+      }
+    },
     "Stai pagando ^[%lld abbonamento](inflect: true)." : {
       "localizations" : {
         "en" : {
@@ -2707,6 +2877,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Status"
+          }
+        }
+      }
+    },
+    "Storico dei pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Billing history"
+          }
+        }
+      }
+    },
+    "Storico dei prezzi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price history"
           }
         }
       }
@@ -2777,6 +2967,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rate"
+          }
+        }
+      }
+    },
+    "Tipo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type"
           }
         }
       }
@@ -2887,6 +3087,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "VPN"
+          }
+        }
+      }
+    },
+    "Vai in Impostazioni > Notifiche > Sbu Subscriptions > Consenti notifiche." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Settings > Notifications > Sbu Subscriptions > Allow Notifications."
           }
         }
       }

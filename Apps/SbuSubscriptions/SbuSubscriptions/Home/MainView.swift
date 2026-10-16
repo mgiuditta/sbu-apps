@@ -17,7 +17,6 @@ struct MainView: View {
     @State private var search = ""
     /// The cycle or category sections folded, by title.
     @State private var collapsed: Set<String> = []
-    @State private var showsCalendar = false
     @State private var opened: Subscription?
     @Environment(AppRouter.self) private var router
     @Environment(ReceivedLists.self) private var received
@@ -42,22 +41,6 @@ struct MainView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                 }
-                Section {
-                    // A row, not a toolbar button: with + and the filters the title would no longer fit.
-                    NavigationLink {
-                        PaymentsCalendarView(currency: currency)
-                    } label: {
-                        Label {
-                            Text("Calendario dei pagamenti")
-                        } icon: {
-                            // Not the accent: on this screen it belongs to the figure's full stop.
-                            Image(systemName: "calendar")
-                                .fontWeight(.medium)
-                                .foregroundStyle(SbuTheme.inkMuted)
-                        }
-                    }
-                    .accessibilityIdentifier("calendar")
-                }
             }
             if !groups.trials.isEmpty {
                 Section {
@@ -70,8 +53,10 @@ struct MainView: View {
             }
             ForEach(HomeSections.groups(groups.active, by: grouping)) { group in
                 if grouping == .status {
-                    Section(group.title) {
+                    Section {
                         rows(group.subscriptions, today: today)
+                    } header: {
+                        SortHeader(title: group.title, sort: $sort)
                     }
                 } else {
                     Section {
@@ -83,9 +68,9 @@ struct MainView: View {
                     }
                 }
             }
-            CollapsedSection(title: "In pausa", subscriptions: groups.paused, today: today)
-            CollapsedSection(title: "Annullati", subscriptions: groups.cancelled, today: today)
-            CollapsedSection(title: "Conclusi", subscriptions: groups.finished, today: today)
+            CollapsedSection(title: "In pausa", subscriptions: groups.paused, today: today, open: open)
+            CollapsedSection(title: "Annullati", subscriptions: groups.cancelled, today: today, open: open)
+            CollapsedSection(title: "Conclusi", subscriptions: groups.finished, today: today, open: open)
             ReceivedListsSection(received: received, currency: currency, period: period)
         }
         .listStyle(.insetGrouped)
@@ -103,36 +88,37 @@ struct MainView: View {
                 }
             }
             if subscriptions.isEmpty, received.lists.isEmpty {
-                ContentUnavailableView {
-                    Label("Nessun abbonamento", systemImage: "creditcard")
-                } description: {
-                    Text("Gli abbonamenti che aggiungi compaiono qui, con quanto spendi.")
-                } actions: {
-                    SbuButton("Aggiungi") { isAdding = true }
-                        .accessibilityIdentifier("addFirst")
+                // Scrollable, as the list under it: in a tab the audit read the fixed overlay's text as clipped.
+                ScrollView {
+                    ContentUnavailableView {
+                        Label("Nessun abbonamento", systemImage: "creditcard")
+                    } description: {
+                        Text("Gli abbonamenti che aggiungi compaiono qui, con quanto spendi.")
+                    } actions: {
+                        SbuButton("Aggiungi") { isAdding = true }
+                            .accessibilityIdentifier("addFirst")
+                    }
+                    .containerRelativeFrame(.vertical)
                 }
+                .background(SbuTheme.surface)
             }
         }
         .toolbar {
-            // In ink, like the gear: on this screen the accent belongs to the figure's full stop.
-            ToolbarItemGroup(placement: .topBarLeading) {
-                Button("Aggiungi abbonamento", systemImage: "plus") { isAdding = true }
-                    .tint(SbuTheme.ink)
-                    .accessibilityIdentifier("add")
-                if !subscriptions.isEmpty {
+            // In ink: on this screen the accent belongs to the figure's full stop.
+            if !subscriptions.isEmpty {
+                ToolbarItem(placement: .topBarLeading) {
                     HomeOptionsMenu(sort: $sort, grouping: $grouping, list: $listFilter, category: $categoryFilter,
                                     paymentMethod: $methodFilter, subscriptions: subscriptions)
                 }
             }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Aggiungi abbonamento", systemImage: "plus") { isAdding = true }
+                    .tint(SbuTheme.ink)
+                    .accessibilityIdentifier("add")
+            }
         }
-        .navigationDestination(for: Subscription.self) { subscription in
+        .sheet(item: $opened) { subscription in
             SubscriptionDetailView(subscription: subscription, currency: currency)
-        }
-        .navigationDestination(item: $opened) { subscription in
-            SubscriptionDetailView(subscription: subscription, currency: currency)
-        }
-        .navigationDestination(isPresented: $showsCalendar) {
-            PaymentsCalendarView(currency: currency)
         }
         .onChange(of: router.pending, initial: true) {
             follow(router.pending)
@@ -144,24 +130,29 @@ struct MainView: View {
 
     private func rows(_ subscriptions: [Subscription], today: Date) -> some View {
         ForEach(subscriptions) { subscription in
-            NavigationLink(value: subscription) {
-                SubscriptionRow(subscription: subscription, today: today)
-            }
+            SubscriptionButton(subscription: subscription, today: today, open: open)
         }
+    }
+
+    private func open(_ subscription: Subscription) {
+        opened = subscription
     }
 
     private func isCollapsed(_ title: String) -> Binding<Bool> {
         Binding { collapsed.contains(title) } set: { if $0 { collapsed.insert(title) } else { collapsed.remove(title) } }
     }
 
-    /// Follows a route from Siri, Shortcuts or Spotlight, once.
+    /// Follows a route from Siri, Shortcuts or Spotlight, once; the calendar is its own tab, which `RootView` selects.
     private func follow(_ route: AppRoute?) {
-        guard let route else { return }
-        router.pending = nil
         switch route {
-        case let .subscription(id): opened = subscriptions.first { $0.uuid == id }
-        case .calendar: showsCalendar = true
-        case .add: isAdding = true
+        case let .subscription(id):
+            router.pending = nil
+            opened = subscriptions.first { $0.uuid == id }
+        case .add:
+            router.pending = nil
+            isAdding = true
+        case .calendar, nil:
+            break
         }
     }
 

@@ -27,7 +27,7 @@ final class SharingFlowTests: XCTestCase {
         XCTAssertFalse(shared.waitForExistence(timeout: 2))
 
         app.swipeDown(); app.swipeDown(); app.swipeDown()
-        app.navigationBars.buttons.allElementsBoundByIndex.last?.tap()
+        app.tabBars.buttons["Impostazioni"].tap()
         let lists = app.buttons["Liste"]
         for _ in 0..<4 where !lists.isHittable { app.swipeUp() }
         lists.tap()

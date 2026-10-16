@@ -8,7 +8,7 @@ final class CalendarFlowTests: XCTestCase {
         app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launch()
 
-        app.buttons["calendar"].tap()
+        app.tabBars.buttons["Calendario"].tap()
         XCTAssertTrue(app.buttons["Mese successivo"].waitForExistence(timeout: 5))
         attach(app, "calendario")
         try audit(app)

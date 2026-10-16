@@ -30,7 +30,7 @@ final class DeviceCheckTests: XCTestCase {
         }
         XCTAssertTrue(app.staticTexts["Prova Sbu"].waitForExistence(timeout: 5))
 
-        app.navigationBars.buttons.allElementsBoundByIndex.last?.tap()
+        app.tabBars.buttons["Impostazioni"].tap()
         let send = app.buttons["Invia un promemoria di prova"]
         XCTAssertTrue(send.waitForExistence(timeout: 5), "With permission given, settings offer the test reminder")
         attach(app, "impostazioni")
@@ -57,10 +57,12 @@ final class DeviceCheckTests: XCTestCase {
         app.buttons["edit"].tap()
         attach(app, "modifica-ax5")
         app.buttons["Annulla"].tap()
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        // The detail is a sheet: dragged down from its top edge.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08))
+            .press(forDuration: 0.1, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.98)))
         app.swipeDown()
         app.swipeDown()
-        app.navigationBars.buttons.allElementsBoundByIndex.last?.tap()
+        app.tabBars.buttons["Impostazioni"].tap()
         attach(app, "impostazioni-ax5")
     }
 

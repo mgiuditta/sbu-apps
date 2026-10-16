@@ -12,23 +12,25 @@ final class SnapshotTests: XCTestCase {
         XCTAssertTrue(element("Musica", "Music", in: app).exists)
         snapshot("01-main")
 
-        app.buttons["calendar"].tap()
+        // The tabs, in order: Abbonamenti, Calendario, Impostazioni.
+        let tabs = app.tabBars.buttons
+        tabs.element(boundBy: 1).tap()
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "Oggi", "Today")).firstMatch.waitForExistence(timeout: 5))
         // A day with payments, so the list under the month shows them.
         app.buttons.matching(NSPredicate(format: "label CONTAINS %@ AND NOT (label BEGINSWITH %@) AND NOT (label BEGINSWITH %@)", ": ", "Oggi", "Today")).firstMatch.tap()
         snapshot("02-calendar")
-        app.navigationBars.buttons.firstMatch.tap()
+        tabs.element(boundBy: 0).tap()
 
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "Musica", "Music")).firstMatch.tap()
         XCTAssertTrue(app.buttons["edit"].waitForExistence(timeout: 5))
         snapshot("03-detail")
-        app.navigationBars.buttons.firstMatch.tap()
+        // The detail is a sheet: dragged down from its top edge.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08))
+            .press(forDuration: 0.1, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.98)))
+        XCTAssertTrue(app.buttons["edit"].waitForNonExistence(timeout: 5), "The detail sheet closes")
 
-        // The gear is always the last button of the bar.
-        let gear = app.navigationBars.buttons.allElementsBoundByIndex.last
-        let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: gear)
-        _ = XCTWaiter.wait(for: [hittable], timeout: 5)
-        gear?.tap()
+        tabs.element(boundBy: 2).tap()
+        XCTAssertTrue(element("Ora dei promemoria", "Reminder time", in: app).exists, "Settings are on screen")
         snapshot("04-privacy")
     }
 

@@ -1,3 +1,5 @@
-Rebuilt from scratch. Your subscriptions and reminders stay.
+Three tabs: Subscriptions, Calendar and Settings. The payments calendar is one tap away.
 
-New: payments calendar, free trials, price changes, converted currencies, shared lists, widgets, Siri, optional iCloud.
+The detail opens in a sheet: the price up top, what you've spent so far, how long you've been subscribed, the latest payments and prices. Mark as cancelled is the button at the bottom.
+
+Each row says in how many days it renews, and you change the order above the list. If notifications are off, the form tells you and takes you to Settings.

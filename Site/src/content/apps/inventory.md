@@ -3,7 +3,7 @@
 app: SbuInventory
 accent: accent-inventory
 order: 13
-status: building
+status: testflight
 appStoreId: null
 category: UtilitiesApplication
 originale:

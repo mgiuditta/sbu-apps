@@ -3,7 +3,7 @@
 app: SbuSpeed
 accent: accent-speed
 order: 9
-status: building
+status: testflight
 appStoreId: null
 category: UtilitiesApplication
 originale:

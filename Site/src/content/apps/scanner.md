@@ -3,8 +3,9 @@
 app: SbuScanner
 accent: accent-scanner
 order: 3
-status: building
-appStoreId: null
+status: live
+published: 2026-05-26
+appStoreId: 6772572337
 category: UtilitiesApplication
 originale:
   name: QR Reader for iPhone

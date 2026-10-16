@@ -70,6 +70,7 @@ export async function getApps() {
       if (!listing) return undefined;
       if (!png) throw new Error(`Missing Design/icons/sbu-${app.id}.png`);
       if (app.data.originale) checkPrice(app.id, app.data.originale);
+      if (app.data.status === 'live' && !app.data.published) throw new Error(`apps/${app.id}: a live app needs published`);
       return {
         slug: app.id,
         ...app.data,
@@ -99,6 +100,8 @@ export async function getUpcoming() {
         slug: app.id,
         accent: app.data.accent,
         order: app.data.order,
+        status: app.data.status,
+        published: app.data.published,
         // SbuNoise -> Sbu Noise: the listing is where the real name will come from.
         name: app.data.app.replace(/^Sbu/, 'Sbu '),
         teaser: app.data.teaser,

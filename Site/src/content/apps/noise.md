@@ -3,7 +3,7 @@
 app: SbuNoise
 accent: accent-noise
 order: 4
-status: building
+status: review
 appStoreId: null
 category: LifestyleApplication
 permissions:

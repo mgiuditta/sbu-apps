@@ -3,7 +3,8 @@
 app: SbuSubscriptions
 accent: accent-subscriptions
 order: 2
-status: building
+status: live
+published: 2026-06-15
 appStoreId: 6780154928
 category: FinanceApplication
 originale:

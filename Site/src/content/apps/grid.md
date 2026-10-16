@@ -3,7 +3,7 @@
 app: SbuGrid
 accent: accent-grid
 order: 16
-status: building
+status: planned
 appStoreId: null
 category: DesignApplication
 teaser:

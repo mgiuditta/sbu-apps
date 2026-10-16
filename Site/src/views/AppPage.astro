@@ -3,7 +3,7 @@ import FreeBadge from '../components/FreeBadge.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ToolFieldShot from '../components/ToolFieldShot.astro';
 import Base from '../layouts/Base.astro';
-import { capitalize, formatDate, formatPrice, localePath, ui } from '../i18n';
+import { capitalize, formatDate, formatPrice, localePath, statusLabel, ui } from '../i18n';
 import { plateCaption, text, type App } from '../lib/apps';
 import { breadcrumbs, faqPage } from '../lib/jsonld';
 import { REPO_URL } from '../lib/pages';
@@ -67,7 +67,7 @@ const jsonLd = [
           {app.storeUrl ? (
             <a href={app.storeUrl} class="cta">{t.appStore}</a>
           ) : (
-            <span class="text-headline text-ink-muted">{t.comingSoon}</span>
+            <span class="text-headline text-ink-muted">{statusLabel(app, locale)}</span>
           )}
           <span class="text-footnote text-ink-muted">{t.requires}</span>
         </p>

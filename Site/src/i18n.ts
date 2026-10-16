@@ -20,7 +20,6 @@ export const ui = {
     promisesLabel: 'Le promesse di ogni app',
     promises: ['Nessun abbonamento', 'Nessun acquisto in-app', 'Nessun account', 'Nessuna pubblicità', 'Nessun tracking', 'Dati solo sul dispositivo'],
     freeBadge: ['Nessun account', 'Nessuna pubblicità', 'Nessun acquisto in-app', 'Dati solo su questo iPhone'],
-    comingSoon: 'In arrivo',
     /** The app's fixed catalogue number, its `order`: the same on the plate, the home and its page. */
     number: (n: number) => `N° ${String(n).padStart(2, '0')}`,
     appStore: 'Scarica dall’App Store',
@@ -54,7 +53,6 @@ export const ui = {
     promisesLabel: 'What every app promises',
     promises: ['No subscription', 'No in-app purchases', 'No account', 'No ads', 'No tracking', 'Data stays on your device'],
     freeBadge: ['No account', 'No ads', 'No in-app purchases', 'Data only on this iPhone'],
-    comingSoon: 'Coming soon',
     number: (n: number) => `No. ${String(n).padStart(2, '0')}`,
     appStore: 'Download on the App Store',
     requires: 'For iPhone with iOS 17 or later.',
@@ -75,6 +73,17 @@ export const ui = {
     priceSource: (date: string) => `One-time price on the Italian App Store, checked on ${date}.`,
   },
 } as const;
+
+const statusWords = {
+  it: { planned: 'Pianificata', development: 'In sviluppo', testflight: 'In TestFlight', review: 'In revisione', live: 'Pubblicata il' },
+  en: { planned: 'Planned', development: 'In development', testflight: 'On TestFlight', review: 'In review', live: 'Published on' },
+} as const;
+
+/** The app's state in words, the same everywhere on the site: "In sviluppo", "Pubblicata il 15 giugno 2026". */
+export function statusLabel(app: { status: keyof (typeof statusWords)['it']; published?: Date }, locale: Locale): string {
+  const word = statusWords[locale][app.status];
+  return app.status === 'live' && app.published ? `${word} ${formatDate(app.published, locale)}` : word;
+}
 
 export function formatDate(date: Date, locale: Locale): string {
   return new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(date);

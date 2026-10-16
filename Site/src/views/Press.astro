@@ -5,7 +5,7 @@ import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
 import logo from '../../../Design/logos/sbu-logo.svg?url';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
-import { capitalize, localePath, ui } from '../i18n';
+import { capitalize, localePath, statusLabel, ui } from '../i18n';
 import { iconThumb, text } from '../lib/apps';
 import { breadcrumbs } from '../lib/jsonld';
 import { SUPPORT_EMAIL } from '../lib/pages';
@@ -84,9 +84,9 @@ const copy = {
 const entries = await Promise.all([
   ...apps.map((app) => {
     const listing = text(app, locale);
-    return { slug: app.slug, name: listing.name, line: `${capitalize(listing.oneThing)}.`, icon: app.icon, live: app.status === 'live', page: localePath(locale, `apps/${app.slug}`) };
+    return { slug: app.slug, name: listing.name, line: `${capitalize(listing.oneThing)}.`, icon: app.icon, live: app.status === 'live', state: statusLabel(app, locale), page: localePath(locale, `apps/${app.slug}`) };
   }),
-  ...upcoming.map((app) => ({ slug: app.slug, name: app.name, line: app.teaser[locale], icon: app.icon, live: false, page: undefined })),
+  ...upcoming.map((app) => ({ slug: app.slug, name: app.name, line: app.teaser[locale], icon: app.icon, live: false, state: statusLabel(app, locale), page: undefined })),
 ].map(async (entry) => ({ ...entry, thumb: await iconThumb(entry.slug) })));
 const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, path]])];
 ---
@@ -125,7 +125,7 @@ const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, 
           <li class="app">
             <img src={entry.thumb} alt="" width="48" height="48" class="rounded-icon size-12" loading="lazy" />
             <div class="flex flex-col gap-1">
-              <p class="text-headline">{entry.page ? <a href={entry.page} class="text-ink">{entry.name}</a> : entry.name}{!entry.live && <span class="text-footnote text-ink-muted"> · {t.comingSoon}</span>}</p>
+              <p class="text-headline">{entry.page ? <a href={entry.page} class="text-ink">{entry.name}</a> : entry.name}<span class="text-footnote text-ink-muted"> · {entry.state}</span></p>
               <p class="text-subheadline text-ink-muted">{entry.line}</p>
               <p class="flex flex-wrap gap-4 text-footnote">
                 <a href={entry.icon} download={`${entry.slug}-icon.png`}>{copy.icon}, PNG</a>

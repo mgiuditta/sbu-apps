@@ -3,7 +3,7 @@
 app: SbuHabits
 accent: accent-habits
 order: 1
-status: building
+status: review
 appStoreId: null
 category: HealthApplication
 originale:

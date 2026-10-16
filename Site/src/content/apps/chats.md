@@ -3,7 +3,7 @@
 app: SbuChats
 accent: accent-chats
 order: 12
-status: building
+status: testflight
 appStoreId: null
 category: UtilitiesApplication
 originale:

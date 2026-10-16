@@ -3,7 +3,7 @@
 app: SbuMeds
 accent: accent-meds
 order: 19
-status: building
+status: planned
 appStoreId: null
 category: HealthApplication
 teaser:

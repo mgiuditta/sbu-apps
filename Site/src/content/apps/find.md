@@ -3,7 +3,7 @@
 app: SbuFind
 accent: accent-find
 order: 14
-status: building
+status: development
 appStoreId: null
 category: UtilitiesApplication
 teaser:

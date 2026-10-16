@@ -3,7 +3,7 @@
 app: SbuMoon
 accent: accent-moon
 order: 10
-status: building
+status: review
 appStoreId: null
 category: UtilitiesApplication
 originale:

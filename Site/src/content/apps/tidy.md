@@ -3,7 +3,7 @@
 app: SbuTidy
 accent: accent-tidy
 order: 17
-status: building
+status: planned
 appStoreId: null
 category: LifestyleApplication
 teaser:

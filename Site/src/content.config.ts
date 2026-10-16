@@ -28,7 +28,9 @@ const apps = defineCollection({
     app: z.string().regex(/^Sbu[A-Z][A-Za-z]+$/),
     accent: z.string().regex(/^accent-[a-z]+$/),
     order: z.number(),
-    status: z.enum(['building', 'live']),
+    /** Where the app is: planned → development → testflight → review → live. `published`: first day on the App Store, required when live. */
+    status: z.enum(['planned', 'development', 'testflight', 'review', 'live']),
+    published: z.coerce.date().optional(),
     appStoreId: z.number().nullable(),
     /** schema.org applicationCategory, e.g. UtilitiesApplication. */
     category: z.string(),

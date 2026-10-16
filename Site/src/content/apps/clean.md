@@ -3,7 +3,7 @@
 app: SbuClean
 accent: accent-clean
 order: 11
-status: building
+status: review
 appStoreId: null
 category: UtilitiesApplication
 originale:

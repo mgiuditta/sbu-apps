@@ -1,6 +1,26 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@: %2$@"
+          }
+        }
+      }
+    },
+    "Abbassa il volume" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume down"
+          }
+        }
+      }
+    },
     "Accendi la TV e collega il telefono alla stessa Wi-Fi." : {
       "localizations" : {
         "en" : {
@@ -17,6 +37,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn on the TV and connect your phone to the same Wi-Fi. Sbu Remote finds it and controls it from here."
+          }
+        }
+      }
+    },
+    "Accensione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Power"
           }
         }
       }
@@ -41,12 +71,82 @@
         }
       }
     },
+    "Alza il volume" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume up"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "Apri Impostazioni" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Attiva Impostazioni › Rete › Configurazione rete domestica › Controllo IP, con Autenticazione Normale e chiave precondivisa, e Avvio remoto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on Settings › Network › Home Network Setup › IP Control, with Authentication set to Normal and Pre-Shared Key, and Remote Start."
+          }
+        }
+      }
+    },
+    "Attiva LG Connect Apps in Impostazioni › Rete. Sui modelli recenti si chiama Accensione TV mobile, in Impostazioni › Generali › Dispositivi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on LG Connect Apps in Settings › Network. On recent models it is called Mobile TV On, in Settings › General › Devices."
+          }
+        }
+      }
+    },
+    "Avanti veloce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fast forward"
+          }
+        }
+      }
+    },
+    "Canale precedente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous channel"
+          }
+        }
+      }
+    },
+    "Canale successivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next channel"
           }
         }
       }
@@ -61,12 +161,182 @@
         }
       }
     },
+    "Chiave precondivisa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pre-shared key"
+          }
+        }
+      }
+    },
+    "Codice di 6 caratteri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6-character code"
+          }
+        }
+      }
+    },
+    "Codice sulla TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code on the TV"
+          }
+        }
+      }
+    },
+    "Collega" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect"
+          }
+        }
+      }
+    },
+    "Collega la TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect the TV"
+          }
+        }
+      }
+    },
+    "Collega senza cifratura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect without encryption"
+          }
+        }
+      }
+    },
+    "Collegata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connected"
+          }
+        }
+      }
+    },
+    "Conferma" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    },
+    "Da collegare di nuovo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Needs connecting again"
+          }
+        }
+      }
+    },
+    "Destra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right"
+          }
+        }
+      }
+    },
+    "Dimentica questa TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forget this TV"
+          }
+        }
+      }
+    },
+    "Dimenticare %@?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forget %@?"
+          }
+        }
+      }
+    },
     "Funziona con Samsung Tizen dal 2016, LG webOS, Android TV e Google TV (Sony, TCL, Philips, Xiaomi, Hisense, Chromecast) e Sony Bravia." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Works with Samsung Tizen from 2016, LG webOS, Android TV and Google TV (Sony, TCL, Philips, Xiaomi, Hisense, Chromecast) and Sony Bravia."
+          }
+        }
+      }
+    },
+    "Giù" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Down"
+          }
+        }
+      }
+    },
+    "Guarda la TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Look at the TV"
+          }
+        }
+      }
+    },
+    "Home" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "Indietro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
+    "Indirizzo IP" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP address"
           }
         }
       }
@@ -81,12 +351,112 @@
         }
       }
     },
+    "Indirizzo MAC" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MAC address"
+          }
+        }
+      }
+    },
+    "La TV ha rifiutato. Controlla il codice o scegli Consenti sulla TV." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV said no. Check the code, or choose Allow on the TV."
+          }
+        }
+      }
+    },
+    "La TV ha risposto in un modo che Sbu Remote non conosce." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV answered in a way Sbu Remote does not know."
+          }
+        }
+      }
+    },
+    "La TV non riconosce più il telefono. Collegala di nuovo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV no longer knows this phone. Connect it again."
+          }
+        }
+      }
+    },
+    "La TV non risponde. Controlla che sia accesa e sulla stessa Wi-Fi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV does not answer. Check that it is on and on the same Wi-Fi."
+          }
+        }
+      }
+    },
+    "Le TV e le loro chiavi restano su questo iPhone, nel Portachiavi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your TVs and their keys stay on this iPhone, in the Keychain."
+          }
+        }
+      }
+    },
+    "Mi collego" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting"
+          }
+        }
+      }
+    },
+    "Modello" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Model"
+          }
+        }
+      }
+    },
     "Nessuna TV" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No TV"
+          }
+        }
+      }
+    },
+    "Nessuna TV salvata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saved TV"
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
           }
         }
       }
@@ -101,12 +471,72 @@
         }
       }
     },
+    "Non raggiungibile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not reachable"
+          }
+        }
+      }
+    },
+    "Non serve attivare nulla: basta che la TV sia accesa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to turn on: the TV only needs to be on."
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Opzioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Options"
+          }
+        }
+      }
+    },
+    "PIN di 4 cifre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4-digit PIN"
+          }
+        }
+      }
+    },
     "Per indirizzo" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "By address"
+          }
+        }
+      }
+    },
+    "Per usarla di nuovo dovrai collegarla da capo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To use it again you will connect it from the start."
           }
         }
       }
@@ -121,12 +551,102 @@
         }
       }
     },
+    "Questa TV non ha questo comando." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This TV does not have this command."
+          }
+        }
+      }
+    },
+    "Questa TV parla senza cifratura sulla rete di casa: chi usa la stessa Wi-Fi può leggere i comandi che le mandi. Succede con i modelli meno recenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This TV talks without encryption on your home network: anyone on the same Wi-Fi can read the commands you send it. Older models do this."
+          }
+        }
+      }
+    },
+    "Questa TV parla senza cifratura." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This TV talks without encryption."
+          }
+        }
+      }
+    },
+    "Rete locale disattivata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local Network off"
+          }
+        }
+      }
+    },
+    "Rete locale disattivata per Sbu Remote." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local Network is off for Sbu Remote."
+          }
+        }
+      }
+    },
     "Rete locale disattivata. Attivala in Impostazioni › Privacy e sicurezza › Rete locale › Sbu Remote." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Local Network is off. Turn it on in Settings › Privacy & Security › Local Network › Sbu Remote."
+          }
+        }
+      }
+    },
+    "Riavvolgi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rewind"
+          }
+        }
+      }
+    },
+    "Riproduci o metti in pausa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play or pause"
+          }
+        }
+      }
+    },
+    "Riprova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        }
+      }
+    },
+    "Rivedi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replay"
           }
         }
       }
@@ -141,12 +661,142 @@
         }
       }
     },
+    "Sconosciuto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown"
+          }
+        }
+      }
+    },
+    "Se hai scelto una chiave in Controllo IP, puoi usarla al posto del PIN." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you set a key in IP Control, you can use it instead of the PIN."
+          }
+        }
+      }
+    },
+    "Se la TV chiede il permesso a ogni avvio, imposta Impostazioni › Generali › Gestione dispositivi esterni › Gestione connessione dispositivi › Notifica di accesso › Solo la prima volta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If the TV asks every time, set Settings › General › External Device Manager › Device Connection Manager › Access Notification › First Time Only."
+          }
+        }
+      }
+    },
+    "Silenzia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute"
+          }
+        }
+      }
+    },
+    "Sinistra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left"
+          }
+        }
+      }
+    },
     "Sistema" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "System"
+          }
+        }
+      }
+    },
+    "Sorgente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source"
+          }
+        }
+      }
+    },
+    "Su" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up"
+          }
+        }
+      }
+    },
+    "Sulla TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On the TV"
+          }
+        }
+      }
+    },
+    "Sulla TV compare un PIN di 4 cifre: scrivilo qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV shows a 4-digit PIN: type it here."
+          }
+        }
+      }
+    },
+    "Sulla TV compare un codice di 6 caratteri: scrivilo qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV shows a 6-character code: type it here."
+          }
+        }
+      }
+    },
+    "Sulla TV compare una richiesta di accesso: scegli Consenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV asks for access: choose Allow."
+          }
+        }
+      }
+    },
+    "Sulla TV compare una richiesta di collegamento: scegli Accetta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV asks to connect: choose Accept."
+          }
+        }
+      }
+    },
+    "TV salvate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved TVs"
           }
         }
       }
@@ -167,6 +817,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You find the IP address in the TV's network settings."
+          }
+        }
+      }
+    },
+    "Usa la chiave" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the key"
           }
         }
       }

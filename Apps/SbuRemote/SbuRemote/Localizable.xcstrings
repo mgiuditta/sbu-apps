@@ -91,6 +91,26 @@
         }
       }
     },
+    "App" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps"
+          }
+        }
+      }
+    },
+    "Apre l'app sulla TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens the app on the TV"
+          }
+        }
+      }
+    },
     "Apri Impostazioni" : {
       "localizations" : {
         "en" : {
@@ -321,6 +341,26 @@
         }
       }
     },
+    "Fissa fino a tre app nella riga del telecomando." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin up to three apps to the remote's row."
+          }
+        }
+      }
+    },
+    "Fissa nella riga" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin to the row"
+          }
+        }
+      }
+    },
     "Frecce" : {
       "localizations" : {
         "en" : {
@@ -447,6 +487,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The TV answered in a way Sbu Remote does not know."
+          }
+        }
+      }
+    },
+    "La TV non ha dato l'elenco delle app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The TV did not give its list of apps."
           }
         }
       }
@@ -937,6 +987,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keyboard"
+          }
+        }
+      }
+    },
+    "Togli dalla riga" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from the row"
           }
         }
       }

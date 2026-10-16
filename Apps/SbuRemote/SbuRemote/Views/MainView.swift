@@ -9,11 +9,13 @@ struct MainView: View {
     @State private var isTyping = false
     @State private var isSpeaking = false
     @State private var voice = VoiceSearch()
+    @State private var pins = PinnedAppsStore()
+    @State private var isPickingApp = false
 
     var body: some View {
         Group {
             if let tv = session.tv {
-                RemoteView(session: session, tvName: tv.name)
+                RemoteView(session: session, tvName: tv.name, pinnedApps: pins.pins.apps(for: tv.id))
             } else {
                 NoTVView(onAdd: showAddTV)
             }
@@ -30,6 +32,12 @@ struct MainView: View {
                         Button("Cerca con la voce", systemImage: "mic", action: showVoice)
                             .disabled(!session.status.acceptsKeys)
                     }
+                }
+            }
+            if session.tv != nil {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("App", systemImage: "square.grid.2x2", action: showApps)
+                        .disabled(!session.status.acceptsKeys)
                 }
             }
             if let tv = session.tv {
@@ -50,6 +58,9 @@ struct MainView: View {
         .sheet(isPresented: $isTyping) {
             KeyboardSheet(session: session)
         }
+        .sheet(isPresented: $isPickingApp) {
+            AppsSheet(session: session, pins: pins)
+        }
         .sheet(isPresented: $isSpeaking) {
             VoiceSheet(session: session, voice: voice)
         }
@@ -61,6 +72,10 @@ struct MainView: View {
 
     private func showKeyboard() {
         isTyping = true
+    }
+
+    private func showApps() {
+        isPickingApp = true
     }
 
     private func showVoice() {

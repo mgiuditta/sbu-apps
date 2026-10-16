@@ -6,6 +6,7 @@ import SwiftUI
 struct RemoteView: View {
     let session: RemoteSession
     let tvName: String
+    var pinnedApps: [TVShortcut] = []
 
     @AppStorage("navigationMode") private var mode = NavigationMode.dPad
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -38,6 +39,9 @@ struct RemoteView: View {
                 .frame(height: SbuTheme.controlRound * 4)
                 KeyGridView(session: session)
                 VolumeChannelView(session: session)
+                if !pinnedApps.isEmpty {
+                    ShortcutRowView(apps: pinnedApps, session: session)
+                }
             }
             .padding(.horizontal, SbuTheme.space4)
             .padding(.bottom, SbuTheme.space4)

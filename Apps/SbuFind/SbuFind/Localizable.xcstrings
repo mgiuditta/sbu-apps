@@ -321,6 +321,26 @@
         }
       }
     },
+    "Lista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List"
+          }
+        }
+      }
+    },
+    "Mostra dispositivi senza nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show devices without a name"
+          }
+        }
+      }
+    },
     "Mouse" : {
       "localizations" : {
         "en" : {
@@ -477,6 +497,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No name"
+          }
+        }
+      }
+    },
+    "Spesso sono telefoni, computer e accessori dei vicini. Mostrali se quello che cerchi non ha un nome." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "They are often the phones, computers and accessories of people nearby. Show them if what you are looking for has no name."
           }
         }
       }

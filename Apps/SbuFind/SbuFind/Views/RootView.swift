@@ -14,6 +14,7 @@ struct RootView: View {
         SbuAppShell("Sbu Find", slug: "find", accent: SbuTheme.accentFind, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
             MainView(model: model)
         } settings: {
+            ListSection(model: model)
             FeedbackSection(model: model)
         }
         .task(id: scenePhase == .active) {

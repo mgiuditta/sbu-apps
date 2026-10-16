@@ -194,6 +194,34 @@ final class FindFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testSettingsShowTheUnnamedDevicesAndTheLicenses() throws {
+        let app = launch()
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+        app.navigationBars.buttons["Impostazioni"].tap()
+
+        let unnamed = app.switches["Mostra dispositivi senza nome"]
+        XCTAssertTrue(unnamed.waitForExistence(timeout: 5))
+        XCTAssertEqual(unnamed.value as? String, "0")
+        XCTAssertTrue(app.switches["Suono"].exists)
+        XCTAssertTrue(app.switches["Vibrazione"].exists)
+        try audit(app, excluding: Self.sheetExclusions)
+
+        unnamed.switches.firstMatch.tap()
+        XCTAssertEqual(unnamed.value as? String, "1")
+        let licenses = app.buttons["Licenze"]
+        for _ in 0..<5 where !licenses.isHittable {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(licenses.isHittable)
+        app.buttons["Fine"].tap()
+
+        // The three demo devices without a name join the list, and the footer goes.
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Senza nome'")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertEqual(rowLabels(app).count, 9)
+        XCTAssertFalse(app.staticTexts[Self.hiddenFooter].exists)
+    }
+
+    @MainActor
     func testDeniedBluetoothSaysSoAndOffersSettings() throws {
         let app = launch(scanner: "denied")
         XCTAssertTrue(app.staticTexts["Bluetooth non consentito"].waitForExistence(timeout: 5))

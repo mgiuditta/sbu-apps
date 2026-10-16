@@ -113,6 +113,10 @@ final class LGClient: TVClient {
         try await writePointer(LGPointerMessage.move(dx: dx, dy: dy))
     }
 
+    func clickPointer() async throws {
+        try await writePointer(LGPointerMessage.click)
+    }
+
     func sendText(_ text: String) async throws {
         let edit = TextEdit(from: fieldText, to: text)
         if edit.deleteCount > 0 {

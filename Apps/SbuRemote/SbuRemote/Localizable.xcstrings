@@ -281,6 +281,16 @@
         }
       }
     },
+    "Frecce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrows"
+          }
+        }
+      }
+    },
     "Funziona con Samsung Tizen dal 2016, LG webOS, Android TV e Google TV (Sony, TCL, Philips, Xiaomi, Hisense, Chromecast) e Sony Bravia." : {
       "localizations" : {
         "en" : {
@@ -427,6 +437,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Model"
+          }
+        }
+      }
+    },
+    "Navigazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navigation"
           }
         }
       }
@@ -807,6 +827,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TVs found"
+          }
+        }
+      }
+    },
+    "Touchpad" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touchpad"
           }
         }
       }

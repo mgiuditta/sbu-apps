@@ -7,16 +7,35 @@ struct RemoteView: View {
     let session: RemoteSession
     let tvName: String
 
+    @AppStorage("navigationMode") private var mode = NavigationMode.dPad
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
+
+    /// VoiceOver always gets the labelled arrows: the touchpad is a gesture surface.
+    private var shownMode: NavigationMode { voiceOver ? .dPad : mode }
+
     var body: some View {
         ScrollView {
             VStack(spacing: SbuTheme.space5) {
                 ConnectionStatusView(tvName: tvName, status: session.status, onRetry: retry)
-                HStack {
+                HStack(spacing: SbuTheme.space4) {
                     RemoteKeyButton(key: .home, session: session, side: SbuTheme.controlRoundSm)
-                    Spacer()
+                    Picker("Navigazione", selection: $mode) {
+                        Label("Frecce", systemImage: NavigationMode.dPad.systemImage).tag(NavigationMode.dPad)
+                        Label("Touchpad", systemImage: NavigationMode.touchpad.systemImage).tag(NavigationMode.touchpad)
+                    }
+                    .pickerStyle(.segmented)
+                    .labelStyle(.iconOnly)
+                    .opacity(voiceOver ? 0 : 1)
+                    .accessibilityHidden(voiceOver)
                     RemoteKeyButton(key: .power, session: session, side: SbuTheme.controlRoundSm)
                 }
-                DPadView(session: session)
+                Group {
+                    switch shownMode {
+                    case .dPad: DPadView(session: session)
+                    case .touchpad: TouchpadView(session: session)
+                    }
+                }
+                .frame(height: SbuTheme.controlRoundLg * 3)
                 HStack {
                     RemoteKeyButton(key: .back, session: session)
                     Spacer()

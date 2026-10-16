@@ -28,6 +28,8 @@ protocol TVClient: AnyObject {
     func send(_ key: RemoteKey, _ action: KeyAction) async throws
     /// Moves the pointer, in points of the touchpad. Only when `hasPointer`.
     func movePointer(dx: Double, dy: Double) async throws
+    /// A tap on the touchpad: a click where the pointer is (LG), OK elsewhere.
+    func clickPointer() async throws
     /// Makes the TV's active text field read `text`.
     func sendText(_ text: String) async throws
     /// Confirms the TV's active text field, like Enter.
@@ -45,6 +47,7 @@ protocol TVClient: AnyObject {
 extension TVClient {
     var hasPointer: Bool { false }
     func movePointer(dx: Double, dy: Double) async throws { throw TVClientError.unsupported }
+    func clickPointer() async throws { try await send(.select, .click) }
     func inputs() async throws -> [TVShortcut] { [] }
     func switchInput(_ input: TVShortcut) async throws { throw TVClientError.unsupported }
     func powerOn() async throws { throw TVClientError.unsupported }

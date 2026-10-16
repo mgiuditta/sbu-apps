@@ -7,6 +7,7 @@ import SwiftUI
 /// the privacy page, then the sbu.dev promise.
 struct SbuSettingsView<Settings: View>: View {
     @Environment(\.dismiss) private var dismiss
+    @AppStorage(SbuSound.isEnabledKey) private var playsSound = false
 
     let appName: LocalizedStringKey
     let appIcon: Image
@@ -49,6 +50,26 @@ struct SbuSettingsView<Settings: View>: View {
                 settings
                     .listRowBackground(SbuTheme.surfaceRaised)
 
+                if SbuIconPicker.isAvailable {
+                    Section {
+                        SbuIconPicker()
+                    } header: {
+                        Text("Icona", bundle: SbuTheme.bundle)
+                    }
+                    .listRowBackground(SbuTheme.surfaceRaised)
+                }
+
+                if SbuSound.url != nil {
+                    Section {
+                        Toggle(isOn: $playsSound) {
+                            Text("Suono del punto fermo", bundle: SbuTheme.bundle)
+                        }
+                    } footer: {
+                        Text("Un tocco breve quando la cifra si ferma.", bundle: SbuTheme.bundle)
+                    }
+                    .listRowBackground(SbuTheme.surfaceRaised)
+                }
+
                 Section {
                     Link(destination: privacyURL) {
                         HStack {
@@ -90,7 +111,7 @@ struct SbuSettingsView<Settings: View>: View {
             .listStyle(.insetGrouped)
             .listSectionSpacing(SbuTheme.space6)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(Text("Impostazioni", bundle: SbuTheme.bundle))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -101,13 +122,15 @@ struct SbuSettingsView<Settings: View>: View {
                 }
             }
         }
+        .toggleStyle(SbuToggleStyle())
+        .tint(SbuTheme.ink)
         .presentationCornerRadius(cornerRadius)
     }
 
-    /// `radiusXl` up to iOS 18; from iOS 26 the system radius that matches Liquid Glass.
+    /// `radiusSheet` up to iOS 18; from iOS 26 the system radius that matches Liquid Glass.
     private var cornerRadius: CGFloat? {
         if isTab { return nil }
-        if #available(iOS 26, *) { return nil } else { return SbuTheme.radiusXl }
+        if #available(iOS 26, *) { return nil } else { return SbuTheme.radiusSheet }
     }
 
     private func close() {

@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-/// One tab of `SbuTabShell`: a screen in its own NavigationStack on `surface`, with its name and symbol in the tab bar.
+/// One tab of `SbuTabShell`: a screen in its own NavigationStack on `paper`, with its name and symbol in the tab bar.
 ///
 ///     SbuTab("Calendario", systemImage: "calendar", value: AppTab.calendar) {
 ///         PaymentsCalendarView()
@@ -31,9 +31,10 @@ public struct SbuTab<Value: Hashable, Content: View>: View {
         NavigationStack {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
+                .sbuFullStopAudit(String(describing: value))
         }
         .tabItem {
             Label(title, systemImage: systemImage)

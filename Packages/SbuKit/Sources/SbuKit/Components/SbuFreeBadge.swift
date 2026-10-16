@@ -54,6 +54,6 @@ private struct SbuFreeBadgePreview: View {
         }
         .padding(SbuTheme.space4)
         .frame(maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

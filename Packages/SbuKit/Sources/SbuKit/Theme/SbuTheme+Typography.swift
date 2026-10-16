@@ -3,7 +3,8 @@ import SwiftUI
 public extension SbuTheme {
     // MARK: - iOS styles (Dynamic Type)
 
-    /// `large-title`: title of the NavigationStack.
+    /// `large-title`: title of the NavigationStack. The shells draw large bar titles in the title face;
+    /// on the tool screen use `SbuScreenTitle`.
     static let largeTitle = Font.largeTitle
     /// `title-2`: section heading inside a screen.
     static let title2 = Font.title2.bold()
@@ -35,8 +36,10 @@ public extension SbuTheme {
     static let statHeroTracking: CGFloat = -3
 
     /// `stat`: the one figure the app exists to show, closed by `SbuFullStop`. One per screen.
+    @available(*, deprecated, message: "Use SbuFigure or Font.sbuFigure(size:width:).")
     static let stat = numberFont(size: statSize)
     /// `stat-hero`: the figure on the tool screen, in `ink`, closed by `SbuFullStop`. One per app.
+    @available(*, deprecated, message: "Use SbuFigure or Font.sbuFigure(size:width:).")
     static let statHero = numberFont(size: statHeroSize)
     /// `stat-small`: amounts and counters in list rows, right aligned, without a full stop.
     static let statSmall = smallNumberFont(size: statSmallSize)

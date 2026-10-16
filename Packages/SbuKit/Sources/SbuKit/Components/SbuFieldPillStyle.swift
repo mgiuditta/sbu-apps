@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Draws a pill on the tool screen: `subheadline` in `ink` on `surfaceRaised`, a `line`
-/// hairline, `radiusPill`.
+/// hairline, `radiusCard`: square like every Sbu control.
 ///
 /// A selected or pressed pill sinks into `surfaceSunken`; a selected one also takes weight 600,
 /// so its state reads without color. A disabled pill keeps its shape and dims its text to
@@ -22,7 +22,7 @@ public struct SbuFieldPillStyle: ButtonStyle {
     }
 
     public func makeBody(configuration: Configuration) -> some View {
-        let shape = RoundedRectangle(cornerRadius: SbuTheme.radiusPill)
+        let shape = RoundedRectangle(cornerRadius: SbuTheme.radiusCard)
         configuration.label
             .font(SbuTheme.subheadline.weight(isSelected ? .semibold : .regular))
             .foregroundStyle(isEnabled ? SbuTheme.ink : SbuTheme.inkMuted)
@@ -68,6 +68,6 @@ private struct SbuFieldPillStylePreview: View {
                 .disabled(true)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

@@ -5,6 +5,7 @@ import SwiftUI
 ///
 /// It sits on `surface`, like every screen: the figure in `ink`, captions in `inkMuted`, the
 /// indicator in the accent. The figure is optional, because not every app has one. Use one per app.
+@available(*, deprecated, message: "Use SbuScreenTitle and SbuFigure on .sbuPaper: v5 removes SbuToolField in the next release.")
 public struct SbuToolField<Indicator: View, Pills: View>: View {
     private let caption: LocalizedStringKey
     /// The figure already formatted for the current locale, or `nil` when the app has none.

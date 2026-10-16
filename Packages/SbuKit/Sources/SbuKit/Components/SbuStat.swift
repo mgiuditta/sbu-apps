@@ -5,6 +5,7 @@ import SwiftUI
 ///
 /// Use one per management screen, near the top, never on the tool screen: there the figure
 /// goes in `SbuToolField`. Do not color the number: put any state in `context` as a word.
+@available(*, deprecated, message: "Use SbuFigure: v5 removes SbuStat in the next release.")
 public struct SbuStat: View {
     private let label: LocalizedStringKey
     /// The value already formatted for the current locale.
@@ -96,6 +97,6 @@ private struct SbuStatPreview: View {
         }
         .padding(SbuTheme.space4)
         .frame(maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

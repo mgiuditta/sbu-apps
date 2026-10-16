@@ -77,7 +77,7 @@ private struct SbuButtonPreview: View {
         }
         .padding(SbuTheme.space4)
         .frame(maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .tint(SbuTheme.accentSubscriptions)
     }
 }

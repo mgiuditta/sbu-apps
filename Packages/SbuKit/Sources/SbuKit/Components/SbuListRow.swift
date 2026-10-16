@@ -132,7 +132,7 @@ private struct SbuListRowPreview: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }
 

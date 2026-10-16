@@ -3,73 +3,213 @@
   "strings" : {
     "Annulla" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } }
-      }
-    },
-    "Apre sbu.dev in Safari" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Opens sbu.dev in Safari" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
       }
     },
     "App gratuite che fanno una cosa sola." : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Free apps that do one thing." } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free apps that do one thing."
+          }
+        }
       }
     },
-    "Dati solo sui tuoi dispositivi" : {
+    "Apre sbu.dev in Safari" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data only on your devices" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens sbu.dev in Safari"
+          }
+        }
+      }
+    },
+    "Carta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paper"
+          }
+        }
       }
     },
     "Dati solo su questo iPhone" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data stays on this iPhone" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data stays on this iPhone"
+          }
+        }
+      }
+    },
+    "Dati solo sui tuoi dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data only on your devices"
+          }
+        }
       }
     },
     "Fine" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Icona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon"
+          }
+        }
+      }
+    },
+    "Icona non cambiata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon not changed"
+          }
+        }
       }
     },
     "Impostazioni" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "Inversa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inverse"
+          }
+        }
       }
     },
     "Licenze" : {
       "comment" : "Settings row and screen with the licence notices of the bundled fonts.",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Licenses" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licenses"
+          }
+        }
       }
     },
     "Nessun account" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No account" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No account"
+          }
+        }
       }
     },
     "Nessun acquisto in-app" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No in-app purchases" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No in-app purchases"
+          }
+        }
       }
     },
     "Nessuna pubblicità" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No ads" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No ads"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
       }
     },
     "Parte di sbu.dev" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Part of sbu.dev" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Part of sbu.dev"
+          }
+        }
       }
     },
     "Privacy" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
+        }
+      }
+    },
+    "Suono del punto fermo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full stop sound"
+          }
+        }
+      }
+    },
+    "Un tocco breve quando la cifra si ferma." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A short tick when the figure settles."
+          }
+        }
       }
     },
     "Versione %@" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Version %@" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@"
+          }
+        }
       }
     }
   },

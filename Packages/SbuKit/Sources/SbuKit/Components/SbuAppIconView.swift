@@ -43,6 +43,6 @@ private struct SbuAppIconViewPreview: View {
             SbuAppIconView(image: Image(decorative: "sbu-mark", bundle: SbuTheme.bundle))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

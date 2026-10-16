@@ -15,7 +15,7 @@ struct RootView: View {
         SbuAppShell("Sbu Shrink", slug: "shrink", accent: SbuTheme.accentShrink, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
-            EmptyView()
+            CompressionPreferencesSection(model: model)
         }
         .onChange(of: model.stage) { _, stage in
             UIApplication.shared.isIdleTimerDisabled = stage == .compressing

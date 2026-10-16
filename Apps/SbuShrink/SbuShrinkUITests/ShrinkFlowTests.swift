@@ -260,4 +260,56 @@ final class ShrinkFlowTests: XCTestCase {
         keepScreenshot(app, "done-denied")
         try audit(app)
     }
+
+    // MARK: - Settings sheet
+
+    /// Sheets also leave out Dynamic Type and clipped text: the audit flags the system buttons
+    /// in the iOS 26 glass toolbar of a sheet, as in the other apps.
+    private static let sheetExclusions: XCUIAccessibilityAuditType = [.contrast, .dynamicType, .textClipped]
+
+    @MainActor
+    func testSettingsHaveTheAlbumTheResetAndTheLicenses() throws {
+        let app = launch()
+        let gear = app.navigationBars.buttons["Impostazioni"]
+        XCTAssertTrue(gear.waitForExistence(timeout: 5))
+        gear.tap()
+
+        let album = app.switches["Salva anche nell'album Video compressi"]
+        XCTAssertTrue(album.waitForExistence(timeout: 5))
+        XCTAssertEqual(album.value as? String, "1")
+        // Fresh preferences: nothing to restore.
+        XCTAssertFalse(app.buttons["Ripristina le impostazioni consigliate"].isEnabled)
+        keepScreenshot(app, "settings-sheet")
+        try audit(app, excluding: Self.sheetExclusions)
+
+        album.switches.firstMatch.tap()
+        XCTAssertEqual(album.value as? String, "0")
+        let licenses = app.buttons["Licenze"]
+        for _ in 0..<5 where !licenses.isHittable {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(licenses.isHittable)
+        app.buttons["Fine"].tap()
+        XCTAssertTrue(app.buttons["Scegli da Foto"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testRestoringTheSuggestedSettingsAsksFirst() throws {
+        let app = launch(["-DemoVideos", "2"])
+        XCTAssertTrue(estimate(app).waitForExistence(timeout: 5))
+        app.sliders["Dimensioni"].adjust(toNormalizedSliderPosition: 0)
+        XCTAssertEqual(app.sliders["Dimensioni"].value as? String, "10%")
+        app.navigationBars.buttons.firstMatch.tap()
+
+        app.navigationBars.buttons["Impostazioni"].tap()
+        let restore = app.buttons["Ripristina le impostazioni consigliate"]
+        XCTAssertTrue(restore.waitForExistence(timeout: 5))
+        XCTAssertTrue(restore.isEnabled)
+        restore.tap()
+        let confirm = app.sheets.buttons["Ripristina le impostazioni consigliate"].firstMatch
+        let alertConfirm = app.alerts.buttons["Ripristina le impostazioni consigliate"].firstMatch
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5) || alertConfirm.exists)
+        (confirm.exists ? confirm : alertConfirm).tap()
+        XCTAssertFalse(restore.isEnabled)
+    }
 }

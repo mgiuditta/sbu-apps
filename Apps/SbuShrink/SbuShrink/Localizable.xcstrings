@@ -727,16 +727,6 @@
         }
       }
     },
-    "Ripristina": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore"
-          }
-        }
-      }
-    },
     "Ripristina le impostazioni consigliate": {
       "localizations": {
         "en": {

@@ -114,8 +114,9 @@ final class TLSChannel {
     private func receiveLoop() {
         connection.receive(minimumIncompleteLength: 1, maximumLength: 64 * 1024) { [weak self] content, _, isComplete, error in
             Task { @MainActor in
-                guard let self else { return }
+                guard let self, !self.failed else { return }
                 if let content { self.received(content) }
+                if self.failed { return }
                 if isComplete || error != nil {
                     self.closed()
                 } else {
@@ -127,7 +128,16 @@ final class TLSChannel {
 
     private func received(_ content: Data) {
         buffer.append(content)
-        frames.append(contentsOf: ProtobufReader.takeDelimited(from: &buffer))
+        do {
+            frames.append(contentsOf: try ProtobufReader.takeDelimited(from: &buffer))
+        } catch {
+            // A frame over 64 KiB or a broken length prefix: this is not a TV we can talk to.
+            buffer = Data()
+            connection.stateUpdateHandler = nil
+            connection.cancel()
+            closed()
+            return
+        }
         if let waiting, !frames.isEmpty {
             self.waiting = nil
             waiting.resume(returning: frames.removeFirst())

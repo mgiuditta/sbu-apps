@@ -38,14 +38,14 @@ struct AndroidTVTests {
         #expect(ProtobufReader(Data([0x12, 0x05, 0x61])) == nil)
     }
 
-    @Test func delimitedFramesSplitAcrossReads() {
+    @Test func delimitedFramesSplitAcrossReads() throws {
         var buffer = ProtobufWriter.delimited(Data([1, 2, 3])) + ProtobufWriter.delimited(Data([4]))
         let tail = buffer.suffix(1)
         buffer.removeLast()
-        #expect(ProtobufReader.takeDelimited(from: &buffer) == [Data([1, 2, 3])])
+        #expect(try ProtobufReader.takeDelimited(from: &buffer) == [Data([1, 2, 3])])
         #expect(buffer == Data([0x01]))
         buffer.append(tail)
-        #expect(ProtobufReader.takeDelimited(from: &buffer) == [Data([4])])
+        #expect(try ProtobufReader.takeDelimited(from: &buffer) == [Data([4])])
         #expect(buffer.isEmpty)
     }
 

@@ -1,0 +1,2206 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "%@ delle dosi previste" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ of the doses due"
+          }
+        }
+      }
+    },
+    "%@ di %@: ne restano %@. Ricompralo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ for %2$@: %3$@ left. Buy more."
+          }
+        }
+      }
+    },
+    "%@ · dose extra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · extra dose"
+          }
+        }
+      }
+    },
+    "%@: ne restano %@. Ricompralo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@: %2$@ left. Buy more."
+          }
+        }
+      }
+    },
+    "%lld giorni sì, %lld no" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days on, %lld off"
+          }
+        }
+      }
+    },
+    "%lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld min"
+          }
+        }
+      }
+    },
+    "30 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 days"
+          }
+        }
+      }
+    },
+    "7 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 days"
+          }
+        }
+      }
+    },
+    "90 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "90 days"
+          }
+        }
+      }
+    },
+    "A cicli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In cycles"
+          }
+        }
+      }
+    },
+    "Aggiungi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "Aggiungi farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add medicine"
+          }
+        }
+      }
+    },
+    "Aggiungi orario" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add time"
+          }
+        }
+      }
+    },
+    "Aggiungi persona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add person"
+          }
+        }
+      }
+    },
+    "Aggiungi un farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a medicine"
+          }
+        }
+      }
+    },
+    "Aggiungi un farmaco con i suoi orari: qui trovi le dosi del giorno, e una notifica te le ricorda." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a medicine with its times: the day's doses show up here, and a notification reminds you."
+          }
+        }
+      }
+    },
+    "Al" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To"
+          }
+        }
+      }
+    },
+    "Al bisogno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As needed"
+          }
+        }
+      }
+    },
+    "Altro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        }
+      }
+    },
+    "Ancora da prendere, ore %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Still to take, %@"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Antistaminico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antihistamine"
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Apri Sbu Meds almeno una volta ogni %lld giorni per non perdere promemoria" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Open Sbu Meds at least once a day so you don't miss reminders"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Open Sbu Meds at least once every %lld days so you don't miss reminders"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Apri Sbu Meds almeno una volta al giorno per non perdere promemoria"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Apri Sbu Meds almeno una volta ogni %lld giorni per non perdere promemoria"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Atorvastatina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atorvastatin"
+          }
+        }
+      }
+    },
+    "Avvisami sotto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind me below"
+          }
+        }
+      }
+    },
+    "Capsula" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capsule"
+          }
+        }
+      }
+    },
+    "Cerotto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patch"
+          }
+        }
+      }
+    },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Collirio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eye drops"
+          }
+        }
+      }
+    },
+    "Compressa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tablet"
+          }
+        }
+      }
+    },
+    "Con il cibo, prima di dormire…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With food, before bed…"
+          }
+        }
+      }
+    },
+    "Condividi PDF" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share PDF"
+          }
+        }
+      }
+    },
+    "Conta le scorte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Count the supply"
+          }
+        }
+      }
+    },
+    "Così arriva un promemoria: Presa, Saltata o Rimanda, anche dalla schermata di blocco." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is how a reminder arrives: Taken, Skipped or Snooze, even from the Lock Screen."
+          }
+        }
+      }
+    },
+    "Crema" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cream"
+          }
+        }
+      }
+    },
+    "Da prendere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To take"
+          }
+        }
+      }
+    },
+    "Da prendere %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To take %@"
+          }
+        }
+      }
+    },
+    "Da prendere oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To take today"
+          }
+        }
+      }
+    },
+    "Da prendere oggi: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To take today: %lld"
+          }
+        }
+      }
+    },
+    "Da sapere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good to know"
+          }
+        }
+      }
+    },
+    "Dal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From"
+          }
+        }
+      }
+    },
+    "Dal %@ al %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From %1$@ to %2$@"
+          }
+        }
+      }
+    },
+    "Dal giorno di inizio: per esempio 21 giorni sì e 7 di pausa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From the start day: for example 21 days on and 7 off."
+          }
+        }
+      }
+    },
+    "Dal primo orario, ogni giorno di nuovo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From the first time, starting again each day."
+          }
+        }
+      }
+    },
+    "Dosaggio, come sulla confezione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strength, as on the box"
+          }
+        }
+      }
+    },
+    "Dose" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dose"
+          }
+        }
+      }
+    },
+    "Dose extra, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extra dose, %@"
+          }
+        }
+      }
+    },
+    "Dosi prese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doses taken"
+          }
+        }
+      }
+    },
+    "Durata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duration"
+          }
+        }
+      }
+    },
+    "Elimina dose extra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete extra dose"
+          }
+        }
+      }
+    },
+    "Elimina farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete medicine"
+          }
+        }
+      }
+    },
+    "Elimina persona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete person"
+          }
+        }
+      }
+    },
+    "Eliminare questa dose extra?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this extra dose?"
+          }
+        }
+      }
+    },
+    "Eliminare “%@” con i suoi farmaci e il suo storico?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete “%@” with their medicines and history?"
+          }
+        }
+      }
+    },
+    "Eliminare “%@” e il suo storico?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete “%@” and its history?"
+          }
+        }
+      }
+    },
+    "Farmaci" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medicines"
+          }
+        }
+      }
+    },
+    "Farmaci, persone e storico restano su questo iPhone: nessun server, nessun account. Se elimini l'app, li elimini con lei." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medicines, people and history stay on this iPhone: no server, no account. If you delete the app, you delete them with it."
+          }
+        }
+      }
+    },
+    "Fatto con Sbu Meds il %@. Segnato da chi prende i farmaci o da chi lo assiste: non è un documento medico." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made with Sbu Meds on %@. Marked by the person taking the medicines or by whoever looks after them: not a medical document."
+          }
+        }
+      }
+    },
+    "Fatto sull'iPhone, non passa da nessun server. Lo mandi tu, a chi vuoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made on the iPhone, through no server. You send it, to whoever you want."
+          }
+        }
+      }
+    },
+    "Ferro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iron"
+          }
+        }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Fino a una data" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Until a date"
+          }
+        }
+      }
+    },
+    "Forma" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Form"
+          }
+        }
+      }
+    },
+    "Frequenza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequency"
+          }
+        }
+      }
+    },
+    "Fuori orario, ora: %@. Resta nello storico." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off schedule, now: %@. It stays in the history."
+          }
+        }
+      }
+    },
+    "Giorni di pausa: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days off: %lld"
+          }
+        }
+      }
+    },
+    "Giorni scelti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chosen days"
+          }
+        }
+      }
+    },
+    "Giorni sì: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days on: %lld"
+          }
+        }
+      }
+    },
+    "Giorno per giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day by day"
+          }
+        }
+      }
+    },
+    "Gli orari restano questi anche se cambi fuso orario." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "These times stay the same even if you change time zone."
+          }
+        }
+      }
+    },
+    "Gocce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drops"
+          }
+        }
+      }
+    },
+    "Il promemoria si sposta con la dose." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The reminder moves with the dose."
+          }
+        }
+      }
+    },
+    "In ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Late"
+          }
+        }
+      }
+    },
+    "In ritardo, spostata alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Late, moved to %@"
+          }
+        }
+      }
+    },
+    "Inalatore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inhaler"
+          }
+        }
+      }
+    },
+    "Iniezione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Injection"
+          }
+        }
+      }
+    },
+    "Inizio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        }
+      }
+    },
+    "Invia un promemoria di prova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send a test reminder"
+          }
+        }
+      }
+    },
+    "Io" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me"
+          }
+        }
+      }
+    },
+    "Levotiroxina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Levothyroxine"
+          }
+        }
+      }
+    },
+    "Luca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luke"
+          }
+        }
+      }
+    },
+    "Mai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
+          }
+        }
+      }
+    },
+    "Modifica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Modifica %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit %@"
+          }
+        }
+      }
+    },
+    "Modifica farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit medicine"
+          }
+        }
+      }
+    },
+    "Modifica persona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit person"
+          }
+        }
+      }
+    },
+    "Nel PDF: le dosi di ogni giorno con l'orario, prese, saltate o non segnate." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the PDF: each day's doses with their time, taken, skipped or not marked."
+          }
+        }
+      }
+    },
+    "Nessun farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No medicines"
+          }
+        }
+      }
+    },
+    "Nessun promemoria: la segni quando la prendi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reminders: mark it when you take it."
+          }
+        }
+      }
+    },
+    "Nessuna" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Nessuna dose ancora passata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No doses due yet"
+          }
+        }
+      }
+    },
+    "Nessuna dose nel periodo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No doses in this period."
+          }
+        }
+      }
+    },
+    "Nessuna dose prevista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No doses due"
+          }
+        }
+      }
+    },
+    "Nessuna dose prevista in questo giorno." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No doses due on this day."
+          }
+        }
+      }
+    },
+    "Nessuna dose prevista nel periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No doses due in this period"
+          }
+        }
+      }
+    },
+    "Niente da prendere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to take"
+          }
+        }
+      }
+    },
+    "Niente da prendere oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to take today"
+          }
+        }
+      }
+    },
+    "Niente in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing late"
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Non segnata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not marked"
+          }
+        }
+      }
+    },
+    "Nonna Rita" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grandma Rita"
+          }
+        }
+      }
+    },
+    "Note" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        }
+      }
+    },
+    "Notifiche spente per Sbu Meds" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications off for Sbu Meds"
+          }
+        }
+      }
+    },
+    "Nuova persona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New person"
+          }
+        }
+      }
+    },
+    "Nuovo farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New medicine"
+          }
+        }
+      }
+    },
+    "Nuovo orario" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New time"
+          }
+        }
+      }
+    },
+    "Oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
+    },
+    "Ogni %lld giorni" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Every day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Every %lld days"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ogni giorno"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ogni %lld giorni"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Ogni %lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every %lld min"
+          }
+        }
+      }
+    },
+    "Ogni %lld ore" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Every hour"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Every %lld hours"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ogni ora"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ogni %lld ore"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Ogni N giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every few days"
+          }
+        }
+      }
+    },
+    "Ogni N ore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every few hours"
+          }
+        }
+      }
+    },
+    "Ogni dose presa scala le scorte; quando scendono alla soglia, un promemoria ti dice di ricomprarlo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each dose taken comes off the supply; when it reaches the threshold, a reminder tells you to buy more."
+          }
+        }
+      }
+    },
+    "Ogni giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every day"
+          }
+        }
+      }
+    },
+    "Ognuno con i suoi farmaci e il suo storico, su questo iPhone. Nessun account." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each with their own medicines and history, on this iPhone. No account."
+          }
+        }
+      }
+    },
+    "Omega 3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omega-3"
+          }
+        }
+      }
+    },
+    "Orari e dose" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Times and dose"
+          }
+        }
+      }
+    },
+    "Orario" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
+          }
+        }
+      }
+    },
+    "Ore %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At %@"
+          }
+        }
+      }
+    },
+    "Per %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For %@"
+          }
+        }
+      }
+    },
+    "Periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Period"
+          }
+        }
+      }
+    },
+    "Persona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Person"
+          }
+        }
+      }
+    },
+    "Prendi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take"
+          }
+        }
+      }
+    },
+    "Prendi %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take %@"
+          }
+        }
+      }
+    },
+    "Prendi tutto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take all"
+          }
+        }
+      }
+    },
+    "Prendi una dose extra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take an extra dose"
+          }
+        }
+      }
+    },
+    "Presa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken"
+          }
+        }
+      }
+    },
+    "Presa alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken at %@"
+          }
+        }
+      }
+    },
+    "Presa alle %@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken at %1$@, %2$@"
+          }
+        }
+      }
+    },
+    "Prese %lld su %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken: %lld of %lld"
+          }
+        }
+      }
+    },
+    "Prese %lld su %lld · %lld in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken: %lld of %lld · %lld late"
+          }
+        }
+      }
+    },
+    "Prese %lld, saltate %lld, non segnate %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken %1$lld, skipped %2$lld, not marked %3$lld"
+          }
+        }
+      }
+    },
+    "Prese %lld, saltate %lld, non segnate %lld · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken %1$lld, skipped %2$lld, not marked %3$lld · %4$@"
+          }
+        }
+      }
+    },
+    "Prese %lld, saltate %lld, non segnate %lld: %@ delle dosi previste." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken %1$lld, skipped %2$lld, not marked %3$lld: %4$@ of the doses due."
+          }
+        }
+      }
+    },
+    "Prese in 30 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken in 30 days"
+          }
+        }
+      }
+    },
+    "Primo orario" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First time"
+          }
+        }
+      }
+    },
+    "Promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders"
+          }
+        }
+      }
+    },
+    "Promemoria farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medication reminder"
+          }
+        }
+      }
+    },
+    "Prossima dose" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next dose"
+          }
+        }
+      }
+    },
+    "Puoi segnarla dal giorno in cui è prevista." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can mark it from the day it's due."
+          }
+        }
+      }
+    },
+    "Quando" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When"
+          }
+        }
+      }
+    },
+    "Quante dosi restano oggi e le prossime." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many doses are left today, and the next ones."
+          }
+        }
+      }
+    },
+    "Qui trovi ogni dose presa, saltata o non segnata, per sempre." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every dose taken, skipped or not marked shows up here, for good."
+          }
+        }
+      }
+    },
+    "Ramipril" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ramipril"
+          }
+        }
+      }
+    },
+    "Rapporto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
+    },
+    "Rapporto delle dosi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dose report"
+          }
+        }
+      }
+    },
+    "Rapporto per il medico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report for the doctor"
+          }
+        }
+      }
+    },
+    "Ricarica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refill"
+          }
+        }
+      }
+    },
+    "Rimanda di" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snooze for"
+          }
+        }
+      }
+    },
+    "Rimanda di %lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snooze %lld min"
+          }
+        }
+      }
+    },
+    "Rimaste" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left"
+          }
+        }
+      }
+    },
+    "Ripeti se non la segni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repeat if not marked"
+          }
+        }
+      }
+    },
+    "Saltata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skipped"
+          }
+        }
+      }
+    },
+    "Salva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "Sbu Meds" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Meds"
+          }
+        }
+      }
+    },
+    "Sbu Meds ti ricorda quello che hai scritto tu. Non dà consigli su farmaci, dosi o interazioni: per quelli chiedi al medico o al farmacista." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Meds reminds you of what you wrote. It gives no advice on medicines, doses or interactions: for those, ask your doctor or pharmacist."
+          }
+        }
+      }
+    },
+    "Scegli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose"
+          }
+        }
+      }
+    },
+    "Scegli almeno un giorno." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose at least one day."
+          }
+        }
+      }
+    },
+    "Schema" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
+          }
+        }
+      }
+    },
+    "Sciroppo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liquid"
+          }
+        }
+      }
+    },
+    "Sciroppo per la tosse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cough syrup"
+          }
+        }
+      }
+    },
+    "Scorte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supply"
+          }
+        }
+      }
+    },
+    "Scorte basse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running low"
+          }
+        }
+      }
+    },
+    "Scorte basse: ricompralo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running low: buy more"
+          }
+        }
+      }
+    },
+    "Segna da prendere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as to take"
+          }
+        }
+      }
+    },
+    "Senza notifiche nessuna dose ti avvisa. Attivale nelle Impostazioni dell'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without notifications no dose will remind you. Turn them on in the iPhone's Settings."
+          }
+        }
+      }
+    },
+    "Settimana dopo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next week"
+          }
+        }
+      }
+    },
+    "Settimana prima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous week"
+          }
+        }
+      }
+    },
+    "Si aggiungono alle scorte rimaste." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Added to what's left."
+          }
+        }
+      }
+    },
+    "Sposta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move"
+          }
+        }
+      }
+    },
+    "Sposta orario" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change time"
+          }
+        }
+      }
+    },
+    "Spostata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moved"
+          }
+        }
+      }
+    },
+    "Spostata alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moved to %@"
+          }
+        }
+      }
+    },
+    "Spray" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spray"
+          }
+        }
+      }
+    },
+    "Storico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        }
+      }
+    },
+    "Terminato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finished"
+          }
+        }
+      }
+    },
+    "Tutto lo storico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full history"
+          }
+        }
+      }
+    },
+    "Tutto preso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All taken"
+          }
+        }
+      }
+    },
+    "Ultimo giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last day"
+          }
+        }
+      }
+    },
+    "Un figlio, un genitore, chi assisti: i suoi farmaci restano separati dai tuoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A child, a parent, someone you care for: their medicines stay apart from yours."
+          }
+        }
+      }
+    },
+    "Una notifica per persona e orario, con Presa, Saltata e Rimanda. Locali, programmate sull'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One notification per person and time, with Taken, Skipped and Snooze. Local, scheduled on the iPhone."
+          }
+        }
+      }
+    },
+    "Una notifica per persona e orario, con Presa, Saltata e Rimanda. Se non la segni torna fino a %lld volte, e sparisce appena la segni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One notification per person and time, with Taken, Skipped and Snooze. If you don't mark it, it comes back up to %lld times, and goes as soon as you do."
+          }
+        }
+      }
+    },
+    "Vitamina B12" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin B12"
+          }
+        }
+      }
+    },
+    "Vitamina D" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin D"
+          }
+        }
+      }
+    },
+    "applicazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "application"
+          }
+        }
+      }
+    },
+    "applicazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "applications"
+          }
+        }
+      }
+    },
+    "capsula" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "capsule"
+          }
+        }
+      }
+    },
+    "capsule" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "capsules"
+          }
+        }
+      }
+    },
+    "cerotti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "patches"
+          }
+        }
+      }
+    },
+    "cerotto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "patch"
+          }
+        }
+      }
+    },
+    "compressa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tablet"
+          }
+        }
+      }
+    },
+    "compresse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tablets"
+          }
+        }
+      }
+    },
+    "da prendere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to take"
+          }
+        }
+      }
+    },
+    "di cui %lld in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld of them late"
+          }
+        }
+      }
+    },
+    "dose" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dose"
+          }
+        }
+      }
+    },
+    "dose extra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extra dose"
+          }
+        }
+      }
+    },
+    "dosi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "doses"
+          }
+        }
+      }
+    },
+    "gocce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "drops"
+          }
+        }
+      }
+    },
+    "goccia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "drop"
+          }
+        }
+      }
+    },
+    "in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "late"
+          }
+        }
+      }
+    },
+    "iniezione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "injection"
+          }
+        }
+      }
+    },
+    "iniezioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "injections"
+          }
+        }
+      }
+    },
+    "ml" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ml"
+          }
+        }
+      }
+    },
+    "non segnata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "not marked"
+          }
+        }
+      }
+    },
+    "per %lld persone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "for %lld people"
+          }
+        }
+      }
+    },
+    "per una persona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "for one person"
+          }
+        }
+      }
+    },
+    "presa alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "taken at %@"
+          }
+        }
+      }
+    },
+    "saltata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "skipped"
+          }
+        }
+      }
+    },
+    "spruzzi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "puffs"
+          }
+        }
+      }
+    },
+    "spruzzo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "puff"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

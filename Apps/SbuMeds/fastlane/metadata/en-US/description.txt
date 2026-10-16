@@ -1,0 +1,22 @@
+Reminds you of the whole family's medicines on time, and keeps the history of every dose: taken, skipped or forgotten.
+
+- Several people on one iPhone: you, your children, your parents, whoever you care for, each with their own medicines
+- Today: the week on top, doses grouped by time, "Take all" for a time, even early
+- Taken, Skipped or Change time for each dose, with a tap or a swipe
+- Every day, chosen days, every few days, every few hours, in cycles (21 on, 7 off) or as needed
+- Different amounts per time: half a tablet in the morning, one at night
+- Start date and duration for a short course
+- Fixed times: if you change time zone, 8:00 stays 8:00
+- Notifications with Taken, Skipped and Snooze, even from the Lock Screen
+- A repeat reminder if you don't mark the dose, as often as you choose, gone as soon as you mark it
+- Supply counted down at each dose, with a reminder when it's time to buy more
+- Full history, with no limit of days, and extra doses off schedule
+- PDF report for the doctor: share of doses taken and day by day, by person and period
+- Widgets for the Home Screen and the Lock Screen
+- Light and dark, Dynamic Type, VoiceOver
+
+It gives no advice on medicines, doses or interactions: you write what the doctor says.
+
+Sbu does one thing: it reminds you which medicine to take, and when, for the whole family.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

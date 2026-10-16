@@ -26,7 +26,7 @@ Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in svi
 | Sbu Grid | 1.0 | in sviluppo | Sbu Grid (#474) |
 | Sbu Tidy | 1.0 | in sviluppo | Sbu Tidy (#476) |
 | Sbu Libretto | 1.0 | in sviluppo | Sbu Libretto (#478) |
-| Sbu Meds | 1.0 | pianificata, dopo Cycle | Sbu Meds (#480) |
+| Sbu Meds | 1.0 | branch locale `app/meds`: app e scheda pronte, review di Matteo, poi TestFlight (Cycle non ancora fatta) | Sbu Meds (#480) |
 | Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
 | Sbu Remote | 1.0 | pianificata | Sbu Remote (#365) |
 | Sbu Cast | 1.0 | pianificata | da creare |
@@ -88,7 +88,7 @@ Uno slot a settimana dalla risposta di Apple sul lotto del 14/10; app nuove e re
 | 9 | Fuel | silent | pronta per il test insieme |
 | 10 | Tidy | loop | da costruire |
 | 11 | Inventory | silent | in costruzione |
-| 12 | Meds | loop | dopo Cycle |
+| 12 | Meds | loop | pronta in locale, review di Matteo |
 
 ## Cosa copiamo, cosa no
 

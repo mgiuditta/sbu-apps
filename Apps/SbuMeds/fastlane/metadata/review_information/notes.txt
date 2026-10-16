@@ -1,0 +1,12 @@
+No account. Sbu Meds has no server and makes no network calls: no analytics, ads or tracking. Health data stays on the device; the PDF report leaves it only when the user shares it.
+
+To review:
+1. On the first screen tap "Aggiungi farmaco" ("Add medicine"), type a name and tap "Aggiungi" ("Add"). It is due every day at 8:00 by default; set the time to a minute from now to see the notification with Taken, Skipped and Snooze.
+2. Tap the dose to mark it taken, skipped or move it. Tap the pills button at the top left: there you add another person (a child, a parent) and open the report for the doctor (PDF) from the top right.
+3. Widgets are in the widget gallery.
+
+Notifications are local, asked for when the first medicine with a time is saved. Marking a dose from the Lock Screen asks for Face ID or the passcode. Background App Refresh (fetch) is used only to reschedule these local reminders, since iOS keeps 64 pending notifications per app; it makes no network call.
+
+Guideline 1.4.1: the app gives no medical advice. There is no drug database, no dosage suggestion and no interaction check: users type the medicine, the dose and the times their doctor gave them.
+
+How it differs from the other Sbu apps: it is the only one about medicines. Sbu Habits tracks personal habits; Sbu Meds reminds several people of their own medicines, with doses, supply and a report for the doctor.

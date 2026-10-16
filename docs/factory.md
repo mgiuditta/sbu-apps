@@ -28,7 +28,7 @@ Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in svi
 | Sbu Libretto | 1.0 | in sviluppo | Sbu Libretto (#478) |
 | Sbu Meds | 1.0 | pianificata, dopo Cycle | Sbu Meds (#480) |
 | Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
-| Sbu Remote | 1.0 | pianificata | Sbu Remote (#365) |
+| Sbu Remote | 1.0 | costruita su `app/remote` (locale), in review da Matteo; mancano test su una TV vera, entitlement multicast, `fastlane snapshot`, record ASC e TestFlight | Sbu Remote (#365) |
 | Sbu Cast | 1.0 | pianificata | da creare |
 | Sbu Image | 1.0 | pianificata | da creare |
 | Sbu Gif | 1.0 | pianificata | da creare |

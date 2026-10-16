@@ -1,1 +1,1 @@
-
+remote,tv,smart tv,television,wifi,touchpad,volume,universal,keyboard,channel,control,hdmi

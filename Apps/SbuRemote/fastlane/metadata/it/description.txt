@@ -1,10 +1,25 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
+Sbu Remote comanda la tua TV dall'iPhone, attraverso la Wi-Fi di casa, senza limiti di tocchi.
 
-__FEATURES_IT__
+- Trova la TV sulla tua Wi-Fi, o la aggiungi scrivendo il suo indirizzo IP
+- Collegamento guidato per marca: ti dice cosa compare sulla TV e quale impostazione attivare
+- Accensione, Home, Indietro, frecce e OK, con una vibrazione leggera a ogni tasto
+- Touchpad: scorri per muoverti nei menu, tocca per OK; sulle LG muove il puntatore
+- Volume, silenzio e canali; tenendo premuto, il tasto si ripete come sul telecomando
+- Riavvolgi, play e pausa, avanti veloce, rivedi e opzioni
+- Tastiera: il testo arriva nella casella di ricerca della TV mentre scrivi
+- Ricerca vocale riconosciuta sull'iPhone: l'audio non esce dal telefono
+- App della TV in un elenco, e fino a tre fissate sotto i tasti
+- Sorgenti HDMI lette dalla TV su LG e Sony, tasto Sorgente sulle altre
+- Accensione con Wake-on-LAN, con l'impostazione da attivare sulla tua TV
+- Più TV: tocchi il nome in alto e passi a un'altra
+- Si ricollega da solo quando torni nell'app o cambi Wi-Fi
+- Widget con volume, silenzio, play e accensione; Comandi rapidi e Siri; accensione nel Centro di Controllo da iOS 18
+- Tema chiaro e scuro, testo dinamico, VoiceOver
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+Funziona con Samsung Tizen dal 2016, LG webOS, Android TV e Google TV (Sony, TCL, Philips, Xiaomi, Hisense, Chromecast con Google TV) e Sony Bravia. Non funziona con Fire TV, Hisense VIDAA, Philips senza Android, Roku e Apple TV: per Apple TV c'è già il telecomando nel Centro di Controllo.
+
+Sbu Remote parla solo con la tua TV, sulla rete di casa: per questo iOS ti chiede il permesso Rete locale. Nessun dato va su internet.
+
+Sbu fa una cosa sola: comanda la tua TV dal telefono.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

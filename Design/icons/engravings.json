@@ -134,5 +134,85 @@
       "it": "Mortaio da farmacista",
       "en": "Apothecary mortar"
     }
+  },
+  "cycle": {
+    "accent": "accent-cycle",
+    "subject": "a vintage brass perpetual calendar with rotating dials, three-quarter view",
+    "name": {
+      "it": "Calendario perpetuo",
+      "en": "Perpetual calendar"
+    }
+  },
+  "remote": {
+    "accent": "accent-remote",
+    "subject": "a vintage 1950s wired television remote control box with one dial, its cord coiled beside it, three-quarter view",
+    "name": {
+      "it": "Telecomando a filo",
+      "en": "Wired remote control"
+    }
+  },
+  "cast": {
+    "accent": "accent-cast",
+    "subject": "a vintage brass magic lantern projector, three-quarter view",
+    "name": {
+      "it": "Lanterna magica",
+      "en": "Magic lantern"
+    }
+  },
+  "image": {
+    "accent": "accent-image",
+    "subject": "a vintage wooden and brass pantograph drawing instrument, laid diagonally",
+    "name": {
+      "it": "Pantografo",
+      "en": "Pantograph"
+    }
+  },
+  "gif": {
+    "accent": "accent-gif",
+    "subject": "a vintage zoetrope, a slotted spinning drum on a stand, three-quarter view",
+    "name": {
+      "it": "Zootropio",
+      "en": "Zoetrope"
+    }
+  },
+  "tags": {
+    "accent": "accent-tags",
+    "subject": "a vintage 78 rpm shellac gramophone record with a blank round paper label in the center, tilted three-quarter view",
+    "name": {
+      "it": "Disco a 78 giri",
+      "en": "78 rpm record"
+    }
+  },
+  "knit": {
+    "accent": "accent-knit",
+    "subject": "a vintage ball of wool yarn pierced by two knitting needles with a small brass row counter on one needle",
+    "name": {
+      "it": "Gomitolo e ferri",
+      "en": "Yarn and needles"
+    }
+  },
+  "chores": {
+    "accent": "accent-chores",
+    "subject": "a vintage cast-iron piggy bank, three-quarter view",
+    "name": {
+      "it": "Salvadanaio",
+      "en": "Piggy bank"
+    }
+  },
+  "reader": {
+    "accent": "accent-reader",
+    "subject": "a vintage wooden reading stand holding an open book, three-quarter view",
+    "name": {
+      "it": "Leggio",
+      "en": "Reading stand"
+    }
+  },
+  "exposure": {
+    "accent": "accent-exposure",
+    "subject": "a vintage large-format wooden bellows camera on a tripod, three-quarter view",
+    "name": {
+      "it": "Fotocamera a soffietto",
+      "en": "Bellows camera"
+    }
   }
 }

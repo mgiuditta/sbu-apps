@@ -29,6 +29,14 @@ Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in svi
 | Sbu Meds | 1.0 | pianificata, dopo Cycle | Sbu Meds (#480) |
 | Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
 | Sbu Remote | 1.0 | pianificata | Sbu Remote (#365) |
+| Sbu Cast | 1.0 | pianificata | da creare |
+| Sbu Image | 1.0 | pianificata | da creare |
+| Sbu Gif | 1.0 | pianificata | da creare |
+| Sbu Tags | 1.0 | pianificata | da creare |
+| Sbu Knit | 1.0 | pianificata | da creare |
+| Sbu Chores | 1.0 | pianificata | da creare |
+| Sbu Reader | 1.0 | pianificata | da creare |
+| Sbu Exposure | 1.0 | pianificata | da creare |
 
 Ogni app nuova: UX identica all'originale (stesse schermate, stesso ordine, stessi casi limite, stile Sbu), unit test Swift Testing severi su tutta la logica (parametrizzati, casi limite, errori), zero bug di UI prima di TestFlight.
 
@@ -55,7 +63,7 @@ Estensioni invece di app nuove: manutenzione auto in Sbu Fuel (3-4 giorni), alba
 
 Verifiche prima di aprire Xcode (un pomeriggio dal Mac): valutazioni esatte con `itunes.apple.com/lookup`; ricerche Reddit "free alternative to X" per video compressor, image resizer, GIF, maglia, speed reading; limiti veri del free tier di Wunderfind; tempi 2026 dell'entitlement multicast; Salute in iOS 26 e i profili multipli per i farmaci.
 
-Gli accenti delle sei sono in `Design/tokens.json`, le incisioni in `Design/icons/engravings.json`; sul sito sono "In arrivo".
+Accenti in `Design/tokens.json` e incisioni in `Design/icons/engravings.json` per le sei, Cycle, Remote e le otto in coda (Cast, Image, Gif, Tags, Knit, Chores, Reader, Exposure); sul sito tutte con il loro stato. Le nicchie con riserva entrano solo dopo la verifica.
 
 ### Tolte dal filtro
 

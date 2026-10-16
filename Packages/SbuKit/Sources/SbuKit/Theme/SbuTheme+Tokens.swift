@@ -69,6 +69,22 @@ public extension SbuTheme {
     static let accentFuel = Color("accent-fuel", bundle: .module)
     /// Accento di Sbu Tidy: acquamarina, tinta 208 tra Docs e Shrink. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentTidy = Color("accent-tidy", bundle: .module)
+    /// Accento di Sbu Cast: lanterna, tinta 296. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentCast = Color("accent-cast", bundle: .module)
+    /// Accento di Sbu Image: corallo, tinta 15. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentImage = Color("accent-image", bundle: .module)
+    /// Accento di Sbu Gif: senape, tinta 62. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentGif = Color("accent-gif", bundle: .module)
+    /// Accento di Sbu Tags: acciaio, tinta 240. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentTags = Color("accent-tags", bundle: .module)
+    /// Accento di Sbu Knit: lana, tinta 355. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentKnit = Color("accent-knit", bundle: .module)
+    /// Accento di Sbu Chores: muschio, tinta 120. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentChores = Color("accent-chores", bundle: .module)
+    /// Accento di Sbu Reader: indaco, tinta 276. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentReader = Color("accent-reader", bundle: .module)
+    /// Accento di Sbu Exposure: seppia, tinta 85. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentExposure = Color("accent-exposure", bundle: .module)
     /// Testo e glifi sopra ogni `accent-*`: bianco in light, nero caldo in dark (gli accenti dark sono chiari). Mai bianco letterale.
     static let onAccent = Color("on-accent", bundle: .module)
     /// Stato positivo: abitudine completata, calibrazione riuscita. Sempre con una parola o un SF Symbol.
@@ -140,7 +156,7 @@ public extension SbuTheme {
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-libretto", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-meds", "accent-shrink", "accent-find", "accent-remote", "accent-grid", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "accent-tidy", "on-accent", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-libretto", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-meds", "accent-shrink", "accent-find", "accent-remote", "accent-grid", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "accent-tidy", "accent-cast", "accent-image", "accent-gif", "accent-tags", "accent-knit", "accent-chores", "accent-reader", "accent-exposure", "on-accent", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [

@@ -13,7 +13,7 @@ struct RootView: View {
         SbuAppShell("Sbu Grid", slug: "grid", accent: SbuTheme.accentGrid, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
             MainView(model: model)
         } settings: {
-            EmptyView()
+            HelpSection()
         }
     }
 }

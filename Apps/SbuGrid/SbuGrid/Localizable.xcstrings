@@ -331,12 +331,32 @@
         }
       }
     },
+    "Come si usa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to use it"
+          }
+        }
+      }
+    },
     "Con le celle quadrate le righe seguono le colonne e la forma della foto." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "With square cells, the rows follow the columns and the shape of the photo."
+          }
+        }
+      }
+    },
+    "Con Ricalca metti l'iPhone su un supporto sopra il foglio e segui le linee con la matita guardando lo schermo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With Trace, put your iPhone on a stand above the paper and follow the lines with your pencil while looking at the screen."
           }
         }
       }
@@ -357,6 +377,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share the image"
+          }
+        }
+      }
+    },
+    "Copia una cella alla volta: guarda solo quello che c'è dentro e ridisegnalo nella cella uguale sul foglio. I numeri di righe e colonne ti aiutano a non perderti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy one cell at a time: look only at what is inside it and draw it again in the same cell on the paper. Row and column numbers help you keep your place."
           }
         }
       }
@@ -801,6 +831,16 @@
         }
       }
     },
+    "Righi il foglio a matita leggera con le stesse righe e colonne. Se scegli un formato in Foglio, le celle hanno una misura vera: righi quadrati di quella misura." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rule your paper in light pencil with the same rows and columns. If you choose a format in Sheet, the cells have a real size: rule squares of that size."
+          }
+        }
+      }
+    },
     "Ripristina" : {
       "localizations" : {
         "en" : {
@@ -902,6 +942,16 @@
         }
       }
     },
+    "Sbu Grid non disegna al posto tuo: ti aiuta a disegnare sulla carta. Per questo non ha pennelli né disegno sullo schermo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Grid doesn't draw for you: it helps you draw on paper. That's why it has no brushes and no drawing on the screen."
+          }
+        }
+      }
+    },
     "Sbu Grid vede solo la foto che scegli, non la tua libreria." : {
       "localizations" : {
         "en" : {
@@ -918,6 +968,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Grid.jpg"
+          }
+        }
+      }
+    },
+    "Scegli la foto da disegnare: la griglia si stende sopra. Bianco e nero aiuta a vedere luci e ombre." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the photo you want to draw: the grid lies over it. Black and white helps you see light and shade."
           }
         }
       }

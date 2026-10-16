@@ -5,6 +5,22 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Dai a ogni attività di casa una frequenza: lo sporco cresce con il tempo e in alto vedi quante cose sono da fare oggi. Niente scadenze rigide: pulisci quello che serve, quando serve.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Lista "Da fare" per stanza, la più sporca prima; filtro "In scadenza" per portarti avanti
+- Stanze con le loro attività di base: cucina, bagno, camere, soggiorno, giardino e altre
+- Suggerimenti per ogni stanza, di base e speciali, oppure attività tue
+- Frequenza in giorni, settimane o mesi e sforzo da uno a tre
+- Livello di sporco per ogni attività: "tra 3 giorni", "oggi", "2 giorni di ritardo"
+- "Fatta ora" con uno swipe, "Fatta il…" per un giorno passato, storico di ogni attività
+- Pausa per le vacanze: lo sporco non cresce finché non riprendi
+- Attività una tantum che spariscono quando le fai
+- Duplica una stanza con tutte le sue attività, riordina e rinomina
+- Widget per la schermata Home e la schermata di blocco
+- Promemoria solo nei giorni in cui qualcosa diventa da fare, mai notifiche vuote
+- iPhone e iPad, anche in orizzontale
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Funziona su un solo dispositivo: non c'è sincronizzazione con altre persone di casa.
+
+Sbu fa una cosa sola: ti dice cosa pulire oggi in casa.

@@ -1,6 +1,7 @@
 scheme("SbuTidySnapshots")
 project("./SbuTidy.xcodeproj")
-devices(["iPhone 17 Pro Max"])
+# iPad too: the app runs on iPad, and App Store Connect wants its 13-inch screenshots.
+devices(["iPhone 17 Pro Max", "iPad Pro 13-inch (M5)"])
 languages(["it", "en-US"])
 output_directory("./fastlane/screenshots")
 clear_previous_screenshots(true)

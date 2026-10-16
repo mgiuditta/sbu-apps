@@ -5,6 +5,22 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Give each chore in your home a frequency: dirt builds up over time, and at the top you see how many things are due today. No rigid deadlines: clean what needs it, when it needs it.
 
-Sbu does one thing: __ONE_THING_EN__
+- "To do" list by room, dirtiest first; a "Coming up" filter to get ahead
+- Rooms with their base chores: kitchen, bathroom, bedrooms, living room, garden and more
+- Suggestions for every room, base and special, or chores of your own
+- Frequency in days, weeks or months, and effort from one to three
+- Dirt level for each chore: "in 3 days", "today", "2 days late"
+- "Done now" with a swipe, "Done on…" for a past day, history for every chore
+- Pause for holidays: dirt doesn't build up until you resume
+- One-off chores that disappear once done
+- Duplicate a room with all its chores, reorder and rename
+- Widgets for the Home Screen and the Lock Screen
+- Reminders only on days when something becomes due, never empty notifications
+- iPhone and iPad, landscape too
+- Light and dark, Dynamic Type, VoiceOver
+
+It works on one device: there is no sync with other people in your home.
+
+Sbu does one thing: it tells you what to clean at home today.

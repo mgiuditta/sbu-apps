@@ -13,7 +13,8 @@ enum SampleHome {
             (.kitchen, [1, 3, 2, 9, 1, 4]),
             (.bathroom, [10, 3, 8, 2, 7, 4]),
             (.livingRoom, [3, 12, 1, 6]),
-            (.bedroom, [8, 5, 2, 1]),
+            // The bedroom is all done: the rooms screen shows one room in order.
+            (.bedroom, [2, 5, 2, 1]),
         ]
         for (kind, ages) in plan {
             var draft = RoomDraft(kind: kind)

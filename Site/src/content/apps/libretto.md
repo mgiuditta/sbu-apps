@@ -1,5 +1,5 @@
 ---
-# Not built yet: no Apps/SbuLibretto listing, so no page. The teaser is the home's one line until the listing exists.
+# Listing in Apps/SbuLibretto/fastlane/metadata; the teaser is the home's line until the app is live.
 app: SbuLibretto
 accent: accent-libretto
 order: 18

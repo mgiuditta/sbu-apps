@@ -1,0 +1,10 @@
+No account. Sbu Grid has no server and makes no network calls: no analytics, ads or tracking. Data stays on the device.
+
+To review:
+1. Tap "Scegli una foto" (Choose a photo) and pick any photo. The Photos picker runs outside the app: Sbu Grid sees only that photo and asks for no library permission.
+2. The grid lies over the photo. "Grid" changes columns, rows, square cells, diagonals, numbers, line color, thickness, opacity and black and white.
+3. "Sheet" picks a paper format (A4, Letter...) and a cell size in cm or inches, and crops the photo to the sheet's shape.
+4. "Trace" shows the photo see-through over the rear camera, to trace onto paper with the iPhone on a stand. The camera only feeds a preview: nothing is recorded or saved.
+5. The share button at the top right exports the gridded photo to Photos (add-only permission), shares it, or shares a PDF at real scale.
+
+How it differs from the other Sbu apps: it is the only one that helps draw from a photo, with a grid over it.

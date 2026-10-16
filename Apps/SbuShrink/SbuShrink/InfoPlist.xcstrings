@@ -1,0 +1,30 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "The app's name under its icon. Localized so the bundle declares Italian as well as English.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Shrink" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Shrink" } }
+      }
+    },
+    "NSPhotoLibraryAddUsageDescription" : {
+      "comment" : "Why the app asks to add to Photos.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Shrink saves the compressed videos to Photos, in the Compressed Videos album. Everything stays on this iPhone." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Shrink salva i video compressi in Foto, nell'album Video compressi. Tutto resta su questo iPhone." } }
+      }
+    },
+    "NSPhotoLibraryUsageDescription" : {
+      "comment" : "Why the app asks for the photo library.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Shrink opens the videos you pick, saves the compressed copies to the Compressed Videos album and, if you ask, deletes the originals. Everything stays on this iPhone." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Shrink apre i video che scegli, salva le copie compresse nell'album Video compressi e, se lo chiedi, elimina gli originali. Tutto resta su questo iPhone." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

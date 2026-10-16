@@ -1,0 +1,25 @@
+No subscription.
+No in-app purchases.
+No account.
+No ads.
+No tracking.
+Data stays on your device.
+
+Compress your videos and free up space on your iPhone. No watermark, no daily limit, and many videos at once, for free.
+
+- Pick one or more videos from Photos, or import them from Files
+- Two settings everyone gets: frame rate (24 suggested) and dimensions (80% suggested), plus quality
+- See how much they will weigh before compressing: with the suggested settings an iPhone video gets about 80% lighter
+- The size of each video and the total of the selection
+- Compress many videos in a row: overall percentage, "video 2 of 5", a bar for each video and Stop
+- A video that fails does not stop the others; one that is already light stays as it is
+- At the end: before, after and how much you saved
+- Copies go to Photos and to the Compressed Videos album, with the date and place of the original
+- Then choose: delete the originals (the app asks, then iOS) or keep them
+- Share the copies with any app
+- Advanced: maximum size in MB per video, H.264 or HEVC, convert to MP4, remove audio
+- Reads H.264, HEVC, .mov, .mp4 and .m4v
+- Everything on your iPhone with Apple's video encoder: no video leaves the phone
+- Light and dark mode, Dynamic Type, VoiceOver
+
+Sbu does one thing: it makes your videos lighter, on your phone.

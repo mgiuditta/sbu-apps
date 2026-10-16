@@ -1,0 +1,25 @@
+Nessun abbonamento.
+Nessun acquisto in-app.
+Nessun account.
+Nessuna pubblicità.
+Nessun tracking.
+Dati solo sul dispositivo.
+
+Comprimi i video e liberi spazio sull'iPhone. Senza filigrana, senza limite di video al giorno, e anche tanti video insieme, gratis.
+
+- Scegli uno o più video da Foto, o importali da File
+- Due regolazioni come piacciono a tutti: frame rate (consigliato 24) e dimensioni (consigliato 80%), più la qualità
+- Prima di comprimere vedi quanto peseranno: con le impostazioni consigliate un video dell'iPhone pesa circa l'80% in meno
+- Il peso di ogni video e il totale della selezione
+- Compressione di più video in fila: percentuale totale, "video 2 di 5", una barra per video e Interrompi
+- Un video che non si comprime non ferma gli altri; uno già leggero resta com'è
+- Alla fine: prima, dopo e quanto hai risparmiato
+- Le copie vanno in Foto e nell'album Video compressi, con la data e il luogo dell'originale
+- Poi scegli: elimina gli originali (te lo chiede l'app e poi iOS) o tienili
+- Condividi le copie con qualsiasi app
+- Avanzate: dimensione massima in MB per video, H.264 o HEVC, conversione in MP4, togli l'audio
+- Legge H.264, HEVC, .mov, .mp4 e .m4v
+- Tutto sull'iPhone con il codificatore video di Apple: nessun video lascia il telefono
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: rende più leggeri i tuoi video, sul telefono.

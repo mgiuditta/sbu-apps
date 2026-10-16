@@ -1,0 +1,8 @@
+No account. Sbu Shrink has no server and sends nothing: no analytics, ads or tracking. Videos are compressed on the device with AVFoundation; no video leaves the iPhone.
+
+- Tap "Scegli da Foto" (Choose from Photos) and pick one or more videos, or import them from Files.
+- The next screen shows the estimated size, frame rate, dimensions and quality sliders, an Advanced screen (maximum size in MB, H.264 or HEVC, MP4, remove audio) and the picked videos with their sizes. Tap Compress.
+- The first time, iOS asks for access to Photos, to save the copies in the "Compressed Videos" album and, only if the user asks, to delete the originals.
+- The run shows the overall percentage, "video N of M" and a bar per video, with Stop.
+- The result shows before, after and savings. "Delete originals" asks for confirmation and iOS asks again; deleted videos stay 30 days in Recently Deleted. "Keep originals" ends without deleting.
+To review with real content, add a few videos to the device's library first.

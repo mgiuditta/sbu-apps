@@ -1,0 +1,1 @@
+comprimere,ridurre,dimensione,peso,MB,spazio,memoria,mp4,mov,hevc,compressore,risoluzione,batch

@@ -25,7 +25,7 @@ Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in svi
 | Sbu Shrink | 1.0 | pianificata, ricerca fatta | Sbu Shrink (#472) |
 | Sbu Grid | 1.0 | pianificata, ricerca fatta | Sbu Grid (#474) |
 | Sbu Tidy | 1.0 | pianificata | Sbu Tidy (#476) |
-| Sbu Libretto | 1.0 | pianificata | Sbu Libretto (#478) |
+| Sbu Libretto | 1.0 | costruita sul branch locale app/libretto, in review da Matteo; TestFlight da fare | Sbu Libretto (#478) |
 | Sbu Meds | 1.0 | pianificata, dopo Cycle | Sbu Meds (#480) |
 | Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
 | Sbu Remote | 1.0 | pianificata | Sbu Remote (#365) |

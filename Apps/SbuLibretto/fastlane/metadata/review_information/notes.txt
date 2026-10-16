@@ -1,0 +1,10 @@
+No account. Sbu Libretto has no server and makes no network calls: no analytics, ads or tracking. Data stays on the device.
+
+To review without your own exams:
+1. On the first screen tap "Try with sample data". It adds a sample computer engineering libretto.
+2. At the top you see the weighted average of the grades. Below: credits, Record grade, Simulate exam, Study plan, Next sittings, Timetable, then the chart and statistics.
+3. Settings (gear) holds the course rules: what cum laude is worth, worst grades left out, conversion and rounding of the graduation base.
+
+The widget reads only a snapshot the app writes to its own App Group.
+
+How it differs from the other Sbu apps: it is the only one for university students, tracking exams, the grade average and the graduation base.

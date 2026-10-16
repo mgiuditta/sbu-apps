@@ -5,6 +5,20 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Registra i voti e gli esami che ti mancano: in alto vedi la media ponderata sui CFU, quanto è cambiata con l'ultimo esame e i crediti che hai su quelli del corso.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Esami con voto da 18 a 30 e lode, CFU anche decimali e senza limiti, anno di corso e data
+- Idoneità: i CFU contano, la media no
+- Esami da sostenere con la data dell'appello e i giorni che mancano
+- Media ponderata e aritmetica, grafico dell'andamento della media
+- Base di laurea con le regole del tuo corso: valore della lode, voti peggiori esclusi, conversione, bonus, moltiplicatore, arrotondamento
+- Esempi di come calcolano UniMi, PoliMi, UniBo e Sapienza
+- Simulazione: per ogni voto del prossimo esame, la nuova media e la base; e il voto che ti serve per una media obiettivo
+- Piano di studi per anno, con filtri e ordine per data, voto o CFU
+- Orario delle lezioni della settimana, sempre in 24 ore
+- Widget con media e prossimo appello, gratis
+- Nessun ateneo da scegliere, nessun login al portale
+- Dati di esempio per provarla subito
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu fa una cosa sola: ti dice la tua media, e quanto vale alla laurea.

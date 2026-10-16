@@ -5,6 +5,20 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Record your grades and the exams you still need: at the top you see your credit-weighted average, how the last exam moved it, and your credits out of the degree's total.
 
-Sbu does one thing: __ONE_THING_EN__
+- Exams graded 18 to 30 cum laude, credits with decimals and no limits, year and date
+- Pass/fail exams: their credits count, the average doesn't
+- Exams to take with their sitting date and the days left
+- Weighted and arithmetic average, chart of your average over time
+- Graduation base under your course's rules: what cum laude is worth, worst grades left out, conversion, bonus, multiplier, rounding
+- Examples of how Milan, Politecnico di Milano, Bologna and Sapienza compute it
+- Simulation: for each grade of your next exam, the new average and base; and the grade you need for a target average
+- Study plan by year, with filters and sorting by date, grade or credits
+- Weekly timetable, always in 24 hours
+- Widget with your average and next sitting, free
+- No university to pick, no portal login
+- Sample data to try it right away
+- Light and dark, Dynamic Type, VoiceOver
+
+Sbu does one thing: it tells you your average, and what it's worth at graduation.

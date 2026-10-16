@@ -1,0 +1,31 @@
+{
+  "id": "595339588",
+  "name": "Tody",
+  "developer": "LoopLoop",
+  "bundle_id": "com.todyapp.tody",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Productivity",
+  "genres": [
+    "Produttività",
+    "Utility"
+  ],
+  "description": "Tody is a smarter to-do list for managing household cleaning routines. It will optimize and motivate your cleaning. \n\n●  Gain flexibility by managing cleaning tasks by indicators of actual need rather than arbitrary dates.\n\n●  Tody visualizes dirtiness to motivate cleaning and visualizes the effect of cleaning to enhance satisfaction.\n\n●  There are no deadlines, alarms and notifications (optional). Tody puts you in control of your cleaning routines instead of cleaning routines controlling you.\n\n●  Turn home cleaning into a game. House members can sync plans across devices and users and check-in to claim credit for their actions.\n\n●  Enjoy an extremely easy and intuitive set up of a customized cleaning plan.\n\n●  Tody can be customized and scaled to fit almost any needs. It thus suits singles as well as complex households with many members. Even professionals find Tody to be their preferred tool.\n\nRecommended by marthastewart.com, Buzzfeed and MacWorld.",
+  "release_notes": "Optimizations and bug fixes.",
+  "version": "6.6.10",
+  "current_version_release_date": "2026-10-15T22:03:54Z",
+  "rating": 4.58537,
+  "rating_count": 41,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/it/app/tody/id595339588?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/65/75/35/657535d5-fe4a-4876-8ed3-935afaac6694/mzl.vwrvznii.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2b/a6/5a/2ba65a2d-df58-5d0f-2db1-1f6c09eaffe9/mzl.nxogxjxy.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5b/33/18/5b331833-eb9a-b1ce-d0ef-5b73a28a3813/mzl.ohvyqdzq.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/49/d6/a949d647-e844-6968-3a6c-bd9f59eaef8a/mzl.kqehyrxw.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c7/f2/37/c7f23700-1b9c-8bad-6709-4b6b970315f3/mzl.zdsfvtrg.png/392x696bb.png"
+  ]
+}

@@ -12,9 +12,12 @@ extension Subscription {
         trial.trialEndDate = day(5)
         let paused = make("Palestra", "39", start: -200)
         paused.status = .paused
+        // Paid for over a year, so its detail has a history to show.
+        let music = make("Musica", "10.99", start: -58)
+        music.startDate = calendar.date(byAdding: .year, value: -1, to: music.startDate) ?? music.startDate
         return [
             make("Film e serie", "13.99", start: -40),
-            make("Musica", "10.99", start: -58),
+            music,
             make("Archivio cloud", "2.99", start: -20),
             make("Giornale", "79.99", start: -300, .yearly),
             make("Strumenti di design", "12", "USD", start: -27),

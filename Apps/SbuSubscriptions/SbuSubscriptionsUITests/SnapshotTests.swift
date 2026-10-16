@@ -24,10 +24,13 @@ final class SnapshotTests: XCTestCase {
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "Musica", "Music")).firstMatch.tap()
         XCTAssertTrue(app.buttons["edit"].waitForExistence(timeout: 5))
         snapshot("03-detail")
-        // The detail is a sheet: pulled down by its bar.
-        app.navigationBars.firstMatch.swipeDown(velocity: .fast)
+        // The detail is a sheet: dragged down from its top edge.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08))
+            .press(forDuration: 0.1, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.98)))
+        XCTAssertTrue(app.buttons["edit"].waitForNonExistence(timeout: 5), "The detail sheet closes")
 
         tabs.element(boundBy: 2).tap()
+        XCTAssertTrue(element("Ora dei promemoria", "Reminder time", in: app).exists, "Settings are on screen")
         snapshot("04-privacy")
     }
 

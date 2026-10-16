@@ -32,10 +32,14 @@ struct PaymentsCalendarView: View {
                     Button {
                         opened = payment.subscription
                     } label: {
-                        LabeledContent(payment.subscription.name) {
+                        // Not a LabeledContent: inside a button it stacked the price under the name.
+                        HStack {
+                            Text(payment.subscription.name)
+                                .foregroundStyle(SbuTheme.ink)
+                            Spacer()
                             Text(payment.subscription.price, format: .currency(code: payment.subscription.currencyCode))
+                                .foregroundStyle(SbuTheme.inkMuted)
                         }
-                        .foregroundStyle(SbuTheme.ink)
                     }
                 }
             } header: {

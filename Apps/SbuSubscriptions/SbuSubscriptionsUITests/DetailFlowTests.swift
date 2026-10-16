@@ -21,6 +21,10 @@ final class DetailFlowTests: XCTestCase {
         XCTAssertTrue(price.waitForExistence(timeout: 5))
         // Audited before typing: with the system decimal pad up over this sheet the audit flags three
         // of the keyboard's own texts, which the app doesn't draw.
+        let form = XCTAttachment(screenshot: app.screenshot())
+        form.name = "modifica"
+        form.lifetime = .keepAlways
+        add(form)
         try audit(app, "modifica")
         // At the right edge, so the cursor lands after the old price.
         price.coordinate(withNormalizedOffset: CGVector(dx: 0.98, dy: 0.5)).tap()

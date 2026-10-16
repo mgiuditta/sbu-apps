@@ -57,7 +57,9 @@ final class DeviceCheckTests: XCTestCase {
         app.buttons["edit"].tap()
         attach(app, "modifica-ax5")
         app.buttons["Annulla"].tap()
-        app.navigationBars.firstMatch.swipeDown(velocity: .fast)
+        // The detail is a sheet: dragged down from its top edge.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08))
+            .press(forDuration: 0.1, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.98)))
         app.swipeDown()
         app.swipeDown()
         app.tabBars.buttons["Impostazioni"].tap()

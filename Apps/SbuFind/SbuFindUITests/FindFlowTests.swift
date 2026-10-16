@@ -19,7 +19,7 @@ final class FindFlowTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FIXED_SCANNER", scanner]
         // Arguments win over saved settings: every test starts from the defaults.
-        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO", "-remembersPlaces", "NO", "-STILL_ANIMATIONS", "YES"]
+        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO", "-remembersPlaces", "NO"]
         app.launchArguments += arguments
         app.launch()
         return app
@@ -70,49 +70,37 @@ final class FindFlowTests: XCTestCase {
         XCTAssertTrue(labels[5].hasPrefix("Mi Band 8"), labels[5])
         XCTAssertTrue(labels[5].contains("Freddo"), labels[5])
         XCTAssertTrue(app.staticTexts["Dispositivi senza nome nascosti: 3. Puoi mostrarli in Impostazioni."].exists)
-        XCTAssertTrue(app.staticTexts["Ricerca…"].exists)
+        XCTAssertTrue(app.staticTexts["Altri dispositivi"].exists)
+        XCTAssertFalse(app.staticTexts["Ricerca…"].exists)
         try audit(app)
     }
 
     @MainActor
-    func testTheScanCardClosesAndComesBackWithSearchAgain() throws {
-        let app = launch()
-        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Ricerca…"].exists)
-        XCTAssertFalse(app.buttons["Cerca di nuovo"].exists)
+    func testNothingNearbySaysSoAfterTheFirstSecondsAndOffersSearchAgain() throws {
+        let app = launch(scanner: "empty")
+        // The first seconds: the header's spinner, and no "nothing nearby" yet.
+        XCTAssertTrue(app.staticTexts["Altri dispositivi"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Ricerca dei dispositivi vicini…"].exists)
 
-        app.buttons["Chiudi"].tap()
-
+        let nothing = app.staticTexts["Nessun dispositivo vicino. Tienilo acceso e fuori dalla custodia."]
+        XCTAssertTrue(nothing.waitForExistence(timeout: 10))
         let searchAgain = app.buttons["Cerca di nuovo"]
-        XCTAssertTrue(searchAgain.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForNonExistence(timeout: 5))
+        XCTAssertTrue(searchAgain.exists)
         try audit(app)
 
         searchAgain.tap()
-        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForExistence(timeout: 5))
-        // The list fills again at the next refresh, while the card is up.
+        XCTAssertTrue(app.staticTexts["Ricerca dei dispositivi vicini…"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testPullingTheListDownSearchesAgain() throws {
+        let app = launch()
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+        let start = app.collectionViews.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
+        start.press(forDuration: 0.1, thenDragTo: start.withOffset(CGVector(dx: 0, dy: 400)))
+        // The fixed devices advertise four times a second: the list fills again at once.
         XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
         XCTAssertEqual(rowLabels(app).count, 6)
-    }
-
-    @MainActor
-    func testTheScanCardGoesByItselfOnceDevicesAreListed() throws {
-        let app = launch()
-        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["Cerca di nuovo"].waitForExistence(timeout: 15))
-    }
-
-    @MainActor
-    func testNoDeviceYetSaysTheSearchIsRunning() throws {
-        let app = launch(scanner: "empty")
-        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForExistence(timeout: 5))
-        try audit(app)
-
-        // With nothing heard the card stays until closed; then the screen still says it searches.
-        app.buttons["Chiudi"].tap()
-        XCTAssertTrue(app.staticTexts["Ricerca in corso"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["Cerca di nuovo"].exists)
-        try audit(app)
     }
 
     @MainActor

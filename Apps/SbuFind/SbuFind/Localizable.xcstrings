@@ -281,16 +281,6 @@
         }
       }
     },
-    "Chiudi" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        }
-      }
-    },
     "Computer portatile" : {
       "localizations" : {
         "en" : {
@@ -581,6 +571,16 @@
         }
       }
     },
+    "Nessun dispositivo vicino. Tienilo acceso e fuori dalla custodia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No device nearby. Keep it on and out of its case."
+          }
+        }
+      }
+    },
     "Nessuna cuffia collegata all'iPhone: Fai suonare funziona solo con cuffie Bluetooth collegate." : {
       "localizations" : {
         "en" : {
@@ -771,22 +771,22 @@
         }
       }
     },
+    "Ricerca dei dispositivi vicini…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Searching for nearby devices…"
+          }
+        }
+      }
+    },
     "Ricerca in corso" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Searching"
-          }
-        }
-      }
-    },
-    "Ricerca…" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scanning…"
           }
         }
       }
@@ -837,16 +837,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Find"
-          }
-        }
-      }
-    },
-    "Sbu Find ascolta i dispositivi Bluetooth vicini." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sbu Find is listening to nearby Bluetooth devices."
           }
         }
       }
@@ -997,16 +987,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "It alerts you when the device is not heard for 15 seconds while Sbu Find is open: iOS does not let apps listen to Bluetooth devices once closed."
-          }
-        }
-      }
-    },
-    "Tieni il dispositivo acceso e fuori dalla custodia: Sbu Find sente solo quello che trasmette." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keep the device on and out of its case: Sbu Find only hears what is transmitting."
           }
         }
       }

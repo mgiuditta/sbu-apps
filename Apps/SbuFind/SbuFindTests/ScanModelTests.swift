@@ -342,25 +342,36 @@ struct ScanModelTests {
         #expect(model.showsUnnamed == false)
     }
 
-    @Test func theScanCardShowsWhenBluetoothBecomesReady() {
+    @Test func aScanSettlesForItsFirstSeconds() {
         let model = makeModel()
-        #expect(!model.scanCard.isVisible)
+        #expect(!model.isSettling)
         model.handle(.state(.ready))
-        #expect(model.scanCard.isVisible)
-        model.closeScanCard()
-        model.handle(.state(.ready))
-        #expect(!model.scanCard.isVisible)
-        model.handle(.state(.poweredOff))
-        model.handle(.state(.ready))
-        #expect(model.scanCard.isVisible)
+        #expect(model.isSettling)
+
+        model.refresh(at: Advertisement.start.addingTimeInterval(ScanWindow.settling - 0.5))
+        #expect(model.isSettling)
+        model.refresh(at: Advertisement.start.addingTimeInterval(ScanWindow.settling))
+        #expect(!model.isSettling)
     }
 
-    @Test func searchAgainShowsTheScanCardAgain() {
+    @Test func searchAgainSettlesAgain() {
         let model = makeModel()
         model.handle(.state(.ready))
-        model.closeScanCard()
+        model.refresh(at: Advertisement.start.addingTimeInterval(10))
+        clock.now = Advertisement.start.addingTimeInterval(10)
         model.rescan()
-        #expect(model.scanCard.isVisible)
+        #expect(model.isSettling)
+        #expect(scanner.restarts == 1)
+    }
+
+    @Test func bluetoothComingBackSettlesAgain() {
+        let model = makeModel()
+        model.handle(.state(.ready))
+        model.refresh(at: Advertisement.start.addingTimeInterval(10))
+        model.handle(.state(.poweredOff))
+        clock.now = Advertisement.start.addingTimeInterval(20)
+        model.handle(.state(.ready))
+        #expect(model.isSettling)
     }
 
     @Test func watchingAsksForNotificationsAndAlertsOnceWhenTheDeviceFallsSilent() async {

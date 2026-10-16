@@ -1,15 +1,14 @@
 import SbuKit
 import SwiftUI
 
-/// The finder's large ring around the device's symbol. It breathes gently while the device is
-/// heard, dims when it falls silent, and pops at the "found it" moment. Still with Reduce Motion.
+/// The finder's large ring around the device's symbol. Its fill eases to each reading, it dims
+/// when the device falls silent, and it pops once at the "found it" moment, not with Reduce Motion.
 struct FinderRing: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let tracked: TrackedDevice?
     let foundMoments: Int
 
-    @State private var isBreathing = false
     @State private var isPopping = false
 
     private var isLost: Bool { tracked?.isLost ?? true }
@@ -22,17 +21,9 @@ struct FinderRing: View {
             symbolScale: 0.42
         )
         .opacity(isLost ? 0.4 : 1)
-        .scaleEffect(isPopping ? 1.08 : (isBreathing ? 1.02 : 1))
+        .scaleEffect(isPopping ? 1.08 : 1)
         .animation(.easeInOut(duration: 0.4), value: isLost)
-        .onAppear(perform: startBreathing)
         .onChange(of: foundMoments, pop)
-    }
-
-    private func startBreathing() {
-        guard Breathing.isAllowed(reduceMotion: reduceMotion) else { return }
-        withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) {
-            isBreathing = true
-        }
     }
 
     private func pop() {

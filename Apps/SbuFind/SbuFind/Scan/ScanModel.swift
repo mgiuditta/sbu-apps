@@ -28,8 +28,9 @@ final class ScanModel {
     private(set) var hiddenUnnamedCount = 0
     /// The device on the finder, kept after it falls silent so the finder can say for how long.
     private(set) var tracked: TrackedDevice?
-    /// The "Ricerca…" card at the bottom of the list.
-    private(set) var scanCard = ScanCard()
+    /// In the first seconds of a scan: the list says it is searching, not that nothing is near.
+    private(set) var isSettling = false
+    @ObservationIgnored private var scanWindow = ScanWindow()
     /// Goes up by one at each "found it" moment on the finder: the screen celebrates each change.
     private(set) var foundMoments = 0
     /// The device Avvisami se lo perdi watches, if any. Kept only while the app runs: iOS may
@@ -211,7 +212,8 @@ final class ScanModel {
             let wasReady = state == .ready
             state = newState
             if newState == .ready, !wasReady {
-                scanCard.show(at: clock())
+                scanWindow.start(at: clock())
+                isSettling = true
                 lostAlert?.resume(at: clock())
             }
             if newState != .ready {
@@ -237,14 +239,10 @@ final class ScanModel {
     /// Cerca di nuovo: forgets every device and listens from scratch.
     func rescan() {
         roster.removeAll()
-        scanCard.show(at: clock())
+        scanWindow.start(at: clock())
+        isSettling = true
         publish(at: clock())
         scanner.restart()
-    }
-
-    /// The card's close button.
-    func closeScanCard() {
-        scanCard.close()
     }
 
     /// The finder opened on this device: from now on `tracked` follows it.
@@ -351,10 +349,9 @@ final class ScanModel {
         if hidden != hiddenUnnamedCount {
             hiddenUnnamedCount = hidden
         }
-        var card = scanCard
-        card.update(at: now, listedDevices: listed.count + myMatches.count)
-        if card != scanCard {
-            scanCard = card
+        let settling = scanWindow.isSettling(at: now)
+        if settling != isSettling {
+            isSettling = settling
         }
     }
 

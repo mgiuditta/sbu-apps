@@ -3,9 +3,10 @@ import SwiftUI
 
 /// The nearby devices, strongest signal first; or why Bluetooth cannot scan.
 ///
-/// As in Find Air: settings at the top left, help at the top right, the list, a scan button.
-/// The scan never stops while the app is open; Cerca di nuovo forgets the list and listens
-/// from scratch.
+/// As in Find Air: settings at the top left, help at the top right, the list. As in Wunderfind:
+/// your devices on top, then Altri dispositivi with the system spinner while the scan runs. The
+/// scan never stops while the app is open; pulling the list down, or Cerca di nuovo when nothing
+/// is near, forgets the list and listens from scratch.
 struct MainView: View {
     @Environment(\.showSettings) private var showSettings
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -15,10 +16,13 @@ struct MainView: View {
 
     @State private var isShowingHelp = false
 
-    private var isSearching: Bool {
-        // Behind the card while it is up: it already says the search is running.
-        model.state == .ready && model.devices.isEmpty && model.hiddenUnnamedCount == 0 && !model.scanCard.isVisible
-            && (!model.remembersPlaces || model.recentSightings.isEmpty) && model.myDevices.isEmpty
+    private var isScanning: Bool {
+        model.state == .ready
+    }
+
+    /// Nothing nearby once the first seconds of the scan are over.
+    private var isNothingNearby: Bool {
+        isScanning && !model.isSettling && model.devices.isEmpty && model.hiddenUnnamedCount == 0
     }
 
     var body: some View {
@@ -42,10 +46,25 @@ struct MainView: View {
                     }
                     .listRowBackground(SbuTheme.surfaceRaised)
                 } header: {
-                    if !model.myDevices.isEmpty, device.id == model.devices.first?.id {
-                        Text("Altri dispositivi")
+                    if device.id == model.devices.first?.id {
+                        NearbyHeader(isScanning: isScanning)
                     }
                 }
+            }
+
+            if isScanning, model.devices.isEmpty {
+                Section {
+                    if isNothingNearby {
+                        NothingNearbyRow(searchAgain: model.rescan)
+                    } else {
+                        Text("Ricerca dei dispositivi vicini…")
+                            .font(SbuTheme.body)
+                            .foregroundStyle(SbuTheme.inkMuted)
+                    }
+                } header: {
+                    NearbyHeader(isScanning: isScanning)
+                }
+                .listRowBackground(SbuTheme.surfaceRaised)
             }
 
             if model.hiddenUnnamedCount > 0 {
@@ -78,23 +97,10 @@ struct MainView: View {
         .navigationDestination(for: UUID.self) { id in
             FinderView(model: model, ringer: ringer, deviceID: id)
         }
+        .refreshable(action: searchAgain)
         .overlay {
             if let notice = BluetoothNotice(state: model.state) {
                 BluetoothNoticeView(notice: notice)
-            } else if isSearching {
-                NoticeView(
-                    title: "Ricerca in corso",
-                    message: "Tieni il dispositivo acceso e fuori dalla custodia: Sbu Find sente solo quello che trasmette.",
-                    systemImage: "antenna.radiowaves.left.and.right",
-                    isWaiting: true
-                ) {
-                    EmptyView()
-                }
-            }
-        }
-        .safeAreaInset(edge: .bottom) {
-            if model.state == .ready {
-                ScanBottom(model: model)
             }
         }
         .toolbar {
@@ -116,6 +122,12 @@ private extension MainView {
     func showHelp() {
         isShowingHelp = true
     }
+
+    /// Pull to refresh: listens from scratch and gives the scan a moment before the spinner goes.
+    func searchAgain() async {
+        model.rescan()
+        try? await Task.sleep(for: .seconds(1))
+    }
 }
 
 #Preview("Light") {
@@ -131,7 +143,7 @@ private extension MainView {
     MainViewPreview(scanner: FixedScanner(state: .poweredOff))
 }
 
-#Preview("Ricerca in corso") {
+#Preview("Nessun dispositivo") {
     MainViewPreview(scanner: FixedScanner(devices: []))
 }
 

@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alto vedi la Serie piena: i giorni di fila in cui hai fatto tutto.
 
 - Fino a 24 abitudini, su quattro pagine
@@ -30,3 +23,5 @@ Aggiungi le abitudini che vuoi costruire e tienile premute quando le fai. In alt
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: conta i giorni di fila in cui mantieni un'abitudine.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

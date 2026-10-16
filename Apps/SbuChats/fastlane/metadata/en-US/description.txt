@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Export a chat from your messaging app and Sbu Chats turns it into numbers, on your iPhone: how many messages you've sent each other, who replies faster, what time you talk.
 
 - Imports exported chats as .zip, with or without media, or .txt, from the share sheet or Files
@@ -23,3 +16,5 @@ Export a chat from your messaging app and Sbu Chats turns it into numbers, on yo
 - Light and dark, Dynamic Type, VoiceOver
 
 Sbu does one thing: it turns an exported chat into its numbers, on your iPhone.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

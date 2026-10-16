@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Free up space in your Photos library without paying to delete. No daily limits, no waiting, no trial that turns into a subscription: swipe, review and delete as many photos as you like.
 
 - At the top, the space you can free, and below it your iPhone's storage
@@ -25,3 +18,5 @@ Free up space in your Photos library without paying to delete. No daily limits, 
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it frees up space in your Photos library, one decision at a time.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

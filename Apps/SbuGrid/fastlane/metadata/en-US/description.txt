@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Choose a photo and Sbu Grid lays a grid over it: you copy it onto paper one cell at a time, with the right proportions.
 
 - Free columns and rows, or square cells: the rows always say how many they are and why
@@ -23,3 +16,5 @@ Choose a photo and Sbu Grid lays a grid over it: you copy it onto paper one cell
 Sbu Grid helps you draw on paper: it has no brushes and no drawing on the screen.
 
 Sbu does one thing: it lays a grid over the photo you want to draw.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

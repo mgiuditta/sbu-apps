@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Photograph the things you own, put them in folders like the places in your home, and always know where they are and how many. At the top you see the total: how many things you have.
 
 - No limit on items, folders or photos
@@ -22,3 +15,5 @@ Photograph the things you own, put them in folders like the places in your home,
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it keeps everything you own in one place, with its photo, where it is and how many.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

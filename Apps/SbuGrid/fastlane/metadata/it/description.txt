@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Scegli una foto e Sbu Grid ci stende sopra una griglia: la ricopi sul foglio una cella alla volta, con le proporzioni giuste.
 
 - Colonne e righe libere, o celle quadrate: le righe dicono sempre quante sono e perché
@@ -23,3 +16,5 @@ Scegli una foto e Sbu Grid ci stende sopra una griglia: la ricopi sul foglio una
 Sbu Grid aiuta a disegnare sulla carta: non ha pennelli né disegno sullo schermo.
 
 Sbu fa una cosa sola: stende una griglia sulla foto che vuoi disegnare.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

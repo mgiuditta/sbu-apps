@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Add your subscriptions and at the top you see what you spend a year, or a month. Before each renewal a reminder tells you the day and the amount.
 
 - Unlimited subscriptions, from a list of known services or your own
@@ -25,3 +18,5 @@ Add your subscriptions and at the top you see what you spend a year, or a month.
 - Light and dark, Dynamic Type, VoiceOver
 
 Sbu does one thing: it tells you what your subscriptions cost, so no renewal takes you by surprise.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

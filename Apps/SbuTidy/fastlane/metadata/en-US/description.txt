@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Give each chore in your home a frequency: dirt builds up over time, and at the top you see how many things are due today. No rigid deadlines: clean what needs it, when it needs it.
 
 - "To do" list by room, dirtiest first; a "Coming up" filter to get ahead
@@ -24,3 +17,5 @@ Give each chore in your home a frequency: dirt builds up over time, and at the t
 It works on one device: there is no sync with other people in your home.
 
 Sbu does one thing: it tells you what to clean at home today.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

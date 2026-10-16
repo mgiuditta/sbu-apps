@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Libera spazio nella libreria Foto senza pagare per eliminare. Nessun limite al giorno, nessuna attesa, nessuna prova che diventa abbonamento: scorri, rivedi, elimina, quante foto vuoi.
 
 - In alto lo spazio che puoi liberare, e sotto lo spazio dell'iPhone
@@ -25,3 +18,5 @@ Libera spazio nella libreria Foto senza pagare per eliminare. Nessun limite al g
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: libera spazio nella libreria Foto, una decisione alla volta.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

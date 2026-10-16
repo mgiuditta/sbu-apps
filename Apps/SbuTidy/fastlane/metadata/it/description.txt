@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Dai a ogni attività di casa una frequenza: lo sporco cresce con il tempo e in alto vedi quante cose sono da fare oggi. Niente scadenze rigide: pulisci quello che serve, quando serve.
 
 - Lista "Da fare" per stanza, la più sporca prima; filtro "In scadenza" per portarti avanti
@@ -24,3 +17,5 @@ Dai a ogni attività di casa una frequenza: lo sporco cresce con il tempo e in a
 Funziona su un solo dispositivo: non c'è sincronizzazione con altre persone di casa.
 
 Sbu fa una cosa sola: ti dice cosa pulire oggi in casa.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Log each fuel-up with the odometer, the quantity and what you paid: at the top you see your vehicle's average consumption, worked out from full tank to full tank.
 
 - Full-to-full consumption: partial fills add to the stretch, a missed fuel-up never skews the average
@@ -21,3 +14,5 @@ Log each fuel-up with the odometer, the quantity and what you paid: at the top y
 - Light and dark, Dynamic Type, VoiceOver
 
 Sbu does one thing: it tells you how much fuel your vehicle uses, from full tank to full tank.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

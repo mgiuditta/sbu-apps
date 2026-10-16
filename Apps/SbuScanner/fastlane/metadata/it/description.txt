@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Inquadra un codice e si legge da solo. Prima di aprire un link vedi dove porta davvero.
 
 - Legge QR, Data Matrix, Aztec, PDF417 e codici a barre EAN, UPC, Code 128, Code 39 e altri
@@ -22,3 +15,5 @@ Inquadra un codice e si legge da solo. Prima di aprire un link vedi dove porta d
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: legge qualsiasi codice e ti fa vedere dove porta prima di aprirlo.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

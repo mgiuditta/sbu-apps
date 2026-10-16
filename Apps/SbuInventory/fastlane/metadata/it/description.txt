@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Fotografa le cose che hai, mettile in cartelle come i posti di casa e sai sempre dove sono e quante. In alto vedi il totale: quanti oggetti hai.
 
 - Nessun limite di oggetti, cartelle o foto
@@ -22,3 +15,5 @@ Fotografa le cose che hai, mettile in cartelle come i posti di casa e sai sempre
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: tiene in un posto tutto quello che hai, con la foto, dove si trova e quanti sono.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

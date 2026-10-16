@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Registra i voti e gli esami che ti mancano: in alto vedi la media ponderata sui CFU, quanto è cambiata con l'ultimo esame e i crediti che hai su quelli del corso.
 
 - Esami con voto da 18 a 30 e lode, CFU anche decimali e senza limiti, anno di corso e data
@@ -22,3 +15,5 @@ Registra i voti e gli esami che ti mancano: in alto vedi la media ponderata sui 
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: ti dice la tua media, e quanto vale alla laurea.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

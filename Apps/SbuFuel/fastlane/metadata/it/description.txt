@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Registra ogni rifornimento con il contachilometri, i litri e quanto hai pagato: in alto vedi il consumo medio del tuo veicolo, calcolato da pieno a pieno.
 
 - Consumo da pieno a pieno: i parziali si sommano al tratto, un rifornimento saltato non falsa la media
@@ -21,3 +14,5 @@ Registra ogni rifornimento con il contachilometri, i litri e quanto hai pagato: 
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: ti dice quanto consuma il tuo veicolo, da pieno a pieno.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

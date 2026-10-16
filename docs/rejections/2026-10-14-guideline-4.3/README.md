@@ -30,7 +30,7 @@ Apple dice: se credi che l'app sia conforme non reinviare, rispondi alle 9 doman
 
 ## Da decidere tu (non l'ho fatto)
 
-- **Descrizioni dello Store.** Il blocco promesse identico in testa a sei descrizioni è il segnale più forte e più facile da togliere. Proposta: prima riga su cosa fa l'app, promesse in una riga sola in fondo. Cambia una regola di CLAUDE.md e del sito, quindi aspetto il tuo sì. Si può modificare anche mentre la versione è rifiutata, senza reinviare.
+- **Descrizioni dello Store.** Fatto il 16/10: promesse in una riga in fondo a tutte le descrizioni, regola aggiornata in CLAUDE.md. Da caricare su ASC con `fastlane metadata` per ogni app.
 - **Beta esterno.** Un gruppo TestFlight pubblico con qualche persona vera prima dei prossimi invii renderebbe il punto 4 una risposta vera invece di una ammissione.
 
 ## Rischio

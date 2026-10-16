@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Point at a code and it reads by itself. Before a link opens, you see where it really goes.
 
 - Reads QR, Data Matrix, Aztec, PDF417 and EAN, UPC, Code 128, Code 39 barcodes and more
@@ -22,3 +15,5 @@ Point at a code and it reads by itself. Before a link opens, you see where it re
 - Light and dark, Dynamic Type, VoiceOver
 
 Sbu does one thing: it reads any code and shows you where it goes before you open it.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

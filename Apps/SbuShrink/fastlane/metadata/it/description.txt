@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Comprimi i video e liberi spazio sull'iPhone. Senza filigrana, senza limite di video al giorno, e anche tanti video insieme, gratis.
 
 - Scegli uno o più video da Foto, o importali da File
@@ -23,3 +16,5 @@ Comprimi i video e liberi spazio sull'iPhone. Senza filigrana, senza limite di v
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: rende più leggeri i tuoi video, sul telefono.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

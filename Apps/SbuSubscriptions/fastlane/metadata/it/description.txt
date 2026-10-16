@@ -1,10 +1,3 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
-
 Aggiungi i tuoi abbonamenti e in alto vedi quanto spendi all'anno, o al mese. Prima di ogni rinnovo ti arriva un promemoria con il giorno e l'importo.
 
 - Abbonamenti illimitati, da un elenco di servizi noti o scritti da te
@@ -25,3 +18,5 @@ Aggiungi i tuoi abbonamenti e in alto vedi quanto spendi all'anno, o al mese. Pr
 - Tema chiaro e scuro, testo dinamico, VoiceOver
 
 Sbu fa una cosa sola: ti dice quanto ti costano gli abbonamenti, e nessun rinnovo ti sorprende.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

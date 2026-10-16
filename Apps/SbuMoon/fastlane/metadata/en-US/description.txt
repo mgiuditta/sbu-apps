@@ -1,10 +1,3 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
-
 Open the app and you know what the moon looks like right now: how much of it is lit, whether it is waxing or waning, when the next full moon comes.
 
 - Illuminated percentage, one large readable figure
@@ -18,3 +11,5 @@ Open the app and you know what the moon looks like right now: how much of it is 
 - Light and dark mode, Dynamic Type, VoiceOver
 
 Sbu does one thing: it tells you what the moon looks like.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

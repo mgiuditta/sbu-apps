@@ -33,6 +33,18 @@ final class DetailFlowTests: XCTestCase {
         pause.tap()
         XCTAssertTrue(app.buttons["Riprendi"].waitForExistence(timeout: 5))
 
+        // Marking it cancelled is the detail's primary button; a cancelled one offers to bring it back.
+        let markCancelled = app.buttons["markCancelled"]
+        for _ in 0..<4 where !markCancelled.exists || !markCancelled.isHittable { app.swipeUp() }
+        let actions = XCTAttachment(screenshot: app.screenshot())
+        actions.name = "azioni"
+        actions.lifetime = .keepAlways
+        // Not audited here: scrolled to the bottom, the rows half under the sheet's bar read as clipped text.
+        // The detail is audited at the top, and the buttons are SbuKit's, audited in every app.
+        add(actions)
+        app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: markCancelled.frame.midX, dy: markCancelled.frame.midY)).tap()
+        XCTAssertTrue(app.buttons["reactivate"].waitForExistence(timeout: 5))
+
         // A full-screen window left by the edit sheet's keyboard makes XCTest call the button not hittable,
         // though a finger reaches it: tap its centre on the screen.
         let delete = app.buttons["delete"]

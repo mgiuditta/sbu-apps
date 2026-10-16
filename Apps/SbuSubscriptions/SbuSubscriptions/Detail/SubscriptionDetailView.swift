@@ -27,14 +27,9 @@ struct SubscriptionDetailView: View {
                 PaymentHistorySection(subscription: subscription, edit: showHistory)
                 PriceHistorySection(subscription: subscription, edit: changePrice)
                 DetailMoreSection(subscription: subscription)
-
+                PauseSection(subscription: subscription)
+                StatusActionsSection(subscription: subscription, delete: delete)
                 CancelHelpSection(subscription: subscription)
-                StatusActionsSection(subscription: subscription)
-
-                Section {
-                    SbuButton("Elimina abbonamento", kind: .destructive, confirmationTitle: "Eliminare \(subscription.name)?", action: delete)
-                        .accessibilityIdentifier("delete")
-                }
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)

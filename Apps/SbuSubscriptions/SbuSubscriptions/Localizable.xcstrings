@@ -441,6 +441,16 @@
         }
       }
     },
+    "Annullato non entra nel totale e non ti ricorda i pagamenti. Riattivalo quando vuoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelled, it stays out of the total and sends no reminders. Reactivate it whenever you like."
+          }
+        }
+      }
+    },
     "Annulli sul sito del servizio, o qui se lo paghi con l'App Store." : {
       "localizations" : {
         "en" : {

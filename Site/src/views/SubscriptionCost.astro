@@ -140,11 +140,12 @@ const jsonLd = [
 </Base>
 
 <style>
+  /* The Cifra: Bricolage at width 87 (.font-display), up to figure-hero-max, on whole grid rows. */
   .figure {
-    font-size: clamp(var(--text-stat-hero), 18vw, calc(var(--text-stat-hero) * 2.2));
-    font-weight: var(--text-stat-hero--font-weight);
+    font-size: clamp(var(--text-stat-hero), 18vw, var(--sbu-figure-hero-max));
+    font-weight: var(--text-figure--font-weight);
     line-height: 1;
-    letter-spacing: var(--text-stat-hero--letter-spacing);
+    line-height: round(up, 1em, var(--sbu-grid-cell));
   }
 
   .rows { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
@@ -162,7 +163,7 @@ const jsonLd = [
     width: 100%;
     padding: var(--spacing-2) var(--spacing-3);
     border: var(--sbu-hairline) solid var(--sbu-line);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-card);
     background: var(--sbu-surface-raised);
     color: var(--sbu-ink);
     font: inherit;
@@ -183,9 +184,9 @@ const jsonLd = [
     display: inline-block;
     padding: var(--spacing-3) var(--spacing-6);
     border: var(--sbu-hairline) solid transparent;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-card);
     background: var(--sbu-ink);
-    color: var(--sbu-surface);
+    color: var(--sbu-paper);
     font: inherit;
     font-size: var(--text-headline);
     font-weight: var(--text-headline--font-weight);

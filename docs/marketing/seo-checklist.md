@@ -44,7 +44,7 @@ Baseline: on 2026-10-12 `sbu.dev` did not resolve (no DNS answer), so there is n
 ## Performance (Core Web Vitals)
 
 - [x] Zero client JS, zero third-party requests (no analytics, no CDN fonts)
-- [x] One self-hosted font file (`BricolageGrotesque-Bold.ttf`, display only) with `font-display: swap`; body text uses the system stack from tokens
+- [x] Two self-hosted fonts (Bricolage Grotesque variable for display, IBM Plex Mono Medium for the cartiglio, WOFF2 subsets) with `font-display: swap`; body text uses the system stack from tokens
 - [x] Icon SVGs with explicit `width`/`height` (no CLS)
 - [ ] Convert the font to WOFF2 subset when the site has real traffic (needs a tool not in the repo)
 - [ ] PageSpeed Insights on home, one app page, one alternative page after launch: LCP < 2.5 s, CLS < 0.1, INP < 200 ms

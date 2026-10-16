@@ -1,5 +1,6 @@
 ---
-// A still of the Schermata strumento, like SbuToolField: the Cifra on `surface`, no colored field, no card.
+// A still of the Schermata strumento, like SbuToolField: the Cifra on the paper's grid, no colored field.
+// Its frame is a whole number of cells, so the figure sits on the same rows as the page.
 import Stat from './Stat.astro';
 import { ui, type Locale } from '../i18n';
 import { text, type App } from '../lib/apps';
@@ -12,8 +13,19 @@ const { app, locale } = Astro.props;
 const figure = app.figure?.[locale];
 ---
 {figure && (
-  <figure class="flex flex-col gap-4 border-y border-line py-12">
+  <figure class="shot">
     <Stat value={figure.value} label={figure.label} />
-    <figcaption class="text-footnote text-ink-muted">{ui[locale].shotCaption(text(app, locale).name)}</figcaption>
+    <figcaption class="cartiglio">{ui[locale].shotCaption(text(app, locale).name)}</figcaption>
   </figure>
 )}
+
+<style>
+  .shot {
+    display: grid;
+    gap: var(--sbu-grid-cell);
+    padding-block: calc(var(--sbu-grid-cell) * 2);
+    border-block: var(--sbu-hairline) solid var(--sbu-line);
+    /* A long figure (a code, a percentage) never pushes the column wider. */
+    overflow: hidden;
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
-// The home is a bill. Each row is an App Sbu next to the paid app it remakes and that app's public price;
-// the sum of those prices is the page's one figure, struck out, because with Sbu it is 0 €.
-// Then the queue of announced apps, the six promises and the free tools. No script: CSS only.
+// The home is a squared sheet. Each App Sbu is one filled cell in its accent at the bottom right of its
+// engraving, as on its icon; an announced app with no page yet is an empty cell. Then "Il numero": what the
+// paid apps Sbu remakes cost, closed by the full stop. Then the six promises and the free tools.
 import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import { capitalize, formatDate, formatPrice, localePath, statusLabel, ui } from '../i18n';
@@ -15,18 +15,17 @@ const copy = {
   it: {
     title: 'sbu.dev · App gratuite per iPhone che fanno una cosa sola',
     hero: 'Sbu fa una cosa sola',
+    cartiglio: (count: number) => `sbu.dev · ${count} app · 0 €`,
     lede: 'App per iPhone che rifanno da zero un’app a pagamento, una per volta. Gratis, senza account, senza pubblicità.',
+    sheet: 'Le app',
+    sheetLede: 'Un quadretto per app, nel suo colore. Quelle ancora senza scheda hanno il quadretto vuoto.',
+    number: 'Il numero',
     notPaid: 'Non paghi',
-    figureLabel: (count: number) => (count === 1 ? 'Quanto costa l’app a pagamento che Sbu rifà.' : `Quanto costano le ${count} app a pagamento che Sbu rifà.`),
-    withSbu: 'Con Sbu',
-    bill: 'Il conto',
-    billLede: 'Ogni riga è un’app Sbu e l’app a pagamento che rifà da zero, con un codice e una grafica nuovi.',
-    columns: { app: 'App Sbu', originale: 'Invece di', price: 'Costa', sbu: 'Sbu' },
-    total: 'Totale',
-    live: 'Sull’App Store',
-    pricesSource: (date: string) => `Prezzi una tantum sull’App Store italiano, verificati il ${date}. I nomi delle app sono dei rispettivi proprietari.`,
-    queue: 'In coda',
-    queueLede: 'App annunciate, ancora senza scheda. Arrivano in quest’ordine.',
+    numberLabel: (names: string, count: number) =>
+      count === 1 ? `Quanto costa ${names}, l’app a pagamento che Sbu rifà.` : `Quanto costano ${names}, le ${count} app a pagamento che Sbu rifà.`,
+    withSbu: (zero: string) => `Con Sbu: ${zero}.`,
+    pricesRead: (date: string) => `Prezzi una tantum · App Store Italia · letti il ${date}`,
+    owners: 'I nomi delle app sono dei rispettivi proprietari.',
     promises: 'Sei promesse, in ogni app',
     promisesClose: 'Se un’app ne viola una, non esce.',
     principles: 'Leggi i principi',
@@ -36,18 +35,17 @@ const copy = {
   en: {
     title: 'sbu.dev · Free iPhone apps that each do one thing',
     hero: 'Sbu does one thing',
+    cartiglio: (count: number) => `sbu.dev · ${count} apps · €0`,
     lede: 'iPhone apps that each remake one paid app from scratch. Free, no account, no ads.',
+    sheet: 'The apps',
+    sheetLede: 'One square per app, in its colour. The ones with no page yet have an empty square.',
+    number: 'The number',
     notPaid: 'You don’t pay',
-    figureLabel: (count: number) => (count === 1 ? 'What the paid app Sbu remakes costs.' : `What the ${count} paid apps Sbu remakes cost.`),
-    withSbu: 'With Sbu',
-    bill: 'The bill',
-    billLede: 'Each row is a Sbu app and the paid app it remakes from scratch, with new code and new design.',
-    columns: { app: 'Sbu app', originale: 'Instead of', price: 'Costs', sbu: 'Sbu' },
-    total: 'Total',
-    live: 'On the App Store',
-    pricesSource: (date: string) => `One-time prices on the Italian App Store, checked on ${date}. App names belong to their owners.`,
-    queue: 'Next up',
-    queueLede: 'Announced apps, with no page yet. They come in this order.',
+    numberLabel: (names: string, count: number) =>
+      count === 1 ? `What ${names} costs, the paid app Sbu remakes.` : `What ${names} cost, the ${count} paid apps Sbu remakes.`,
+    withSbu: (zero: string) => `With Sbu: ${zero}.`,
+    pricesRead: (date: string) => `One-time prices · Italian App Store · read on ${date}`,
+    owners: 'App names belong to their owners.',
     promises: 'Six promises, in every app',
     promisesClose: 'If an app breaks one, it does not ship.',
     principles: 'Read the principles',
@@ -56,30 +54,37 @@ const copy = {
   },
 }[locale];
 
-const rows = apps.map((app) => {
+const tiles = apps.map((app) => {
   const listing = text(app, locale);
   return {
     slug: app.slug,
-    order: app.order,
     accent: app.accent,
     name: listing.name,
     line: `${capitalize(listing.oneThing)}.`,
     href: localePath(locale, `apps/${app.slug}`),
-    status: statusLabel(app, locale),
+    meta: `${t.number(app.order)} · ${statusLabel(app, locale)}`,
     mark: app.mark,
-    originale: app.originale,
   };
 });
-const priced = rows.filter((row) => row.originale?.price !== undefined);
-const total = priced.reduce((sum, row) => sum + row.originale!.price!, 0);
-// The oldest check is the one the whole bill can promise.
-const checked = priced.map((row) => row.originale!.checked!).sort((a, b) => +a - +b)[0];
+const waiting = upcoming.map((app) => ({
+  slug: app.slug,
+  name: app.name,
+  line: app.teaser[locale],
+  meta: `${t.number(app.order)} · ${statusLabel(app, locale)}`,
+  mark: app.mark,
+}));
+
+// Il numero: the public one-time prices kept in the app content files (checked against research/ at build),
+// summed. The oldest reading date is the one the whole figure can promise.
+const priced = apps.filter((app) => app.originale?.price !== undefined).map((app) => app.originale!);
+const total = priced.reduce((sum, originale) => sum + originale.price!, 0);
+const read = priced.map((originale) => originale.checked!).sort((a, b) => +a - +b)[0];
+const names = new Intl.ListFormat(locale, { type: 'conjunction' }).format(priced.map((originale) => originale.name));
+const figure = formatPrice(total, locale);
 const zero = formatPrice(0, locale);
 const words = copy.hero.split(' ');
 const markOf = (slug: string) => apps.find((app) => app.slug === slug)?.mark ?? upcoming.find((app) => app.slug === slug)?.mark;
-const tools = [
-  { href: localePath(locale, 'abbonamenti'), accent: 'accent-subscriptions', mark: markOf('subscriptions'), ...copy.subscriptions },
-];
+const tools = [{ href: localePath(locale, 'abbonamenti'), mark: markOf('subscriptions'), ...copy.subscriptions }];
 
 const site = Astro.site!.href;
 const jsonLd = [
@@ -89,113 +94,80 @@ const jsonLd = [
 ---
 <Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd} layout="wide">
   <section class="hero">
-    <div class="hero-words">
-      {/* The page title, closed by the full stop: the only square on the page. */}
-      <h1 class="hero-title">
-        {words.map((word, index) =>
-          index < words.length - 1 ? (
-            <><span class="hero-word" style={`--i: ${index}`}>{word}</span>{' '}</>
-          ) : (
-            <span class="hero-word whitespace-nowrap" style={`--i: ${index}`}>{word}<span aria-hidden="true" class="full-stop hero-stop" style={`--i: ${words.length}`}></span></span>
-          ),
-        )}
-      </h1>
-      <p class="hero-lede">{copy.lede}</p>
-    </div>
-    {priced.length > 0 && (
-      <figure class="hero-figure">
-        {/* The Cifra: one per page, in ink. Struck out because it is the price you don't pay. */}
-        <p class="figure"><span class="sr-only">{copy.notPaid}: </span><s class="struck">{formatPrice(total, locale)}</s></p>
-        <figcaption class="flex flex-col gap-1">
-          <span class="text-subheadline text-ink-muted">{copy.figureLabel(priced.length)}</span>
-          <span class="text-headline">{copy.withSbu}: <span class="tabular-nums">{zero}</span>.</span>
+    {/* The page title, closed by the full stop in ink: the site's own square. */}
+    <h1 class="hero-title font-display">
+      {words.map((word, index) =>
+        index < words.length - 1 ? (
+          <><span class="hero-word" style={`--i: ${index}`}>{word}</span>{' '}</>
+        ) : (
+          <span class="hero-word whitespace-nowrap" style={`--i: ${index}`}>{word}<span aria-hidden="true" class="full-stop is-hero" data-hero-stop style={`--stamp-delay: calc(${words.length} * var(--sbu-motion-short) / 2)`}></span></span>
+        ),
+      )}
+    </h1>
+    <p class="cartiglio">{copy.cartiglio(apps.length + upcoming.length)}</p>
+    <p class="hero-lede">{copy.lede}</p>
+  </section>
+
+  <section aria-labelledby="sheet" class="section">
+    <h2 id="sheet" class="section-title font-display">{copy.sheet}</h2>
+    <p class="section-lede">{copy.sheetLede}</p>
+    <ol class="tiles">
+      {tiles.map((tile) => (
+        <li class="tile" style={`--c: var(--sbu-${tile.accent})`}>
+          <span class="tile-art" aria-hidden="true">
+            {tile.mark && <span class="engraving" style={`--engraving: url(${tile.mark})`}></span>}
+            <span class="cell" data-cell></span>
+          </span>
+          {/* The name is the tile's link; its ::after stretches over the tile, so the whole tile is the target. */}
+          <h3 class="tile-name font-display"><a href={tile.href} class="tile-link" data-tile-link>{tile.name}</a></h3>
+          <p class="tile-line">{tile.line}</p>
+          <p class="cartiglio">{tile.meta}</p>
+        </li>
+      ))}
+      {waiting.map((tile) => (
+        <li class="tile is-waiting">
+          <span class="tile-art" aria-hidden="true">
+            {tile.mark && <span class="engraving" style={`--engraving: url(${tile.mark})`}></span>}
+            <span class="cell"></span>
+          </span>
+          <h3 class="tile-name font-display">{tile.name}</h3>
+          <p class="tile-line">{tile.line}</p>
+          <p class="cartiglio">{tile.meta}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  {priced.length > 0 && (
+    <section aria-labelledby="number" class="section">
+      <h2 id="number" class="section-title font-display">{copy.number}</h2>
+      <figure class="number">
+        {/* The Cifra, in ink, as wide as the frame allows, closed by a full stop of one cell. */}
+        <p class="number-figure font-display" style={`--chars: ${[...figure].length}`}><span class="sr-only">{copy.notPaid}: </span>{figure}<span aria-hidden="true" class="number-stop"></span></p>
+        <figcaption class="number-caption">
+          <p class="cartiglio">{copy.pricesRead(formatDate(read, locale))}</p>
+          <p>{copy.numberLabel(names, priced.length)} <strong class="font-[var(--text-headline--font-weight)]">{copy.withSbu(zero)}</strong></p>
+          <p class="text-footnote text-ink-muted">{copy.owners}</p>
         </figcaption>
       </figure>
-    )}
-  </section>
-
-  <section aria-labelledby="bill" class="section">
-    <h2 id="bill" class="section-title">{copy.bill}</h2>
-    <p class="section-lede">{copy.billLede}</p>
-    <div class="bill">
-      <div class="bill-row bill-head" aria-hidden="true">
-        <span></span>
-        <span>{copy.columns.app}</span>
-        <span>{copy.columns.originale}</span>
-        <span class="num">{copy.columns.price}</span>
-        <span class="num">{copy.columns.sbu}</span>
-      </div>
-      <ol class="bill-rows">
-        {rows.map((row) => (
-          <li class="bill-row is-app" style={`--c: var(--sbu-${row.accent})`}>
-            {row.mark ? <span class="engraving" style={`--engraving: url(${row.mark})`} aria-hidden="true"></span> : <span></span>}
-            <div class="bill-app">
-              {/* The name is the row's link; its ::after stretches over the row, so the whole row is the target. */}
-              <p class="text-footnote text-ink-muted tabular-nums">{t.number(row.order)}</p>
-              <h3 class="text-headline"><a href={row.href} class="bill-link">{row.name}</a></h3>
-              <p class="text-subheadline text-ink-muted">{row.line}</p>
-              <p class="text-footnote text-ink-muted">{row.status}</p>
-            </div>
-            <p class="bill-was">
-              {row.originale?.price !== undefined && (
-                <>
-                  <span class="bill-originale"><span class="label">{copy.columns.originale} </span>{row.originale.name}</span>
-                  <span class="num text-ink-muted"><span class="sr-only">{copy.columns.price} </span>{formatPrice(row.originale.price, locale)}</span>
-                </>
-              )}
-            </p>
-            <p class="num bill-sbu"><span class="sr-only">{copy.columns.sbu}: </span>{zero}</p>
-          </li>
-        ))}
-      </ol>
-      {priced.length > 0 && (
-        <p class="bill-row bill-total">
-          <span></span>
-          <span class="text-headline">{copy.total}</span>
-          <span class="bill-was">
-            <span class="bill-originale"></span>
-            <span class="num text-ink-muted"><span class="sr-only">{copy.columns.price} </span>{formatPrice(total, locale)}</span>
-          </span>
-          <span class="num bill-sbu"><span class="sr-only">{copy.columns.sbu}: </span>{zero}</span>
-        </p>
-      )}
-    </div>
-    {checked && <p class="text-footnote text-ink-muted">{copy.pricesSource(formatDate(checked, locale))}</p>}
-  </section>
-
-  {upcoming.length > 0 && (
-    <section aria-labelledby="queue" class="section">
-      <h2 id="queue" class="section-title">{copy.queue}</h2>
-      <p class="section-lede">{copy.queueLede}</p>
-      <ol class="queue">
-        {upcoming.map((app) => (
-          <li class="queue-item">
-            <span class="queue-n tabular-nums">{t.number(app.order)}</span>
-            {app.mark && <span class="engraving" style={`--engraving: url(${app.mark})`} aria-hidden="true"></span>}
-            <h3 class="text-headline">{app.name}</h3>
-            <p class="text-subheadline text-ink-muted">{app.teaser[locale]}</p>
-            <p class="text-footnote text-ink-muted">{statusLabel(app, locale)}</p>
-          </li>
-        ))}
-      </ol>
     </section>
   )}
 
   <section aria-labelledby="promises" class="section">
-    <h2 id="promises" class="section-title">{copy.promises}</h2>
-    <ul class="promises">
+    <h2 id="promises" class="section-title font-display">{copy.promises}</h2>
+    <ul class="promises font-display">
       {t.promises.map((promise) => <li>{promise}</li>)}
     </ul>
     <p class="text-ink-muted">{copy.promisesClose} <a href={localePath(locale, 'principi')} class="underline">{copy.principles}</a></p>
   </section>
 
   <section aria-labelledby="tools" class="section">
-    <h2 id="tools" class="section-title">{copy.tools}</h2>
+    <h2 id="tools" class="section-title font-display">{copy.tools}</h2>
     <ul class="tools">
       {tools.map((tool) => (
-        <li class="tool" style={`--c: var(--sbu-${tool.accent})`}>
+        <li class="tool">
           {tool.mark && <span class="engraving" style={`--engraving: url(${tool.mark})`} aria-hidden="true"></span>}
-          <h3 class="text-title-2"><a href={tool.href} class="bill-link">{tool.title}</a></h3>
+          <h3 class="tile-name font-display"><a href={tool.href} class="tile-link">{tool.title}</a></h3>
           <p class="text-ink-muted">{tool.line}</p>
         </li>
       ))}
@@ -203,207 +175,177 @@ const jsonLd = [
   </section>
 </Base>
 
+<script>
+  // The tapped cell closes, then the full stop flies from it to the app page's title (view transition).
+  // The link stays a plain link: nothing waits for the animation, and without script it simply navigates.
+  let closing: HTMLElement | undefined;
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-tile-link]')) {
+    link.addEventListener('click', () => {
+      closing = link.closest<HTMLElement>('.tile') ?? undefined;
+      closing?.classList.add('is-closing');
+    });
+  }
+  // Leaving by a view transition: the tapped cell, not the title's square, is the full stop that travels.
+  addEventListener('pageswap', (event) => {
+    const cell = closing?.querySelector<HTMLElement>('[data-cell]');
+    if (!(event as Event & { viewTransition?: unknown }).viewTransition || !cell) return;
+    document.querySelector<HTMLElement>('[data-hero-stop]')?.style.setProperty('view-transition-name', 'none');
+    cell.style.viewTransitionName = 'full-stop';
+  });
+  // Back from the app page (back-forward cache): the sheet as it was.
+  addEventListener('pageshow', () => {
+    closing?.classList.remove('is-closing');
+    closing?.querySelector<HTMLElement>('[data-cell]')?.style.removeProperty('view-transition-name');
+    document.querySelector<HTMLElement>('[data-hero-stop]')?.style.removeProperty('view-transition-name');
+    closing = undefined;
+  });
+</script>
+
 <style>
-  /* Only design tokens: sizes are multiples of the type and spacing steps, colors are --sbu-*. */
+  /* Only design tokens. Every height here is a whole number of grid rows, so what follows stays on the grid:
+     lines of text are one row (or two, for titles), gaps and paddings are cells. */
   .hero {
     display: grid;
-    gap: var(--spacing-12);
-    padding-block: var(--spacing-8) var(--spacing-12);
+    gap: var(--sbu-grid-cell);
+    padding-block: calc(var(--sbu-grid-cell) * 2) calc(var(--sbu-grid-cell) * 3);
   }
-  @media (min-width: 60rem) {
-    .hero {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      align-items: end;
-      padding-block: var(--spacing-12) calc(var(--spacing-12) * 2);
-    }
-  }
-  .hero-words { display: grid; gap: var(--spacing-6); }
   .hero-title {
-    font-family: var(--font-display);
-    font-weight: var(--text-display-hero--font-weight);
-    /* display-hero at its smallest, up to twice that on a wide screen. */
-    font-size: clamp(var(--text-display-hero), 9vw, calc(var(--text-display-hero) * 2));
-    line-height: 1; /* display-hero: 56px on 56px */
-    letter-spacing: -.035em; /* display-hero's -2px at 56px, kept as a ratio when it grows */
+    font-weight: var(--text-title--font-weight);
+    /* Two cells a line at its smallest, up to five on a wide screen. */
+    font-size: clamp(calc(var(--sbu-grid-cell) * 2), 9vw, calc(var(--sbu-grid-cell) * 5));
+    line-height: 1;
+    line-height: round(up, 1em, var(--sbu-grid-cell));
     text-wrap: balance;
   }
   .hero-word { display: inline-block; }
   .hero-lede {
     max-width: 36ch;
     font-size: var(--text-title-2);
-    line-height: var(--text-title-2--line-height);
+    line-height: calc(var(--sbu-grid-cell) * 1.5);
     color: var(--sbu-ink-muted);
   }
 
-  /* The figure, measured on its own column so it never overflows. */
-  .hero-figure { display: grid; gap: var(--spacing-3); container-type: inline-size; }
-  .figure {
-    font-family: var(--font-display);
-    font-weight: var(--text-stat-hero--font-weight);
-    font-size: clamp(var(--text-stat-hero), 24cqi, calc(var(--text-stat-hero) * 2.25));
-    line-height: 1;
-    letter-spacing: -.04em;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
+  /* Sections: two cells of paper above and below. The rule on top is drawn over a grid line, so it adds no
+     height and the rows below stay aligned. */
+  .section {
+    position: relative;
+    display: grid;
+    gap: var(--sbu-grid-cell);
+    padding-block: calc(var(--sbu-grid-cell) * 2);
+    line-height: var(--sbu-grid-cell);
   }
-  .struck { position: relative; text-decoration: none; }
-  /* The strike is a rule of ink across the figure, a little thicker than the hairline so it reads at size. */
-  .struck::after {
+  .section::before {
     content: "";
     position: absolute;
-    inset: 52% calc(var(--spacing-1) * -1) auto;
-    height: max(var(--spacing-1), .06em);
-    background: currentColor;
-    transform-origin: left center;
-  }
-
-  .section {
-    display: grid;
-    gap: var(--spacing-4);
-    padding-block: var(--spacing-12);
-    border-top: var(--sbu-hairline) solid var(--sbu-line);
+    inset: 0 0 auto;
+    height: var(--sbu-hairline);
+    background: var(--sbu-line);
   }
   .section-title {
-    font-family: var(--font-display);
-    font-size: var(--text-display-title);
-    line-height: var(--text-display-title--line-height);
-    font-weight: var(--text-display-title--font-weight);
-    letter-spacing: var(--text-display-title--letter-spacing);
+    font-size: var(--text-title);
+    line-height: calc(var(--sbu-grid-cell) * 2);
+    font-weight: var(--text-title--font-weight);
   }
   .section-lede { max-width: 60ch; color: var(--sbu-ink-muted); }
 
-  /* The bill. On a phone: engraving, then the app and its 0 €, then what it replaces under it. */
-  .bill { margin-top: var(--spacing-4); }
-  .bill-row {
-    --mark: calc(var(--spacing-12) * 1.25);
-    position: relative;
+  /* The sheet: tiles ten cells wide with one cell between them, so every tile starts on a vertical line. */
+  .tiles {
     display: grid;
-    grid-template-columns: var(--mark) minmax(0, 1fr) auto;
-    grid-template-areas: "mark app sbu" "mark was was";
-    column-gap: var(--spacing-4);
-    row-gap: var(--spacing-2);
-    align-items: baseline;
-    padding-block: var(--spacing-4);
-    border-bottom: var(--sbu-hairline) solid var(--sbu-line);
+    grid-template-columns: repeat(auto-fill, calc(var(--sbu-grid-cell) * 10));
+    gap: calc(var(--sbu-grid-cell) * 2) var(--sbu-grid-cell);
+    margin-top: var(--sbu-grid-cell);
   }
-  .bill-row > :nth-child(1) { grid-area: mark; align-self: start; }
-  .bill-row > :nth-child(2) { grid-area: app; }
-  .bill-row > :nth-child(3) { grid-area: was; }
-  .bill-row > :nth-child(4) { grid-area: sbu; }
-  .bill-head { display: none; }
-  .bill-app { display: grid; gap: var(--spacing-1); }
-  .bill-was { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--spacing-1) var(--spacing-4); font-size: var(--text-subheadline); line-height: var(--text-subheadline--line-height); }
-  .bill-was:empty { display: none; }
-  .bill-was > .num { margin-inline-start: auto; }
-  .label { color: var(--sbu-ink-muted); }
-  .num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .bill-sbu { font-weight: var(--text-headline--font-weight); }
-  .bill-total { border-bottom: 0; }
-  .bill-total .bill-sbu, .bill-total .bill-was .num {
-    font-size: var(--text-stat-small);
-    line-height: var(--text-stat-small--line-height);
-    font-weight: var(--text-stat-small--font-weight);
+  .tile { position: relative; display: grid; align-content: start; }
+  /* The engraving on four by four cells, the app's cell on the fifth column of the last row: the icon's grammar. */
+  .tile-art {
+    display: grid;
+    grid-template-columns: repeat(5, var(--sbu-grid-cell));
+    grid-template-rows: repeat(4, var(--sbu-grid-cell));
+    margin-bottom: var(--sbu-grid-cell);
   }
-  .bill-total .bill-was .num { text-decoration: line-through; text-decoration-thickness: calc(var(--sbu-hairline) * 2); }
-
-  @media (min-width: 48rem) {
-    .bill-row {
-      grid-template-columns: var(--mark) minmax(0, 5fr) minmax(0, 3fr) minmax(0, 1fr) minmax(0, 1fr);
-      grid-template-areas: none;
-    }
-    .bill-row > :nth-child(n) { grid-area: auto; }
-    .bill-was { display: contents; }
-    .bill-was:empty { display: block; }
-    .bill-row.is-app > .bill-was:empty { grid-column: 3 / span 2; }
-    .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .bill-head {
-      display: grid;
-      padding-block: var(--spacing-2);
-      font-size: var(--text-caption);
-      line-height: var(--text-caption--line-height);
-      font-weight: var(--text-caption--font-weight);
-      letter-spacing: var(--text-caption--letter-spacing);
-      text-transform: uppercase;
-      color: var(--sbu-ink-muted);
-    }
-  }
-
-  /* The engraving as an ink mask: it follows the theme, and takes the app's accent when you pick the row. */
   .engraving {
     display: block;
-    width: 100%;
-    aspect-ratio: 1;
     background: var(--sbu-ink);
     mask: var(--engraving) center / contain no-repeat;
-    transition: background-color .25s;
   }
-  .bill-link { color: inherit; text-decoration: underline transparent calc(var(--sbu-hairline) * 2); text-underline-offset: var(--spacing-1); transition: text-decoration-color .25s; }
-  .bill-link::after { content: ""; position: absolute; inset: 0; }
-  .bill-link:focus-visible { outline: none; }
-  .is-app:has(.bill-link:focus-visible), .tool:has(.bill-link:focus-visible) {
+  .tile-art > .engraving { grid-area: 1 / 1 / 5 / 5; }
+  .cell { grid-area: 4 / 5; width: var(--sbu-full-stop-hero); height: var(--sbu-full-stop-hero); background: var(--c); }
+  /* Not on the App Store yet with a page of its own: the cell waits, empty, in ink-muted. */
+  .is-waiting .cell { background: transparent; border: var(--sbu-row-mark-stroke) solid var(--sbu-ink-muted); }
+  .is-waiting .engraving { background: var(--sbu-ink-muted); }
+  .tile-name {
+    font-size: var(--text-title-2);
+    line-height: var(--sbu-grid-cell);
+    font-weight: var(--text-title--font-weight);
+  }
+  .tile-line { font-size: var(--text-subheadline); color: var(--sbu-ink-muted); }
+  .tile-link { color: inherit; text-decoration: underline transparent calc(var(--sbu-hairline) * 2); text-underline-offset: var(--spacing-1); }
+  .tile-link::after { content: ""; position: absolute; inset: 0; }
+  .tile-link:focus-visible { outline: none; }
+  .tile:has(.tile-link:focus-visible), .tool:has(.tile-link:focus-visible) {
     outline: calc(var(--sbu-hairline) * 2) solid var(--sbu-focus);
     outline-offset: calc(var(--sbu-hairline) * 2);
   }
-  .is-app:hover .engraving, .is-app:focus-within .engraving,
-  .tool:hover .engraving, .tool:focus-within .engraving { background: var(--c); }
-  .is-app:hover .bill-link, .is-app:focus-within .bill-link,
-  .tool:hover .bill-link, .tool:focus-within .bill-link { text-decoration-color: var(--c); }
+  .tile:hover .tile-link, .tile:focus-within .tile-link,
+  .tool:hover .tile-link, .tool:focus-within .tile-link { text-decoration-color: currentColor; }
 
-  /* The queue: a grid of small entries, each with its app's number. */
-  .queue {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(calc(var(--spacing-12) * 4.5), 1fr));
-    gap: var(--spacing-8) var(--spacing-6);
-    margin-top: var(--spacing-4);
+  /* Il numero: as wide as the frame. At width 87 a price's widest glyph, a digit, is 0.506 em (measured on
+     Design/fonts/BricolageGrotesque-Variable.ttf), so 0.5 em a character plus two cells for the full stop
+     always fits on one line; never under two cells, never over twice figure-hero-max. */
+  .number { display: grid; gap: var(--sbu-grid-cell); container-type: inline-size; }
+  .number-figure {
+    font-size: clamp(calc(var(--sbu-grid-cell) * 2), calc((100cqi - var(--sbu-full-stop-hero) * 2) / (var(--chars) * 0.5)), calc(var(--sbu-figure-hero-max) * 2));
+    font-weight: var(--text-figure--font-weight);
+    line-height: 1;
+    line-height: round(up, 1em, var(--sbu-grid-cell));
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
-  .queue-item {
-    display: grid;
-    grid-template-columns: auto var(--spacing-12) minmax(0, 1fr);
-    grid-template-areas: "n mark name" "n mark line" "n mark state";
-    column-gap: var(--spacing-3);
-    align-items: start;
+  /* The full stop: one cell, on the baseline, in ink. */
+  .number-stop {
+    display: inline-block;
+    width: var(--sbu-full-stop-hero);
+    height: var(--sbu-full-stop-hero);
+    margin-inline-start: var(--sbu-mark-gap);
+    background: var(--sbu-ink);
   }
-  .queue-item > .queue-n { grid-area: n; font-size: var(--text-subheadline); color: var(--sbu-ink-muted); }
-  .queue-item > .engraving { grid-area: mark; }
-  .queue-item > h3 { grid-area: name; }
-  .queue-item > p { grid-area: line; }
-  .queue-item > p + p { grid-area: state; }
+  .number-caption { display: grid; gap: 0; max-width: 60ch; }
 
-  /* The promises: six sentences set large, two columns from a tablet up. */
+  /* The promises: six sentences set large, two columns from a tablet up, two rows each. */
   .promises {
     display: grid;
-    gap: var(--spacing-2) var(--spacing-8);
-    margin-block: var(--spacing-4);
-    font-family: var(--font-display);
-    font-size: clamp(var(--text-title-2), 4vw, var(--text-display-title));
-    line-height: 1.15;
-    font-weight: var(--text-display-title--font-weight);
-    letter-spacing: -.02em;
+    column-gap: calc(var(--sbu-grid-cell) * 2);
+    font-size: clamp(var(--text-title-2), 4vw, var(--text-title));
+    line-height: calc(var(--sbu-grid-cell) * 2);
+    font-weight: var(--text-title--font-weight);
   }
   @media (min-width: 48rem) {
     .promises { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
-  /* The free tools: two entries side by side, each led by the engraving of the app it hands you to. */
-  .tools { display: grid; gap: var(--spacing-8); margin-top: var(--spacing-4); }
+  /* The free tools, each led by the engraving of the app it hands you to. */
+  .tools { display: grid; gap: calc(var(--sbu-grid-cell) * 2); }
   @media (min-width: 48rem) {
     .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  .tool { position: relative; display: grid; gap: var(--spacing-2); justify-items: start; }
-  .tool .engraving { width: calc(var(--spacing-12) * 3); margin-bottom: var(--spacing-2); }
+  .tool { position: relative; display: grid; justify-items: start; }
+  .tool .engraving { width: calc(var(--sbu-grid-cell) * 6); aspect-ratio: 1; margin-bottom: var(--sbu-grid-cell); }
 
   @media (prefers-reduced-motion: no-preference) {
-    /* The title is set word by word, then the full stop is stamped on the baseline, then the figure is struck. */
-    .hero-word { animation: set .7s cubic-bezier(.2, .8, .2, 1) calc(var(--i) * 90ms) both; }
-    .hero-stop { --stamp-delay: calc(var(--i) * 90ms + 250ms); }
-    .hero-lede, .hero-figure { animation: set .7s cubic-bezier(.2, .8, .2, 1) 500ms both; }
-    .struck::after { animation: strike .5s cubic-bezier(.6, 0, .2, 1) 1.1s both; }
+    /* The title is set word by word, then the full stop rises onto the baseline. One tempo (ADR-0014). */
+    .hero-word { animation: set var(--sbu-motion-base) ease-out calc(var(--i) * var(--sbu-motion-short) / 2) both; }
+    .hero-lede { animation: set var(--sbu-motion-base) ease-out var(--sbu-motion-base) both; }
     @keyframes set { from { opacity: 0; translate: 0 var(--spacing-4); } }
-    @keyframes strike { from { scale: 0 1; } }
 
-    /* Where the browser has scroll timelines, each row of the bill is written in as it enters the screen. */
+    /* The tapped cell closes: it shrinks into itself and fills again, on motion-short. */
+    .cell { transition: scale var(--sbu-motion-short) ease-out; }
+    .tile:hover .cell { scale: .9; }
+    .is-closing .cell { animation: close var(--sbu-motion-short) ease-out both; }
+    @keyframes close { 50% { scale: .5; } to { scale: 1; } }
+
+    /* Where the browser has scroll timelines, each tile is written in as it enters the screen. */
     @supports (animation-timeline: view()) {
-      .bill-rows > li, .bill-total, .queue-item, .promises > li {
+      .tile, .promises > li {
         animation: set linear both;
         animation-timeline: view();
         animation-range: entry 0% entry 70%;
@@ -411,7 +353,8 @@ const jsonLd = [
     }
   }
   @media (forced-colors: active) {
-    .engraving { forced-color-adjust: none; background: CanvasText; }
-    .struck::after { background: CanvasText; }
+    .engraving, .number-stop { forced-color-adjust: none; background: CanvasText; }
+    .cell { forced-color-adjust: none; background: Highlight; }
+    .is-waiting .cell { background: Canvas; border-color: CanvasText; }
   }
 </style>

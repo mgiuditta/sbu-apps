@@ -36,13 +36,34 @@ SIZE = (1320, 2868)
 DEVICE = "iPhone 17 Pro Max"
 
 
+# Store screenshots are 1320 px wide for a 440 pt screen: 3 px per point.
+SCALE = 3
+
+
 def light_tokens():
-    """Colors, shadow (light values) and the full stop's proportions from Design/tokens.json."""
+    """Colors and shadow (light values), the full stop's gap, and the grid, full stop and cartiglio
+    measures scaled to the screenshot, from Design/tokens.json."""
     design = json.loads((ROOT / "Design/tokens.json").read_text())
     tokens = design["color"]["tokens"] + design["shadow"]["tokens"]
     values = {t["name"]: t["value"]["light"] for t in tokens}
     values.update({t["name"]: f'{int(t["value"].rstrip("%")) / 100}em' for t in design["mark"]["tokens"]})
+    for group in ("grid", "full-stop", "figure"):
+        for t in design[group]["tokens"]:
+            value = t["value"]
+            if value.endswith("px"):
+                values[t["name"]] = f'{int(value.removesuffix("px")) * SCALE}px'
+            elif value.endswith("%"):
+                values[t["name"]] = f'{int(value.rstrip("%")) / 100}em'
+            else:
+                values[t["name"]] = value
     return values
+
+
+def catalogue_number(app):
+    """The app's `order` from its site content file, for the cartiglio; None without one."""
+    content = ROOT / "Site/src/content/apps" / f"{app}.md"
+    found = content.exists() and re.search(r"^order:\s*(\d+)", content.read_text(), re.M)
+    return int(found.group(1)) if found else None
 
 
 def drop_shadow(box_shadow):
@@ -76,12 +97,17 @@ def app_config(app, lang_dir, colors):
         shots.append({"image": "/" + image.relative_to(ROOT).as_posix(), "title": title, "subtitle": subtitle})
     if not 2 <= len(shots) <= 5:
         sys.exit(f"{lang_dir}: {len(shots)} screenshots, the layout takes 2 to 5 (run fastlane snapshot)")
+    number = catalogue_number(app)
     return {
         "engraving": f"/Design/icons/source/sbu-{app}.png",
+        "cartiglio": " / ".join(["SBU", *([f"{number:02d}"] if number else []), app.upper()]),
         "tokens": {
-            "surface": colors["surface"], "sunken": colors["surface-sunken"], "ink": colors["ink"],
+            "paper": colors["paper"], "grid": colors["grid"], "sunken": colors["surface-sunken"], "ink": colors["ink"],
             "ink-muted": colors["ink-muted"], "brand": colors["brand"], "accent": colors[f"accent-{app}"],
-            "mark-size": colors["mark-size"], "mark-gap": colors["mark-gap"], "shadow": drop_shadow(colors["shadow-marketing"]),
+            "mark-gap": colors["mark-gap"], "shadow": drop_shadow(colors["shadow-marketing"]),
+            "grid-cell": colors["grid-cell"], "grid-line-width": colors["grid-line-width"], "grid-offset": colors["grid-offset"],
+            "full-stop-hero": colors["full-stop-hero"], "cartiglio-size": colors["cartiglio-size"],
+            "cartiglio-tracking": colors["cartiglio-tracking"], "title-stretch": f'{colors["figure-width-mid"]}%',
         },
         "shots": shots,
     }

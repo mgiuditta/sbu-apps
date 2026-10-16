@@ -1,19 +1,40 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
-/* Bricolage Grotesque: display titles and the Cifra. Design/fonts has only the Bold cut, so it also
-   serves the 800 the display tokens ask for, instead of a synthesized bold. public/fonts holds the same
-   cut as WOFF2 (38 kB instead of 91), preloaded by Base.astro; OFL.txt sits next to it. */
+/* Bricolage Grotesque, variable (wght, wdth, opsz): titles and the Cifra. The optical size follows the
+   font size by itself (font-optical-sizing: auto). public/fonts holds Design/fonts' file subset to Latin as
+   WOFF2, preloaded by Base.astro; the OFL texts sit next to it. */
 @font-face {
   font-family: "Bricolage Grotesque";
-  src: url("/fonts/BricolageGrotesque-Bold.woff2") format("woff2");
-  font-weight: 700 800;
+  src: url("/fonts/BricolageGrotesque-Variable.woff2") format("woff2-variations"), url("/fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
   font-display: swap;
+}
+
+/* IBM Plex Mono Medium: only the cartiglio and metadata, never figures. */
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/IBMPlexMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  /* The frame is 50 cells wide; its margin is the grid offset on a phone, one cell more from a tablet up.
+     Wherever the frame sits, a vertical line of the grid falls on its content edge (body::before). */
+  --frame-max: calc(var(--sbu-grid-cell) * 50);
+  --frame-pad: var(--sbu-grid-offset);
+  /* Titles and figures are set at the middle width of Bricolage's wdth axis, like Font.sbuTitle. */
+  --title-stretch: calc(var(--sbu-figure-width-mid) * 1%);
+}
+@media (min-width: 48rem) {
+  :root { --frame-pad: calc(var(--sbu-grid-offset) + var(--sbu-grid-cell)); }
 }
 
 @layer base {
   html {
-    background: var(--sbu-surface);
+    background: var(--sbu-paper);
     color: var(--sbu-ink);
     font-family: var(--font-sans);
     font-size: 100%;
@@ -21,8 +42,32 @@
   }
 
   body {
+    position: relative;
+    /* The grid runs past both sides of the screen (see below): clip it, never scroll to it. */
+    overflow-x: clip;
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
+  }
+
+  /* The notebook grid, under the whole page: one-cell squares in `grid`, 1 px lines. It is a layer of `grid`
+     ink seen through a mask of one cell (public/grid-cell.svg, drawn in the cell's own units and scaled to
+     --sbu-grid-cell; a file, not a data: URI, because the CSP allows images only from 'self'), so its color
+     follows the theme and no gradient is involved. The layer starts 100 cells
+     left of the frame's content edge, so a vertical line falls on the margin at every width, and scrolls with
+     the page, so the rows stay under the content they measure. */
+  body::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-block: 0;
+    left: calc(max(0px, (100% - var(--frame-max)) / 2) + var(--frame-pad) - var(--sbu-grid-cell) * 100);
+    width: calc(100% + var(--sbu-grid-cell) * 200);
+    background: var(--sbu-grid);
+    mask: url("/grid-cell.svg") 0 0 / var(--sbu-grid-cell) var(--sbu-grid-cell) repeat;
+    pointer-events: none;
+  }
+  @media (forced-colors: active), print {
+    body::before { display: none; }
   }
 
   a {
@@ -42,15 +87,41 @@
 }
 
 @layer components {
-  /* The frame every page shares: wide enough for the home's ledger. No layout width token, so it is
-     counted in the largest spacing step, like the other wide measures of the site. */
+  /* The frame every page shares: 50 cells wide, so the home's sheet fills it in whole cells. */
   .frame {
-    max-width: calc(var(--spacing-12) * 25);
+    max-width: var(--frame-max);
     margin-inline: auto;
-    padding-inline: var(--spacing-4);
+    padding-inline: var(--frame-pad);
   }
-  @media (min-width: 48rem) {
-    .frame { padding-inline: var(--spacing-8); }
+
+  /* Bricolage, wherever the display family is used: at the titles' width. */
+  .font-display { font-stretch: var(--title-stretch); }
+
+  /* The cartiglio: one line of metadata in Plex Mono, upper case, tracked, in ink-muted. One grid row tall. */
+  .cartiglio {
+    font-family: var(--font-mono);
+    font-size: var(--text-cartiglio);
+    line-height: var(--sbu-grid-cell);
+    font-weight: var(--text-cartiglio--font-weight);
+    letter-spacing: var(--sbu-cartiglio-tracking);
+    text-transform: uppercase;
+    color: var(--sbu-ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* SbuRowMark: the only state sign in a row besides its words. Filled for what is so, empty for what is not.
+     In ink: the page's one colored square is its full stop. */
+  .row-mark {
+    flex: none;
+    display: inline-block;
+    width: var(--sbu-row-mark);
+    height: var(--sbu-row-mark);
+    background: var(--sbu-ink);
+  }
+  .row-mark.is-empty { background: transparent; border: var(--sbu-row-mark-stroke) solid var(--sbu-ink); }
+  @media (forced-colors: active) {
+    .row-mark { forced-color-adjust: none; background: CanvasText; }
+    .row-mark.is-empty { background: Canvas; border-color: CanvasText; }
   }
 
   /* Footer: the logo, the free tools, the pages about Sbu, then the note. One column on a phone. */
@@ -60,17 +131,20 @@
     .site-footer-note { grid-column: 1 / -1; }
   }
 
-  /* Every other page: the header stays on top, on the same paper. A hairline draws in once the page scrolls under it. */
+  /* Every page: the header stays on top. Three cells tall, so the grid under the page starts on a line. */
   .bar {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--sbu-surface);
+    background: var(--sbu-paper);
     border-bottom: var(--sbu-hairline) solid transparent;
   }
+  .bar > .frame { min-height: calc(var(--sbu-grid-cell) * 3); }
+  /* Where the browser has scroll timelines, the bar is clear over the grid at the top of the page, and turns
+     to paper with a hairline once the page scrolls under it. */
   @supports (animation-timeline: scroll()) {
-    .bar { animation: rule linear both; animation-timeline: scroll(root); animation-range: 0 var(--spacing-12); }
-    @keyframes rule { to { border-bottom-color: var(--sbu-line); } }
+    .bar { background: transparent; animation: rule linear both; animation-timeline: scroll(root); animation-range: 0 var(--spacing-12); }
+    @keyframes rule { to { background-color: var(--sbu-paper); border-bottom-color: var(--sbu-line); } }
   }
 
   /* The header nav from 40rem up; below, a Menu button opens the sheet. */
@@ -89,7 +163,8 @@
   .roll:hover [data-c], .roll:focus-visible [data-c] { translate: 0 -100%; }
   .roll[aria-current="page"] > [aria-hidden] { text-decoration: underline; }
   @media (prefers-reduced-motion: no-preference) {
-    .roll [data-c] { transition: translate 0.35s cubic-bezier(.6, 0, .2, 1) calc(var(--i) * 18ms); }
+    /* One tempo (ADR-0014): each letter on motion-short, the next one a tenth of it later. */
+    .roll [data-c] { transition: translate var(--sbu-motion-short) ease-out calc(var(--i) * var(--sbu-motion-short) / 10); }
   }
 
   /* The phone menu: a full sheet of paper. */
@@ -105,19 +180,19 @@
       max(var(--spacing-4), env(safe-area-inset-right))
       env(safe-area-inset-bottom)
       max(var(--spacing-4), env(safe-area-inset-left));
-    background: var(--sbu-surface);
+    background: var(--sbu-paper);
     color: var(--sbu-ink);
     overflow: hidden auto;
   }
-  .sheet::backdrop { background: var(--sbu-surface); }
+  .sheet::backdrop { background: var(--sbu-paper); }
   .sheet-link {
     display: block;
     padding-block: var(--spacing-1);
     font-family: var(--font-display);
-    font-size: var(--text-display-title);
-    line-height: var(--text-display-title--line-height);
-    font-weight: var(--text-display-title--font-weight);
-    letter-spacing: var(--text-display-title--letter-spacing);
+    font-stretch: var(--title-stretch);
+    font-size: var(--text-title);
+    line-height: var(--text-title--line-height);
+    font-weight: var(--text-title--font-weight);
     color: var(--sbu-ink);
     text-decoration: none;
   }
@@ -126,24 +201,24 @@
     position: absolute;
     inset: auto calc(var(--spacing-12) * -1) calc(var(--spacing-12) * -1) auto;
     z-index: -1;
-    width: calc(var(--spacing-12) * 7);
+    width: calc(var(--sbu-grid-cell) * 14);
     aspect-ratio: 1;
     background: var(--sbu-line);
     mask: var(--engraving) center / contain no-repeat;
   }
   @media (prefers-reduced-motion: no-preference) {
     /* Each line is printed in turn, the same rising reveal as the app page's engraving. */
-    .sheet[open] li { animation: print 0.5s cubic-bezier(.4, 0, .2, 1) calc(var(--i) * 45ms) both; }
-    .sheet[open] .sheet-engraving { animation: print 1.2s cubic-bezier(.4, 0, .2, 1) both; }
+    .sheet[open] li { animation: print var(--sbu-motion-base) ease-in-out calc(var(--i) * var(--sbu-motion-short) / 4) both; }
+    .sheet[open] .sheet-engraving { animation: print var(--sbu-motion-base) ease-in-out both; }
     @keyframes print { from { clip-path: inset(0 0 100% 0); translate: 0 var(--spacing-2); } to { clip-path: inset(0); translate: 0; } }
   }
 
   /* Every page but the home: the reading column under the logo, the plate beside it. The design system has
      no layout width token, so the column follows the text. On a phone the plate closes the page; the app
      page leads with it. */
-  .reading { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--spacing-12); }
+  .reading { display: grid; grid-template-columns: minmax(0, 1fr); gap: calc(var(--sbu-grid-cell) * 2); }
   .column { max-width: 70ch; min-width: 0; }
-  .plate { display: grid; gap: var(--spacing-2); width: min(100%, calc(var(--spacing-12) * 6)); }
+  .plate { display: grid; gap: var(--spacing-2); width: min(100%, calc(var(--sbu-grid-cell) * 12)); }
   .plate-lead { order: -1; }
   /* The ink mask is alpha (Safari has no luminance masks): the strokes keep `ink`, the paper shows through the rest. */
   .plate-art {
@@ -157,15 +232,15 @@
     .plate {
       order: 0;
       position: sticky;
-      top: calc(var(--spacing-12) * 2);
+      top: calc(var(--sbu-grid-cell) * 4);
       justify-self: end;
-      width: min(100%, calc(var(--spacing-12) * 8));
-      margin-top: var(--spacing-8);
+      width: min(100%, calc(var(--sbu-grid-cell) * 16));
+      margin-top: calc(var(--sbu-grid-cell) * 2);
     }
   }
   @media (prefers-reduced-motion: no-preference) {
     /* Printed top to bottom, once, when the page opens. Then it does not move. */
-    .plate-art { animation: engrave 1.2s cubic-bezier(.4, 0, .2, 1) both; }
+    .plate-art { animation: engrave var(--sbu-motion-base) ease-in-out both; }
     @keyframes engrave { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
   }
   @media (forced-colors: active), print {
@@ -181,28 +256,30 @@
   }
   .prose ul { list-style: disc; padding-left: var(--spacing-6); }
 
-  /* The full stop (see PageTitle.astro): sized from the title's own em, sitting on its baseline. */
+  /* The full stop (see PageTitle.astro): a filled square of the grid, sitting on the title's baseline.
+     `hero` is exactly one cell; a page title takes the inline size. */
   .full-stop {
     display: inline-block;
-    width: var(--sbu-mark-size);
-    height: var(--sbu-mark-size);
+    width: var(--stop, var(--sbu-full-stop-inline));
+    height: var(--stop, var(--sbu-full-stop-inline));
     margin-inline-start: var(--sbu-mark-gap);
     background: currentColor;
     vertical-align: baseline;
   }
+  .full-stop.is-hero { --stop: var(--sbu-full-stop-hero); }
   @media (forced-colors: active) {
     .full-stop { forced-color-adjust: none; background: CanvasText; }
   }
   @media (prefers-reduced-motion: no-preference) {
-    /* Last on every title: the square drops onto the baseline and stops. Once, no bounce. */
-    .full-stop { animation: stamp .28s cubic-bezier(.3, 0, .2, 1) var(--stamp-delay, 250ms) both; }
-    @keyframes stamp { from { opacity: 0; translate: 0 -.6em; } }
+    /* Last on every title: the square rises onto the baseline and stops, on the spring's response. Once. */
+    .full-stop { animation: stamp var(--sbu-motion-spring-response) ease-out var(--stamp-delay, var(--sbu-motion-short)) both; }
+    @keyframes stamp { from { opacity: 0; translate: 0 .3em; } }
   }
 }
 
 /* Between pages: the bar stays put, the page turns like paper, and the full stop travels from the old
-   title to the new one, taking on the new accent. Same-origin cross-document view transitions: no
-   JavaScript, and browsers without them simply load the page. */
+   title (or the home's app cell) to the new one, taking on the new accent. Same-origin cross-document view
+   transitions: no JavaScript, and browsers without them simply load the page. */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
 
@@ -211,9 +288,9 @@
   /* The square arrives by flight, not by stamp. */
   html.flown .full-stop { animation: none; }
 
-  ::view-transition-group(full-stop) { animation-duration: .5s; animation-timing-function: cubic-bezier(.6, 0, .2, 1); }
-  ::view-transition-old(root) { animation: page-out .22s cubic-bezier(.4, 0, 1, 1) both; }
-  ::view-transition-new(root) { animation: page-in .45s cubic-bezier(.2, .8, .2, 1) .1s both; }
+  ::view-transition-group(full-stop) { animation-duration: var(--sbu-motion-base); animation-timing-function: ease-in-out; }
+  ::view-transition-old(root) { animation: page-out var(--sbu-motion-short) ease-out both; }
+  ::view-transition-new(root) { animation: page-in var(--sbu-motion-base) ease-in-out both; }
   @keyframes page-out { to { opacity: 0; translate: 0 calc(var(--spacing-4) * -1); } }
   @keyframes page-in { from { opacity: 0; translate: 0 var(--spacing-4); } }
 }

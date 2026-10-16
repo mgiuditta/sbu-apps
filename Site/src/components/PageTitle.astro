@@ -1,19 +1,41 @@
 ---
-// The page h1, closed by the full stop: the logo's square, on the baseline, hidden from screen readers.
-// Exactly one per page, and only here: never use the square as decoration elsewhere.
+// The page h1, like SbuScreenTitle: Bricolage ExtraBold at width 87, closed by the full stop (a filled square
+// of the grid, on the baseline, hidden from screen readers), with an optional cartiglio line under it.
+// Exactly one full stop per page, and only here: never use the square as decoration elsewhere.
 interface Props {
   text: string;
-  /** `hero` only on the home page. */
+  /** `hero` only on the home and the app page: a larger title, and the full stop is one whole cell. */
   size?: 'hero' | 'title';
   /** The app's `accent-*` token on its own pages; `ink` otherwise. */
   accent?: string;
+  /** The Plex Mono line under the title: metadata, never a figure. */
+  cartiglio?: string;
 }
-const { text, size = 'title', accent } = Astro.props;
+const { text, size = 'title', accent, cartiglio } = Astro.props;
 // The square is the full stop, so a trailing period would be a second one.
 const title = text.replace(/\.+$/, '');
 // Keep the last word and the square together, so the square never wraps alone.
 const split = title.lastIndexOf(' ') + 1;
 ---
-<h1 class:list={['font-display text-balance', size === 'hero' ? 'text-display-hero' : 'text-display-title']}>
-  {title.slice(0, split)}<span class="whitespace-nowrap">{title.slice(split)}<span aria-hidden="true" class="full-stop" style={accent ? `background: var(--sbu-${accent})` : undefined}></span></span>
-</h1>
+<div class="page-title">
+  <h1 class:list={['font-display text-balance', size === 'hero' ? 'title-hero' : 'title-page']}>
+    {title.slice(0, split)}<span class="whitespace-nowrap">{title.slice(split)}<span aria-hidden="true" class:list={['full-stop', { 'is-hero': size === 'hero' }]} style={accent ? `background: var(--sbu-${accent})` : undefined}></span></span>
+  </h1>
+  {cartiglio && <p class="cartiglio">{cartiglio}</p>}
+</div>
+
+<style>
+  .page-title { display: grid; }
+  h1 { font-weight: var(--text-title--font-weight); }
+  /* title: 34 at its smallest, up to two cells; each line is two grid rows. */
+  .title-page {
+    font-size: clamp(var(--text-title), 6vw, calc(var(--sbu-grid-cell) * 2));
+    line-height: calc(var(--sbu-grid-cell) * 2);
+  }
+  /* hero: from two cells a line to four, on the grid's rows. */
+  .title-hero {
+    font-size: clamp(calc(var(--sbu-grid-cell) * 2), 9vw, calc(var(--sbu-grid-cell) * 4));
+    line-height: 1;
+    line-height: round(up, 1em, var(--sbu-grid-cell));
+  }
+</style>

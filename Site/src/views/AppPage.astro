@@ -1,5 +1,4 @@
 ---
-import FreeBadge from '../components/FreeBadge.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ToolFieldShot from '../components/ToolFieldShot.astro';
 import Base from '../layouts/Base.astro';
@@ -18,6 +17,13 @@ const originale = app.originale;
 const alternative = alternatives.find((entry) => entry.app.slug === app.slug && entry.locale === locale);
 const site = Astro.site!;
 const url = new URL(localePath(locale, path), site).href;
+// The scheda's cartiglio: catalogue number and slug, the paid app it replaces and that app's public price
+// (one-time on the Italian App Store, the only price the repo keeps), then what it costs with Sbu.
+const replaced = originale && [
+  t.replaces(originale.name),
+  originale.price !== undefined && t.oneTime(formatPrice(originale.price, locale)),
+].filter(Boolean).join(' · ');
+const cartiglio = `SBU / ${String(app.order).padStart(2, '0')} / ${app.slug}${replaced ? ` · ${replaced}` : ''}`;
 
 const jsonLd = [
   {
@@ -47,63 +53,65 @@ const jsonLd = [
   jsonLd={jsonLd}
   plate={app.engraving ? { src: app.engraving, caption: plateCaption(app.slug, app.order, locale), lead: true } : false}
 >
-  <article class="app flex flex-col gap-12 py-8" style={`--c: var(--sbu-${app.accent})`}>
-    {/* The instrument behind the app is the page's plate, beside the column (Base.astro). */}
-    <header class="hero">
-      <div class="flex flex-col gap-4">
-        <p class="text-footnote text-ink-muted tabular-nums">{t.number(app.order)}</p>
+  {/* The scheda: the title closed by the full stop in the app's accent (the page's one colored square)
+      over its cartiglio, the figure on the grid, then what it does and what it does not. Everything else is ink. */}
+  <article class="scheda">
+    <header class="scheda-head">
+      <div class="grid">
         <PageTitle text={listing.name} accent={app.accent} size="hero" />
-        <p class="text-title-2 text-ink-muted">{listing.subtitle}</p>
-        {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
-        {originale?.price !== undefined && (
-          /* The paid app this one remakes, and its public price: a fact, dated in the footnote below. */
-          <p class="instead">
-            <span class="text-ink-muted">{t.insteadOf} {originale.name}</span>
-            <span class="text-ink-muted tabular-nums line-through">{formatPrice(originale.price, locale)}</span>
-            <span class="font-[var(--text-headline--font-weight)] tabular-nums"><span class="sr-only">{listing.name}: </span>{formatPrice(0, locale)}</span>
-          </p>
-        )}
-        <p class="flex flex-wrap items-center gap-3">
-          {app.storeUrl ? (
-            <a href={app.storeUrl} class="cta">{t.appStore}</a>
-          ) : (
-            <span class="text-headline text-ink-muted">{statusLabel(app, locale)}</span>
-          )}
-          <span class="text-footnote text-ink-muted">{t.requires}</span>
+        <p class="cartiglio">
+          {cartiglio}
+          {originale && <> <span aria-hidden="true">→</span><span class="sr-only">, {t.withSbu}:</span> {formatPrice(0, locale)}</>}
         </p>
-        <FreeBadge locale={locale} />
       </div>
+      <p class="lede">{listing.subtitle}</p>
+      {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
+      <p class="flex flex-wrap items-center gap-x-6 gap-y-0">
+        {app.storeUrl ? (
+          <a href={app.storeUrl} class="cta">{t.appStore}</a>
+        ) : (
+          <span class="cartiglio text-ink">{statusLabel(app, locale)}</span>
+        )}
+        <span class="text-footnote leading-[var(--sbu-grid-cell)] text-ink-muted">{t.requires}</span>
+      </p>
     </header>
 
     <div class="reveal"><ToolFieldShot app={app} locale={locale} /></div>
 
-    <section aria-labelledby="features" class="flex flex-col gap-4">
-      <h2 id="features" class="text-title-2">{t.features}</h2>
-      <ol class="features">
-        {listing.features.map((feature, index) => (
-          <li class="reveal">
-            <span aria-hidden="true" class="font-display tabular-nums text-ink-muted">{String(index + 1).padStart(2, '0')}</span>
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ol>
-    </section>
+    <div class="does">
+      <section aria-labelledby="features">
+        <h2 id="features" class="section-title">{t.features}</h2>
+        <ul class="marks">
+          {listing.features.map((feature) => (
+            <li class="reveal"><span aria-hidden="true" class="row-mark"></span><span>{feature}</span></li>
+          ))}
+        </ul>
+      </section>
+      <section aria-labelledby="does-not">
+        <h2 id="does-not" class="section-title">{t.doesNot}</h2>
+        <ul class="marks">
+          {t.doesNotList.map((line) => (
+            <li class="reveal"><span aria-hidden="true" class="row-mark is-empty"></span><span>{line}</span></li>
+          ))}
+        </ul>
+      </section>
+    </div>
 
     {faq.length > 0 && (
-      <section aria-labelledby="faq" class="flex flex-col gap-4">
-        <h2 id="faq" class="text-title-2">{t.faq}</h2>
+      <section aria-labelledby="faq">
+        <h2 id="faq" class="section-title">{t.faq}</h2>
         <div class="border-t border-line">
           {faq.map((item) => (
             <details class="faq border-b border-line">
               <summary class="text-headline">{item.q}</summary>
-              <p class="pb-4 text-ink-muted">{item.a}</p>
+              <p class="pb-6 text-ink-muted">{item.a}</p>
             </details>
           ))}
         </div>
       </section>
     )}
 
-    <ul class="flex flex-col gap-2">
+    <ul class="flex flex-col">
       {alternative && <li><a href={localePath(locale, `alternatives/${alternative.slug}`)}>{t.alternativeLink(app.originale?.name ?? '')}</a></li>}
       <li><a href={localePath(locale, `privacy/${app.slug}`)}>{t.privacyLink(listing.name)}</a></li>
       <li><a href={`${REPO_URL}/tree/main/Apps/${app.app}`}>{t.codeOf(listing.name)}</a></li>
@@ -113,52 +121,76 @@ const jsonLd = [
 </Base>
 
 <style>
-  .hero :global(h1) {
-    font-size: clamp(var(--text-display-title), 9vw, var(--text-display-hero));
-    line-height: 1;
-    letter-spacing: var(--text-display-hero--letter-spacing);
+  /* Every block is a whole number of grid rows apart, and every line of running text is one row tall. */
+  .scheda {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--sbu-grid-cell) * 2);
+    padding-block: var(--sbu-grid-cell);
+    line-height: var(--sbu-grid-cell);
+  }
+  .scheda-head { display: flex; flex-direction: column; gap: var(--sbu-grid-cell); }
+  .lede {
+    font-size: var(--text-title-2);
+    line-height: calc(var(--sbu-grid-cell) * 1.5);
+    color: var(--sbu-ink-muted);
+  }
+  .section-title {
+    margin-bottom: var(--sbu-grid-cell);
+    font-family: var(--font-display);
+    font-stretch: var(--title-stretch);
+    font-size: var(--text-title-2);
+    line-height: calc(var(--sbu-grid-cell) * 2);
+    font-weight: var(--text-title--font-weight);
   }
 
-  .instead { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--spacing-1) var(--spacing-3); }
-
+  /* Filled in ink. The app's accent stays on the full stop alone. */
   .cta {
     display: inline-block;
     padding: var(--spacing-3) var(--spacing-6);
-    border-radius: var(--radius-lg);
-    background: var(--c);
-    color: var(--sbu-on-accent);
+    border-radius: var(--radius-card);
+    background: var(--sbu-ink);
+    color: var(--sbu-paper);
     font-size: var(--text-headline);
     font-weight: var(--text-headline--font-weight);
     text-decoration: none;
   }
 
-  .features { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
-  .features li {
-    display: grid;
-    grid-template-columns: calc(var(--spacing-12) * 1.5) minmax(0, 1fr);
-    align-items: baseline;
-    padding-block: var(--spacing-4);
-    border-bottom: var(--sbu-hairline) solid var(--sbu-line);
+  /* Fa / non fa: side by side from a tablet up, one row of the grid per line, the mark on the first line. */
+  .does { display: grid; gap: calc(var(--sbu-grid-cell) * 2); }
+  @media (min-width: 40rem) {
+    .does { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  .features li > :first-child { font-size: var(--text-title-2); line-height: 1; }
+  .marks { display: grid; gap: var(--sbu-grid-cell); }
+  .marks li {
+    display: grid;
+    grid-template-columns: var(--sbu-grid-cell) minmax(0, 1fr);
+    align-items: start;
+  }
+  /* Centered on the first line's row: (row - mark) / 2 from its top. */
+  .marks .row-mark { margin-top: calc((var(--sbu-grid-cell) - var(--sbu-row-mark)) / 2); }
 
   .faq summary {
     display: flex;
     justify-content: space-between;
     gap: var(--spacing-4);
-    padding-block: var(--spacing-4);
+    padding-block: var(--sbu-grid-cell);
+    line-height: var(--sbu-grid-cell);
     cursor: pointer;
     list-style: none;
   }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: "+"; color: var(--sbu-ink-muted); transition: rotate .2s; }
+  .faq summary::after { content: "+"; color: var(--sbu-ink-muted); }
+  @media (prefers-reduced-motion: no-preference) {
+    .faq summary::after { transition: rotate var(--sbu-motion-short) ease-out; }
+  }
   .faq[open] summary::after { rotate: 45deg; }
 
   @media (prefers-reduced-motion: no-preference) {
     /* Where the browser has scroll timelines, each block rises in as it enters the screen. */
     @supports (animation-timeline: view()) {
       .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 80%; }
-      @keyframes rise { from { opacity: 0; translate: 0 var(--spacing-6); } }
+      @keyframes rise { from { opacity: 0; translate: 0 var(--sbu-grid-cell); } }
     }
   }
 </style>

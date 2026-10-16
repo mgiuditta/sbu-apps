@@ -5,6 +5,21 @@ Nessuna pubblicità.
 Nessun tracking.
 Dati solo sul dispositivo.
 
-__FEATURES_IT__
+Scegli una foto e Sbu Grid ci stende sopra una griglia: la ricopi sul foglio una cella alla volta, con le proporzioni giuste.
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+- Colonne e righe libere, o celle quadrate: le righe dicono sempre quante sono e perché
+- Formato del foglio: A5, A4, A3, Letter o personalizzato, verticale o orizzontale
+- Celle in centimetri o pollici: righe e colonne vengono dal foglio
+- Ritaglio della foto alla forma del foglio, con maniglie che raggiungi anche su iPhone SE
+- Diagonali e numeri di righe e colonne
+- Linea scura o chiara, spessore e opacità
+- Bianco e nero per leggere luci e ombre
+- Zoom e schermo intero per guardare una cella da vicino
+- Ricalca: la foto semitrasparente con la griglia sopra la fotocamera, per ricalcare sulla carta con l'iPhone su un supporto
+- Salva in Foto o condividi alla risoluzione della foto, e un PDF in scala reale da stampare
+- Scegli la foto senza dare accesso alla libreria
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu Grid aiuta a disegnare sulla carta: non ha pennelli né disegno sullo schermo.
+
+Sbu fa una cosa sola: stende una griglia sulla foto che vuoi disegnare.

@@ -5,6 +5,21 @@ No ads.
 No tracking.
 Data stays on your device.
 
-__FEATURES_EN__
+Choose a photo and Sbu Grid lays a grid over it: you copy it onto paper one cell at a time, with the right proportions.
 
-Sbu does one thing: __ONE_THING_EN__
+- Free columns and rows, or square cells: the rows always say how many they are and why
+- Paper format: A5, A4, A3, Letter or custom, portrait or landscape
+- Cells in centimeters or inches: rows and columns come from the sheet
+- Crop the photo to the sheet's shape, with handles you reach even on iPhone SE
+- Diagonals and row and column numbers
+- Dark or light line, thickness and opacity
+- Black and white to read light and shade
+- Zoom and full screen to look at a cell up close
+- Trace: the photo see-through with the grid over the camera, to trace onto paper with your iPhone on a stand
+- Save to Photos or share at the photo's resolution, and a PDF at real scale to print
+- Choose the photo without giving access to your library
+- Light and dark, Dynamic Type, VoiceOver
+
+Sbu Grid helps you draw on paper: it has no brushes and no drawing on the screen.
+
+Sbu does one thing: it lays a grid over the photo you want to draw.

@@ -1,2 +1,5 @@
-"01-main" = "Sbu Grid";
-"02-privacy" = "Free. No account.";
+"01-main" = "A grid over the photo you draw.";
+"02-grid" = "Rows, columns, numbers, diagonals.";
+"03-sheet" = "Real cells: A4, Letter, cm or inches.";
+"04-export" = "To Photos, shared, or a PDF to scale.";
+"05-privacy" = "No account. Data on your iPhone.";

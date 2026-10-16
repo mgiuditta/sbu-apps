@@ -2,15 +2,16 @@ import SbuKit
 import SwiftUI
 
 /// One of your devices in the list: its ring and percentage when heard, "Non nelle vicinanze"
-/// when not. Both open the finder.
+/// when not. Heard only under another identifier with your device's name, it says "Forse è il
+/// tuo": any device can advertise that name. All open the finder.
 struct MyDeviceLink: View {
     let saved: SavedDevice
-    let heard: NearbyDevice?
+    let match: DeviceMatch?
 
     var body: some View {
-        NavigationLink(value: heard?.id ?? saved.deviceID) {
-            if let heard {
-                DeviceRow(device: heard, savedName: saved.name)
+        NavigationLink(value: match?.device.id ?? saved.deviceID) {
+            if let match {
+                DeviceRow(device: match.device, savedName: saved.name, isProbable: !match.isByIdentifier)
             } else {
                 AbsentDeviceRow(saved: saved)
             }
@@ -23,7 +24,7 @@ struct MyDeviceLink: View {
         List {
             MyDeviceLink(
                 saved: SavedDevice(name: "Le mie cuffie", device: NearbyDevice(id: UUID(), name: "WH-1000XM5", kind: .headphones, signal: -60, lastSeen: .now)),
-                heard: NearbyDevice(id: UUID(), name: "WH-1000XM5", kind: .headphones, signal: -60, lastSeen: .now)
+                match: DeviceMatch(device: NearbyDevice(id: UUID(), name: "WH-1000XM5", kind: .headphones, signal: -60, lastSeen: .now), isByIdentifier: false)
             )
         }
     }
@@ -34,7 +35,7 @@ struct MyDeviceLink: View {
         List {
             MyDeviceLink(
                 saved: SavedDevice(name: "Le mie cuffie", device: NearbyDevice(id: UUID(), name: "WH-1000XM5", kind: .headphones, signal: -60, lastSeen: .now)),
-                heard: nil
+                match: nil
             )
         }
     }

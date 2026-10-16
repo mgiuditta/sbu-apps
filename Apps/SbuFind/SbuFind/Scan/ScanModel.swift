@@ -23,7 +23,7 @@ final class ScanModel {
     /// Your saved devices, in the order you saved them.
     private(set) var myDevices: [SavedDevice]
     /// The device heard now for each of your saved devices, by saved device id.
-    private(set) var myMatches: [UUID: NearbyDevice] = [:]
+    private(set) var myMatches: [UUID: DeviceMatch] = [:]
     /// Devices heard but left out because they have no name.
     private(set) var hiddenUnnamedCount = 0
     /// The device on the finder, kept after it falls silent so the finder can say for how long.
@@ -179,22 +179,25 @@ final class ScanModel {
         sightingStore.save(sightings)
     }
 
-    /// The last sighting of a device, matched by identifier, else by name and kind.
+    /// The last sighting of the device heard under this identifier.
     func sighting(for device: NearbyDevice) -> Sighting? {
-        sightings.latest(id: device.id, name: device.name, kind: device.kind)
+        sightings.latest(id: device.id)
     }
 
     /// Devices heard in the last day and not heard now, newest first, for the list.
     var recentSightings: [Sighting] {
-        let listedNames = Set(devices.compactMap(\.name))
+        var shownNames = Set(devices.compactMap(\.name))
+        // A device that changes identifier leaves one sighting per identifier: the newest shows.
         return sightings
             .recent(since: clock().addingTimeInterval(-Self.recentWindow), excluding: Set(devices.map(\.id)))
-            .filter { !listedNames.contains($0.name) }
+            .filter { shownNames.insert($0.name).inserted }
     }
 
     private func recordSightings(of gone: [NearbyDevice]) {
         guard remembersPlaces else { return }
-        let new = recorder.sightings(for: gone, fallback: location.current)
+        // A device that only says the name of one of yours places nothing: it could be anyone's.
+        let trusted = gone.filter { probableSavedDevice(forDeviceID: $0.id) == nil }
+        let new = recorder.sightings(for: trusted, fallback: location.current)
         guard !new.isEmpty else { return }
         for sighting in new {
             sightings.record(sighting)
@@ -322,16 +325,24 @@ final class ScanModel {
         publish(at: clock())
     }
 
-    /// The saved device a heard or remembered identifier belongs to, if any.
+    /// The saved device an identifier belongs to: only the identifier it was saved with.
     func savedDevice(forDeviceID deviceID: UUID) -> SavedDevice? {
-        myDevices.first { $0.deviceID == deviceID || myMatches[$0.id]?.id == deviceID }
+        myDevices.first { $0.deviceID == deviceID }
+    }
+
+    /// The saved device a heard device only says it is, by name: probably yours, never for sure.
+    func probableSavedDevice(forDeviceID deviceID: UUID) -> SavedDevice? {
+        myDevices.first { saved in
+            guard let match = myMatches[saved.id] else { return false }
+            return !match.isByIdentifier && match.device.id == deviceID
+        }
     }
 
     private func publish(at now: Date) {
         updateMine()
         updateTracked(at: now)
         updateWatched(at: now)
-        let mineIDs = Set(myMatches.values.map(\.id))
+        let mineIDs = Set(myMatches.values.map(\.device.id))
         let listed = roster.devices(includingUnnamed: showsUnnamed).filter { !mineIDs.contains($0.id) }
         if listed != devices {
             devices = listed
@@ -347,28 +358,14 @@ final class ScanModel {
         }
     }
 
-    /// Finds your devices among the ones heard; one heard under a new identifier keeps it, so
-    /// next time it is found at once.
+    /// Finds your devices among the ones heard. A match by name is shown as probable and changes
+    /// nothing saved: any nearby device can advertise your earbuds' name.
     private func updateMine() {
         guard !myDevices.isEmpty else {
             if !myMatches.isEmpty { myMatches = [:] }
             return
         }
         let matches = DeviceMatcher.match(myDevices, among: roster.devices(includingUnnamed: true))
-        var changed = false
-        for index in myDevices.indices {
-            guard let device = matches[myDevices[index].id], device.id != myDevices[index].deviceID else { continue }
-            // The finder on the old identifier follows the device to its new one.
-            if trackedID == myDevices[index].deviceID {
-                trackedID = device.id
-            }
-            myDevices[index].deviceID = device.id
-            myDevices[index].companyID = device.companyID ?? myDevices[index].companyID
-            changed = true
-        }
-        if changed {
-            myDevicesStore.save(myDevices)
-        }
         if matches != myMatches {
             myMatches = matches
         }

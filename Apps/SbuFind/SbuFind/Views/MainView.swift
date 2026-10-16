@@ -26,7 +26,7 @@ struct MainView: View {
             // Yours first, as in Wunderfind; one card per device, as in Find Air.
             ForEach(model.myDevices) { saved in
                 Section {
-                    MyDeviceLink(saved: saved, heard: model.myMatches[saved.id])
+                    MyDeviceLink(saved: saved, match: model.myMatches[saved.id])
                         .listRowBackground(SbuTheme.surfaceRaised)
                 } header: {
                     if saved.id == model.myDevices.first?.id {

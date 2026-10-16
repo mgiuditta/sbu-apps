@@ -2,9 +2,9 @@ import Foundation
 
 /// The last sighting of each device, kept on the iPhone only.
 ///
-/// One sighting per device: a newer one replaces the older, matched by identifier or, since iOS
-/// can give a device a new identifier, by the same name and kind. The log keeps the newest
-/// `capacity` devices.
+/// One sighting per identifier: a newer one replaces the older. Never matched by name: Bluetooth
+/// names are not authenticated, and a device nearby saying "Buds Pro" must not move the place
+/// of yours. The log keeps the newest `capacity` sightings.
 nonisolated struct SightingLog: Codable, Equatable, Sendable {
     static let capacity = 50
     /// A sighting whose position is less precise than this says too little to be shown.
@@ -15,7 +15,7 @@ nonisolated struct SightingLog: Codable, Equatable, Sendable {
     /// Saves a sighting unless its position is too vague or an equal or newer one is already kept.
     mutating func record(_ sighting: Sighting) {
         guard sighting.place.accuracy >= 0, sighting.place.accuracy <= Self.worstUsefulAccuracy else { return }
-        if let existing = sightings.firstIndex(where: { Self.isSameDevice($0, sighting) }) {
+        if let existing = sightings.firstIndex(where: { $0.id == sighting.id }) {
             guard sightings[existing].date < sighting.date else { return }
             sightings.remove(at: existing)
         }
@@ -26,13 +26,9 @@ nonisolated struct SightingLog: Codable, Equatable, Sendable {
         }
     }
 
-    /// The last sighting of a device: by identifier first, then by name and kind.
-    func latest(id: UUID, name: String?, kind: DeviceKind) -> Sighting? {
-        if let exact = sightings.first(where: { $0.id == id }) {
-            return exact
-        }
-        guard let name else { return nil }
-        return sightings.first { $0.name == name && $0.kind == kind }
+    /// The last sighting of the device heard under this identifier.
+    func latest(id: UUID) -> Sighting? {
+        sightings.first { $0.id == id }
     }
 
     /// Sightings since `date`, newest first, leaving out the given devices (those heard now).
@@ -42,9 +38,5 @@ nonisolated struct SightingLog: Codable, Equatable, Sendable {
 
     mutating func removeAll() {
         sightings.removeAll()
-    }
-
-    private static func isSameDevice(_ lhs: Sighting, _ rhs: Sighting) -> Bool {
-        lhs.id == rhs.id || (lhs.name == rhs.name && lhs.kind == rhs.kind)
     }
 }

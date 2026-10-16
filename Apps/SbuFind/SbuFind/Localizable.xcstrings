@@ -391,6 +391,26 @@
         }
       }
     },
+    "Forse è %@: ha lo stesso nome, ma un altro dispositivo può dire lo stesso." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maybe %@: it has the same name, but another device can say the same."
+          }
+        }
+      }
+    },
+    "Forse è il tuo: riconosciuto dal nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probably yours: recognised by its name"
+          }
+        }
+      }
+    },
     "Freddo" : {
       "localizations" : {
         "en" : {

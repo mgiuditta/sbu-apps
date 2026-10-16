@@ -9,6 +9,8 @@ struct DeviceRow: View {
     let device: NearbyDevice
     /// Your name for it, when it is one of your devices.
     var savedName: String?
+    /// Recognised only by the name it advertises: probably yours, not for sure.
+    var isProbable = false
 
     @ScaledMetric(relativeTo: .headline) private var ringSide = SbuTheme.controlRound
 
@@ -29,6 +31,12 @@ struct DeviceRow: View {
                     .font(SbuTheme.subheadline.monospacedDigit())
                     .foregroundStyle(SbuTheme.inkMuted)
                     .contentTransition(.numericText())
+
+                if isProbable {
+                    Label("Forse è il tuo: riconosciuto dal nome", systemImage: "questionmark.circle")
+                        .font(SbuTheme.footnote)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                }
             }
             .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
 

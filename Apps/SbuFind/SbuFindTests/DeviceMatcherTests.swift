@@ -13,17 +13,26 @@ struct DeviceMatcherTests {
 
     @Test func theSameIdentifierMatches() {
         let mine = saved(1)
-        #expect(DeviceMatcher.match([mine], among: [heard(2), heard(1)])[mine.id]?.id == Advertisement.testID(1))
+        #expect(DeviceMatcher.match([mine], among: [heard(2), heard(1)])[mine.id]?.device.id == Advertisement.testID(1))
     }
 
     @Test func theSameIdentifierWinsEvenUnderAnotherName() {
         let mine = saved(1, advertised: "Old name")
-        #expect(DeviceMatcher.match([mine], among: [heard(1, name: "New name")])[mine.id]?.id == Advertisement.testID(1))
+        #expect(DeviceMatcher.match([mine], among: [heard(1, name: "New name")])[mine.id]?.device.id == Advertisement.testID(1))
     }
 
-    @Test func aNewIdentifierMatchesByNameAndKind() {
+    @Test func aNewIdentifierMatchesByNameAndKindOnlyAsProbable() throws {
         let mine = saved(1)
-        #expect(DeviceMatcher.match([mine], among: [heard(5)])[mine.id]?.id == Advertisement.testID(5))
+        let match = try #require(DeviceMatcher.match([mine], among: [heard(5)])[mine.id])
+        #expect(match.device.id == Advertisement.testID(5))
+        #expect(!match.isByIdentifier)
+    }
+
+    @Test func theSavedIdentifierIsSure() throws {
+        let mine = saved(1)
+        let match = try #require(DeviceMatcher.match([mine], among: [heard(5), heard(1)])[mine.id])
+        #expect(match.device.id == Advertisement.testID(1))
+        #expect(match.isByIdentifier)
     }
 
     @Test(arguments: [
@@ -51,7 +60,7 @@ struct DeviceMatcherTests {
     @Test func theMakerSettlesTwoCandidates() {
         let mine = saved(1, company: 0x004C)
         let matches = DeviceMatcher.match([mine], among: [heard(5, company: 0x0075), heard(6, company: 0x004C)])
-        #expect(matches[mine.id]?.id == Advertisement.testID(6))
+        #expect(matches[mine.id]?.device.id == Advertisement.testID(6))
     }
 
     /// Two saved earbuds both called "Buds Pro", one heard under a new identifier: which one is it?
@@ -65,8 +74,8 @@ struct DeviceMatcherTests {
         let left = saved(1, as: "Sinistro")
         let right = saved(2, as: "Destro")
         let matches = DeviceMatcher.match([left, right], among: [heard(1), heard(5)])
-        #expect(matches[left.id]?.id == Advertisement.testID(1))
-        #expect(matches[right.id]?.id == Advertisement.testID(5))
+        #expect(matches[left.id]?.device.id == Advertisement.testID(1))
+        #expect(matches[right.id]?.device.id == Advertisement.testID(5))
     }
 
     @Test func aDeviceIsClaimedOnce() {

@@ -22,18 +22,13 @@ struct SightingLogTests {
         #expect(log.sightings == [.fixture(after: 60)])
     }
 
-    @Test func theSameNameAndKindUnderANewIdentifierIsTheSameDevice() {
+    /// Bluetooth names are not authenticated: a device saying the same name never moves yours.
+    @Test func theSameNameUnderAnotherIdentifierIsKeptApart() {
         var log = SightingLog()
         log.record(.fixture(device: 1, after: 0))
         log.record(.fixture(device: 2, after: 30))
-        #expect(log.sightings.map(\.id) == [Advertisement.testID(2)])
-    }
-
-    @Test func theSameNameWithAnotherKindIsAnotherDevice() {
-        var log = SightingLog()
-        log.record(.fixture(device: 1, name: "Studio", kind: .headphones))
-        log.record(.fixture(device: 2, name: "Studio", kind: .speaker, after: 1))
-        #expect(log.sightings.count == 2)
+        #expect(Set(log.sightings.map(\.id)) == [Advertisement.testID(1), Advertisement.testID(2)])
+        #expect(log.latest(id: Advertisement.testID(1))?.date == Advertisement.start)
     }
 
     @Test(arguments: [(-1.0, false), (0.0, true), (65.0, true), (500.0, true), (501.0, false), (5000.0, false)])
@@ -55,20 +50,11 @@ struct SightingLogTests {
         #expect(dates == dates.sorted(by: >))
     }
 
-    @Test func latestMatchesTheIdentifierFirst() {
-        var log = SightingLog()
-        log.record(.fixture(device: 1, name: "A"))
-        log.record(.fixture(device: 2, name: "B", after: 5))
-        #expect(log.latest(id: Advertisement.testID(1), name: "B", kind: .earbuds)?.name == "A")
-    }
-
-    @Test func latestFallsBackToNameAndKind() {
+    @Test func latestIsByIdentifierOnly() {
         var log = SightingLog()
         log.record(.fixture(device: 1, name: "Buds Pro"))
-        #expect(log.latest(id: Advertisement.testID(9), name: "Buds Pro", kind: .earbuds)?.id == Advertisement.testID(1))
-        #expect(log.latest(id: Advertisement.testID(9), name: "Buds Pro", kind: .watch) == nil)
-        #expect(log.latest(id: Advertisement.testID(9), name: nil, kind: .earbuds) == nil)
-        #expect(log.latest(id: Advertisement.testID(9), name: "Other", kind: .earbuds) == nil)
+        #expect(log.latest(id: Advertisement.testID(1))?.name == "Buds Pro")
+        #expect(log.latest(id: Advertisement.testID(9)) == nil)
     }
 
     @Test func recentLeavesOutOldAndHeardDevices() {

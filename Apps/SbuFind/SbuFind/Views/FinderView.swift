@@ -38,6 +38,13 @@ struct FinderView: View {
                         .foregroundStyle(SbuTheme.inkMuted)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
+                    if let device = model.tracked?.device, let probable = model.probableSavedDevice(forDeviceID: device.id) {
+                        Label("Forse è \(probable.name): ha lo stesso nome, ma un altro dispositivo può dire lo stesso.", systemImage: "questionmark.circle")
+                            .font(SbuTheme.footnote)
+                            .foregroundStyle(SbuTheme.inkMuted)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+
                     LostAlertRow(model: model, deviceID: deviceID)
 
                     FinderRing(tracked: model.tracked, foundMoments: model.foundMoments)
@@ -60,7 +67,8 @@ struct FinderView: View {
                         } label: {
                             Label("Hai perso un solo auricolare?", systemImage: "airpod.right")
                                 .font(SbuTheme.subheadline)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(maxWidth: .infinity, minHeight: SbuTheme.controlRoundSm, alignment: .leading)
+                                .contentShape(.rect)
                         }
                     }
 

@@ -1,1 +1,1 @@
-
+pillole,medicine,pastiglie,terapia,dosi,orari,scorte,aderenza,salute,anziani,figli,medico,notifica

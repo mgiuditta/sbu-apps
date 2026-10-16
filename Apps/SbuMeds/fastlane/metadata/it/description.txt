@@ -1,10 +1,22 @@
-Nessun abbonamento.
-Nessun acquisto in-app.
-Nessun account.
-Nessuna pubblicità.
-Nessun tracking.
-Dati solo sul dispositivo.
+Ti ricorda i farmaci di tutta la famiglia all'ora giusta, e tiene lo storico di ogni dose: presa, saltata o dimenticata.
 
-__FEATURES_IT__
+- Più persone su un iPhone: tu, i figli, i genitori, chi assisti, ognuno con i suoi farmaci
+- Oggi: la settimana in alto, le dosi raggruppate per orario, "Prendi tutto" per un orario anche in anticipo
+- Presa, Saltata o Sposta orario per ogni dose, con un tocco o uno swipe
+- Ogni giorno, giorni scelti, ogni N giorni, ogni N ore, a cicli (21 sì e 7 di pausa) o al bisogno
+- Dosi diverse per orario: mezza compressa la mattina, una la sera
+- Data di inizio e durata per una cura di pochi giorni
+- Orari fissi: se cambi fuso orario, le 8:00 restano le 8:00
+- Notifiche con Presa, Saltata e Rimanda, anche dalla schermata di blocco
+- Promemoria ripetuto se non segni la dose, ogni quanto vuoi tu, e sparisce appena la segni
+- Scorte che si scalano a ogni dose, con un promemoria quando è ora di ricomprare
+- Storico completo, senza limite di giorni, e dosi extra fuori orario
+- Rapporto per il medico in PDF: dosi prese in percentuale e giorno per giorno, per persona e periodo
+- Widget per la schermata Home e la schermata di blocco
+- Tema chiaro e scuro, testo dinamico, VoiceOver
 
-Sbu fa una cosa sola: __ONE_THING_IT__
+Non dà consigli su farmaci, dosi o interazioni: scrivi tu quello che dice il medico.
+
+Sbu fa una cosa sola: ti ricorda quale farmaco prendere, e quando, per tutta la famiglia.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

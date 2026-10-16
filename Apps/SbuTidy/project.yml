@@ -24,6 +24,7 @@ targets:
     sources: [SbuTidy]
     dependencies:
       - package: SbuKit
+      - target: SbuTidyWidget
     entitlements:
       path: SbuTidy/SbuTidy.entitlements
       properties:
@@ -45,6 +46,43 @@ targets:
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES
+  SbuTidyWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuTidyWidget
+      # The widget reads the app's store, so it shares the model and the pure dirt logic.
+      - path: SbuTidy/Model
+        excludes: [Home.swift, SampleHome.swift, ModelContainer+Preview.swift]
+      - SbuTidy/Dirt
+      - SbuTidy/Presets
+      - SbuTidy/Widget
+      - path: SbuTidy/Chores
+        includes: [DueLabel.swift, Frequency+Text.swift]
+      - SbuTidy/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuTidyWidget/SbuTidyWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.tidy]
+    info:
+      path: SbuTidyWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Tidy
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.tidy.widget
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
   SbuTidyTests:
     type: bundle.unit-test
     platform: iOS

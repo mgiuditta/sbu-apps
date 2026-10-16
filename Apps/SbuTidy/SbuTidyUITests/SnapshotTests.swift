@@ -8,7 +8,6 @@ final class SnapshotTests: XCTestCase {
     func testScreenshots() {
         let app = XCUIApplication()
         setupSnapshot(app)
-        app.launchArguments += ["-today.filter", "toDo"]
         app.launch()
 
         let chore = app.buttons.matching(identifier: "chore").firstMatch

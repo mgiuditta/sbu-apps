@@ -1,7 +1,7 @@
 import Foundation
 
 /// The words under a chore, as Tody's: "Tra 7 giorni", "Oggi", "6 giorni di ritardo".
-nonisolated enum DueLabel: Equatable, Sendable {
+nonisolated enum DueLabel: Hashable, Sendable {
     case today
     case tomorrow
     case inDays(Int)

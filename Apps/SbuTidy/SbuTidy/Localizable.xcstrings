@@ -11,6 +11,46 @@
         }
       }
     },
+    "%@ e altre %lld" : {
+      "localizations" : {
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ e un'altra"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ e altre %lld"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ and 1 more"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ and %lld more"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%@." : {
       "localizations" : {
         "en" : {
@@ -151,6 +191,16 @@
         }
       }
     },
+    "Aggiungi le stanze" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your rooms"
+          }
+        }
+      }
+    },
     "Aggiungi stanza" : {
       "localizations" : {
         "en" : {
@@ -207,6 +257,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
           }
         }
       }
@@ -331,6 +391,16 @@
         }
       }
     },
+    "Così arriva un promemoria quando un'attività diventa da fare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is how a reminder arrives when a chore becomes due."
+          }
+        }
+      }
+    },
     "Cucina" : {
       "localizations" : {
         "en" : {
@@ -351,12 +421,32 @@
         }
       }
     },
+    "da fare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to do"
+          }
+        }
+      }
+    },
     "Da fare oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "To do today"
+          }
+        }
+      }
+    },
+    "Da fare oggi: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To do today: %lld"
           }
         }
       }
@@ -691,6 +781,16 @@
         }
       }
     },
+    "Invia un promemoria di prova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send a test reminder"
+          }
+        }
+      }
+    },
     "Lavaggio a vuoto della lavatrice" : {
       "localizations" : {
         "en" : {
@@ -971,6 +1071,16 @@
         }
       }
     },
+    "Notifiche spente per Sbu Tidy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications off for Sbu Tidy"
+          }
+        }
+      }
+    },
     "Nuova attività" : {
       "localizations" : {
         "en" : {
@@ -1131,6 +1241,16 @@
         }
       }
     },
+    "Ora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
+          }
+        }
+      }
+    },
     "Passare l'aspirapolvere" : {
       "localizations" : {
         "en" : {
@@ -1167,6 +1287,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Products, tools, tricks"
+          }
+        }
+      }
+    },
+    "Promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders"
           }
         }
       }
@@ -1401,6 +1531,16 @@
         }
       }
     },
+    "Quante attività sono da fare e le più urgenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many chores are due, and the most urgent."
+          }
+        }
+      }
+    },
     "Qui trovi quello che diventa da fare nei prossimi 7 giorni." : {
       "localizations" : {
         "en" : {
@@ -1567,6 +1707,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mark"
+          }
+        }
+      }
+    },
+    "Senza notifiche nessuna attività ti avvisa. Attivale nelle Impostazioni dell'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without notifications no chore can remind you. Turn them on in the iPhone Settings."
           }
         }
       }
@@ -1917,6 +2067,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last done"
+          }
+        }
+      }
+    },
+    "Una notifica solo nei giorni in cui un'attività diventa da fare. Se non c'è niente, nessuna notifica." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One notification only on days when a chore becomes due. Nothing due, no notification."
           }
         }
       }

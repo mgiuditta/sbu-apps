@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import UserNotifications
 
 @main
 struct SbuTidyApp: App {
@@ -15,6 +16,13 @@ struct SbuTidyApp: App {
             fatalError("Tidy store failed to open: \(error)")
         }
     }()
+
+    private let notificationPresenter = ForegroundNotificationPresenter()
+
+    init() {
+        UNUserNotificationCenter.current().delegate = notificationPresenter
+        Launch.resetDemoPreferences()
+    }
 
     var body: some Scene {
         WindowGroup {

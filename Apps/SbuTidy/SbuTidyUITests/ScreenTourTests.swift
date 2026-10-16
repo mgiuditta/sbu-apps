@@ -11,7 +11,7 @@ final class ScreenTourTests: TidyUITestCase {
         }
         let directory = URL(fileURLWithPath: path)
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES", "-today.filter", "toDo"]
+        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES"]
         app.launchArguments += ProcessInfo.processInfo.environment["TIDY_TOUR_ARGS"]?.split(separator: " ").map(String.init) ?? []
         app.launch()
 
@@ -21,7 +21,16 @@ final class ScreenTourTests: TidyUITestCase {
 
         XCTAssertTrue(app.buttons.matching(identifier: "chore").firstMatch.waitForExistence(timeout: 5))
         try save("01-today")
+        app.navigationBars.buttons.element(boundBy: 1).tap()
+        sleep(1)
+        try save("00-settings")
+        app.swipeUp()
+        try save("00-settings-bottom")
+        app.swipeDown(velocity: .fast)
+        app.swipeDown(velocity: .fast)
+        XCTAssertTrue(app.buttons["rooms"].waitForExistence(timeout: 5))
         app.buttons["In scadenza"].tap()
+        sleep(1)
         try save("02-upcoming")
         app.buttons["Da fare"].tap()
 

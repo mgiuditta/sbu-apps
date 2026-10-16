@@ -128,7 +128,22 @@ final class TidyFlowTests: TidyUITestCase {
         XCTAssertNotEqual(app.buttons.matching(identifier: "chore").firstMatch.label, name)
 
         app.buttons["In scadenza"].tap()
-        XCTAssertTrue(app.buttons.matching(identifier: "chore").firstMatch.waitForExistence(timeout: 5))
+        let upcoming = app.buttons.matching(NSPredicate(format: "identifier == 'chore' AND (label CONTAINS 'Tra ' OR label CONTAINS 'Domani')")).firstMatch
+        XCTAssertTrue(upcoming.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons.matching(NSPredicate(format: "identifier == 'chore' AND label CONTAINS 'ritardo'")).firstMatch.exists)
+        try audit(app)
+    }
+
+    @MainActor
+    func testSettingsOfferRemindersOffByDefault() throws {
+        let app = launch()
+        addBaseRooms(app)
+        app.navigationBars.buttons.element(boundBy: 1).tap()
+        let toggle = app.switches["remindersToggle"]
+        XCTAssertTrue(scroll(app, to: toggle))
+        XCTAssertEqual(toggle.value as? String, "0")
+        toggle.switches.firstMatch.tap()
+        XCTAssertTrue(app.datePickers.firstMatch.waitForExistence(timeout: 5))
         try audit(app)
     }
 }

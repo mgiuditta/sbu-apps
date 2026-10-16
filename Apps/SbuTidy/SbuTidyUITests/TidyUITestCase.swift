@@ -10,7 +10,7 @@ class TidyUITestCase: XCTestCase {
     @MainActor
     func launch(_ arguments: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-SBU_EMPTY_STORE", "YES", "-today.filter", "toDo"]
+        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-SBU_EMPTY_STORE", "YES"]
         app.launchArguments += arguments
         app.launch()
         return app

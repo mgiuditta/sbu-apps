@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The sight's marks over the camera: a crosshair in the middle, the point the figure measures,
 /// and the horizon through it, kept level as the iPhone rolls. Each line in `ink` over a wider
-/// `surface` line, so it reads on any picture. Decorative: the angle is in the figure.
+/// `paper` line, so it reads on any picture. Decorative: the angle is in the figure.
 struct SightReticle: View {
     /// Calibrated device roll in degrees (see `Gravity.rotation`).
     let rotation: Double
@@ -33,7 +33,7 @@ struct SightReticle: View {
             let halo = StrokeStyle(lineWidth: SbuTheme.hairline * 4, lineCap: .round)
             let stroke = StrokeStyle(lineWidth: SbuTheme.hairline * 2, lineCap: .round)
             for path in [crosshair, line] {
-                context.stroke(path, with: .color(SbuTheme.surface), style: halo)
+                context.stroke(path, with: .color(SbuTheme.paper), style: halo)
                 context.stroke(path, with: .color(SbuTheme.ink), style: stroke)
             }
         }
@@ -44,12 +44,12 @@ struct SightReticle: View {
 #Preview("Light") {
     SightReticle(rotation: 8)
         .frame(width: 300, height: 300)
-        .background(SbuTheme.surfaceSunken)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     SightReticle(rotation: -15)
         .frame(width: 300, height: 300)
-        .background(SbuTheme.surfaceSunken)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

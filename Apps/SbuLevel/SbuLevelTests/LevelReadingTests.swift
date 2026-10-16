@@ -91,17 +91,6 @@ struct LevelReadingTests {
         #expect(abs(reading.angle - tilt) < 1e-9)
     }
 
-    @Test func bubbleFloatsToTheHighSideAndStopsAtTheEdge() {
-        let slightly = LevelReading(gravity: .lying(tiltedBy: 5), calibration: .none)
-        let steep = LevelReading(gravity: .lying(tiltedBy: 30), calibration: .none)
-
-        // Right side lower: the bubble moves left.
-        #expect(slightly.bubbleX < 0)
-        #expect(slightly.bubbleX > -1)
-        #expect(steep.bubbleX == -1)
-        #expect(slightly.bubbleY == 0)
-    }
-
     /// "In bolla" exactly when the figure shows the level angle, on every edge and flat.
     @Test(arguments: [
         (0.0, true), (0.04, true), (-0.04, true), (0.049, true), (0.051, false), (-0.06, false), (2.4, false),
@@ -134,7 +123,7 @@ struct LevelReadingTests {
         #expect(reading.displayedAngle.formatted(format) == expected)
     }
 
-    /// A small tilt of the bubble near zero also reads "0,0".
+    /// A small tilt near zero also reads "0,0".
     @Test func theBubbleNeverShowsMinusZero() {
         let reading = LevelReading(gravity: Gravity(x: -0.0005, y: 0.0003, z: -1), calibration: .none)
         let format = FloatingPointFormatStyle<Double>.number.precision(.fractionLength(1)).locale(Locale(identifier: "it_IT"))

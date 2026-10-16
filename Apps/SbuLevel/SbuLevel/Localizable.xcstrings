@@ -21,26 +21,6 @@
         }
       }
     },
-    "0° sui bordi in alto e in basso" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "0° on the top and bottom edges"
-          }
-        }
-      }
-    },
-    "0° sui lati" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "0° on the sides"
-          }
-        }
-      }
-    },
     "1 a %@" : {
       "localizations" : {
         "en" : {
@@ -121,12 +101,12 @@
         }
       }
     },
-    "Appoggia l'iPhone sul retro: la bolla mostra la pendenza della superficie, e sotto c'è l'inclinazione lungo ciascun asse." : {
+    "Appoggia l'iPhone sul retro: la cifra è la pendenza della superficie. In bolla, il quadrato dopo la cifra si colora." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lay your iPhone on its back: the bubble shows the slope of the surface, with the tilt along each axis underneath."
+            "value" : "Lay your iPhone on its back: the figure is the slope of the surface. When it is level, the square after the figure takes color."
           }
         }
       }
@@ -141,22 +121,32 @@
         }
       }
     },
-    "Appoggia un bordo dell'iPhone sulla superficie: il quadrante legge l'angolo di quel bordo, da 0° a 90°. I quattro bordi si riconoscono da soli." : {
+    "Appoggia un bordo dell'iPhone sulla superficie: la cifra è l'angolo di quel bordo, da 0° a 90°. I quattro bordi si riconoscono da soli." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rest an edge of your iPhone on the surface: the dial reads the angle of that edge, from 0° to 90°. All four edges are recognized on their own."
+            "value" : "Rest an edge of your iPhone on the surface: the figure is the angle of that edge, from 0° to 90°. All four edges are recognized on their own."
           }
         }
       }
     },
-    "Asse orizzontale %@, asse verticale %@" : {
+    "Asse corto" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Horizontal axis %@, vertical axis %@"
+            "value" : "Short edge"
+          }
+        }
+      }
+    },
+    "Asse lungo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Long edge"
           }
         }
       }
@@ -317,6 +307,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "How to use"
+          }
+        }
+      }
+    },
+    "Con Zero sui lati, in Impostazioni, un bordo legge 0° sui lati invece che in alto e in basso. Un tocco sulla cifra nasconde i controlli, un altro li mostra." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With Zero at the sides, in Settings, an edge reads 0° on the sides instead of the top and bottom. A tap on the figure hides the controls, another shows them."
           }
         }
       }
@@ -661,6 +661,16 @@
         }
       }
     },
+    "Livella" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level"
+          }
+        }
+      }
+    },
     "Lo schermo non si spegne mentre l'app è aperta." : {
       "localizations" : {
         "en" : {
@@ -837,16 +847,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Takes the current position as zero: the figure shows how far you move from there. Absolute goes back to the true angle."
-          }
-        }
-      }
-    },
-    "Quadrante" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dial"
           }
         }
       }
@@ -1061,16 +1061,6 @@
         }
       }
     },
-    "Trascina il quadrante di un quarto di giro per leggere 0° sui lati invece che in alto e in basso. Un tocco nasconde i controlli, un altro li mostra." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Drag the dial a quarter turn to read 0° on the sides instead of the top and bottom. A tap hides the controls, another shows them."
-          }
-        }
-      }
-    },
     "Tutti i lati" : {
       "localizations" : {
         "en" : {
@@ -1111,6 +1101,16 @@
         }
       }
     },
+    "Zero sui lati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zero at the sides"
+          }
+        }
+      }
+    },
     "x:12" : {
       "localizations" : {
         "en" : {
@@ -1121,12 +1121,12 @@
         }
       }
     },
-    "x:12 è l'alzata su 12 di base, come si legge un tetto. 1V:H è la base per 1 di alzata. Il quadrante resta in gradi." : {
+    "x:12 è l'alzata su 12 di base, come si legge un tetto. 1V:H è la base per 1 di alzata. Con Zero sui lati, un bordo legge 0° sui lati invece che in alto e in basso." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "x:12 is the rise on a run of 12, as a roof is read. 1V:H is the run for a rise of 1. The dial stays in degrees."
+            "value" : "x:12 is the rise on a run of 12, as a roof is read. 1V:H is the run for a rise of 1. With Zero at the sides, an edge reads 0° on the sides instead of the top and bottom."
           }
         }
       }

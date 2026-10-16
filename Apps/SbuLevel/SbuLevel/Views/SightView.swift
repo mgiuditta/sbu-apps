@@ -2,8 +2,9 @@ import SbuKit
 import SwiftUI
 import UIKit
 
-/// The camera sight: the rear camera's picture inside the dial's ring, with crosshair and horizon.
-/// Without the picture the dial stays paper; a refused camera offers the way to Settings.
+/// The camera sight: the rear camera's picture in a circle ringed in `line`, with crosshair and
+/// horizon. Without the picture the circle stays plain paper, never the grid; a refused camera
+/// offers the way to Settings.
 struct SightView: View {
     @Environment(\.openURL) private var openURL
 
@@ -16,7 +17,7 @@ struct SightView: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(SbuTheme.surfaceSunken)
+                .fill(SbuTheme.paper)
 
             if camera.access == .allowed {
                 CameraPreview(session: camera.session)
@@ -32,7 +33,8 @@ struct SightView: View {
 
             SightReticle(rotation: rotation)
 
-            DialScale(showsValues: false)
+            Circle()
+                .strokeBorder(SbuTheme.line, lineWidth: SbuTheme.hairline)
 
             if camera.access == .denied {
                 Button("Consenti la fotocamera", action: openSettings)
@@ -59,12 +61,12 @@ struct SightView: View {
 #Preview("Light") {
     SightView(camera: SightCamera(), rotation: 6)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     SightView(camera: SightCamera(), rotation: -10)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

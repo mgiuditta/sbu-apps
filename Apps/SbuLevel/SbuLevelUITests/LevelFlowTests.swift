@@ -9,9 +9,12 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
-    private func launch(gravity: String = "") -> XCUIApplication {
+    private func launch(gravity: String = "", contentSize: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES", "-FIXED_GRAVITY", gravity]
+        if let contentSize {
+            app.launchArguments += ["-UIPreferredContentSizeCategoryName", contentSize]
+        }
         // Every test starts uncalibrated: a string where the calibration data goes reads as none.
         app.launchArguments += ["-calibration", "none"]
         // And in degrees to the tenth, whatever an earlier test chose: arguments win over saved settings.
@@ -22,20 +25,46 @@ final class LevelFlowTests: XCTestCase {
 
     /// Contrast is left out everywhere as in the other apps: text colors come from tokens with
     /// checked ratios, and the audit misreads the iOS 26 glass bar. The tool screen also leaves out
-    /// element detection: the dial's 0°, 45° and 90° marks are drawn in a Canvas and hidden from
+    /// element detection: the grid, the full stop and the sight's marks are drawn and hidden from
     /// VoiceOver on purpose, because the figure already says the angle.
     private static let toolScreenExclusions: XCUIAccessibilityAuditType = [.contrast, .elementDetection]
     /// Sheets leave out Dynamic Type, as settings do in the other apps, and clipped text: the audit
     /// flags the system Annulla button in the iOS 26 glass toolbar of a medium-height sheet. The
-    /// dial shows above a medium-height sheet, so element detection is left out as on the tool screen.
+    /// tool screen shows above a medium-height sheet, so element detection is left out there too.
     private static let sheetExclusions: XCUIAccessibilityAuditType = [.contrast, .dynamicType, .textClipped, .elementDetection]
+
+    /// Settings leave out Dynamic Type, as in the other apps: in the settings sheet the audit flags
+    /// every text as partially unsupported, system ones included. Clipped text as in the sheets: the
+    /// audit flags the bar of the iOS 26 sheet ("no element"), not the rows.
+    private static let settingsExclusions: XCUIAccessibilityAuditType = [.contrast, .dynamicType, .textClipped]
+
+    /// SbuKit sizes the figure in grid cells rather than a text style, and draws the cartiglio in
+    /// Plex Mono scaled by hand: on purpose, so the Dynamic Type check skips just those two, and
+    /// still checks every other text on the tool screen. The audit also reads the cartiglio's
+    /// tracking as clipping, though every letter shows.
+    private static func isSbuKitGridType(_ issue: XCUIAccessibilityAuditIssue) -> Bool {
+        guard let label = issue.element?.label else { return false }
+        let isCartiglio = label.hasPrefix("SBU ·")
+        switch issue.auditType {
+        case .dynamicType: return isCartiglio || label.contains(where: \.isNumber)
+        case .textClipped: return isCartiglio
+        default: return false
+        }
+    }
 
     @MainActor
     private func audit(_ app: XCUIApplication, excluding excluded: XCUIAccessibilityAuditType) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(excluded)) { issue in
+            guard Self.isSbuKitGridType(issue) == false else { return true }
             XCTFail("\(issue.compactDescription):\(issue.element?.debugDescription ?? "no element")")
             return true
         }
+    }
+
+    /// The figure: one element whose label starts with what it measures, then the angle and the context.
+    @MainActor
+    private func figureElement(_ app: XCUIApplication, _ caption: String = "Inclinazione") -> XCUIElement {
+        app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", caption)).firstMatch
     }
 
     /// Scrolls settings up until `element` is on screen: the calibration rows sit below the fold.
@@ -52,14 +81,21 @@ final class LevelFlowTests: XCTestCase {
     func testToolScreenShowsTheEdgeAngleAndPassesTheAccessibilityAudit() throws {
         let app = launch()
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("32,4"), figure.label)
         XCTAssertTrue(figure.label.contains("Sul bordo"), figure.label)
         XCTAssertTrue(app.buttons["Calibra"].isEnabled)
         XCTAssertTrue(app.buttons["Blocca"].isEnabled)
+        XCTAssertTrue(app.staticTexts["Livella"].exists)
 
         try audit(app, excluding: Self.toolScreenExclusions)
+
+        // At the largest accessibility size the figure stays on one line and the pills wrap.
+        app.terminate()
+        let large = launch(contentSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        XCTAssertTrue(figureElement(large).waitForExistence(timeout: 5))
+        try audit(large, excluding: Self.toolScreenExclusions)
     }
 
     @MainActor
@@ -70,7 +106,7 @@ final class LevelFlowTests: XCTestCase {
 
         lock.tap()
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.label.contains("Lettura bloccata"), figure.label)
         let unlock = app.buttons["Sblocca"]
         XCTAssertTrue(unlock.exists)
@@ -90,7 +126,7 @@ final class LevelFlowTests: XCTestCase {
 
         zero.tap()
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.label.contains("0,0 gradi"), figure.label)
         XCTAssertTrue(figure.label.contains("Relativo"), figure.label)
         let absolute = app.buttons["Assoluto"]
@@ -111,7 +147,7 @@ final class LevelFlowTests: XCTestCase {
 
         sight.tap()
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Linea di mira'")).firstMatch
+        let figure = figureElement(app, "Linea di mira")
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("Fotocamera non disponibile"), figure.label)
         XCTAssertTrue(sight.isSelected)
@@ -119,7 +155,7 @@ final class LevelFlowTests: XCTestCase {
         try audit(app, excluding: Self.toolScreenExclusions)
 
         sight.tap()
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(figureElement(app).waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Calibra"].exists)
     }
 
@@ -129,7 +165,7 @@ final class LevelFlowTests: XCTestCase {
         app.buttons["Impostazioni"].tap()
         let steady = app.switches["Blocca a lettura stabile"]
         XCTAssertTrue(steady.waitForExistence(timeout: 5))
-        steady.switches.firstMatch.tap()
+        steady.tap()
         XCTAssertTrue(app.sliders["Tolleranza"].waitForExistence(timeout: 5))
         app.buttons["Fine"].tap()
 
@@ -138,30 +174,31 @@ final class LevelFlowTests: XCTestCase {
         // The fixed tilt is perfectly still: two seconds, then the lock.
         XCTAssertTrue(app.buttons["In attesa"].waitForExistence(timeout: 2))
         XCTAssertTrue(app.buttons["Sblocca"].waitForExistence(timeout: 5))
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.label.contains("Lettura bloccata"), figure.label)
         XCTAssertTrue(figure.label.contains("32,4"), figure.label)
     }
 
     @MainActor
-    func testTurningTheDialReads0AtTheSides() throws {
+    func testZeroAtTheSidesInSettingsReads0AtTheSides() throws {
         let app = launch()
-        let dial = app.otherElements["Quadrante"]
-        XCTAssertTrue(dial.waitForExistence(timeout: 5))
+        app.buttons["Impostazioni"].tap()
+        let sides = app.switches["Zero sui lati"]
+        XCTAssertTrue(sides.waitForExistence(timeout: 5))
 
-        // A quarter turn by hand, from the top of the dial round to its right side.
-        let top = dial.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.1))
-        let right = dial.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
-        top.press(forDuration: 0.1, thenDragTo: right)
+        sides.tap()
+        app.buttons["Fine"].tap()
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        let figure = figureElement(app)
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("57,6"), figure.label)
-        XCTAssertEqual(dial.value as? String, "0° sui lati")
         try audit(app, excluding: Self.toolScreenExclusions)
 
-        right.press(forDuration: 0.1, thenDragTo: top)
+        app.buttons["Impostazioni"].tap()
+        XCTAssertTrue(sides.waitForExistence(timeout: 5))
+        sides.tap()
+        app.buttons["Fine"].tap()
         XCTAssertTrue(figure.label.contains("32,4"), figure.label)
-        XCTAssertEqual(dial.value as? String, "0° sui bordi in alto e in basso")
     }
 
     @MainActor
@@ -181,32 +218,29 @@ final class LevelFlowTests: XCTestCase {
     }
 
     @MainActor
-    func testFlatShowsTheBubbleAndItsAxesWithoutTheDial() throws {
+    func testFlatReadsTheSurfaceWithTheFigureAlone() throws {
         let app = launch(gravity: "flat")
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
 
         XCTAssertTrue(figure.label.contains("In piano"), figure.label)
-        // The dial is hidden from VoiceOver when flat, but XCUITest still lists SwiftUI's hidden
-        // elements, so only the axes are checked here.
-        XCTAssertTrue(app.otherElements.matching(NSPredicate(format: "label BEGINSWITH 'Asse orizzontale'")).firstMatch.exists)
         try audit(app, excluding: Self.toolScreenExclusions)
     }
 
     @MainActor
-    func testATapOnTheDialHidesBarsAndPillsAndAnotherShowsThem() throws {
+    func testATapOnTheFigureHidesBarsAndPillsAndAnotherShowsThem() throws {
         let app = launch()
-        let dial = app.otherElements["Quadrante"]
-        XCTAssertTrue(dial.waitForExistence(timeout: 5))
+        let figure = figureElement(app)
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
 
-        dial.tap()
+        figure.tap()
 
         XCTAssertTrue(app.buttons["Blocca"].waitForNonExistence(timeout: 5))
         XCTAssertFalse(app.buttons["Impostazioni"].exists)
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch.exists)
+        XCTAssertTrue(figure.exists)
         try audit(app, excluding: Self.toolScreenExclusions)
 
-        dial.tap()
+        figure.tap()
         XCTAssertTrue(app.buttons["Blocca"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Impostazioni"].exists)
     }
@@ -278,7 +312,7 @@ final class LevelFlowTests: XCTestCase {
         XCTAssertTrue(app.switches["Blocca a lettura stabile"].exists)
         XCTAssertTrue(app.switches["Blocca col tasto volume nel mirino"].exists)
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Leggi ad alta voce'")).firstMatch.exists)
-        try audit(app, excluding: [.contrast, .dynamicType])
+        try audit(app, excluding: Self.settingsExclusions)
 
         let screenOn = app.switches["Schermo sempre acceso"]
         XCTAssertTrue(scroll(app, to: screenOn))
@@ -288,7 +322,7 @@ final class LevelFlowTests: XCTestCase {
 
         // Dynamic Type is left out as in the other apps: in the settings sheet the audit flags
         // every text as partially unsupported, system ones included.
-        try audit(app, excluding: [.contrast, .dynamicType])
+        try audit(app, excluding: Self.settingsExclusions)
     }
 
     @MainActor
@@ -305,7 +339,7 @@ final class LevelFlowTests: XCTestCase {
         app.buttons["Fine"].tap()
 
         // 32,4° is a 63,5 % slope; VoiceOver says the unit in words.
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Inclinazione'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("63,5 per cento"), figure.label)
         try audit(app, excluding: Self.toolScreenExclusions)

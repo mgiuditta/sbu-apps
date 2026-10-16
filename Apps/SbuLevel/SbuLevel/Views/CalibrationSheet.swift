@@ -25,7 +25,7 @@ struct CalibrationSheet: View {
                     .listRowBackground(SbuTheme.surfaceRaised)
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Calibrazione")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -73,6 +73,6 @@ private struct CalibrationSheetPreview: View {
                 model.startCalibration()
                 await model.run()
             }
-            .tint(SbuTheme.accentLevel)
+            .tint(SbuTheme.ink)
     }
 }

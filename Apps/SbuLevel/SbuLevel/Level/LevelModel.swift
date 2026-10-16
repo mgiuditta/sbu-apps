@@ -213,6 +213,15 @@ final class LevelModel {
         reading = liveReading
     }
 
+    /// Whether an edge reads 0° at the sides instead of at the top and bottom: the dial turned a quarter.
+    var readsZeroAtSides: Bool {
+        get { dialTurn == DialGeometry.quarterTurn }
+        set {
+            guard newValue != readsZeroAtSides else { return }
+            turnDial(by: DialGeometry.quarterTurn)
+        }
+    }
+
     /// Takes the shown reading as zero, or goes back to the absolute angle. While locked, the
     /// frozen reading is the zero.
     func toggleReference() {

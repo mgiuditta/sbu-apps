@@ -12,7 +12,7 @@ struct FixedGravitySource: GravitySource {
     static let nearlyLevel = FixedGravitySource(gravity: .standing(rotatedBy: 0.6))
 
     /// The fixed source a launch asks for: `-FASTLANE_SNAPSHOT YES` for the screenshot tilt,
-    /// `-FIXED_GRAVITY flat` for the bubble, `-FIXED_GRAVITY nearlyLevel` for a calibration.
+    /// `-FIXED_GRAVITY flat` for lying flat, `-FIXED_GRAVITY nearlyLevel` for a calibration.
     /// `nil` on a normal launch.
     static func requested(in defaults: UserDefaults) -> FixedGravitySource? {
         switch defaults.string(forKey: "FIXED_GRAVITY") {

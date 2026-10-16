@@ -1,66 +1,42 @@
 import SbuKit
 import SwiftUI
 
-/// The drawing under the figure: the camera sight when it is on, otherwise the dial or bubble
-/// with the bubble's axes underneath. A tap on it hides the bars and the pills, so nothing is
-/// pressed by mistake while measuring, and shows them again; VoiceOver has the same as an action.
+/// The instrument of Mirino: the camera sight above the figure. A tap on it hides the bars and the
+/// pills, so nothing is pressed by mistake while aiming, and shows them again; VoiceOver has the
+/// same as an action. On a level or an edge there is no drawing: the figure and its full stop say it all.
 struct LevelInstrument: View {
     let model: LevelModel
     let camera: SightCamera
-    let isFullScreen: Bool
+    /// The full-screen action VoiceOver offers, and its name.
+    let fullScreenAction: LocalizedStringKey
     /// Blocca, for a volume button in the sight.
     let toggleLock: () -> Void
     let toggleFullScreen: () -> Void
 
-    private var fullScreenAction: LocalizedStringKey {
-        isFullScreen ? "Mostra i controlli" : "Schermo intero"
-    }
-
     var body: some View {
-        VStack(spacing: SbuTheme.space4) {
-            Group {
-                if model.isSighting {
-                    SightView(
-                        camera: camera,
-                        rotation: model.reading.rotation,
-                        volumeButtonAction: model.locksWithVolumeButton ? toggleLock : nil
-                    )
-                    .contentShape(.rect)
-                    .onTapGesture(perform: toggleFullScreen)
-                    .accessibilityAction(named: Text(fullScreenAction), toggleFullScreen)
-                } else {
-                    LevelIndicator(
-                        reading: model.reading,
-                        turnDial: model.turnDial,
-                        fullScreenAction: fullScreenAction,
-                        toggleFullScreen: toggleFullScreen
-                    )
-                }
-            }
-            .frame(maxWidth: 320)
-
-            // Always laid out, so the dial does not jump when the iPhone lies down.
-            if model.reading.mode == .flat {
-                BubbleAxes(tiltX: model.reading.tiltX, tiltY: model.reading.tiltY, unit: model.unit)
-                    .accessibilityAction(named: Text(fullScreenAction), toggleFullScreen)
-            } else {
-                // Its room only, out of sight and of VoiceOver.
-                BubbleAxes(tiltX: 0, tiltY: 0, unit: model.unit)
-                    .hidden()
-            }
-        }
+        SightView(
+            camera: camera,
+            rotation: model.reading.rotation,
+            volumeButtonAction: model.locksWithVolumeButton ? toggleLock : nil
+        )
+        // Thirteen cells: a sight as wide as the old dial, on the grid.
+        .frame(maxWidth: SbuTheme.gridCell * 13)
+        .frame(maxWidth: .infinity)
+        .contentShape(.rect)
+        .onTapGesture(perform: toggleFullScreen)
+        .accessibilityAction(named: Text(fullScreenAction), toggleFullScreen)
     }
 }
 
 #Preview("Light") {
-    LevelInstrument(model: LevelModel(source: FixedGravitySource.flat), camera: SightCamera(), isFullScreen: false, toggleLock: {}, toggleFullScreen: {})
+    LevelInstrument(model: LevelModel(source: FixedGravitySource.screenshot), camera: SightCamera(), fullScreenAction: "Schermo intero", toggleLock: {}, toggleFullScreen: {})
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
-    LevelInstrument(model: LevelModel(source: FixedGravitySource.screenshot), camera: SightCamera(), isFullScreen: true, toggleLock: {}, toggleFullScreen: {})
+    LevelInstrument(model: LevelModel(source: FixedGravitySource.screenshot), camera: SightCamera(), fullScreenAction: "Mostra i controlli", toggleLock: {}, toggleFullScreen: {})
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

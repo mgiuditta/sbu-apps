@@ -400,6 +400,21 @@ struct LevelModelTests {
         #expect(model.reference == nil)
     }
 
+    @Test func zeroAtTheSidesTurnsTheDialAndBack() {
+        let model = makeModel()
+        #expect(model.readsZeroAtSides == false)
+
+        model.readsZeroAtSides = true
+        #expect(model.dialTurn == 90)
+        #expect(makeModel().readsZeroAtSides)
+
+        model.readsZeroAtSides = true
+        #expect(model.dialTurn == 90)
+
+        model.readsZeroAtSides = false
+        #expect(model.dialTurn == 0)
+    }
+
     @Test func aShortDragLeavesTheDial() {
         let model = makeModel()
 

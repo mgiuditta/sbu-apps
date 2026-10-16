@@ -40,12 +40,12 @@ struct LockPill: View {
         LockPill(isLocked: false, isWaitingForSteady: true) {}
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     LockPill(isLocked: true, isWaitingForSteady: false) {}
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

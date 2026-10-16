@@ -1,16 +1,14 @@
 import Foundation
 
-/// What the level shows for one gravity sample: mode, resting edge, angle and bubble position.
+/// What the level shows for one gravity sample: mode, resting edge and angle.
 nonisolated struct LevelReading: Equatable, Sendable {
-    /// Tilt at which the bubble reaches the edge of its circle.
-    static let bubbleRange = 10.0
     /// Tilt from flat, in degrees, where lying flat turns into standing on an edge.
     static let modeThreshold = 45.0
     /// How far past a threshold the current mode or edge holds, so the view does not flicker on it.
     static let hysteresis = 5.0
 
     /// A level iPhone lying flat.
-    static let level = LevelReading(mode: .flat, edge: nil, angle: 0, deviation: 0, rotation: 0, bubbleX: 0, bubbleY: 0)
+    static let level = LevelReading(mode: .flat, edge: nil, angle: 0, deviation: 0, rotation: 0)
 
     var mode: LevelMode
     /// The edge resting on the surface; `nil` when flat.
@@ -24,13 +22,6 @@ nonisolated struct LevelReading: Equatable, Sendable {
     /// Calibrated device rotation in degrees (see `Gravity.rotation`); zero when flat. In sight, the
     /// roll that tilts the horizon.
     var rotation: Double
-    /// Bubble offset in -1...1, screen axes (x right, y down). Zero in edge mode.
-    var bubbleX: Double
-    var bubbleY: Double
-    /// Flat only: degrees of tilt along the screen's width (positive with the right side low) and
-    /// along its height (positive with the top low), calibrated. Zero in edge mode.
-    var tiltX = 0.0
-    var tiltY = 0.0
     /// The dial's turn the angle was read on: 0, or 90 with 0° at the sides (see `DialGeometry`).
     var dialTurn = 0.0
 
@@ -60,21 +51,13 @@ nonisolated struct LevelReading: Equatable, Sendable {
         edge: Edge?,
         angle: Double,
         deviation: Double,
-        rotation: Double,
-        bubbleX: Double,
-        bubbleY: Double,
-        tiltX: Double = 0,
-        tiltY: Double = 0
+        rotation: Double
     ) {
         self.mode = mode
         self.edge = edge
         self.angle = angle
         self.deviation = deviation
         self.rotation = rotation
-        self.bubbleX = bubbleX
-        self.bubbleY = bubbleY
-        self.tiltX = tiltX
-        self.tiltY = tiltY
     }
 
     /// Creates the reading for a gravity sample with a calibration applied.
@@ -86,19 +69,13 @@ nonisolated struct LevelReading: Equatable, Sendable {
         case .flat:
             let x = gravity.x - calibration.flatX
             let y = gravity.y - calibration.flatY
-            let range = sin(Angles.radians(fromDegrees: Self.bubbleRange))
             let tilt = Angles.degrees(fromRadians: asin(min(1, (x * x + y * y).squareRoot())))
-            // The bubble floats to the high side, away from gravity.
             self.init(
                 mode: .flat,
                 edge: nil,
                 angle: tilt,
                 deviation: tilt,
-                rotation: 0,
-                bubbleX: Self.clamped(-x / range),
-                bubbleY: Self.clamped(y / range),
-                tiltX: Angles.degrees(fromRadians: asin(Self.clamped(x))),
-                tiltY: Angles.degrees(fromRadians: asin(Self.clamped(y)))
+                rotation: 0
             )
         case .edge, .sight:
             let edge = Self.edge(for: gravity.rotation, previous: previous?.edge)
@@ -108,9 +85,7 @@ nonisolated struct LevelReading: Equatable, Sendable {
                 edge: edge,
                 angle: DialGeometry.value(at: DialGeometry.needlePosition(rotation: rotation), dialTurn: dialTurn),
                 deviation: edge.deviation(of: rotation),
-                rotation: rotation,
-                bubbleX: 0,
-                bubbleY: 0
+                rotation: rotation
             )
             self.dialTurn = dialTurn
         }
@@ -127,9 +102,7 @@ nonisolated struct LevelReading: Equatable, Sendable {
             edge: nil,
             angle: elevation,
             deviation: elevation,
-            rotation: corrected.rotation,
-            bubbleX: 0,
-            bubbleY: 0
+            rotation: corrected.rotation
         )
     }
 
@@ -149,9 +122,5 @@ nonisolated struct LevelReading: Equatable, Sendable {
             return previous
         }
         return Edge.nearest(to: rotation)
-    }
-
-    private static func clamped(_ value: Double) -> Double {
-        min(1, max(-1, value))
     }
 }

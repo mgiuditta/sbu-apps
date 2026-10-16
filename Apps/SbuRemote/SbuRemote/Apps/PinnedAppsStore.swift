@@ -24,6 +24,17 @@ final class PinnedAppsStore {
         save()
     }
 
+    /// The store of the running app; the demo TV gets an empty one of its own each launch.
+    static func forApp() -> PinnedAppsStore {
+        #if DEBUG
+        if DemoTVClient.isEnabled, let demo = UserDefaults(suiteName: "dev.sbu.remote.demo") {
+            demo.removeObject(forKey: key)
+            return PinnedAppsStore(defaults: demo)
+        }
+        #endif
+        return PinnedAppsStore()
+    }
+
     private func save() {
         guard let data = try? JSONEncoder().encode(pins) else { return }
         defaults.set(data, forKey: Self.key)

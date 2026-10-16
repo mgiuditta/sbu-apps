@@ -7,6 +7,7 @@ struct RemoteView: View {
     let session: RemoteSession
     let tvName: String
     var pinnedApps: [TVShortcut] = []
+    var onInputs: ([TVShortcut]) -> Void = { _ in }
 
     @AppStorage("navigationMode") private var mode = NavigationMode.dPad
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -38,7 +39,7 @@ struct RemoteView: View {
                 }
                 .frame(height: SbuTheme.controlRound * 4)
                 KeyGridView(session: session)
-                VolumeChannelView(session: session)
+                VolumeChannelView(session: session, onInputs: onInputs)
                 if !pinnedApps.isEmpty {
                     ShortcutRowView(apps: pinnedApps, session: session)
                 }

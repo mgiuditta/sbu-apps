@@ -12,13 +12,14 @@ struct MainView: View {
     @State private var isTyping = false
     @State private var isSpeaking = false
     @State private var voice = VoiceSearch()
-    @State private var pins = PinnedAppsStore()
+    @State private var pins = PinnedAppsStore.forApp()
     @State private var isPickingApp = false
+    @State private var inputs: InputList?
 
     var body: some View {
         Group {
             if let tv = session.tv {
-                RemoteView(session: session, tvName: tv.name, pinnedApps: pins.pins.apps(for: tv.id))
+                RemoteView(session: session, tvName: tv.name, pinnedApps: pins.pins.apps(for: tv.id), onInputs: showInputs)
             } else {
                 NoTVView(onAdd: showAddTV)
             }
@@ -64,6 +65,9 @@ struct MainView: View {
         .sheet(isPresented: $isTyping) {
             KeyboardSheet(session: session)
         }
+        .sheet(item: $inputs) { list in
+            ShortcutListSheet(title: "Sorgente", systemImage: "rectangle.on.rectangle", items: list.items, onPick: switchInput)
+        }
         .sheet(isPresented: $isPickingApp) {
             AppsSheet(session: session, pins: pins)
         }
@@ -86,6 +90,14 @@ struct MainView: View {
 
     private func showKeyboard() {
         isTyping = true
+    }
+
+    private func showInputs(_ items: [TVShortcut]) {
+        inputs = InputList(items: items)
+    }
+
+    private func switchInput(_ input: TVShortcut) {
+        Task { await session.run { try await $0.switchInput(input) } }
     }
 
     private func showApps() {

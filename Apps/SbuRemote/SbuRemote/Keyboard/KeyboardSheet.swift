@@ -19,8 +19,10 @@ struct KeyboardSheet: View {
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                         .onSubmit(submit)
-                } footer: {
+                } header: {
+                    // Above the field: below it, the keyboard would cover it.
                     Text("Apri prima una casella di testo sulla TV, per esempio la ricerca di un'app.")
+                        .textCase(nil)
                 }
                 .listRowBackground(SbuTheme.surfaceRaised)
             }
@@ -39,7 +41,6 @@ struct KeyboardSheet: View {
                 send(newValue)
             }
         }
-        .presentationDetents([.medium])
     }
 
     private func send(_ value: String) {

@@ -2,11 +2,11 @@ import SbuKit
 import SwiftUI
 
 /// Source: the list of inputs where the TV gives one (LG, Sony), the Source key elsewhere.
+/// The list opens from the tool screen, which owns the sheets.
 struct SourceButton: View {
     let session: RemoteSession
+    let onInputs: ([TVShortcut]) -> Void
 
-    @State private var inputs: [TVShortcut] = []
-    @State private var isPicking = false
     @State private var presses = 0
 
     var body: some View {
@@ -22,11 +22,6 @@ struct SourceButton: View {
         .disabled(!session.status.acceptsKeys)
         .accessibilityLabel(Text(RemoteKey.source.title))
         .sensoryFeedback(.impact(weight: .light), trigger: presses)
-        .sheet(isPresented: $isPicking) {
-            ShortcutListSheet(title: "Sorgente", systemImage: "rectangle.on.rectangle", items: inputs) { input in
-                Task { await session.run { try await $0.switchInput(input) } }
-            }
-        }
     }
 
     private func open() {
@@ -37,8 +32,7 @@ struct SourceButton: View {
             if listed.isEmpty {
                 await session.press(.source)
             } else {
-                inputs = listed
-                isPicking = true
+                onInputs(listed)
             }
         }
     }

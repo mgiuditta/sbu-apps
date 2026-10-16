@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%lld su 100" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld out of 100"
+          }
+        }
+      }
+    },
     "Accendilo dal Centro di Controllo o in Impostazioni, poi torna qui." : {
       "localizations" : {
         "en" : {
@@ -201,6 +211,26 @@
         }
       }
     },
+    "Muoviti piano e gira su te stesso: il numero sale quando ti avvicini. Non è una distanza." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move slowly and turn around: the number goes up as you get closer. It is not a distance."
+          }
+        }
+      }
+    },
+    "Non sentito da %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not heard for %@"
+          }
+        }
+      }
+    },
     "Orologio o braccialetto" : {
       "localizations" : {
         "en" : {
@@ -337,6 +367,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "It comes back by itself in a few seconds."
+          }
+        }
+      }
+    },
+    "Vicinanza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proximity"
           }
         }
       }

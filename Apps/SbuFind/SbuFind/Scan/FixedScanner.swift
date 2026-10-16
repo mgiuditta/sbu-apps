@@ -20,7 +20,7 @@ final class FixedScanner: BluetoothScanner {
     ]
 
     /// The scanner a launch asks for: `-FIXED_SCANNER demo` for the demo devices, `empty` for
-    /// none, or a state
+    /// none, `fading` for the closest one going silent after two seconds, or a state
     /// such as `-FIXED_SCANNER poweredOff`; `-FASTLANE_SNAPSHOT YES` for the demo devices.
     /// `nil` on a normal launch.
     static func requested(in defaults: UserDefaults) -> FixedScanner? {
@@ -29,6 +29,8 @@ final class FixedScanner: BluetoothScanner {
             FixedScanner()
         case "empty":
             FixedScanner(devices: [])
+        case "fading":
+            FixedScanner(firstFallsSilentAfter: .seconds(2))
         case let name?:
             BluetoothState(rawValue: name).map { FixedScanner(state: $0) }
         case nil:
@@ -38,13 +40,16 @@ final class FixedScanner: BluetoothScanner {
 
     let state: BluetoothState
     let devices: [Advertisement]
+    /// The first device stops advertising this long after each start: a device switched off.
+    let firstFallsSilentAfter: Duration?
 
     private var continuation: AsyncStream<ScanEvent>.Continuation?
     private var advertising: Task<Void, Never>?
 
-    init(state: BluetoothState = .ready, devices: [Advertisement] = FixedScanner.demoDevices) {
+    init(state: BluetoothState = .ready, devices: [Advertisement] = FixedScanner.demoDevices, firstFallsSilentAfter: Duration? = nil) {
         self.state = state
         self.devices = devices
+        self.firstFallsSilentAfter = firstFallsSilentAfter
     }
 
     func events() -> AsyncStream<ScanEvent> {
@@ -59,10 +64,12 @@ final class FixedScanner: BluetoothScanner {
         advertising?.cancel()
         guard state == .ready, let continuation else { return }
         let devices = devices
+        let silentAt = firstFallsSilentAfter.map { ContinuousClock.now + $0 }
         advertising = Task {
             while !Task.isCancelled {
                 let now = Date.now
-                for device in devices {
+                let isFirstSilent = silentAt.map { ContinuousClock.now >= $0 } ?? false
+                for (index, device) in devices.enumerated() where !(index == 0 && isFirstSilent) {
                     continuation.yield(.advertisement(device.heard(at: now)))
                 }
                 try? await Task.sleep(for: Self.interval)

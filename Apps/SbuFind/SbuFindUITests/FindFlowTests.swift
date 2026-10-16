@@ -52,7 +52,7 @@ final class FindFlowTests: XCTestCase {
 
     @MainActor
     private func devices(_ app: XCUIApplication) -> XCUIElementQuery {
-        app.descendants(matching: .any).matching(identifier: "device")
+        app.buttons.matching(identifier: "device")
     }
 
     @MainActor
@@ -104,6 +104,45 @@ final class FindFlowTests: XCTestCase {
         gear.tap()
 
         XCTAssertTrue(app.buttons["Fine"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    private func figure(_ app: XCUIApplication) -> XCUIElement {
+        app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Vicinanza'")).firstMatch
+    }
+
+    @MainActor
+    func testATapOnARowOpensItsFinderWithOneFigureAndTheWord() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+
+        row.tap()
+
+        XCTAssertTrue(figure(app).waitForExistence(timeout: 5))
+        XCTAssertTrue(app.navigationBars["Buds Pro"].exists)
+        // -52 dBm: 80 out of 100, Qui vicino.
+        XCTAssertTrue(figure(app).label.contains("80 su 100"), figure(app).label)
+        XCTAssertTrue(figure(app).label.contains("Qui vicino"), figure(app).label)
+        XCTAssertTrue(app.staticTexts["Muoviti piano e gira su te stesso: il numero sale quando ti avvicini. Non è una distanza."].exists)
+        try audit(app)
+
+        app.navigationBars.buttons.firstMatch.tap()
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testTheFinderSaysWhenTheDeviceFallsSilent() throws {
+        let app = launch(scanner: "fading")
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let silent = app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Non sentito da'")).firstMatch
+        XCTAssertTrue(silent.waitForExistence(timeout: 10))
+        // The last figure stays, with the word replaced by the silence.
+        XCTAssertTrue(figure(app).label.contains("80 su 100"), figure(app).label)
+        try audit(app)
     }
 
     @MainActor

@@ -95,6 +95,112 @@ struct ScanModelTests {
         #expect(model.devices.isEmpty)
     }
 
+    @Test func trackingStartsFromWhatWasHeard() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(device: 1, name: "Buds", rssi: -55)))
+        model.track(Advertisement.testID(1), at: Advertisement.start.addingTimeInterval(1))
+
+        let tracked = try #require(model.tracked)
+        #expect(tracked.device.name == "Buds")
+        #expect(tracked.warmth == .hot)
+        #expect(tracked.silence == 1)
+        #expect(!tracked.isLost)
+    }
+
+    @Test func trackingAnUnknownDeviceShowsNothing() {
+        let model = makeModel()
+        model.track(Advertisement.testID(9), at: Advertisement.start)
+        #expect(model.tracked == nil)
+    }
+
+    @Test func theTrackedWordHoldsOnAThresholdAndFollowsBigMoves() throws {
+        let model = makeModel()
+        var second = 0.0
+        func hear(_ rssi: Int) {
+            // A full window of the same reading, so the filtered signal settles on it.
+            for _ in 0..<SignalFilter.window * 4 {
+                second += 0.1
+                model.handle(.advertisement(.fixture(rssi: rssi, after: second)))
+            }
+            model.refresh(at: Advertisement.start.addingTimeInterval(second))
+        }
+        hear(-64)
+        model.track(Advertisement.testID(1), at: Advertisement.start.addingTimeInterval(second))
+        #expect(model.tracked?.warmth == .hot)
+
+        hear(-66) // Proximity 57: below Caldo, inside the margin.
+        #expect(model.tracked?.warmth == .hot)
+
+        hear(-75) // Proximity 42.
+        #expect(model.tracked?.warmth == .warm)
+    }
+
+    @Test func aSilentTrackedDeviceIsKeptAndSaysForHowLong() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(rssi: -50)))
+        model.track(Advertisement.testID(1), at: Advertisement.start)
+
+        model.refresh(at: Advertisement.start.addingTimeInterval(2))
+        #expect(model.tracked?.isLost == false)
+
+        model.refresh(at: Advertisement.start.addingTimeInterval(4))
+        #expect(model.tracked?.isLost == true)
+
+        // Gone from the list after ten seconds, still on the finder.
+        model.refresh(at: Advertisement.start.addingTimeInterval(30))
+        #expect(model.devices.isEmpty)
+        let tracked = try #require(model.tracked)
+        #expect(tracked.silence == 30)
+        #expect(tracked.warmth == .veryClose)
+        #expect(tracked.device.signal == -50)
+    }
+
+    @Test func aTrackedDeviceHeardAgainIsFoundAgain() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(rssi: -50)))
+        model.track(Advertisement.testID(1), at: Advertisement.start)
+        model.refresh(at: Advertisement.start.addingTimeInterval(20))
+        #expect(model.tracked?.isLost == true)
+
+        model.handle(.advertisement(.fixture(rssi: -90, after: 21)))
+        model.refresh(at: Advertisement.start.addingTimeInterval(21))
+
+        let tracked = try #require(model.tracked)
+        #expect(!tracked.isLost)
+        #expect(tracked.device.signal == -90)
+        #expect(tracked.warmth == .cold)
+    }
+
+    @Test func losingBluetoothKeepsTheTrackedDeviceSilent() {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(rssi: -50)))
+        model.track(Advertisement.testID(1), at: Advertisement.start)
+        model.handle(.state(.poweredOff))
+        model.refresh(at: Advertisement.start.addingTimeInterval(5))
+        #expect(model.tracked?.isLost == true)
+    }
+
+    @Test func stopTrackingForgetsIt() {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture()))
+        model.track(Advertisement.testID(1), at: Advertisement.start)
+        model.stopTracking()
+        #expect(model.tracked == nil)
+        model.refresh(at: Advertisement.start)
+        #expect(model.tracked == nil)
+    }
+
+    @Test func trackingAnotherDeviceStartsItsWordAfresh() {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(device: 1, rssi: -45)))
+        model.handle(.advertisement(.fixture(device: 2, rssi: -66)))
+        model.track(Advertisement.testID(1), at: Advertisement.start)
+        #expect(model.tracked?.warmth == .veryClose)
+
+        model.track(Advertisement.testID(2), at: Advertisement.start)
+        #expect(model.tracked?.warmth == .warm)
+    }
+
     @Test func runReadsTheScannerUntilItFinishesThenStopsIt() async {
         let model = makeModel()
         let running = Task {

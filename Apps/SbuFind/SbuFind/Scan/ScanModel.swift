@@ -16,18 +16,22 @@ final class ScanModel {
     private(set) var devices: [NearbyDevice] = []
     /// Devices heard but left out because they have no name.
     private(set) var hiddenUnnamedCount = 0
+    /// The device on the finder, kept after it falls silent so the finder can say for how long.
+    private(set) var tracked: TrackedDevice?
 
     /// Off by default: most devices without a name are phones and computers around you, not what you lost.
     var showsUnnamed: Bool {
         didSet {
             defaults.set(showsUnnamed, forKey: Self.showsUnnamedKey)
-            publish()
+            publish(at: .now)
         }
     }
 
     @ObservationIgnored private var roster = DeviceRoster()
     @ObservationIgnored private let scanner: any BluetoothScanner
     @ObservationIgnored private let defaults: UserDefaults
+    @ObservationIgnored private var trackedID: UUID?
+    @ObservationIgnored private var warmthTracker = WarmthTracker()
 
     /// - Parameter scanner: Core Bluetooth unless a launch argument asks for the fixed scanner.
     init(scanner: (any BluetoothScanner)? = nil, defaults: UserDefaults = .standard) {
@@ -57,7 +61,7 @@ final class ScanModel {
             state = newState
             if newState != .ready {
                 roster.removeAll()
-                publish()
+                publish(at: .now)
             }
         case .advertisement(let advertisement):
             roster.record(advertisement)
@@ -67,14 +71,29 @@ final class ScanModel {
     /// Drops the devices gone silent and shows what was heard since the last refresh.
     func refresh(at now: Date) {
         roster.removeStale(at: now)
-        publish()
+        publish(at: now)
     }
 
     /// Cerca di nuovo: forgets every device and listens from scratch.
     func rescan() {
         roster.removeAll()
-        publish()
+        publish(at: .now)
         scanner.restart()
+    }
+
+    /// The finder opened on this device: from now on `tracked` follows it.
+    func track(_ id: UUID, at now: Date = .now) {
+        trackedID = id
+        tracked = nil
+        warmthTracker.reset()
+        updateTracked(at: now)
+    }
+
+    /// The finder closed.
+    func stopTracking() {
+        trackedID = nil
+        tracked = nil
+        warmthTracker.reset()
     }
 
     private func refreshUntilCancelled() async {
@@ -84,7 +103,8 @@ final class ScanModel {
         }
     }
 
-    private func publish() {
+    private func publish(at now: Date) {
+        updateTracked(at: now)
         let listed = roster.devices(includingUnnamed: showsUnnamed)
         if listed != devices {
             devices = listed
@@ -92,6 +112,21 @@ final class ScanModel {
         let hidden = showsUnnamed ? 0 : roster.unnamedCount
         if hidden != hiddenUnnamedCount {
             hiddenUnnamedCount = hidden
+        }
+    }
+
+    private func updateTracked(at now: Date) {
+        guard let trackedID else { return }
+        guard let device = roster.device(id: trackedID) ?? tracked?.device else {
+            tracked = nil
+            return
+        }
+        // The word moves only on a new reading; while silent it keeps the last one.
+        let isNewReading = device.lastSeen != tracked?.device.lastSeen
+        let warmth = isNewReading ? warmthTracker.update(with: device.proximity) : tracked?.warmth ?? device.warmth
+        let updated = TrackedDevice(device: device, warmth: warmth, silence: max(0, now.timeIntervalSince(device.lastSeen)))
+        if updated != tracked {
+            tracked = updated
         }
     }
 }

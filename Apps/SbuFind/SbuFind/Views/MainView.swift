@@ -18,7 +18,9 @@ struct MainView: View {
         List {
             Section {
                 ForEach(model.devices) { device in
-                    DeviceRow(device: device)
+                    NavigationLink(value: device.id) {
+                        DeviceRow(device: device)
+                    }
                 }
             } footer: {
                 if model.hiddenUnnamedCount > 0 {
@@ -32,6 +34,9 @@ struct MainView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
+        .navigationDestination(for: UUID.self) { id in
+            FinderView(model: model, deviceID: id)
+        }
         .overlay {
             if let notice = BluetoothNotice(state: model.state) {
                 BluetoothNoticeView(notice: notice)

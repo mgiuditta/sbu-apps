@@ -6,13 +6,13 @@ nonisolated struct NearbyDevice: Identifiable, Equatable, Sendable {
     /// The last name it advertised; `nil` while it never said one.
     var name: String?
     var kind: DeviceKind
-    /// The latest valid signal strength, in dBm.
-    var rssi: Int
+    /// The filtered signal strength, in dBm: what the list sorts by and the finder shows.
+    var signal: Double
     var lastSeen: Date
 
     var hasName: Bool { name != nil }
 
-    var proximity: Proximity { Proximity(rssi: rssi) }
+    var proximity: Proximity { Proximity(rssi: signal) }
 
     var warmth: Warmth { Warmth(proximity: proximity) }
 }

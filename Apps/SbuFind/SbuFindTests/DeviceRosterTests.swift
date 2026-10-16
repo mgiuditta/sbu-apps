@@ -10,7 +10,7 @@ struct DeviceRosterTests {
         let device = try #require(roster.device(id: Advertisement.testID(1)))
         #expect(device.name == "Buds Pro")
         #expect(device.kind == .earbuds)
-        #expect(device.rssi == -55)
+        #expect(device.signal == -55)
         #expect(device.lastSeen == Advertisement.start)
         #expect(roster.count == 1)
     }
@@ -28,15 +28,36 @@ struct DeviceRosterTests {
         roster.record(.fixture(rssi: 127, after: 8))
 
         let device = try #require(roster.device(id: Advertisement.testID(1)))
-        #expect(device.rssi == -55)
+        #expect(device.signal == -55)
         #expect(device.lastSeen == Advertisement.start.addingTimeInterval(8))
     }
 
-    @Test func theLatestReadingReplacesTheOldOne() {
+    @Test func aNewReadingMovesTheFilteredSignal() throws {
         var roster = DeviceRoster()
         roster.record(.fixture(rssi: -80))
         roster.record(.fixture(rssi: -45, after: 1))
-        #expect(roster.device(id: Advertisement.testID(1))?.rssi == -45)
+        // Median of -80 and -45 is -62,5; 30 % of the way from -80 is -74,75.
+        let signal = try #require(roster.device(id: Advertisement.testID(1))?.signal)
+        #expect(abs(signal - -74.75) < 0.0001)
+    }
+
+    @Test func oneSpikeDoesNotReorderTheList() {
+        var roster = DeviceRoster()
+        for step in 0..<5 {
+            roster.record(.fixture(device: 1, name: "Vicino", rssi: -50, after: Double(step)))
+            roster.record(.fixture(device: 2, name: "Lontano", rssi: -80, after: Double(step)))
+        }
+        roster.record(.fixture(device: 2, name: "Lontano", rssi: -35, after: 5))
+        #expect(roster.devices(includingUnnamed: true).map(\.name) == ["Vicino", "Lontano"])
+    }
+
+    @Test func signalsAFractionApartSortByName() {
+        var roster = DeviceRoster()
+        roster.record(.fixture(device: 1, name: "Beta", rssi: -60))
+        roster.record(.fixture(device: 1, name: "Beta", rssi: -61, after: 1))
+        roster.record(.fixture(device: 2, name: "Alfa", rssi: -60))
+        // Beta is at -60,15: the same whole dBm as Alfa.
+        #expect(roster.devices(includingUnnamed: true).map(\.name) == ["Alfa", "Beta"])
     }
 
     @Test func aNameArrivingLaterIsKeptAndSetsTheKind() throws {

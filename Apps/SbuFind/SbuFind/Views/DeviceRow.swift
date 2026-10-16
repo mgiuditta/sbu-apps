@@ -72,9 +72,9 @@ struct DeviceRow: View {
 private struct DeviceRowPreview: View {
     var body: some View {
         List {
-            DeviceRow(device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, rssi: -48, lastSeen: .now))
-            DeviceRow(device: NearbyDevice(id: UUID(), name: "WH-1000XM5", kind: .headphones, rssi: -62, lastSeen: .now))
-            DeviceRow(device: NearbyDevice(id: UUID(), name: nil, kind: .other, rssi: -90, lastSeen: .now))
+            DeviceRow(device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, signal: -48, lastSeen: .now))
+            DeviceRow(device: NearbyDevice(id: UUID(), name: "WH-1000XM5", kind: .headphones, signal: -62, lastSeen: .now))
+            DeviceRow(device: NearbyDevice(id: UUID(), name: nil, kind: .other, signal: -90, lastSeen: .now))
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)

@@ -671,6 +671,36 @@
         }
       }
     },
+    "Per accenderla dal telefono attiva Avvio remoto in Impostazioni › Rete." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To turn it on from the phone, turn on Remote Start in Settings › Network."
+          }
+        }
+      }
+    },
+    "Per accenderla dal telefono attiva Impostazioni › Generali › Dispositivi › Accensione TV mobile › Accendi tramite Wi-Fi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To turn it on from the phone, turn on Settings › General › Devices › Mobile TV On › Turn On via Wi-Fi."
+          }
+        }
+      }
+    },
+    "Per accenderla dal telefono attiva Impostazioni › Generali › Rete › Impostazioni avanzate › Accendi con dispositivo mobile." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To turn it on from the phone, turn on Settings › General › Network › Expert Settings › Power On with Mobile."
+          }
+        }
+      }
+    },
     "Per indirizzo" : {
       "localizations" : {
         "en" : {
@@ -861,6 +891,16 @@
         }
       }
     },
+    "Si accende dal telefono solo se la TV tiene la rete attiva in standby: dipende dal modello." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It turns on from the phone only if the TV keeps its network on in standby: it depends on the model."
+          }
+        }
+      }
+    },
     "Silenzia" : {
       "localizations" : {
         "en" : {
@@ -1027,6 +1067,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use the key"
+          }
+        }
+      }
+    },
+    "Via Wi-Fi l'accensione può non riuscire: con il cavo di rete è più affidabile." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Over Wi-Fi, turning on may not work: with a network cable it is more reliable."
           }
         }
       }

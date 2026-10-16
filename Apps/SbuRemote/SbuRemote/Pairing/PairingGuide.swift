@@ -11,6 +11,20 @@ nonisolated enum PairingGuide {
         }
     }
 
+    /// What the TV needs to be turned on from the phone.
+    static func powerOn(_ brand: TVBrand) -> LocalizedStringResource {
+        switch brand {
+        case .samsung:
+            "Per accenderla dal telefono attiva Impostazioni › Generali › Rete › Impostazioni avanzate › Accendi con dispositivo mobile."
+        case .lg:
+            "Per accenderla dal telefono attiva Impostazioni › Generali › Dispositivi › Accensione TV mobile › Accendi tramite Wi-Fi."
+        case .androidTV:
+            "Si accende dal telefono solo se la TV tiene la rete attiva in standby: dipende dal modello."
+        case .sony:
+            "Per accenderla dal telefono attiva Avvio remoto in Impostazioni › Rete."
+        }
+    }
+
     static func setting(_ brand: TVBrand) -> LocalizedStringResource {
         switch brand {
         case .samsung:

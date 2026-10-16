@@ -71,14 +71,38 @@ final class RemoteSession {
 
     // MARK: - Keys
 
-    /// Whether a key does something on this TV right now.
+    /// Whether a key does something on this TV right now. Power always does while a TV is
+    /// saved: with the TV off it tries to wake it.
     func isAvailable(_ key: RemoteKey) -> Bool {
-        status.acceptsKeys && (client?.supportedKeys.contains(key) ?? false)
+        if key == .power, tv != nil, !status.acceptsKeys { return status != .connecting }
+        return status.acceptsKeys && (client?.supportedKeys.contains(key) ?? false)
     }
 
     /// One tap: one event to the TV. No limit on taps.
     func press(_ key: RemoteKey) async {
+        if key == .power, !status.acceptsKeys {
+            await wake()
+            return
+        }
         await run { try await $0.send(key, .click) }
+    }
+
+    /// Turns the TV on: the magic packet to its MAC, then the protocol's own power-on where
+    /// the TV listens in standby, then connects. Honest about it: the TV must allow it (#341).
+    func wake() async {
+        guard let tv else { return }
+        status = .connecting
+        await WakeOnLAN.wake(tv)
+        let client = makeClient(tv)
+        try? await client.powerOn()
+        client.disconnect()
+        // A TV takes a few seconds to bring its network up.
+        for delay in [Duration.seconds(2), .seconds(4), .seconds(6)] {
+            try? await Task.sleep(for: delay)
+            guard self.tv?.id == tv.id else { return }
+            await connect()
+            if status == .connected { return }
+        }
     }
 
     /// The finger stays on a key: the TV repeats it, or the remote does, until `endHold`.

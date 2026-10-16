@@ -33,6 +33,17 @@ struct SavedTVDetailView: View {
             .listRowBackground(SbuTheme.surfaceRaised)
 
             Section {
+                Text(PairingGuide.powerOn(tv.brand))
+                    .font(SbuTheme.body)
+                    .foregroundStyle(SbuTheme.ink)
+            } header: {
+                Text("Accensione")
+            } footer: {
+                Text("Via Wi-Fi l'accensione può non riuscire: con il cavo di rete è più affidabile.")
+            }
+            .listRowBackground(SbuTheme.surfaceRaised)
+
+            Section {
                 SbuButton("Dimentica questa TV", kind: .destructive, confirmationTitle: "Dimenticare \(tv.name)?", action: forget)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)

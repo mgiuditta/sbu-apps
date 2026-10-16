@@ -4,6 +4,34 @@ Obiettivo: ogni app a pagamento che non ha bisogno di un server ha la sua App Sb
 
 Traguardi: ~~25 app in revisione entro il 31 ottobre 2026, 100 entro fine anno~~, abbandonati dopo il rifiuto 4.3 del 14/10: conta la salute dell'account (vedi il calendario sotto). Il codice non è il collo di bottiglia: lo sono la revisione Apple e il test insieme.
 
+## Stato delle app (16 ottobre 2026)
+
+Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in sviluppo** → **TestFlight** → **in revisione** → **pubblicata il <data>** (o **respinta**, con il motivo). La mappa di ogni app porta l'app fino a TestFlight.
+
+| App | Versione | Stato | Mappa |
+|---|---|---|---|
+| Sbu Subscriptions | 2.0.0 | pubblicata il 16/10/2026 | Sbu Subscriptions 2.0 pari a Orbit (#393) |
+| Sbu Scanner | 2.0.0 (2) | TestFlight, test insieme da fare | Sbu Scanner 2.0 (#213) |
+| Sbu Level | 1.1 (5) | TestFlight, reinvio dopo il 4.3 | Sbu Level (#130) |
+| Sbu Speed | 1.1 (4) | TestFlight, reinvio dopo il 4.3 | Sbu Speed 1.1 (#459) |
+| Sbu Chats | 1.0 (2) | TestFlight | Sbu Chats (#466) |
+| Sbu Fuel | 1.0 (2) | TestFlight | Sbu Fuel (#469) |
+| Sbu Inventory | 1.0 (2) | TestFlight | Sbu Inventory (#468) |
+| Sbu Clean | 1.0 | respinta il 14/10 (4.3), risposta in attesa | Sbu Clean (#292) |
+| Sbu Habits | 1.0 | respinta il 14/10 (4.3), risposta in attesa | Sbu Habits (#108) |
+| Sbu Noise | 1.0 | respinta il 14/10 (4.3), risposta in attesa | Sbu Noise (#422) |
+| Sbu Moon | 1.0 | respinta il 14/10 (4.2.6), risposta in attesa | – |
+| Sbu Find | 1.0 | in sviluppo | Sbu Find (#248) |
+| Sbu Shrink | 1.0 | pianificata, ricerca fatta | Sbu Shrink (#472) |
+| Sbu Grid | 1.0 | pianificata, ricerca fatta | Sbu Grid (#474) |
+| Sbu Tidy | 1.0 | pianificata | Sbu Tidy (#476) |
+| Sbu Libretto | 1.0 | pianificata | Sbu Libretto (#478) |
+| Sbu Meds | 1.0 | pianificata, dopo Cycle | Sbu Meds (#480) |
+| Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
+| Sbu Remote | 1.0 | pianificata | Sbu Remote (#365) |
+
+Ogni app nuova: UX identica all'originale (stesse schermate, stesso ordine, stessi casi limite, stile Sbu), unit test Swift Testing severi su tutta la logica (parametrizzati, casi limite, errori), zero bug di UI prima di TestFlight.
+
 ## Roadmap del filtro Sbu (16 ottobre 2026)
 
 Sostituisce la roadmap punta di lancia, la coda delle 25, le wave del 15/10 e le candidate da Android. Fonte: `research/niche-filter-2026-10-16.md`, circa 110 nicchie passate ai cinque criteri (originale che abusa del prezzo, funzione senza server, sistema che non la copre, nessuna app gratis pulita anche oscura, al massimo 12 giorni). Le utility diventano virali con il numero (il settimanale × 52) e la persona; piano in `docs/lancio-sbu.md`.

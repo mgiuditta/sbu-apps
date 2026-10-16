@@ -711,12 +711,12 @@
         }
       }
     },
-    "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare, mostra dove li hai lasciati e li trova anche lontano. Sbu Find non fa suonare nulla e non vede la rete Dov'è." : {
+    "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare anche nella custodia o lontano, mostra dove li hai lasciati e li trova sulla rete Dov'è. Sbu Find fa suonare solo le cuffie collegate all'iPhone e non vede la rete Dov'è." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "For AirPods, Apple Watch, iPhone, iPad and AirTag use Apple's Find My: it plays a sound on them, shows where you left them and finds them even far away. Sbu Find plays no sound on anything and cannot see the Find My network."
+            "value" : "For AirPods, Apple Watch, iPhone, iPad and AirTag use Apple's Find My: it plays a sound on them even in the case or far away, shows where you left them and finds them on the Find My network. Sbu Find plays a sound only in headphones connected to your iPhone and cannot see the Find My network."
           }
         }
       }

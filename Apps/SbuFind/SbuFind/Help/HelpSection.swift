@@ -36,7 +36,7 @@ nonisolated struct HelpSection: Identifiable, Sendable {
             HelpItem(id: 0, systemImage: "airpod.right", text: "Un AirPod trasmette solo fuori dalla custodia e con un po' di carica. In Dov'è puoi farlo suonare da solo, uno alla volta."),
         ]),
         HelpSection(id: 3, title: "Prodotti Apple", items: [
-            HelpItem(id: 0, systemImage: "location", text: "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare, mostra dove li hai lasciati e li trova anche lontano. Sbu Find non fa suonare nulla e non vede la rete Dov'è."),
+            HelpItem(id: 0, systemImage: "location", text: "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare anche nella custodia o lontano, mostra dove li hai lasciati e li trova sulla rete Dov'è. Sbu Find fa suonare solo le cuffie collegate all'iPhone e non vede la rete Dov'è."),
         ]),
     ]
 }

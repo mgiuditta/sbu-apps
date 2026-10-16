@@ -159,4 +159,20 @@ final class MedsFlowTests: MedsUITestCase {
         toggle.switches.firstMatch.tap()
         XCTAssertFalse(app.buttons["repeatMinutes"].waitForExistence(timeout: 2))
     }
+
+    @MainActor
+    func testReportMakesAPDFToShare() throws {
+        let app = launch(sample: true)
+        XCTAssertTrue(app.buttons["medicines"].waitForExistence(timeout: 5))
+        app.buttons["medicines"].tap()
+        app.buttons["report"].tap()
+        XCTAssertTrue(figure(app, startingWith: "Dosi prese").waitForExistence(timeout: 5))
+        let share = app.buttons["sharePDF"]
+        XCTAssertTrue(scroll(app, to: share))
+        try audit(app)
+        app.swipeDown()
+        app.buttons["period"].tap()
+        app.buttons["7 giorni"].tap()
+        XCTAssertTrue(scroll(app, to: share))
+    }
 }

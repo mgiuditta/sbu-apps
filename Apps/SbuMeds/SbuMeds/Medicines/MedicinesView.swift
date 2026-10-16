@@ -35,6 +35,15 @@ struct MedicinesView: View {
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
         .navigationTitle("Farmaci")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink(value: Destination.report) {
+                    Label("Rapporto per il medico", systemImage: "doc.text")
+                }
+                .tint(SbuTheme.ink)
+                .accessibilityIdentifier("report")
+            }
+        }
         .sheet(item: $newMedicineFor) { person in
             MedicineEditor(person: person, medicine: nil)
         }

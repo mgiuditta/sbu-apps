@@ -67,6 +67,7 @@ struct TodayView: View {
         .navigationDestination(for: Destination.self) { destination in
             switch destination {
             case .medicines: MedicinesView()
+            case .report: ReportView()
             }
         }
         .navigationDestination(for: Medicine.self) { medicine in

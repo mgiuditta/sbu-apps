@@ -61,6 +61,36 @@
         }
       }
     },
+    "30 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 days"
+          }
+        }
+      }
+    },
+    "7 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 days"
+          }
+        }
+      }
+    },
+    "90 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "90 days"
+          }
+        }
+      }
+    },
     "A cicli" : {
       "localizations" : {
         "en" : {
@@ -281,6 +311,16 @@
         }
       }
     },
+    "Condividi PDF" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share PDF"
+          }
+        }
+      }
+    },
     "Conta le scorte" : {
       "localizations" : {
         "en" : {
@@ -361,6 +401,16 @@
         }
       }
     },
+    "Dal %@ al %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From %1$@ to %2$@"
+          }
+        }
+      }
+    },
     "Dal giorno di inizio: per esempio 21 giorni sì e 7 di pausa." : {
       "localizations" : {
         "en" : {
@@ -407,6 +457,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Extra dose, %@"
+          }
+        }
+      }
+    },
+    "Dosi prese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doses taken"
           }
         }
       }
@@ -487,6 +547,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Medicines"
+          }
+        }
+      }
+    },
+    "Fatto con Sbu Meds il %@. Segnato da chi prende i farmaci o da chi lo assiste: non è un documento medico." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made with Sbu Meds on %@. Marked by the person taking the medicines or by whoever looks after them: not a medical document."
+          }
+        }
+      }
+    },
+    "Fatto sull'iPhone, non passa da nessun server. Lo mandi tu, a chi vuoi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made on the iPhone, through no server. You send it, to whoever you want."
           }
         }
       }
@@ -577,6 +657,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Days on: %lld"
+          }
+        }
+      }
+    },
+    "Giorno per giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day by day"
           }
         }
       }
@@ -751,6 +841,16 @@
         }
       }
     },
+    "Nel PDF: le dosi di ogni giorno con l'orario, prese, saltate o non segnate." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the PDF: each day's doses with their time, taken, skipped or not marked."
+          }
+        }
+      }
+    },
     "Nessun farmaco" : {
       "localizations" : {
         "en" : {
@@ -791,6 +891,16 @@
         }
       }
     },
+    "Nessuna dose nel periodo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No doses in this period."
+          }
+        }
+      }
+    },
     "Nessuna dose prevista" : {
       "localizations" : {
         "en" : {
@@ -807,6 +917,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No doses due on this day."
+          }
+        }
+      }
+    },
+    "Nessuna dose prevista nel periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No doses due in this period"
           }
         }
       }
@@ -1121,6 +1241,16 @@
         }
       }
     },
+    "Periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Period"
+          }
+        }
+      }
+    },
     "Persona" : {
       "localizations" : {
         "en" : {
@@ -1217,6 +1347,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Taken: %lld of %lld · %lld late"
+          }
+        }
+      }
+    },
+    "Prese %lld, saltate %lld, non segnate %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken %1$lld, skipped %2$lld, not marked %3$lld"
+          }
+        }
+      }
+    },
+    "Prese %lld, saltate %lld, non segnate %lld · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken %1$lld, skipped %2$lld, not marked %3$lld · %4$@"
+          }
+        }
+      }
+    },
+    "Prese %lld, saltate %lld, non segnate %lld: %@ delle dosi previste." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken %1$lld, skipped %2$lld, not marked %3$lld: %4$@ of the doses due."
           }
         }
       }
@@ -1321,6 +1481,36 @@
         }
       }
     },
+    "Rapporto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
+    },
+    "Rapporto delle dosi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dose report"
+          }
+        }
+      }
+    },
+    "Rapporto per il medico" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report for the doctor"
+          }
+        }
+      }
+    },
     "Ricarica" : {
       "localizations" : {
         "en" : {
@@ -1397,6 +1587,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Meds"
+          }
+        }
+      }
+    },
+    "Scegli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose"
           }
         }
       }
@@ -1751,6 +1951,16 @@
         }
       }
     },
+    "da prendere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to take"
+          }
+        }
+      }
+    },
     "di cui %lld in ritardo" : {
       "localizations" : {
         "en" : {
@@ -1767,6 +1977,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "dose"
+          }
+        }
+      }
+    },
+    "dose extra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extra dose"
           }
         }
       }
@@ -1841,6 +2061,16 @@
         }
       }
     },
+    "non segnata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "not marked"
+          }
+        }
+      }
+    },
     "per %lld persone" : {
       "localizations" : {
         "en" : {
@@ -1857,6 +2087,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "for one person"
+          }
+        }
+      }
+    },
+    "presa alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "taken at %@"
+          }
+        }
+      }
+    },
+    "saltata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "skipped"
           }
         }
       }

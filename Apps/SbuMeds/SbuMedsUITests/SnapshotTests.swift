@@ -2,7 +2,7 @@ import XCTest
 
 /// Drives the App Store screenshots for `fastlane snapshot` on the made-up family
 /// (`-FASTLANE_SNAPSHOT YES`, clock stopped at 10:12): today, a dose card, the family's
-/// medicines, a medicine with its stock and history, then the privacy promise in settings.
+/// medicines, a medicine with its stock and history, the report for the doctor, then the privacy promise in settings.
 final class SnapshotTests: XCTestCase {
     @MainActor
     func testScreenshots() {
@@ -28,6 +28,11 @@ final class SnapshotTests: XCTestCase {
         medicine.tap()
         XCTAssertTrue(app.buttons["editMedicine"].waitForExistence(timeout: 5))
         snapshot("04-medicine")
+
+        app.navigationBars.buttons.firstMatch.tap()
+        app.buttons["report"].tap()
+        XCTAssertTrue(app.buttons["sharePDF"].waitForExistence(timeout: 10))
+        snapshot("05-report")
 
         app.navigationBars.buttons.firstMatch.tap()
         app.navigationBars.buttons.firstMatch.tap()

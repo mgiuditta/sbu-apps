@@ -1,0 +1,26 @@
+{
+  "us": {
+    "trackId": 1448776934,
+    "trackName": "Medication Reminder & Pill Log",
+    "averageUserRating": 4.6034,
+    "userRatingCount": 706,
+    "formattedPrice": "Free",
+    "version": "8.3",
+    "currentVersionReleaseDate": "2026-10-14T20:47:02Z",
+    "minimumOsVersion": "18.6",
+    "sellerName": "Med ART Studios LLC",
+    "primaryGenreName": "Medical"
+  },
+  "it": {
+    "trackId": 1448776934,
+    "trackName": "Promemoria Farmaci + Tracker",
+    "averageUserRating": 5,
+    "userRatingCount": 1,
+    "formattedPrice": "Gratis",
+    "version": "8.3",
+    "currentVersionReleaseDate": "2026-10-14T20:47:02Z",
+    "minimumOsVersion": "18.6",
+    "sellerName": "Med ART Studios LLC",
+    "primaryGenreName": "Medical"
+  }
+}

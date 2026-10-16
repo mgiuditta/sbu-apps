@@ -2,9 +2,10 @@
 """Generate a Sbu app icon: an engraved instrument on paper, closed by the full stop.
 
 Grammar (Design/README.md, CLAUDE.md): the real instrument behind the app, engraved in
-warm black (`ink`) on paper (`surface`), centred, with the square full stop in the app's
+warm black (`ink`) on paper (`paper`), centred, with the square full stop in the app's
 `accent-*` at the bottom right. Dark: the engraving in light ink on warm black, the square
-in the accent's dark value. Tinted: the dark variant in greys, for iOS to tint.
+in the accent's dark value. Tinted: the dark variant in greys, for iOS to tint. Inversa, the one
+alternate icon (ADR-0013): paper engraving on ink, the square in `accent-on-ink-*`.
 
 Subjects live in Design/icons/engravings.json ({name: {accent, subject}}). The engraving is
 kept as an ink mask in Design/icons/source/sbu-<name>.png (white, alpha = ink), so icons
@@ -14,6 +15,7 @@ Usage:
   python3 Tools/make_icons.py level [--appiconset Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIcon.appiconset]
       [--artwork Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIconArtwork.imageset]
   python3 Tools/make_icons.py habits --watch-appiconset Apps/SbuHabits/SbuHabitsWatch/Assets.xcassets/AppIcon.appiconset
+  python3 Tools/make_icons.py level --inverse Apps/SbuLevel/SbuLevel/Assets.xcassets/AppIcon-Inversa.appiconset
   python3 Tools/make_icons.py level --generate          # new engraving from Gemini (GEMINI_API_KEY)
   python3 Tools/make_icons.py level --from-image raw.png # engraving from an image you supply
 
@@ -195,6 +197,7 @@ def main() -> None:
     parser.add_argument("--appiconset", type=Path, help="also write this AppIcon.appiconset")
     parser.add_argument("--artwork", type=Path, help="also write this AppIconArtwork.imageset")
     parser.add_argument("--watch-appiconset", type=Path, help="also write this watchOS AppIcon.appiconset (dark, circle-safe)")
+    parser.add_argument("--inverse", type=Path, help="also write the Inversa alternate icon to this AppIcon-Inversa.appiconset")
     args = parser.parse_args()
 
     specs = json.loads(SPECS.read_text())
@@ -212,7 +215,7 @@ def main() -> None:
         sys.exit(f"{source.relative_to(ROOT)} is missing: run with --generate or --from-image")
     mask = Image.open(source).getchannel("A")
 
-    ink, surface = palette["ink"], palette["surface"]
+    ink, surface = palette["ink"], palette["paper"]
     variants = {
         "light": compose(mask, ink["light"], surface["light"], accent["light"]),
         "dark": compose(mask, ink["dark"], ink["light"], accent["dark"]),
@@ -227,6 +230,10 @@ def main() -> None:
     if args.artwork:
         write_artwork(variants, args.artwork)
         print(args.artwork)
+    if args.inverse:
+        on_ink = palette.get(spec["accent"].replace("accent-", "accent-on-ink-"), accent)
+        write_appiconset({"light": compose(mask, surface["light"], ink["light"], on_ink["light"])}, args.inverse)
+        print(args.inverse)
     if args.watch_appiconset:
         write_watch_appiconset(mask, ink["dark"], ink["light"], accent["dark"], args.watch_appiconset)
         print(args.watch_appiconset)

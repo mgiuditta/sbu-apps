@@ -6,6 +6,7 @@ struct MainView: View {
     let session: RemoteSession
 
     @State private var isAddingTV = false
+    @State private var isTyping = false
 
     var body: some View {
         Group {
@@ -16,6 +17,12 @@ struct MainView: View {
             }
         }
         .toolbar {
+            if session.tv != nil {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Tastiera", systemImage: "keyboard", action: showKeyboard)
+                        .disabled(!session.status.acceptsKeys)
+                }
+            }
             if let tv = session.tv {
                 ToolbarItem(placement: .principal) {
                     Text(tv.name)
@@ -31,10 +38,17 @@ struct MainView: View {
         .sheet(isPresented: $isAddingTV) {
             AddTVView(onPaired: add)
         }
+        .sheet(isPresented: $isTyping) {
+            KeyboardSheet(session: session)
+        }
     }
 
     private func showAddTV() {
         isAddingTV = true
+    }
+
+    private func showKeyboard() {
+        isTyping = true
     }
 
     private func add(_ tv: SavedTV) {

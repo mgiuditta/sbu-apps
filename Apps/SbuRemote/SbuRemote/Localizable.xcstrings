@@ -101,6 +101,16 @@
         }
       }
     },
+    "Apri prima una casella di testo sulla TV, per esempio la ricerca di un'app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First open a text box on the TV, for example an app's search."
+          }
+        }
+      }
+    },
     "Attiva Impostazioni › Rete › Configurazione rete domestica › Controllo IP, con Autenticazione Normale e chiave precondivisa, e Avvio remoto." : {
       "localizations" : {
         "en" : {
@@ -287,6 +297,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Forget %@?"
+          }
+        }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
@@ -701,6 +721,16 @@
         }
       }
     },
+    "Scrivi sulla TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type on the TV"
+          }
+        }
+      }
+    },
     "Se hai scelto una chiave in Controllo IP, puoi usarla al posto del PIN." : {
       "localizations" : {
         "en" : {
@@ -837,6 +867,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TVs found"
+          }
+        }
+      }
+    },
+    "Tastiera" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keyboard"
           }
         }
       }

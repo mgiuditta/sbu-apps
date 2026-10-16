@@ -31,6 +31,11 @@ struct FinderView: View {
 
                     FinderFigure(tracked: model.tracked)
 
+                    // Only while the device is not heard: then the place is where to go back to.
+                    if let tracked = model.tracked, tracked.isLost, let sighting = model.sighting(for: tracked.device) {
+                        LastSeenCard(sighting: sighting)
+                    }
+
                     Spacer(minLength: 0)
 
                     // In one row, wrapping onto two at the largest text sizes, so no word is cut.

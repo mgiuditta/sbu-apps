@@ -16,6 +16,7 @@ struct RootView: View {
         } settings: {
             ListSection(model: model)
             FeedbackSection(model: model)
+            PlacesSection(model: model)
         }
         .task(id: scenePhase == .active) {
             guard scenePhase == .active else { return }

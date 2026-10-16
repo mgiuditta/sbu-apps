@@ -51,9 +51,14 @@ nonisolated struct DeviceRoster: Sendable {
         }
     }
 
-    /// Drops the devices not heard for longer than `staleInterval` before `now`.
-    mutating func removeStale(at now: Date) {
-        entries = entries.filter { now.timeIntervalSince($0.value.device.lastSeen) <= Self.staleInterval }
+    /// Drops the devices not heard for longer than `staleInterval` before `now`, and returns them.
+    @discardableResult
+    mutating func removeStale(at now: Date) -> [NearbyDevice] {
+        let stale = entries.values.filter { now.timeIntervalSince($0.device.lastSeen) > Self.staleInterval }.map(\.device)
+        for device in stale {
+            entries[device.id] = nil
+        }
+        return stale
     }
 
     mutating func removeAll() {

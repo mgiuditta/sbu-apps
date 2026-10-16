@@ -17,6 +17,7 @@ struct MainView: View {
     private var isSearching: Bool {
         // Behind the card while it is up: it already says the search is running.
         model.state == .ready && model.devices.isEmpty && model.hiddenUnnamedCount == 0 && !model.scanCard.isVisible
+            && (!model.remembersPlaces || model.recentSightings.isEmpty)
     }
 
     var body: some View {
@@ -38,6 +39,17 @@ struct MainView: View {
                         .font(SbuTheme.footnote)
                         .foregroundStyle(SbuTheme.inkMuted)
                 }
+            }
+
+            if model.remembersPlaces, !model.recentSightings.isEmpty {
+                Section("Sentiti prima") {
+                    ForEach(model.recentSightings) { sighting in
+                        NavigationLink(value: sighting.id) {
+                            SightingRow(sighting: sighting)
+                        }
+                    }
+                }
+                .listRowBackground(SbuTheme.surfaceRaised)
             }
         }
         .listStyle(.insetGrouped)

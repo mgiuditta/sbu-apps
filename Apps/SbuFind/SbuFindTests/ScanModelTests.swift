@@ -7,13 +7,146 @@ struct ScanModelTests {
     let scanner = FakeScanner()
     let notifier = FakeLostNotifier()
     let clock = TestClock()
+    let location = FixedLocationProvider()
+    let store = SightingStore.temporary()
 
     init() throws {
         defaults = try #require(UserDefaults(suiteName: "ScanModelTests-\(UUID().uuidString)"))
     }
 
     private func makeModel() -> ScanModel {
-        ScanModel(scanner: scanner, notifier: notifier, defaults: defaults, clock: clock.read)
+        ScanModel(scanner: scanner, notifier: notifier, location: location, sightingStore: store, defaults: defaults, clock: clock.read)
+    }
+
+    private func reopen() -> ScanModel {
+        ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), location: FixedLocationProvider(), sightingStore: store, defaults: defaults)
+    }
+
+    @Test func placesAreOffUntilTurnedOn() {
+        let model = makeModel()
+        #expect(!model.remembersPlaces)
+        model.handle(.advertisement(.fixture()))
+        model.refresh(at: Advertisement.start.addingTimeInterval(30))
+        #expect(model.sightings.sightings.isEmpty)
+    }
+
+    @Test func turningPlacesOnAsksForLocationAndIsSaved() async {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        #expect(model.remembersPlaces)
+        #expect(!model.locationDenied)
+        #expect(reopen().remembersPlaces)
+    }
+
+    @Test func refusedLocationLeavesPlacesOff() async {
+        location.allowsAccess = false
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        #expect(!model.remembersPlaces)
+        #expect(model.locationDenied)
+    }
+
+    @Test func aDeviceThatFallsSilentIsSightedWhereItWasHeardAndSaved() async throws {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        model.handle(.advertisement(.fixture(name: "Buds Pro")))
+        model.refresh(at: Advertisement.start)
+        let heardThere = try #require(location.current)
+        location.current = Coordinate(latitude: 0, longitude: 0, accuracy: 10, date: Advertisement.start)
+
+        model.refresh(at: Advertisement.start.addingTimeInterval(11))
+
+        let sighting = try #require(model.sightings.sightings.first)
+        #expect(sighting.name == "Buds Pro")
+        #expect(sighting.place == heardThere)
+        #expect(sighting.date == Advertisement.start)
+        #expect(reopen().sightings == model.sightings)
+    }
+
+    @Test func unnamedDevicesAreNeverSighted() async {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        model.handle(.advertisement(.fixture(name: nil)))
+        model.refresh(at: Advertisement.start)
+        model.refresh(at: Advertisement.start.addingTimeInterval(11))
+        #expect(model.sightings.sightings.isEmpty)
+    }
+
+    @Test func bluetoothOffSightsEveryDeviceHeard() async {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        model.handle(.state(.ready))
+        model.handle(.advertisement(.fixture(device: 1, name: "A")))
+        model.handle(.advertisement(.fixture(device: 2, name: "B")))
+        model.refresh(at: Advertisement.start)
+        model.handle(.state(.poweredOff))
+        #expect(Set(model.sightings.sightings.map(\.name)) == ["A", "B"])
+    }
+
+    @Test func recentSightingsLeaveOutDevicesHeardNowAndOldOnes() async {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        model.handle(.advertisement(.fixture(device: 1, name: "Gone")))
+        model.handle(.advertisement(.fixture(device: 2, name: "Here")))
+        model.refresh(at: Advertisement.start)
+        model.handle(.advertisement(.fixture(device: 2, name: "Here", after: 11)))
+        model.refresh(at: Advertisement.start.addingTimeInterval(11))
+
+        clock.now = Advertisement.start.addingTimeInterval(60)
+        #expect(model.recentSightings.map(\.name) == ["Gone"])
+
+        clock.now = Advertisement.start.addingTimeInterval(ScanModel.recentWindow + 60)
+        #expect(model.recentSightings.isEmpty)
+    }
+
+    @Test func aDeviceHeardAgainUnderANewIdentifierIsNotRecent() async {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        model.handle(.advertisement(.fixture(device: 1, name: "Buds Pro")))
+        model.refresh(at: Advertisement.start)
+        model.refresh(at: Advertisement.start.addingTimeInterval(11))
+        model.handle(.advertisement(.fixture(device: 5, name: "Buds Pro", after: 12)))
+        model.refresh(at: Advertisement.start.addingTimeInterval(12))
+        clock.now = Advertisement.start.addingTimeInterval(20)
+        #expect(model.recentSightings.isEmpty)
+    }
+
+    @Test func aSightedDeviceOpensOnTheFinderAsNotHeard() async throws {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        model.handle(.advertisement(.fixture(name: "Buds Pro")))
+        model.refresh(at: Advertisement.start)
+        model.refresh(at: Advertisement.start.addingTimeInterval(11))
+
+        clock.now = Advertisement.start.addingTimeInterval(600)
+        model.track(Advertisement.testID(1))
+
+        let tracked = try #require(model.tracked)
+        #expect(tracked.device.name == "Buds Pro")
+        #expect(tracked.isLost)
+        #expect(model.sighting(for: tracked.device) != nil)
+    }
+
+    @Test func forgetPlacesEmptiesTheLogAndTheFile() async {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        model.handle(.advertisement(.fixture()))
+        model.refresh(at: Advertisement.start)
+        model.refresh(at: Advertisement.start.addingTimeInterval(11))
+        model.forgetPlaces()
+        #expect(model.sightings.sightings.isEmpty)
+        #expect(reopen().sightings.sightings.isEmpty)
+    }
+
+    @Test func turningPlacesOffStopsSighting() async {
+        let model = makeModel()
+        await model.setRemembersPlaces(true)
+        await model.setRemembersPlaces(false)
+        model.handle(.advertisement(.fixture()))
+        model.refresh(at: Advertisement.start)
+        model.refresh(at: Advertisement.start.addingTimeInterval(11))
+        #expect(model.sightings.sightings.isEmpty)
+        #expect(!location.isRunning)
     }
 
     @Test func startsWaitingForBluetoothWithAnEmptyList() {
@@ -151,7 +284,7 @@ struct ScanModelTests {
         let model = makeModel()
         model.playsSound = true
         model.vibrates = false
-        let reopened = ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), defaults: defaults)
+        let reopened = reopen()
         #expect(reopened.playsSound)
         #expect(!reopened.vibrates)
     }
@@ -195,7 +328,7 @@ struct ScanModelTests {
         #expect(model.devices.count == 1)
         #expect(model.hiddenUnnamedCount == 0)
         #expect(defaults.bool(forKey: "showsUnnamed"))
-        #expect(ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), defaults: defaults).showsUnnamed)
+        #expect(reopen().showsUnnamed)
     }
 
     @Test(arguments: BluetoothState.allCases.filter { $0 != .ready })

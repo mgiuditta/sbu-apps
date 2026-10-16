@@ -9,6 +9,14 @@
         "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find" } }
       }
     },
+    "NSLocationWhenInUseUsageDescription" : {
+      "comment" : "Why Ricorda dove li hai sentiti asks for location.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find remembers where your iPhone was when it last heard a device, to show it to you on a map. The places stay on your iPhone." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find ricorda dov'era il tuo iPhone quando ha sentito un dispositivo l'ultima volta, per mostrartelo sulla mappa. Le posizioni restano sull'iPhone." } }
+      }
+    },
     "NSBluetoothAlwaysUsageDescription" : {
       "comment" : "Why the scan asks for Bluetooth.",
       "extractionState" : "manual",

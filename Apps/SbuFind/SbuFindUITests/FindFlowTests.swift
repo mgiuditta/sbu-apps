@@ -19,7 +19,7 @@ final class FindFlowTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FIXED_SCANNER", scanner]
         // Arguments win over saved settings: every test starts from the defaults.
-        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO"]
+        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO", "-remembersPlaces", "NO"]
         app.launchArguments += arguments
         app.launch()
         return app
@@ -182,6 +182,41 @@ final class FindFlowTests: XCTestCase {
         XCTAssertTrue(soundSwitch.waitForExistence(timeout: 5))
         XCTAssertEqual(soundSwitch.value as? String, "1")
         XCTAssertEqual(app.switches["Vibrazione"].value as? String, "0")
+    }
+
+    @MainActor
+    func testASilentDeviceShowsWhereItWasLastHeardAndIsListedAsHeardBefore() throws {
+        let app = launch(scanner: "fading", ["-remembersPlaces", "YES"])
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        // Silent after two seconds, off the list ten seconds later: then its sighting is saved.
+        XCTAssertTrue(app.staticTexts["Visto l'ultima volta"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.staticTexts["È dove era il tuo iPhone quando l'ha sentito: da lì inizia a cercare."].exists)
+        try audit(app)
+
+        app.navigationBars.buttons.firstMatch.tap()
+        XCTAssertTrue(app.staticTexts["Sentiti prima"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons.matching(identifier: "sighting").firstMatch.label.hasPrefix("Buds Pro"))
+    }
+
+    @MainActor
+    func testSettingsOfferToRememberPlaces() throws {
+        let app = launch()
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+        app.navigationBars.buttons["Impostazioni"].tap()
+        let places = app.switches["Ricorda dove li hai sentiti"]
+        for _ in 0..<5 where !places.isHittable {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(places.isHittable)
+        XCTAssertEqual(places.value as? String, "0")
+        places.switches.firstMatch.tap()
+        let on = NSPredicate(format: "value == '1'")
+        expectation(for: on, evaluatedWith: places)
+        waitForExpectations(timeout: 5)
+        try audit(app, excluding: Self.sheetExclusions)
     }
 
     @MainActor

@@ -201,6 +201,26 @@
         }
       }
     },
+    "Cancella le posizioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the places"
+          }
+        }
+      }
+    },
+    "Cancellare tutte le posizioni salvate?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete all saved places?"
+          }
+        }
+      }
+    },
     "Cerca di nuovo" : {
       "localizations" : {
         "en" : {
@@ -361,6 +381,16 @@
         }
       }
     },
+    "Mappa del punto in cui l'hai sentito l'ultima volta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map of where you last heard it"
+          }
+        }
+      }
+    },
     "Mostra dispositivi senza nome" : {
       "localizations" : {
         "en" : {
@@ -441,6 +471,16 @@
         }
       }
     },
+    "Per ricordare le posizioni, consenti la posizione a Sbu Find in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To remember places, allow location for Sbu Find in Settings."
+          }
+        }
+      }
+    },
     "Per ritrovarlo" : {
       "localizations" : {
         "en" : {
@@ -467,6 +507,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apple products"
+          }
+        }
+      }
+    },
+    "Quando un dispositivo non si sente più, Sbu Find salva dov'era il tuo iPhone e te lo mostra sulla mappa. Le posizioni restano su questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When a device can no longer be heard, Sbu Find saves where your iPhone was and shows it to you on a map. The places stay on this iPhone."
           }
         }
       }
@@ -507,6 +557,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scanning…"
+          }
+        }
+      }
+    },
+    "Ricorda dove li hai sentiti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remember where you heard them"
           }
         }
       }
@@ -567,6 +627,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Signal"
+          }
+        }
+      }
+    },
+    "Sentiti prima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heard before"
           }
         }
       }
@@ -671,6 +741,16 @@
         }
       }
     },
+    "Ultima posizione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last place"
+          }
+        }
+      }
+    },
     "Un AirPod trasmette solo fuori dalla custodia e con un po' di carica. In Dov'è puoi farlo suonare da solo, uno alla volta." : {
       "localizations" : {
         "en" : {
@@ -707,6 +787,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vibration"
+          }
+        }
+      }
+    },
+    "Visto l'ultima volta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last seen"
+          }
+        }
+      }
+    },
+    "È dove era il tuo iPhone quando l'ha sentito: da lì inizia a cercare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It is where your iPhone was when it heard it: start looking from there."
           }
         }
       }

@@ -13,6 +13,9 @@ final class ScanModel {
     private static let showsUnnamedKey = "showsUnnamed"
     private static let playsSoundKey = "playsSound"
     private static let vibratesKey = "vibrates"
+    private static let remembersPlacesKey = "remembersPlaces"
+    /// How far back the list shows devices heard before.
+    static let recentWindow: TimeInterval = 24 * 60 * 60
 
     private(set) var state = BluetoothState.starting
     /// The devices on screen, strongest signal first.
@@ -53,9 +56,21 @@ final class ScanModel {
         didSet { defaults.set(vibrates, forKey: Self.vibratesKey) }
     }
 
+    /// Remember where the iPhone was when each device was last heard. Off until you turn it on,
+    /// which asks for location while the app is in use.
+    private(set) var remembersPlaces: Bool
+    /// The last attempt to remember places found location not allowed.
+    private(set) var locationDenied = false
+    /// The last sighting of each device, on this iPhone only.
+    private(set) var sightings: SightingLog
+
     @ObservationIgnored private var roster = DeviceRoster()
     @ObservationIgnored private let scanner: any BluetoothScanner
     @ObservationIgnored private let notifier: any LostNotifier
+    @ObservationIgnored private let location: any LocationProvider
+    @ObservationIgnored private let sightingStore: SightingStore
+    @ObservationIgnored private var recorder = SightingRecorder()
+    @ObservationIgnored private var isRunning = false
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let clock: () -> Date
     @ObservationIgnored private var trackedID: UUID?
@@ -69,16 +84,24 @@ final class ScanModel {
     ///   - scanner: Core Bluetooth unless a launch argument asks for the fixed scanner.
     ///   - notifier: Local notifications; none with the fixed scanner, where a permission alert
     ///     would cover the screen.
+    ///   - location: Core Location; a fixed place with the fixed scanner.
+    ///   - sightingStore: Where the sightings are saved.
     ///   - clock: The current time; tests move it by hand.
     init(
         scanner: (any BluetoothScanner)? = nil,
         notifier: (any LostNotifier)? = nil,
+        location: (any LocationProvider)? = nil,
+        sightingStore: SightingStore = SightingStore(),
         defaults: UserDefaults = .standard,
         clock: @escaping () -> Date = { .now }
     ) {
         let fixed = FixedScanner.requested(in: defaults)
         self.scanner = scanner ?? fixed ?? CoreBluetoothScanner()
         self.notifier = notifier ?? (fixed != nil ? AcceptingLostNotifier() : UserNotificationLostNotifier())
+        self.location = location ?? (fixed != nil ? FixedLocationProvider() : CoreLocationProvider())
+        self.sightingStore = sightingStore
+        sightings = sightingStore.load()
+        remembersPlaces = defaults.bool(forKey: Self.remembersPlacesKey)
         self.defaults = defaults
         self.clock = clock
         showsUnnamed = defaults.bool(forKey: Self.showsUnnamedKey)
@@ -92,6 +115,10 @@ final class ScanModel {
         // Each run starts from scratch: the scanner says its state first, which shows the card
         // and starts counting the watched device's silence again.
         state = .starting
+        isRunning = true
+        if remembersPlaces {
+            location.start()
+        }
         let events = scanner.events()
         await withDiscardingTaskGroup { group in
             group.addTask {
@@ -105,6 +132,59 @@ final class ScanModel {
         scanner.stop()
         // In the background nothing is heard, so nothing counts as silence.
         lostAlert?.pause()
+        // The devices heard until now are left behind: each gets its sighting.
+        recordSightings(of: roster.devices(includingUnnamed: false))
+        location.stop()
+        isRunning = false
+    }
+
+    /// Ricorda dove li hai sentiti: on asks for location the first time; off stops following it.
+    func setRemembersPlaces(_ isOn: Bool) async {
+        if isOn {
+            guard await location.requestAccess() else {
+                locationDenied = true
+                return
+            }
+            locationDenied = false
+            if isRunning {
+                location.start()
+            }
+        } else {
+            location.stop()
+            recorder.reset()
+        }
+        remembersPlaces = isOn
+        defaults.set(isOn, forKey: Self.remembersPlacesKey)
+    }
+
+    /// Cancella le posizioni: every sighting goes, from memory and from the file.
+    func forgetPlaces() {
+        sightings.removeAll()
+        recorder.reset()
+        sightingStore.save(sightings)
+    }
+
+    /// The last sighting of a device, matched by identifier, else by name and kind.
+    func sighting(for device: NearbyDevice) -> Sighting? {
+        sightings.latest(id: device.id, name: device.name, kind: device.kind)
+    }
+
+    /// Devices heard in the last day and not heard now, newest first, for the list.
+    var recentSightings: [Sighting] {
+        let listedNames = Set(devices.compactMap(\.name))
+        return sightings
+            .recent(since: clock().addingTimeInterval(-Self.recentWindow), excluding: Set(devices.map(\.id)))
+            .filter { !listedNames.contains($0.name) }
+    }
+
+    private func recordSightings(of gone: [NearbyDevice]) {
+        guard remembersPlaces else { return }
+        let new = recorder.sightings(for: gone, fallback: location.current)
+        guard !new.isEmpty else { return }
+        for sighting in new {
+            sightings.record(sighting)
+        }
+        sightingStore.save(sightings)
     }
 
     func handle(_ event: ScanEvent) {
@@ -118,6 +198,7 @@ final class ScanModel {
             }
             if newState != .ready {
                 lostAlert?.pause()
+                recordSightings(of: roster.devices(includingUnnamed: false))
                 roster.removeAll()
                 publish(at: clock())
             }
@@ -128,7 +209,10 @@ final class ScanModel {
 
     /// Drops the devices gone silent and shows what was heard since the last refresh.
     func refresh(at now: Date) {
-        roster.removeStale(at: now)
+        if remembersPlaces {
+            recorder.note(roster.devices(includingUnnamed: false), at: now, place: location.current)
+        }
+        recordSightings(of: roster.removeStale(at: now))
         publish(at: now)
     }
 
@@ -214,7 +298,7 @@ final class ScanModel {
 
     private func updateTracked(at now: Date) {
         guard let trackedID else { return }
-        guard let device = roster.device(id: trackedID) ?? tracked?.device else {
+        guard let device = roster.device(id: trackedID) ?? tracked?.device ?? sightedDevice(id: trackedID) else {
             tracked = nil
             return
         }
@@ -228,6 +312,12 @@ final class ScanModel {
         if updated != tracked {
             tracked = updated
         }
+    }
+
+    /// A device opened from "Sentiti prima": not heard now, so at the edge of the scale.
+    private func sightedDevice(id: UUID) -> NearbyDevice? {
+        guard let sighting = sightings.sightings.first(where: { $0.id == id }) else { return nil }
+        return NearbyDevice(id: id, name: sighting.name, kind: sighting.kind, signal: Proximity.farthestRSSI, lastSeen: sighting.date)
     }
 
     private func updateWatched(at now: Date) {

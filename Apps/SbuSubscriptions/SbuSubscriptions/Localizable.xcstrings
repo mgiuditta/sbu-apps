@@ -971,6 +971,16 @@
         }
       }
     },
+    "Durata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duration"
+          }
+        }
+      }
+    },
     "Elimina %@" : {
       "localizations" : {
         "en" : {
@@ -2191,6 +2201,16 @@
         }
       }
     },
+    "Per sempre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Until you cancel"
+          }
+        }
+      }
+    },
     "Personalizzato" : {
       "localizations" : {
         "en" : {
@@ -2427,6 +2447,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reactivated"
+          }
+        }
+      }
+    },
+    "Ricorrente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recurring"
           }
         }
       }
@@ -2937,6 +2967,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rate"
+          }
+        }
+      }
+    },
+    "Tipo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type"
           }
         }
       }

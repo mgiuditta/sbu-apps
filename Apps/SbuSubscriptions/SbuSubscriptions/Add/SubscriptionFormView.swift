@@ -28,42 +28,17 @@ struct SubscriptionFormView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Nome", text: $draft.name)
-                    .accessibilityIdentifier("name")
-                LabeledContent("Prezzo") {
-                    TextField("0", text: $draft.priceText)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .accessibilityIdentifier("price")
-                }
-                Picker("Valuta", selection: $draft.currencyCode) {
-                    ForEach(CurrencySection.currencies, id: \.self) { code in
-                        Text(CurrencySection.name(of: code)).tag(code)
-                    }
-                }
-                .pickerStyle(.navigationLink)
+                FormHeader(draft: $draft)
             }
 
-            Section("Pagamento") {
-                CyclePicker(draft: $draft)
-                Toggle("Prova gratuita", isOn: $draft.hasTrial)
+            Section {
+                // With a trial, the first payment is the day it ends.
                 if draft.hasTrial {
                     DatePicker("Fine della prova", selection: $draft.trialEnd, displayedComponents: .date)
                 } else {
                     DatePicker("Prossimo pagamento", selection: $draft.nextPayment, displayedComponents: .date)
                 }
-                if draft.cycle != .once {
-                    Toggle("Numero fisso di pagamenti", isOn: $draft.hasFixedCount)
-                    if draft.hasFixedCount {
-                        Stepper(value: $draft.paymentCount, in: 1...360) {
-                            if editing == nil {
-                                Text("^[\(draft.paymentCount) pagamento](inflect: true)")
-                            } else {
-                                Text("Pagamenti rimanenti: \(draft.paymentCount)")
-                            }
-                        }
-                    }
-                }
+                CyclePicker(draft: $draft, isEditing: editing != nil)
             }
 
             Section {
@@ -73,14 +48,7 @@ struct SubscriptionFormView: View {
                 }
             }
 
-            Section("Organizza") {
-                Picker("Categoria", selection: $draft.category) {
-                    Text("Nessuna").tag(SubscriptionCategory?.none)
-                    ForEach(categories) { category in
-                        Label(category.name, systemImage: category.symbol).tag(Optional(category))
-                    }
-                }
-                .pickerStyle(.navigationLink)
+            Section {
                 if !lists.isEmpty {
                     Picker("Lista", selection: $draft.list) {
                         Text("Nessuna").tag(SubscriptionList?.none)
@@ -89,6 +57,13 @@ struct SubscriptionFormView: View {
                         }
                     }
                 }
+                Picker("Categoria", selection: $draft.category) {
+                    Text("Nessuna").tag(SubscriptionCategory?.none)
+                    ForEach(categories) { category in
+                        Label(category.name, systemImage: category.symbol).tag(Optional(category))
+                    }
+                }
+                .pickerStyle(.navigationLink)
                 TextField("Metodo di pagamento", text: $draft.paymentMethod)
             }
 
@@ -102,6 +77,9 @@ struct SubscriptionFormView: View {
                 Text("Metodo di pagamento è solo un'etichetta, come «Carta personale». Non scrivere mai i dati della carta.")
             }
         }
+        // On paper, as every screen.
+        .scrollContentBackground(.hidden)
+        .background(SbuTheme.surface)
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         // Back from the iPhone's Settings, the warning goes as soon as notifications are on.

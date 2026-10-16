@@ -21,14 +21,14 @@ Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in svi
 | Sbu Habits | 1.0 | respinta il 14/10 (4.3), risposta in attesa | Sbu Habits (#108) |
 | Sbu Noise | 1.0 | respinta il 14/10 (4.3), risposta in attesa | Sbu Noise (#422) |
 | Sbu Moon | 1.0 | respinta il 14/10 (4.2.6), risposta in attesa | – |
-| Sbu Find | 1.0 | in sviluppo | Sbu Find (#248) |
-| Sbu Shrink | 1.0 | in sviluppo | Sbu Shrink (#472) |
-| Sbu Grid | 1.0 | in sviluppo | Sbu Grid (#474) |
-| Sbu Tidy | 1.0 | in sviluppo | Sbu Tidy (#476) |
-| Sbu Libretto | 1.0 | in sviluppo | Sbu Libretto (#478) |
-| Sbu Meds | 1.0 | branch locale `app/meds`: app e scheda pronte, review di Matteo, poi TestFlight (Cycle non ancora fatta) | Sbu Meds (#480) |
+| Sbu Find | 1.0 | su main 17/10: app e scheda pronte; mancano test sul device e TestFlight | Sbu Find (#248) |
+| Sbu Shrink | 1.0 | su main 17/10: app e scheda pronte; mancano test sul device e TestFlight | Sbu Shrink (#472) |
+| Sbu Grid | 1.0 | su main 17/10: app e scheda pronte; mancano test sul device e TestFlight | Sbu Grid (#474) |
+| Sbu Tidy | 1.0 | su main 17/10: app e scheda pronte; mancano test sul device e TestFlight | Sbu Tidy (#476) |
+| Sbu Libretto | 1.0 | su main 17/10: app e scheda pronte; mancano test sul device e TestFlight | Sbu Libretto (#478) |
+| Sbu Meds | 1.0 | su main 17/10: app e scheda pronte; mancano test sul device e TestFlight (Cycle non ancora fatta) | Sbu Meds (#480) |
 | Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
-| Sbu Remote | 1.0 | costruita su `app/remote` (locale), in review da Matteo; mancano test su una TV vera, entitlement multicast, `fastlane snapshot`, record ASC e TestFlight | Sbu Remote (#365) |
+| Sbu Remote | 1.0 | su main 17/10; mancano test su una TV vera, entitlement multicast, `fastlane snapshot`, record ASC e TestFlight | Sbu Remote (#365) |
 | Sbu Cast | 1.0 | pianificata | da creare |
 | Sbu Image | 1.0 | pianificata | da creare |
 | Sbu Gif | 1.0 | pianificata | da creare |

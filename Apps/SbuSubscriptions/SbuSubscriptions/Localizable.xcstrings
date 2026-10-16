@@ -1621,6 +1621,16 @@
         }
       }
     },
+    "Modifica lo storico dei pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit billing history"
+          }
+        }
+      }
+    },
     "Mostra gli abbonamenti" : {
       "localizations" : {
         "en" : {
@@ -2747,6 +2757,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Status"
+          }
+        }
+      }
+    },
+    "Storico dei pagamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Billing history"
+          }
+        }
+      }
+    },
+    "Storico dei prezzi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price history"
           }
         }
       }

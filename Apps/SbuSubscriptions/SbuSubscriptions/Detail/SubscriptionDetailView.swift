@@ -13,6 +13,7 @@ struct SubscriptionDetailView: View {
     @State private var isEditing = false
     @State private var isDeleting = false
     @State private var isChangingPrice = false
+    @State private var showsHistory = false
 
     var body: some View {
         NavigationStack {
@@ -23,12 +24,9 @@ struct SubscriptionDetailView: View {
                         .listRowBackground(Color.clear)
                 }
                 DetailFactsSection(subscription: subscription, tally: subscription.tally())
+                PaymentHistorySection(subscription: subscription, edit: showHistory)
+                PriceHistorySection(subscription: subscription, edit: changePrice)
                 DetailMoreSection(subscription: subscription)
-
-                Section {
-                    Button("Cambia prezzo") { isChangingPrice = true }
-                    NavigationLink("Cronologia") { HistoryView(subscription: subscription) }
-                }
 
                 CancelHelpSection(subscription: subscription)
                 StatusActionsSection(subscription: subscription)
@@ -42,6 +40,9 @@ struct SubscriptionDetailView: View {
             .scrollContentBackground(.hidden)
             .background(SbuTheme.surface)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(isPresented: $showsHistory) {
+                HistoryView(subscription: subscription)
+            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Modifica") { isEditing = true }
@@ -62,6 +63,14 @@ struct SubscriptionDetailView: View {
                 }
             }
         }
+    }
+
+    private func showHistory() {
+        showsHistory = true
+    }
+
+    private func changePrice() {
+        isChangingPrice = true
     }
 
     private func delete() {

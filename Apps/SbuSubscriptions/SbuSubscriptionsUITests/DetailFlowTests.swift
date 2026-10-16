@@ -52,7 +52,12 @@ final class DetailFlowTests: XCTestCase {
         app.launch()
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Musica")).firstMatch.tap()
 
-        app.buttons["Cronologia"].tap()
+        // The detail shows the latest payments and prices; each pencil opens the rest.
+        XCTAssertTrue(app.buttons["edit"].waitForExistence(timeout: 5))
+        let history = app.buttons["Modifica lo storico dei pagamenti"]
+        for _ in 0..<4 where !history.exists || !history.isHittable { app.swipeUp() }
+        try audit(app, "dettaglio, storico")
+        history.tap()
         let markPaid = app.buttons["Segna come pagato"].firstMatch
         XCTAssertTrue(markPaid.waitForExistence(timeout: 5), "Past payments can be marked paid")
         try audit(app, "cronologia")
@@ -60,15 +65,20 @@ final class DetailFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Pagato"].waitForExistence(timeout: 5))
         app.navigationBars.buttons.firstMatch.tap()
 
-        app.buttons["Cambia prezzo"].tap()
+        let changePrice = app.buttons["Cambia prezzo"]
+        for _ in 0..<4 where !changePrice.exists || !changePrice.isHittable { app.swipeUp() }
+        changePrice.tap()
         let price = app.textFields["newPrice"]
         XCTAssertTrue(price.waitForExistence(timeout: 5))
         try audit(app, "cambia prezzo")
         price.tap()
         price.typeText("12,99")
         app.buttons["Salva"].tap()
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Dal ")).firstMatch.waitForExistence(timeout: 5),
-                      "A rise from the next payment shows under the price")
+        // The coming price is in the rows under the history.
+        XCTAssertTrue(app.textFields["newPrice"].waitForNonExistence(timeout: 5))
+        let coming = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@ AND label CONTAINS %@", "Dal ", "12,99")).firstMatch
+        for _ in 0..<6 where !coming.exists { app.swipeUp() }
+        XCTAssertTrue(coming.exists, "A rise from the next payment shows in the detail")
     }
 
     @MainActor

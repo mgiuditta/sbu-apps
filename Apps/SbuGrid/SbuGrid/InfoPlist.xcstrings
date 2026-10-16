@@ -8,6 +8,14 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid" } },
         "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid" } }
       }
+    },
+    "NSPhotoLibraryAddUsageDescription" : {
+      "comment" : "Why saving the gridded photo asks to add to Photos.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid adds to Photos only the gridded photo you save. It doesn't read your library." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid aggiunge a Foto solo la foto con la griglia che salvi. Non legge la tua libreria." } }
+      }
     }
   },
   "version" : "1.0"

@@ -1,47 +1,73 @@
 import SbuKit
 import SwiftUI
 
-/// The photo with the grid, under its one figure: how many columns and rows it has.
+/// The photo with the grid, under its one figure: the side of a cell when there is a sheet,
+/// columns × rows when there is none.
 struct GridScreen: View {
     let model: GridModel
-    let photo: CGImage
-    let showGrid: () -> Void
-    let showFullScreen: () -> Void
+    let picture: CGImage
+    let actions: GridActions
 
+    private var figure: GridFigure {
+        GridFigure(paper: model.paper, settings: model.settings, count: model.count)
+    }
+
+    /// Already localized: the key finds no other translation and shows as it is.
     private var context: LocalizedStringKey? {
-        model.settings.hasSquareCells ? "Celle quadrate" : nil
+        figure.context.map { LocalizedStringKey($0) }
     }
 
     var body: some View {
-        SbuToolField(
-            "Griglia",
-            value: model.count,
-            format: .gridCount,
-            spokenValue: Text(verbatim: model.count.spoken),
-            context: context
-        ) {
-            ZoomablePicture(aspect: model.pictureSize, label: "Foto con la griglia", value: model.count.spoken) {
-                GridPicture(image: photo, settings: model.settings, rule: model.cellRule)
+        switch figure.kind {
+        case let .cell(length, unit):
+            SbuToolField(
+                "Cella",
+                value: length,
+                format: .number.precision(.fractionLength(0...2)),
+                unit: LengthFormat.symbol(unit),
+                spokenValue: Text(verbatim: figure.spoken),
+                context: context
+            ) {
+                photo
+            } pills: {
+                GridPills(actions: actions)
             }
-            .id(model.photoID)
-            // The photo takes all the height the figure and the pills leave.
-            .layoutPriority(1)
-        } pills: {
-            GridPills(showGrid: showGrid, showFullScreen: showFullScreen)
+        case let .count(count):
+            SbuToolField(
+                "Griglia",
+                value: count,
+                format: .gridCount,
+                spokenValue: Text(verbatim: figure.spoken),
+                context: context
+            ) {
+                photo
+            } pills: {
+                GridPills(actions: actions)
+            }
         }
+    }
+
+    private var photo: some View {
+        ZoomablePicture(aspect: model.pictureSize, label: "Foto con la griglia", value: model.count.spoken) {
+            GridPicture(image: picture, settings: model.settings, rule: model.cellRule)
+        }
+        // A new photo or a new crop starts unzoomed.
+        .id(model.pictureID)
+        // The photo takes all the height the figure and the pills leave.
+        .layoutPriority(1)
     }
 }
 
 #Preview("Light") {
     NavigationStack {
-        GridScreen(model: .forLaunch(.demo), photo: DemoPhoto.stillLife(), showGrid: {}, showFullScreen: {})
+        GridScreen(model: .forLaunch(.demo), picture: DemoPhoto.stillLife(), actions: .preview)
     }
     .tint(SbuTheme.accentGrid)
 }
 
 #Preview("Dark") {
     NavigationStack {
-        GridScreen(model: .forLaunch(.demo), photo: DemoPhoto.stillLife(), showGrid: {}, showFullScreen: {})
+        GridScreen(model: .forLaunch(.demo), picture: DemoPhoto.stillLife(), actions: .preview)
     }
     .tint(SbuTheme.accentGrid)
     .preferredColorScheme(.dark)

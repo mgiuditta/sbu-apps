@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@ %@, %@ celle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@, %3$@ cells"
+          }
+        }
+      }
+    },
     "%@ per %@" : {
       "localizations" : {
         "en" : {
@@ -91,6 +101,96 @@
         }
       }
     },
+    "%lld × %lld pixel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld × %2$lld pixels"
+          }
+        }
+      }
+    },
+    "%lld × %lld pixel, come la foto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld × %2$lld pixels, like the photo."
+          }
+        }
+      }
+    },
+    "A3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A3"
+          }
+        }
+      }
+    },
+    "A4" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A4"
+          }
+        }
+      }
+    },
+    "A5" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A5"
+          }
+        }
+      }
+    },
+    "Allarga" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enlarge"
+          }
+        }
+      }
+    },
+    "Altezza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Anteprima del foglio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sheet preview"
+          }
+        }
+      }
+    },
     "Anteprima della griglia" : {
       "localizations" : {
         "en" : {
@@ -107,6 +207,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opening the photo"
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
           }
         }
       }
@@ -131,6 +241,16 @@
         }
       }
     },
+    "Cella" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cell"
+          }
+        }
+      }
+    },
     "Celle" : {
       "localizations" : {
         "en" : {
@@ -147,6 +267,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Square cells"
+          }
+        }
+      }
+    },
+    "Centimetri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centimeters"
           }
         }
       }
@@ -201,6 +331,26 @@
         }
       }
     },
+    "Condividi il PDF in scala" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share the PDF to scale"
+          }
+        }
+      }
+    },
+    "Condividi l'immagine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share the image"
+          }
+        }
+      }
+    },
     "Diagonali" : {
       "localizations" : {
         "en" : {
@@ -211,12 +361,52 @@
         }
       }
     },
+    "Esporta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export"
+          }
+        }
+      }
+    },
+    "Esportazione non riuscita. Riprova." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export failed. Try again."
+          }
+        }
+      }
+    },
     "Fine" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        }
+      }
+    },
+    "Foglio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sheet"
+          }
+        }
+      }
+    },
+    "Formato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format"
           }
         }
       }
@@ -241,12 +431,32 @@
         }
       }
     },
+    "Foto non consentita" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photos not allowed"
+          }
+        }
+      }
+    },
     "Griglia" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Grid"
+          }
+        }
+      }
+    },
+    "Il ritaglio ha la forma del foglio: sposta e ridimensiona il riquadro sulla parte da disegnare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The crop has the sheet's shape: move and resize the frame over the part you want to draw."
           }
         }
       }
@@ -271,6 +481,36 @@
         }
       }
     },
+    "Larghezza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Width"
+          }
+        }
+      }
+    },
+    "Lato della cella" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cell side"
+          }
+        }
+      }
+    },
+    "Letter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letter"
+          }
+        }
+      }
+    },
     "Linee" : {
       "localizations" : {
         "en" : {
@@ -287,6 +527,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No photo"
+          }
+        }
+      }
+    },
+    "Nessuno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Non salvata. Riprova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not saved. Try again"
           }
         }
       }
@@ -321,12 +581,102 @@
         }
       }
     },
+    "Orientamento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orientation"
+          }
+        }
+      }
+    },
+    "Orizzontale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Landscape"
+          }
+        }
+      }
+    },
+    "PDF in scala" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PDF to scale"
+          }
+        }
+      }
+    },
+    "Per salvare, consenti a Sbu Grid di aggiungere foto in Impostazioni. Sbu Grid aggiunge soltanto: non legge la tua libreria." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To save, allow Sbu Grid to add photos in Settings. Sbu Grid only adds: it doesn't read your library."
+          }
+        }
+      }
+    },
+    "Per un PDF in scala scegli un formato in Foglio." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For a PDF to scale, choose a format in Sheet."
+          }
+        }
+      }
+    },
+    "Personalizzato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        }
+      }
+    },
+    "Pollici" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inches"
+          }
+        }
+      }
+    },
+    "Preparazione dell'esportazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preparing the export"
+          }
+        }
+      }
+    },
     "Questo file non è una foto che iPhone sa leggere. Scegline un'altra." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This file isn't a photo iPhone can read. Choose another one."
+          }
+        }
+      }
+    },
+    "Restringi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shrink"
           }
         }
       }
@@ -351,6 +701,86 @@
         }
       }
     },
+    "Righe e colonne vengono dal foglio: %@ celle. Se il foglio non ne contiene un numero intero, l'ultima riga e l'ultima colonna sono più strette, come quando righi il foglio dall'angolo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rows and columns come from the sheet: %@ cells. If the sheet doesn't hold a whole number of them, the last row and column are narrower, as when you rule the sheet from its corner."
+          }
+        }
+      }
+    },
+    "Ripristina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
+    },
+    "Ritaglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crop"
+          }
+        }
+      }
+    },
+    "Ritaglia la foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crop the photo"
+          }
+        }
+      }
+    },
+    "Ritaglio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crop"
+          }
+        }
+      }
+    },
+    "Salva in Foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save to Photos"
+          }
+        }
+      }
+    },
+    "Salvata in Foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved to Photos"
+          }
+        }
+      }
+    },
+    "Salvataggio in Foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saving to Photos"
+          }
+        }
+      }
+    },
     "Sbu Grid" : {
       "localizations" : {
         "en" : {
@@ -362,12 +792,32 @@
       },
       "extractionState" : "manual"
     },
+    "Sbu Grid in scala.pdf" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Grid to scale.pdf"
+          }
+        }
+      }
+    },
     "Sbu Grid vede solo la foto che scegli, non la tua libreria." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Grid sees only the photo you choose, not your library."
+          }
+        }
+      }
+    },
+    "Sbu Grid.jpg" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Grid.jpg"
           }
         }
       }
@@ -422,12 +872,92 @@
         }
       }
     },
+    "Senza foglio ritagli la foto come vuoi e scegli righe e colonne in Griglia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without a sheet, you crop the photo as you like and choose rows and columns in Grid."
+          }
+        }
+      }
+    },
     "Spessore" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thickness"
+          }
+        }
+      }
+    },
+    "Sposta a destra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move right"
+          }
+        }
+      }
+    },
+    "Sposta a sinistra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move left"
+          }
+        }
+      }
+    },
+    "Sposta in alto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move up"
+          }
+        }
+      }
+    },
+    "Sposta in basso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move down"
+          }
+        }
+      }
+    },
+    "Un foglio di %@. Stampalo al 100%%, senza adattarlo alla pagina: ogni cella misura %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A %1$@ sheet. Print it at 100%%, without fitting it to the page: each cell measures %2$@."
+          }
+        }
+      }
+    },
+    "Unità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unit"
+          }
+        }
+      }
+    },
+    "Verticale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portrait"
           }
         }
       }

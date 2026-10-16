@@ -1,31 +1,51 @@
 import SbuKit
 import SwiftUI
 
-/// The tools under the photo, in DrawinGrid's order: grid settings, full screen.
+/// The tools under the photo, in DrawinGrid's order: grid settings, the sheet and its crop,
+/// full screen.
 ///
-/// A word beside each symbol, so nothing needs explaining; at large text sizes the pills wrap
-/// onto a second row instead of cutting their words.
+/// Two equal pills a row, a word beside each symbol so nothing needs explaining: four words do
+/// not fit one row on any iPhone, and two tidy rows read better than a ragged wrap. At large
+/// text sizes the words wrap inside their pill.
 struct GridPills: View {
-    let showGrid: () -> Void
-    let showFullScreen: () -> Void
+    let actions: GridActions
 
     var body: some View {
-        PillsLayout(spacing: SbuTheme.space2) {
-            Button("Griglia", systemImage: "square.grid.3x3", action: showGrid)
-            Button("Schermo intero", systemImage: "arrow.up.left.and.arrow.down.right", action: showFullScreen)
+        Grid(horizontalSpacing: SbuTheme.space2, verticalSpacing: SbuTheme.space2) {
+            GridRow {
+                pill("Griglia", systemImage: "square.grid.3x3", action: actions.showGrid)
+                pill("Foglio", systemImage: "crop", action: actions.showPaper)
+            }
+            GridRow {
+                pill("Schermo intero", systemImage: "arrow.up.left.and.arrow.down.right", action: actions.showFullScreen)
+                    .gridCellColumns(2)
+            }
+        }
+        // Never squeezed by the photo, which takes the height first.
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private func pill(_ title: LocalizedStringResource, systemImage: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label {
+                Text(title)
+            } icon: {
+                Image(systemName: systemImage)
+            }
+            .frame(maxWidth: .infinity)
         }
         .buttonStyle(SbuFieldPillStyle())
     }
 }
 
 #Preview("Light") {
-    GridPills(showGrid: {}, showFullScreen: {})
+    GridPills(actions: .preview)
         .padding(SbuTheme.space4)
         .background(SbuTheme.surface)
 }
 
 #Preview("Dark") {
-    GridPills(showGrid: {}, showFullScreen: {})
+    GridPills(actions: .preview)
         .padding(SbuTheme.space4)
         .background(SbuTheme.surface)
         .preferredColorScheme(.dark)

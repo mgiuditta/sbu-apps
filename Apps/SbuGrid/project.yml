@@ -30,6 +30,8 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Grid
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.graphics-design
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        # Saving the gridded photo only adds to Photos; the picker needs no permission. English in InfoPlist.xcstrings.
+        INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "Sbu Grid aggiunge a Foto solo la foto con la griglia che salvi. Non legge la tua libreria."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

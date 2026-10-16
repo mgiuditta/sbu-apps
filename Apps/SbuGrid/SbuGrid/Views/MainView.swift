@@ -6,7 +6,7 @@ import SwiftUI
 /// choose one.
 ///
 /// As in DrawinGrid: the menu at the top left (here settings), the photo filling the screen,
-/// the grid tools beside it (here in a row under it).
+/// the grid tools beside it (here in a row under it), a new photo and the export at the top right.
 struct MainView: View {
     @Environment(\.showSettings) private var showSettings
 
@@ -26,8 +26,10 @@ struct MainView: View {
                         .tint(SbuTheme.ink)
                 }
                 if model.photo != nil {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
                         Button("Cambia foto", systemImage: "photo.on.rectangle.angled", action: choosePhoto)
+                            .tint(SbuTheme.ink)
+                        Button("Esporta", systemImage: "square.and.arrow.up", action: showExport)
                             .tint(SbuTheme.ink)
                     }
                 }
@@ -52,6 +54,10 @@ struct MainView: View {
                 switch sheet {
                 case .grid:
                     GridSettingsView(model: model)
+                case .paper:
+                    PaperView(model: model)
+                case .export:
+                    ExportView(model: model)
                 }
             }
             .fullScreenCover(isPresented: $isFullScreen) {
@@ -60,8 +66,8 @@ struct MainView: View {
     }
 
     @ViewBuilder private var content: some View {
-        if let photo = model.photo {
-            GridScreen(model: model, photo: photo, showGrid: showGrid, showFullScreen: showFullScreen)
+        if let picture = model.picture {
+            GridScreen(model: model, picture: picture, actions: GridActions(showGrid: showGrid, showPaper: showPaper, showFullScreen: showFullScreen))
         } else {
             EmptyPhotoView(choosePhoto: choosePhoto)
         }
@@ -75,6 +81,14 @@ private extension MainView {
 
     func showGrid() {
         sheet = .grid
+    }
+
+    func showPaper() {
+        sheet = .paper
+    }
+
+    func showExport() {
+        sheet = .export
     }
 
     func showFullScreen() {

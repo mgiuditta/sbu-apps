@@ -9,9 +9,9 @@ struct FullScreenView: View {
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            if let photo = model.photo {
+            if let picture = model.picture {
                 ZoomablePicture(aspect: model.pictureSize, label: "Foto con la griglia", value: model.count.spoken) {
-                    GridPicture(image: photo, settings: model.settings, rule: model.cellRule)
+                    GridPicture(image: picture, settings: model.settings, rule: model.cellRule)
                 }
                 .ignoresSafeArea()
             }

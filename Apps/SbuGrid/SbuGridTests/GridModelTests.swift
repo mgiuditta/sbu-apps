@@ -26,10 +26,10 @@ struct GridModelTests {
 
     @Test func opensAPhotoAndKeepsIt() async throws {
         let model = makeModel()
-        let before = model.photoID
+        let before = model.pictureID
         await model.open(TestImage.data(width: 1200, height: 1600))
         #expect(model.photo?.width == 1200)
-        #expect(model.photoID != before)
+        #expect(model.pictureID != before)
         #expect(model.isOpening == false)
         #expect(model.openError == nil)
         // Default grid: 4 square columns of 300 pixels, 1600 / 300 = 6 rows.
@@ -50,11 +50,11 @@ struct GridModelTests {
     @Test func dataThatIsNotAPhotoSaysSoAndKeepsThePreviousPhoto() async {
         let model = makeModel()
         await model.open(TestImage.data(width: 100, height: 100))
-        let id = model.photoID
+        let id = model.pictureID
         await model.open(Data("nope".utf8))
         #expect(model.openError == .unreadable)
         #expect(model.photo?.width == 100)
-        #expect(model.photoID == id)
+        #expect(model.pictureID == id)
     }
 
     @Test func dismissingTheAlertForgetsTheError() async {
@@ -90,9 +90,9 @@ struct GridModelTests {
     @Test func showingAPhotoStartsZoomOver() {
         let model = GridModel(photoStore: nil, stateStore: nil)
         model.show(TestImage.make(width: 10, height: 10))
-        let first = model.photoID
+        let first = model.pictureID
         model.show(TestImage.make(width: 10, height: 10))
-        #expect(model.photoID != first)
+        #expect(model.pictureID != first)
     }
 
     @Test func aModelWithoutStoresKeepsNothing() async {

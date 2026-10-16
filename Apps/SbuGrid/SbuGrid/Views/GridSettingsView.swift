@@ -14,9 +14,9 @@ struct GridSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                if let photo = model.photo {
+                if let picture = model.picture {
                     Section {
-                        GridPicture(image: photo, settings: model.settings, rule: model.cellRule)
+                        GridPicture(image: picture, settings: model.settings, rule: model.cellRule)
                             .frame(maxWidth: .infinity, maxHeight: SbuTheme.controlRoundLg * 2)
                             .accessibilityElement()
                             .accessibilityLabel(Text("Anteprima della griglia"))

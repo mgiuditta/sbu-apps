@@ -2,13 +2,15 @@ import CoreGraphics
 import Foundation
 import Observation
 
-/// The photo being drawn and the grid over it, kept between launches.
+/// The photo being drawn, its crop to the sheet and the grid over it, kept between launches.
 @Observable
 final class GridModel {
     /// The photo as chosen, already turned upright and shrunk to a workable size.
     private(set) var photo: CGImage?
-    /// Changes with every new photo, so zoom and crop start over.
-    private(set) var photoID = UUID()
+    /// The part of the photo the grid covers: the crop, or the whole photo.
+    private(set) var picture: CGImage?
+    /// Changes with every new photo or crop, so the zoom starts over.
+    private(set) var pictureID = UUID()
     /// While a chosen photo downloads from iCloud or decodes.
     private(set) var isOpening = false
     /// Why the last photo did not open, until the alert is dismissed.
@@ -28,29 +30,53 @@ final class GridModel {
         didSet { saveState() }
     }
 
+    /// The sheet: a new shape crops the photo again, centred, to that shape.
+    var paper: PaperSettings {
+        didSet {
+            if paper.aspectRatio != oldValue.aspectRatio, paper.format.isSheet {
+                setCrop(CropGeometry.fitted(aspect: paper.aspectRatio, imageSize: photoSize))
+            } else {
+                saveState()
+            }
+        }
+    }
+
+    /// The crop in unit coordinates; `nil` for the whole photo. Set it with `setCrop(_:)`.
+    private(set) var crop: CGRect?
+
     @ObservationIgnored private let photoStore: PhotoStore?
     @ObservationIgnored private let stateStore: StateStore?
 
     /// - Parameters:
     ///   - photoStore: Where the photo is kept; `nil` keeps it only while the app runs.
-    ///   - stateStore: Where the grid choices are kept; `nil` keeps them only while the app runs.
+    ///   - stateStore: Where the choices and the crop are kept; `nil` keeps them only while the app runs.
     ///   - photo: A photo to start with instead of the kept one, for previews and tests.
     init(photoStore: PhotoStore? = .standard, stateStore: StateStore? = StateStore(), photo: CGImage? = nil) {
         self.photoStore = photoStore
         self.stateStore = stateStore
         let state = stateStore?.load() ?? GridState()
         settings = state.settings
+        paper = state.paper
+        crop = state.crop.flatMap(CropGeometry.sanitized)
         self.photo = photo ?? photoStore?.load()
+        updatePicture()
     }
 
-    /// The size of the picture the grid covers, in pixels.
-    var pictureSize: CGSize {
+    /// The size of the whole photo, in pixels.
+    var photoSize: CGSize {
         guard let photo else { return .zero }
         return CGSize(width: photo.width, height: photo.height)
     }
 
+    /// The size of the picture the grid covers, in pixels.
+    var pictureSize: CGSize {
+        guard let picture else { return .zero }
+        return CGSize(width: picture.width, height: picture.height)
+    }
+
+    /// Cells from the sheet when there is one, from the grid settings otherwise.
     var cellRule: CellRule {
-        settings.cellRule
+        paper.cellRule ?? settings.cellRule
     }
 
     /// The grid on the picture at its pixel size: the counts the figure shows.
@@ -81,14 +107,37 @@ final class GridModel {
         }
     }
 
-    /// Shows a photo already decoded, such as the demo one, without keeping it.
+    /// Shows a photo already decoded, such as the demo one, without keeping it; a sheet crops it
+    /// at once, centred.
     func show(_ image: CGImage) {
         photo = image
-        photoID = UUID()
+        setCrop(paper.format.isSheet ? CropGeometry.fitted(aspect: paper.aspectRatio, imageSize: photoSize) : nil)
+    }
+
+    /// Crops the photo to `rect`, in unit coordinates; `nil` or a rectangle that makes no sense
+    /// shows the whole photo.
+    func setCrop(_ rect: CGRect?) {
+        crop = rect.flatMap(CropGeometry.sanitized)
+        updatePicture()
+        saveState()
+    }
+
+    private func updatePicture() {
+        pictureID = UUID()
+        guard let photo else {
+            picture = nil
+            return
+        }
+        guard let crop else {
+            picture = photo
+            return
+        }
+        // Cropping shares the photo's pixels: it costs nothing.
+        picture = photo.cropping(to: CropGeometry.pixelRect(crop, imageSize: photoSize)) ?? photo
     }
 
     private func saveState() {
-        stateStore?.save(GridState(settings: settings))
+        stateStore?.save(GridState(settings: settings, paper: paper, crop: crop))
     }
 
     @concurrent

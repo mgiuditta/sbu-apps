@@ -171,6 +171,29 @@ final class FindFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testHelpAtTheTopRightSaysTheLimitsAndOpensFindMy() throws {
+        let app = launch()
+        let help = app.navigationBars.buttons["Aiuto"]
+        XCTAssertTrue(help.waitForExistence(timeout: 5))
+        XCTAssertGreaterThan(help.frame.midX, app.frame.midX)
+
+        help.tap()
+
+        XCTAssertTrue(app.staticTexts["Per ritrovarlo"].waitForExistence(timeout: 5))
+        try audit(app, excluding: Self.sheetExclusions)
+        let findMy = app.buttons["Apri Dov'è"]
+        for _ in 0..<5 where !findMy.isHittable {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(findMy.isHittable)
+        XCTAssertTrue(app.staticTexts["Se hai perso un solo AirPod"].exists)
+        try audit(app, excluding: Self.sheetExclusions)
+
+        app.buttons["Fine"].tap()
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testDeniedBluetoothSaysSoAndOffersSettings() throws {
         let app = launch(scanner: "denied")
         XCTAssertTrue(app.staticTexts["Bluetooth non consentito"].waitForExistence(timeout: 5))

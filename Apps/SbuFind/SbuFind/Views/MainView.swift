@@ -3,12 +3,15 @@ import SwiftUI
 
 /// The nearby devices, strongest signal first; or why Bluetooth cannot scan.
 ///
-/// As in Find Air: settings at the top left, the list, a scan button. The scan never stops while
-/// the app is open; Cerca di nuovo forgets the list and listens from scratch.
+/// As in Find Air: settings at the top left, help at the top right, the list, a scan button.
+/// The scan never stops while the app is open; Cerca di nuovo forgets the list and listens
+/// from scratch.
 struct MainView: View {
     @Environment(\.showSettings) private var showSettings
 
     let model: ScanModel
+
+    @State private var isShowingHelp = false
 
     private var isSearching: Bool {
         model.state == .ready && model.devices.isEmpty && model.hiddenUnnamedCount == 0
@@ -65,7 +68,20 @@ struct MainView: View {
                 Button("Impostazioni", systemImage: "gearshape", action: showSettings.callAsFunction)
                     .tint(SbuTheme.ink)
             }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Aiuto", systemImage: "questionmark", action: showHelp)
+                    .tint(SbuTheme.ink)
+            }
         }
+        .sheet(isPresented: $isShowingHelp) {
+            HelpView()
+        }
+    }
+}
+
+private extension MainView {
+    func showHelp() {
+        isShowingHelp = true
     }
 }
 

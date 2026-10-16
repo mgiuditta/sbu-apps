@@ -11,6 +11,16 @@
         }
       }
     },
+    "A Qui vicino guarda sotto i cuscini, nelle borse e nelle tasche delle giacche." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At Very close, look under cushions, in bags and in jacket pockets."
+          }
+        }
+      }
+    },
     "Accendilo dal Centro di Controllo o in Impostazioni, poi torna qui." : {
       "localizations" : {
         "en" : {
@@ -21,12 +31,52 @@
         }
       }
     },
+    "AirPods nella custodia chiusa: non trasmettono finché la custodia è chiusa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AirPods in a closed case: they do not transmit while the case is closed."
+          }
+        }
+      }
+    },
+    "Aiuto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        }
+      }
+    },
     "Altoparlante" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Speaker"
+          }
+        }
+      }
+    },
+    "Apre l'app Dov'è di Apple" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens Apple's Find My app"
+          }
+        }
+      }
+    },
+    "Apri Dov'è" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Find My"
           }
         }
       }
@@ -121,6 +171,16 @@
         }
       }
     },
+    "Cammina piano e fermati qualche secondo: il numero ha bisogno di un attimo per assestarsi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walk slowly and stop for a few seconds: the number needs a moment to settle."
+          }
+        }
+      }
+    },
     "Cerca di nuovo" : {
       "localizations" : {
         "en" : {
@@ -141,12 +201,32 @@
         }
       }
     },
+    "Cosa Sbu Find non sente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What Sbu Find cannot hear"
+          }
+        }
+      }
+    },
     "Cuffie" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Headphones"
+          }
+        }
+      }
+    },
+    "Cuffie che usano solo il Bluetooth classico e non il Bluetooth Low Energy." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Headphones that use only classic Bluetooth, not Bluetooth Low Energy."
           }
         }
       }
@@ -181,6 +261,16 @@
         }
       }
     },
+    "Fine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
     "Freddo" : {
       "localizations" : {
         "en" : {
@@ -191,12 +281,32 @@
         }
       }
     },
+    "Gira su te stesso e tieni l'iPhone davanti a te: il tuo corpo e i muri abbassano il segnale." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn around and hold your iPhone in front of you: your body and walls weaken the signal."
+          }
+        }
+      }
+    },
     "Il Bluetooth per Sbu Find è bloccato da Tempo di utilizzo o da un profilo. Chiedi a chi gestisce questo iPhone." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bluetooth for Sbu Find is blocked by Screen Time or a profile. Ask whoever manages this iPhone."
+          }
+        }
+      }
+    },
+    "Il dispositivo deve essere acceso e fuori dalla custodia: Sbu Find sente solo quello che trasmette." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The device must be on and out of its case: Sbu Find only hears what is transmitting."
           }
         }
       }
@@ -241,6 +351,16 @@
         }
       }
     },
+    "Oltre una decina di metri, e meno tra muri e metallo. Il numero dice quanto è forte il segnale, non quanto è lontano." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beyond about ten metres, and less through walls and metal. The number says how strong the signal is, not how far away the device is."
+          }
+        }
+      }
+    },
     "Orologio o braccialetto" : {
       "localizations" : {
         "en" : {
@@ -251,12 +371,42 @@
         }
       }
     },
+    "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare, mostra dove li hai lasciati e li trova anche lontano. Sbu Find non fa suonare nulla e non vede la rete Dov'è." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For AirPods, Apple Watch, iPhone, iPad and AirTag use Apple's Find My: it plays a sound on them, shows where you left them and finds them even far away. Sbu Find plays no sound on anything and cannot see the Find My network."
+          }
+        }
+      }
+    },
+    "Per ritrovarlo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To find it"
+          }
+        }
+      }
+    },
     "Per sentire i dispositivi vicini, consenti il Bluetooth a Sbu Find in Impostazioni. Quello che sente resta sull'iPhone." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "To hear nearby devices, allow Bluetooth for Sbu Find in Settings. What it hears stays on your iPhone."
+          }
+        }
+      }
+    },
+    "Prodotti Apple" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple products"
           }
         }
       }
@@ -297,6 +447,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Find"
+          }
+        }
+      }
+    },
+    "Se hai perso un solo AirPod" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you lost a single AirPod"
           }
         }
       }
@@ -387,6 +547,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "It comes back by itself in a few seconds."
+          }
+        }
+      }
+    },
+    "Un AirPod trasmette solo fuori dalla custodia e con un po' di carica. In Dov'è puoi farlo suonare da solo, uno alla volta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An AirPod transmits only out of its case and with some charge left. In Find My you can play a sound on it alone, one at a time."
+          }
+        }
+      }
+    },
+    "Un dispositivo spento o con la batteria scarica." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A device that is off or has a flat battery."
           }
         }
       }

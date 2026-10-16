@@ -31,6 +31,13 @@ struct FixedScannerTests {
         #expect(FixedScanner.requested(in: defaults)?.state == .ready)
     }
 
+    @Test func emptyMeansReadyWithNoDevice() throws {
+        defaults.set("empty", forKey: "FIXED_SCANNER")
+        let scanner = try #require(FixedScanner.requested(in: defaults))
+        #expect(scanner.state == .ready)
+        #expect(scanner.devices.isEmpty)
+    }
+
     @Test func anUnknownArgumentUsesTheRealScanner() {
         defaults.set("bogus", forKey: "FIXED_SCANNER")
         #expect(FixedScanner.requested(in: defaults) == nil)

@@ -48,6 +48,22 @@ nonisolated enum DeviceKind: String, CaseIterable, Sendable {
         }
     }
 
+    /// What the row says under the name.
+    var name: LocalizedStringResource {
+        switch self {
+        case .earbuds: "Auricolari"
+        case .headphones: "Cuffie"
+        case .watch: "Orologio o braccialetto"
+        case .laptop: "Computer portatile"
+        case .phone: "Telefono"
+        case .tablet: "Tablet"
+        case .speaker: "Altoparlante"
+        case .keyboard: "Tastiera"
+        case .mouse: "Mouse"
+        case .other: "Dispositivo Bluetooth"
+        }
+    }
+
     /// The SF Symbol drawn in the row and on the finder.
     var systemImage: String {
         switch self {

@@ -25,12 +25,85 @@ final class FindFlowTests: XCTestCase {
         return app
     }
 
+    /// The footer under the list: the system caps section footers below the largest sizes and
+    /// the audit reports them as "partially unsupported", as in Settings itself.
+    private static let hiddenFooter = "Dispositivi senza nome nascosti: 3. Puoi mostrarli in Impostazioni."
+
     @MainActor
-    private func audit(_ app: XCUIApplication, excluding excluded: XCUIAccessibilityAuditType = screenExclusions) throws {
+    private func audit(
+        _ app: XCUIApplication,
+        excluding excluded: XCUIAccessibilityAuditType = screenExclusions,
+        systemFooters: Set<String> = [hiddenFooter]
+    ) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(excluded)) { issue in
+            if issue.auditType == .dynamicType, let label = issue.element?.label, systemFooters.contains(label) {
+                return true
+            }
             XCTFail("\(issue.compactDescription):\(issue.element?.debugDescription ?? "no element")")
             return true
         }
+    }
+
+    /// The rows in the order they are on screen, by their combined VoiceOver labels.
+    @MainActor
+    private func rowLabels(_ app: XCUIApplication) -> [String] {
+        devices(app).allElementsBoundByIndex.map(\.label)
+    }
+
+    @MainActor
+    private func devices(_ app: XCUIApplication) -> XCUIElementQuery {
+        app.descendants(matching: .any).matching(identifier: "device")
+    }
+
+    @MainActor
+    func testTheListShowsNamedDevicesStrongestFirstAndPassesTheAudit() throws {
+        let app = launch()
+        let first = devices(app).firstMatch
+        XCTAssertTrue(first.waitForExistence(timeout: 5))
+
+        let labels = rowLabels(app)
+        XCTAssertEqual(labels.count, 6, "\(labels)")
+        XCTAssertTrue(labels[0].hasPrefix("Buds Pro"), labels[0])
+        XCTAssertTrue(labels[0].contains("Auricolari"), labels[0])
+        XCTAssertTrue(labels[0].contains("Qui vicino"), labels[0])
+        XCTAssertTrue(labels[1].hasPrefix("WH-1000XM5"), labels[1])
+        XCTAssertTrue(labels[5].hasPrefix("Mi Band 8"), labels[5])
+        XCTAssertTrue(labels[5].contains("Freddo"), labels[5])
+        XCTAssertTrue(app.staticTexts["Dispositivi senza nome nascosti: 3. Puoi mostrarli in Impostazioni."].exists)
+        XCTAssertTrue(app.buttons["Cerca di nuovo"].exists)
+        try audit(app)
+    }
+
+    @MainActor
+    func testSearchAgainEmptiesTheListAndHearsTheDevicesAgain() throws {
+        let app = launch()
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+
+        app.buttons["Cerca di nuovo"].tap()
+
+        // The fixed devices advertise four times a second: the list fills again at the next refresh.
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertEqual(rowLabels(app).count, 6)
+    }
+
+    @MainActor
+    func testNoDeviceYetSaysTheSearchIsRunning() throws {
+        let app = launch(scanner: "empty")
+        XCTAssertTrue(app.staticTexts["Ricerca in corso"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Cerca di nuovo"].exists)
+        try audit(app)
+    }
+
+    @MainActor
+    func testTheGearAtTheTopLeftOpensSettings() throws {
+        let app = launch()
+        let gear = app.navigationBars.buttons["Impostazioni"]
+        XCTAssertTrue(gear.waitForExistence(timeout: 5))
+        XCTAssertLessThan(gear.frame.midX, app.frame.midX)
+
+        gear.tap()
+
+        XCTAssertTrue(app.buttons["Fine"].waitForExistence(timeout: 5))
     }
 
     @MainActor

@@ -11,7 +11,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Find", slug: "find", accent: SbuTheme.accentFind, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Find", slug: "find", accent: SbuTheme.accentFind, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
             MainView(model: model)
         } settings: {
             EmptyView()

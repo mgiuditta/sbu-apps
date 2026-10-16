@@ -19,13 +19,16 @@ final class FixedScanner: BluetoothScanner {
         demo(nil, rssi: -94, id: 9),
     ]
 
-    /// The scanner a launch asks for: `-FIXED_SCANNER demo` for the demo devices, or a state
+    /// The scanner a launch asks for: `-FIXED_SCANNER demo` for the demo devices, `empty` for
+    /// none, or a state
     /// such as `-FIXED_SCANNER poweredOff`; `-FASTLANE_SNAPSHOT YES` for the demo devices.
     /// `nil` on a normal launch.
     static func requested(in defaults: UserDefaults) -> FixedScanner? {
         switch defaults.string(forKey: "FIXED_SCANNER") {
         case "demo":
             FixedScanner()
+        case "empty":
+            FixedScanner(devices: [])
         case let name?:
             BluetoothState(rawValue: name).map { FixedScanner(state: $0) }
         case nil:

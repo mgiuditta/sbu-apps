@@ -11,4 +11,8 @@ nonisolated struct NearbyDevice: Identifiable, Equatable, Sendable {
     var lastSeen: Date
 
     var hasName: Bool { name != nil }
+
+    var proximity: Proximity { Proximity(rssi: rssi) }
+
+    var warmth: Warmth { Warmth(proximity: proximity) }
 }

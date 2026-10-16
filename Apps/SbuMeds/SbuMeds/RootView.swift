@@ -18,6 +18,7 @@ struct RootView: View {
             TodayView()
         } settings: {
             ReminderSection(reminders: reminders)
+            CareNoteSection()
         }
         .environment(clock)
         .onChange(of: scenePhase, initial: true) {

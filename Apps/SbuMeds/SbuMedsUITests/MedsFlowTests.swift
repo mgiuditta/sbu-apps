@@ -158,6 +158,12 @@ final class MedsFlowTests: MedsUITestCase {
         try audit(app)
         toggle.switches.firstMatch.tap()
         XCTAssertFalse(app.buttons["repeatMinutes"].waitForExistence(timeout: 2))
+
+        // No dose advice, data on the iPhone: said once, in settings.
+        let note = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Sbu Meds ti ricorda'")).firstMatch
+        XCTAssertTrue(scroll(app, to: note))
+        XCTAssertTrue(app.staticTexts["Licenze"].exists || app.buttons["Licenze"].exists)
+        try audit(app)
     }
 
     @MainActor

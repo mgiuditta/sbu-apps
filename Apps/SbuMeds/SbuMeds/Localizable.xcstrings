@@ -391,6 +391,16 @@
         }
       }
     },
+    "Da sapere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good to know"
+          }
+        }
+      }
+    },
     "Dal" : {
       "localizations" : {
         "en" : {
@@ -547,6 +557,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Medicines"
+          }
+        }
+      }
+    },
+    "Farmaci, persone e storico restano su questo iPhone: nessun server, nessun account. Se elimini l'app, li elimini con lei." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medicines, people and history stay on this iPhone: no server, no account. If you delete the app, you delete them with it."
           }
         }
       }
@@ -1587,6 +1607,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Meds"
+          }
+        }
+      }
+    },
+    "Sbu Meds ti ricorda quello che hai scritto tu. Non dà consigli su farmaci, dosi o interazioni: per quelli chiedi al medico o al farmacista." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Meds reminds you of what you wrote. It gives no advice on medicines, doses or interactions: for those, ask your doctor or pharmacist."
           }
         }
       }

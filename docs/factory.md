@@ -24,7 +24,7 @@ Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in svi
 | Sbu Find | 1.0 | in sviluppo | Sbu Find (#248) |
 | Sbu Shrink | 1.0 | pianificata, ricerca fatta | Sbu Shrink (#472) |
 | Sbu Grid | 1.0 | pianificata, ricerca fatta | Sbu Grid (#474) |
-| Sbu Tidy | 1.0 | pianificata | Sbu Tidy (#476) |
+| Sbu Tidy | 1.0 | in sviluppo su `app/tidy`: scaffold | Sbu Tidy (#476) |
 | Sbu Libretto | 1.0 | pianificata | Sbu Libretto (#478) |
 | Sbu Meds | 1.0 | pianificata, dopo Cycle | Sbu Meds (#480) |
 | Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
@@ -86,7 +86,7 @@ Uno slot a settimana dalla risposta di Apple sul lotto del 14/10; app nuove e re
 | 7 | Speed 1.1 | silent | reinvio |
 | 8 | Libretto | loop | prima della sessione invernale |
 | 9 | Fuel | silent | pronta per il test insieme |
-| 10 | Tidy | loop | da costruire |
+| 10 | Tidy | loop | in costruzione |
 | 11 | Inventory | silent | in costruzione |
 | 12 | Meds | loop | dopo Cycle |
 

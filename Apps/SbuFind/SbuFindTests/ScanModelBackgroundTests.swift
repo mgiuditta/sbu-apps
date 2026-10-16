@@ -158,6 +158,17 @@ struct ScanModelBackgroundTests {
         #expect(location.oneShots == 2)
     }
 
+    /// Without location "Sempre" no place can be read: remembering places alone follows nothing,
+    /// and the saved device gets its sighting as the app leaves.
+    @Test func withoutLocationAlwaysRememberingPlacesFollowsNothing() async throws {
+        location.allowsBackground = false
+        let model = try modelWithSavedWatch()
+        await model.setRemembersPlaces(true)
+        model.setForeground(false)
+        #expect(scanner.modes.last == .paused)
+        #expect(model.sightings.latest(id: Advertisement.testID(1)) != nil)
+    }
+
     @Test func withoutLocationAlwaysNoPlaceIsReadInTheBackground() async throws {
         location.allowsBackground = false
         let model = try modelWithSavedWatch()

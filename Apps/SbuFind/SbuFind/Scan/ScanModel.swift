@@ -228,7 +228,7 @@ final class ScanModel {
             backgroundEnteredAt = now
             location.stop()
             // Devices iOS will not report in the background are left behind: each gets its sighting.
-            let followed = Set(myDevices.filter(\.canBeFollowedInBackground).map(\.deviceID))
+            let followed = Set(BackgroundPlan.placedInBackground(saved: myDevices, placesInBackground: readsPlacesInBackground).map(\.deviceID))
             recordSightings(of: roster.devices(includingUnnamed: false).filter { !followed.contains($0.id) })
             lostAlert?.pause()
             scheduleLostDeadline(at: now)
@@ -242,7 +242,12 @@ final class ScanModel {
     }
 
     private var currentScanMode: ScanMode {
-        BackgroundPlan.scanMode(isForeground: isForeground, saved: myDevices, watchedDeviceID: watchedID, remembersPlaces: remembersPlaces)
+        BackgroundPlan.scanMode(isForeground: isForeground, saved: myDevices, watchedDeviceID: watchedID, placesInBackground: readsPlacesInBackground)
+    }
+
+    /// Ricorda dove li hai sentiti is on and location allows reading a place in the background.
+    private var readsPlacesInBackground: Bool {
+        remembersPlaces && location.allowsBackground
     }
 
     /// Sets, or moves on, the background alert for the watched device, when it can be followed.
@@ -263,7 +268,7 @@ final class ScanModel {
         // No refresh timer runs while iOS keeps the app suspended: the finder and its Live
         // Activity catch up at each report.
         refresh(at: advertisement.date)
-        guard remembersPlaces, location.allowsBackground,
+        guard readsPlacesInBackground,
               let saved = savedDevice(forDeviceID: advertisement.id),
               placeThrottle.shouldAsk(for: advertisement.id, at: advertisement.date) else { return }
         let date = advertisement.date

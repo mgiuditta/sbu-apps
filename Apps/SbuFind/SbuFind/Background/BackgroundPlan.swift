@@ -4,18 +4,28 @@ import Foundation
 ///
 /// iOS lets a background scan listen only for service UUIDs, so only your saved devices that
 /// advertise some can be followed, and only when something needs them: Avvisami se lo perdi on one
-/// of them, or Ricorda dove li hai sentiti. Everything else waits for the app to open.
+/// of them, or Ricorda dove li hai sentiti with location "Sempre", the only way to read a place
+/// in the background. Everything else waits for the app to open.
 nonisolated enum BackgroundPlan {
     /// How the scanner should listen.
-    static func scanMode(isForeground: Bool, saved: [SavedDevice], watchedDeviceID: UUID?, remembersPlaces: Bool) -> ScanMode {
+    ///
+    /// - Parameter placesInBackground: Ricorda dove li hai sentiti is on and location allows
+    ///   "Sempre".
+    static func scanMode(isForeground: Bool, saved: [SavedDevice], watchedDeviceID: UUID?, placesInBackground: Bool) -> ScanMode {
         if isForeground {
             return .foreground
         }
         let followed = saved.filter { device in
-            device.canBeFollowedInBackground && (remembersPlaces || device.deviceID == watchedDeviceID)
+            device.canBeFollowedInBackground && (placesInBackground || device.deviceID == watchedDeviceID)
         }
         let services = Set(followed.flatMap(\.serviceUUIDs)).sorted()
         return services.isEmpty ? .paused : .background(services: services)
+    }
+
+    /// The saved devices whose place is read in the background when heard: the others get their
+    /// sighting as the app goes to the background.
+    static func placedInBackground(saved: [SavedDevice], placesInBackground: Bool) -> [SavedDevice] {
+        placesInBackground ? saved.filter(\.canBeFollowedInBackground) : []
     }
 
     /// Whether Avvisami se lo perdi can keep watching this device with the app in the background:

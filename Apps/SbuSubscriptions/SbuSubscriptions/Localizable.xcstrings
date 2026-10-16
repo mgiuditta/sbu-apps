@@ -1841,6 +1841,16 @@
         }
       }
     },
+    "Notifiche disattivate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications off"
+          }
+        }
+      }
+    },
     "Notifiche spente per Sbu Subscriptions" : {
       "localizations" : {
         "en" : {
@@ -2967,6 +2977,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "VPN"
+          }
+        }
+      }
+    },
+    "Vai in Impostazioni > Notifiche > Sbu Subscriptions > Consenti notifiche." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Settings > Notifications > Sbu Subscriptions > Allow Notifications."
           }
         }
       }

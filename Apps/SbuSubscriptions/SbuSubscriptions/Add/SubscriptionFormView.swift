@@ -13,6 +13,9 @@ struct SubscriptionFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \SubscriptionCategory.order) private var categories: [SubscriptionCategory]
     @Query(sort: \SubscriptionList.order) private var lists: [SubscriptionList]
+    /// Optional: previews show the form without the app's reminders.
+    @Environment(Reminders.self) private var reminders: Reminders?
+    @Environment(\.scenePhase) private var scenePhase
     @State private var draft: SubscriptionDraft
 
     init(draft: SubscriptionDraft, currency: CurrencySettings, editing: Subscription? = nil, onSave: @escaping () -> Void) {
@@ -65,6 +68,9 @@ struct SubscriptionFormView: View {
 
             Section {
                 ReminderPicker(daysBefore: $draft.reminderDaysBefore)
+                if reminders?.access == .denied {
+                    NotificationsDeniedRow()
+                }
             }
 
             Section("Organizza") {
@@ -98,6 +104,10 @@ struct SubscriptionFormView: View {
         }
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
+        // Back from the iPhone's Settings, the warning goes as soon as notifications are on.
+        .task(id: scenePhase) {
+            if scenePhase == .active { await reminders?.refreshAccess() }
+        }
         .toolbar {
             if editing != nil {
                 ToolbarItem(placement: .cancellationAction) {

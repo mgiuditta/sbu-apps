@@ -86,14 +86,19 @@ struct MainView: View {
                 }
             }
             if subscriptions.isEmpty, received.lists.isEmpty {
-                ContentUnavailableView {
-                    Label("Nessun abbonamento", systemImage: "creditcard")
-                } description: {
-                    Text("Gli abbonamenti che aggiungi compaiono qui, con quanto spendi.")
-                } actions: {
-                    SbuButton("Aggiungi") { isAdding = true }
-                        .accessibilityIdentifier("addFirst")
+                // Scrollable, as the list under it: in a tab the audit read the fixed overlay's text as clipped.
+                ScrollView {
+                    ContentUnavailableView {
+                        Label("Nessun abbonamento", systemImage: "creditcard")
+                    } description: {
+                        Text("Gli abbonamenti che aggiungi compaiono qui, con quanto spendi.")
+                    } actions: {
+                        SbuButton("Aggiungi") { isAdding = true }
+                            .accessibilityIdentifier("addFirst")
+                    }
+                    .containerRelativeFrame(.vertical)
                 }
+                .background(SbuTheme.surface)
             }
         }
         .toolbar {

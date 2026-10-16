@@ -1,0 +1,36 @@
+{
+  "id": "1448776934",
+  "name": "Promemoria Farmaci + Tracker",
+  "developer": "Med ART Studios",
+  "bundle_id": "com.medart-studios.Care",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Medical",
+  "genres": [
+    "Medicina",
+    "Salute e benessere"
+  ],
+  "description": "Medication Reminder & Pill Log riunisce farmaci, parametri vitali, sintomi e cronologia della salute in un unico posto. Tieni sotto controllo gli orari dei farmaci con promemoria affidabili mentre registri pressione sanguigna, glicemia, frequenza cardiaca, sintomi e altro.\n\nPresentata da Apple in \"Apps We Love Right Now\", Medication Reminder & Pill Log è un diario della salute, un tracker dei farmaci e un supporto per il benessere creato dal team delle pluripremiate app Sprout, scelte dalle famiglie dal 2010. Registra i farmaci, monitora i principali parametri di salute e osserva le tendenze nel tempo. Le tue informazioni restano private e vengono sincronizzate in modo sicuro tramite iCloud.\n\nTieni sotto controllo ogni dose\n• Promemoria personalizzati e affidabili ti aiutano a seguire gli orari dei farmaci e le dosi assunte.\n\nMonitora facilmente i parametri di salute\n• Registra pressione sanguigna, glicemia, frequenza cardiaca, peso, sintomi e altro. I grafici ti aiutano a visualizzare le tendenze e i cambiamenti nei tuoi dati di salute.\n\nCondivisione con familiari e caregiver\n• Condividi in modo sicuro dati sulla salute, programmi e aggiornamenti con caregiver o familiari. Ricevi aggiornamenti in tempo reale quando i farmaci vengono assunti e le attività programmate vengono completate.\n\nReport pronti per il medico\n• Genera un riepilogo PDF dettagliato dai dati su farmaci e salute inseriti nell'app. Consulta la tua cronologia e condividi informazioni utili con il tuo medico.\n\nRegistrazione rapida con Siri e widget\n• Risparmia tempo con i widget della schermata Home e i comandi vocali. Registra i farmaci e controlla i dati sulla salute in pochi secondi.\n\nCrea più profili\n• Gestisci i profili di salute di tutta la famiglia. Organizza farmaci, parametri vitali, sintomi e altre informazioni per ogni persona.\n\nPrivacy fin dalla progettazione\n• Nessun account richiesto. I tuoi dati restano sul tuo dispositivo e si sincronizzano in modo privato tramite iCloud. Non vendiamo né condividiamo mai le tue informazioni.\n\nMonitoraggio della salute tutto in uno\n• Promemoria dei farmaci personalizzabili\n• Monitoraggio di pressione sanguigna, glicemia, frequenza cardiaca, peso, sintomi e dolore\n• Grafici e riepiloghi per osservare le tendenze nel tempo\n• Condivisione sicura con familiari e caregiver con aggiornamenti in tempo reale\n• Registrazione rapida con Siri e widget della schermata Home\n• Più profili di salute in un'unica app\n• Modalità scura per una visualizzazione confortevole\n\nUtile per monitorare:\n• Dati sulla salute correlati al diabete\n• Pressione sanguigna e ipertensione\n• Salute del cuore\n• Condizioni croniche\n• Dolore e sintomi\n• Salute e benessere generale\n\nAbbonamenti con rinnovo automatico, pagamenti e cancellazione\nSe scegli di acquistare un abbonamento Premium, il pagamento verrà addebitato sul tuo Apple ID alla conferma dell'acquisto. Gli abbonamenti si rinnovano automaticamente salvo cancellazione almeno 24 ore prima della fine del periodo corrente. Il tuo account verrà addebitato per il rinnovo nelle 24 ore precedenti la fine del periodo corrente. Puoi gestire e cancellare il tuo abbonamento in qualsiasi momento dalle impostazioni del tuo account App Store.\n\nTermini di utilizzo e Informativa sulla privacy: https://sprout-apps.com/privacy-policy.html\n\nNota: questa app non fornisce consigli medici, diagnosi o trattamenti. Consulta sempre il tuo medico per qualsiasi dubbio di natura medica.\n\nInformazioni su Sprout\nSprout crea strumenti intuitivi per salute, gravidanza, cura del bambino e fertilità. Le nostre app supportano persone e famiglie in ogni fase della vita e aiutano a mantenere le informazioni importanti organizzate e accessibili.\n\nHai bisogno di aiuto? Contattaci all'indirizzo support@sprout-apps.com.",
+  "release_notes": "Riunisci farmaci, parametri vitali, sintomi e cronologia della salute in un unico posto. Questo aggiornamento migliora l’affidabilità e mantiene fluido il monitoraggio quotidiano.\n\nNovità:\n- Miglioramenti delle prestazioni per promemoria più fluidi e affidabili\n- Correzioni generali per mantenere accurati orari dei farmaci, parametri vitali e registri di salute\n\nGrazie per affidare a Sprout il monitoraggio della tua salute. Domande o suggerimenti? Contattaci in qualsiasi momento all’indirizzo support@sprout-apps.com.",
+  "version": "8.3",
+  "current_version_release_date": "2026-10-14T20:47:02Z",
+  "rating": 5,
+  "rating_count": 1,
+  "minimum_os": "18.6",
+  "url": "https://apps.apple.com/it/app/promemoria-farmaci-tracker/id1448776934?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/11/c1/e9/11c1e91f-e094-df15-dab9-6d844ea120bb/Medication_Reminder.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cc/8b/63/cc8b63ee-625c-33c8-7cbe-14a85e13dc85/Schedule.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c3/a2/0e/c3a20e0f-3109-d00b-b558-1400d1015e23/Private.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a3/d8/84/a3d8848a-3469-16be-b81f-783ef3ed8307/Notifications.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3c/a8/db/3ca8db95-4bc8-1676-9215-c0e5344850d3/Vitals.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e1/37/90/e13790bb-e4d0-937f-a985-5b949e18b50f/Insights.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e4/1b/68/e41b6820-8f1c-f6e1-493a-8a91ebe5af3a/Trusted.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6b/01/90/6b019051-4392-81d3-ebc8-81c6953d62a1/Share.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/8f/d2/e7/8fd2e700-1344-952d-e549-a61ad1052a56/Dr._Visits.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/02/92/1d/02921d6d-2233-8197-08f2-e4920f10788d/Siri.png/320x480bb.jpg"
+  ]
+}

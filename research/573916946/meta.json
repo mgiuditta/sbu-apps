@@ -1,0 +1,33 @@
+{
+  "id": "573916946",
+  "name": "Promemoria Farmaci - Medisafe",
+  "developer": "MediSafe Inc.",
+  "bundle_id": "com.medisafe.medisafe",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Medical",
+  "genres": [
+    "Medicina",
+    "Salute e benessere"
+  ],
+  "description": "Basta dimenticarsi di cure, vitamine e pillole: questa app è la n. 1 per i farmacisti, un vero MUST in fatto di promemoria per farmaci.\n\nNon rinunciare alla sicurezza in fatto di prescrizioni mediche e integratori. Non mettere a rischio te stesso, oppure i tuoi cari, per aver dimenticato di prendere dei farmaci o aver assunto una doppia dose, perché nessuno ne ha tenuto traccia. La nostra mission è fornirti gli strumenti per ricordarti di prendere le tue pillole, oltre a fornirti assistenza e le informazioni di cui hai bisogno per seguire le tue prescrizioni in piena sicurezza.\n\nPer questo milioni di pazienti e infermieri hanno scaricato Medisafe, l’app ritenuta da tutti il miglior strumento di gestione delle prescrizioni e dei promemoria delle pillole, uno strumento indispensabile per chi ha bisogno di ricordarsi di prendere vitamine, farmaci, medicinali per la fertilità o il controllo delle nascite e altri medicamenti.\n\nEcco perché non c’è niente di meglio di Medisafe: \n• CHIARA E SEMPLICE: sistema di gestione medica facile e immediato, per coordinare al meglio i PROMEMORIA sui medicinali;\n• CONDIVISIONE DEI REPORT: puoi vedere i report sui tuoi progressi e inviarli al tuo medico o alla tua infermiera, sotto forma di PDF informativi facili da leggere;\n• INTEGRAZIONE APP HEALTH: Se disponibile, tiene traccia delle tue misurazioni e le sincronizza all'app HealthKit: glicemia, pressione sanguigna, peso, polso e temperatura.\n• INTERAZIONE CON LA FAMIGLIA: puoi sincronizzare i contenitori delle pillole di tutta la famiglia in un unico posto, in tempo reale, per gestire tutti i tuoi cari da un solo account!\n• PROMEMORIA PER LE FORNITURE: ti ricorderà di ritirare le nuove prescrizioni, quando avrai bisogno di sostituire i tuoi flaconi o blister vuoti;\n• SUPPORTA LA GESTIONE AL BISOGNO: potrai elencare le tue prescrizioni PRN (“pro re nata”, su richiesta);\n• ASSISTENZA PER INFERMIERI: aggiungi qualcuno che ti possa aiutare su Medfriend, così rimarrai sempre in carreggiata.\n\nL’upgrade a Medisafe Premium ti offrirà un’esperienza migliore, senza alcuna limitazione sul numero di profili di Medfriend, assistenti, familiari e amici, oltre all’accesso a 20 e più tipologie di analisi. Potrai anche scegliere tra una dozzina di toni per promemoria Medtone, oltre a vari temi colorati e scatolette per le pillole di forma diversa, senza avere l’assillo dei banner pubblicitari, il tutto grazie ad un comodo abbonamento con rinnovo automatico.\n\nÈ possibile gestire i propri abbonamenti andando alla sezione dedicata alle impostazioni dell’account, dopo averne effettuato l’acquisto.\n\nTermini d’uso: https://www.medisafeapp.com/terms-and-conditions/\nInformativa sulla privacy: https://medisafeapp.com/privacy-policy/\nDomande frequenti: https://www.medisafeapp.com/help/\n\nDomande su Medisafe? Manda un’e-mail a: support@medisafe.com\n\nGrazie,\nIl Team Medisafe",
+  "release_notes": "Un nuovo modo di impostare i promemoria per i farmaci! Grazie al nuovo design, sarà più facile impostare i promemoria per adattarli ai regimi prescritti per i tuoi farmaci futuri.\n\nLavoriamo incessantemente per migliorare. La versione 9.52.2 contiene correzioni di bug, miglioramenti del backend e miglioramenti basati sui tuoi feedback, sulle tue recensioni e sui tuoi suggerimenti. Invia le tue idee a support@medisafe.com.\n\nGrazie per il tuo supporto!",
+  "version": "9.52.2",
+  "current_version_release_date": "2026-09-10T22:40:31Z",
+  "rating": 4.60989,
+  "rating_count": 4686,
+  "minimum_os": "17.0",
+  "url": "https://apps.apple.com/it/app/promemoria-farmaci-medisafe/id573916946?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/ae/a2/eb/aea2ebc0-b9c4-2455-c95c-968287a5945f/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/90/63/06/90630678-784d-fb2a-919e-fae5c441dfa2/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/39/73/a5/3973a57a-5ee3-a5a9-c6ae-7c982cb5b66e/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/79/40/da/7940daaa-c590-3d4a-11bf-0ca6d5e1a910/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/0b/40/1b/0b401b22-cb98-1c9f-6415-bccf19960dc1/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/72/48/5b/72485bf7-7a53-729d-255e-4117bcf4cf4f/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/d7/a5/1e/d7a51e12-4349-5e36-caa5-c7c6bc59e8ed/pr_source.png/392x696bb.png"
+  ]
+}

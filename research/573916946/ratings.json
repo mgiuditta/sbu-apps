@@ -1,0 +1,26 @@
+{
+  "us": {
+    "trackId": 573916946,
+    "trackName": "Medisafe Medication Management",
+    "averageUserRating": 4.70859,
+    "userRatingCount": 101467,
+    "formattedPrice": "Free",
+    "version": "9.52.2",
+    "currentVersionReleaseDate": "2026-09-10T22:40:31Z",
+    "minimumOsVersion": "17.0",
+    "sellerName": "MediSafe Inc.",
+    "primaryGenreName": "Medical"
+  },
+  "it": {
+    "trackId": 573916946,
+    "trackName": "Promemoria Farmaci - Medisafe",
+    "averageUserRating": 4.60989,
+    "userRatingCount": 4686,
+    "formattedPrice": "Gratis",
+    "version": "9.52.2",
+    "currentVersionReleaseDate": "2026-09-10T22:40:31Z",
+    "minimumOsVersion": "17.0",
+    "sellerName": "MediSafe Inc.",
+    "primaryGenreName": "Medical"
+  }
+}

@@ -68,6 +68,8 @@ final class ScanModel {
     private(set) var locationDenied = false
     /// The last sighting of each device, on this iPhone only.
     private(set) var sightings: SightingLog
+    /// Whether a position can be read with the app in the background (location "Sempre").
+    private(set) var placesInBackground = false
 
     @ObservationIgnored private var roster = DeviceRoster()
     @ObservationIgnored private let scanner: any BluetoothScanner
@@ -87,6 +89,15 @@ final class ScanModel {
     @ObservationIgnored private var lostAlert: LostAlert?
     @ObservationIgnored private var watchedName: String?
     @ObservationIgnored private var watchedLastSeen: Date?
+
+    /// The app is in front. In the background only saved devices with services are heard.
+    private(set) var isForeground = true
+    @ObservationIgnored private var backgroundEnteredAt: Date?
+    /// When the background lost alert goes off unless the device is heard again.
+    @ObservationIgnored private var lostDeadline: Date?
+    @ObservationIgnored private var placeThrottle = PlaceThrottle()
+    /// The background position being read, if any: tests wait for it.
+    @ObservationIgnored private(set) var pendingPlace: Task<Void, Never>?
 
     /// - Parameters:
     ///   - scanner: Core Bluetooth unless a launch argument asks for the fixed scanner.
@@ -118,6 +129,7 @@ final class ScanModel {
         self.myDevicesStore = fixed != nil ? MyDevicesStore(url: launch.appending(path: "my-devices.json")) : myDevicesStore
         myDevices = self.myDevicesStore.load()
         remembersPlaces = defaults.bool(forKey: Self.remembersPlacesKey)
+        placesInBackground = self.location.allowsBackground
         self.defaults = defaults
         self.clock = clock
         showsUnnamed = defaults.bool(forKey: Self.showsUnnamedKey)
@@ -126,15 +138,16 @@ final class ScanModel {
         vibrates = defaults.object(forKey: Self.vibratesKey) == nil ? true : defaults.bool(forKey: Self.vibratesKey)
     }
 
-    /// Scans until the calling task is cancelled, as when the app goes to the background.
+    /// Scans for the life of the app: from launch, also a launch in the background by iOS for a
+    /// saved device, until the scanner finishes or the calling task is cancelled.
     func run() async {
-        // Each run starts from scratch: the scanner says its state first, which shows the card
-        // and starts counting the watched device's silence again.
+        // The scanner says its state first, which starts the scan's first seconds.
         state = .starting
         isRunning = true
-        if remembersPlaces {
+        if remembersPlaces, isForeground {
             location.start()
         }
+        scanner.listen(currentScanMode)
         let events = scanner.events()
         await withDiscardingTaskGroup { group in
             group.addTask {
@@ -162,7 +175,7 @@ final class ScanModel {
                 return
             }
             locationDenied = false
-            if isRunning {
+            if isRunning, isForeground {
                 location.start()
             }
         } else {
@@ -171,6 +184,90 @@ final class ScanModel {
         }
         remembersPlaces = isOn
         defaults.set(isOn, forKey: Self.remembersPlacesKey)
+    }
+
+    /// Anche con l'app chiusa: asks for location "Sempre", only when you choose it.
+    func allowPlacesInBackground() async {
+        let granted = await location.requestBackgroundAccess()
+        locationDenied = !granted
+        placesInBackground = granted
+    }
+
+    /// The app came to the front or went to the background.
+    ///
+    /// In the background the scan listens only for your saved devices with services, if Avvisami
+    /// se lo perdi or Ricorda dove li hai sentiti needs them; the lost alert becomes a notification
+    /// set for the deadline, moved on each time the device is heard. Back in front, the deadline is
+    /// cancelled and the foreground alert goes on, without repeating one already shown.
+    func setForeground(_ foreground: Bool) {
+        guard foreground != isForeground else { return }
+        let now = clock()
+        isForeground = foreground
+        activity.setBackground(!foreground)
+        if foreground {
+            backgroundEnteredAt = nil
+            notifier.cancelScheduledLost()
+            let deadlinePassed = lostDeadline.map { $0 <= now } ?? false
+            lostDeadline = nil
+            lostAlert?.resume(at: now)
+            if deadlinePassed {
+                lostAlert?.markAlerted(lastSeen: watchedLastSeen)
+            }
+            if remembersPlaces, isRunning {
+                location.start()
+            }
+        } else {
+            backgroundEnteredAt = now
+            location.stop()
+            // Devices iOS will not report in the background are left behind: each gets its sighting.
+            let followed = Set(myDevices.filter(\.canBeFollowedInBackground).map(\.deviceID))
+            recordSightings(of: roster.devices(includingUnnamed: false).filter { !followed.contains($0.id) })
+            lostAlert?.pause()
+            scheduleLostDeadline(at: now)
+        }
+        scanner.listen(currentScanMode)
+    }
+
+    /// Whether Avvisami se lo perdi keeps watching this device with the app in the background.
+    func canWatchInBackground(_ deviceID: UUID) -> Bool {
+        BackgroundPlan.canWatchInBackground(deviceID: deviceID, saved: myDevices)
+    }
+
+    private var currentScanMode: ScanMode {
+        BackgroundPlan.scanMode(isForeground: isForeground, saved: myDevices, watchedDeviceID: watchedID, remembersPlaces: remembersPlaces)
+    }
+
+    /// Sets, or moves on, the background alert for the watched device, when it can be followed.
+    private func scheduleLostDeadline(at now: Date) {
+        guard !isForeground, let watchedID, lostAlert != nil, canWatchInBackground(watchedID), let entered = backgroundEnteredAt else { return }
+        let deadline = BackgroundPlan.lostDeadline(lastSeen: watchedLastSeen, enteredBackground: entered, silence: SignalTuning.current.lostAlertBackground)
+        lostDeadline = deadline
+        notifier.scheduleLost(deviceName: watchedName ?? String(localized: "Senza nome"), at: deadline)
+    }
+
+    /// A device heard with the app in the background: it moves the lost deadline on, and, if it
+    /// is one of yours under its saved identifier, its place is read and saved.
+    private func heardInBackground(_ advertisement: Advertisement) {
+        if advertisement.id == watchedID {
+            watchedLastSeen = max(watchedLastSeen ?? advertisement.date, advertisement.date)
+            scheduleLostDeadline(at: advertisement.date)
+        }
+        // No refresh timer runs while iOS keeps the app suspended: the finder and its Live
+        // Activity catch up at each report.
+        refresh(at: advertisement.date)
+        guard remembersPlaces, location.allowsBackground,
+              let saved = savedDevice(forDeviceID: advertisement.id),
+              placeThrottle.shouldAsk(for: advertisement.id, at: advertisement.date) else { return }
+        let date = advertisement.date
+        pendingPlace = Task {
+            guard let place = await location.oneShot() else { return }
+            recordBackgroundSighting(of: saved, heardAt: date, place: place)
+        }
+    }
+
+    private func recordBackgroundSighting(of saved: SavedDevice, heardAt date: Date, place: Coordinate) {
+        sightings.record(Sighting(id: saved.deviceID, name: saved.advertisedName ?? saved.name, kind: saved.kind, date: date, place: place))
+        sightingStore.save(sightings)
     }
 
     /// Cancella le posizioni: every sighting goes, from memory and from the file.
@@ -224,6 +321,9 @@ final class ScanModel {
             }
         case .advertisement(let advertisement):
             roster.record(advertisement)
+            if !isForeground {
+                heardInBackground(advertisement)
+            }
         }
     }
 
@@ -280,7 +380,7 @@ final class ScanModel {
         notificationsDenied = false
         watchedID = id
         let device = roster.device(id: id) ?? (tracked?.device.id == id ? tracked?.device : nil)
-        watchedName = device?.name
+        watchedName = savedDevice(forDeviceID: id)?.name ?? device?.name
         watchedLastSeen = device?.lastSeen
         var alert = LostAlert(at: clock())
         if state != .ready {
@@ -294,6 +394,8 @@ final class ScanModel {
         watchedName = nil
         watchedLastSeen = nil
         lostAlert = nil
+        lostDeadline = nil
+        notifier.cancelScheduledLost()
     }
 
     private func refreshUntilCancelled() async {
@@ -407,7 +509,7 @@ final class ScanModel {
         guard let watchedID, var alert = lostAlert else { return }
         if let device = roster.device(id: watchedID) {
             watchedLastSeen = device.lastSeen
-            watchedName = device.name ?? watchedName
+            watchedName = savedDevice(forDeviceID: watchedID)?.name ?? device.name ?? watchedName
         }
         if alert.update(lastSeen: watchedLastSeen, at: now) {
             notifier.notifyLost(deviceName: watchedName ?? String(localized: "Senza nome"))

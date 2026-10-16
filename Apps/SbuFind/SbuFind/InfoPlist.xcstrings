@@ -9,6 +9,14 @@
         "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find" } }
       }
     },
+    "NSLocationAlwaysAndWhenInUseUsageDescription" : {
+      "comment" : "Why Anche con l'app chiusa asks for location Always.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "With the app closed, Sbu Find reads your location only when it hears one of your devices, to remember where you left it. The places stay on your iPhone." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Con l'app chiusa, Sbu Find legge la posizione solo quando sente uno dei tuoi dispositivi, per ricordare dove l'hai lasciato. Le posizioni restano sull'iPhone." } }
+      }
+    },
     "NSLocationWhenInUseUsageDescription" : {
       "comment" : "Why Ricorda dove li hai sentiti asks for location.",
       "extractionState" : "manual",
@@ -21,8 +29,8 @@
       "comment" : "Why the scan asks for Bluetooth.",
       "extractionState" : "manual",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find listens to nearby Bluetooth devices to help you find them. What it hears stays on your iPhone: it is never saved or sent." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find ascolta i dispositivi Bluetooth vicini per aiutarti a ritrovarli. Quello che sente resta sull'iPhone: non viene salvato né inviato." } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find listens to nearby Bluetooth devices to help you find them, also with the app closed for your saved devices. What it hears stays on your iPhone: it is never sent." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find ascolta i dispositivi Bluetooth vicini per aiutarti a ritrovarli, anche con l'app chiusa per i tuoi dispositivi salvati. Quello che sente resta sull'iPhone: non viene mai inviato." } }
       }
     }
   },

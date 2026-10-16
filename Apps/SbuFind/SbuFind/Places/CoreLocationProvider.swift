@@ -1,12 +1,19 @@
 import CoreLocation
 
 /// Follows the iPhone's position with Core Location while the app is in use, at ten-metre
-/// accuracy: enough to know which room or which street, and gentle on the battery.
+/// accuracy: enough to know which room or which street, and gentle on the battery. With location
+/// "Sempre", it also reads one position when a saved device is heard in the background.
 final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     private var accessContinuation: CheckedContinuation<Bool, Never>?
+    private var wantsAlways = false
+    private var fixContinuations: [CheckedContinuation<Coordinate?, Never>] = []
 
     private(set) var current: Coordinate?
+
+    var allowsBackground: Bool {
+        manager.authorizationStatus == .authorizedAlways
+    }
 
     override init() {
         super.init()
@@ -20,12 +27,18 @@ final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerD
         case .authorizedWhenInUse, .authorizedAlways:
             return true
         case .notDetermined:
-            // Only one question at a time: a second tap while the alert is up waits for it.
-            if accessContinuation != nil { return false }
-            return await withCheckedContinuation { continuation in
-                accessContinuation = continuation
-                manager.requestWhenInUseAuthorization()
-            }
+            return await ask(always: false)
+        default:
+            return false
+        }
+    }
+
+    func requestBackgroundAccess() async -> Bool {
+        switch manager.authorizationStatus {
+        case .authorizedAlways:
+            return true
+        case .notDetermined, .authorizedWhenInUse:
+            return await ask(always: true)
         default:
             return false
         }
@@ -39,14 +52,48 @@ final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerD
         manager.stopUpdatingLocation()
     }
 
+    func oneShot() async -> Coordinate? {
+        guard allowsBackground || manager.authorizationStatus == .authorizedWhenInUse else { return current }
+        return await withCheckedContinuation { continuation in
+            fixContinuations.append(continuation)
+            if fixContinuations.count == 1 {
+                manager.requestLocation()
+            }
+        }
+    }
+
+    /// One question at a time: a second tap while the alert is up gets `false`.
+    private func ask(always: Bool) async -> Bool {
+        if accessContinuation != nil { return false }
+        return await withCheckedContinuation { continuation in
+            accessContinuation = continuation
+            wantsAlways = always
+            if always {
+                manager.requestAlwaysAuthorization()
+            } else {
+                manager.requestWhenInUseAuthorization()
+            }
+        }
+    }
+
+    private func finishFix(_ coordinate: Coordinate?) {
+        let waiting = fixContinuations
+        fixContinuations.removeAll()
+        for continuation in waiting {
+            continuation.resume(returning: coordinate)
+        }
+    }
+
     // The manager is created on the main thread, so it calls its delegate there.
 
     nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
         MainActor.assumeIsolated {
             guard status != .notDetermined, let continuation = accessContinuation else { return }
+            // Asked for "Sempre", "Mentre usi l'app" alone is not enough for the background.
             accessContinuation = nil
-            continuation.resume(returning: status == .authorizedWhenInUse || status == .authorizedAlways)
+            let granted = wantsAlways ? status == .authorizedAlways : (status == .authorizedWhenInUse || status == .authorizedAlways)
+            continuation.resume(returning: granted)
         }
     }
 
@@ -60,10 +107,14 @@ final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerD
         )
         MainActor.assumeIsolated {
             current = coordinate
+            finishFix(coordinate)
         }
     }
 
     nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
-        // No fix yet is temporary and Core Location keeps trying; the sighting waits for one.
+        // No fix: a one-shot request gets nothing; following the position keeps trying.
+        MainActor.assumeIsolated {
+            finishFix(nil)
+        }
     }
 }

@@ -27,6 +27,11 @@ nonisolated struct HelpSection: Identifiable, Sendable {
             HelpItem(id: 2, systemImage: "headphones", text: "Cuffie che usano solo il Bluetooth classico e non il Bluetooth Low Energy."),
             HelpItem(id: 3, systemImage: "ruler", text: "Oltre una decina di metri, e meno tra muri e metallo. Il numero dice quanto è forte il segnale, non quanto è lontano."),
         ]),
+        HelpSection(id: 4, title: "Con l'app chiusa", items: [
+            HelpItem(id: 0, systemImage: "moon.zzz", text: "Con l'app chiusa iOS lascia ascoltare solo i tuoi dispositivi che trasmettono un servizio Bluetooth, e li sente meno spesso: Avvisami se lo perdi aspetta più a lungo prima di avvisarti."),
+            HelpItem(id: 1, systemImage: "airpods", text: "Gli AirPods e molte cuffie non trasmettono un servizio: si seguono solo con l'app aperta. Per loro, Dov'è di Apple fa di più."),
+            HelpItem(id: 2, systemImage: "xmark.app", text: "Se chiudi Sbu Find dal selettore delle app, si ferma tutto finché non lo riapri."),
+        ]),
         HelpSection(id: 2, title: "Se hai perso un solo AirPod", items: [
             HelpItem(id: 0, systemImage: "airpod.right", text: "Un AirPod trasmette solo fuori dalla custodia e con un po' di carica. In Dov'è puoi farlo suonare da solo, uno alla volta."),
         ]),

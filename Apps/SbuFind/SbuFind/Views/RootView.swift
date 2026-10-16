@@ -1,16 +1,13 @@
 import SbuKit
 import SwiftUI
 
-/// The app inside the standard Sbu shell. The scan runs only while the app is in the foreground.
+/// The app inside the standard Sbu shell. The scan runs for the whole life of the app; the scene
+/// phase tells it when the app is in front and when it is in the background.
 struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
-    @State private var model: ScanModel
-    @State private var ringer: HeadphoneRinger
 
-    init(model: ScanModel = ScanModel(), ringer: HeadphoneRinger = .requested(in: .standard)) {
-        _model = State(initialValue: model)
-        _ringer = State(initialValue: ringer)
-    }
+    let model: ScanModel
+    let ringer: HeadphoneRinger
 
     var body: some View {
         SbuAppShell("Sbu Find", slug: "find", accent: SbuTheme.accentFind, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
@@ -23,21 +20,33 @@ struct RootView: View {
             TuningSection(model: model)
             #endif
         }
-        .task(id: scenePhase == .active) {
-            guard scenePhase == .active else { return }
-            await model.run()
-        }
+        .onChange(of: scenePhase, initial: true, phaseChanged)
         .task {
             await ringer.followRoute()
         }
     }
+
+    /// Inactive, as under Control Center, still counts as in front: only background changes the scan.
+    private func phaseChanged() {
+        model.setForeground(scenePhase != .background)
+    }
 }
 
 #Preview("Light") {
-    RootView(model: ScanModel(scanner: FixedScanner()))
+    RootViewPreview()
 }
 
 #Preview("Dark") {
-    RootView(model: ScanModel(scanner: FixedScanner()))
+    RootViewPreview()
         .preferredColorScheme(.dark)
+}
+
+private struct RootViewPreview: View {
+    @State private var model = ScanModel(scanner: FixedScanner(), notifier: AcceptingLostNotifier(), location: FixedLocationProvider())
+    @State private var ringer = HeadphoneRinger(route: FixedAudio(), player: FixedAudio())
+
+    var body: some View {
+        RootView(model: model, ringer: ringer)
+            .task { await model.run() }
+    }
 }

@@ -12,6 +12,15 @@ struct PlacesSection: View {
         Section {
             Toggle("Ricorda dove li hai sentiti", isOn: $isOn)
 
+            if model.remembersPlaces {
+                if model.placesInBackground {
+                    Label("Anche con l'app chiusa, per i tuoi dispositivi", systemImage: "checkmark.circle")
+                        .foregroundStyle(SbuTheme.ink)
+                } else {
+                    Button("Ricorda anche con l'app chiusa", action: allowInBackground)
+                }
+            }
+
             if !model.sightings.sightings.isEmpty {
                 Button("Cancella le posizioni", role: .destructive, action: confirmForget)
                     .foregroundStyle(SbuTheme.danger)
@@ -25,12 +34,18 @@ struct PlacesSection: View {
             if model.locationDenied {
                 Label("Per ricordare le posizioni, consenti la posizione a Sbu Find in Impostazioni.", systemImage: "location.slash")
             } else {
-                Text("Quando un dispositivo non si sente più, Sbu Find salva dov'era il tuo iPhone e te lo mostra sulla mappa. Le posizioni restano su questo iPhone.")
+                Text("Quando un dispositivo non si sente più, Sbu Find salva dov'era il tuo iPhone e te lo mostra sulla mappa. Con l'app chiusa serve la posizione «Sempre», e vale solo per i tuoi dispositivi che trasmettono un servizio Bluetooth. Le posizioni restano su questo iPhone.")
             }
         }
         .onAppear(perform: syncFromModel)
         .onChange(of: isOn, switched)
         .onChange(of: model.remembersPlaces, syncFromModel)
+    }
+
+    private func allowInBackground() {
+        Task {
+            await model.allowPlacesInBackground()
+        }
     }
 
     private func confirmForget() {

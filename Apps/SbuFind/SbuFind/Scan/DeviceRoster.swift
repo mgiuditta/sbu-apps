@@ -36,6 +36,7 @@ nonisolated struct DeviceRoster: Sendable {
             if let companyID = advertisement.companyID {
                 entry.device.companyID = companyID
             }
+            entry.device.serviceUUIDs.formUnion(advertisement.serviceUUIDs.map { $0.uppercased() })
             if advertisement.hasValidRSSI {
                 entry.device.signal = entry.filter.add(advertisement.rssi)
                 entry.device.rawRSSI = advertisement.rssi
@@ -51,7 +52,8 @@ nonisolated struct DeviceRoster: Sendable {
                 signal: signal,
                 rawRSSI: advertisement.rssi,
                 lastSeen: advertisement.date,
-                companyID: advertisement.companyID
+                companyID: advertisement.companyID,
+                serviceUUIDs: Set(advertisement.serviceUUIDs.map { $0.uppercased() })
             )
             entries[advertisement.id] = Entry(device: device, filter: filter)
         }

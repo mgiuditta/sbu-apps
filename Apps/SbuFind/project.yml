@@ -24,6 +24,14 @@ targets:
     dependencies:
       - package: SbuKit
       - target: SbuFindWidget
+    info:
+      path: SbuFind/Info.plist
+      properties:
+        # Only to listen in the background for your saved devices that advertise services, for
+        # Avvisami se lo perdi and the last place; iOS relaunches the app for them.
+        UIBackgroundModes: [bluetooth-central]
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.find
@@ -33,10 +41,12 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Find
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
-        # The scan only listens to nearby devices; nothing is saved or sent. English in InfoPlist.xcstrings.
-        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: "Sbu Find ascolta i dispositivi Bluetooth vicini per aiutarti a ritrovarli. Quello che sente resta sull'iPhone: non viene salvato né inviato."
+        # The scan only listens to nearby devices; nothing is sent. English in InfoPlist.xcstrings.
+        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: "Sbu Find ascolta i dispositivi Bluetooth vicini per aiutarti a ritrovarli, anche con l'app chiusa per i tuoi dispositivi salvati. Quello che sente resta sull'iPhone: non viene mai inviato."
         # Only when Ricorda dove li hai sentiti is on; the places stay on the iPhone. English in InfoPlist.xcstrings.
         INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "Sbu Find ricorda dov'era il tuo iPhone quando ha sentito un dispositivo l'ultima volta, per mostrartelo sulla mappa. Le posizioni restano sull'iPhone."
+        # Asked only when you turn on Anche con l'app chiusa for the last place. English in InfoPlist.xcstrings.
+        INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription: "Con l'app chiusa, Sbu Find legge la posizione solo quando sente uno dei tuoi dispositivi, per ricordare dove l'hai lasciato. Le posizioni restano sull'iPhone."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

@@ -37,11 +37,17 @@ struct LostAlertRow: View {
             .padding(.vertical, SbuTheme.space3)
             .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
 
-            Group {
+            VStack(alignment: .leading, spacing: SbuTheme.space1) {
                 if model.notificationsDenied {
                     Label("Per ricevere l'avviso, consenti le notifiche a Sbu Find in Impostazioni.", systemImage: "bell.slash")
+                } else if canWatchInBackground {
+                    Label("Anche con l'app chiusa", systemImage: "checkmark.circle")
+                        .foregroundStyle(SbuTheme.ink)
+                    Text("Ti avvisa se non lo senti per \(foregroundSeconds) secondi con l'app aperta, \(backgroundSeconds) secondi con l'app chiusa. Se chiudi Sbu Find dal selettore delle app, si ferma tutto.")
                 } else {
-                    Text("Ti avvisa se non lo senti per 15 secondi mentre Sbu Find è aperto: iOS non lascia ascoltare i dispositivi Bluetooth ad app chiusa.")
+                    Label("Solo con l'app aperta", systemImage: "iphone")
+                        .foregroundStyle(SbuTheme.ink)
+                    Text("Ti avvisa se non lo senti per \(foregroundSeconds) secondi mentre Sbu Find è aperto. Con l'app chiusa iOS ascolta solo i tuoi dispositivi che trasmettono un servizio Bluetooth, e quasi mai gli AirPods.")
                 }
             }
             .font(SbuTheme.footnote)
@@ -51,6 +57,18 @@ struct LostAlertRow: View {
         .onAppear(perform: syncFromModel)
         .onChange(of: isOn, switched)
         .onChange(of: model.watchedID, syncFromModel)
+    }
+
+    private var canWatchInBackground: Bool {
+        model.canWatchInBackground(deviceID)
+    }
+
+    private var foregroundSeconds: Int {
+        Int(SignalTuning.current.lostAlertForeground)
+    }
+
+    private var backgroundSeconds: Int {
+        Int(SignalTuning.current.lostAlertBackground)
     }
 
     private func syncFromModel() {

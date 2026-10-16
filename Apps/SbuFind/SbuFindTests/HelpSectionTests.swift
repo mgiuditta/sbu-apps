@@ -23,10 +23,10 @@ struct HelpSectionTests {
         }
     }
 
-    /// The four things the map asks the help to say: how to search, what it cannot hear,
+    /// What the help says: how to search, what it cannot hear, what works with the app closed,
     /// a single AirPod, and Find My for Apple products.
     @Test func coversTheFourTopics() {
-        #expect(HelpSection.all.count == 4)
+        #expect(HelpSection.all.count == 5)
         let symbols = Set(HelpSection.all.flatMap(\.items).map(\.systemImage))
         #expect(symbols.isSuperset(of: ["airpods.chargingcase", "battery.0percent", "airpod.right", "location"]))
     }

@@ -14,6 +14,22 @@ struct LostAlertTests {
         #expect(LostAlert.silenceBeforeAlert == 15)
     }
 
+    /// The background notification already went off: back in front it is not repeated, until the
+    /// device is heard again.
+    @Test func anAlertShownInTheBackgroundIsNotRepeated() {
+        var alert = LostAlert(at: start)
+        alert.pause()
+        alert.resume(at: at(100))
+        alert.markAlerted(lastSeen: at(10))
+        let repeated = alert.update(lastSeen: at(10), at: at(200))
+        #expect(!repeated)
+        let heard = alert.update(lastSeen: at(201), at: at(201))
+        #expect(!heard)
+        #expect(alert.phase == .watching)
+        let again = alert.update(lastSeen: at(201), at: at(220))
+        #expect(again)
+    }
+
     @Test func startsWatching() {
         #expect(LostAlert(at: start).phase == .watching)
     }

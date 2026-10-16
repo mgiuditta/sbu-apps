@@ -1,12 +1,20 @@
 import CoreBluetooth
 
-/// Listens to Bluetooth Low Energy advertisements with Core Bluetooth while the app is open.
+/// Listens to Bluetooth Low Energy advertisements with Core Bluetooth.
 ///
-/// It only listens: it never connects to a device, and nothing it hears leaves the iPhone or is
-/// saved. Creating the manager asks for Bluetooth the first time.
+/// It only listens: it never connects to a device, and nothing it hears leaves the iPhone.
+/// In the foreground it hears every device, with duplicates, so the signal keeps updating. In the
+/// background iOS allows only a scan for service UUIDs, reports each device once per scan and
+/// less often: so after each report the scan starts again, to hear the device the next time it
+/// advertises. With a restore identifier, iOS relaunches the app in the background for those
+/// devices; a force-quit stops all of it until the app is opened again.
 final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDelegate {
+    /// Lets iOS relaunch the app in the background for the devices it was listening for.
+    static let restoreIdentifier = "dev.sbu.find.central"
+
     private var manager: CBCentralManager?
     private var continuation: AsyncStream<ScanEvent>.Continuation?
+    private var mode = ScanMode.foreground
 
     func events() -> AsyncStream<ScanEvent> {
         let (stream, continuation) = AsyncStream.makeStream(of: ScanEvent.self, bufferingPolicy: .bufferingNewest(512))
@@ -16,9 +24,18 @@ final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDe
         } else {
             // On the main queue, so the delegate runs on the main actor. No system alert when
             // Bluetooth is off: the screen says it and how to turn it on.
-            manager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: false])
+            manager = CBCentralManager(delegate: self, queue: nil, options: [
+                CBCentralManagerOptionShowPowerAlertKey: false,
+                CBCentralManagerOptionRestoreIdentifierKey: Self.restoreIdentifier,
+            ])
         }
         return stream
+    }
+
+    func listen(_ mode: ScanMode) {
+        guard mode != self.mode else { return }
+        self.mode = mode
+        restart()
     }
 
     func restart() {
@@ -37,8 +54,19 @@ final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDe
         let state = BluetoothState(managerState: manager.state, authorization: CBCentralManager.authorization)
         continuation?.yield(.state(state))
         guard state == .ready, continuation != nil else { return }
-        // Duplicates on, so every advertisement updates the signal, not only the first.
-        manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        scan(with: manager)
+    }
+
+    private func scan(with manager: CBCentralManager) {
+        switch mode {
+        case .foreground:
+            // Duplicates on, so every advertisement updates the signal, not only the first.
+            manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        case .background(let services):
+            manager.scanForPeripherals(withServices: services.map(CBUUID.init(string:)), options: nil)
+        case .paused:
+            manager.stopScan()
+        }
     }
 
     // The manager runs on the main queue, so it calls its delegate on the main thread.
@@ -50,6 +78,11 @@ final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDe
                 stateChanged(manager)
             }
         }
+    }
+
+    nonisolated func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
+        // Relaunched in the background for a saved device: the scan in the restored state goes
+        // on, and the model sets the mode again as soon as it runs.
     }
 
     nonisolated func centralManager(
@@ -68,6 +101,11 @@ final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDe
         )
         MainActor.assumeIsolated {
             _ = continuation?.yield(.advertisement(advertisement))
+            // In the background each scan reports a device once: start again for the next time.
+            if case .background = mode, let manager {
+                manager.stopScan()
+                scan(with: manager)
+            }
         }
     }
 }

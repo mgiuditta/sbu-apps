@@ -91,6 +91,26 @@
         }
       }
     },
+    "Anche con l'app chiusa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also with the app closed"
+          }
+        }
+      }
+    },
+    "Anche con l'app chiusa, per i tuoi dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also with the app closed, for your devices"
+          }
+        }
+      }
+    },
     "Annulla" : {
       "localizations" : {
         "en" : {
@@ -291,6 +311,26 @@
         }
       }
     },
+    "Con l'app chiusa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With the app closed"
+          }
+        }
+      }
+    },
+    "Con l'app chiusa iOS lascia ascoltare solo i tuoi dispositivi che trasmettono un servizio Bluetooth, e li sente meno spesso: Avvisami se lo perdi aspetta più a lungo prima di avvisarti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With the app closed, iOS only lets Sbu Find listen to your devices that advertise a Bluetooth service, and hears them less often: Notify me if I lose it waits longer before alerting you."
+          }
+        }
+      }
+    },
     "Cosa Sbu Find non sente" : {
       "localizations" : {
         "en" : {
@@ -427,6 +467,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn around and hold your iPhone in front of you: your body and walls weaken the signal."
+          }
+        }
+      }
+    },
+    "Gli AirPods e molte cuffie non trasmettono un servizio: si seguono solo con l'app aperta. Per loro, Dov'è di Apple fa di più." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AirPods and many headphones do not advertise a service: they can only be followed with the app open. For them, Apple's Find My does more."
           }
         }
       }
@@ -731,12 +781,12 @@
         }
       }
     },
-    "Quando un dispositivo non si sente più, Sbu Find salva dov'era il tuo iPhone e te lo mostra sulla mappa. Le posizioni restano su questo iPhone." : {
+    "Quando un dispositivo non si sente più, Sbu Find salva dov'era il tuo iPhone e te lo mostra sulla mappa. Con l'app chiusa serve la posizione «Sempre», e vale solo per i tuoi dispositivi che trasmettono un servizio Bluetooth. Le posizioni restano su questo iPhone." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "When a device can no longer be heard, Sbu Find saves where your iPhone was and shows it to you on a map. The places stay on this iPhone."
+            "value" : "When a device can no longer be heard, Sbu Find saves where your iPhone was and shows it on a map. With the app closed it needs location \"Always\", and works only for your devices that advertise a Bluetooth service. The places stay on this iPhone."
           }
         }
       }
@@ -787,6 +837,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Searching"
+          }
+        }
+      }
+    },
+    "Ricorda anche con l'app chiusa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remember also with the app closed"
           }
         }
       }
@@ -851,12 +911,22 @@
         }
       }
     },
-    "Sbu Find non lo sente da 15 secondi: forse l'hai lasciato indietro. Torna sui tuoi passi e cercalo." : {
+    "Sbu Find non lo sente più: forse l'hai lasciato indietro. Torna sui tuoi passi e cercalo." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sbu Find has not heard it for 15 seconds: you may have left it behind. Retrace your steps and look for it."
+            "value" : "Sbu Find can no longer hear it: you may have left it behind. Retrace your steps and look for it."
+          }
+        }
+      }
+    },
+    "Se chiudi Sbu Find dal selettore delle app, si ferma tutto finché non lo riapri." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you close Sbu Find from the app switcher, everything stops until you open it again."
           }
         }
       }
@@ -931,6 +1001,16 @@
         }
       }
     },
+    "Solo con l'app aperta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only with the app open"
+          }
+        }
+      }
+    },
     "Spesso sono telefoni, computer e accessori dei vicini. Mostrali se quello che cerchi non ha un nome." : {
       "localizations" : {
         "en" : {
@@ -981,12 +1061,22 @@
         }
       }
     },
-    "Ti avvisa se non lo senti per 15 secondi mentre Sbu Find è aperto: iOS non lascia ascoltare i dispositivi Bluetooth ad app chiusa." : {
+    "Ti avvisa se non lo senti per %lld secondi con l'app aperta, %lld secondi con l'app chiusa. Se chiudi Sbu Find dal selettore delle app, si ferma tutto." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "It alerts you when the device is not heard for 15 seconds while Sbu Find is open: iOS does not let apps listen to Bluetooth devices once closed."
+            "value" : "It alerts you when the device is not heard for %lld seconds with the app open, %lld seconds with the app closed. If you close Sbu Find from the app switcher, everything stops."
+          }
+        }
+      }
+    },
+    "Ti avvisa se non lo senti per %lld secondi mentre Sbu Find è aperto. Con l'app chiusa iOS ascolta solo i tuoi dispositivi che trasmettono un servizio Bluetooth, e quasi mai gli AirPods." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It alerts you when the device is not heard for %lld seconds while Sbu Find is open. With the app closed, iOS only listens to your devices that advertise a Bluetooth service, almost never AirPods."
           }
         }
       }

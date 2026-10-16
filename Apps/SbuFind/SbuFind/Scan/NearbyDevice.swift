@@ -14,6 +14,8 @@ nonisolated struct NearbyDevice: Identifiable, Equatable, Sendable {
     /// The maker from the manufacturer data, when the device sends it: it tells apart two
     /// devices with the same name.
     var companyID: UInt16?
+    /// Every service UUID it has advertised: what a background scan can ask iOS to listen for.
+    var serviceUUIDs: Set<String> = []
 
     var hasName: Bool { name != nil }
 

@@ -43,6 +43,13 @@ nonisolated struct LostAlert: Equatable, Sendable {
         lastSeenAtAlert = nil
     }
 
+    /// The background alert went off while the app was away: back in front it is not repeated
+    /// until the device is heard again.
+    mutating func markAlerted(lastSeen: Date?) {
+        phase = .alerted
+        lastSeenAtAlert = lastSeen ?? listeningSince
+    }
+
     /// Takes in the device's last advertisement and returns `true` exactly when the alert should go off.
     mutating func update(lastSeen: Date?, at now: Date) -> Bool {
         switch phase {

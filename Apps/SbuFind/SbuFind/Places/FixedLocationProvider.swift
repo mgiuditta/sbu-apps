@@ -7,15 +7,23 @@ final class FixedLocationProvider: LocationProvider {
 
     var current: Coordinate?
     var allowsAccess: Bool
+    var allowsBackground: Bool
     private(set) var isRunning = false
+    private(set) var oneShots = 0
 
-    init(current: Coordinate? = FixedLocationProvider.demo, allowsAccess: Bool = true) {
+    init(current: Coordinate? = FixedLocationProvider.demo, allowsAccess: Bool = true, allowsBackground: Bool = false) {
         self.current = current
         self.allowsAccess = allowsAccess
+        self.allowsBackground = allowsBackground
     }
 
     func requestAccess() async -> Bool {
         allowsAccess
+    }
+
+    func requestBackgroundAccess() async -> Bool {
+        allowsBackground = allowsAccess
+        return allowsBackground
     }
 
     func start() {
@@ -24,5 +32,10 @@ final class FixedLocationProvider: LocationProvider {
 
     func stop() {
         isRunning = false
+    }
+
+    func oneShot() async -> Coordinate? {
+        oneShots += 1
+        return current
     }
 }

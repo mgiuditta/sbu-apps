@@ -302,7 +302,9 @@ final class FindFlowTests: XCTestCase {
         let alert = app.switches["Avvisami se lo perdi"]
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
         XCTAssertEqual(alert.value as? String, "0")
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Ti avvisa se non lo senti per 15 secondi'")).firstMatch.exists)
+        // A device not saved, without services: honest about the app having to stay open.
+        XCTAssertTrue(app.staticTexts["Solo con l'app aperta"].exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Ti avvisa se non lo senti per 15 secondi mentre Sbu Find è aperto'")).firstMatch.exists)
 
         alert.switches.firstMatch.tap()
         let on = NSPredicate(format: "value == '1'")

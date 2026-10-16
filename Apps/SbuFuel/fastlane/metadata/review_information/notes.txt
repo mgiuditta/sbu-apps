@@ -1,0 +1,10 @@
+No account. Sbu Fuel has no server and makes no network calls: no analytics, ads or tracking. Data stays on the device.
+
+To review without your own fuel-ups:
+1. On the first screen tap "Try with sample data". It adds a sample car with a history of fuel-ups.
+2. At the top you see the average consumption, worked out from full tank to full tank. Below: spending, charts and maintenance.
+3. Tap + to log a fuel-up with the odometer, the quantity and the price.
+
+Notifications are optional and local, only for maintenance reminders the user sets.
+
+How it differs from the other Sbu apps: it is the only one that tracks fuel consumption and vehicle costs.

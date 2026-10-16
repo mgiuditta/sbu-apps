@@ -1,0 +1,10 @@
+No account. Sbu Inventory has no server and makes no network calls: no analytics, ads or tracking. Items and photos stay on the device.
+
+To review without your own items:
+1. On the first screen tap "Try a sample". It adds sample folders and items.
+2. At the top you see the total of things you own. Open a folder to see what it holds; tap an item for its photos, quantity and fields.
+3. Tap + to add an item with a photo from the camera or the photo library.
+
+The camera is used for item photos and to find an item by a barcode or QR code already on it. Notifications are optional and local, for the "to buy again" reminder.
+
+How it differs from the other Sbu apps: it is the only one that catalogs the things you own, with photos, folders and quantities.

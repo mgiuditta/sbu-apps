@@ -1,14 +1,134 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "Algoritmi e strutture dati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algorithms and Data Structures"
+          }
+        }
+      }
+    },
+    "Analisi matematica I" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculus I"
+          }
+        }
+      }
+    },
+    "Analisi matematica II" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculus II"
+          }
+        }
+      }
+    },
+    "Basi di dati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Databases"
+          }
+        }
+      }
+    },
+    "Fisica I" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Physics I"
+          }
+        }
+      }
+    },
+    "Fondamenti di informatica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduction to Programming"
+          }
+        }
+      }
+    },
+    "Geometria e algebra lineare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linear Algebra and Geometry"
+          }
+        }
+      }
+    },
+    "Ingegneria del software" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Software Engineering"
+          }
+        }
+      }
+    },
+    "Lingua inglese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "English"
+          }
+        }
+      }
+    },
+    "Reti di calcolatori" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computer Networks"
+          }
+        }
+      }
+    },
     "Sbu Libretto" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Libretto" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Libretto"
+          }
+        }
+      }
+    },
+    "Sistemi operativi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operating Systems"
+          }
+        }
       }
     },
     "Valore" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Value"
+          }
+        }
       }
     }
   },

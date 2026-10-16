@@ -1,0 +1,30 @@
+{
+  "id": "1508298774",
+  "name": "DrawinGrid",
+  "developer": "BUTTERFLYRAY LIMITED",
+  "bundle_id": "com.butterflyray.DrawingGrid",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Photo & Video",
+  "genres": [
+    "Foto e video",
+    "Produttività"
+  ],
+  "description": "DrawinGrid is a drawing companion and project manager built for artists who work from reference photos. Overlay an adjustable grid on any image, size and position it exactly how you need, and use it to keep proportions and perspective accurate as you sketch — on paper or digitally.\n\nBeyond the grid tool, DrawinGrid helps you manage your art from first reference to finished piece, so your projects, progress, and portfolio all live in one place.\n\nGRID & REFERENCE TOOLS\n- Load and crop any reference image\n- Adjustable grid settings — size, spacing, and style to match your workflow\n- Full-screen zoom and drag for close, accurate work\n- Export and save your gridded reference for later or for printing\n\nTRACING\n- AR Sketch — float your reference over the camera view and trace it\n  straight onto paper\n- Trace on Screen — draw over your reference on the screen with a finger\n  or stylus\n- Move, pinch and zoom the reference to line it up exactly where you want it\n- Undo and redo every stroke while you work\n- Export your finished tracing to save, share, or add to a project\n\nPROJECT MANAGEMENT\n- Organize your artwork into a personal project library\n- Track project timelines and hours spent, piece by piece\n- Sync and store your projects securely in the cloud\n\n\nAI-ASSISTED WORKFLOW\n- Let AI suggest project titles so you can spend less time naming files and more time drawing\n\n\nSHARE YOUR WORK\n- Publish a public gallery to showcase finished pieces\n- Optionally list and mark artwork as sold to share your work with buyers\n\n\nWhether you're a hobbyist filling a sketchbook or a working artist managing a full slate of commissions, DrawinGrid gives you the drawing aids and the organization to see every project through.\n\nSome features, including cloud sync, AI-assisted tools, and the public gallery, require an account and are intended for users aged 13 and over. In-app purchases are available for these pro features.\n\nEULA: https://drawinggrid.app/eula.html",
+  "release_notes": "What's New in 3.4.0\n• New brushes: pencil, marker, ink and airbrush\n• Redesigned color picker with bigger swatches and custom colors\n• Change your account email\n• Sync indicator fixes\n• Replace reference image",
+  "version": "3.4.0",
+  "current_version_release_date": "2026-09-19T21:50:37Z",
+  "rating": 4.73332,
+  "rating_count": 135,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/it/app/drawingrid/id1508298774?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/c5/fe/08/c5fe084e-7332-03dd-7ddf-b6f5906adacf/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/df/e4/74/dfe47482-fd9d-3490-d772-1ff1cec10447/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/62/09/db/6209db40-d283-1b5d-fabd-bc69f8bd03b4/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4a/0a/07/4a0a0774-3006-67c7-bfe0-9a9ab6a74229/pr_source.png/392x696bb.png"
+  ]
+}

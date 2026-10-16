@@ -1,4 +1,5 @@
 import CoreLocation
+import UIKit
 
 /// Follows the iPhone's position with Core Location while the app is in use, at ten-metre
 /// accuracy: enough to know which room or which street, and gentle on the battery. With location
@@ -7,6 +8,8 @@ final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerD
     private let manager = CLLocationManager()
     private var accessContinuation: CheckedContinuation<Bool, Never>?
     private var wantsAlways = false
+    /// Waits for the "Sempre" question to be answered when no status change may say so.
+    private var answerWatch: Task<Void, Never>?
     private var fixContinuations: [CheckedContinuation<Coordinate?, Never>] = []
 
     private(set) var current: Coordinate?
@@ -65,6 +68,7 @@ final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerD
     /// One question at a time: a second tap while the alert is up gets `false`.
     private func ask(always: Bool) async -> Bool {
         if accessContinuation != nil { return false }
+        let upgrading = always && manager.authorizationStatus == .authorizedWhenInUse
         return await withCheckedContinuation { continuation in
             accessContinuation = continuation
             wantsAlways = always
@@ -73,7 +77,34 @@ final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerD
             } else {
                 manager.requestWhenInUseAuthorization()
             }
+            if upgrading {
+                watchForAnswer()
+            }
         }
+    }
+
+    /// From "Mentre usi l'app", iOS asks for "Sempre" at most once, and keeping "Mentre usi l'app"
+    /// changes no status: no delegate call would ever answer. The question makes the app inactive;
+    /// once it is active again, with no question up, the status says the answer.
+    private func watchForAnswer() {
+        answerWatch = Task {
+            // Time for the question to come up.
+            try? await Task.sleep(for: .seconds(1))
+            while !Task.isCancelled, UIApplication.shared.applicationState != .active {
+                try? await Task.sleep(for: .milliseconds(300))
+            }
+            finishAccess(status: manager.authorizationStatus)
+        }
+    }
+
+    private func finishAccess(status: CLAuthorizationStatus) {
+        answerWatch?.cancel()
+        answerWatch = nil
+        guard let continuation = accessContinuation else { return }
+        accessContinuation = nil
+        // Asked for "Sempre", "Mentre usi l'app" alone is not enough for the background.
+        let granted = wantsAlways ? status == .authorizedAlways : (status == .authorizedWhenInUse || status == .authorizedAlways)
+        continuation.resume(returning: granted)
     }
 
     private func finishFix(_ coordinate: Coordinate?) {
@@ -89,11 +120,8 @@ final class CoreLocationProvider: NSObject, LocationProvider, CLLocationManagerD
     nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
         MainActor.assumeIsolated {
-            guard status != .notDetermined, let continuation = accessContinuation else { return }
-            // Asked for "Sempre", "Mentre usi l'app" alone is not enough for the background.
-            accessContinuation = nil
-            let granted = wantsAlways ? status == .authorizedAlways : (status == .authorizedWhenInUse || status == .authorizedAlways)
-            continuation.resume(returning: granted)
+            guard status != .notDetermined else { return }
+            finishAccess(status: status)
         }
     }
 

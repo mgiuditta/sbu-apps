@@ -53,8 +53,10 @@ struct MainView: View {
             }
             ForEach(HomeSections.groups(groups.active, by: grouping)) { group in
                 if grouping == .status {
-                    Section(group.title) {
+                    Section {
                         rows(group.subscriptions, today: today)
+                    } header: {
+                        SortHeader(title: group.title, sort: $sort)
                     }
                 } else {
                     Section {

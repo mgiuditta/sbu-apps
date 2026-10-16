@@ -37,6 +37,28 @@ final class GroupingFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testSortFromTheActiveHeader() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
+        app.launch()
+
+        let sort = app.buttons["sort"]
+        for _ in 0..<3 where !sort.exists || !sort.isHittable { app.swipeUp() }
+        XCTAssertEqual(sort.value as? String, "Prossimo")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Rinnova tra")).firstMatch.exists,
+                      "Rows say when they renew")
+        sort.tap()
+        app.buttons["Nome"].tap()
+        XCTAssertEqual(sort.value as? String, "Nome")
+        try audit(app)
+
+        // Put the order back, so the other tests find the usual rows.
+        sort.tap()
+        app.buttons["Prossimo pagamento"].tap()
+        XCTAssertEqual(sort.value as? String, "Prossimo")
+    }
+
+    @MainActor
     private func audit(_ app: XCUIApplication) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
             if issue.auditType == .textClipped, let label = issue.element?.label, label == label.uppercased() { return true }

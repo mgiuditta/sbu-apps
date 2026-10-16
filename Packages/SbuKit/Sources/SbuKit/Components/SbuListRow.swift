@@ -51,28 +51,20 @@ public struct SbuListRow: View {
     }
 
     public var body: some View {
-        LabeledContent {
-            // Under the title at the accessibility sizes, so it lines up with it.
-            VStack(alignment: dynamicTypeSize.isAccessibilitySize ? .leading : .trailing, spacing: 0) {
-                if let amount {
-                    Text(amount)
-                        .font(SbuTheme.smallNumberFont(size: amountSize))
-                        .foregroundStyle(SbuTheme.ink)
-                }
-
-                if let status {
-                    Text(status)
-                        .font(SbuTheme.footnote)
-                        .foregroundStyle(statusTone.color)
-                }
-            }
-        } label: {
+        // Not a `LabeledContent`: in a list it stacked the figure under a two-line subtitle at the
+        // default text size. Side by side here, the text wrapping first; stacked only at the
+        // accessibility sizes, where the figure goes under the title so it lines up with it.
+        let isStacked = dynamicTypeSize.isAccessibilitySize
+        let layout = isStacked
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: SbuTheme.space1))
+            : AnyLayout(HStackLayout(spacing: SbuTheme.space2))
+        layout {
             // Not a `Label`: outside a `List` it aligns the icon to the title's first line, so the
             // tile sat high next to a two-line title and subtitle. Centred here in and out of lists.
             HStack(spacing: SbuTheme.space3) {
                 // At the accessibility sizes the tile grew to a third of the row and broke the title
                 // mid-word; the title says it all, so the text gets the whole width instead.
-                if !dynamicTypeSize.isAccessibilitySize {
+                if !isStacked {
                     Image(systemName: systemImage)
                         .fontWeight(.medium)
                         .imageScale(.medium)
@@ -94,6 +86,23 @@ public struct SbuListRow: View {
                 }
                 .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            VStack(alignment: isStacked ? .leading : .trailing, spacing: 0) {
+                if let amount {
+                    Text(amount)
+                        .font(SbuTheme.smallNumberFont(size: amountSize))
+                        .foregroundStyle(SbuTheme.ink)
+                }
+
+                if let status {
+                    Text(status)
+                        .font(SbuTheme.footnote)
+                        .foregroundStyle(statusTone.color)
+                }
+            }
+            // The figure keeps its width; the title and subtitle wrap instead.
+            .fixedSize(horizontal: !isStacked, vertical: false)
         }
         .listRowInsets(EdgeInsets(top: SbuTheme.space3, leading: SbuTheme.space4, bottom: SbuTheme.space3, trailing: SbuTheme.space4))
         .listRowBackground(SbuTheme.surfaceRaised)

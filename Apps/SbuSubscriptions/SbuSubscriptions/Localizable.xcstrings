@@ -1441,12 +1441,42 @@
         }
       }
     },
+    "La prova finisce domani · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends tomorrow · %@"
+          }
+        }
+      }
+    },
     "La prova finisce oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trial ends today"
+          }
+        }
+      }
+    },
+    "La prova finisce oggi · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends today · %@"
+          }
+        }
+      }
+    },
+    "La prova finisce tra ^[%lld giorno](inflect: true) · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trial ends in ^[%lld day](inflect: true) · %@"
           }
         }
       }
@@ -2241,6 +2271,16 @@
         }
       }
     },
+    "Prossimo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
     "Prossimo pagamento" : {
       "localizations" : {
         "en" : {
@@ -2457,6 +2497,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove list"
+          }
+        }
+      }
+    },
+    "Rinnova domani · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews tomorrow · %@"
+          }
+        }
+      }
+    },
+    "Rinnova oggi · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews today · %@"
+          }
+        }
+      }
+    },
+    "Rinnova tra ^[%lld giorno](inflect: true) · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renews in ^[%lld day](inflect: true) · %@"
           }
         }
       }

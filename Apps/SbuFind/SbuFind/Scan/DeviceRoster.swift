@@ -33,6 +33,9 @@ nonisolated struct DeviceRoster: Sendable {
             if kind != .other {
                 entry.device.kind = kind
             }
+            if let companyID = advertisement.companyID {
+                entry.device.companyID = companyID
+            }
             if advertisement.hasValidRSSI {
                 entry.device.signal = entry.filter.add(advertisement.rssi)
             }
@@ -45,7 +48,8 @@ nonisolated struct DeviceRoster: Sendable {
                 name: advertisement.name,
                 kind: DeviceKind(advertisement: advertisement),
                 signal: signal,
-                lastSeen: advertisement.date
+                lastSeen: advertisement.date,
+                companyID: advertisement.companyID
             )
             entries[advertisement.id] = Entry(device: device, filter: filter)
         }

@@ -18,18 +18,33 @@ struct MainView: View {
     private var isSearching: Bool {
         // Behind the card while it is up: it already says the search is running.
         model.state == .ready && model.devices.isEmpty && model.hiddenUnnamedCount == 0 && !model.scanCard.isVisible
-            && (!model.remembersPlaces || model.recentSightings.isEmpty)
+            && (!model.remembersPlaces || model.recentSightings.isEmpty) && model.myDevices.isEmpty
     }
 
     var body: some View {
         List {
-            // One card per device, as in Find Air.
+            // Yours first, as in Wunderfind; one card per device, as in Find Air.
+            ForEach(model.myDevices) { saved in
+                Section {
+                    MyDeviceLink(saved: saved, heard: model.myMatches[saved.id])
+                        .listRowBackground(SbuTheme.surfaceRaised)
+                } header: {
+                    if saved.id == model.myDevices.first?.id {
+                        Text("I miei dispositivi")
+                    }
+                }
+            }
+
             ForEach(model.devices) { device in
                 Section {
                     NavigationLink(value: device.id) {
                         DeviceRow(device: device)
                     }
                     .listRowBackground(SbuTheme.surfaceRaised)
+                } header: {
+                    if !model.myDevices.isEmpty, device.id == model.devices.first?.id {
+                        Text("Altri dispositivi")
+                    }
                 }
             }
 

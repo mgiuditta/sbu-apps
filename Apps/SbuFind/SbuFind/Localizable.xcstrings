@@ -41,6 +41,16 @@
         }
       }
     },
+    "Aggiungi ai miei dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to my devices"
+          }
+        }
+      }
+    },
     "AirPods nella custodia chiusa: non trasmettono finché la custodia è chiusa." : {
       "localizations" : {
         "en" : {
@@ -67,6 +77,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Speaker"
+          }
+        }
+      }
+    },
+    "Altri dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other devices"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         }
       }
@@ -381,6 +411,16 @@
         }
       }
     },
+    "I miei dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My devices"
+          }
+        }
+      }
+    },
     "Il Bluetooth per Sbu Find è bloccato da Tempo di utilizzo o da un profilo. Chiedi a chi gestisce questo iPhone." : {
       "localizations" : {
         "en" : {
@@ -397,6 +437,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The device must be on and out of its case: Sbu Find only hears what is transmitting."
+          }
+        }
+      }
+    },
+    "Il mio dispositivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My device"
           }
         }
       }
@@ -477,6 +527,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No headphones connected to your iPhone: Play a sound only works with connected Bluetooth headphones."
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Non nelle vicinanze" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not nearby"
           }
         }
       }
@@ -611,6 +681,16 @@
         }
       }
     },
+    "Resta in cima alla lista, anche quando non lo senti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It stays at the top of the list, even when it is not heard."
+          }
+        }
+      }
+    },
     "Ricerca in corso" : {
       "localizations" : {
         "en" : {
@@ -637,6 +717,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remember where you heard them"
+          }
+        }
+      }
+    },
+    "Rinomina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "Salva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         }
       }
@@ -797,6 +897,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Warm"
+          }
+        }
+      }
+    },
+    "Togli dai miei dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from my devices"
           }
         }
       }

@@ -12,6 +12,9 @@ struct FinderFigure: View {
 
     private var contextText: Text {
         guard let tracked else { return Text(Warmth.cold.name) }
+        if tracked.silence > TrackedDevice.longAgo {
+            return Text("Non nelle vicinanze")
+        }
         if tracked.isLost {
             let silence = tracked.silenceDuration.formatted(.units(allowed: [.minutes, .seconds], width: .abbreviated))
             return Text("Non sentito da \(silence)")

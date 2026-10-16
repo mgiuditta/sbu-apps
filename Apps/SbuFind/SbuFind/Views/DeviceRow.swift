@@ -7,6 +7,8 @@ struct DeviceRow: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let device: NearbyDevice
+    /// Your name for it, when it is one of your devices.
+    var savedName: String?
 
     @ScaledMetric(relativeTo: .headline) private var ringSide = SbuTheme.controlRound
 
@@ -19,7 +21,7 @@ struct DeviceRow: View {
             }
 
             VStack(alignment: .leading, spacing: SbuTheme.space1) {
-                DeviceName(name: device.name)
+                DeviceName(name: savedName ?? device.name)
                     .font(SbuTheme.headline)
                     .foregroundStyle(SbuTheme.ink)
 

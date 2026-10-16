@@ -16,12 +16,103 @@ struct ScanModelTests {
 
     let activity = FakeSearchActivity()
 
+    let mineStore = MyDevicesStore(url: URL.temporaryDirectory.appending(path: "mine-\(UUID().uuidString).json"))
+
     private func makeModel() -> ScanModel {
-        ScanModel(scanner: scanner, notifier: notifier, location: location, sightingStore: store, activity: activity, defaults: defaults, clock: clock.read)
+        ScanModel(scanner: scanner, notifier: notifier, location: location, sightingStore: store, activity: activity, myDevicesStore: mineStore, defaults: defaults, clock: clock.read)
     }
 
     private func reopen() -> ScanModel {
-        ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), location: FixedLocationProvider(), sightingStore: store, activity: NoSearchActivity(), defaults: defaults)
+        ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), location: FixedLocationProvider(), sightingStore: store, activity: NoSearchActivity(), myDevicesStore: mineStore, defaults: defaults)
+    }
+
+    @Test func aSavedDeviceMovesToTheTopWithYourNameAndIsKept() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(device: 1, name: "Buds Pro")))
+        model.handle(.advertisement(.fixture(device: 2, name: "Altro")))
+        model.refresh(at: Advertisement.start)
+        let buds = try #require(model.devices.first { $0.name == "Buds Pro" })
+
+        model.saveDevice(buds, name: "Le mie cuffie")
+
+        #expect(model.myDevices.map(\.name) == ["Le mie cuffie"])
+        #expect(model.myMatches[model.myDevices[0].id]?.id == buds.id)
+        #expect(model.devices.map(\.name) == ["Altro"])
+        #expect(reopen().myDevices.map(\.name) == ["Le mie cuffie"])
+    }
+
+    @Test func savingTheSameDeviceTwiceKeepsOne() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture()))
+        model.refresh(at: Advertisement.start)
+        let device = try #require(model.devices.first)
+        model.saveDevice(device, name: "A")
+        model.saveDevice(device, name: "B")
+        #expect(model.myDevices.map(\.name) == ["A"])
+    }
+
+    @Test func aSavedDeviceUnderANewIdentifierIsFoundAndRemembered() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(device: 1, name: "Buds Pro")))
+        model.refresh(at: Advertisement.start)
+        try model.saveDevice(#require(model.devices.first), name: "Mie")
+
+        // iOS rotates the identifier: the old one goes silent, a new one says the same name.
+        model.handle(.advertisement(.fixture(device: 7, name: "Buds Pro", after: 20)))
+        model.refresh(at: Advertisement.start.addingTimeInterval(20))
+
+        #expect(model.myMatches[model.myDevices[0].id]?.id == Advertisement.testID(7))
+        #expect(model.myDevices[0].deviceID == Advertisement.testID(7))
+        #expect(reopen().myDevices[0].deviceID == Advertisement.testID(7))
+        #expect(model.devices.isEmpty)
+    }
+
+    @Test func aSavedDeviceNotHeardStaysListedAndOpensAsNotNear() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(device: 1, name: "Buds Pro")))
+        model.refresh(at: Advertisement.start)
+        try model.saveDevice(#require(model.devices.first), name: "Mie")
+        model.refresh(at: Advertisement.start.addingTimeInterval(30))
+
+        #expect(model.myDevices.count == 1)
+        #expect(model.myMatches.isEmpty)
+
+        let fresh = reopen()
+        fresh.track(Advertisement.testID(1))
+        let tracked = try #require(fresh.tracked)
+        #expect(tracked.silence > TrackedDevice.longAgo)
+        #expect(fresh.savedDevice(forDeviceID: Advertisement.testID(1))?.name == "Mie")
+    }
+
+    @Test func renameAndForget() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture()))
+        model.refresh(at: Advertisement.start)
+        try model.saveDevice(#require(model.devices.first), name: "A")
+        let id = model.myDevices[0].id
+
+        model.renameDevice(id, to: "  B  ")
+        #expect(model.myDevices[0].name == "B")
+
+        model.forgetDevice(id)
+        #expect(model.myDevices.isEmpty)
+        #expect(model.devices.count == 1)
+        #expect(reopen().myDevices.isEmpty)
+    }
+
+    @Test func theFinderFollowsASavedDeviceToItsNewIdentifier() throws {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(device: 1, name: "Buds Pro", rssi: -80)))
+        model.refresh(at: Advertisement.start)
+        try model.saveDevice(#require(model.devices.first), name: "Mie")
+        model.track(Advertisement.testID(1))
+
+        model.handle(.advertisement(.fixture(device: 7, name: "Buds Pro", rssi: -45, after: 20)))
+        model.refresh(at: Advertisement.start.addingTimeInterval(20))
+
+        let tracked = try #require(model.tracked)
+        #expect(tracked.device.id == Advertisement.testID(7))
+        #expect(!tracked.isLost)
     }
 
     @Test func openingTheFinderStartsTheLiveActivityAndLeavingEndsIt() {

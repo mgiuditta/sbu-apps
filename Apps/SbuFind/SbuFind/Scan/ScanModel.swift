@@ -18,8 +18,12 @@ final class ScanModel {
     static let recentWindow: TimeInterval = 24 * 60 * 60
 
     private(set) var state = BluetoothState.starting
-    /// The devices on screen, strongest signal first.
+    /// The other devices on screen, strongest signal first: yours are in `myDevices`.
     private(set) var devices: [NearbyDevice] = []
+    /// Your saved devices, in the order you saved them.
+    private(set) var myDevices: [SavedDevice]
+    /// The device heard now for each of your saved devices, by saved device id.
+    private(set) var myMatches: [UUID: NearbyDevice] = [:]
     /// Devices heard but left out because they have no name.
     private(set) var hiddenUnnamedCount = 0
     /// The device on the finder, kept after it falls silent so the finder can say for how long.
@@ -71,6 +75,7 @@ final class ScanModel {
     @ObservationIgnored private let sightingStore: SightingStore
     @ObservationIgnored private var recorder = SightingRecorder()
     @ObservationIgnored private let activity: any SearchActivityPresenter
+    @ObservationIgnored private let myDevicesStore: MyDevicesStore
     @ObservationIgnored private var activityPlan = SearchActivityPlan()
     @ObservationIgnored private var isRunning = false
     @ObservationIgnored private let defaults: UserDefaults
@@ -95,6 +100,7 @@ final class ScanModel {
         location: (any LocationProvider)? = nil,
         sightingStore: SightingStore = SightingStore(),
         activity: (any SearchActivityPresenter)? = nil,
+        myDevicesStore: MyDevicesStore = MyDevicesStore(),
         defaults: UserDefaults = .standard,
         clock: @escaping () -> Date = { .now }
     ) {
@@ -102,9 +108,14 @@ final class ScanModel {
         self.scanner = scanner ?? fixed ?? CoreBluetoothScanner()
         self.notifier = notifier ?? (fixed != nil ? AcceptingLostNotifier() : UserNotificationLostNotifier())
         self.location = location ?? (fixed != nil ? FixedLocationProvider() : CoreLocationProvider())
-        self.sightingStore = sightingStore
+        // With the fixed scanner, each launch starts from empty files: UI tests and screenshots
+        // never see what an earlier run saved.
+        let launch = URL.temporaryDirectory.appending(path: "launch-\(UUID().uuidString)")
+        self.sightingStore = fixed != nil ? SightingStore(url: launch.appending(path: "sightings.json")) : sightingStore
         self.activity = activity ?? (fixed != nil ? NoSearchActivity() : LiveSearchActivity())
-        sightings = sightingStore.load()
+        sightings = self.sightingStore.load()
+        self.myDevicesStore = fixed != nil ? MyDevicesStore(url: launch.appending(path: "my-devices.json")) : myDevicesStore
+        myDevices = self.myDevicesStore.load()
         remembersPlaces = defaults.bool(forKey: Self.remembersPlacesKey)
         self.defaults = defaults
         self.clock = clock
@@ -243,7 +254,7 @@ final class ScanModel {
         updateTracked(at: clock())
         if let tracked {
             let attributes = SearchActivityAttributes(
-                deviceName: tracked.device.name ?? String(localized: "Senza nome"),
+                deviceName: savedDevice(forDeviceID: id)?.name ?? tracked.device.name ?? String(localized: "Senza nome"),
                 systemImage: tracked.device.kind.systemImage
             )
             activity.apply(activityPlan.begin(attributes, state: .init(tracked: tracked), at: clock()))
@@ -291,10 +302,37 @@ final class ScanModel {
         }
     }
 
+    /// I miei dispositivi: pins a heard device to the top with your name for it.
+    func saveDevice(_ device: NearbyDevice, name: String) {
+        guard savedDevice(forDeviceID: device.id) == nil else { return }
+        myDevices.append(SavedDevice(name: SavedDevice.displayName(name, fallback: device.name), device: device))
+        myDevicesStore.save(myDevices)
+        publish(at: clock())
+    }
+
+    func renameDevice(_ id: UUID, to name: String) {
+        guard let index = myDevices.firstIndex(where: { $0.id == id }) else { return }
+        myDevices[index].name = SavedDevice.displayName(name, fallback: myDevices[index].advertisedName)
+        myDevicesStore.save(myDevices)
+    }
+
+    func forgetDevice(_ id: UUID) {
+        myDevices.removeAll { $0.id == id }
+        myDevicesStore.save(myDevices)
+        publish(at: clock())
+    }
+
+    /// The saved device a heard or remembered identifier belongs to, if any.
+    func savedDevice(forDeviceID deviceID: UUID) -> SavedDevice? {
+        myDevices.first { $0.deviceID == deviceID || myMatches[$0.id]?.id == deviceID }
+    }
+
     private func publish(at now: Date) {
+        updateMine()
         updateTracked(at: now)
         updateWatched(at: now)
-        let listed = roster.devices(includingUnnamed: showsUnnamed)
+        let mineIDs = Set(myMatches.values.map(\.id))
+        let listed = roster.devices(includingUnnamed: showsUnnamed).filter { !mineIDs.contains($0.id) }
         if listed != devices {
             devices = listed
         }
@@ -303,15 +341,42 @@ final class ScanModel {
             hiddenUnnamedCount = hidden
         }
         var card = scanCard
-        card.update(at: now, listedDevices: listed.count)
+        card.update(at: now, listedDevices: listed.count + myMatches.count)
         if card != scanCard {
             scanCard = card
         }
     }
 
+    /// Finds your devices among the ones heard; one heard under a new identifier keeps it, so
+    /// next time it is found at once.
+    private func updateMine() {
+        guard !myDevices.isEmpty else {
+            if !myMatches.isEmpty { myMatches = [:] }
+            return
+        }
+        let matches = DeviceMatcher.match(myDevices, among: roster.devices(includingUnnamed: true))
+        var changed = false
+        for index in myDevices.indices {
+            guard let device = matches[myDevices[index].id], device.id != myDevices[index].deviceID else { continue }
+            // The finder on the old identifier follows the device to its new one.
+            if trackedID == myDevices[index].deviceID {
+                trackedID = device.id
+            }
+            myDevices[index].deviceID = device.id
+            myDevices[index].companyID = device.companyID ?? myDevices[index].companyID
+            changed = true
+        }
+        if changed {
+            myDevicesStore.save(myDevices)
+        }
+        if matches != myMatches {
+            myMatches = matches
+        }
+    }
+
     private func updateTracked(at now: Date) {
         guard let trackedID else { return }
-        guard let device = roster.device(id: trackedID) ?? tracked?.device ?? sightedDevice(id: trackedID) else {
+        guard let device = roster.device(id: trackedID) ?? tracked?.device ?? sightedDevice(id: trackedID) ?? rememberedDevice(id: trackedID) else {
             tracked = nil
             return
         }
@@ -336,6 +401,12 @@ final class ScanModel {
     private func sightedDevice(id: UUID) -> NearbyDevice? {
         guard let sighting = sightings.sightings.first(where: { $0.id == id }) else { return nil }
         return NearbyDevice(id: id, name: sighting.name, kind: sighting.kind, signal: Proximity.farthestRSSI, lastSeen: sighting.date)
+    }
+
+    /// One of your devices opened while not heard: at the edge of the scale, heard long ago.
+    private func rememberedDevice(id: UUID) -> NearbyDevice? {
+        guard let saved = myDevices.first(where: { $0.deviceID == id }) else { return nil }
+        return NearbyDevice(id: id, name: saved.advertisedName, kind: saved.kind, signal: Proximity.farthestRSSI, lastSeen: .distantPast, companyID: saved.companyID)
     }
 
     private func updateWatched(at now: Date) {

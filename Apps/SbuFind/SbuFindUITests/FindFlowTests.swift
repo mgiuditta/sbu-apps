@@ -19,7 +19,7 @@ final class FindFlowTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FIXED_SCANNER", scanner]
         // Arguments win over saved settings: every test starts from the defaults.
-        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO", "-remembersPlaces", "NO"]
+        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO", "-remembersPlaces", "NO", "-STILL_ANIMATIONS", "YES"]
         app.launchArguments += arguments
         app.launch()
         return app
@@ -217,6 +217,40 @@ final class FindFlowTests: XCTestCase {
         expectation(for: on, evaluatedWith: places)
         waitForExpectations(timeout: 5)
         try audit(app, excluding: Self.sheetExclusions)
+    }
+
+    @MainActor
+    func testADeviceAddedToMyDevicesGoesToTheTopWithItsNameAndCanBeRemoved() throws {
+        let app = launch()
+        let row = devices(app).element(boundBy: 1)
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(row.label.hasPrefix("WH-1000XM5"), row.label)
+        row.tap()
+
+        let pin = app.navigationBars.buttons["Aggiungi ai miei dispositivi"]
+        XCTAssertTrue(pin.waitForExistence(timeout: 5))
+        pin.tap()
+        let field = app.alerts.textFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.clearAndType("Le mie cuffie")
+        app.alerts.buttons["Salva"].tap()
+        XCTAssertTrue(app.navigationBars["Le mie cuffie"].waitForExistence(timeout: 5))
+
+        app.navigationBars.buttons.firstMatch.tap()
+        XCTAssertTrue(app.staticTexts["I miei dispositivi"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Altri dispositivi"].exists)
+        let first = devices(app).firstMatch
+        XCTAssertTrue(first.label.hasPrefix("Le mie cuffie"), first.label)
+        try audit(app)
+
+        first.tap()
+        let menu = app.navigationBars.buttons["Il mio dispositivo"]
+        XCTAssertTrue(menu.waitForExistence(timeout: 5))
+        menu.tap()
+        let confirm = app.sheets.buttons["Togli dai miei dispositivi"].firstMatch
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        XCTAssertTrue(app.navigationBars["WH-1000XM5"].waitForExistence(timeout: 5))
     }
 
     @MainActor

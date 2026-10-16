@@ -14,6 +14,12 @@ struct FinderView: View {
 
     @State private var ticker = ProximityTicker()
 
+    /// Your name for the device if it is one of yours, else the one it advertises.
+    private var title: String {
+        guard let device = model.tracked?.device else { return String(localized: "Senza nome") }
+        return model.savedDevice(forDeviceID: device.id)?.name ?? device.name ?? String(localized: "Senza nome")
+    }
+
     /// Fai suonare for headphones and earbuds, or whenever some are connected.
     private var showsRing: Bool {
         guard ringer.headphones == nil else { return true }
@@ -62,8 +68,15 @@ struct FinderView: View {
             .scrollBounceBehavior(.basedOnSize)
         }
         .background(SbuTheme.surface)
-        .navigationTitle(Text(verbatim: model.tracked?.device.name ?? String(localized: "Senza nome")))
+        .navigationTitle(Text(verbatim: title))
         .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            if let device = model.tracked?.device {
+                ToolbarItem(placement: .topBarTrailing) {
+                    MyDeviceMenu(model: model, device: device)
+                }
+            }
+        }
         .overlay {
             if let notice = BluetoothNotice(state: model.state) {
                 BluetoothNoticeView(notice: notice)

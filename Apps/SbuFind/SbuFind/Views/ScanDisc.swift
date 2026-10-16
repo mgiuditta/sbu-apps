@@ -40,7 +40,7 @@ struct ScanDisc: View {
     }
 
     private func startBreathing() {
-        guard !reduceMotion else { return }
+        guard Breathing.isAllowed(reduceMotion: reduceMotion) else { return }
         withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
             isBreathing = true
         }

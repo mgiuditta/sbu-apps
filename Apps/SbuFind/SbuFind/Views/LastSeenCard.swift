@@ -25,10 +25,9 @@ struct LastSeenCard: View {
                     .font(SbuTheme.headline)
                     .foregroundStyle(SbuTheme.ink)
 
-                Text(sighting.date, format: .relative(presentation: .named))
+                RelativeTimeText(date: sighting.date)
                     .font(SbuTheme.subheadline)
                     .foregroundStyle(SbuTheme.inkMuted)
-                    // The whole width: the text updates itself and grows, "9 secondi" to "13 secondi".
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .accessibilityElement(children: .combine)

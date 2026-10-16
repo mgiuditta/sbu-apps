@@ -359,7 +359,7 @@ const jsonLd = [
   .queue-item {
     display: grid;
     grid-template-columns: auto var(--spacing-12) minmax(0, 1fr);
-    grid-template-areas: "n mark name" "n mark line";
+    grid-template-areas: "n mark name" "n mark line" "n mark state";
     column-gap: var(--spacing-3);
     align-items: start;
   }
@@ -367,6 +367,7 @@ const jsonLd = [
   .queue-item > .engraving { grid-area: mark; }
   .queue-item > h3 { grid-area: name; }
   .queue-item > p { grid-area: line; }
+  .queue-item > p + p { grid-area: state; }
 
   /* The promises: six sentences set large, two columns from a tablet up. */
   .promises {

@@ -70,20 +70,70 @@ struct ReminderPlanTests {
         #expect(plan([asNeeded, ended]).isEmpty)
     }
 
-    @Test func thePlanKeepsTheEarliestUnderTheLimit() {
-        let medicines = (0..<6).map { Fixtures.medicine("M\($0)", times: [DoseTime(hour: 13 + $0)]) }
-        let reminders = plan(medicines, repeatMinutes: 5, days: 7, limit: 10)
-        #expect(reminders.count == 10)
-        #expect(reminders.map(\.fireDate) == reminders.map(\.fireDate).sorted())
-        #expect(reminders.allSatisfy { Day($0.fireDate, calendar: calendar) == Fixtures.today })
+    private func result(_ medicines: [MedicineSnapshot], repeatMinutes: Int = 0, days: Int, limit: Int) -> ReminderPlan.Result {
+        ReminderPlan.plan(for: medicines, now: Fixtures.now, calendar: calendar, repeatMinutes: repeatMinutes, days: days, limit: limit, locale: it)
     }
 
-    @Test func repeatsArePlannedOnlyForTheNextDay() {
+    /// Two people, three doses a day each: the first notifications alone fill the slots, nearest
+    /// first, and no slot goes to a repeat.
+    @Test func everyDoseGetsItsFirstNotificationBeforeAnyRepeat() {
+        let me = Fixtures.medicine("Ramipril", times: [DoseTime(hour: 8), DoseTime(hour: 14), DoseTime(hour: 20)], person: UUID())
+        let grandma = Fixtures.medicine("Collirio", times: [DoseTime(hour: 9), DoseTime(hour: 15), DoseTime(hour: 21)], person: UUID(), personName: "Nonna")
+        let plan = result([me, grandma], repeatMinutes: 5, days: 30, limit: 10)
+        #expect(plan.reminders.count == 10)
+        #expect(plan.reminders.allSatisfy { $0.kind == .doses(repeat: 0) })
+        #expect(plan.reminders.map(\.fireDate) == plan.reminders.map(\.fireDate).sorted())
+        // Today 14, 15, 20, 21; tomorrow 8, 9, 14, 15, 20, 21: ten, through tomorrow at 21:00.
+        #expect(plan.coveredUntil == Fixtures.date(2026, 10, 17, 21))
+    }
+
+    /// One dose a day for three days in six slots: three firsts, then the three repeats of the nearest.
+    @Test func leftoverSlotsGoToTheRepeatsOfTheNearestDoses() {
         let medicine = Fixtures.medicine(times: [DoseTime(hour: 20)])
-        let reminders = plan([medicine], repeatMinutes: 10, days: 3)
-        let repeats = reminders.filter { $0.kind != .doses(repeat: 0) }
-        #expect(repeats.allSatisfy { $0.fireDate.timeIntervalSince(Fixtures.now) <= ReminderPlan.repeatWindow })
-        #expect(reminders.filter { $0.kind == .doses(repeat: 0) }.count == 3)
+        let plan = result([medicine], repeatMinutes: 10, days: 3, limit: 6)
+        #expect(plan.coveredUntil == nil)
+        #expect(plan.reminders.filter { $0.kind == .doses(repeat: 0) }.count == 3)
+        let repeats = plan.reminders.filter { $0.kind != .doses(repeat: 0) }
+        #expect(repeats.count == 3)
+        #expect(repeats.allSatisfy { Day($0.dueDate, calendar: calendar) == Fixtures.today })
+    }
+
+    @Test func aLateDoseKeepsItsRepeatsFirst() {
+        let late = Fixtures.medicine("Ferro", times: [DoseTime(hour: 11, minute: 55)])
+        let later = Fixtures.medicine("Ramipril", times: [DoseTime(hour: 20)])
+        let plan = result([late, later], repeatMinutes: 10, days: 1, limit: 3)
+        // 20:00's first, then 11:55's repeats still to come (12:05, 12:15).
+        #expect(plan.reminders.map { calendar.component(.minute, from: $0.fireDate) } == [5, 15, 0])
+    }
+
+    @Test func theRefillKeepsItsSlot() {
+        let medicine = Fixtures.medicine(times: [DoseTime(hour: 13)], stock: 3, threshold: 10)
+        let plan = result([medicine], days: 30, limit: 5)
+        #expect(plan.reminders.count == 5)
+        #expect(plan.reminders.filter { $0.identifier.hasPrefix("refill-") }.count == 1)
+        #expect(plan.coveredUntil == Fixtures.date(2026, 10, 19, 13))
+    }
+
+    @Test(arguments: [
+        (nil as Date?, nil as Int?),
+        (Fixtures.date(2026, 10, 16, 20), 1),
+        (Fixtures.date(2026, 10, 18, 13), 2),
+        (Fixtures.date(2026, 10, 19, 11), 2),
+        (Fixtures.date(2026, 10, 19, 12), nil),
+        (Fixtures.date(2026, 10, 25), nil),
+    ])
+    func openTheAppOftenEnoughWhenTheSlotsRunOutWithinThreeDays(coveredUntil: Date?, days: Int?) {
+        let plan = ReminderPlan.Result(reminders: [], coveredUntil: coveredUntil)
+        #expect(ReminderPlan.openEveryDays(plan, now: Fixtures.now) == days)
+    }
+
+    @Test func aRealisticFamilyIsCoveredForDays() {
+        // Nine dose times a day for three people, repeats every 15 minutes, in iOS's 64 slots.
+        let people = (0..<3).map { _ in UUID() }
+        let medicines = people.map { Fixtures.medicine(times: [DoseTime(hour: 8), DoseTime(hour: 14), DoseTime(hour: 20)], person: $0) }
+        let plan = result(medicines, repeatMinutes: 15, days: 30, limit: 64)
+        #expect(plan.reminders.count == 64)
+        #expect(ReminderPlan.openEveryDays(plan, now: Fixtures.now) == nil)
     }
 
     @Test func refillComesWithTheDoseThatReachesTheThreshold() throws {

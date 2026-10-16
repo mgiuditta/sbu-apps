@@ -65,4 +65,18 @@ struct RemindersTests {
         #expect(still.contains(DoseKey(medicineID: id, day: Fixtures.today, minutes: 11 * 60).string))
         #expect(!still.contains(DoseKey(medicineID: id, day: Fixtures.today, minutes: 8 * 60).string))
     }
+
+    /// Twenty-four doses a day fill iOS's 64 slots in under three days: Today asks to open the app.
+    @Test func aCrowdedDayAsksToOpenTheAppAndAQuietOneDoesNot() async {
+        let center = RecordingCenter()
+        center.granted = .allowed
+        let reminders = Reminders(defaults: defaults, center: center)
+        let hourly = Fixtures.medicine(times: (0..<24).map { DoseTime(hour: $0) })
+        await reminders.reschedule([hourly], now: Fixtures.now, calendar: Fixtures.calendar)
+        #expect(center.replaced.last?.count == ReminderPlan.limit)
+        #expect(reminders.openEveryDays == 2)
+
+        await reminders.reschedule([Fixtures.medicine(times: [DoseTime(hour: 20)])], now: Fixtures.now, calendar: Fixtures.calendar)
+        #expect(reminders.openEveryDays == nil)
+    }
 }

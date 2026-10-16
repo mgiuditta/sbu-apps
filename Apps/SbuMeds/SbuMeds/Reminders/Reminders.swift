@@ -31,6 +31,8 @@ final class Reminders {
         didSet { defaults.set(snoozeMinutes, forKey: Key.snoozeMinutes) }
     }
     private(set) var access: NotificationAccess = .notDetermined
+    /// When iOS's 64 notifications run out within three days: open the app at least this often.
+    private(set) var openEveryDays: Int?
 
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let center: any ReminderCenter
@@ -54,6 +56,7 @@ final class Reminders {
         let stillToTake = Self.stillToTake(medicines, now: now, calendar: calendar)
         let hasTimes = medicines.contains { $0.schedule.isActive(on: Day(now, calendar: calendar)) }
         guard isOn, hasTimes else {
+            openEveryDays = nil
             center.replace(with: [], snoozeMinutes: snoozeMinutes, stillToTake: stillToTake)
             access = await center.access()
             return
@@ -64,11 +67,13 @@ final class Reminders {
         }
         guard current == generation else { return }
         guard access == .allowed else {
+            openEveryDays = nil
             center.replace(with: [], snoozeMinutes: snoozeMinutes, stillToTake: stillToTake)
             return
         }
-        let plan = ReminderPlan.reminders(for: medicines, now: now, calendar: calendar, repeatMinutes: repeatMinutes)
-        center.replace(with: plan, snoozeMinutes: snoozeMinutes, stillToTake: stillToTake)
+        let plan = ReminderPlan.plan(for: medicines, now: now, calendar: calendar, repeatMinutes: repeatMinutes)
+        openEveryDays = ReminderPlan.openEveryDays(plan, now: now)
+        center.replace(with: plan.reminders, snoozeMinutes: snoozeMinutes, stillToTake: stillToTake)
     }
 
     /// Today's and yesterday's doses still to take: a delivered reminder about any of them stays.

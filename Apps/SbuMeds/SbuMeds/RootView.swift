@@ -21,7 +21,11 @@ struct RootView: View {
             CareNoteSection()
         }
         .environment(clock)
+        .environment(reminders)
         .onChange(of: scenePhase, initial: true) {
+            if scenePhase == .background, !Launch.isDemo {
+                BackgroundReplan.scheduleNext()
+            }
             guard scenePhase == .active else { return }
             clock.refresh()
             closePastDays()
@@ -30,6 +34,13 @@ struct RootView: View {
         .onChange(of: Day(clock.now, calendar: calendar)) {
             closePastDays()
             reschedule()
+        }
+        // The clock set by hand, a new time zone: doses stay at their local time, so plan again.
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+            timeChanged()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSSystemTimeZoneDidChange)) { _ in
+            timeChanged()
         }
         .onReceive(NotificationCenter.default.publisher(for: ModelContext.didSave)) { _ in
             storeChanged()
@@ -46,6 +57,12 @@ struct RootView: View {
         .task {
             await clock.run()
         }
+    }
+
+    private func timeChanged() {
+        clock.refresh()
+        closePastDays()
+        reschedule()
     }
 
     private func closePastDays() {

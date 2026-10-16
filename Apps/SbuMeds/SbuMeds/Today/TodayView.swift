@@ -8,6 +8,7 @@ struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
     @Environment(Clock.self) private var clock
+    @Environment(Reminders.self) private var reminders
     @Query(sort: [SortDescriptor(\Person.order), SortDescriptor(\Person.createdAt)]) private var people: [Person]
     @Query private var medicines: [Medicine]
     @AppStorage("today.person") private var personID = ""
@@ -37,6 +38,12 @@ struct TodayView: View {
                 TodayFigure(plan: plan, isToday: day == today)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
+            }
+            if let days = reminders.openEveryDays {
+                Section {
+                    OpenAppNotice(days: days)
+                }
+                .listRowBackground(SbuTheme.surfaceRaised)
             }
             if plan.isEmpty, asNeeded.isEmpty || day != today {
                 TodayEmptyRow(hasMedicines: !mine.isEmpty, isToday: day == today, addMedicine: { newMedicineFor = person })
@@ -128,6 +135,7 @@ struct TodayView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
+    .environment(Reminders(center: SilentReminderCenter()))
     .tint(SbuTheme.accentMeds)
 }
 
@@ -137,6 +145,7 @@ struct TodayView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
+    .environment(Reminders(center: SilentReminderCenter()))
     .tint(SbuTheme.accentMeds)
     .preferredColorScheme(.dark)
 }

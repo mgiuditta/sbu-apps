@@ -231,6 +231,46 @@
         }
       }
     },
+    "Apri Sbu Meds almeno una volta ogni %lld giorni per non perdere promemoria" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Open Sbu Meds at least once a day so you don't miss reminders"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Open Sbu Meds at least once every %lld days so you don't miss reminders"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Apri Sbu Meds almeno una volta al giorno per non perdere promemoria"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Apri Sbu Meds almeno una volta ogni %lld giorni per non perdere promemoria"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Atorvastatina" : {
       "localizations" : {
         "en" : {

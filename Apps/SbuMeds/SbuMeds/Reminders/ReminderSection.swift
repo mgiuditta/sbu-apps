@@ -25,6 +25,9 @@ struct ReminderSection: View {
                     }
                 }
                 .accessibilityIdentifier("snoozeMinutes")
+                if let days = reminders.openEveryDays {
+                    OpenAppNotice(days: days)
+                }
                 switch reminders.access {
                 case .denied:
                     Label("Notifiche spente per Sbu Meds", systemImage: "exclamationmark.triangle")

@@ -29,6 +29,15 @@ targets:
       properties:
         # The store lives here so the widget can read it.
         com.apple.security.application-groups: [group.dev.sbu.meds]
+    info:
+      path: SbuMeds/Info.plist
+      properties:
+        # The version and build from the project settings, as without a plist of our own.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # Background App Refresh rolls the 64 pending reminders forward while the app is closed.
+        UIBackgroundModes: [fetch]
+        BGTaskSchedulerPermittedIdentifiers: [dev.sbu.meds.replan]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.meds

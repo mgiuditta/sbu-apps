@@ -1,7 +1,6 @@
 import SwiftData
 import SwiftUI
 import UserNotifications
-import WidgetKit
 
 @main
 struct SbuMedsApp: App {
@@ -17,12 +16,8 @@ struct SbuMedsApp: App {
         self.container = container
         self.reminders = reminders
         responder = NotificationResponder { action, keys in
-            let context = container.mainContext
-            NotificationActions.apply(action, to: keys, in: context, snoozeMinutes: reminders.snoozeMinutes)
-            try? context.save()
-            WidgetCenter.shared.reloadAllTimelines()
-            let medicines = ((try? context.fetch(FetchDescriptor<Medicine>())) ?? []).map(\.snapshot)
-            await reminders.reschedule(medicines)
+            NotificationActions.apply(action, to: keys, in: container.mainContext, snoozeMinutes: reminders.snoozeMinutes)
+            await BackgroundReplan.run(container: container, reminders: reminders)
         }
         UNUserNotificationCenter.current().delegate = responder
     }
@@ -32,6 +27,11 @@ struct SbuMedsApp: App {
             RootView(reminders: reminders)
         }
         .modelContainer(container)
+        // iOS wakes the app now and then to roll the 64 notifications forward.
+        .backgroundTask(.appRefresh(BackgroundReplan.identifier)) { [container, reminders] in
+            BackgroundReplan.scheduleNext()
+            await BackgroundReplan.run(container: container, reminders: reminders)
+        }
     }
 
     private static func makeContainer() -> ModelContainer {

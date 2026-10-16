@@ -33,9 +33,9 @@ struct CameraFrame: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .clipShape(.rect(cornerRadius: SbuTheme.radiusLg))
+        .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
         .overlay {
-            RoundedRectangle(cornerRadius: SbuTheme.radiusLg)
+            RoundedRectangle(cornerRadius: SbuTheme.radiusCard)
                 .strokeBorder(SbuTheme.line, lineWidth: SbuTheme.hairline)
         }
     }

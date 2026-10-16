@@ -891,16 +891,6 @@
         }
       }
     },
-    "Inquadra un codice": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Point at a code"
-          }
-        }
-      }
-    },
     "Inquadra un codice: si legge da solo.": {
       "localizations": {
         "en": {
@@ -1081,6 +1071,16 @@
         }
       }
     },
+    "Mostra tutti": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show all"
+          }
+        }
+      }
+    },
     "Nascosta": {
       "localizations": {
         "en": {
@@ -1091,22 +1091,12 @@
         }
       }
     },
-    "Nessun codice": {
+    "Nessun codice contiene «%@». Prova con un'altra parola.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No Codes"
-          }
-        }
-      }
-    },
-    "Nessun codice creato": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No Codes Made"
+            "value": "No code contains “%@”. Try another word."
           }
         }
       }
@@ -1481,6 +1471,16 @@
         }
       }
     },
+    "Salvato": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved"
+          }
+        }
+      }
+    },
     "Sbu Scanner": {
       "localizations": {
         "en": {
@@ -1497,6 +1497,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sbu Scanner can't use the camera."
+          }
+        }
+      }
+    },
+    "Sbu · Scanner · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu · Scanner · %@"
+          }
+        }
+      }
+    },
+    "Scanner": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scanner"
           }
         }
       }

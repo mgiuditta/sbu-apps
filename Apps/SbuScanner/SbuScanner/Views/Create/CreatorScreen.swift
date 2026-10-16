@@ -28,17 +28,15 @@ struct CreatorScreen: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .overlay {
             if codes.isEmpty {
-                ContentUnavailableView {
-                    Label("Nessun codice creato", systemImage: "qrcode")
-                } description: {
-                    Text("Crea un QR per un link, una rete Wi-Fi o un contatto, o un codice a barre per un prodotto.")
-                } actions: {
+                SbuEmpty(sentence: "Crea un QR per un link, una rete Wi-Fi o un contatto, o un codice a barre per un prodotto.") {
                     kindMenu { Text("Crea un codice") }
-                        .buttonStyle(SbuFieldPillStyle())
                 }
+                .padding(SbuTheme.space4)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .sbuPaper()
             }
         }
         .navigationTitle("Crea")

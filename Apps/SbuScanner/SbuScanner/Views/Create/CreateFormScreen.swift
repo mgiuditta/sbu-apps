@@ -44,7 +44,7 @@ struct CreateFormScreen: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text(draft.kind.title))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
@@ -52,7 +52,7 @@ struct CreateFormScreen: View {
                 .disabled(payload == nil)
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space2)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
         }
     }
 

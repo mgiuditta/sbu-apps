@@ -11,7 +11,7 @@ struct CodeImage: View {
             .interpolation(.none)
             .resizable()
             .scaledToFit()
-            .clipShape(.rect(cornerRadius: SbuTheme.radiusSm))
+            .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
             .accessibilityLabel(Text("Codice: \(label)"))
     }
 }

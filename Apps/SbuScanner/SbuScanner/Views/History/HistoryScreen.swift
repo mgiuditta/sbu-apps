@@ -27,14 +27,13 @@ struct HistoryScreen: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .overlay {
             if shown.isEmpty {
-                if search.isEmpty {
-                    ContentUnavailableView("Nessun codice", systemImage: "clock.arrow.circlepath", description: Text(emptyMessage))
-                } else {
-                    ContentUnavailableView.search(text: search)
-                }
+                empty
+                    .padding(SbuTheme.space4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .sbuPaper()
             }
         }
         .navigationTitle("Cronologia")
@@ -83,11 +82,23 @@ struct HistoryScreen: View {
         }
     }
 
-    private var emptyMessage: LocalizedStringKey {
-        switch filter {
-        case .all: "I codici che leggi compaiono qui, solo su questo iPhone."
-        case .favorites: "Nessun codice tra i preferiti."
-        case .folder: "Nessun codice in questa cartella."
+    /// Nothing to list: the sentence says why, and a filter offers the way back to every code.
+    @ViewBuilder private var empty: some View {
+        if !search.isEmpty {
+            SbuEmpty(sentence: "Nessun codice contiene «\(search)». Prova con un'altra parola.")
+        } else {
+            switch filter {
+            case .all:
+                SbuEmpty(sentence: "I codici che leggi compaiono qui, solo su questo iPhone.")
+            case .favorites:
+                SbuEmpty(sentence: "Nessun codice tra i preferiti.") {
+                    Button("Mostra tutti") { filter = .all }
+                }
+            case .folder:
+                SbuEmpty(sentence: "Nessun codice in questa cartella.") {
+                    Button("Mostra tutti") { filter = .all }
+                }
+            }
         }
     }
 

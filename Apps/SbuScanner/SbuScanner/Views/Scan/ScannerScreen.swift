@@ -4,9 +4,16 @@ import SwiftData
 import SwiftUI
 
 /// The tool screen: the camera reads any code by itself and opens what it says.
+///
+/// Scanner has no figure, so no full stop while it scans: the camera is the instrument. A code
+/// saved to the history closes with "Salvato" over the camera, then its result opens.
 struct ScannerScreen: View {
     @State private var model = ScannerModel()
     @State private var opened: ScanRecord?
+    /// The code just read and saved, waiting for the Closure to end before it opens.
+    @State private var saved: ScanRecord?
+    @State private var isClosing = false
+    @State private var unsavedReads = 0
     @State private var isOnScreen = false
     @State private var isChoosingPhoto = false
     @State private var photoItem: PhotosPickerItem?
@@ -19,23 +26,37 @@ struct ScannerScreen: View {
     @AppStorage(ScannerSettings.saveHistory) private var savesHistory = true
 
     var body: some View {
-        SbuToolField("Inquadra un codice", context: "QR e codici a barre, anche da una foto.") {
+        VStack(alignment: .leading, spacing: SbuTheme.space6) {
+            VStack(alignment: .leading, spacing: SbuTheme.space2) {
+                SbuScreenTitle("Scanner", cartiglio: cartiglio)
+                Text("QR e codici a barre, anche da una foto.")
+                    .font(SbuTheme.subheadline)
+                    .foregroundStyle(SbuTheme.inkMuted)
+            }
+            // Never squeezed by the camera, which takes all the height left: the title keeps its lines.
+            .fixedSize(horizontal: false, vertical: true)
             CameraFrame(model: model)
-        } pills: {
-            ScanPills(model: model) { isChoosingPhoto = true }
+                .sbuClosure($isClosing, word: "Salvato")
+            HStack(spacing: SbuTheme.space2) {
+                ScanPills(model: model) { isChoosingPhoto = true }
+            }
         }
+        .padding(.horizontal, SbuTheme.space4)
+        .padding(.top, SbuTheme.space4)
+        .padding(.bottom, SbuTheme.space8)
+        // The camera shows the person's surroundings: plain paper, no grid under it.
+        .sbuPaper(grid: false)
+        .sensoryFeedback(SbuHaptic.dot.feedback, trigger: unsavedReads) { _, _ in vibrates }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 NavigationLink(value: ScannerRoute.history) {
                     Label("Cronologia", systemImage: "clock.arrow.circlepath")
                 }
-                .tint(SbuTheme.ink)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink(value: ScannerRoute.creator) {
                     Label("Crea", systemImage: "qrcode")
                 }
-                .tint(SbuTheme.ink)
             }
         }
         .navigationDestination(for: ScannerRoute.self) { route in
@@ -64,12 +85,23 @@ struct ScannerScreen: View {
         .onDisappear {
             isOnScreen = false
             model.disappear()
+            // Left during the Closure through a toolbar link: the code stays saved, the camera reads again.
+            if saved != nil {
+                saved = nil
+                isClosing = false
+                model.reading = nil
+            }
         }
         .task(id: isCameraWanted) {
             if isCameraWanted { await model.appear() } else { model.disappear() }
         }
         .onChange(of: model.reading) { _, reading in
             if let reading { open(reading) }
+        }
+        .onChange(of: isClosing) { _, isClosing in
+            guard !isClosing, let saved else { return }
+            self.saved = nil
+            show(saved)
         }
         .onChange(of: opened) { _, record in
             // Back from the result: the camera takes the next code.
@@ -80,6 +112,11 @@ struct ScannerScreen: View {
             photoItem = nil
             Task { await read(item) }
         }
+    }
+
+    /// The metadata line under the title: the app and today's date.
+    private var cartiglio: String {
+        String(localized: "Sbu · Scanner · \(Date.now.formatted(.dateTime.weekday(.abbreviated).day().month(.abbreviated)))")
     }
 
     /// On screen, in the foreground, not behind the photo picker.
@@ -93,12 +130,21 @@ struct ScannerScreen: View {
 
     private func open(_ reading: CodeReading) {
         photoReadings = []
-        ScanFeedback.play(sound: playsSound, vibration: vibrates)
+        ScanFeedback.play(sound: playsSound)
         let record = ScanRecord(raw: reading.raw, symbology: reading.symbology)
         if savesHistory {
             modelContext.insert(record)
             try? modelContext.save()
+            // Once per scan: the Closure plays its haptic and says its word, then the result opens.
+            saved = record
+            isClosing = true
+        } else {
+            unsavedReads += 1
+            show(record)
         }
+    }
+
+    private func show(_ record: ScanRecord) {
         AccessibilityNotification.Announcement(
             String(localized: "Letto: \(String(localized: record.content.kind.title)), \(record.content.summary)")
         ).post()

@@ -4,7 +4,7 @@ import SwiftUI
 /// The app inside the standard Sbu shell.
 struct RootView: View {
     var body: some View {
-        SbuAppShell("Sbu Scanner", slug: "scanner", accent: SbuTheme.accentScanner, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Scanner", slug: "scanner", accent: .scanner, appIcon: Image(.appIconArtwork)) {
             ScannerScreen()
         } settings: {
             ScannerSettingsSection()

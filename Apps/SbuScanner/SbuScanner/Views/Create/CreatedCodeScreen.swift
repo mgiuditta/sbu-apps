@@ -41,7 +41,7 @@ struct CreatedCodeScreen: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text(verbatim: code.title))
         .navigationBarTitleDisplayMode(.inline)
         .confirmationDialog("Eliminare «\(code.title)»?", isPresented: $isConfirmingDelete, titleVisibility: .visible) {

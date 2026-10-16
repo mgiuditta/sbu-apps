@@ -37,16 +37,16 @@ struct ResultScreen: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text(content.kind.title))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
             SbuButton(primary.title(for: content)) { perform(primary) }
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space2)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
         }
-        .sensoryFeedback(.success, trigger: copies)
+        .sbuHaptic(.tick, trigger: copies)
         .sheet(item: $sheet) { sheet in
             switch sheet {
             case let .contact(card): ContactEditor(card: card).ignoresSafeArea()

@@ -13,7 +13,7 @@ struct DemoCamera: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 200)
-                    .clipShape(.rect(cornerRadius: SbuTheme.radiusSm))
+                    .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
             }
         }
         .buttonStyle(.plain)

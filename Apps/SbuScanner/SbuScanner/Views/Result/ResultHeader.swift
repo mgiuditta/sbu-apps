@@ -11,7 +11,8 @@ struct ResultHeader: View {
             "\(Text(content.kind.title))",
             subtitle: "\(record.symbology.name) · \(record.date.formatted(date: .abbreviated, time: .shortened))",
             systemImage: content.kind.systemImage,
-            iconBackground: SbuTheme.accentScanner
+            iconBackground: SbuTheme.surfaceSunken,
+            iconForeground: SbuTheme.inkMuted
         )
     }
 }

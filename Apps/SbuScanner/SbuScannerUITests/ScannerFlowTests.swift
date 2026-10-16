@@ -27,6 +27,9 @@ final class ScannerFlowTests: XCTestCase {
             if issue.auditType == .textClipped, issue.element?.elementType == .textField { return true }
             // A row the screen's bottom edge cuts in half, under the button: scrolling shows it whole (as in Sbu Habits).
             if issue.auditType == .textClipped, issue.element == nil { return true }
+            // SbuScreenTitle's cartiglio is tracked uppercase Plex Mono, drawn whole: the audit measures it
+            // without the tracking and reports it clipped.
+            if issue.auditType == .textClipped, issue.element?.label.hasPrefix("SBU · ") == true { return true }
             // A list row grows with its text and wraps it, so it can't clip; the iOS 26 audit still reports
             // icon-and-title rows (Copia, Esporta SVG, a toggle) by measuring the title from the icon's edge.
             if issue.auditType == .textClipped, let label = issue.element?.label, app.cells.staticTexts[label].exists { return true }
@@ -114,6 +117,7 @@ final class ScannerFlowTests: XCTestCase {
         let photo = app.buttons["Da una foto"]
         XCTAssertTrue(photo.waitForExistence(timeout: 10))
         XCTAssertTrue(photo.isHittable)
+        try audit(app)
         app.buttons["Leggi il codice di esempio"].tap()
         XCTAssertTrue(app.buttons["Apri il link"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Apri il link"].isHittable)

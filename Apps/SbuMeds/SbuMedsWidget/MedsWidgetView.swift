@@ -38,9 +38,13 @@ struct MedsWidgetView: View {
                     .font(SbuTheme.headline)
                     .widgetAccentable()
                 ForEach(content.items.prefix(2), id: \.self) { item in
-                    Text("\(Text(item.dueDate, format: .dateTime.hour().minute())) \(item.name)")
-                        .font(SbuTheme.footnote)
-                        .lineLimit(1)
+                    HStack(spacing: SbuTheme.space1) {
+                        Text(item.dueDate, format: .dateTime.hour().minute())
+                        Text(item.name)
+                            .privacySensitive()
+                    }
+                    .font(SbuTheme.footnote)
+                    .lineLimit(1)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -132,6 +136,7 @@ private struct WidgetDoseLine: View {
                 .font(SbuTheme.subheadline)
                 .foregroundStyle(SbuTheme.ink)
                 .lineLimit(1)
+                .privacySensitive()
             HStack(spacing: SbuTheme.space1) {
                 Text(item.dueDate, format: .dateTime.hour().minute())
                     .foregroundStyle(item.isLate ? SbuTheme.warning : SbuTheme.inkMuted)
@@ -142,6 +147,7 @@ private struct WidgetDoseLine: View {
                 if !item.personName.isEmpty {
                     Text(verbatim: "·")
                     Text(item.personName)
+                        .privacySensitive()
                 }
             }
             .font(SbuTheme.footnote)

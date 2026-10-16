@@ -64,16 +64,19 @@ struct SystemReminderCenter: ReminderCenter {
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "test", content: content, trigger: nil))
     }
 
-    /// Presa, Saltata, Rimanda: from the banner and the Lock Screen, without opening the app.
+    /// Presa, Saltata, Rimanda: from the banner and the Lock Screen. Marking a dose asks for Face ID
+    /// or the passcode, so whoever holds a locked iPhone cannot change the history; Rimanda does not.
     static func category(snoozeMinutes: Int) -> UNNotificationCategory {
         UNNotificationCategory(
             identifier: doseCategory,
             actions: [
-                UNNotificationAction(identifier: takenAction, title: String(localized: "Presa"), options: [], icon: UNNotificationActionIcon(systemImageName: "checkmark")),
-                UNNotificationAction(identifier: skippedAction, title: String(localized: "Saltata"), options: [], icon: UNNotificationActionIcon(systemImageName: "minus.circle")),
+                UNNotificationAction(identifier: takenAction, title: String(localized: "Presa"), options: [.authenticationRequired], icon: UNNotificationActionIcon(systemImageName: "checkmark")),
+                UNNotificationAction(identifier: skippedAction, title: String(localized: "Saltata"), options: [.authenticationRequired], icon: UNNotificationActionIcon(systemImageName: "minus.circle")),
                 UNNotificationAction(identifier: snoozeAction, title: String(localized: "Rimanda di \(snoozeMinutes) min"), options: [], icon: UNNotificationActionIcon(systemImageName: "clock.arrow.circlepath")),
             ],
             intentIdentifiers: [],
+            // With previews hidden, the Lock Screen never names a medicine.
+            hiddenPreviewsBodyPlaceholder: String(localized: "Promemoria farmaco"),
             options: []
         )
     }

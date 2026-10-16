@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-    "%@ %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ %2$@"
-          }
-        }
-      }
-    },
     "%@ delle dosi previste" : {
       "localizations" : {
         "en" : {
@@ -1257,6 +1247,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reminders"
+          }
+        }
+      }
+    },
+    "Promemoria farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medication reminder"
           }
         }
       }

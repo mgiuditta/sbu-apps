@@ -6,7 +6,7 @@ struct RootView: View {
     @State private var model = LevelModel()
 
     var body: some View {
-        SbuAppShell("Sbu Level", slug: "level", accent: SbuTheme.accentLevel, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Level", slug: "level", accent: .level, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
             InfoSection()

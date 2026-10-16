@@ -1,8 +1,8 @@
-import SwiftUI
+import Foundation
 
 extension LevelStatus {
     /// The words, for the context line of the tool screen.
-    var text: LocalizedStringKey {
+    var text: LocalizedStringResource {
         switch self {
         case .waitingForSteady: "Tieni fermo l'iPhone"
         case .locked(isRelative: true): "Lettura bloccata, relativa"

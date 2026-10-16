@@ -12,9 +12,13 @@ struct CalibrationSection: View {
         Section {
             ForEach(CalibrationTarget.allCases, id: \.self) { target in
                 LabeledContent {
-                    // "Calibrato": it agrees with the side (lato, bordo, piano).
-                    Text(model.calibration.isCalibrated(target) ? "Calibrato" : "Non calibrato")
-                        .foregroundStyle(SbuTheme.inkMuted)
+                    // The mark and the word: the word says the state to VoiceOver.
+                    HStack(spacing: SbuTheme.space2) {
+                        SbuRowMark(filled: model.calibration.isCalibrated(target))
+                        // "Calibrato": it agrees with the side (lato, bordo, piano).
+                        Text(model.calibration.isCalibrated(target) ? "Calibrato" : "Non calibrato")
+                            .foregroundStyle(SbuTheme.inkMuted)
+                    }
                 } label: {
                     Text(target.name)
                 }

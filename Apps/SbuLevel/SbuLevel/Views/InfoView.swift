@@ -7,15 +7,15 @@ struct InfoView: View {
         List {
             Group {
                 Section("Modalità") {
-                    InfoRow(title: "Sul bordo", systemImage: "rectangle.portrait", text: "Appoggia un bordo dell'iPhone sulla superficie: il quadrante legge l'angolo di quel bordo, da 0° a 90°. I quattro bordi si riconoscono da soli.")
-                    InfoRow(title: "In piano", systemImage: "circle.circle", text: "Appoggia l'iPhone sul retro: la bolla mostra la pendenza della superficie, e sotto c'è l'inclinazione lungo ciascun asse.")
+                    InfoRow(title: "Sul bordo", systemImage: "rectangle.portrait", text: "Appoggia un bordo dell'iPhone sulla superficie: la cifra è l'angolo di quel bordo, da 0° a 90°. I quattro bordi si riconoscono da soli.")
+                    InfoRow(title: "In piano", systemImage: "circle.circle", text: "Appoggia l'iPhone sul retro: la cifra è la pendenza della superficie. In bolla, il quadrato dopo la cifra si colora.")
                     InfoRow(title: "Mirino", systemImage: "camera.viewfinder", text: "Tocca Mirino e inquadra un punto lontano, il colmo di un tetto o la cima di un albero: la cifra è l'angolo della linea di mira sopra o sotto l'orizzonte. L'immagine non viene salvata.")
                 }
 
                 Section("Misurare") {
                     InfoRow(title: "Azzera qui", systemImage: "angle", text: "Prende la posizione attuale come zero: la cifra mostra di quanto ti sposti da lì. Assoluto torna all'angolo vero.")
                     InfoRow(title: "Blocca", systemImage: "lock", text: "Ferma la cifra, così la leggi anche dopo aver tolto l'iPhone. Con Blocca a lettura stabile aspetta che l'iPhone resti fermo e mostra la media.")
-                    InfoRow(title: "Quadrante", systemImage: "arrow.clockwise", text: "Trascina il quadrante di un quarto di giro per leggere 0° sui lati invece che in alto e in basso. Un tocco nasconde i controlli, un altro li mostra.")
+                    InfoRow(title: "Zero sui lati", systemImage: "arrow.clockwise", text: "Con Zero sui lati, in Impostazioni, un bordo legge 0° sui lati invece che in alto e in basso. Un tocco sulla cifra nasconde i controlli, un altro li mostra.")
                 }
 
                 Section("Calibrazione") {
@@ -36,7 +36,7 @@ struct InfoView: View {
             .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Come si usa")
         .navigationBarTitleDisplayMode(.inline)
     }

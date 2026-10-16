@@ -1,7 +1,7 @@
-/// Where things sit on the clinometer dial. Positions are degrees clockwise from the top of the screen.
+/// The clinometer's reading of an edge, as on a dial. Positions are degrees clockwise from the top of the screen.
 ///
 /// The dial turns with the iPhone and reads like a protractor in four quarters: 0° at the top and
-/// bottom, 90° at the sides. The needle always points up, away from gravity. Turned a quarter
+/// bottom, 90° at the sides. Turned a quarter
 /// (`dialTurn` 90), the dial reads 0° at the sides and 90° at the top and bottom instead.
 nonisolated enum DialGeometry {
     /// The dial turns a quarter at a time; two quarters read the same as none.
@@ -17,18 +17,6 @@ nonisolated enum DialGeometry {
     /// Where the needle points for a calibrated device rotation (see `Gravity.rotation`).
     static func needlePosition(rotation: Double) -> Double {
         Angles.normalized(-rotation)
-    }
-
-    /// The 0° mark the wedge starts from: the one within a quarter of the needle.
-    static func wedgeStart(rotation: Double, dialTurn: Double = 0) -> Double {
-        let needle = needlePosition(rotation: rotation)
-        let first = -dialTurn
-        return abs(Angles.normalized(needle - first)) <= 90 ? first : 180 - dialTurn
-    }
-
-    /// The signed sweep from the wedge start to the needle, at most 90° either way.
-    static func wedgeSweep(rotation: Double, dialTurn: Double = 0) -> Double {
-        Angles.normalized(needlePosition(rotation: rotation) - wedgeStart(rotation: rotation, dialTurn: dialTurn))
     }
 
     /// The dial's turn after a drag of `degrees`: a turn of one or three quarters swaps 0° and 90°.

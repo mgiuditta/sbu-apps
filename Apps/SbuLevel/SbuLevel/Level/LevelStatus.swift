@@ -35,14 +35,4 @@ nonisolated enum LevelStatus: Equatable, Sendable {
             self = readout.reading.mode == .flat ? .flat : .edge
         }
     }
-
-    /// The SF Symbol before the words, if any.
-    var systemImage: String? {
-        switch self {
-        case .waitingForSteady: "hourglass"
-        case .locked: "lock.fill"
-        case .cameraUnavailable, .cameraDenied: "camera"
-        default: nil
-        }
-    }
 }

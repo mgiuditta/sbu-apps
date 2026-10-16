@@ -14,6 +14,7 @@ struct LevelPills: View {
     var body: some View {
         Button(isRelative ? "Assoluto" : "Azzera qui", systemImage: "angle", action: toggleReference)
             .buttonStyle(SbuFieldPillStyle(isSelected: isRelative))
+            .sbuAffectsFigure(isRelative)
 
         LockPill(isLocked: isLocked, isWaitingForSteady: isWaitingForSteady, action: toggleLock)
 
@@ -27,7 +28,7 @@ struct LevelPills: View {
         LevelPills(isRelative: false, isLocked: false, isWaitingForSteady: false, isSighting: false, toggleReference: {}, toggleLock: {}, toggleSight: {})
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
@@ -35,6 +36,6 @@ struct LevelPills: View {
         LevelPills(isRelative: true, isLocked: false, isWaitingForSteady: true, isSighting: true, toggleReference: {}, toggleLock: {}, toggleSight: {})
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
     .preferredColorScheme(.dark)
 }

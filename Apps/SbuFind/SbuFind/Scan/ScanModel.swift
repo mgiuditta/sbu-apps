@@ -81,6 +81,10 @@ final class ScanModel {
     @ObservationIgnored private let myDevicesStore: MyDevicesStore
     @ObservationIgnored private var activityPlan = SearchActivityPlan()
     @ObservationIgnored private var isRunning = false
+    /// The files that could not be read at launch, as with the iPhone locked: nothing is saved
+    /// over them until they are read again.
+    @ObservationIgnored private var sightingsUnavailable = false
+    @ObservationIgnored private var myDevicesUnavailable = false
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let clock: () -> Date
     @ObservationIgnored private var trackedID: UUID?
@@ -125,9 +129,13 @@ final class ScanModel {
         let launch = URL.temporaryDirectory.appending(path: "launch-\(UUID().uuidString)")
         self.sightingStore = fixed != nil ? SightingStore(url: launch.appending(path: "sightings.json")) : sightingStore
         self.activity = activity ?? (fixed != nil ? NoSearchActivity() : LiveSearchActivity())
-        sightings = self.sightingStore.load()
+        let savedSightings = self.sightingStore.read()
+        sightings = savedSightings ?? SightingLog()
+        sightingsUnavailable = savedSightings == nil
         self.myDevicesStore = fixed != nil ? MyDevicesStore(url: launch.appending(path: "my-devices.json")) : myDevicesStore
-        myDevices = self.myDevicesStore.load()
+        let savedDevices = self.myDevicesStore.read()
+        myDevices = savedDevices ?? []
+        myDevicesUnavailable = savedDevices == nil
         remembersPlaces = defaults.bool(forKey: Self.remembersPlacesKey)
         placesInBackground = self.location.allowsBackground
         self.defaults = defaults
@@ -267,14 +275,50 @@ final class ScanModel {
 
     private func recordBackgroundSighting(of saved: SavedDevice, heardAt date: Date, place: Coordinate) {
         sightings.record(Sighting(id: saved.deviceID, name: saved.advertisedName ?? saved.name, kind: saved.kind, date: date, place: place))
-        sightingStore.save(sightings)
+        saveSightings()
     }
 
     /// Cancella le posizioni: every sighting goes, from memory and from the file.
     func forgetPlaces() {
         sightings.removeAll()
         recorder.reset()
+        // Asked for: the file goes even if it could not be read.
+        sightingsUnavailable = false
+        saveSightings()
+    }
+
+    /// Reads again the files that could not be read at launch, now that the iPhone is unlocked:
+    /// what was heard meanwhile joins what they keep.
+    func reloadUnavailableFiles() {
+        if sightingsUnavailable, let saved = sightingStore.read() {
+            var merged = saved
+            for sighting in sightings.sightings {
+                merged.record(sighting)
+            }
+            sightings = merged
+            sightingsUnavailable = false
+            saveSightings()
+        }
+        if myDevicesUnavailable, let saved = myDevicesStore.read() {
+            let added = myDevices.filter { mine in !saved.contains { $0.id == mine.id } }
+            myDevices = saved + added
+            myDevicesUnavailable = false
+            if !added.isEmpty {
+                saveMyDevices()
+            }
+            publish(at: clock())
+            scanner.listen(currentScanMode)
+        }
+    }
+
+    private func saveSightings() {
+        guard !sightingsUnavailable else { return }
         sightingStore.save(sightings)
+    }
+
+    private func saveMyDevices() {
+        guard !myDevicesUnavailable else { return }
+        myDevicesStore.save(myDevices)
     }
 
     /// The last sighting of the device heard under this identifier.
@@ -300,7 +344,7 @@ final class ScanModel {
         for sighting in new {
             sightings.record(sighting)
         }
-        sightingStore.save(sightings)
+        saveSightings()
     }
 
     func handle(_ event: ScanEvent) {
@@ -409,19 +453,19 @@ final class ScanModel {
     func saveDevice(_ device: NearbyDevice, name: String) {
         guard savedDevice(forDeviceID: device.id) == nil else { return }
         myDevices.append(SavedDevice(name: SavedDevice.displayName(name, fallback: device.name), device: device))
-        myDevicesStore.save(myDevices)
+        saveMyDevices()
         publish(at: clock())
     }
 
     func renameDevice(_ id: UUID, to name: String) {
         guard let index = myDevices.firstIndex(where: { $0.id == id }) else { return }
         myDevices[index].name = SavedDevice.displayName(name, fallback: myDevices[index].advertisedName)
-        myDevicesStore.save(myDevices)
+        saveMyDevices()
     }
 
     func forgetDevice(_ id: UUID) {
         myDevices.removeAll { $0.id == id }
-        myDevicesStore.save(myDevices)
+        saveMyDevices()
         publish(at: clock())
     }
 

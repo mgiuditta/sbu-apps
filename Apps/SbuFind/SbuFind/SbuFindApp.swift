@@ -14,6 +14,12 @@ struct SbuFindApp: App {
         Task {
             await model.run()
         }
+        // Launched before the first unlock, the saved files could not be read: read them now.
+        Task {
+            for await _ in NotificationCenter.default.notifications(named: UIApplication.protectedDataDidBecomeAvailableNotification) {
+                model.reloadUnavailableFiles()
+            }
+        }
     }
 
     var body: some Scene {

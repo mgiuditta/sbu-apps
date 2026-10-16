@@ -13,8 +13,18 @@ struct MyDevicesStore {
         self.url = url
     }
 
+    /// The saved devices; `nil` when the file is there but cannot be read now.
+    func read() -> [SavedDevice]? {
+        switch LocalFile<[SavedDevice]>(url: url).read() {
+        case .empty: []
+        case .loaded(let devices): devices
+        case .unavailable: nil
+        }
+    }
+
+    /// The saved devices; empty when there are none or they cannot be read now.
     func load() -> [SavedDevice] {
-        LocalFile<[SavedDevice]>(url: url).load() ?? []
+        read() ?? []
     }
 
     func save(_ devices: [SavedDevice]) {

@@ -13,9 +13,18 @@ struct SightingStore {
         self.url = url
     }
 
-    /// The saved log; empty when there is none or it cannot be read.
+    /// The saved log; `nil` when the file is there but cannot be read now.
+    func read() -> SightingLog? {
+        switch LocalFile<SightingLog>(url: url).read() {
+        case .empty: SightingLog()
+        case .loaded(let log): log
+        case .unavailable: nil
+        }
+    }
+
+    /// The saved log; empty when there is none or it cannot be read now.
     func load() -> SightingLog {
-        LocalFile<SightingLog>(url: url).load() ?? SightingLog()
+        read() ?? SightingLog()
     }
 
     func save(_ log: SightingLog) {

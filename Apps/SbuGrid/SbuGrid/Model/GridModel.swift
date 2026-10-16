@@ -41,6 +41,11 @@ final class GridModel {
         }
     }
 
+    /// How the photo shows over the camera while tracing.
+    var trace: TraceSettings {
+        didSet { saveState() }
+    }
+
     /// The crop in unit coordinates; `nil` for the whole photo. Set it with `setCrop(_:)`.
     private(set) var crop: CGRect?
 
@@ -57,6 +62,7 @@ final class GridModel {
         let state = stateStore?.load() ?? GridState()
         settings = state.settings
         paper = state.paper
+        trace = state.trace
         crop = state.crop.flatMap(CropGeometry.sanitized)
         self.photo = photo ?? photoStore?.load()
         updatePicture()
@@ -137,7 +143,7 @@ final class GridModel {
     }
 
     private func saveState() {
-        stateStore?.save(GridState(settings: settings, paper: paper, crop: crop))
+        stateStore?.save(GridState(settings: settings, paper: paper, crop: crop, trace: trace))
     }
 
     @concurrent

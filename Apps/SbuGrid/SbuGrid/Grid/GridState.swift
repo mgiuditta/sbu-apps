@@ -7,15 +7,17 @@ nonisolated struct GridState: Codable, Hashable, Sendable {
     var paper = PaperSettings()
     /// The crop of the photo in unit coordinates; `nil` for the whole photo.
     var crop: CGRect?
+    var trace = TraceSettings()
 
-    init(settings: GridSettings = GridSettings(), paper: PaperSettings = PaperSettings(), crop: CGRect? = nil) {
+    init(settings: GridSettings = GridSettings(), paper: PaperSettings = PaperSettings(), crop: CGRect? = nil, trace: TraceSettings = TraceSettings()) {
         self.settings = settings
         self.paper = paper
         self.crop = crop
+        self.trace = trace
     }
 
     private enum CodingKeys: String, CodingKey {
-        case settings, paper, crop
+        case settings, paper, crop, trace
     }
 
     /// A part that no longer decodes takes its default, so the rest is never lost; a crop that
@@ -25,6 +27,7 @@ nonisolated struct GridState: Codable, Hashable, Sendable {
         settings = (try? container.decodeIfPresent(GridSettings.self, forKey: .settings)) ?? GridSettings()
         paper = (try? container.decodeIfPresent(PaperSettings.self, forKey: .paper)) ?? PaperSettings()
         crop = ((try? container.decodeIfPresent(CGRect.self, forKey: .crop)) ?? nil).flatMap(CropGeometry.sanitized)
+        trace = (try? container.decodeIfPresent(TraceSettings.self, forKey: .trace)) ?? TraceSettings()
     }
 
     func encode(to encoder: any Encoder) throws {
@@ -32,5 +35,6 @@ nonisolated struct GridState: Codable, Hashable, Sendable {
         try container.encode(settings, forKey: .settings)
         try container.encode(paper, forKey: .paper)
         try container.encodeIfPresent(crop, forKey: .crop)
+        try container.encode(trace, forKey: .trace)
     }
 }

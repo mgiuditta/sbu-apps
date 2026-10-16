@@ -2,7 +2,7 @@ import SbuKit
 import SwiftUI
 
 /// The tools under the photo, in DrawinGrid's order: grid settings, the sheet and its crop,
-/// full screen.
+/// full screen, then tracing with the camera (DrawinGrid's AR Sketch).
 ///
 /// Two equal pills a row, a word beside each symbol so nothing needs explaining: four words do
 /// not fit one row on any iPhone, and two tidy rows read better than a ragged wrap. At large
@@ -11,14 +11,14 @@ struct GridPills: View {
     let actions: GridActions
 
     var body: some View {
-        Grid(horizontalSpacing: SbuTheme.space2, verticalSpacing: SbuTheme.space2) {
-            GridRow {
+        VStack(spacing: SbuTheme.space2) {
+            HStack(spacing: SbuTheme.space2) {
                 pill("Griglia", systemImage: "square.grid.3x3", action: actions.showGrid)
                 pill("Foglio", systemImage: "crop", action: actions.showPaper)
             }
-            GridRow {
+            HStack(spacing: SbuTheme.space2) {
                 pill("Schermo intero", systemImage: "arrow.up.left.and.arrow.down.right", action: actions.showFullScreen)
-                    .gridCellColumns(2)
+                pill("Ricalca", systemImage: "camera.viewfinder", action: actions.showTrace)
             }
         }
         // Never squeezed by the photo, which takes the height first.
@@ -27,12 +27,16 @@ struct GridPills: View {
 
     private func pill(_ title: LocalizedStringResource, systemImage: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Label {
-                Text(title)
-            } icon: {
-                Image(systemName: systemImage)
+            // Spacers, not a wide frame: the text keeps its own frame, so the audit sees it whole.
+            HStack(spacing: 0) {
+                Spacer(minLength: 0)
+                Label {
+                    Text(title)
+                } icon: {
+                    Image(systemName: systemImage)
+                }
+                Spacer(minLength: 0)
             }
-            .frame(maxWidth: .infinity)
         }
         .buttonStyle(SbuFieldPillStyle())
     }

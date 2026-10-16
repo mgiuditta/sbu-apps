@@ -31,6 +31,7 @@ targets:
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.graphics-design
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         # Saving the gridded photo only adds to Photos; the picker needs no permission. English in InfoPlist.xcstrings.
+        INFOPLIST_KEY_NSCameraUsageDescription: "Per ricalcare, la fotocamera mostra il foglio sotto la foto. L'immagine resta sullo schermo: non viene salvata né inviata."
         INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "Sbu Grid aggiunge a Foto solo la foto con la griglia che salvi. Non legge la tua libreria."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait

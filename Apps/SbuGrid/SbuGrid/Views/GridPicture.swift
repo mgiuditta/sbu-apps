@@ -7,6 +7,8 @@ struct GridPicture: View {
     let image: CGImage
     let settings: GridSettings
     let rule: CellRule
+    /// Below 1 the photo lets the camera show through while tracing; the grid stays as set.
+    var photoOpacity = 1.0
 
     var body: some View {
         Image(decorative: image, scale: 1)
@@ -14,6 +16,7 @@ struct GridPicture: View {
             .interpolation(.high)
             // Black and white keeps the values and drops the hues, to read light and shade.
             .grayscale(settings.isBlackAndWhite ? 1 : 0)
+            .opacity(photoOpacity)
             .overlay {
                 GridOverlay(rule: rule, settings: settings)
             }

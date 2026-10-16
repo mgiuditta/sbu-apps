@@ -231,6 +231,16 @@
         }
       }
     },
+    "Blocca la foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lock the photo"
+          }
+        }
+      }
+    },
     "Cambia foto" : {
       "localizations" : {
         "en" : {
@@ -411,6 +421,16 @@
         }
       }
     },
+    "Foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo"
+          }
+        }
+      }
+    },
     "Foto con la griglia" : {
       "localizations" : {
         "en" : {
@@ -437,6 +457,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Photos not allowed"
+          }
+        }
+      }
+    },
+    "Fotocamera non consentita" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera not allowed"
+          }
+        }
+      }
+    },
+    "Fotocamera non disponibile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera not available"
           }
         }
       }
@@ -517,6 +557,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lines"
+          }
+        }
+      }
+    },
+    "Metti l'iPhone su un supporto sopra il foglio: vedi la carta con la fotocamera, e la foto con la griglia sopra. Segui le linee con la matita guardando lo schermo. Quello che la fotocamera vede resta sullo schermo: non viene salvato." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put your iPhone on a stand above the sheet: you see the paper through the camera, with the photo and the grid over it. Follow the lines with your pencil while looking at the screen. What the camera sees stays on the screen: it is never saved."
           }
         }
       }
@@ -611,6 +661,26 @@
         }
       }
     },
+    "Per ricalcare serve la fotocamera posteriore. Puoi sempre copiare la foto cella per cella dallo schermo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tracing needs the rear camera. You can still copy the photo cell by cell from the screen."
+          }
+        }
+      }
+    },
+    "Per ricalcare, consenti a Sbu Grid di usare la fotocamera in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To trace, allow Sbu Grid to use the camera in Settings."
+          }
+        }
+      }
+    },
     "Per salvare, consenti a Sbu Grid di aggiungere foto in Impostazioni. Sbu Grid aggiunge soltanto: non legge la tua libreria." : {
       "localizations" : {
         "en" : {
@@ -677,6 +747,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shrink"
+          }
+        }
+      }
+    },
+    "Ricalca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trace"
+          }
+        }
+      }
+    },
+    "Ricalca sulla carta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trace onto paper"
           }
         }
       }
@@ -777,6 +867,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Saving to Photos"
+          }
+        }
+      }
+    },
+    "Sblocca la foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock the photo"
           }
         }
       }
@@ -948,6 +1048,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unit"
+          }
+        }
+      }
+    },
+    "Usa la fotocamera" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the camera"
           }
         }
       }

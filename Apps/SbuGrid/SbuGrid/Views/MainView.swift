@@ -16,6 +16,7 @@ struct MainView: View {
     @State private var selection: PhotosPickerItem?
     @State private var sheet: GridSheet?
     @State private var isFullScreen = false
+    @State private var isTracing = false
 
     var body: some View {
         content
@@ -63,11 +64,14 @@ struct MainView: View {
             .fullScreenCover(isPresented: $isFullScreen) {
                 FullScreenView(model: model)
             }
+            .fullScreenCover(isPresented: $isTracing) {
+                TraceView(model: model)
+            }
     }
 
     @ViewBuilder private var content: some View {
         if let picture = model.picture {
-            GridScreen(model: model, picture: picture, actions: GridActions(showGrid: showGrid, showPaper: showPaper, showFullScreen: showFullScreen))
+            GridScreen(model: model, picture: picture, actions: GridActions(showGrid: showGrid, showPaper: showPaper, showFullScreen: showFullScreen, showTrace: showTrace))
         } else {
             EmptyPhotoView(choosePhoto: choosePhoto)
         }
@@ -93,6 +97,10 @@ private extension MainView {
 
     func showFullScreen() {
         isFullScreen = true
+    }
+
+    func showTrace() {
+        isTracing = true
     }
 
     func open(_ item: PhotosPickerItem?) async {

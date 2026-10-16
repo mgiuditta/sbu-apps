@@ -9,6 +9,14 @@
         "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid" } }
       }
     },
+    "NSCameraUsageDescription" : {
+      "comment" : "Why tracing asks for the camera.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "To trace, the camera shows the sheet under the photo. The picture stays on the screen: it is never saved or sent." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Per ricalcare, la fotocamera mostra il foglio sotto la foto. L'immagine resta sullo schermo: non viene salvata né inviata." } }
+      }
+    },
     "NSPhotoLibraryAddUsageDescription" : {
       "comment" : "Why saving the gridded photo asks to add to Photos.",
       "extractionState" : "manual",

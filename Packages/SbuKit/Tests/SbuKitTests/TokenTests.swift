@@ -32,6 +32,16 @@ struct TokenTests {
         let stroke: MetricGroup
         let size: MetricGroup
         let mark: MetricGroup
+        let grid: MetricGroup
+        let fullStop: MetricGroup
+        let control: MetricGroup
+        let figure: MetricGroup
+        let motion: MetricGroup
+
+        enum CodingKeys: String, CodingKey {
+            case color, type, spacing, radius, stroke, size, mark, grid, control, figure, motion
+            case fullStop = "full-stop"
+        }
     }
 
     private let tokens: Tokens
@@ -57,10 +67,11 @@ struct TokenTests {
     }
 
     @Test func metricsMatchTokenValues() {
-        for token in tokens.spacing.tokens + tokens.radius.tokens + tokens.stroke.tokens + tokens.size.tokens + tokens.mark.tokens {
+        let groups = [tokens.spacing, tokens.radius, tokens.stroke, tokens.size, tokens.mark, tokens.grid, tokens.fullStop, tokens.control, tokens.figure, tokens.motion]
+        for token in groups.flatMap(\.tokens) {
             let expected = token.value.hasSuffix("%")
                 ? (Double(token.value.dropLast()) ?? .nan) / 100
-                : Double(token.value.replacing("px", with: "")) ?? .nan
+                : Double(token.value.replacing("px", with: "").replacing(/s$/, with: "")) ?? .nan
             #expect(SbuTheme.metricTokens[token.name].map(Double.init) == expected, "\(token.name)")
         }
     }

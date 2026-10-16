@@ -36,24 +36,48 @@ Il numero che misura la **Cosa sola**, mostrato in grande una volta per schermat
 _Avoid_: KPI, metrica, valore
 
 **Schermata strumento** (_Tool screen_):
-La schermata principale di un'**App Sbu**, dove fa la sua **Cosa sola**, sulla carta (`surface`) come ogni altra schermata.
+La schermata principale di un'**App Sbu**, dove fa la sua **Cosa sola**: carta (`paper`) con il **Reticolo**, **Titolo** e **Cartiglio**, la **Cifra** chiusa dal **Punto fermo**.
 _Avoid_: home, dashboard, prima tab
 
 **Schermata di gestione** (_Management screen_):
-Ogni altra schermata di un'**App Sbu** (impostazioni, storico, liste), su fondo chiaro di sistema.
+Ogni altra schermata di un'**App Sbu** (impostazioni, storico, liste): `List`/`Form` nativi su `paper`, senza **Reticolo**.
 _Avoid_: schermata secondaria
 
 **Accento** (_Accent_):
-Il colore di una sola **App Sbu**, tinta dell'interfaccia e campo della sua icona.
+Il colore di una sola **App Sbu**: solo il **Punto fermo** `set` e il quadrato dell'icona. Il tint dell'interfaccia è `ink`.
 _Avoid_: colore primario, tint
 
 **Brand**:
 Il colore di sbu.dev, che in un'**App Sbu** compare solo nel footer "Parte di sbu.dev".
 _Avoid_: accento di sbu.dev
 
-**Glifo** (_Glyph_):
-Il segno bianco, al massimo due tratti, dell'icona di un'**App Sbu**: l'oggetto della **Cosa sola** o il simbolo che iOS usa già per quel concetto.
-_Avoid_: logo, illustrazione, metafora creativa
+**Incisione** (_Engraving_):
+Lo strumento reale dietro la **Cosa sola**, inciso in `ink` sulla carta dell'icona, chiuso dal quadrato nell'**Accento**. Sostituisce il **Glifo**, ritirato.
+_Avoid_: glifo, logo, illustrazione, metafora creativa
+
+**Inversa** (_Inverse_):
+L'unica icona alternativa, carta su inchiostro, uguale per tutte le **App Sbu**, scelta nelle Impostazioni.
+_Avoid_: icona scura, tema
+
+**Reticolo** (_Grid_):
+Il quadrettato da una cella (24 pt) delle aree carta: zona della **Cifra**, stati vuoti, primo avvio. Mai sotto liste o contenuti dell'utente.
+_Avoid_: pattern, texture, sfondo
+
+**Punto fermo** (_Full stop_):
+Il quadretto riempito che chiude la **Cifra**: `absent`, `waiting` (grigio, nulla da contare o in corso), `set` (nell'**Accento**). Uno solo `set` per schermata.
+_Avoid_: quadrato, punto, bullet
+
+**Cartiglio** (_Title block_):
+La riga in IBM Plex Mono maiuscolo sotto il titolo di schermata: `SBU · ABITUDINI · SAB 17 OTT`. Solo metadati, mai cifre.
+_Avoid_: sottotitolo, breadcrumb
+
+**Chiusura** (_Closure_):
+Il momento di completamento: per 2 s la **Cifra** lascia il posto a una parola sola ("Fatto.") e al **Punto fermo**, dentro il **Blocco d'inchiostro**.
+_Avoid_: toast, celebrazione, conferma
+
+**Blocco d'inchiostro** (_Ink block_):
+Il rettangolo `ink` (raggio 14) della **Chiusura**, l'unica superficie scura oltre al Parabrezza di Sbu Speed.
+_Avoid_: card scura, banner
 
 **Promesse** (_Promises_):
 Le sei garanzie di ogni **App Sbu**: nessun abbonamento, nessun acquisto in-app, nessun account, nessuna pubblicità, nessun tracking, dati solo sul dispositivo.
@@ -179,7 +203,8 @@ _Avoid_: fallback, sveglia di backup
 - Un'**App Sbu** ha esattamente un **Accento**, e un **Accento** appartiene a una sola **App Sbu**
 - L'**Accento** di Sbu Subscriptions ha lo stesso valore del **Brand** ma resta un concetto distinto
 - Un'**App Sbu** ha esattamente una **Schermata strumento**, che mostra la **Cifra** se esiste, e zero o più **Schermate di gestione**
-- L'icona di un'**App Sbu** è il suo **Accento** pieno con un solo **Glifo**
+- L'icona di un'**App Sbu** è la sua **Incisione** su carta chiusa dal quadrato nell'**Accento**; l'**Inversa** è la stessa per tutte
+- Una schermata ha al più un **Punto fermo** `set`; la **Chiusura** compare al più una volta per evento
 - Un'**App Sbu** rispetta tutte le **Promesse**; se ne viola una non si pubblica
 - Il **FreeBadge** mostra un sottoinsieme fisso di quattro **Promesse**
 - Un **Originale** può avere zero o più **Concorrenti**; un **Concorrente** non genera una nuova **App Sbu**

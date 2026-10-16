@@ -11,7 +11,7 @@ nonisolated enum SbuFont {
 
     /// The bundled font file.
     static var statFileURL: URL? {
-        Bundle.module.url(forResource: "BricolageGrotesque-Bold", withExtension: "ttf")
+        Bundle.module.url(forResource: "BricolageGrotesque-Variable", withExtension: "ttf")
     }
 
     /// The SIL Open Font License notice shipped with the font, copyright line first.

@@ -161,6 +161,16 @@
         }
       }
     },
+    "Cambia TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switches TV"
+          }
+        }
+      }
+    },
     "Canale" : {
       "localizations" : {
         "en" : {

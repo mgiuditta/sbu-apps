@@ -40,12 +40,9 @@ struct MainView: View {
                         .disabled(!session.status.acceptsKeys)
                 }
             }
-            if let tv = session.tv {
+            if session.tv != nil {
                 ToolbarItem(placement: .principal) {
-                    Text(tv.name)
-                        .font(SbuTheme.headline)
-                        .foregroundStyle(SbuTheme.ink)
-                        .accessibilityAddTraits(.isHeader)
+                    TVPickerMenu(session: session, onAdd: showAddTV)
                 }
             }
         }

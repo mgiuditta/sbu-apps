@@ -54,6 +54,16 @@ struct FinderView: View {
                         RingCard(ringer: ringer)
                     }
 
+                    if model.tracked?.device.kind == .earbuds {
+                        NavigationLink {
+                            AirPodGuideView()
+                        } label: {
+                            Label("Hai perso un solo auricolare?", systemImage: "airpod.right")
+                                .font(SbuTheme.subheadline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+
                     Spacer(minLength: 0)
 
                     // In one row, wrapping onto two at the largest text sizes, so no word is cut.

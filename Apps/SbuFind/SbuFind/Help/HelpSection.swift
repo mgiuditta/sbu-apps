@@ -6,6 +6,9 @@ nonisolated struct HelpSection: Identifiable, Sendable {
     let title: LocalizedStringResource
     let items: [HelpItem]
 
+    /// The section on a single AirPod: it leads to the step-by-step guide.
+    static let singleAirPodID = 2
+
     /// Apple's Find My: it opens from the help page for Apple products.
     static let findMyURL = URL(string: "findmy://")
 

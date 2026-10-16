@@ -141,6 +141,16 @@
         }
       }
     },
+    "Aprilo e cammina piano: la percentuale e il tic crescono quando ti avvicini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open it and walk slowly: the percentage and the tick grow as you get closer."
+          }
+        }
+      }
+    },
     "Auricolari" : {
       "localizations" : {
         "en" : {
@@ -411,6 +421,26 @@
         }
       }
     },
+    "Guida passo per passo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step-by-step guide"
+          }
+        }
+      }
+    },
+    "Hai perso un solo auricolare?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lost just one earbud?"
+          }
+        }
+      }
+    },
     "I miei dispositivi" : {
       "localizations" : {
         "en" : {
@@ -467,6 +497,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings"
+          }
+        }
+      }
+    },
+    "In Sbu Find tocca Cerca di nuovo: l'auricolare perso compare solo se è fuori dalla custodia e ha un po' di carica." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In Sbu Find tap Search again: the lost earbud only shows up if it is out of its case and has some charge."
           }
         }
       }
@@ -591,6 +631,16 @@
         }
       }
     },
+    "Passo %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step %lld"
+          }
+        }
+      }
+    },
     "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare, mostra dove li hai lasciati e li trova anche lontano. Sbu Find non fa suonare nulla e non vede la rete Dov'è." : {
       "localizations" : {
         "en" : {
@@ -637,6 +687,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To hear nearby devices, allow Bluetooth for Sbu Find in Settings. What it hears stays on your iPhone."
+          }
+        }
+      }
+    },
+    "Porta la custodia lontano, in un'altra stanza." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take the case far away, into another room."
           }
         }
       }
@@ -721,6 +781,16 @@
         }
       }
     },
+    "Rimetti nella custodia l'auricolare che hai e chiudila: così smette di trasmettere e non confonde la ricerca." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put the earbud you have back in its case and close it: it stops transmitting and does not confuse the search."
+          }
+        }
+      }
+    },
     "Rinomina" : {
       "localizations" : {
         "en" : {
@@ -761,6 +831,16 @@
         }
       }
     },
+    "Sbu Find non fa suonare gli auricolari: se sono collegati all'iPhone, Fai suonare nel dettaglio li fa suonare in cuffia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Find cannot ring earbuds: if they are connected to your iPhone, Play a sound in the detail plays it in them."
+          }
+        }
+      }
+    },
     "Sbu Find non lo sente da 15 secondi: forse l'hai lasciato indietro. Torna sui tuoi passi e cercalo." : {
       "localizations" : {
         "en" : {
@@ -781,12 +861,32 @@
         }
       }
     },
+    "Se non compare, forse è scarico: cerca dove l'hai usato l'ultima volta. Con Ricorda dove li hai sentiti, Sbu Find te lo mostra sulla mappa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If it does not show up, it may be flat: look where you last used it. With Remember where you heard them, Sbu Find shows you on the map."
+          }
+        }
+      }
+    },
     "Se te lo chiede, consenti il Bluetooth: serve per sentire i dispositivi vicini." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "If asked, allow Bluetooth: it is how the app hears nearby devices."
+          }
+        }
+      }
+    },
+    "Se è un AirPod, in Dov'è puoi farlo suonare da solo: scegli il sinistro o il destro." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If it is an AirPod, Find My can play a sound on it alone: choose the left or the right one."
           }
         }
       }
@@ -947,6 +1047,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An AirPod transmits only out of its case and with some charge left. In Find My you can play a sound on it alone, one at a time."
+          }
+        }
+      }
+    },
+    "Un auricolare solo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A single earbud"
           }
         }
       }

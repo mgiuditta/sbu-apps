@@ -254,6 +254,35 @@ final class FindFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheSingleEarbudGuideOpensFromTheFinderAndFromHelp() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let link = app.buttons["Hai perso un solo auricolare?"]
+        for _ in 0..<3 where !link.isHittable {
+            app.swipeUp()
+        }
+        link.tap()
+        XCTAssertTrue(app.navigationBars["Un auricolare solo"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Passo 1'")).firstMatch.exists)
+        // Clipped text with "no element" is the iOS 26 glass bar over the list, as in Sbu Level's
+        // info page: every row of the guide is still checked for Dynamic Type.
+        try audit(app, excluding: [.contrast, .textClipped])
+
+        app.navigationBars.buttons.firstMatch.tap()
+        app.navigationBars.buttons.firstMatch.tap()
+        app.navigationBars.buttons["Aiuto"].tap()
+        let guide = app.buttons["Guida passo per passo"]
+        for _ in 0..<5 where !guide.isHittable {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        guide.tap()
+        XCTAssertTrue(app.navigationBars["Un auricolare solo"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testConnectedHeadphonesCanBeRungAndStopped() throws {
         let app = launch()
         let row = devices(app).firstMatch

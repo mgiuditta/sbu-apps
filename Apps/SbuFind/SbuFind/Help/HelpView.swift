@@ -25,6 +25,16 @@ struct HelpView: View {
                                     .foregroundStyle(SbuTheme.inkMuted)
                             }
                         }
+
+                        if section.id == HelpSection.singleAirPodID {
+                            NavigationLink {
+                                AirPodGuideView()
+                            } label: {
+                                Text("Guida passo per passo")
+                                    .font(SbuTheme.body)
+                                    .foregroundStyle(SbuTheme.ink)
+                            }
+                        }
                     } header: {
                         Text(section.title)
                     }

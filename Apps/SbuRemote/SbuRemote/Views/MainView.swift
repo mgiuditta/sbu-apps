@@ -1,22 +1,40 @@
 import SbuKit
 import SwiftUI
 
-/// The one screen of the app: its central figure in an `SbuStat`.
+/// The tool screen: the remote of the current TV, or the way to add the first one.
 struct MainView: View {
+    @State private var isAddingTV = false
+    @State private var discovery = TVDiscovery()
+
     var body: some View {
-        VStack(spacing: SbuTheme.space6) {
-            SbuStat("Valore", value: 0, format: .number)
-            Spacer()
-        }
-        .padding(SbuTheme.space4)
+        NoTVView(onAdd: showAddTV)
+            .sheet(isPresented: $isAddingTV) {
+                NavigationStack {
+                    DiscoveryView(discovery: discovery) { _ in
+                        isAddingTV = false
+                    }
+                    .navigationTitle("Aggiungi una TV")
+                    .navigationBarTitleDisplayMode(.inline)
+                }
+            }
+    }
+
+    private func showAddTV() {
+        isAddingTV = true
     }
 }
 
 #Preview("Light") {
-    MainView()
+    NavigationStack {
+        MainView()
+    }
+    .tint(SbuTheme.accentRemote)
 }
 
 #Preview("Dark") {
-    MainView()
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        MainView()
+    }
+    .tint(SbuTheme.accentRemote)
+    .preferredColorScheme(.dark)
 }

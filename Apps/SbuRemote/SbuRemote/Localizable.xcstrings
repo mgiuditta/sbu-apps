@@ -1,14 +1,174 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-    "Sbu Remote" : {
+    "Accendi la TV e collega il telefono alla stessa Wi-Fi." : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on the TV and connect your phone to the same Wi-Fi."
+          }
+        }
       }
     },
-    "Valore" : {
+    "Accendi la TV e collega il telefono alla stessa Wi-Fi. Sbu Remote la cerca e la comanda da qui." : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on the TV and connect your phone to the same Wi-Fi. Sbu Remote finds it and controls it from here."
+          }
+        }
+      }
+    },
+    "Aggiungi la TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add the TV"
+          }
+        }
+      }
+    },
+    "Aggiungi una TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a TV"
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Cerco le TV sulla tua Wi-Fi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for TVs on your Wi-Fi"
+          }
+        }
+      }
+    },
+    "Funziona con Samsung Tizen dal 2016, LG webOS, Android TV e Google TV (Sony, TCL, Philips, Xiaomi, Hisense, Chromecast) e Sony Bravia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Works with Samsung Tizen from 2016, LG webOS, Android TV and Google TV (Sony, TCL, Philips, Xiaomi, Hisense, Chromecast) and Sony Bravia."
+          }
+        }
+      }
+    },
+    "Indirizzo IP, per esempio 192.168.1.20" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP address, for example 192.168.1.20"
+          }
+        }
+      }
+    },
+    "Nessuna TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No TV"
+          }
+        }
+      }
+    },
+    "Non funziona con Fire TV, Hisense VIDAA, Philips senza Android, Roku e Apple TV: per Apple TV usa il telecomando nel Centro di Controllo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Does not work with Fire TV, Hisense VIDAA, Philips without Android, Roku and Apple TV: for Apple TV, use the remote in Control Center."
+          }
+        }
+      }
+    },
+    "Per indirizzo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By address"
+          }
+        }
+      }
+    },
+    "Quali TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Which TVs"
+          }
+        }
+      }
+    },
+    "Rete locale disattivata. Attivala in Impostazioni › Privacy e sicurezza › Rete locale › Sbu Remote." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local Network is off. Turn it on in Settings › Privacy & Security › Local Network › Sbu Remote."
+          }
+        }
+      }
+    },
+    "Sbu Remote" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Remote"
+          }
+        }
+      }
+    },
+    "Sistema" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        }
+      }
+    },
+    "TV trovate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TVs found"
+          }
+        }
+      }
+    },
+    "Trovi l'indirizzo IP nelle impostazioni di rete della TV." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You find the IP address in the TV's network settings."
+          }
+        }
       }
     }
   },

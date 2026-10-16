@@ -22,10 +22,10 @@ Un solo stato per app, aggiornato a ogni passaggio: **pianificata** → **in svi
 | Sbu Noise | 1.0 | respinta il 14/10 (4.3), risposta in attesa | Sbu Noise (#422) |
 | Sbu Moon | 1.0 | respinta il 14/10 (4.2.6), risposta in attesa | – |
 | Sbu Find | 1.0 | in sviluppo | Sbu Find (#248) |
-| Sbu Shrink | 1.0 | pianificata, ricerca fatta | Sbu Shrink (#472) |
-| Sbu Grid | 1.0 | pianificata, ricerca fatta | Sbu Grid (#474) |
-| Sbu Tidy | 1.0 | pianificata | Sbu Tidy (#476) |
-| Sbu Libretto | 1.0 | pianificata | Sbu Libretto (#478) |
+| Sbu Shrink | 1.0 | in sviluppo | Sbu Shrink (#472) |
+| Sbu Grid | 1.0 | in sviluppo | Sbu Grid (#474) |
+| Sbu Tidy | 1.0 | in sviluppo | Sbu Tidy (#476) |
+| Sbu Libretto | 1.0 | in sviluppo | Sbu Libretto (#478) |
 | Sbu Meds | 1.0 | pianificata, dopo Cycle | Sbu Meds (#480) |
 | Sbu Cycle | 1.0 | pianificata | Sbu Cycle (#230) |
 | Sbu Remote | 1.0 | pianificata | Sbu Remote (#365) |

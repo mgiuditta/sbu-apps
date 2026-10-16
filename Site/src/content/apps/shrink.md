@@ -3,7 +3,7 @@
 app: SbuShrink
 accent: accent-shrink
 order: 15
-status: planned
+status: development
 appStoreId: null
 category: MultimediaApplication
 teaser:

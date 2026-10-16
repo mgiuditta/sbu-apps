@@ -3,7 +3,7 @@
 app: SbuLibretto
 accent: accent-libretto
 order: 18
-status: planned
+status: development
 appStoreId: null
 category: EducationalApplication
 teaser:

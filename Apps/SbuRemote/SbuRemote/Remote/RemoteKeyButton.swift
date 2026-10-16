@@ -6,7 +6,7 @@ import SwiftUI
 struct RemoteKeyButton: View {
     let key: RemoteKey
     let session: RemoteSession
-    var side: CGFloat = SbuTheme.controlRound
+    var side: CGFloat = SbuTheme.controlRoundSm
 
     @State private var presses = 0
     @State private var isHolding = false

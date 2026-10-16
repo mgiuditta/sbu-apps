@@ -10,7 +10,7 @@ struct DPadView: View {
             RemoteKeyButton(key: .up, session: session)
             HStack(spacing: SbuTheme.space2) {
                 RemoteKeyButton(key: .left, session: session)
-                RemoteKeyButton(key: .select, session: session, side: SbuTheme.controlRoundLg)
+                RemoteKeyButton(key: .select, session: session, side: SbuTheme.controlRound)
                 RemoteKeyButton(key: .right, session: session)
             }
             RemoteKeyButton(key: .down, session: session)

@@ -15,7 +15,7 @@ struct RemoteView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: SbuTheme.space5) {
+            VStack(spacing: SbuTheme.space4) {
                 ConnectionStatusView(tvName: tvName, status: session.status, onRetry: retry)
                 HStack(spacing: SbuTheme.space4) {
                     RemoteKeyButton(key: .home, session: session, side: SbuTheme.controlRoundSm)
@@ -35,11 +35,8 @@ struct RemoteView: View {
                     case .touchpad: TouchpadView(session: session)
                     }
                 }
-                .frame(height: SbuTheme.controlRoundLg * 3)
-                HStack {
-                    RemoteKeyButton(key: .back, session: session)
-                    Spacer()
-                }
+                .frame(height: SbuTheme.controlRound * 4)
+                KeyGridView(session: session)
                 VolumeChannelView(session: session)
             }
             .padding(.horizontal, SbuTheme.space4)

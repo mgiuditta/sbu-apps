@@ -28,7 +28,7 @@ struct TouchpadView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .frame(height: SbuTheme.controlRoundLg * 3)
+            .frame(height: SbuTheme.controlRound * 4)
             .contentShape(.rect)
             .gesture(drag)
             .sensoryFeedback(.selection, trigger: steps)

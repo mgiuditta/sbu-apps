@@ -1,0 +1,22 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "The app's name under its icon. Localized so the bundle declares Italian as well as English.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote" } }
+      }
+    },
+    "NSLocalNetworkUsageDescription" : {
+      "comment" : "Local network permission prompt (ADR-0007): the app only talks to the user's TV on the home Wi-Fi.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote looks for your TV on your Wi-Fi and sends it the keys you press. Nothing leaves your home network." } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Remote cerca la tua TV sulla Wi-Fi e le manda i tasti che premi. Nulla esce dalla rete di casa." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -38,6 +38,7 @@ nonisolated struct DeviceRoster: Sendable {
             }
             if advertisement.hasValidRSSI {
                 entry.device.signal = entry.filter.add(advertisement.rssi)
+                entry.device.rawRSSI = advertisement.rssi
             }
             entries[advertisement.id] = entry
         } else if advertisement.hasValidRSSI {
@@ -48,6 +49,7 @@ nonisolated struct DeviceRoster: Sendable {
                 name: advertisement.name,
                 kind: DeviceKind(advertisement: advertisement),
                 signal: signal,
+                rawRSSI: advertisement.rssi,
                 lastSeen: advertisement.date,
                 companyID: advertisement.companyID
             )

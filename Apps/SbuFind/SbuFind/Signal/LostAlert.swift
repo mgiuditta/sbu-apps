@@ -8,7 +8,7 @@ import Foundation
 /// spent there is not silence. Back in the foreground the clock starts again.
 nonisolated struct LostAlert: Equatable, Sendable {
     /// Silence that means lost: longer than the gaps of a device that slows its advertising.
-    static let silenceBeforeAlert: TimeInterval = 15
+    static var silenceBeforeAlert: TimeInterval { SignalTuning.current.lostAlertForeground }
 
     enum Phase: Equatable, Sendable {
         /// Listening, and the device was heard recently or the clock has just started.

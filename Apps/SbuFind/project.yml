@@ -54,6 +54,7 @@ targets:
       # The Live Activity shares its attributes, the scale, the words and the ring with the app.
       - SbuFind/Activity/SearchActivityAttributes.swift
       - SbuFind/Signal/Proximity.swift
+      - SbuFind/Signal/SignalTuning.swift
       - SbuFind/Signal/Warmth.swift
       - SbuFind/Signal/RingFill.swift
       - SbuFind/Views/SignalRing.swift

@@ -11,9 +11,9 @@ nonisolated enum Warmth: Int, CaseIterable, Comparable, Codable, Sendable {
     static func lowerBound(of warmth: Warmth) -> Int {
         switch warmth {
         case .cold: 0
-        case .warm: 35
-        case .hot: 60
-        case .veryClose: 80
+        case .warm: SignalTuning.current.warmFrom
+        case .hot: SignalTuning.current.hotFrom
+        case .veryClose: SignalTuning.current.veryCloseFrom
         }
     }
 

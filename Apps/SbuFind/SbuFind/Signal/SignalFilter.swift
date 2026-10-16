@@ -7,7 +7,7 @@ nonisolated struct SignalFilter: Equatable, Sendable {
     /// Readings in the median: about a second at the usual advertising rates.
     static let window = 5
     /// How much of each new median goes into the value: lower is steadier but slower.
-    static let smoothing = 0.3
+    static var smoothing: Double { SignalTuning.current.smoothing }
 
     private var recent: [Int] = []
     /// The filtered signal in dBm; `nil` before the first reading.

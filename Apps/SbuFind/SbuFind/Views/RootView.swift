@@ -19,6 +19,9 @@ struct RootView: View {
             ListSection(model: model)
             FeedbackSection(model: model)
             PlacesSection(model: model)
+            #if DEBUG
+            TuningSection(model: model)
+            #endif
         }
         .task(id: scenePhase == .active) {
             guard scenePhase == .active else { return }

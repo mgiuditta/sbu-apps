@@ -3,9 +3,9 @@
 /// top does not buzz again and again.
 nonisolated struct FoundMoment: Equatable, Sendable {
     /// Proximity that means the device is in reach of your hand.
-    static let threshold = 90
+    static var threshold: Int { SignalTuning.current.foundAt }
     /// Proximity below which the moment can happen again.
-    static let rearmBelow = 75
+    static var rearmBelow: Int { SignalTuning.current.foundRearmBelow }
 
     private(set) var isArmed = true
 

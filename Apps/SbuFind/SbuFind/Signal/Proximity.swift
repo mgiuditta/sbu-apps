@@ -8,9 +8,9 @@ import Foundation
 /// Decision #214: shown as a percentage, as in Find Air, with the word beside it.
 nonisolated struct Proximity: Equatable, Comparable, Sendable {
     /// At or below this the figure is 0: the edge of what an iPhone hears.
-    static let farthestRSSI = -100.0
+    static var farthestRSSI: Double { SignalTuning.current.farthestRSSI }
     /// At or above this the figure is 100: the device is on the iPhone.
-    static let nearestRSSI = -40.0
+    static var nearestRSSI: Double { SignalTuning.current.nearestRSSI }
 
     /// From 0 to 100.
     let value: Int

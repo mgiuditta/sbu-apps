@@ -1,0 +1,30 @@
+{
+  "id": "1458601441",
+  "name": "Wunderfind: Trova dispositivo",
+  "developer": "Hendrik Folkerts",
+  "bundle_id": "com.hf.Find-Lost-Device",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Utilities",
+  "genres": [
+    "Utility",
+    "Produttività"
+  ],
+  "description": "AirPods, cuffie, Fitbit tracker o telefono smarriti? Trova uno dei tuoi AirPods o entrambi gli AirPods. Wunderfind ti aiuta a trovare i tuoi dispositivi persi in pochi secondi.\n\nWunderfind ti aiuta a trovare i tuoi AirPods, Apple Pencil, iPhone, iPad, Apple Watch e molto altro ancora. Hai perso il tuo dispositivo? Questa app ti aiuta a trovare il tuo telefono, tablet o orologio in pochi secondi.\n\n► RADAR DEL DISPOSITIVO\nIl radar del dispositivo vi mostra tutti i dispositivi che vi sono vicini.\n\n► PUNTEGGIO DISTANZA\nSelezionare un dispositivo specifico e vedere il punteggio della distanza calcolata. Osservare come questo punteggio cambia quando ci si sposta per trovare i dispositivi persi.\n\n► DISPOSITIVI COMPATIBILI\nWunderfind supporta i seguenti dispositivi:\n- Dispositivi Apple\n- Altoparlanti portatili\n- Inseguitore di fitness, Fitbit tracker\n- e molti altri dispositivi\n\nDISCLAIMER: Non siamo in alcun modo affiliati con le aziende menzionate. Abbiamo sviluppato e testato la nostra App solo con questi dispositivi.\nAirPods è un marchio di Apple Inc. registrato negli Stati Uniti e in altri paesi.\nFitbit is a registered trademark or trademark of Fitbit, Inc. and/or its affiliates in the United States and other countries.\n\n► COME FUNZIONA\n1. Aprire Wunderfind.\n2. Selezionare il dispositivo che si desidera trovare.\n3. Spostarsi in modo che il Punteggio della distanza indicato aumenti.\n4. Il dispositivo dovrebbe essere vicino a voi.\n\n► SUPPORTO\nHai bisogno di supporto? Scriveteci a: support@Wunderfind.app\n\nL'uso continuato del GPS in background può ridurre drasticamente la durata della batteria.",
+  "release_notes": "Quest’app è stata aggiornata da Apple per renderla compatibile con watchOS 27. Non sono incluse nuove funzionalità.\n\nCiao,\n\nQuesto aggiornamento contiene piccoli miglioramenti e correzioni di bug.\n\nSaluti da Berlino,\nHendrik",
+  "version": "1.9.2",
+  "current_version_release_date": "2025-03-05T16:09:04Z",
+  "rating": 4.58716,
+  "rating_count": 3333,
+  "minimum_os": "11.0",
+  "url": "https://apps.apple.com/it/app/wunderfind-trova-dispositivo/id1458601441?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/33/78/e0/3378e069-a556-2240-b171-51de73725435/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/84/fa/67/84fa678b-cc63-8a2d-0425-5c47b532554b/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/c9/f1/95/c9f195b6-17d4-21bf-9d6f-9d6e563253d2/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/7d/97/62/7d9762ba-ae05-7d4d-7928-9ab3b9da00e9/pr_source.png/392x696bb.png"
+  ]
+}

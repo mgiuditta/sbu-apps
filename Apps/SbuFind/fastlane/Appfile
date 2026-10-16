@@ -1,2 +1,0 @@
-app_identifier("dev.sbu.find")
-team_id(ENV["SBU_TEAM_ID"]) if ENV["SBU_TEAM_ID"]

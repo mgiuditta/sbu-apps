@@ -1,0 +1,16 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Sbu Grid" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid" } }
+      }
+    },
+    "Valore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,14 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "The app's name under its icon. Localized so the bundle declares Italian as well as English.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

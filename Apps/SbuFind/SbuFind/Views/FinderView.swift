@@ -1,11 +1,12 @@
 import SbuKit
 import SwiftUI
 
-/// The hot and cold search for one device: how near it sounds as one figure, the word under it,
-/// a bar in the accent, and how to move.
+/// The search for one device, as in Find Air: the name as a large title, a hint to move,
+/// Avvisami se lo perdi, a large ring around the device's symbol, and the signal as the one
+/// figure under it.
 ///
-/// As in Find Air: the device's name as the title, a hint to move, the figure growing as you get
-/// closer. No ring and no product picture.
+/// It celebrates the "found it" moment with a strong tap and a pop of the ring, and ticks faster
+/// as the device gets closer.
 struct FinderView: View {
     let model: ScanModel
     let deviceID: UUID
@@ -14,27 +15,45 @@ struct FinderView: View {
 
     var body: some View {
         // At least as tall as the screen, so the pills sit at the bottom; scrolling only at the
-        // largest text sizes, where the figure, the hint and the pills no longer fit.
+        // largest text sizes.
         GeometryReader { proxy in
             ScrollView {
-                FinderContent(tracked: model.tracked) {
+                VStack(spacing: SbuTheme.space6) {
+                    Text("Muoviti per far crescere il segnale")
+                        .font(SbuTheme.body)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    LostAlertRow(model: model, deviceID: deviceID)
+
+                    FinderRing(tracked: model.tracked, foundMoments: model.foundMoments)
+                        .frame(maxWidth: min(proxy.size.width * 0.66, 280))
+
+                    FinderFigure(tracked: model.tracked)
+
+                    Spacer(minLength: 0)
+
                     // In one row, wrapping onto two at the largest text sizes, so no word is cut.
                     PillsLayout(spacing: SbuTheme.space2) {
                         FeedbackPills(model: model)
                     }
                 }
+                .padding(.horizontal, SbuTheme.space4)
+                .padding(.bottom, SbuTheme.space8)
                 .frame(minHeight: proxy.size.height, alignment: .top)
             }
             .scrollBounceBehavior(.basedOnSize)
         }
         .background(SbuTheme.surface)
-        .navigationTitle(Text(verbatim: model.tracked?.device.name ?? ""))
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(Text(verbatim: model.tracked?.device.name ?? String(localized: "Senza nome")))
+        .navigationBarTitleDisplayMode(.large)
         .overlay {
             if let notice = BluetoothNotice(state: model.state) {
                 BluetoothNoticeView(notice: notice)
             }
         }
+        .sensoryFeedback(.success, trigger: model.foundMoments)
+        .sensoryFeedback(.warning, trigger: model.lostAlerts)
         .onAppear(perform: startTracking)
         .onDisappear(perform: model.stopTracking)
         .task {
@@ -72,12 +91,13 @@ struct FinderView: View {
 }
 
 private struct FinderPreview: View {
-    @State private var model = ScanModel(scanner: FixedScanner())
+    @State private var model = ScanModel(scanner: FixedScanner(), notifier: AcceptingLostNotifier())
 
     var body: some View {
         NavigationStack {
             FinderView(model: model, deviceID: FixedScanner.demoDevices[0].id)
                 .task { await model.run() }
         }
+        .tint(SbuTheme.accentFind)
     }
 }

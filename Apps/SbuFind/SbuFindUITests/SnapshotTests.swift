@@ -16,7 +16,7 @@ final class SnapshotTests: XCTestCase {
         snapshot("01-list")
 
         row.tap()
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Vicinanza' OR label BEGINSWITH 'Proximity'")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "figure").firstMatch.waitForExistence(timeout: 5))
         snapshot("02-finder")
         app.navigationBars.buttons.firstMatch.tap()
 

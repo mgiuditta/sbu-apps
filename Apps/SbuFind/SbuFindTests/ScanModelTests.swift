@@ -5,13 +5,15 @@ import Testing
 struct ScanModelTests {
     let defaults: UserDefaults
     let scanner = FakeScanner()
+    let notifier = FakeLostNotifier()
+    let clock = TestClock()
 
     init() throws {
         defaults = try #require(UserDefaults(suiteName: "ScanModelTests-\(UUID().uuidString)"))
     }
 
     private func makeModel() -> ScanModel {
-        ScanModel(scanner: scanner, defaults: defaults)
+        ScanModel(scanner: scanner, notifier: notifier, defaults: defaults, clock: clock.read)
     }
 
     @Test func startsWaitingForBluetoothWithAnEmptyList() {
@@ -43,6 +45,102 @@ struct ScanModelTests {
         #expect(model.scanCard.isVisible)
     }
 
+    @Test func watchingAsksForNotificationsAndAlertsOnceWhenTheDeviceFallsSilent() async {
+        let model = makeModel()
+        model.handle(.state(.ready))
+        model.handle(.advertisement(.fixture(name: "Buds")))
+        await model.watch(Advertisement.testID(1))
+        #expect(notifier.requests == 1)
+        #expect(model.watchedID == Advertisement.testID(1))
+
+        model.refresh(at: Advertisement.start.addingTimeInterval(10))
+        #expect(notifier.alerts.isEmpty)
+
+        model.refresh(at: Advertisement.start.addingTimeInterval(16))
+        #expect(notifier.alerts == ["Buds"])
+        #expect(model.lostAlerts == 1)
+
+        model.refresh(at: Advertisement.start.addingTimeInterval(60))
+        #expect(notifier.alerts.count == 1)
+    }
+
+    @Test func aWatchedDeviceStillTalkingRaisesNoAlert() async {
+        let model = makeModel()
+        model.handle(.state(.ready))
+        model.handle(.advertisement(.fixture()))
+        await model.watch(Advertisement.testID(1))
+        for second in stride(from: 5.0, through: 60, by: 5) {
+            model.handle(.advertisement(.fixture(after: second)))
+            model.refresh(at: Advertisement.start.addingTimeInterval(second))
+        }
+        #expect(notifier.alerts.isEmpty)
+    }
+
+    @Test func refusedNotificationsLeaveTheDeviceUnwatched() async {
+        notifier.allows = false
+        let model = makeModel()
+        model.handle(.advertisement(.fixture()))
+        await model.watch(Advertisement.testID(1))
+        #expect(model.watchedID == nil)
+        #expect(model.notificationsDenied)
+        model.refresh(at: Advertisement.start.addingTimeInterval(60))
+        #expect(notifier.alerts.isEmpty)
+    }
+
+    @Test func stopWatchingSilencesTheAlert() async {
+        let model = makeModel()
+        model.handle(.state(.ready))
+        model.handle(.advertisement(.fixture()))
+        await model.watch(Advertisement.testID(1))
+        model.stopWatching()
+        #expect(model.watchedID == nil)
+        model.refresh(at: Advertisement.start.addingTimeInterval(60))
+        #expect(notifier.alerts.isEmpty)
+    }
+
+    @Test func bluetoothOffPausesTheWatchAndOnRestartsItsClock() async {
+        let model = makeModel()
+        model.handle(.state(.ready))
+        model.handle(.advertisement(.fixture(name: "Buds")))
+        await model.watch(Advertisement.testID(1))
+
+        model.handle(.state(.poweredOff))
+        model.refresh(at: Advertisement.start.addingTimeInterval(120))
+        #expect(notifier.alerts.isEmpty)
+
+        clock.now = Advertisement.start.addingTimeInterval(120)
+        model.handle(.state(.ready))
+        model.refresh(at: Advertisement.start.addingTimeInterval(130))
+        #expect(notifier.alerts.isEmpty)
+        model.refresh(at: Advertisement.start.addingTimeInterval(136))
+        #expect(notifier.alerts == ["Buds"])
+    }
+
+    @Test func theWatchKeepsTheNameAfterTheDeviceLeavesTheList() async {
+        let model = makeModel()
+        model.handle(.state(.ready))
+        model.handle(.advertisement(.fixture(name: "Forerunner")))
+        await model.watch(Advertisement.testID(1))
+        model.refresh(at: Advertisement.start.addingTimeInterval(30))
+        #expect(model.devices.isEmpty)
+        #expect(notifier.alerts == ["Forerunner"])
+    }
+
+    @Test func comingCloseCelebratesOnce() {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(rssi: -70)))
+        model.track(Advertisement.testID(1))
+        #expect(model.foundMoments == 0)
+
+        var second = 0.0
+        for _ in 0..<20 {
+            second += 0.1
+            model.handle(.advertisement(.fixture(rssi: -42, after: second)))
+            model.refresh(at: Advertisement.start.addingTimeInterval(second))
+        }
+        #expect(model.foundMoments == 1)
+    }
+
     @Test func soundStartsOffAndVibrationOn() {
         let model = makeModel()
         #expect(model.playsSound == false)
@@ -53,7 +151,7 @@ struct ScanModelTests {
         let model = makeModel()
         model.playsSound = true
         model.vibrates = false
-        let reopened = ScanModel(scanner: FakeScanner(), defaults: defaults)
+        let reopened = ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), defaults: defaults)
         #expect(reopened.playsSound)
         #expect(!reopened.vibrates)
     }
@@ -97,7 +195,7 @@ struct ScanModelTests {
         #expect(model.devices.count == 1)
         #expect(model.hiddenUnnamedCount == 0)
         #expect(defaults.bool(forKey: "showsUnnamed"))
-        #expect(ScanModel(scanner: FakeScanner(), defaults: defaults).showsUnnamed)
+        #expect(ScanModel(scanner: FakeScanner(), notifier: FakeLostNotifier(), defaults: defaults).showsUnnamed)
     }
 
     @Test(arguments: BluetoothState.allCases.filter { $0 != .ready })
@@ -140,7 +238,8 @@ struct ScanModelTests {
     @Test func trackingStartsFromWhatWasHeard() throws {
         let model = makeModel()
         model.handle(.advertisement(.fixture(device: 1, name: "Buds", rssi: -55)))
-        model.track(Advertisement.testID(1), at: Advertisement.start.addingTimeInterval(1))
+        clock.now = Advertisement.start.addingTimeInterval(1)
+        model.track(Advertisement.testID(1))
 
         let tracked = try #require(model.tracked)
         #expect(tracked.device.name == "Buds")
@@ -151,7 +250,8 @@ struct ScanModelTests {
 
     @Test func trackingAnUnknownDeviceShowsNothing() {
         let model = makeModel()
-        model.track(Advertisement.testID(9), at: Advertisement.start)
+        clock.now = Advertisement.start
+        model.track(Advertisement.testID(9))
         #expect(model.tracked == nil)
     }
 
@@ -167,7 +267,8 @@ struct ScanModelTests {
             model.refresh(at: Advertisement.start.addingTimeInterval(second))
         }
         hear(-64)
-        model.track(Advertisement.testID(1), at: Advertisement.start.addingTimeInterval(second))
+        clock.now = Advertisement.start.addingTimeInterval(second)
+        model.track(Advertisement.testID(1))
         #expect(model.tracked?.warmth == .hot)
 
         hear(-66) // Proximity 57: below Caldo, inside the margin.
@@ -180,7 +281,8 @@ struct ScanModelTests {
     @Test func aSilentTrackedDeviceIsKeptAndSaysForHowLong() throws {
         let model = makeModel()
         model.handle(.advertisement(.fixture(rssi: -50)))
-        model.track(Advertisement.testID(1), at: Advertisement.start)
+        clock.now = Advertisement.start
+        model.track(Advertisement.testID(1))
 
         model.refresh(at: Advertisement.start.addingTimeInterval(2))
         #expect(model.tracked?.isLost == false)
@@ -200,7 +302,8 @@ struct ScanModelTests {
     @Test func aTrackedDeviceHeardAgainIsFoundAgain() throws {
         let model = makeModel()
         model.handle(.advertisement(.fixture(rssi: -50)))
-        model.track(Advertisement.testID(1), at: Advertisement.start)
+        clock.now = Advertisement.start
+        model.track(Advertisement.testID(1))
         model.refresh(at: Advertisement.start.addingTimeInterval(20))
         #expect(model.tracked?.isLost == true)
 
@@ -216,7 +319,8 @@ struct ScanModelTests {
     @Test func losingBluetoothKeepsTheTrackedDeviceSilent() {
         let model = makeModel()
         model.handle(.advertisement(.fixture(rssi: -50)))
-        model.track(Advertisement.testID(1), at: Advertisement.start)
+        clock.now = Advertisement.start
+        model.track(Advertisement.testID(1))
         model.handle(.state(.poweredOff))
         model.refresh(at: Advertisement.start.addingTimeInterval(5))
         #expect(model.tracked?.isLost == true)
@@ -225,7 +329,8 @@ struct ScanModelTests {
     @Test func stopTrackingForgetsIt() {
         let model = makeModel()
         model.handle(.advertisement(.fixture()))
-        model.track(Advertisement.testID(1), at: Advertisement.start)
+        clock.now = Advertisement.start
+        model.track(Advertisement.testID(1))
         model.stopTracking()
         #expect(model.tracked == nil)
         model.refresh(at: Advertisement.start)
@@ -236,10 +341,12 @@ struct ScanModelTests {
         let model = makeModel()
         model.handle(.advertisement(.fixture(device: 1, rssi: -45)))
         model.handle(.advertisement(.fixture(device: 2, rssi: -66)))
-        model.track(Advertisement.testID(1), at: Advertisement.start)
+        clock.now = Advertisement.start
+        model.track(Advertisement.testID(1))
         #expect(model.tracked?.warmth == .veryClose)
 
-        model.track(Advertisement.testID(2), at: Advertisement.start)
+        clock.now = Advertisement.start
+        model.track(Advertisement.testID(2))
         #expect(model.tracked?.warmth == .warm)
     }
 

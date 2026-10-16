@@ -129,7 +129,13 @@ final class FindFlowTests: XCTestCase {
 
     @MainActor
     private func figure(_ app: XCUIApplication) -> XCUIElement {
-        app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Vicinanza'")).firstMatch
+        app.descendants(matching: .any).matching(identifier: "figure").firstMatch
+    }
+
+    /// What VoiceOver reads for the figure: "Segnale", then the percentage and the word.
+    @MainActor
+    private func figureValue(_ app: XCUIApplication) -> String {
+        "\(figure(app).label), \(figure(app).value as? String ?? "")"
     }
 
     @MainActor
@@ -142,10 +148,11 @@ final class FindFlowTests: XCTestCase {
 
         XCTAssertTrue(figure(app).waitForExistence(timeout: 5))
         XCTAssertTrue(app.navigationBars["Buds Pro"].exists)
-        // -52 dBm: 80 out of 100, Qui vicino.
-        XCTAssertTrue(figure(app).label.contains("80 su 100"), figure(app).label)
-        XCTAssertTrue(figure(app).label.contains("Qui vicino"), figure(app).label)
-        XCTAssertTrue(app.staticTexts["Muoviti piano e gira su te stesso: il numero sale quando ti avvicini. Non è una distanza."].exists)
+        // -52 dBm: 80%, Qui vicino.
+        XCTAssertTrue(figureValue(app).contains("80%"), figureValue(app))
+        XCTAssertTrue(figureValue(app).contains("Qui vicino"), figureValue(app))
+        XCTAssertTrue(app.staticTexts["Muoviti per far crescere il segnale"].exists)
+        XCTAssertTrue(app.switches["Avvisami se lo perdi"].exists)
         try audit(app)
 
         app.navigationBars.buttons.firstMatch.tap()
@@ -178,16 +185,36 @@ final class FindFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheLostAlertSwitchTurnsOnAndSaysItsLimits() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let alert = app.switches["Avvisami se lo perdi"]
+        XCTAssertTrue(alert.waitForExistence(timeout: 5))
+        XCTAssertEqual(alert.value as? String, "0")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Ti avvisa se non lo senti per 15 secondi'")).firstMatch.exists)
+
+        alert.switches.firstMatch.tap()
+        let on = NSPredicate(format: "value == '1'")
+        expectation(for: on, evaluatedWith: alert)
+        waitForExpectations(timeout: 5)
+        try audit(app)
+    }
+
+    @MainActor
     func testTheFinderSaysWhenTheDeviceFallsSilent() throws {
         let app = launch(scanner: "fading")
         let row = devices(app).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         row.tap()
 
-        let silent = app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Non sentito da'")).firstMatch
-        XCTAssertTrue(silent.waitForExistence(timeout: 10))
+        let silent = NSPredicate(format: "value CONTAINS 'Non sentito da'")
+        expectation(for: silent, evaluatedWith: figure(app))
+        waitForExpectations(timeout: 10)
         // The last figure stays, with the word replaced by the silence.
-        XCTAssertTrue(figure(app).label.contains("80 su 100"), figure(app).label)
+        XCTAssertTrue(figureValue(app).contains("80%"), figureValue(app))
         try audit(app)
     }
 

@@ -1,22 +1,22 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@ non si sente più" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ can no longer be heard"
+          }
+        }
+      }
+    },
     "%@, %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@, %@"
-          }
-        }
-      }
-    },
-    "%lld su 100" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld out of 100"
           }
         }
       }
@@ -117,6 +117,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Starting Bluetooth"
+          }
+        }
+      }
+    },
+    "Avvisami se lo perdi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify me if I lose it"
           }
         }
       }
@@ -371,12 +381,12 @@
         }
       }
     },
-    "Muoviti piano e gira su te stesso: il numero sale quando ti avvicini. Non è una distanza." : {
+    "Muoviti per far crescere il segnale" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Move slowly and turn around: the number goes up as you get closer. It is not a distance."
+            "value" : "Move around for the signal to grow"
           }
         }
       }
@@ -417,6 +427,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "For AirPods, Apple Watch, iPhone, iPad and AirTag use Apple's Find My: it plays a sound on them, shows where you left them and finds them even far away. Sbu Find plays no sound on anything and cannot see the Find My network."
+          }
+        }
+      }
+    },
+    "Per ricevere l'avviso, consenti le notifiche a Sbu Find in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To get the alert, allow notifications for Sbu Find in Settings."
           }
         }
       }
@@ -511,6 +531,16 @@
         }
       }
     },
+    "Sbu Find non lo sente da 15 secondi: forse l'hai lasciato indietro. Torna sui tuoi passi e cercalo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Find has not heard it for 15 seconds: you may have left it behind. Retrace your steps and look for it."
+          }
+        }
+      }
+    },
     "Se hai perso un solo AirPod" : {
       "localizations" : {
         "en" : {
@@ -527,6 +557,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If asked, allow Bluetooth: it is how the app hears nearby devices."
+          }
+        }
+      }
+    },
+    "Segnale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signal"
           }
         }
       }
@@ -587,6 +627,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Phone"
+          }
+        }
+      }
+    },
+    "Ti avvisa se non lo senti per 15 secondi mentre Sbu Find è aperto: iOS non lascia ascoltare i dispositivi Bluetooth ad app chiusa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It alerts you when the device is not heard for 15 seconds while Sbu Find is open: iOS does not let apps listen to Bluetooth devices once closed."
           }
         }
       }
@@ -657,16 +707,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vibration"
-          }
-        }
-      }
-    },
-    "Vicinanza" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Proximity"
           }
         }
       }

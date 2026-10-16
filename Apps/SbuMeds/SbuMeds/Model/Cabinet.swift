@@ -104,10 +104,16 @@ enum Cabinet {
         }
     }
 
-    /// Undoes a mark: the dose is to take again and a taken one goes back into the stock.
+    /// Undoes a mark: the dose is to take again and a taken one goes back into the stock. On a day
+    /// already closed it goes back to missed, so it stays in the history.
     static func unmark(_ key: DoseKey, of medicine: Medicine, in context: ModelContext) {
         guard let record = medicine.record(for: key) else { return }
         medicine.stock = StockLevel.applying(StockLevel.change(from: record.mark, to: nil, amount: record.amount), to: medicine.stock)
+        if key.day.key <= medicine.closedThroughKey {
+            record.mark = .missed
+            record.markedAt = nil
+            return
+        }
         medicine.records = medicine.recordList.filter { $0.id != record.id }
         context.delete(record)
     }

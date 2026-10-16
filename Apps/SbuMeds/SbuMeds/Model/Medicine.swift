@@ -78,7 +78,7 @@ final class Medicine {
         MedicineSnapshot(
             id: id, personID: person?.id ?? id, personName: person?.name ?? "", name: name, form: form, strength: strength,
             schedule: schedule, asNeededAmount: asNeededAmount, stock: stock, refillThreshold: refillThreshold,
-            records: recordList.map(\.snapshot)
+            records: recordList.map(\.snapshot), closedThrough: closedThroughKey > 0 ? Day(key: closedThroughKey) : nil
         )
     }
 

@@ -51,6 +51,13 @@ nonisolated struct Day: Hashable, Comparable, Codable, Sendable {
         calendar.dateComponents([.day], from: start(in: calendar), to: other.start(in: calendar)).day ?? 0
     }
 
+    /// The seven days of the week this day is in, from the calendar's first weekday.
+    func week(in calendar: Calendar) -> [Day] {
+        let offset = (weekday(in: calendar) - calendar.firstWeekday + 7) % 7
+        let first = adding(days: -offset, in: calendar)
+        return (0..<7).map { first.adding(days: $0, in: calendar) }
+    }
+
     /// 1 is Sunday, as in `Calendar`.
     func weekday(in calendar: Calendar) -> Int {
         calendar.component(.weekday, from: start(in: calendar))

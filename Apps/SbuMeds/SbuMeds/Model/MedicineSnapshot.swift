@@ -13,6 +13,8 @@ nonisolated struct MedicineSnapshot: Hashable, Sendable, Identifiable {
     let stock: Double?
     let refillThreshold: Double?
     let records: [DoseRecordSnapshot]
+    /// Days up to here are closed: the history alone says what happened, whatever the schedule says now.
+    let closedThrough: Day?
 
     init(
         id: UUID = UUID(),
@@ -25,7 +27,8 @@ nonisolated struct MedicineSnapshot: Hashable, Sendable, Identifiable {
         asNeededAmount: Double = 1,
         stock: Double? = nil,
         refillThreshold: Double? = nil,
-        records: [DoseRecordSnapshot] = []
+        records: [DoseRecordSnapshot] = [],
+        closedThrough: Day? = nil
     ) {
         self.id = id
         self.personID = personID
@@ -38,6 +41,11 @@ nonisolated struct MedicineSnapshot: Hashable, Sendable, Identifiable {
         self.stock = stock
         self.refillThreshold = refillThreshold
         self.records = records
+        self.closedThrough = closedThrough
+    }
+
+    func isClosed(_ day: Day) -> Bool {
+        closedThrough.map { day <= $0 } ?? false
     }
 
     var stockLevel: StockLevel { StockLevel(stock: stock, threshold: refillThreshold) }

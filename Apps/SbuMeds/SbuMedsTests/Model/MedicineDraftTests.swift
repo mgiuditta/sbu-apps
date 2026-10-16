@@ -98,15 +98,23 @@ struct MedicineDraftTests {
         #expect(draft.cleanStock == 0)
     }
 
+    /// The unit is singular for exactly one, plural otherwise, in whatever language the app runs.
     @Test(arguments: [
-        (MedicineForm.tablet, 1.0, "1 compressa"),
-        (.tablet, 2, "2 compresse"),
-        (.tablet, 0.5, "0,5 compresse"),
-        (.liquid, 2.5, "2,5 ml"),
-        (.drops, 10, "10 gocce"),
+        (MedicineForm.tablet, 1.0, "1 "),
+        (.tablet, 2, "2 "),
+        (.tablet, 0.5, "0,5 "),
+        (.liquid, 2.5, "2,5 "),
+        (.drops, 10, "10 "),
     ])
-    func amountsReadNaturally(form: MedicineForm, amount: Double, text: String) {
-        #expect(form.amountText(amount, locale: Locale(identifier: "it_IT")) == text)
+    func amountsReadNaturally(form: MedicineForm, amount: Double, prefix: String) {
+        let text = form.amountText(amount, locale: Locale(identifier: "it_IT"))
+        #expect(text == prefix + form.unit(for: amount))
+        #expect(form.unit(for: amount) == form.unit(for: amount == 1 ? 1 : 3))
+    }
+
+    @Test func singularAndPluralDiffer() {
+        #expect(MedicineForm.tablet.unit(for: 1) != MedicineForm.tablet.unit(for: 2))
+        #expect(MedicineForm.liquid.unit(for: 1) == MedicineForm.liquid.unit(for: 2))
     }
 
     @Test(arguments: MedicineForm.allCases)

@@ -21,7 +21,8 @@ nonisolated struct DayPlan: Hashable, Sendable {
         var items: [DoseItem] = []
         for medicine in medicines {
             let records = medicine.records.filter { $0.key.day == day }
-            let scheduled = medicine.schedule.times(on: day, calendar: calendar)
+            // A closed day is what the history says: a schedule changed later never adds or drops a dose.
+            let scheduled = medicine.isClosed(day) ? [] : medicine.schedule.times(on: day, calendar: calendar)
             for time in scheduled {
                 let key = DoseKey(medicineID: medicine.id, day: day, minutes: time.minutes)
                 let record = records.first { !$0.isExtra && $0.key.minutes == time.minutes }
@@ -29,7 +30,7 @@ nonisolated struct DayPlan: Hashable, Sendable {
             }
             let scheduledMinutes = Set(scheduled.map(\.minutes))
             // Extras, and doses marked at a time the schedule has since dropped: the history keeps them.
-            for record in records where record.isExtra || (!scheduledMinutes.contains(record.key.minutes) && record.mark != .moved) {
+            for record in records where record.isExtra || !scheduledMinutes.contains(record.key.minutes) {
                 items.append(DoseItem(key: record.key, medicine: medicine, amount: record.amount, record: record, now: now, calendar: calendar))
             }
         }

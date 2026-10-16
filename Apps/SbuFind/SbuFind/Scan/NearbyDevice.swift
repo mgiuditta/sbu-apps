@@ -8,7 +8,14 @@ nonisolated struct NearbyDevice: Identifiable, Equatable, Sendable {
     var kind: DeviceKind
     /// The filtered signal strength, in dBm: what the list sorts by and the finder shows.
     var signal: Double
+    /// The latest reading as heard, before smoothing, in dBm: for the Taratura screen.
+    var rawRSSI: Int?
     var lastSeen: Date
+    /// The maker from the manufacturer data, when the device sends it: it tells apart two
+    /// devices with the same name.
+    var companyID: UInt16?
+    /// Every service UUID it has advertised: what a background scan can ask iOS to listen for.
+    var serviceUUIDs: Set<String> = []
 
     var hasName: Bool { name != nil }
 

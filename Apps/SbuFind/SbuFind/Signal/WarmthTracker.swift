@@ -4,7 +4,7 @@
 /// A reading that hovers on a threshold would otherwise flip Caldo and Tiepido every second.
 nonisolated struct WarmthTracker: Equatable, Sendable {
     /// Points below a word's threshold before the word drops.
-    static let margin = 5
+    static var margin: Int { SignalTuning.current.hysteresis }
 
     private(set) var warmth: Warmth?
 

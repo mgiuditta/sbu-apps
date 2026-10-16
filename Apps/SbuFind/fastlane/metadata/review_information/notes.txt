@@ -1,0 +1,15 @@
+No account. Sbu Find has no server and makes no network calls: no analytics, ads or tracking. Everything it hears and every saved place stays on the device.
+
+To review (any Bluetooth device nearby works: headphones, a watch, a Mac):
+1. Allow Bluetooth. The list shows nearby Bluetooth Low Energy devices with a signal ring and percentage.
+2. Tap a device: the percentage rises as you walk toward it, with a word (Freddo/Cold to Qui vicino/Very close), a tick and a vibration. The search also shows on the Lock Screen and in the Dynamic Island (Live Activity).
+3. The menu on a device saves it to "I miei dispositivi" (My devices), at the top of the list.
+4. "Fai suonare" (Play a sound on) plays a tone in headphones currently connected to the iPhone as audio output. It plays nothing on devices that are not connected.
+5. "Avvisami se lo perdi" (Notify me if I lose it) sends a local notification when a saved device is no longer heard. Notification permission is asked only when you turn it on.
+6. "Ricorda dove li hai sentiti" (Remember where you heard them) saves where the iPhone was when it last heard a named device and shows it on a map; with the app closed, only for saved devices. Location permission is asked only when you turn it on; "Always" only for the closed-app option. Places stay on the device and are excluded from iCloud backups.
+
+Background mode bluetooth-central: used only for the user's saved devices that advertise a Bluetooth service, and only when "Avvisami se lo perdi" or "Ricorda dove li hai sentiti" is on for them, so the alert and the last place work with the app closed. To test it: save a device that advertises a service (for example a heart-rate strap or a watch), turn on the alert, send the app to the background and walk away. AirPods advertise no service, so for them the app says plainly that it works only with the app open.
+
+The app does not use the name or icon of Apple's Find My, and its Help sends users to Find My for Apple products.
+
+How it differs from the other Sbu apps: it is the only one that listens to Bluetooth to find a lost device.

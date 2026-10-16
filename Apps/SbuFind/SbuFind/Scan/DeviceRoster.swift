@@ -33,8 +33,13 @@ nonisolated struct DeviceRoster: Sendable {
             if kind != .other {
                 entry.device.kind = kind
             }
+            if let companyID = advertisement.companyID {
+                entry.device.companyID = companyID
+            }
+            entry.device.serviceUUIDs.formUnion(advertisement.serviceUUIDs.map { $0.uppercased() })
             if advertisement.hasValidRSSI {
                 entry.device.signal = entry.filter.add(advertisement.rssi)
+                entry.device.rawRSSI = advertisement.rssi
             }
             entries[advertisement.id] = entry
         } else if advertisement.hasValidRSSI {
@@ -45,15 +50,23 @@ nonisolated struct DeviceRoster: Sendable {
                 name: advertisement.name,
                 kind: DeviceKind(advertisement: advertisement),
                 signal: signal,
-                lastSeen: advertisement.date
+                rawRSSI: advertisement.rssi,
+                lastSeen: advertisement.date,
+                companyID: advertisement.companyID,
+                serviceUUIDs: Set(advertisement.serviceUUIDs.map { $0.uppercased() })
             )
             entries[advertisement.id] = Entry(device: device, filter: filter)
         }
     }
 
-    /// Drops the devices not heard for longer than `staleInterval` before `now`.
-    mutating func removeStale(at now: Date) {
-        entries = entries.filter { now.timeIntervalSince($0.value.device.lastSeen) <= Self.staleInterval }
+    /// Drops the devices not heard for longer than `staleInterval` before `now`, and returns them.
+    @discardableResult
+    mutating func removeStale(at now: Date) -> [NearbyDevice] {
+        let stale = entries.values.filter { now.timeIntervalSince($0.device.lastSeen) > Self.staleInterval }.map(\.device)
+        for device in stale {
+            entries[device.id] = nil
+        }
+        return stale
     }
 
     mutating func removeAll() {

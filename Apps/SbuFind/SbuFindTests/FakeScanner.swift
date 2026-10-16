@@ -5,6 +5,7 @@
 final class FakeScanner: BluetoothScanner {
     private(set) var restarts = 0
     private(set) var stops = 0
+    private(set) var modes: [ScanMode] = []
     private let stream: AsyncStream<ScanEvent>
     private let continuation: AsyncStream<ScanEvent>.Continuation
 
@@ -22,6 +23,10 @@ final class FakeScanner: BluetoothScanner {
 
     func finish() {
         continuation.finish()
+    }
+
+    func listen(_ mode: ScanMode) {
+        modes.append(mode)
     }
 
     func restart() {

@@ -1,7 +1,7 @@
 import Foundation
 
 /// What a device probably is, guessed from its name and what it advertises: only to pick its symbol.
-nonisolated enum DeviceKind: String, CaseIterable, Sendable {
+nonisolated enum DeviceKind: String, CaseIterable, Codable, Sendable {
     case earbuds
     case headphones
     case watch

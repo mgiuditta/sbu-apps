@@ -4,7 +4,9 @@ import Foundation
 nonisolated struct TrackedDevice: Equatable, Sendable {
     /// Silent for longer than this, the finder says it no longer hears the device. Devices
     /// advertise several times a second, so three seconds of silence is no longer a gap.
-    static let lostAfter: TimeInterval = 3
+    static var lostAfter: TimeInterval { SignalTuning.current.lostAfter }
+    /// Silent for longer than an hour, the finder no longer counts: the device is simply not near.
+    static let longAgo: TimeInterval = 60 * 60
 
     var device: NearbyDevice
     var warmth: Warmth

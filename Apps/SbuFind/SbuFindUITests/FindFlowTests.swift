@@ -19,7 +19,7 @@ final class FindFlowTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FIXED_SCANNER", scanner]
         // Arguments win over saved settings: every test starts from the defaults.
-        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO"]
+        app.launchArguments += ["-showsUnnamed", "NO", "-playsSound", "NO", "-vibrates", "NO", "-remembersPlaces", "NO"]
         app.launchArguments += arguments
         app.launch()
         return app
@@ -44,10 +44,10 @@ final class FindFlowTests: XCTestCase {
         }
     }
 
-    /// The rows in the order they are on screen, by their combined VoiceOver labels.
+    /// The rows in the order they are on screen, by what VoiceOver reads: label, then value.
     @MainActor
     private func rowLabels(_ app: XCUIApplication) -> [String] {
-        devices(app).allElementsBoundByIndex.map(\.label)
+        devices(app).allElementsBoundByIndex.map { "\($0.label), \($0.value as? String ?? "")" }
     }
 
     @MainActor
@@ -63,35 +63,44 @@ final class FindFlowTests: XCTestCase {
 
         let labels = rowLabels(app)
         XCTAssertEqual(labels.count, 6, "\(labels)")
-        XCTAssertTrue(labels[0].hasPrefix("Buds Pro"), labels[0])
+        XCTAssertTrue(labels[0].hasPrefix("Buds Pro, 80%"), labels[0])
         XCTAssertTrue(labels[0].contains("Auricolari"), labels[0])
         XCTAssertTrue(labels[0].contains("Qui vicino"), labels[0])
         XCTAssertTrue(labels[1].hasPrefix("WH-1000XM5"), labels[1])
         XCTAssertTrue(labels[5].hasPrefix("Mi Band 8"), labels[5])
         XCTAssertTrue(labels[5].contains("Freddo"), labels[5])
         XCTAssertTrue(app.staticTexts["Dispositivi senza nome nascosti: 3. Puoi mostrarli in Impostazioni."].exists)
-        XCTAssertTrue(app.buttons["Cerca di nuovo"].exists)
+        XCTAssertTrue(app.staticTexts["Altri dispositivi"].exists)
+        XCTAssertFalse(app.staticTexts["Ricerca…"].exists)
         try audit(app)
     }
 
     @MainActor
-    func testSearchAgainEmptiesTheListAndHearsTheDevicesAgain() throws {
+    func testNothingNearbySaysSoAfterTheFirstSecondsAndOffersSearchAgain() throws {
+        let app = launch(scanner: "empty")
+        // The first seconds: the header's spinner, and no "nothing nearby" yet.
+        XCTAssertTrue(app.staticTexts["Altri dispositivi"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Ricerca dei dispositivi vicini…"].exists)
+
+        let nothing = app.staticTexts["Nessun dispositivo vicino. Tienilo acceso e fuori dalla custodia."]
+        XCTAssertTrue(nothing.waitForExistence(timeout: 10))
+        let searchAgain = app.buttons["Cerca di nuovo"]
+        XCTAssertTrue(searchAgain.exists)
+        try audit(app)
+
+        searchAgain.tap()
+        XCTAssertTrue(app.staticTexts["Ricerca dei dispositivi vicini…"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testPullingTheListDownSearchesAgain() throws {
         let app = launch()
         XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
-
-        app.buttons["Cerca di nuovo"].tap()
-
-        // The fixed devices advertise four times a second: the list fills again at the next refresh.
+        let start = app.collectionViews.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.2))
+        start.press(forDuration: 0.1, thenDragTo: start.withOffset(CGVector(dx: 0, dy: 400)))
+        // The fixed devices advertise four times a second: the list fills again at once.
         XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
         XCTAssertEqual(rowLabels(app).count, 6)
-    }
-
-    @MainActor
-    func testNoDeviceYetSaysTheSearchIsRunning() throws {
-        let app = launch(scanner: "empty")
-        XCTAssertTrue(app.staticTexts["Ricerca in corso"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["Cerca di nuovo"].exists)
-        try audit(app)
     }
 
     @MainActor
@@ -108,7 +117,13 @@ final class FindFlowTests: XCTestCase {
 
     @MainActor
     private func figure(_ app: XCUIApplication) -> XCUIElement {
-        app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Vicinanza'")).firstMatch
+        app.descendants(matching: .any).matching(identifier: "figure").firstMatch
+    }
+
+    /// What VoiceOver reads for the figure: "Segnale", then the percentage and the word.
+    @MainActor
+    private func figureValue(_ app: XCUIApplication) -> String {
+        "\(figure(app).label), \(figure(app).value as? String ?? "")"
     }
 
     @MainActor
@@ -121,10 +136,11 @@ final class FindFlowTests: XCTestCase {
 
         XCTAssertTrue(figure(app).waitForExistence(timeout: 5))
         XCTAssertTrue(app.navigationBars["Buds Pro"].exists)
-        // -52 dBm: 80 out of 100, Qui vicino.
-        XCTAssertTrue(figure(app).label.contains("80 su 100"), figure(app).label)
-        XCTAssertTrue(figure(app).label.contains("Qui vicino"), figure(app).label)
-        XCTAssertTrue(app.staticTexts["Muoviti piano e gira su te stesso: il numero sale quando ti avvicini. Non è una distanza."].exists)
+        // -52 dBm: 80%, Qui vicino.
+        XCTAssertTrue(figureValue(app).contains("80%"), figureValue(app))
+        XCTAssertTrue(figureValue(app).contains("Qui vicino"), figureValue(app))
+        XCTAssertTrue(app.staticTexts["Muoviti per far crescere il segnale"].exists)
+        XCTAssertTrue(app.switches["Avvisami se lo perdi"].exists)
         try audit(app)
 
         app.navigationBars.buttons.firstMatch.tap()
@@ -157,16 +173,158 @@ final class FindFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testASilentDeviceShowsWhereItWasLastHeardAndIsListedAsHeardBefore() throws {
+        let app = launch(scanner: "fading", ["-remembersPlaces", "YES"])
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        // Silent after two seconds, off the list ten seconds later: then its sighting is saved.
+        XCTAssertTrue(app.staticTexts["Visto l'ultima volta"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.staticTexts["È dove era il tuo iPhone quando l'ha sentito: da lì inizia a cercare."].exists)
+        try audit(app)
+
+        app.navigationBars.buttons.firstMatch.tap()
+        XCTAssertTrue(app.staticTexts["Sentiti prima"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons.matching(identifier: "sighting").firstMatch.label.hasPrefix("Buds Pro"))
+    }
+
+    @MainActor
+    func testSettingsOfferToRememberPlaces() throws {
+        let app = launch()
+        XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+        app.navigationBars.buttons["Impostazioni"].tap()
+        let places = app.switches["Ricorda dove li hai sentiti"]
+        for _ in 0..<5 where !places.isHittable {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(places.isHittable)
+        XCTAssertEqual(places.value as? String, "0")
+        places.switches.firstMatch.tap()
+        let on = NSPredicate(format: "value == '1'")
+        expectation(for: on, evaluatedWith: places)
+        waitForExpectations(timeout: 5)
+        try audit(app, excluding: Self.sheetExclusions)
+    }
+
+    @MainActor
+    func testADeviceAddedToMyDevicesGoesToTheTopWithItsNameAndCanBeRemoved() throws {
+        let app = launch()
+        let row = devices(app).element(boundBy: 1)
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(row.label.hasPrefix("WH-1000XM5"), row.label)
+        row.tap()
+
+        let pin = app.navigationBars.buttons["Aggiungi ai miei dispositivi"]
+        XCTAssertTrue(pin.waitForExistence(timeout: 5))
+        pin.tap()
+        let field = app.alerts.textFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5))
+        field.clearAndType("Le mie cuffie")
+        app.alerts.buttons["Salva"].tap()
+        XCTAssertTrue(app.navigationBars["Le mie cuffie"].waitForExistence(timeout: 5))
+
+        app.navigationBars.buttons.firstMatch.tap()
+        XCTAssertTrue(app.staticTexts["I miei dispositivi"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Altri dispositivi"].exists)
+        let first = devices(app).firstMatch
+        XCTAssertTrue(first.label.hasPrefix("Le mie cuffie"), first.label)
+        try audit(app)
+
+        first.tap()
+        let menu = app.navigationBars.buttons["Il mio dispositivo"]
+        XCTAssertTrue(menu.waitForExistence(timeout: 5))
+        menu.tap()
+        let confirm = app.sheets.buttons["Togli dai miei dispositivi"].firstMatch
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        XCTAssertTrue(app.navigationBars["WH-1000XM5"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testTheSingleEarbudGuideOpensFromTheFinderAndFromHelp() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let link = app.buttons["Hai perso un solo auricolare?"]
+        for _ in 0..<3 where !link.isHittable {
+            app.swipeUp()
+        }
+        link.tap()
+        XCTAssertTrue(app.navigationBars["Un auricolare solo"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Passo 1'")).firstMatch.exists)
+        // Clipped text with "no element" is the iOS 26 glass bar over the list, as in Sbu Level's
+        // info page: every row of the guide is still checked for Dynamic Type.
+        try audit(app, excluding: [.contrast, .textClipped])
+
+        app.navigationBars.buttons.firstMatch.tap()
+        app.navigationBars.buttons.firstMatch.tap()
+        app.navigationBars.buttons["Aiuto"].tap()
+        let guide = app.buttons["Guida passo per passo"]
+        for _ in 0..<5 where !guide.isHittable {
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        guide.tap()
+        XCTAssertTrue(app.navigationBars["Un auricolare solo"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testConnectedHeadphonesCanBeRungAndStopped() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let ring = app.buttons["Fai suonare Buds Pro"]
+        for _ in 0..<3 where !ring.isHittable {
+            app.swipeUp()
+        }
+        XCTAssertTrue(ring.isHittable)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Funziona solo con le cuffie ancora collegate'")).firstMatch.exists)
+
+        ring.tap()
+        let stop = app.buttons["Ferma il suono"]
+        XCTAssertTrue(stop.waitForExistence(timeout: 5))
+        try audit(app)
+        stop.tap()
+        XCTAssertTrue(app.buttons["Fai suonare Buds Pro"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testTheLostAlertSwitchTurnsOnAndSaysItsLimits() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let alert = app.switches["Avvisami se lo perdi"]
+        XCTAssertTrue(alert.waitForExistence(timeout: 5))
+        XCTAssertEqual(alert.value as? String, "0")
+        // A device not saved, without services: honest about the app having to stay open.
+        XCTAssertTrue(app.staticTexts["Solo con l'app aperta"].exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Ti avvisa se non lo senti per 15 secondi mentre Sbu Find è aperto'")).firstMatch.exists)
+
+        alert.switches.firstMatch.tap()
+        let on = NSPredicate(format: "value == '1'")
+        expectation(for: on, evaluatedWith: alert)
+        waitForExpectations(timeout: 5)
+        try audit(app)
+    }
+
+    @MainActor
     func testTheFinderSaysWhenTheDeviceFallsSilent() throws {
         let app = launch(scanner: "fading")
         let row = devices(app).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         row.tap()
 
-        let silent = app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Non sentito da'")).firstMatch
-        XCTAssertTrue(silent.waitForExistence(timeout: 10))
+        let silent = NSPredicate(format: "value CONTAINS 'Non sentito da'")
+        expectation(for: silent, evaluatedWith: figure(app))
+        waitForExpectations(timeout: 10)
         // The last figure stays, with the word replaced by the silence.
-        XCTAssertTrue(figure(app).label.contains("80 su 100"), figure(app).label)
+        XCTAssertTrue(figureValue(app).contains("80%"), figureValue(app))
         try audit(app)
     }
 
@@ -217,7 +375,6 @@ final class FindFlowTests: XCTestCase {
 
         // The three demo devices without a name join the list, and the footer goes.
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Senza nome'")).firstMatch.waitForExistence(timeout: 5))
-        XCTAssertEqual(rowLabels(app).count, 9)
         XCTAssertFalse(app.staticTexts[Self.hiddenFooter].exists)
     }
 

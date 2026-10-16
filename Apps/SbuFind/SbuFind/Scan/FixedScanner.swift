@@ -45,6 +45,7 @@ final class FixedScanner: BluetoothScanner {
 
     private var continuation: AsyncStream<ScanEvent>.Continuation?
     private var advertising: Task<Void, Never>?
+    private(set) var mode = ScanMode.foreground
 
     init(state: BluetoothState = .ready, devices: [Advertisement] = FixedScanner.demoDevices, firstFallsSilentAfter: Duration? = nil) {
         self.state = state
@@ -60,10 +61,20 @@ final class FixedScanner: BluetoothScanner {
         return stream
     }
 
+    func listen(_ mode: ScanMode) {
+        self.mode = mode
+        restart()
+    }
+
     func restart() {
         advertising?.cancel()
         guard state == .ready, let continuation else { return }
-        let devices = devices
+        // In the background only the devices advertising one of the services are heard.
+        let devices: [Advertisement] = switch mode {
+        case .foreground: devices
+        case .background(let services): devices.filter { !Set($0.serviceUUIDs).isDisjoint(with: services) }
+        case .paused: []
+        }
         let silentAt = firstFallsSilentAfter.map { ContinuousClock.now + $0 }
         advertising = Task {
             while !Task.isCancelled {

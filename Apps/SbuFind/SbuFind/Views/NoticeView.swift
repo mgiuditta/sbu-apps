@@ -9,25 +9,18 @@ struct NoticeView<Actions: View>: View {
     let title: LocalizedStringResource
     let message: LocalizedStringResource
     let systemImage: String
-    /// A spinner instead of the symbol, while something is on its way.
-    var isWaiting = false
     @ViewBuilder let actions: Actions
 
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
                 VStack(spacing: SbuTheme.space4) {
-                    if isWaiting {
-                        ProgressView()
-                            .controlSize(.large)
-                    } else {
-                        Image(systemName: systemImage)
-                            .font(SbuTheme.largeTitle)
-                            .fontWeight(.medium)
-                            .imageScale(.large)
-                            .foregroundStyle(SbuTheme.inkMuted)
-                            .accessibilityHidden(true)
-                    }
+                    Image(systemName: systemImage)
+                        .font(SbuTheme.largeTitle)
+                        .fontWeight(.medium)
+                        .imageScale(.large)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                        .accessibilityHidden(true)
 
                     VStack(spacing: SbuTheme.space2) {
                         Text(title)
@@ -53,7 +46,7 @@ struct NoticeView<Actions: View>: View {
 }
 
 #Preview("Light") {
-    NoticeView(title: "Ricerca in corso", message: "Tieni il dispositivo acceso e fuori dalla custodia: Sbu Find sente solo quello che trasmette.",systemImage: "magnifyingglass", isWaiting: true) {
+    NoticeView(title: "Bluetooth non consentito", message: "Per sentire i dispositivi vicini, consenti il Bluetooth a Sbu Find in Impostazioni. Quello che sente resta sull'iPhone.", systemImage: "hand.raised") {
         EmptyView()
     }
 }

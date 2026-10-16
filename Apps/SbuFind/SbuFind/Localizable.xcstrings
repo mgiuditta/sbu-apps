@@ -1,12 +1,22 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-    "%lld su 100" : {
+    "%@ non si sente più" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld out of 100"
+            "value" : "%@ can no longer be heard"
+          }
+        }
+      }
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %@"
           }
         }
       }
@@ -27,6 +37,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn it on in Control Center or in Settings, then come back."
+          }
+        }
+      }
+    },
+    "Aggiungi ai miei dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to my devices"
           }
         }
       }
@@ -61,6 +81,46 @@
         }
       }
     },
+    "Altri dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other devices"
+          }
+        }
+      }
+    },
+    "Anche con l'app chiusa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also with the app closed"
+          }
+        }
+      }
+    },
+    "Anche con l'app chiusa, per i tuoi dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also with the app closed, for your devices"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "Apre l'app Dov'è di Apple" : {
       "localizations" : {
         "en" : {
@@ -91,6 +151,26 @@
         }
       }
     },
+    "Apri Sbu Find per continuare la ricerca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sbu Find to keep searching"
+          }
+        }
+      }
+    },
+    "Aprilo e cammina piano: la percentuale e il tic crescono quando ti avvicini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open it and walk slowly: the percentage and the tick grow as you get closer."
+          }
+        }
+      }
+    },
     "Auricolari" : {
       "localizations" : {
         "en" : {
@@ -107,6 +187,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Starting Bluetooth"
+          }
+        }
+      }
+    },
+    "Avvisami se lo perdi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notify me if I lose it"
           }
         }
       }
@@ -181,6 +271,26 @@
         }
       }
     },
+    "Cancella le posizioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the places"
+          }
+        }
+      }
+    },
+    "Cancellare tutte le posizioni salvate?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete all saved places?"
+          }
+        }
+      }
+    },
     "Cerca di nuovo" : {
       "localizations" : {
         "en" : {
@@ -197,6 +307,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Laptop"
+          }
+        }
+      }
+    },
+    "Con l'app chiusa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With the app closed"
+          }
+        }
+      }
+    },
+    "Con l'app chiusa iOS lascia ascoltare solo i tuoi dispositivi che trasmettono un servizio Bluetooth, e li sente meno spesso: Avvisami se lo perdi aspetta più a lungo prima di avvisarti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With the app closed, iOS only lets Sbu Find listen to your devices that advertise a Bluetooth service, and hears them less often: Notify me if I lose it waits longer before alerting you."
           }
         }
       }
@@ -261,12 +391,52 @@
         }
       }
     },
+    "Fai suonare %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play a sound on %@"
+          }
+        }
+      }
+    },
+    "Ferma il suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop the sound"
+          }
+        }
+      }
+    },
     "Fine" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        }
+      }
+    },
+    "Forse è %@: ha lo stesso nome, ma un altro dispositivo può dire lo stesso." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maybe %@: it has the same name, but another device can say the same."
+          }
+        }
+      }
+    },
+    "Forse è il tuo: riconosciuto dal nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probably yours: recognised by its name"
           }
         }
       }
@@ -281,12 +451,62 @@
         }
       }
     },
+    "Funziona solo con le cuffie ancora collegate all'iPhone, non nella custodia né spente. Il suono parte piano e cresce." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It only works with headphones still connected to your iPhone, not in their case or switched off. The sound starts soft and grows."
+          }
+        }
+      }
+    },
     "Gira su te stesso e tieni l'iPhone davanti a te: il tuo corpo e i muri abbassano il segnale." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn around and hold your iPhone in front of you: your body and walls weaken the signal."
+          }
+        }
+      }
+    },
+    "Gli AirPods e molte cuffie non trasmettono un servizio: si seguono solo con l'app aperta. Per loro, Dov'è di Apple fa di più." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AirPods and many headphones do not advertise a service: they can only be followed with the app open. For them, Apple's Find My does more."
+          }
+        }
+      }
+    },
+    "Guida passo per passo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step-by-step guide"
+          }
+        }
+      }
+    },
+    "Hai perso un solo auricolare?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lost just one earbud?"
+          }
+        }
+      }
+    },
+    "I miei dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My devices"
           }
         }
       }
@@ -311,6 +531,26 @@
         }
       }
     },
+    "Il mio dispositivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My device"
+          }
+        }
+      }
+    },
+    "Il suono non è partito. Riprova." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The sound did not start. Try again."
+          }
+        }
+      }
+    },
     "Impostazioni" : {
       "localizations" : {
         "en" : {
@@ -321,12 +561,32 @@
         }
       }
     },
+    "In Sbu Find tocca Cerca di nuovo: l'auricolare perso compare solo se è fuori dalla custodia e ha un po' di carica." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In Sbu Find tap Search again: the lost earbud only shows up if it is out of its case and has some charge."
+          }
+        }
+      }
+    },
     "Lista" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "List"
+          }
+        }
+      }
+    },
+    "Mappa del punto in cui l'hai sentito l'ultima volta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map of where you last heard it"
           }
         }
       }
@@ -351,12 +611,52 @@
         }
       }
     },
-    "Muoviti piano e gira su te stesso: il numero sale quando ti avvicini. Non è una distanza." : {
+    "Muoviti per far crescere il segnale" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Move slowly and turn around: the number goes up as you get closer. It is not a distance."
+            "value" : "Move around for the signal to grow"
+          }
+        }
+      }
+    },
+    "Nessun dispositivo vicino. Tienilo acceso e fuori dalla custodia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No device nearby. Keep it on and out of its case."
+          }
+        }
+      }
+    },
+    "Nessuna cuffia collegata all'iPhone: Fai suonare funziona solo con cuffie Bluetooth collegate." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No headphones connected to your iPhone: Play a sound only works with connected Bluetooth headphones."
+          }
+        }
+      }
+    },
+    "Nome" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "Non nelle vicinanze" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not nearby"
           }
         }
       }
@@ -367,6 +667,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not heard for %@"
+          }
+        }
+      }
+    },
+    "Non si sente più" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No longer heard"
           }
         }
       }
@@ -391,12 +701,42 @@
         }
       }
     },
-    "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare, mostra dove li hai lasciati e li trova anche lontano. Sbu Find non fa suonare nulla e non vede la rete Dov'è." : {
+    "Passo %lld" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "For AirPods, Apple Watch, iPhone, iPad and AirTag use Apple's Find My: it plays a sound on them, shows where you left them and finds them even far away. Sbu Find plays no sound on anything and cannot see the Find My network."
+            "value" : "Step %lld"
+          }
+        }
+      }
+    },
+    "Per AirPods, Apple Watch, iPhone, iPad e AirTag usa Dov'è di Apple: li fa suonare anche nella custodia o lontano, mostra dove li hai lasciati e li trova sulla rete Dov'è. Sbu Find fa suonare solo le cuffie collegate all'iPhone e non vede la rete Dov'è." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For AirPods, Apple Watch, iPhone, iPad and AirTag use Apple's Find My: it plays a sound on them even in the case or far away, shows where you left them and finds them on the Find My network. Sbu Find plays a sound only in headphones connected to your iPhone and cannot see the Find My network."
+          }
+        }
+      }
+    },
+    "Per ricevere l'avviso, consenti le notifiche a Sbu Find in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To get the alert, allow notifications for Sbu Find in Settings."
+          }
+        }
+      }
+    },
+    "Per ricordare le posizioni, consenti la posizione a Sbu Find in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To remember places, allow location for Sbu Find in Settings."
           }
         }
       }
@@ -421,12 +761,32 @@
         }
       }
     },
+    "Porta la custodia lontano, in un'altra stanza." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take the case far away, into another room."
+          }
+        }
+      }
+    },
     "Prodotti Apple" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apple products"
+          }
+        }
+      }
+    },
+    "Quando un dispositivo non si sente più, Sbu Find salva dov'era il tuo iPhone e te lo mostra sulla mappa. Con l'app chiusa serve la posizione «Sempre», e vale solo per i tuoi dispositivi che trasmettono un servizio Bluetooth. Le posizioni restano su questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When a device can no longer be heard, Sbu Find saves where your iPhone was and shows it on a map. With the app closed it needs location \"Always\", and works only for your devices that advertise a Bluetooth service. The places stay on this iPhone."
           }
         }
       }
@@ -451,12 +811,82 @@
         }
       }
     },
+    "Resta in cima alla lista, anche quando non lo senti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It stays at the top of the list, even when it is not heard."
+          }
+        }
+      }
+    },
+    "Ricerca dei dispositivi vicini…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Searching for nearby devices…"
+          }
+        }
+      }
+    },
     "Ricerca in corso" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Searching"
+          }
+        }
+      }
+    },
+    "Ricorda anche con l'app chiusa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remember also with the app closed"
+          }
+        }
+      }
+    },
+    "Ricorda dove li hai sentiti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remember where you heard them"
+          }
+        }
+      }
+    },
+    "Rimetti nella custodia l'auricolare che hai e chiudila: così smette di trasmettere e non confonde la ricerca." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put the earbud you have back in its case and close it: it stops transmitting and does not confuse the search."
+          }
+        }
+      }
+    },
+    "Rinomina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename"
+          }
+        }
+      }
+    },
+    "Salva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         }
       }
@@ -471,12 +901,52 @@
         }
       }
     },
+    "Sbu Find non fa suonare gli auricolari: se sono collegati all'iPhone, Fai suonare nel dettaglio li fa suonare in cuffia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Find cannot ring earbuds: if they are connected to your iPhone, Play a sound in the detail plays it in them."
+          }
+        }
+      }
+    },
+    "Sbu Find non lo sente più: forse l'hai lasciato indietro. Torna sui tuoi passi e cercalo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Find can no longer hear it: you may have left it behind. Retrace your steps and look for it."
+          }
+        }
+      }
+    },
+    "Se chiudi Sbu Find dal selettore delle app, si ferma tutto finché non lo riapri." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you close Sbu Find from the app switcher, everything stops until you open it again."
+          }
+        }
+      }
+    },
     "Se hai perso un solo AirPod" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you lost a single AirPod"
+          }
+        }
+      }
+    },
+    "Se non compare, forse è scarico: cerca dove l'hai usato l'ultima volta. Con Ricorda dove li hai sentiti, Sbu Find te lo mostra sulla mappa." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If it does not show up, it may be flat: look where you last used it. With Remember where you heard them, Sbu Find shows you on the map."
           }
         }
       }
@@ -491,12 +961,52 @@
         }
       }
     },
+    "Se è un AirPod, in Dov'è puoi farlo suonare da solo: scegli il sinistro o il destro." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If it is an AirPod, Find My can play a sound on it alone: choose the left or the right one."
+          }
+        }
+      }
+    },
+    "Segnale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signal"
+          }
+        }
+      }
+    },
+    "Sentiti prima" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heard before"
+          }
+        }
+      }
+    },
     "Senza nome" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No name"
+          }
+        }
+      }
+    },
+    "Solo con l'app aperta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only with the app open"
           }
         }
       }
@@ -551,12 +1061,22 @@
         }
       }
     },
-    "Tieni il dispositivo acceso e fuori dalla custodia: Sbu Find sente solo quello che trasmette." : {
+    "Ti avvisa se non lo senti per %lld secondi con l'app aperta, %lld secondi con l'app chiusa. Se chiudi Sbu Find dal selettore delle app, si ferma tutto." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keep the device on and out of its case: Sbu Find only hears what is transmitting."
+            "value" : "It alerts you when the device is not heard for %lld seconds with the app open, %lld seconds with the app closed. If you close Sbu Find from the app switcher, everything stops."
+          }
+        }
+      }
+    },
+    "Ti avvisa se non lo senti per %lld secondi mentre Sbu Find è aperto. Con l'app chiusa iOS ascolta solo i tuoi dispositivi che trasmettono un servizio Bluetooth, e quasi mai gli AirPods." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It alerts you when the device is not heard for %lld seconds while Sbu Find is open. With the app closed, iOS only listens to your devices that advertise a Bluetooth service, almost never AirPods."
           }
         }
       }
@@ -571,6 +1091,16 @@
         }
       }
     },
+    "Togli dai miei dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from my devices"
+          }
+        }
+      }
+    },
     "Torna da solo tra qualche secondo." : {
       "localizations" : {
         "en" : {
@@ -581,12 +1111,42 @@
         }
       }
     },
+    "Trovato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found"
+          }
+        }
+      }
+    },
+    "Ultima posizione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last place"
+          }
+        }
+      }
+    },
     "Un AirPod trasmette solo fuori dalla custodia e con un po' di carica. In Dov'è puoi farlo suonare da solo, uno alla volta." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "An AirPod transmits only out of its case and with some charge left. In Find My you can play a sound on it alone, one at a time."
+          }
+        }
+      }
+    },
+    "Un auricolare solo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A single earbud"
           }
         }
       }
@@ -621,12 +1181,22 @@
         }
       }
     },
-    "Vicinanza" : {
+    "Visto l'ultima volta" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Proximity"
+            "value" : "Last seen"
+          }
+        }
+      }
+    },
+    "È dove era il tuo iPhone quando l'ha sentito: da lì inizia a cercare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It is where your iPhone was when it heard it: start looking from there."
           }
         }
       }

@@ -1,6 +1,116 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "Accendilo dal Centro di Controllo o in Impostazioni, poi torna qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn it on in Control Center or in Settings, then come back."
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Avvio del Bluetooth" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starting Bluetooth"
+          }
+        }
+      }
+    },
+    "Bluetooth in riavvio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth is restarting"
+          }
+        }
+      }
+    },
+    "Bluetooth limitato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth restricted"
+          }
+        }
+      }
+    },
+    "Bluetooth non consentito" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth not allowed"
+          }
+        }
+      }
+    },
+    "Bluetooth non disponibile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth not available"
+          }
+        }
+      }
+    },
+    "Bluetooth spento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth is off"
+          }
+        }
+      }
+    },
+    "Il Bluetooth per Sbu Find è bloccato da Tempo di utilizzo o da un profilo. Chiedi a chi gestisce questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth for Sbu Find is blocked by Screen Time or a profile. Ask whoever manages this iPhone."
+          }
+        }
+      }
+    },
+    "Per sentire i dispositivi vicini, consenti il Bluetooth a Sbu Find in Impostazioni. Quello che sente resta sull'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To hear nearby devices, allow Bluetooth for Sbu Find in Settings. What it hears stays on your iPhone."
+          }
+        }
+      }
+    },
+    "Questo dispositivo non ha il Bluetooth Low Energy che serve per sentire i dispositivi vicini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This device lacks the Bluetooth Low Energy needed to hear nearby devices."
+          }
+        }
+      }
+    },
     "Sbu Find" : {
       "localizations" : {
         "en" : {
@@ -11,12 +121,32 @@
         }
       }
     },
+    "Se te lo chiede, consenti il Bluetooth: serve per sentire i dispositivi vicini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If asked, allow Bluetooth: it is how the app hears nearby devices."
+          }
+        }
+      }
+    },
     "Senza nome" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No name"
+          }
+        }
+      }
+    },
+    "Torna da solo tra qualche secondo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It comes back by itself in a few seconds."
           }
         }
       }

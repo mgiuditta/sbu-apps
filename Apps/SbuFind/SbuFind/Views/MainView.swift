@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The nearby devices, strongest signal first.
+/// The nearby devices, strongest signal first; or why Bluetooth cannot scan.
 struct MainView: View {
     let model: ScanModel
 
@@ -19,6 +19,11 @@ struct MainView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
+        .overlay {
+            if let notice = BluetoothNotice(state: model.state) {
+                BluetoothNoticeView(notice: notice)
+            }
+        }
     }
 }
 
@@ -27,6 +32,6 @@ struct MainView: View {
 }
 
 #Preview("Dark") {
-    MainView(model: ScanModel(scanner: FixedScanner()))
+    MainView(model: ScanModel(scanner: FixedScanner(state: .denied)))
         .preferredColorScheme(.dark)
 }

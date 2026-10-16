@@ -1,0 +1,29 @@
+{
+  "features": [
+    {"name": "Import from Photos or Files", "description": "Picks videos from the library or the Files app.", "priority": "core", "reason": "Files import is the one input the original lacks."},
+    {"name": "Dimension slider", "description": "Resolution as percent of original, 80% recommended.", "priority": "core", "reason": "Same knob as the original."},
+    {"name": "Quality slider", "description": "Quality as percent (bitrate), 60% recommended.", "priority": "core", "reason": "Replaces the original's frame rate knob."},
+    {"name": "Original size of selection", "description": "Thumbnails with sizes and a total.", "priority": "core", "reason": "Before figure."},
+    {"name": "Batch with per-item status", "description": "List with thumbnail, file name, bar, Done/Compressing/Waiting and original -> compressed MB; 'N/M items'; Cancel.", "priority": "core", "reason": "Batch progress pattern."},
+    {"name": "Preview before saving", "description": "Play the result before saving.", "priority": "nice", "reason": "Listed in the description."},
+    {"name": "Save to Photos or share", "description": "Save or export to other apps.", "priority": "core", "reason": "Output."},
+    {"name": "Auto-renewable subscription", "description": "Some features behind a subscription.", "priority": "skip", "reason": "Forbidden in Sbu."}
+  ],
+  "screens": [
+    {"name": "Compression Options", "purpose": "Selection and settings.", "elements": ["Thumbnails with sizes", "Original Size", "Dimension slider", "Quality slider", "Start Compression"]},
+    {"name": "Compressing", "purpose": "Batch progress.", "elements": ["Per-item rows", "N/M items", "Cancel"]}
+  ],
+  "flows": [
+    {"name": "Compress", "steps": ["Pick from Photos or Files", "Set dimension and quality", "Start", "Progress", "Preview", "Save or share"]}
+  ],
+  "data_model": {"entities": [], "storage": "None declared."},
+  "monetization": {"model": "Subscription", "price": "Free download, auto-renewable subscription", "paywalled_features": ["Not stated"], "notes": "No ratings (0 in US), v2.0 of 2026-03-02."},
+  "user_pains": [],
+  "source": {
+    "app_id": "6742453124",
+    "name": "Video Compressor + Resizer!",
+    "url": "https://apps.apple.com/us/app/video-compressor-resizer/id6742453124",
+    "model": "written by the research agent from meta.json, screenshots and the public listing (spec.py had no ANTHROPIC_API_KEY in this session)",
+    "reviews": 0
+  }
+}

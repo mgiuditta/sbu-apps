@@ -12,10 +12,11 @@ nonisolated struct AssetCompressor: VideoCompressor {
     private static let keyFrameSeconds = 2.0
 
     @concurrent
-    func compress(_ input: URL, plan: CompressionPlan, to output: URL, progress: @escaping @Sendable (Double) -> Void) async throws {
+    func compress(_ input: URL, plan: CompressionPlan, to output: URL, progress: @escaping @Sendable (Double) -> Void) async throws -> Int64 {
         try? FileManager.default.removeItem(at: output)
         do {
             try await Self.write(AVURLAsset(url: input), plan: plan, to: output, progress: progress)
+            return Int64((try? output.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0)
         } catch {
             try? FileManager.default.removeItem(at: output)
             switch error {

@@ -16,10 +16,11 @@ struct AssetCompressorTests {
         let plan = CompressionPlan(source: source, settings: settings)
         let output = output(plan.format.fileExtension)
         let reports = OSAllocatedUnfairLock<[Double]>(initialState: [])
-        try await AssetCompressor().compress(input, plan: plan, to: output, progress: { value in
+        let bytes = try await AssetCompressor().compress(input, plan: plan, to: output, progress: { value in
             reports.withLock { $0.append(value) }
         })
         let result = try await VideoProbe.source(at: output)
+        #expect(bytes == result.bytes)
         try? FileManager.default.removeItem(at: output)
         return (source, plan, result, reports.withLock { $0 })
     }
@@ -135,7 +136,7 @@ struct AssetCompressorTests {
             try await VideoProbe.source(at: url)
         }
         await #expect(throws: CompressionError.unreadable) {
-            try await AssetCompressor().compress(url, plan: CompressionPlan(source: .phone(), settings: CompressionSettings()), to: Self.output("mov"), progress: { _ in })
+            _ = try await AssetCompressor().compress(url, plan: CompressionPlan(source: .phone(), settings: CompressionSettings()), to: Self.output("mov"), progress: { _ in })
         }
     }
 
@@ -154,7 +155,7 @@ struct AssetCompressorTests {
         let output = Self.output("mov")
         try Data("old".utf8).write(to: output)
         defer { try? FileManager.default.removeItem(at: output) }
-        try await AssetCompressor().compress(input, plan: plan, to: output, progress: { _ in })
+        _ = try await AssetCompressor().compress(input, plan: plan, to: output, progress: { _ in })
         #expect(try await VideoProbe.source(at: output).size == plan.size)
     }
 

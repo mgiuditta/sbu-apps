@@ -1,16 +1,925 @@
 {
-  "sourceLanguage" : "it",
-  "strings" : {
-    "Sbu Shrink" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Shrink" } }
+  "sourceLanguage": "it",
+  "strings": {
+    "%@ in meno": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ smaller"
+          }
+        }
       }
     },
-    "Valore" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+    "%@ → %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ → %@"
+          }
+        }
+      }
+    },
+    "%lld fps": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fps"
+          }
+        }
+      }
+    },
+    "%lld video compressi": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld video compressed"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld videos compressed"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld video compresso"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld video compressi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld video compressi e salvati in Foto": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld video compressed and saved to Photos"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld videos compressed and saved to Photos"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld video compresso e salvato in Foto"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld video compressi e salvati in Foto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld%%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        }
+      }
+    },
+    "Album": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Album"
+          }
+        }
+      }
+    },
+    "Alcune copie non sono state salvate in Foto. Puoi condividerle.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Some copies were not saved to Photos. You can share them."
+          }
+        }
+      }
+    },
+    "Apri Impostazioni": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Settings"
+          }
+        }
+      }
+    },
+    "Avanzamento": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Progress"
+          }
+        }
+      }
+    },
+    "Avanzate": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advanced"
+          }
+        }
+      }
+    },
+    "Codec": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codec"
+          }
+        }
+      }
+    },
+    "Compressione": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compression"
+          }
+        }
+      }
+    },
+    "Compressione dei video": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compressing videos"
+          }
+        }
+      }
+    },
+    "Comprimi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compress"
+          }
+        }
+      }
+    },
+    "Comprimi i tuoi video": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compress your videos"
+          }
+        }
+      }
+    },
+    "Con la dimensione massima la qualità si regola da sola.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "With a maximum size, quality sets itself."
+          }
+        }
+      }
+    },
+    "Condividi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share"
+          }
+        }
+      }
+    },
+    "Converti in MP4": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convert to MP4"
+          }
+        }
+      }
+    },
+    "Cosa vuoi fare con i video originali?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What do you want to do with the original videos?"
+          }
+        }
+      }
+    },
+    "Dimensione massima": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maximum size"
+          }
+        }
+      }
+    },
+    "Dimensione stimata": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated size"
+          }
+        }
+      }
+    },
+    "Dimensione totale": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total size"
+          }
+        }
+      }
+    },
+    "Dimensioni": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimensions"
+          }
+        }
+      }
+    },
+    "Dopo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After"
+          }
+        }
+      }
+    },
+    "Elimina originali": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete originals"
+          }
+        }
+      }
+    },
+    "Eliminare %lld originali? Restano in Eliminati di recente per 30 giorni.": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Delete the original? It stays in Recently Deleted for 30 days."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Delete %lld originals? They stay in Recently Deleted for 30 days."
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Eliminare l'originale? Resta in Eliminati di recente per 30 giorni."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Eliminare %lld originali? Restano in Eliminati di recente per 30 giorni."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Fatto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        }
+      }
+    },
+    "Fatto, da %@ a %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done, from %@ to %@"
+          }
+        }
+      }
+    },
+    "Fine": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        }
+      }
+    },
+    "Foto non consentito: le copie non sono in Foto. Condividile, o consenti l'accesso.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos not allowed: the copies are not in Photos. Share them, or allow access."
+          }
+        }
+      }
+    },
+    "Foto non ha eliminato gli originali.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos did not delete the originals."
+          }
+        }
+      }
+    },
+    "Frame rate": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frame rate"
+          }
+        }
+      }
+    },
+    "Frame rate 24, dimensioni 80%, qualità 60%, Avanzate spente.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frame rate 24, dimensions 80%, quality 60%, Advanced off."
+          }
+        }
+      }
+    },
+    "Già leggeri, restano come sono: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already light, kept as they are: %lld"
+          }
+        }
+      }
+    },
+    "Già leggero, resta com'è": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already light, kept as is"
+          }
+        }
+      }
+    },
+    "H.264": {
+      "shouldTranslate": false
+    },
+    "H.264 si apre ovunque. HEVC pesa circa un terzo in meno, ma alcuni computer e siti non lo leggono.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "H.264 opens everywhere. HEVC is about a third smaller, but some computers and websites cannot read it."
+          }
+        }
+      }
+    },
+    "HEVC": {
+      "shouldTranslate": false
+    },
+    "I video ci stanno già alla qualità piena: verranno più leggeri del limite.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The videos already fit at full quality: they will come out lighter than the limit."
+          }
+        }
+      }
+    },
+    "Importa da File": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Import from Files"
+          }
+        }
+      }
+    },
+    "In attesa": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting"
+          }
+        }
+      }
+    },
+    "Interrompere la compressione? I video già compressi restano in Foto.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop compressing? Videos already compressed stay in Photos."
+          }
+        }
+      }
+    },
+    "Interrompi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop"
+          }
+        }
+      }
+    },
+    "Interrotti: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stopped: %lld"
+          }
+        }
+      }
+    },
+    "Interrotto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stopped"
+          }
+        }
+      }
+    },
+    "Le copie vanno sempre nella libreria di Foto, con la data e il luogo dell'originale.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copies always go to the Photos library, with the date and place of the original."
+          }
+        }
+      }
+    },
+    "Lettura dei video in corso": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading the videos"
+          }
+        }
+      }
+    },
+    "MB per video": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB per video"
+          }
+        }
+      }
+    },
+    "MP4 si carica ovunque; senza conversione il video resta nel formato dell'iPhone.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MP4 uploads anywhere; without converting, the video keeps the iPhone's format."
+          }
+        }
+      }
+    },
+    "Max %@ MB": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Max %@ MB"
+          }
+        }
+      }
+    },
+    "Nessun video è diventato più leggero": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No video got lighter"
+          }
+        }
+      }
+    },
+    "Non compressi: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not compressed: %lld"
+          }
+        }
+      }
+    },
+    "Non compresso": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not compressed"
+          }
+        }
+      }
+    },
+    "Non leggibili, restano fuori: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unreadable, left out: %lld"
+          }
+        }
+      }
+    },
+    "Ogni video viene compresso per pesare al massimo questi MB, e la qualità si regola da sola.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each video is compressed to weigh at most this many MB, and quality sets itself."
+          }
+        }
+      }
+    },
+    "Ogni video viene compresso per pesare al massimo questi MB.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each video is compressed to weigh at most this many MB."
+          }
+        }
+      }
+    },
+    "Ora %@, %@ in meno": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Now %@, %@ smaller"
+          }
+        }
+      }
+    },
+    "Originali eliminati: %lld. Restano in Eliminati di recente per 30 giorni.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Originals deleted: %lld. They stay in Recently Deleted for 30 days."
+          }
+        }
+      }
+    },
+    "Per alcuni video non basta: verranno più pesanti. Riduci le dimensioni o togli l'audio.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not enough for some videos: they will come out heavier. Lower the dimensions or remove the audio."
+          }
+        }
+      }
+    },
+    "Più fotogrammi al secondo occupano più spazio. Ti consigliamo di non scendere sotto 24. Mai oltre quelli del video.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More frames per second take more space. We suggest not going under 24. Never more than the video has."
+          }
+        }
+      }
+    },
+    "Più qualità tiene più dettagli e occupa più spazio. Ti consigliamo il 60%.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Higher quality keeps more detail and takes more space. We suggest 60%."
+          }
+        }
+      }
+    },
+    "Prima": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before"
+          }
+        }
+      }
+    },
+    "Qualità": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quality"
+          }
+        }
+      }
+    },
+    "Riduci le dimensioni del video per risparmiare ancora più spazio. Ti consigliamo l'80%.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reduce the dimensions of the video to save even more space. We suggest 80%."
+          }
+        }
+      }
+    },
+    "Ripristina": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore"
+          }
+        }
+      }
+    },
+    "Ripristina le impostazioni consigliate": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore suggested settings"
+          }
+        }
+      }
+    },
+    "Ripristinare le impostazioni consigliate?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore the suggested settings?"
+          }
+        }
+      }
+    },
+    "Risparmio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Savings"
+          }
+        }
+      }
+    },
+    "Salva anche nell'album Video compressi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Also save to the Compressed Videos album"
+          }
+        }
+      }
+    },
+    "Sbu Shrink": {
+      "shouldTranslate": false
+    },
+    "Scegli da Foto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose from Photos"
+          }
+        }
+      }
+    },
+    "Scegli uno o più video: diventano più leggeri e liberi spazio sull'iPhone. Tutto resta sul telefono.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose one or more videos: they get lighter and free up space on your iPhone. Everything stays on the phone."
+          }
+        }
+      }
+    },
+    "Ti consigliamo di non scendere sotto 24.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We suggest not going under 24."
+          }
+        }
+      }
+    },
+    "Ti consigliamo l'80%.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We suggest 80%."
+          }
+        }
+      }
+    },
+    "Tieni %lld originali": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Keep the original"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Keep %lld originals"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tieni l'originale"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tieni %lld originali"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Togli l'audio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove audio"
+          }
+        }
+      }
+    },
+    "Video": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Videos"
+          }
+        }
+      }
+    },
+    "Video %lld di %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Video %lld of %lld"
+          }
+        }
+      }
+    },
+    "Video compressi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compressed Videos"
+          }
+        }
+      }
+    },
+    "Video in lettura": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Video being read"
+          }
+        }
+      }
+    },
+    "senza audio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no audio"
+          }
+        }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

@@ -4,6 +4,7 @@ import AVFoundation
 nonisolated enum VideoProbe {
     /// The source description of the file at `url`.
     /// - Throws: `CompressionError.unreadable` when it has no playable video track.
+    @concurrent
     static func source(at url: URL) async throws -> SourceVideo {
         let asset = AVURLAsset(url: url)
         let bytes = Int64((try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0)

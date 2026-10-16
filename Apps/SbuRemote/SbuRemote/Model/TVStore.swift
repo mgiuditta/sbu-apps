@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import WidgetKit
 
 /// The saved TVs, kept in the App Group so the widget and Shortcuts see the same list.
 /// No credential is ever here: those stay in the Keychain (`CredentialStore`).
@@ -58,6 +59,7 @@ final class TVStore {
     private func save() {
         guard let data = try? JSONEncoder().encode(list) else { return }
         defaults.set(data, forKey: Self.key)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     nonisolated static func load(from defaults: UserDefaults) -> SavedTVList {

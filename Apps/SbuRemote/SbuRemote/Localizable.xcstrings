@@ -21,6 +21,26 @@
         }
       }
     },
+    "Abbassa il volume dell'ultima TV usata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turns down the volume of the last TV used."
+          }
+        }
+      }
+    },
+    "Accende o spegne l'ultima TV usata in Sbu Remote." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turns the last TV used in Sbu Remote on or off."
+          }
+        }
+      }
+    },
     "Accendi la TV e collega il telefono alla stessa Wi-Fi." : {
       "localizations" : {
         "en" : {
@@ -41,12 +61,32 @@
         }
       }
     },
+    "Accendi o spegni la TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn the TV on or off"
+          }
+        }
+      }
+    },
     "Accensione" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Power"
+          }
+        }
+      }
+    },
+    "Accensione TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TV power"
           }
         }
       }
@@ -61,6 +101,16 @@
         }
       }
     },
+    "Aggiungi prima una TV in Sbu Remote." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First add a TV in Sbu Remote."
+          }
+        }
+      }
+    },
     "Aggiungi una TV" : {
       "localizations" : {
         "en" : {
@@ -71,12 +121,32 @@
         }
       }
     },
+    "Aggiungi una TV in Sbu Remote." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a TV in Sbu Remote."
+          }
+        }
+      }
+    },
     "Alza il volume" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Volume up"
+          }
+        }
+      }
+    },
+    "Alza il volume dell'ultima TV usata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turns up the volume of the last TV used."
           }
         }
       }
@@ -341,6 +411,16 @@
         }
       }
     },
+    "Fatto su %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done on %@."
+          }
+        }
+      }
+    },
     "Fine" : {
       "localizations" : {
         "en" : {
@@ -541,6 +621,16 @@
         }
       }
     },
+    "Mette in pausa o fa ripartire quello che guardi sull'ultima TV usata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pauses or resumes what you watch on the last TV used."
+          }
+        }
+      }
+    },
     "Mi collego" : {
       "localizations" : {
         "en" : {
@@ -727,6 +817,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To use it again you will connect it from the start."
+          }
+        }
+      }
+    },
+    "Play o pausa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play or pause"
           }
         }
       }
@@ -921,6 +1021,16 @@
         }
       }
     },
+    "Silenzia la TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute the TV"
+          }
+        }
+      }
+    },
     "Sinistra" : {
       "localizations" : {
         "en" : {
@@ -941,12 +1051,32 @@
         }
       }
     },
+    "Soggiorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Living room"
+          }
+        }
+      }
+    },
     "Sorgente" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Source"
+          }
+        }
+      }
+    },
+    "Spegne l'ultima TV usata, o prova ad accenderla se è spenta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turns off the last TV used, or tries to turn it on when it is off."
           }
         }
       }
@@ -1041,12 +1171,32 @@
         }
       }
     },
+    "Telecomando" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remote"
+          }
+        }
+      }
+    },
     "Togli dalla riga" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove from the row"
+          }
+        }
+      }
+    },
+    "Toglie o rimette l'audio dell'ultima TV usata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mutes or unmutes the last TV used."
           }
         }
       }
@@ -1097,6 +1247,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Volume"
+          }
+        }
+      }
+    },
+    "Volume, silenzio, play e accensione dell'ultima TV usata." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume, mute, play and power of the last TV used."
           }
         }
       }

@@ -23,6 +23,12 @@ targets:
     sources: [SbuRemote]
     dependencies:
       - package: SbuKit
+      - target: SbuRemoteWidget
+    entitlements:
+      path: SbuRemote/SbuRemote.entitlements
+      properties:
+        # Saved TVs live here so the widget shows the TV its buttons go to.
+        com.apple.security.application-groups: [group.dev.sbu.remote]
     info:
       path: SbuRemote/Info.plist
       properties:
@@ -55,6 +61,48 @@ targets:
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES
+  SbuRemoteWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuRemoteWidget
+      # The widget's buttons run the app's intents, so it compiles them and what they use.
+      # They run in the app's process, which holds the credentials and the Local Network permission.
+      - SbuRemote/Model
+      - SbuRemote/Security
+      - SbuRemote/Connection
+      - SbuRemote/Protocols
+      - SbuRemote/Power
+      - path: SbuRemote/Intents
+        excludes: [RemoteShortcuts.swift]
+      - path: SbuRemote/Discovery
+        includes: [NetworkFeatures.swift, LocalNetworkAccess.swift]
+      - path: SbuRemote/Remote
+        includes: [HoldStrategy.swift]
+      - SbuRemote/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuRemoteWidget/SbuRemoteWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.remote]
+    info:
+      path: SbuRemoteWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Remote
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.remote.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
   SbuRemoteTests:
     type: bundle.unit-test
     platform: iOS

@@ -1,0 +1,15 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Abbassa il volume con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn down the volume with ${applicationName}" } } } },
+    "Accendi la TV con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn on the TV with ${applicationName}" } } } },
+    "Alza il volume con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn up the volume with ${applicationName}" } } } },
+    "Fai ripartire la TV con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Resume the TV with ${applicationName}" } } } },
+    "Metti in pausa la TV con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Pause the TV with ${applicationName}" } } } },
+    "Silenzia la TV con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Mute the TV with ${applicationName}" } } } },
+    "Spegni la TV con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Turn off the TV with ${applicationName}" } } } },
+    "Volume giù con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Volume down with ${applicationName}" } } } },
+    "Volume su con ${applicationName}" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Volume up with ${applicationName}" } } } }
+  },
+  "version" : "1.0"
+}

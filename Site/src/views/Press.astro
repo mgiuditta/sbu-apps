@@ -140,11 +140,11 @@ const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, 
     <section aria-labelledby="logo" class="flex flex-col gap-4">
       <h2 id="logo" class="text-title-2">{copy.logo}</h2>
       <div class="plates">
-        <a href={logo} download="sbu-logo.svg" class="plate bg-surface-raised">
+        <a href={logo} download="sbu-logo.svg" class="logo-plate bg-surface-raised">
           <img src={logo} alt="" class="logo-img is-ink" />
           <span class="text-footnote">{copy.logoLight}</span>
         </a>
-        <a href={mark} download="sbu-mark.svg" class="plate bg-surface-raised">
+        <a href={mark} download="sbu-mark.svg" class="logo-plate bg-surface-raised">
           <img src={mark} alt="" class="logo-img is-mark" />
           <span class="text-footnote">{copy.logoDark}</span>
         </a>
@@ -172,12 +172,14 @@ const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, 
   .logo-img.is-mark { height: var(--spacing-12); }
   /* The logo file is warm black: on the dark theme's plate the preview is inverted, the download is not. */
   @media (prefers-color-scheme: dark) { .logo-img.is-ink { filter: invert(1); } }
-  .plate {
+  .logo-plate {
     display: grid;
     justify-items: start;
     gap: var(--spacing-4);
     padding: var(--spacing-6);
-    border-radius: var(--radius-lg);
+    /* SbuListCard: white, a hairline of `line`, the card radius. */
+    border: var(--sbu-hairline) solid var(--sbu-line);
+    border-radius: var(--radius-card);
     color: var(--sbu-ink);
     text-decoration: none;
   }

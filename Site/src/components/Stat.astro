@@ -1,13 +1,28 @@
 ---
-// The Cifra: one per page, in `ink`, Bricolage Grotesque with tabular figures, like SbuStat.
+// The Cifra: one per page, in `ink`, Bricolage ExtraBold at width 87 with tabular figures, like SbuFigure.
+// One line, never wrapped: a long value gets smaller instead. No full stop here: on the app page the
+// title carries the page's one square.
 interface Props {
   value: string;
   label: string;
 }
 const { value, label } = Astro.props;
 ---
-<p class="flex flex-col gap-1">
-  {/* stat-hero at its smallest, up to 2.4 times that on a wide screen, like the home's figures. */}
-  <span class="font-display text-stat-hero tabular-nums text-ink text-[clamp(var(--text-stat-hero),18vw,calc(var(--text-stat-hero)*2.4))] leading-none">{value}</span>
-  <span class="text-subheadline text-ink-muted">{label}</span>
+<p class="stat">
+  <span class="figure font-display tabular-nums text-ink" style={`--chars: ${[...value].length}`}>{value}</span>
+  <span class="text-subheadline leading-[var(--sbu-grid-cell)] text-ink-muted">{label}</span>
 </p>
+
+<style>
+  .stat { display: flex; flex-direction: column; container-type: inline-size; }
+  /* Up to figure-hero-max (9 cells). At width 87 no glyph of the figures is wider than 0.62 em
+     (measured on Design/fonts/BricolageGrotesque-Variable.ttf), so value length × 0.62 em always fits the
+     column; never under two cells. Lines are whole grid rows. */
+  .figure {
+    font-size: clamp(calc(var(--sbu-grid-cell) * 2), calc(100cqi / (var(--chars) * 0.62)), var(--sbu-figure-hero-max));
+    font-weight: var(--text-figure--font-weight);
+    line-height: 1;
+    line-height: round(up, 1em, var(--sbu-grid-cell));
+    white-space: nowrap;
+  }
+</style>

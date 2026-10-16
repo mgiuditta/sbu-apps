@@ -67,7 +67,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
     <script is:inline src="/flight.js"></script>
     <title>{title}</title>
     {/* Every page opens on a Bricolage title: fetched with the HTML, so the title is not drawn twice. */}
-    <link rel="preload" href="/fonts/BricolageGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={absolute(locale)} />}
     {!noindex && alternates.map((alt) => <link rel="alternate" hreflang={alt} href={absolute(alt)} />)}
@@ -93,7 +93,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
   <body class="min-h-dvh text-ink">
     <a href="#main" class="sr-only focus:not-sr-only">{t.skip}</a>
     <header class="bar">
-      <div class="frame flex items-center justify-between gap-4 py-4">
+      <div class="frame flex items-center justify-between gap-4">
         <a href={localePath(locale, '')} class="py-2 text-brand">
           <Fragment set:html={logo} />
           <span class="sr-only">sbu.dev</span>
@@ -156,7 +156,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
     </script>
     {/* Header, main and footer share the frame, so the logo never moves from page to page. The reading
         column sits under the logo; the plate, the one perfect drawing on the page, stands still beside it. */}
-    <main id="main" class="frame pb-12">
+    <main id="main" class="frame pb-[calc(var(--sbu-grid-cell)*2)]">
       {wide ? <slot /> : (
         <div class="reading">
           <div class="column"><slot /></div>
@@ -170,7 +170,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
       )}
     </main>
     <footer class="border-t border-line">
-      <div class="frame site-footer py-8 text-ink-muted">
+      <div class="frame site-footer py-6 text-ink-muted">
         <a href={localePath(locale, '')} class="self-start py-2 text-brand">
           <Fragment set:html={logo} />
           <span class="sr-only">sbu.dev</span>

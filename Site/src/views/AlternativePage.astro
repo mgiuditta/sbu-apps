@@ -22,10 +22,10 @@ const jsonLd = [
 ---
 <Base locale={locale} path={path} alternates={alternates} title={`${entry.data.title} · sbu.dev`} description={entry.data.description} image={`/og/${app.slug}.png`} jsonLd={jsonLd}>
   <article class="flex flex-col gap-8 py-8">
-    <PageTitle text={entry.data.title} accent={app.accent} />
+    <PageTitle text={entry.data.title} accent={app.accent} cartiglio={`SBU / ${String(app.order).padStart(2, '0')} / ${app.slug} · ${t.checked(formatDate(entry.data.checked, locale)).replace(/\.$/, '')}`} />
     <div class="prose"><Content /></div>
 
-    <table class="w-full overflow-hidden rounded-lg bg-surface-raised text-left">
+    <table class="w-full overflow-hidden rounded-card border border-line bg-surface-raised text-left">
       <thead class="text-caption uppercase text-ink-muted">
         <tr><th scope="col" class="px-4 py-3"></th><th scope="col" class="px-4 py-3">{app.originale?.name}</th><th scope="col" class="px-4 py-3">{listing.name}</th></tr>
       </thead>
@@ -35,7 +35,6 @@ const jsonLd = [
         ))}
       </tbody>
     </table>
-    <p class="text-footnote text-ink-muted">{t.checked(formatDate(entry.data.checked, locale))}</p>
 
     <p><a href={localePath(locale, `apps/${app.slug}`)}>{t.backToApp(listing.name)}</a></p>
 

@@ -28,7 +28,7 @@ const jsonLd = post
   <Base locale={locale} path={path} alternates={alternates} title={`${post.data.title} · sbu.dev`} description={post.data.description} jsonLd={jsonLd}>
     <article class="prose py-8">
       <PageTitle text={post.data.title} />
-      <p class="text-footnote text-ink-muted"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time></p>
+      <p class="cartiglio">sbu.dev / {t.nav.blog} · <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time></p>
       <Content />
     </article>
   </Base>

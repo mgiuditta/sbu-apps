@@ -3,7 +3,9 @@
      Driven by Tools/make_screenshots.py, which passes the app as JSON in the hash and a slice
      index (one PNG per slice). Without a slice it shows every slice side by side, for review.
      Layout decided in #437: the icon engraving across the first seam, 3D phones, one full stop
-     on the last title, closing card in brand warm black with sbu-mark.svg. -->
+     on the last title, closing card in brand warm black with sbu-mark.svg. Quaderno (v5): paper with
+     the notebook grid at 3x (one cell = 3 × grid-cell), a vertical line on the titles' margin, titles in
+     Bricolage variable at 800 and width 87, the full stop exactly one cell, a Plex Mono cartiglio. -->
 <html lang="it">
 <head>
 <meta charset="utf-8">
@@ -11,8 +13,14 @@
 <style>
   @font-face {
     font-family: "Bricolage Grotesque";
-    src: url("../../Design/fonts/BricolageGrotesque-Bold.ttf") format("truetype");
-    font-weight: 700 800;
+    src: url("../../Design/fonts/BricolageGrotesque-Variable.ttf") format("truetype");
+    font-weight: 200 800;
+    font-stretch: 75% 100%;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("../../Design/fonts/IBMPlexMono-Medium.ttf") format("truetype");
+    font-weight: 500;
   }
   /* Store screenshots are light only; values from Design/tokens.json (light), passed in. */
   * { box-sizing: border-box; }
@@ -22,13 +30,23 @@
   .slice { width: 1320px; height: 2868px; position: relative; overflow: hidden; flex: none; }
   .preview .slice { border-radius: 12px; }
   .pano { position: absolute; top: 0; left: 0; height: 2868px; transform-origin: 0 0;
-    background: var(--surface); perspective: 4200px; }
+    background: var(--paper); perspective: 4200px; }
+  /* The grid: `grid` ink through a one-cell mask (the site's own Site/public/grid-cell.svg), a vertical
+     line every cell from the grid offset, so the titles' margin falls on one. No gradient. */
+  .pano::before { content: ""; position: absolute; inset: 0; background: var(--grid);
+    -webkit-mask: url("../../Site/public/grid-cell.svg") var(--grid-offset) 0 / var(--grid-cell) var(--grid-cell) repeat;
+    mask: url("../../Site/public/grid-cell.svg") var(--grid-offset) 0 / var(--grid-cell) var(--grid-cell) repeat; }
 
-  .t { position: absolute; top: 200px; width: 1080px; margin: 0; color: var(--ink);
-    font: 800 150px/1.0 "Bricolage Grotesque", sans-serif; letter-spacing: -0.025em; text-wrap: balance; }
+  /* Titles: two cells a line, from the third row; the cartiglio sits on the row above. */
+  .t { position: absolute; top: calc(var(--grid-cell) * 3); width: 1080px; margin: 0; color: var(--ink);
+    font: 800 calc(var(--grid-cell) * 2) / calc(var(--grid-cell) * 2) "Bricolage Grotesque", sans-serif;
+    font-stretch: var(--title-stretch); text-wrap: balance; }
+  .c { position: absolute; top: calc(var(--grid-cell) * 2); margin: 0; color: var(--ink-muted);
+    font: 500 var(--cartiglio-size) / var(--grid-cell) "IBM Plex Mono", monospace;
+    letter-spacing: var(--cartiglio-tracking); text-transform: uppercase; }
   .t small { display: block; margin-top: 28px; color: var(--ink-muted); letter-spacing: 0;
     font: 500 54px/1.25 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
-  .stop { display: inline-block; width: var(--mark-size); height: var(--mark-size);
+  .stop { display: inline-block; width: var(--full-stop-hero); height: var(--full-stop-hero);
     margin-inline-start: var(--mark-gap); background: var(--accent); }
 
   /* The real iPhone 17 Pro Max bezel (Apple Design Resources, via fastlane frameit): 1470×3000,
@@ -78,12 +96,15 @@
     `<img class="bezel side" src="${BEZEL}" alt="" style="transform:translateZ(${-1.5 * (k + 1)}px)">`).join("");
 
   const esc = s => s.replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
+  // A slice is not a whole number of cells: each title starts on the first vertical line past 120px.
+  const cell = parseFloat(app.tokens["grid-cell"]), offset = parseFloat(app.tokens["grid-offset"]);
+  const margin = i => offset + cell * Math.ceil((i * W + 120 - offset) / cell);
   const mask = `url('${app.engraving}') center / contain no-repeat`;
   const pano = `
     <div class="engraving" style="left:${W - 1100}px;-webkit-mask:${mask};mask:${mask}"></div>
     ${app.shots.map((s, i) => {
       const p = phone(i);
-      return `<p class="t" style="left:${i * W + 120}px">${esc(s.title)}${i === n - 1 ? '<span class="stop"></span>' : ""}${s.subtitle ? `<small>${esc(s.subtitle)}</small>` : ""}</p>
+      return `${i === 0 ? `<p class="c" style="left:${margin(0)}px">${esc(app.cartiglio)}</p>` : ""}<p class="t" style="left:${margin(i)}px">${esc(s.title)}${i === n - 1 ? '<span class="stop"></span>' : ""}${s.subtitle ? `<small>${esc(s.subtitle)}</small>` : ""}</p>
         <div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px"><div class="device">${side(p.w)}<div class="face"><img class="screen" src="${s.image}" alt=""><img class="bezel" src="${BEZEL}" alt=""></div></div></div>`;
     }).join("")}
     <div class="cover" style="left:${n * W}px"></div>

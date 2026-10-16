@@ -1,0 +1,10 @@
+No account. Sbu Tidy has no server and makes no network calls: no analytics, ads or tracking. Data stays on the device.
+
+To review:
+1. On the first screen tap "Usa le stanze di base" ("Use the base rooms"). It adds a kitchen, a bathroom, a bedroom and a living room with their usual chores, just done.
+2. Tap the rooms button at the top left, open a room and tap "Aggiungi attività" ("Add chore"): pick a suggestion and set "Ultima volta" ("Last done") two weeks back. It shows up as late on the first screen.
+3. Swipe a chore to the right to mark it done now. Widgets are in the widget gallery.
+
+Notifications are optional, off by default and local: one on the days a chore becomes due.
+
+How it differs from the other Sbu apps: it is the only one about housework. Sbu Habits tracks personal habits day by day; Sbu Tidy tracks rooms and chores that get dirty over time, each at its own frequency.

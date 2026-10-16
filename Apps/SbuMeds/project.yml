@@ -23,6 +23,11 @@ targets:
     sources: [SbuMeds]
     dependencies:
       - package: SbuKit
+    entitlements:
+      path: SbuMeds/SbuMeds.entitlements
+      properties:
+        # The store lives here so the widget can read it.
+        com.apple.security.application-groups: [group.dev.sbu.meds]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.meds

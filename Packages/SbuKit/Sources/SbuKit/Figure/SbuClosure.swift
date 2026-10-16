@@ -8,6 +8,7 @@ import SwiftUI
 struct SbuClosure: ViewModifier {
     @Binding var isPresented: Bool
     let word: LocalizedStringResource
+    let playsHaptic: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -21,7 +22,7 @@ struct SbuClosure: ViewModifier {
                 }
             }
             .animation(SbuMotion.animation(SbuMotion.short, reduceMotion: reduceMotion), value: isPresented)
-            .sensoryFeedback(SbuHaptic.closure.feedback, trigger: isPresented) { _, new in new }
+            .sensoryFeedback(SbuHaptic.closure.feedback, trigger: isPresented) { _, new in new && playsHaptic }
             .task(id: isPresented) {
                 guard isPresented else { return }
                 AccessibilityNotification.Announcement(String(localized: word)).post()
@@ -53,8 +54,9 @@ public extension View {
     /// - Parameters:
     ///   - isPresented: Set to `true` once per completion event.
     ///   - word: One participle with its full stop drawn for it: "Fatto", "Pagato", "In bolla".
-    func sbuClosure(_ isPresented: Binding<Bool>, word: LocalizedStringResource) -> some View {
-        modifier(SbuClosure(isPresented: isPresented, word: word))
+    ///   - playsHaptic: `false` when the person turned the app's vibration off.
+    func sbuClosure(_ isPresented: Binding<Bool>, word: LocalizedStringResource, playsHaptic: Bool = true) -> some View {
+        modifier(SbuClosure(isPresented: isPresented, word: word, playsHaptic: playsHaptic))
     }
 
     /// Marks a control that changes the figure: each change of `value` plays the `tick` haptic and

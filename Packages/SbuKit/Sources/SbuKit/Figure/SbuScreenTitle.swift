@@ -11,6 +11,7 @@ public struct SbuScreenTitle: View {
 
     @ScaledMetric(relativeTo: .largeTitle) private var titleSize = SbuTheme.titleSize
     @ScaledMetric(relativeTo: .caption2) private var cartiglioSize = SbuTheme.cartiglioSize
+    @Environment(\.locale) private var locale
 
     /// Creates the title.
     /// - Parameters:
@@ -34,9 +35,10 @@ public struct SbuScreenTitle: View {
                 .font(.sbuFigure(size: titleSize, width: SbuTheme.figureWidthMid))
                 .foregroundStyle(SbuTheme.ink)
                 .accessibilityAddTraits(.isHeader)
-            Text(verbatim: cartiglio)
+            // Uppercased in the string, not with `.textCase`: the accessibility audit measures the
+            // string, and a narrower lowercase measure reported the line as clipped.
+            Text(verbatim: cartiglio.uppercased(with: locale))
                 .font(.sbuCartiglio)
-                .textCase(.uppercase)
                 .tracking(cartiglioSize * SbuTheme.cartiglioTracking)
                 .foregroundStyle(SbuTheme.inkMuted)
         }

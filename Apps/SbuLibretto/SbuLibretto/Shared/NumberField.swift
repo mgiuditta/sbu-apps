@@ -10,6 +10,7 @@ struct NumberField: View {
     var identifier = ""
     /// Where the caller keeps the focus, to close the decimal keypad, which has no return key.
     var focus: FocusState<Bool>.Binding?
+    var keyboard = UIKeyboardType.decimalPad
 
     @FocusState private var ownFocus: Bool
 
@@ -19,7 +20,7 @@ struct NumberField: View {
                 TextField(text: $text, prompt: Text(verbatim: prompt)) {
                     Text(title)
                 }
-                .keyboardType(.decimalPad)
+                .keyboardType(keyboard)
                 .multilineTextAlignment(.trailing)
                 .monospacedDigit()
                 .focused(focus ?? $ownFocus)

@@ -9,7 +9,8 @@ struct RootView: View {
         SbuAppShell("Sbu Libretto", slug: "libretto", accent: SbuTheme.accentLibretto, appIcon: Image(.appIconArtwork)) {
             MainView(settings: settings)
         } settings: {
-            EmptyView()
+            CourseSection(settings: settings)
+            GradeRulesSection(settings: settings)
         }
     }
 }

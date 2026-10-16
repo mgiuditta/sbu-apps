@@ -1,14 +1,784 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "Altra stanza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other room"
+          }
+        }
+      }
+    },
+    "Annaffiare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water the garden"
+          }
+        }
+      }
+    },
+    "Annaffiare le piante" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water the plants"
+          }
+        }
+      }
+    },
+    "Bagno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bathroom"
+          }
+        }
+      }
+    },
+    "Balcone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balcony"
+          }
+        }
+      }
+    },
+    "Buttare quello che non serve" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Throw out what you don't need"
+          }
+        }
+      }
+    },
+    "Cambiare gli asciugamani" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the towels"
+          }
+        }
+      }
+    },
+    "Cambiare l'aria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Air the rooms"
+          }
+        }
+      }
+    },
+    "Cambiare le lenzuola" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the sheets"
+          }
+        }
+      }
+    },
+    "Camera da letto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedroom"
+          }
+        }
+      }
+    },
+    "Cameretta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kids' room"
+          }
+        }
+      }
+    },
+    "Controllare i rilevatori di fumo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test the smoke alarms"
+          }
+        }
+      }
+    },
+    "Cucina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitchen"
+          }
+        }
+      }
+    },
+    "Da fare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To do"
+          }
+        }
+      }
+    },
+    "Decalcificare i rubinetti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descale the taps"
+          }
+        }
+      }
+    },
+    "Decalcificare il bollitore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descale the kettle"
+          }
+        }
+      }
+    },
+    "Fare il bucato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do the laundry"
+          }
+        }
+      }
+    },
+    "Garage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garage"
+          }
+        }
+      }
+    },
+    "Giardino" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garden"
+          }
+        }
+      }
+    },
+    "Girare il materasso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn the mattress"
+          }
+        }
+      }
+    },
+    "Impegnativo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heavy"
+          }
+        }
+      }
+    },
+    "In scadenza" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming up"
+          }
+        }
+      }
+    },
+    "Ingresso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hallway"
+          }
+        }
+      }
+    },
+    "Lavaggio a vuoto della lavatrice" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run the washer empty"
+          }
+        }
+      }
+    },
+    "Lavanderia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laundry room"
+          }
+        }
+      }
+    },
+    "Lavare i cuscini" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wash the pillows"
+          }
+        }
+      }
+    },
+    "Lavare i mobili da esterno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wash the outdoor furniture"
+          }
+        }
+      }
+    },
+    "Lavare i piatti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do the dishes"
+          }
+        }
+      }
+    },
+    "Lavare il pavimento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mop the floor"
+          }
+        }
+      }
+    },
+    "Lavare la tenda della doccia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wash the shower curtain"
+          }
+        }
+      }
+    },
+    "Lavare le tende" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wash the curtains"
+          }
+        }
+      }
+    },
+    "Leggero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        }
+      }
+    },
+    "Medio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium"
+          }
+        }
+      }
+    },
+    "Passare l'aspirapolvere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vacuum"
+          }
+        }
+      }
+    },
+    "Potare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prune"
+          }
+        }
+      }
+    },
+    "Pulire gli scarichi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the drains"
+          }
+        }
+      }
+    },
+    "Pulire i battiscopa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the skirting boards"
+          }
+        }
+      }
+    },
+    "Pulire i filtri del condizionatore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the air conditioner filters"
+          }
+        }
+      }
+    },
+    "Pulire i piani di lavoro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wipe the counters"
+          }
+        }
+      }
+    },
+    "Pulire i termosifoni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the radiators"
+          }
+        }
+      }
+    },
+    "Pulire i vetri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the windows"
+          }
+        }
+      }
+    },
+    "Pulire il filtro della lavatrice" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the washer filter"
+          }
+        }
+      }
+    },
+    "Pulire il forno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the oven"
+          }
+        }
+      }
+    },
+    "Pulire il frigorifero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the fridge"
+          }
+        }
+      }
+    },
+    "Pulire il lavandino" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the sink"
+          }
+        }
+      }
+    },
+    "Pulire il lavello" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the kitchen sink"
+          }
+        }
+      }
+    },
+    "Pulire il microonde" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the microwave"
+          }
+        }
+      }
+    },
+    "Pulire il piano cottura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the hob"
+          }
+        }
+      }
+    },
+    "Pulire il tavolo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wipe the table"
+          }
+        }
+      }
+    },
+    "Pulire il WC" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the toilet"
+          }
+        }
+      }
+    },
+    "Pulire l'asciugatrice" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the dryer"
+          }
+        }
+      }
+    },
+    "Pulire la cappa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the cooker hood"
+          }
+        }
+      }
+    },
+    "Pulire la doccia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the shower"
+          }
+        }
+      }
+    },
+    "Pulire la lavastoviglie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the dishwasher"
+          }
+        }
+      }
+    },
+    "Pulire le fughe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the grout"
+          }
+        }
+      }
+    },
+    "Pulire le porte e le maniglie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wipe doors and handles"
+          }
+        }
+      }
+    },
+    "Pulire lo specchio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean the mirror"
+          }
+        }
+      }
+    },
+    "Raccogliere le foglie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rake the leaves"
+          }
+        }
+      }
+    },
+    "Riordinare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidy up"
+          }
+        }
+      }
+    },
+    "Riordinare gli attrezzi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort the tools"
+          }
+        }
+      }
+    },
+    "Riordinare i giochi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put the toys away"
+          }
+        }
+      }
+    },
+    "Riordinare l'armadio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort the wardrobe"
+          }
+        }
+      }
+    },
+    "Riordinare la scrivania" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear the desk"
+          }
+        }
+      }
+    },
+    "Riordinare le scarpe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put the shoes away"
+          }
+        }
+      }
+    },
+    "Sala da pranzo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dining room"
+          }
+        }
+      }
+    },
+    "Sbrinare il congelatore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defrost the freezer"
+          }
+        }
+      }
+    },
     "Sbu Tidy" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Tidy" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Tidy"
+          }
+        }
+      }
+    },
+    "Soggiorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Living room"
+          }
+        }
+      }
+    },
+    "Spazzare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sweep"
+          }
+        }
+      }
+    },
+    "Spolverare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dust"
+          }
+        }
+      }
+    },
+    "Spolverare le lampade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dust the lamps"
+          }
+        }
+      }
+    },
+    "Stirare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iron"
+          }
+        }
+      }
+    },
+    "Studio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Study"
+          }
+        }
+      }
+    },
+    "Svuotare i cestini" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty the bins"
+          }
+        }
+      }
+    },
+    "Svuotare la spazzatura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take out the rubbish"
+          }
+        }
+      }
+    },
+    "Tagliare l'erba" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mow the lawn"
+          }
+        }
+      }
+    },
+    "Tutta la casa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whole home"
+          }
+        }
       }
     },
     "Valore" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Value"
+          }
+        }
       }
     }
   },

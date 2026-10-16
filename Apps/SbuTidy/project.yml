@@ -24,6 +24,11 @@ targets:
     sources: [SbuTidy]
     dependencies:
       - package: SbuKit
+    entitlements:
+      path: SbuTidy/SbuTidy.entitlements
+      properties:
+        # The store lives here so the widget can read it.
+        com.apple.security.application-groups: [group.dev.sbu.tidy]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.tidy

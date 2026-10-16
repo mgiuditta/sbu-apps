@@ -311,6 +311,26 @@
         }
       }
     },
+    "Fai suonare %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play a sound on %@"
+          }
+        }
+      }
+    },
+    "Ferma il suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop the sound"
+          }
+        }
+      }
+    },
     "Fine" : {
       "localizations" : {
         "en" : {
@@ -327,6 +347,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cold"
+          }
+        }
+      }
+    },
+    "Funziona solo con le cuffie ancora collegate all'iPhone, non nella custodia né spente. Il suono parte piano e cresce." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It only works with headphones still connected to your iPhone, not in their case or switched off. The sound starts soft and grows."
           }
         }
       }
@@ -357,6 +387,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The device must be on and out of its case: Sbu Find only hears what is transmitting."
+          }
+        }
+      }
+    },
+    "Il suono non è partito. Riprova." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The sound did not start. Try again."
           }
         }
       }
@@ -417,6 +457,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Move around for the signal to grow"
+          }
+        }
+      }
+    },
+    "Nessuna cuffia collegata all'iPhone: Fai suonare funziona solo con cuffie Bluetooth collegate." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No headphones connected to your iPhone: Play a sound only works with connected Bluetooth headphones."
           }
         }
       }

@@ -220,6 +220,28 @@ final class FindFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testConnectedHeadphonesCanBeRungAndStopped() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let ring = app.buttons["Fai suonare Buds Pro"]
+        for _ in 0..<3 where !ring.isHittable {
+            app.swipeUp()
+        }
+        XCTAssertTrue(ring.isHittable)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Funziona solo con le cuffie ancora collegate'")).firstMatch.exists)
+
+        ring.tap()
+        let stop = app.buttons["Ferma il suono"]
+        XCTAssertTrue(stop.waitForExistence(timeout: 5))
+        try audit(app)
+        stop.tap()
+        XCTAssertTrue(app.buttons["Fai suonare Buds Pro"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testTheLostAlertSwitchTurnsOnAndSaysItsLimits() throws {
         let app = launch()
         let row = devices(app).firstMatch

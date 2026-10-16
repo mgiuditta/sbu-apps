@@ -9,9 +9,17 @@ import SwiftUI
 /// as the device gets closer.
 struct FinderView: View {
     let model: ScanModel
+    let ringer: HeadphoneRinger
     let deviceID: UUID
 
     @State private var ticker = ProximityTicker()
+
+    /// Fai suonare for headphones and earbuds, or whenever some are connected.
+    private var showsRing: Bool {
+        guard ringer.headphones == nil else { return true }
+        let kind = model.tracked?.device.kind
+        return kind == .earbuds || kind == .headphones
+    }
 
     var body: some View {
         // At least as tall as the screen, so the pills sit at the bottom; scrolling only at the
@@ -34,6 +42,10 @@ struct FinderView: View {
                     // Only while the device is not heard: then the place is where to go back to.
                     if let tracked = model.tracked, tracked.isLost, let sighting = model.sighting(for: tracked.device) {
                         LastSeenCard(sighting: sighting)
+                    }
+
+                    if showsRing {
+                        RingCard(ringer: ringer)
                     }
 
                     Spacer(minLength: 0)
@@ -60,7 +72,7 @@ struct FinderView: View {
         .sensoryFeedback(.success, trigger: model.foundMoments)
         .sensoryFeedback(.warning, trigger: model.lostAlerts)
         .onAppear(perform: startTracking)
-        .onDisappear(perform: model.stopTracking)
+        .onDisappear(perform: leave)
         .task {
             await tickUntilCancelled()
         }
@@ -68,6 +80,12 @@ struct FinderView: View {
 
     private func startTracking() {
         model.track(deviceID)
+    }
+
+    /// Leaving the finder stops following the device and any ringing.
+    private func leave() {
+        model.stopTracking()
+        ringer.stop()
     }
 
     /// Ticks with the latest proximity, waiting the gap it gives; checks again often while
@@ -96,11 +114,12 @@ struct FinderView: View {
 }
 
 private struct FinderPreview: View {
-    @State private var model = ScanModel(scanner: FixedScanner(), notifier: AcceptingLostNotifier())
+    @State private var model = ScanModel(scanner: FixedScanner(), notifier: AcceptingLostNotifier(), location: FixedLocationProvider())
+    @State private var ringer = HeadphoneRinger(route: FixedAudio(), player: FixedAudio())
 
     var body: some View {
         NavigationStack {
-            FinderView(model: model, deviceID: FixedScanner.demoDevices[0].id)
+            FinderView(model: model, ringer: ringer, deviceID: FixedScanner.demoDevices[0].id)
                 .task { await model.run() }
         }
         .tint(SbuTheme.accentFind)

@@ -11,6 +11,7 @@ struct MainView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let model: ScanModel
+    let ringer: HeadphoneRinger
 
     @State private var isShowingHelp = false
 
@@ -60,7 +61,7 @@ struct MainView: View {
         .navigationTitle("Sbu Find")
         .navigationBarTitleDisplayMode(.large)
         .navigationDestination(for: UUID.self) { id in
-            FinderView(model: model, deviceID: id)
+            FinderView(model: model, ringer: ringer, deviceID: id)
         }
         .overlay {
             if let notice = BluetoothNotice(state: model.state) {
@@ -122,13 +123,15 @@ private extension MainView {
 private struct MainViewPreview: View {
     @State private var model: ScanModel
 
+    @State private var ringer = HeadphoneRinger(route: FixedAudio(), player: FixedAudio())
+
     init(scanner: FixedScanner) {
-        _model = State(initialValue: ScanModel(scanner: scanner))
+        _model = State(initialValue: ScanModel(scanner: scanner, notifier: AcceptingLostNotifier(), location: FixedLocationProvider()))
     }
 
     var body: some View {
         NavigationStack {
-            MainView(model: model)
+            MainView(model: model, ringer: ringer)
                 .task { await model.run() }
         }
     }

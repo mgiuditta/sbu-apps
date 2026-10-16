@@ -3,7 +3,8 @@
 
 import SwiftUI
 
-/// The settings sheet of `SbuAppShell`: app header, app sections, the privacy page, then the sbu.dev promise.
+/// The settings of `SbuAppShell` (a sheet) and `SbuTabShell` (the last tab): app header, app sections,
+/// the privacy page, then the sbu.dev promise.
 struct SbuSettingsView<Settings: View>: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -11,6 +12,8 @@ struct SbuSettingsView<Settings: View>: View {
     let appIcon: Image
     let slug: String
     var dataLocation: SbuDataLocation = .thisDevice
+    /// In a tab there is nothing to close: no Fine button and no sheet corner.
+    var isTab = false
     @ViewBuilder let settings: Settings
 
     private var version: String {
@@ -91,8 +94,10 @@ struct SbuSettingsView<Settings: View>: View {
             .navigationTitle(Text("Impostazioni", bundle: SbuTheme.bundle))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(String(localized: "Fine", bundle: SbuTheme.bundle), action: close)
+                if !isTab {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(String(localized: "Fine", bundle: SbuTheme.bundle), action: close)
+                    }
                 }
             }
         }
@@ -101,7 +106,8 @@ struct SbuSettingsView<Settings: View>: View {
 
     /// `radiusXl` up to iOS 18; from iOS 26 the system radius that matches Liquid Glass.
     private var cornerRadius: CGFloat? {
-        if #available(iOS 26, *) { nil } else { SbuTheme.radiusXl }
+        if isTab { return nil }
+        if #available(iOS 26, *) { return nil } else { return SbuTheme.radiusXl }
     }
 
     private func close() {

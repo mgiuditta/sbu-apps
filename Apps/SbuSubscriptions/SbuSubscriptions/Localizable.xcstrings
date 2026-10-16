@@ -211,6 +211,16 @@
         }
       }
     },
+    "Abbonamenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscriptions"
+          }
+        }
+      }
+    },
     "Abbonamenti dell'App Store" : {
       "localizations" : {
         "en" : {

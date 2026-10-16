@@ -11,6 +11,8 @@ struct RootView: View {
     @State private var currency = CurrencySettings()
     @Environment(ListSharing.self) private var sharing
     @Environment(ReceivedLists.self) private var received
+    @Environment(AppRouter.self) private var router
+    @State private var tab = AppTab.subscriptions
     @State private var reminders = Reminders(center: Self.isDemo ? SilentReminderCenter() : SystemReminderCenter())
 
     /// Screenshots and UI tests run on made-up data and must never touch the device's notifications.
@@ -22,9 +24,14 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork),
-                    dataLocation: Self.syncsWithICloud ? .yourDevices : .thisDevice) {
-            MainView(currency: currency)
+        SbuTabShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork),
+                    dataLocation: Self.syncsWithICloud ? .yourDevices : .thisDevice, selection: $tab, settingsTab: AppTab.settings) {
+            SbuTab("Abbonamenti", systemImage: "creditcard", value: AppTab.subscriptions) {
+                MainView(currency: currency)
+            }
+            SbuTab("Calendario", systemImage: "calendar", value: AppTab.calendar) {
+                PaymentsCalendarView(currency: currency)
+            }
         } settings: {
             TotalSection()
             ReminderSection(reminders: reminders)
@@ -32,6 +39,12 @@ struct RootView: View {
             OrganizeSection()
             DataSection(currency: currency)
             LegacyImportSection()
+        }
+        // A route from Siri, Shortcuts or Spotlight first brings its tab forward; the tab follows the rest.
+        .onChange(of: router.pending, initial: true) {
+            guard let route = router.pending else { return }
+            tab = AppTab(route)
+            if route == .calendar { router.pending = nil }
         }
         .onChange(of: scenePhase, initial: true) {
             guard scenePhase == .active else { return }

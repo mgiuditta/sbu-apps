@@ -41,8 +41,9 @@ struct PaymentsCalendarView: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
-        .navigationTitle("Calendario")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(for: Subscription.self) { subscription in
+            SubscriptionDetailView(subscription: subscription, currency: currency)
+        }
         .sheet(item: $addFrom) { start in
             AddSubscriptionSheet(currency: currency, startDate: start.date)
         }

@@ -30,6 +30,8 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Find
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        # The scan only listens to nearby devices; nothing is saved or sent. English in InfoPlist.xcstrings.
+        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: "Sbu Find ascolta i dispositivi Bluetooth vicini per aiutarti a ritrovarli. Quello che sente resta sull'iPhone: non viene salvato né inviato."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

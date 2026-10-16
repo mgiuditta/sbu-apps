@@ -3,12 +3,22 @@
   "strings" : {
     "Sbu Find" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Find" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Find"
+          }
+        }
       }
     },
-    "Valore" : {
+    "Senza nome" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No name"
+          }
+        }
       }
     }
   },

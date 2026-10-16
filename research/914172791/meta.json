@@ -1,0 +1,33 @@
+{
+  "id": "914172791",
+  "name": "MyLibretto - Università",
+  "developer": "Lorenzo Greco",
+  "bundle_id": "Greco.myLibretto",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Education",
+  "genres": [
+    "Istruzione",
+    "Utility"
+  ],
+  "description": "MyLibretto è un'app creata per qualsiasi studente universitario che voglia sempre avere a portata di mano la propria carriera universitaria. \nLa sua funzionalità principale è quella di essere un libretto universitario, con MyLibretto potrai visualizzare in un attimo la tua media e il numero di crediti acquisiti, inoltre potrai consultare dei grafici che descrivono tutto il tuo andamento universitario e potrai anche vedere come può variare la tua media in relazione all'esito del tuo prossimo esame.\nMyLibretto è stata creata con l'obiettivo di essere usata da qualsiasi studente universitario. Proprio per questo, potrai inserire i differenti parametri necessari al calcolo corretto della tua media basandoti sul regolamento vigente nella tua università. Avrai il tuo libretto universitario sempre a portata di mano, inoltre è stato inserito all'interno dell'applicazione, l'elenco completo di tutte le università italiane dal quale potrai scegliere la tua università di appartenenza.\nOltre alla gestione classica del libretto universitario, potrai anche visualizzare il tuo orario delle lezioni, gli esami da sostenere e le informazioni relative alle tasse pagate e non, e molto altro.\n\nIl tuo libretto universitario, la tua università, il tuo andamento e la tua media, la tua vita da studente universitario che include orario, calendario, tasse ed esami da sostenere ora disponibili in un'unica app. Arrivare alla laurea con un buon libretto digitale sarà più facile e motivante.\n\nTutto questo è MyLibretto!\n\n\nFUNZIONALITÀ PRINCIPALI:\n\n- Impostazioni dei parametri di calcolo della media\n- Scelta della propria università\n- Libretto universitario digitale\n- Domande d'esame\n- Dashboard personale con le statistiche più importanti\n- Grafici che descrivono il tuo andamento universitario\n- Previsione sulla variazione della media in base all'esito dell'esame da sostenere\n- Orario delle lezioni\n- Gestione delle tasse\n- Programmazione degli esami da sostenere\n- Link diretto al sito dell'università\n- Backup (PRO)\n- Temi (PRO)\n- Piani di studi multipli (PRO)",
+  "release_notes": "Miglioramenti generali",
+  "version": "4.0.6",
+  "current_version_release_date": "2026-08-30T21:51:47Z",
+  "rating": 4.63171,
+  "rating_count": 6856,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/it/app/mylibretto-universit%C3%A0/id914172791?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/89/50/5a/89505ae1-3684-06c4-625b-0685989b8f19/Screenshot_01.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/1d/e4/40/1de44018-f623-e49e-8a94-9dea97602a9f/Screenshot_02.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/52/a3/b1/52a3b17e-19da-cba5-112d-9cf0f3c56f4c/Screenshot_03.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0f/7e/f8/0f7ef825-b9ea-2932-2e38-4fee588e74ec/Screenshot_04.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d9/61/12/d9611214-c070-88d4-18fb-1acc8acf1b3b/Screenshot_05.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/85/ef/08/85ef0806-8d09-6c9b-a6e5-d2f63bfdbd08/Screenshot_06.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cd/5c/31/cd5c3164-5260-571a-5787-f628a2c4a861/Screenshot_07.png/320x480bb.jpg"
+  ]
+}

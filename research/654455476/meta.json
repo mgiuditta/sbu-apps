@@ -1,0 +1,29 @@
+{
+  "id": "654455476",
+  "name": "UniMedia Free",
+  "developer": "Enrico De Michele",
+  "bundle_id": "com.kennymuse.CalcoloMediaFree",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Productivity",
+  "genres": [
+    "Produttività",
+    "Utility"
+  ],
+  "description": "Frequenti l'università e stai già sostenendo i tuoi primi esami?\n\nQuesta applicazione è pensata per tutti gli studenti universitari che hanno necessità di memorizzare sul proprio dispositivo i propri esami e calcolarne la media e altre informazioni.\n\n\"UniMedia\" con una semplice e intuitiva interfaccia ti guiderà durante tutto il tuo percorso universitario, calcolando per te tutto ciò di cui hai bisogno; ad esempio:\n\n• Media aritmetica in 30esimi;\n• Media ponderata/pesata in 30esimi;\n• Media ponderata/pesata in 110esimi;\n• Punti mancanti al voto di laurea desiderato;\n• Numero di esami sostenuti;\n• Numero di crediti sostenuti;\n• Numero di lodi ottenute;\n• e altro.\n\nL'inserimento di un'esame e la compilazione dei suoi campi sarà facile e veloce grazie ai suggerimenti che la tastiera ti mostrerà.\n\nE non è finita qua. \"UniMedia\" (versione completa) si distingue soprattutto per la possibilità di inserire esami \"futuri\", utili per poter calcolare la media in base al voto che prenderai; saprai, di conseguenza, se accettare o no un certo voto senza rovinare la media di laurea.\n\n\"UniMedia\" ti consente anche di:\n\n• mantenere i tuoi esami sincronizzati fra i tuoi dispositivi (iPhone, iPad, iPod touch) con iCloud. (versione completa)\n• visualizzare grafici sull'andamento dei tuoi voti e della tua media nel tempo, nonché sulla frequenza dei voti.\n• esportare i tuoi esami in CSV, Excel (XLS) e PDF inviandoli via email. (versione completa)\n\nNon è fantastico? Provala subito!\n\n\nemail: enricodemichele@gmail.com \nsito web: www.enricodemichele.com\ntwitter: demicheleenrico\nfacebook: cerca UniMedia",
+  "release_notes": "Correzione errori",
+  "version": "2.3",
+  "current_version_release_date": "2017-02-16T00:27:04Z",
+  "rating": 4.67241,
+  "rating_count": 58,
+  "minimum_os": "8.0",
+  "url": "https://apps.apple.com/it/app/unimedia-free/id654455476?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple111/v4/fe/a6/98/fea69851-6cd8-83a5-5cdb-fbc8cfaee37b/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple111/v4/92/6c/5b/926c5b61-2aac-d3eb-108c-4a1054b90d95/pr_source.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/be/72/5c/be725c64-6aa6-9142-5423-393933bd1441/pr_source.png/392x696bb.png"
+  ]
+}

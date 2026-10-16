@@ -1,0 +1,36 @@
+{
+  "id": "6755937684",
+  "name": "Folium-Libretto Universitario",
+  "developer": "Michele Galbiati",
+  "bundle_id": "com.michelegalbiati.folium",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Education",
+  "genres": [
+    "Istruzione",
+    "Utility"
+  ],
+  "description": "Trasforma il tuo percorso universitario nella tua corona di laurea!\n\nDimentica i fogli Excel noiosi, i calcoli a mano e lo stress pre-esame. Folium è il compagno universitario di nuova generazione che trasforma i tuoi esami in un obiettivo visivo: una corona d'alloro che si colora foglia dopo foglia, man mano che superi i tuoi esami.\n\nChe tu sia al primo anno o prossimo alla tesi, Folium ti aiuta a mantenere la motivazione alta, organizzare lo studio e tenere la media sotto controllo.\n\nPERCHÉ SCEGLIERE FOLIUM?\n\n• NUOVO! COMMUNITY E STATISTICHE ESAMI: Scopri in anticipo cosa ti aspetta! Visualizza la difficoltà media degli esami, leggi i tag più frequenti e analizza l'andamento dei voti. Scopri \"Il Muro del Terrore\" con gli esami più temuti e partecipa a sondaggi (ora anche a risposta aperta) per scambiare opinioni!\n\n• NUOVO! AULE STUDIO E CLASSIFICA ATENEI: Non studiare mai più da solo. Entra nelle Aule Studio virtuali per concentrarti insieme ad altri studenti. Usa il timer (ora super preciso anche in background) per accumulare ore di studio e far scalare la classifica al tuo Ateneo!\n\n• IMPORTAZIONE MAGICA: Non perdere tempo a inserire gli esami a mano! Copia il testo dal sito dell'università, importa un PDF, oppure scatta foto e seleziona screenshot del libretto: la nostra IA configurerà tutto in un istante.\n\n• PIANI DI STUDIO: Basta ansia da sessione! Crea piani di studio personalizzati per ogni esame. Decidi quante pagine o ore studiare al giorno, tieni traccia dei progressi e arriva preparato.\n\n• TIMER DI CONCENTRAZIONE: Massimizza il tuo focus. Usa il timer integrato per gestire le tue sessioni di studio e le pause, scegliendo lo stile perfetto per te.\n\n• STATISTICHE SEMPRE AGGIORNATE: Tieni d'occhio i numeri che contano davvero:\n\nMedia ponderata/aritmetica (basata sui CFU);\nSimulazione della media per pianificare i prossimi esami;\nVoto base di laurea: scopri subito da che punteggio partirai in seduta;\nPunti Bonus: aggiungi punti extra (es. Erasmus) e imposta il limite per le lodi per simulare la base di laurea esatta del tuo ateneo.\n• WIDGET PER HOME E LOCK SCREEN: Scegli tra 5 potenti Widget (Corona, Statistiche, Orario Lezioni, Tempo Studio e il nuovo Countdown Appelli). Tieni d'occhio i tuoi esami direttamente dalla Schermata di Blocco con le Live Activities e i nuovi widget \"minimal\".\n\n• PERSONALIZZA LA TUA CORONA: L'app è tua, la laurea è tua. Scegli il colore delle foglie e del fiocco per rappresentare al meglio la tua facoltà o il tuo stile unico.\n\n• CALENDARIO: Per avere sempre sotto controllo gli esami (aula/ora) e le lezioni della giornata.\n\n• SEZIONE AMICI: Condividi con i tuoi amici l'orario delle lezioni per incrociarvi facilmente in università.\n\nFUNZIONALITÀ PRINCIPALI:\n\nGestione Libretto: Aggiungi, modifica e rimuovi esami assegnando l'anno di corso e usando i filtri rapidi;\nSupporto CFU: Calcoli precisi basati sul peso di ogni esame;\nVisualizzazione Grafica: Una rappresentazione unica dei tuoi progressi;\nPrivacy Totale: I tuoi dati rimangono sul tuo dispositivo. Nessun login obbligatorio;\nBackup e Ripristino: Salva, esporta e importa i tuoi dati in un attimo.\nSmetti di chiederti \"quanto mi manca?\" o \"che media ho?\".\n\nScarica Folium, organizza le tue sessioni, visualizza il tuo traguardo e vai a prenderti quel 110 e Lode!\n\nBuono studio!\n\nTermini di utilizzo: https://doc-hosting.flycricket.io/folium-terms-of-use/01e059c5-f506-4982-a549-6c2eee36c9e9/terms",
+  "release_notes": "-Tutti i widget di Folium sono stati resi disponibili anche in versione \"minimal\" e monocromatica per la Lock Screen di iOS (a partire da iOS 16).\n\n-Aggiunta la possibilità di assegnare l'anno di corso a ciascun esame.\nIntrodotti i filtri rapidi nella schermata principale per separare subito gli esami superati da quelli ancora da dare e visualizzare solo quelli di un anno specifico;\n\n-Nuova sezione per aggiungere punti bonus alla base di laurea (es. per Erasmus, Tirocinio, stage) e possibilità di impostare un limite massimo di punti cumulabili tramite le lodi, per simulare la media esattamente come richiesto da alcuni atenei.\n\n- Aggiunto un nuovo widget da aggiungere alla Home Screen per avere sempre sott'occhio quanti giorni mancano al prossimo appello importante.\n\n- Ora gli utenti possono non solo votare i classici sondaggi a risposta multipla, ma anche rispondere a sondaggi con testo libero (risposta aperta), per lasciare feedback e opinioni scritte;\n\n- Oltre ai file PDF, ora è possibile importare esami scattando foto o selezionando molteplici screenshot della propria pagina universitaria contemporaneamente. L'IA legge tutto e compila gli esami in un secondo;\n\n- Risolto in via definitiva un bug fastidioso che faceva accelerare il timer quando l'app era in background. Ora il countdown spacca il secondo e invia la notifica puntualmente, anche con il risparmio energetico del telefono attivo.",
+  "version": "4.3",
+  "current_version_release_date": "2026-09-09T03:23:05Z",
+  "rating": 4.49421,
+  "rating_count": 259,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/it/app/folium-libretto-universitario/id6755937684?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/16/89/f6/1689f696-79aa-dfd4-492a-6b2d9adc8423/01.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/37/95/9a/37959a72-afe0-a2a0-33a8-3393894298b2/04.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/11/49/7a/11497acc-0a68-590b-2260-0543cd73a018/02.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/65/f7/93/65f793e1-88a0-ac45-c82b-269c26231da9/01.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/35/03/0535031b-8c91-dcd6-c53f-e168a8dbba55/03.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/76/59/b6/7659b6df-2d28-0e7e-23ce-018e85a04c7b/02.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/48/84/bc/4884bcce-3be7-53d9-1c49-0c99b24cd358/02.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/57/ee/b0/57eeb058-00d5-6633-e4e1-1c5116742784/04.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f7/17/ec/f717ec7b-cc9d-c652-ecab-30840e50f440/05.png/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c8/c9/c5/c8c9c56b-2545-6e00-f5e1-a02288e65a0e/04.png/320x480bb.jpg"
+  ]
+}

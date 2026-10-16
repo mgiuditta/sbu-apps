@@ -201,6 +201,16 @@
         }
       }
     },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
     "Computer portatile" : {
       "localizations" : {
         "en" : {
@@ -471,12 +481,32 @@
         }
       }
     },
+    "Ricerca…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scanning…"
+          }
+        }
+      }
+    },
     "Sbu Find" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Find"
+          }
+        }
+      }
+    },
+    "Sbu Find ascolta i dispositivi Bluetooth vicini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Find is listening to nearby Bluetooth devices."
           }
         }
       }

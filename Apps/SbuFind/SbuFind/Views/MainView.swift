@@ -15,7 +15,8 @@ struct MainView: View {
     @State private var isShowingHelp = false
 
     private var isSearching: Bool {
-        model.state == .ready && model.devices.isEmpty && model.hiddenUnnamedCount == 0
+        // Behind the card while it is up: it already says the search is running.
+        model.state == .ready && model.devices.isEmpty && model.hiddenUnnamedCount == 0 && !model.scanCard.isVisible
     }
 
     var body: some View {
@@ -65,10 +66,7 @@ struct MainView: View {
         }
         .safeAreaInset(edge: .bottom) {
             if model.state == .ready {
-                SbuButton("Cerca di nuovo", action: model.rescan)
-                    .padding(.horizontal, SbuTheme.space4)
-                    .padding(.vertical, SbuTheme.space2)
-                    .background(SbuTheme.surface)
+                ScanBottom(model: model)
             }
         }
         .toolbar {

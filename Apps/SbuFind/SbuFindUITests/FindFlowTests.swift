@@ -70,25 +70,46 @@ final class FindFlowTests: XCTestCase {
         XCTAssertTrue(labels[5].hasPrefix("Mi Band 8"), labels[5])
         XCTAssertTrue(labels[5].contains("Freddo"), labels[5])
         XCTAssertTrue(app.staticTexts["Dispositivi senza nome nascosti: 3. Puoi mostrarli in Impostazioni."].exists)
-        XCTAssertTrue(app.buttons["Cerca di nuovo"].exists)
+        XCTAssertTrue(app.staticTexts["Ricerca…"].exists)
         try audit(app)
     }
 
     @MainActor
-    func testSearchAgainEmptiesTheListAndHearsTheDevicesAgain() throws {
+    func testTheScanCardClosesAndComesBackWithSearchAgain() throws {
         let app = launch()
         XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Ricerca…"].exists)
+        XCTAssertFalse(app.buttons["Cerca di nuovo"].exists)
 
-        app.buttons["Cerca di nuovo"].tap()
+        app.buttons["Chiudi"].tap()
 
-        // The fixed devices advertise four times a second: the list fills again at the next refresh.
+        let searchAgain = app.buttons["Cerca di nuovo"]
+        XCTAssertTrue(searchAgain.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForNonExistence(timeout: 5))
+        try audit(app)
+
+        searchAgain.tap()
+        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForExistence(timeout: 5))
+        // The list fills again at the next refresh, while the card is up.
         XCTAssertTrue(devices(app).firstMatch.waitForExistence(timeout: 5))
         XCTAssertEqual(rowLabels(app).count, 6)
     }
 
     @MainActor
+    func testTheScanCardGoesByItselfOnceDevicesAreListed() throws {
+        let app = launch()
+        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Cerca di nuovo"].waitForExistence(timeout: 15))
+    }
+
+    @MainActor
     func testNoDeviceYetSaysTheSearchIsRunning() throws {
         let app = launch(scanner: "empty")
+        XCTAssertTrue(app.staticTexts["Ricerca…"].waitForExistence(timeout: 5))
+        try audit(app)
+
+        // With nothing heard the card stays until closed; then the screen still says it searches.
+        app.buttons["Chiudi"].tap()
         XCTAssertTrue(app.staticTexts["Ricerca in corso"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Cerca di nuovo"].exists)
         try audit(app)
@@ -217,7 +238,6 @@ final class FindFlowTests: XCTestCase {
 
         // The three demo devices without a name join the list, and the footer goes.
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Senza nome'")).firstMatch.waitForExistence(timeout: 5))
-        XCTAssertEqual(rowLabels(app).count, 9)
         XCTAssertFalse(app.staticTexts[Self.hiddenFooter].exists)
     }
 

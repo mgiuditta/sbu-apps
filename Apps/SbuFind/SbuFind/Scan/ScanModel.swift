@@ -20,6 +20,8 @@ final class ScanModel {
     private(set) var hiddenUnnamedCount = 0
     /// The device on the finder, kept after it falls silent so the finder can say for how long.
     private(set) var tracked: TrackedDevice?
+    /// The "Ricerca…" card at the bottom of the list.
+    private(set) var scanCard = ScanCard()
 
     /// Off by default: most devices without a name are phones and computers around you, not what you lost.
     var showsUnnamed: Bool {
@@ -75,7 +77,11 @@ final class ScanModel {
     func handle(_ event: ScanEvent) {
         switch event {
         case .state(let newState):
+            let wasReady = state == .ready
             state = newState
+            if newState == .ready, !wasReady {
+                scanCard.show(at: .now)
+            }
             if newState != .ready {
                 roster.removeAll()
                 publish(at: .now)
@@ -94,8 +100,14 @@ final class ScanModel {
     /// Cerca di nuovo: forgets every device and listens from scratch.
     func rescan() {
         roster.removeAll()
+        scanCard.show(at: .now)
         publish(at: .now)
         scanner.restart()
+    }
+
+    /// The card's close button.
+    func closeScanCard() {
+        scanCard.close()
     }
 
     /// The finder opened on this device: from now on `tracked` follows it.
@@ -129,6 +141,11 @@ final class ScanModel {
         let hidden = showsUnnamed ? 0 : roster.unnamedCount
         if hidden != hiddenUnnamedCount {
             hiddenUnnamedCount = hidden
+        }
+        var card = scanCard
+        card.update(at: now, listedDevices: listed.count)
+        if card != scanCard {
+            scanCard = card
         }
     }
 

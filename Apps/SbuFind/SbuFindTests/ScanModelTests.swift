@@ -22,6 +22,27 @@ struct ScanModelTests {
         #expect(model.showsUnnamed == false)
     }
 
+    @Test func theScanCardShowsWhenBluetoothBecomesReady() {
+        let model = makeModel()
+        #expect(!model.scanCard.isVisible)
+        model.handle(.state(.ready))
+        #expect(model.scanCard.isVisible)
+        model.closeScanCard()
+        model.handle(.state(.ready))
+        #expect(!model.scanCard.isVisible)
+        model.handle(.state(.poweredOff))
+        model.handle(.state(.ready))
+        #expect(model.scanCard.isVisible)
+    }
+
+    @Test func searchAgainShowsTheScanCardAgain() {
+        let model = makeModel()
+        model.handle(.state(.ready))
+        model.closeScanCard()
+        model.rescan()
+        #expect(model.scanCard.isVisible)
+    }
+
     @Test func soundStartsOffAndVibrationOn() {
         let model = makeModel()
         #expect(model.playsSound == false)

@@ -35,8 +35,8 @@ public extension SbuTheme {
     static let accentHabits = Color("accent-habits", bundle: .module)
     /// Accento di Sbu Cards: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentCards = Color("accent-cards", bundle: .module)
-    /// Accento di Sbu Block: il punto fermo, tint, bottone pieno, campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentBlock = Color("accent-block", bundle: .module)
+    /// Accento di Sbu Libretto: rosso libretto. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentLibretto = Color("accent-libretto", bundle: .module)
     /// Accento di Sbu Dark: grafite calda, l'unico accento senza tinta.
     static let accentDark = Color("accent-dark", bundle: .module)
     /// Accento di Sbu Speed: oliva. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
@@ -47,16 +47,16 @@ public extension SbuTheme {
     static let accentClean = Color("accent-clean", bundle: .module)
     /// Accento di Sbu Authenticator: ardesia. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentAuthenticator = Color("accent-authenticator", bundle: .module)
-    /// Accento di Sbu Invoice: giada. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentInvoice = Color("accent-invoice", bundle: .module)
-    /// Accento di Sbu Transcribe: ceruleo. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentTranscribe = Color("accent-transcribe", bundle: .module)
+    /// Accento di Sbu Meds: giada. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentMeds = Color("accent-meds", bundle: .module)
+    /// Accento di Sbu Shrink: ceruleo. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentShrink = Color("accent-shrink", bundle: .module)
     /// Accento di Sbu Find: salvia. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentFind = Color("accent-find", bundle: .module)
     /// Accento di Sbu Remote: iris. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentRemote = Color("accent-remote", bundle: .module)
-    /// Accento di Sbu Tuner: ottone. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentTuner = Color("accent-tuner", bundle: .module)
+    /// Accento di Sbu Grid: ottone. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentGrid = Color("accent-grid", bundle: .module)
     /// Accento di Sbu Cycle: malva. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentCycle = Color("accent-cycle", bundle: .module)
     /// Accento di Sbu Steps: terracotta. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
@@ -67,6 +67,8 @@ public extension SbuTheme {
     static let accentInventory = Color("accent-inventory", bundle: .module)
     /// Accento di Sbu Fuel: lampone, tinta 350 tra Cycle e Cards, lontano da Speed. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentFuel = Color("accent-fuel", bundle: .module)
+    /// Accento di Sbu Tidy: acquamarina, tinta 208 tra Docs e Shrink. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentTidy = Color("accent-tidy", bundle: .module)
     /// Testo e glifi sopra ogni `accent-*`: bianco in light, nero caldo in dark (gli accenti dark sono chiari). Mai bianco letterale.
     static let onAccent = Color("on-accent", bundle: .module)
     /// Stato positivo: abitudine completata, calibrazione riuscita. Sempre con una parola o un SF Symbol.
@@ -138,7 +140,7 @@ public extension SbuTheme {
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-block", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-invoice", "accent-transcribe", "accent-find", "accent-remote", "accent-tuner", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "on-accent", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["surface", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-libretto", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-meds", "accent-shrink", "accent-find", "accent-remote", "accent-grid", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "accent-tidy", "on-accent", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [

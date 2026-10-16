@@ -31,44 +31,12 @@
       "en": "Tabletop radio"
     }
   },
-  "docs": {
-    "accent": "accent-docs",
-    "subject": "a vintage manual typewriter with a sheet of paper in it, three-quarter view",
-    "name": {
-      "it": "Macchina da scrivere",
-      "en": "Typewriter"
-    }
-  },
   "habits": {
     "accent": "accent-habits",
     "subject": "an antique hourglass with sand flowing",
     "name": {
       "it": "Clessidra",
       "en": "Hourglass"
-    }
-  },
-  "cards": {
-    "accent": "accent-cards",
-    "subject": "a small wooden card index box with paper index cards standing inside",
-    "name": {
-      "it": "Schedario",
-      "en": "Card index"
-    }
-  },
-  "block": {
-    "accent": "accent-block",
-    "subject": "an old iron padlock, closed",
-    "name": {
-      "it": "Lucchetto",
-      "en": "Padlock"
-    }
-  },
-  "dark": {
-    "accent": "accent-dark",
-    "subject": "an old brass oil lamp with the flame turned low",
-    "name": {
-      "it": "Lume a olio",
-      "en": "Oil lamp"
     }
   },
   "speed": {
@@ -117,6 +85,54 @@
     "name": {
       "it": "Cassetto di schedario",
       "en": "Card catalogue drawer"
+    }
+  },
+  "find": {
+    "accent": "accent-find",
+    "subject": "a vintage brass radio direction finder with a rotating loop antenna on a small base, three-quarter view",
+    "name": {
+      "it": "Radiogoniometro",
+      "en": "Direction finder"
+    }
+  },
+  "shrink": {
+    "accent": "accent-shrink",
+    "subject": "a vintage cast-iron book press with a screw and a turning handle, three-quarter view",
+    "name": {
+      "it": "Pressa a vite",
+      "en": "Screw press"
+    }
+  },
+  "grid": {
+    "accent": "accent-grid",
+    "subject": "a vintage artist's wooden drawing frame strung with a square grid of threads, standing upright, three-quarter view",
+    "name": {
+      "it": "Telaio a reticolo",
+      "en": "Drawing frame"
+    }
+  },
+  "tidy": {
+    "accent": "accent-tidy",
+    "subject": "a vintage wooden broom with natural straw bristles, leaning diagonally",
+    "name": {
+      "it": "Scopa di saggina",
+      "en": "Broom"
+    }
+  },
+  "libretto": {
+    "accent": "accent-libretto",
+    "subject": "a vintage small leather-bound record booklet lying closed, with a fountain pen across it, three-quarter view",
+    "name": {
+      "it": "Libretto e stilografica",
+      "en": "Record book and pen"
+    }
+  },
+  "meds": {
+    "accent": "accent-meds",
+    "subject": "a vintage apothecary porcelain mortar with its pestle, three-quarter view",
+    "name": {
+      "it": "Mortaio da farmacista",
+      "en": "Apothecary mortar"
     }
   }
 }

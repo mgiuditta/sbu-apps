@@ -1,0 +1,32 @@
+{
+  "id": "1498897320",
+  "name": "Sweepy: Programma Pulizie",
+  "developer": "Appsent US",
+  "bundle_id": "app.sweepy.sweepy",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Productivity",
+  "genres": [
+    "Produttività",
+    "Stili e tendenze"
+  ],
+  "description": "Sweepy - l'app ti aiuta a mantenere la tua casa pulita e organizzata. Crea il tuo piano di pulizie della casa per suddividere le faccende tra i componenti della tua famiglia e trasformare la tua routine di pulizie in un gioco.\n\n- Traccia la pulizia di ogni stanza della casa;\n- Dai priorità alle attività di pulizia urgenti;\n- Distribuisci il carico di lavoro tra i residenti della casa;\n- Genera automaticamente un piano di pulizie giornaliero per ogni componente della casa;\n- Sincronizza tra i dispositivi;\n- Rimani motivato visualizzando i tuoi progressi;\n- Battiti per il posto più alto in classifica.",
+  "release_notes": "Correzioni di bug",
+  "version": "6.2.0",
+  "current_version_release_date": "2026-02-04T17:52:14Z",
+  "rating": 4.66981,
+  "rating_count": 318,
+  "minimum_os": "15.1",
+  "url": "https://apps.apple.com/it/app/sweepy-programma-pulizie/id1498897320?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource115/v4/b2/7c/7a/b27c7a83-6d4c-212d-5fe5-f748712029ca/e884d6ee-a8c4-4895-b154-666ef1355336_it_-_1.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource125/v4/b9/02/14/b902144d-9e95-9aa6-1ef0-15fd635a1611/deb3044f-ce7b-4781-bd02-6f9fe61ef2a6_it_-_2.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource125/v4/44/84/1d/44841d0d-c00e-a944-3fa2-61a391e8c6a2/7f92ae4a-46ed-4c5e-a167-941813e43fba_it_-_3.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource125/v4/22/65/4c/22654c60-c6e9-5d0c-3943-0d29c3748313/b28b8f15-51d2-4144-ade9-0efa46e40844_it_-_4.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource115/v4/f8/91/8d/f8918d67-de3c-05aa-d14f-ae1e45b84b65/0148ee1c-8993-491b-b58c-3dd4b4959c56_it_-_5.png/392x696bb.png",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource115/v4/f2/d8/6d/f2d86d59-1f00-7b52-a1e2-6d78fe7696bf/d8a5bcfb-a20d-458b-a48d-f0c7aa60a06f_it_-_6.png/392x696bb.png"
+  ]
+}

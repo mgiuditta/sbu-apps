@@ -1,0 +1,31 @@
+{
+  "id": "1492076392",
+  "name": "UniLibretto",
+  "developer": "Oscar Di Primio",
+  "bundle_id": "it.dileware.diprix.unibooklet",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Education",
+  "genres": [
+    "Istruzione",
+    "Produttività"
+  ],
+  "description": "UniLibretto: La Tua Agenda Universitaria Digitale su App Store\n\nOttimizza la Tua Esperienza Universitaria con UniLibretto\n\nScopri UniLibretto, l’app definitiva per ogni studente universitario! Con UniLibretto, puoi gestire facilmente il tuo percorso accademico, monitorare la tua media e visualizzare il numero di crediti acquisiti. Inoltre, l’app ti permette di prevedere come l’esito dei tuoi esami influirà sulla tua media.\n\nFunzionalità Principali di UniLibretto:\n\n\t•\tLibretto Universitario Digitale: Visualizza e aggiorna in tempo reale i tuoi voti e crediti.\n\t•\tImpostazioni Personalizzabili: Configura i parametri di calcolo della media in base al regolamento della tua università.\n\t•\tPrevisioni Accademiche: Stima l’andamento della tua media e il voto di laurea in base ai risultati dei prossimi esami.\n\t•\tPianificazione Esami: Organizza e programma i tuoi esami futuri per una gestione ottimale del tempo.\n\t•\tAccesso Sicuro: Proteggi i tuoi dati con il riconoscimento biometrico.\n\nVantaggi dell’Abbonamento Premium:\n\n\t•\tNiente pubblicità\n\t•\tFunzionalità AI\n        •\tAccesso illimitato a tutte le funzionalità avanzate dell’app.\n\t•\tAbbonamenti mensili con diverse tariffe a seconda del piano scelto.\n\nProtezione dei Dati Personali\n\nTutti i tuoi dati sono protetti in conformità con le Condizioni d’Uso e l’Informativa sulla Privacy:\n\nInformativa sulla Privacy: https://unilibretto.oscardiprimio.it/privacy-policy.html\nCondizioni d’Uso: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\n\nScarica UniLibretto oggi stesso e porta la tua esperienza universitaria a un nuovo livello!",
+  "release_notes": "Novità in UniLibretto 5.2\n\nUniLibretto si rinnova con un’esperienza più moderna, intelligente e affidabile.\n\nNuovo design Liquid Glass\n\nUn’interfaccia più fluida, dinamica e coerente con il nuovo linguaggio visivo delle piattaforme Apple.\n\nNuove funzionalità AI\n\n• Suggerimenti personalizzati per organizzare lo studio.\n• Generazione di quiz ed esercizi.\n• Analisi intelligente della carriera universitaria.\n• Supporto alla pianificazione e alla preparazione degli esami.\n\nUniLibretto Premium\n\nNuovo sistema di abbonamento per accedere alle funzionalità avanzate e agli strumenti basati sull’intelligenza artificiale.\n\nEsperienza migliorata\n\n• Navigazione più semplice e intuitiva.\n• Miglioramenti a dashboard, statistiche e gestione degli esami.\n• Ottimizzazioni per iPhone e iPad.\n• Prestazioni e stabilità migliorate.\n\nCorrezioni\n\nRisolti diversi problemi segnalati dagli utenti e migliorata l’affidabilità generale dell’app.\n\nAggiorna ora a UniLibretto 5.2 e porta l’organizzazione della tua vita universitaria a un nuovo livello.",
+  "version": "5.2",
+  "current_version_release_date": "2026-06-22T04:43:28Z",
+  "rating": 4.36875,
+  "rating_count": 160,
+  "minimum_os": "26.0",
+  "url": "https://apps.apple.com/it/app/unilibretto/id1492076392?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3c/2e/f4/3c2ef482-30dd-f8e4-db5d-f2a8f1653739/UniLibretto_5_Screenshot-2.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d1/ef/71/d1ef7117-11cf-068a-3898-8613ec6957db/UniLibretto_5_Screenshot-3.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9c/79/eb/9c79eb7f-e32b-1bb5-43be-b6a5b85d2661/UniLibretto_5_Screenshot-4.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/99/4c/5f/994c5fcc-ebc9-818b-b869-3a20921c0a71/UniLibretto_5_Screenshot-5.jpg/320x480bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7d/da/22/7dda2217-4e44-fda5-cb06-0563ba360a96/UniLibretto_5_Screenshot-6.jpg/320x480bb.jpg"
+  ]
+}

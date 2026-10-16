@@ -43,6 +43,9 @@ targets:
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         # ADR-0007: the app talks only to the user's TV on the home Wi-Fi. English in InfoPlist.xcstrings.
         INFOPLIST_KEY_NSLocalNetworkUsageDescription: "Sbu Remote cerca la tua TV sulla Wi-Fi e le manda i tasti che premi. Nulla esce dalla rete di casa."
+        # Voice search, recognized on the iPhone only (#337).
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "Il microfono ascolta la ricerca che detti alla TV. L'audio resta sull'iPhone."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "Le parole che detti diventano testo sull'iPhone, senza internet, e vanno alla casella di ricerca della TV."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.

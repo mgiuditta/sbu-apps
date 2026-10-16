@@ -7,6 +7,8 @@ struct MainView: View {
 
     @State private var isAddingTV = false
     @State private var isTyping = false
+    @State private var isSpeaking = false
+    @State private var voice = VoiceSearch()
 
     var body: some View {
         Group {
@@ -21,6 +23,13 @@ struct MainView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Tastiera", systemImage: "keyboard", action: showKeyboard)
                         .disabled(!session.status.acceptsKeys)
+                }
+                // Only where this language is recognized on the iPhone: otherwise no button.
+                if voice.isAvailable {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Cerca con la voce", systemImage: "mic", action: showVoice)
+                            .disabled(!session.status.acceptsKeys)
+                    }
                 }
             }
             if let tv = session.tv {
@@ -41,6 +50,9 @@ struct MainView: View {
         .sheet(isPresented: $isTyping) {
             KeyboardSheet(session: session)
         }
+        .sheet(isPresented: $isSpeaking) {
+            VoiceSheet(session: session, voice: voice)
+        }
     }
 
     private func showAddTV() {
@@ -49,6 +61,10 @@ struct MainView: View {
 
     private func showKeyboard() {
         isTyping = true
+    }
+
+    private func showVoice() {
+        isSpeaking = true
     }
 
     private func add(_ tv: SavedTV) {

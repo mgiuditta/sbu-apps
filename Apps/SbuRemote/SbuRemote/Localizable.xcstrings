@@ -171,6 +171,16 @@
         }
       }
     },
+    "Cerca con la voce" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search by voice"
+          }
+        }
+      }
+    },
     "Cerco le TV sulla tua Wi-Fi" : {
       "localizations" : {
         "en" : {
@@ -361,6 +371,16 @@
         }
       }
     },
+    "Il riconoscimento avviene sull'iPhone: l'audio non esce dal telefono." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recognition happens on the iPhone: the audio never leaves the phone."
+          }
+        }
+      }
+    },
     "Indietro" : {
       "localizations" : {
         "en" : {
@@ -397,6 +417,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "MAC address"
+          }
+        }
+      }
+    },
+    "Invia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
           }
         }
       }
@@ -521,6 +551,16 @@
         }
       }
     },
+    "Non ho capito. Chiudi e riprova." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I did not catch that. Close and try again."
+          }
+        }
+      }
+    },
     "Non raggiungibile" : {
       "localizations" : {
         "en" : {
@@ -567,6 +607,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "4-digit PIN"
+          }
+        }
+      }
+    },
+    "Parla adesso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speak now"
           }
         }
       }
@@ -707,6 +757,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Remote"
+          }
+        }
+      }
+    },
+    "Sbu Remote non ha il permesso del microfono o del riconoscimento vocale. Puoi darlo in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Remote has no access to the microphone or speech recognition. You can allow it in Settings."
           }
         }
       }

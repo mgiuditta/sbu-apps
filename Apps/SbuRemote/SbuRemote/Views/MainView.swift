@@ -5,6 +5,9 @@ import SwiftUI
 struct MainView: View {
     let session: RemoteSession
 
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var network = NetworkMonitor()
+
     @State private var isAddingTV = false
     @State private var isTyping = false
     @State private var isSpeaking = false
@@ -49,6 +52,12 @@ struct MainView: View {
         .task(id: session.tv?.id) {
             await session.connect()
         }
+        .onChange(of: scenePhase) { _, phase in
+            sceneChanged(to: phase)
+        }
+        .onChange(of: network.generation) {
+            Task { await session.handle(.networkChanged(isOnLocalNetwork: network.isOnLocalNetwork)) }
+        }
         .sheet(isPresented: $isAddingTV) {
             AddTVView(onPaired: add)
         }
@@ -65,6 +74,14 @@ struct MainView: View {
 
     private func showAddTV() {
         isAddingTV = true
+    }
+
+    private func sceneChanged(to phase: ScenePhase) {
+        switch phase {
+        case .active: Task { await session.handle(.becameActive) }
+        case .background: Task { await session.handle(.wentToBackground) }
+        default: break
+        }
     }
 
     private func showKeyboard() {

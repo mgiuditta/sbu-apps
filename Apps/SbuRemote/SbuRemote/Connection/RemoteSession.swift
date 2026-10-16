@@ -30,7 +30,9 @@ final class RemoteSession {
         client?.disconnect()
         let client = makeClient(tv)
         client.onDisconnect = { [weak self] in
-            self?.status = .unreachable
+            guard let self else { return }
+            self.status = .unreachable
+            Task { await self.handle(.dropped) }
         }
         do {
             try await client.connect()
@@ -46,6 +48,20 @@ final class RemoteSession {
             guard self.tv?.id == tv.id else { return }
             self.client = nil
             status = ConnectionStatus(error)
+        }
+    }
+
+    /// Reconnects or lets go when the app or the network changes (#345).
+    func handle(_ event: ReconnectPolicy.Event) async {
+        switch ReconnectPolicy.action(for: event, status: status) {
+        case .reconnect:
+            if event == .dropped { try? await Task.sleep(for: .seconds(1)) }
+            await connect()
+        case .disconnect:
+            disconnect()
+            if tv != nil { status = .unreachable }
+        case .nothing:
+            break
         }
     }
 

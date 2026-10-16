@@ -1,12 +1,32 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
     "%@ delle dosi previste" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ of the doses due"
+          }
+        }
+      }
+    },
+    "%@ di %@: ne restano %@. Ricompralo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ for %2$@: %3$@ left. Buy more."
           }
         }
       }
@@ -21,12 +41,32 @@
         }
       }
     },
+    "%@: ne restano %@. Ricompralo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@: %2$@ left. Buy more."
+          }
+        }
+      }
+    },
     "%lld giorni sì, %lld no" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld days on, %lld off"
+          }
+        }
+      }
+    },
+    "%lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld min"
           }
         }
       }
@@ -81,6 +121,16 @@
         }
       }
     },
+    "Aggiungi un farmaco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a medicine"
+          }
+        }
+      }
+    },
     "Aggiungi un farmaco con i suoi orari: qui trovi le dosi del giorno, e una notifica te le ricorda." : {
       "localizations" : {
         "en" : {
@@ -121,6 +171,16 @@
         }
       }
     },
+    "Ancora da prendere, ore %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Still to take, %@"
+          }
+        }
+      }
+    },
     "Annulla" : {
       "localizations" : {
         "en" : {
@@ -137,6 +197,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Antihistamine"
+          }
+        }
+      }
+    },
+    "Apri Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
           }
         }
       }
@@ -231,6 +301,16 @@
         }
       }
     },
+    "Così arriva un promemoria: Presa, Saltata o Rimanda, anche dalla schermata di blocco." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is how a reminder arrives: Taken, Skipped or Snooze, even from the Lock Screen."
+          }
+        }
+      }
+    },
     "Crema" : {
       "localizations" : {
         "en" : {
@@ -267,6 +347,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To take today"
+          }
+        }
+      }
+    },
+    "Da prendere oggi: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To take today: %lld"
           }
         }
       }
@@ -581,6 +671,16 @@
         }
       }
     },
+    "Invia un promemoria di prova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send a test reminder"
+          }
+        }
+      }
+    },
     "Io" : {
       "localizations" : {
         "en" : {
@@ -607,6 +707,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Luke"
+          }
+        }
+      }
+    },
+    "Mai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
           }
         }
       }
@@ -731,6 +841,16 @@
         }
       }
     },
+    "Niente in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing late"
+          }
+        }
+      }
+    },
     "Nome" : {
       "localizations" : {
         "en" : {
@@ -767,6 +887,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes"
+          }
+        }
+      }
+    },
+    "Notifiche spente per Sbu Meds" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications off for Sbu Meds"
           }
         }
       }
@@ -847,6 +977,16 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "Ogni %lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every %lld min"
           }
         }
       }
@@ -967,6 +1107,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Time"
+          }
+        }
+      }
+    },
+    "Ore %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At %@"
           }
         }
       }
@@ -1101,6 +1251,16 @@
         }
       }
     },
+    "Promemoria" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders"
+          }
+        }
+      }
+    },
     "Prossima dose" : {
       "localizations" : {
         "en" : {
@@ -1127,6 +1287,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "When"
+          }
+        }
+      }
+    },
+    "Quante dosi restano oggi e le prossime." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many doses are left today, and the next ones."
           }
         }
       }
@@ -1161,12 +1331,42 @@
         }
       }
     },
+    "Rimanda di" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snooze for"
+          }
+        }
+      }
+    },
+    "Rimanda di %lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snooze %lld min"
+          }
+        }
+      }
+    },
     "Rimaste" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Left"
+          }
+        }
+      }
+    },
+    "Ripeti se non la segni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repeat if not marked"
           }
         }
       }
@@ -1281,6 +1481,16 @@
         }
       }
     },
+    "Senza notifiche nessuna dose ti avvisa. Attivale nelle Impostazioni dell'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without notifications no dose will remind you. Turn them on in the iPhone's Settings."
+          }
+        }
+      }
+    },
     "Settimana dopo" : {
       "localizations" : {
         "en" : {
@@ -1391,6 +1601,16 @@
         }
       }
     },
+    "Tutto preso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All taken"
+          }
+        }
+      }
+    },
     "Ultimo giorno" : {
       "localizations" : {
         "en" : {
@@ -1407,6 +1627,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "A child, a parent, someone you care for: their medicines stay apart from yours."
+          }
+        }
+      }
+    },
+    "Una notifica per persona e orario, con Presa, Saltata e Rimanda. Locali, programmate sull'iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One notification per person and time, with Taken, Skipped and Snooze. Local, scheduled on the iPhone."
+          }
+        }
+      }
+    },
+    "Una notifica per persona e orario, con Presa, Saltata e Rimanda. Se non la segni torna fino a %lld volte, e sparisce appena la segni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One notification per person and time, with Taken, Skipped and Snooze. If you don't mark it, it comes back up to %lld times, and goes as soon as you do."
           }
         }
       }
@@ -1511,6 +1751,16 @@
         }
       }
     },
+    "di cui %lld in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld of them late"
+          }
+        }
+      }
+    },
     "dose" : {
       "localizations" : {
         "en" : {
@@ -1547,6 +1797,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "drop"
+          }
+        }
+      }
+    },
+    "in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "late"
           }
         }
       }

@@ -23,6 +23,7 @@ targets:
     sources: [SbuMeds]
     dependencies:
       - package: SbuKit
+      - target: SbuMedsWidget
     entitlements:
       path: SbuMeds/SbuMeds.entitlements
       properties:
@@ -44,6 +45,40 @@ targets:
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
         SWIFT_EMIT_LOC_STRINGS: YES
+  SbuMedsWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuMedsWidget
+      # The widget reads the app's store, so it shares the model and the pure schedule logic.
+      - path: SbuMeds/Model
+        excludes: [Cabinet.swift, SampleFamily.swift, ModelContainer+Preview.swift]
+      - SbuMeds/Schedule
+      - SbuMeds/Widget
+      - SbuMeds/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    entitlements:
+      path: SbuMedsWidget/SbuMedsWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.dev.sbu.meds]
+    info:
+      path: SbuMedsWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Meds
+        # The same version and build as the app, from the project settings, as App Store Connect requires.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.meds.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
   SbuMedsTests:
     type: bundle.unit-test
     platform: iOS

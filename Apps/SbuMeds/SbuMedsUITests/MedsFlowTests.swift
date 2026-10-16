@@ -144,4 +144,19 @@ final class MedsFlowTests: MedsUITestCase {
         try audit(app)
         app.buttons["Annulla"].tap()
     }
+
+    @MainActor
+    func testSettingsOfferRemindersOnWithRepeats() throws {
+        let app = launch()
+        XCTAssertTrue(app.buttons["addFirstMedicine"].waitForExistence(timeout: 5))
+        app.navigationBars.buttons.element(boundBy: 1).tap()
+        let toggle = app.switches["remindersToggle"]
+        XCTAssertTrue(scroll(app, to: toggle))
+        XCTAssertEqual(toggle.value as? String, "1")
+        XCTAssertTrue(app.buttons["repeatMinutes"].exists)
+        XCTAssertTrue(app.buttons["snoozeMinutes"].exists)
+        try audit(app)
+        toggle.switches.firstMatch.tap()
+        XCTAssertFalse(app.buttons["repeatMinutes"].waitForExistence(timeout: 2))
+    }
 }

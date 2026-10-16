@@ -1,10 +1,13 @@
 import SbuKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 /// The app inside the standard Sbu shell. When the app comes back, the days that ended are
-/// closed into the history and "now" moves on.
+/// closed into the history and "now" moves on; reminders and the widget follow every save.
 struct RootView: View {
+    let reminders: Reminders
+
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
@@ -14,16 +17,30 @@ struct RootView: View {
         SbuAppShell("Sbu Meds", slug: "meds", accent: SbuTheme.accentMeds, appIcon: Image(.appIconArtwork)) {
             TodayView()
         } settings: {
-            EmptyView()
+            ReminderSection(reminders: reminders)
         }
         .environment(clock)
         .onChange(of: scenePhase, initial: true) {
             guard scenePhase == .active else { return }
             clock.refresh()
             closePastDays()
+            reschedule()
         }
         .onChange(of: Day(clock.now, calendar: calendar)) {
             closePastDays()
+            reschedule()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: ModelContext.didSave)) { _ in
+            storeChanged()
+        }
+        .onChange(of: reminders.isOn) {
+            reschedule()
+        }
+        .onChange(of: reminders.repeatMinutes) {
+            reschedule()
+        }
+        .onChange(of: reminders.snoozeMinutes) {
+            reschedule()
         }
         .task {
             await clock.run()
@@ -35,15 +52,26 @@ struct RootView: View {
         Cabinet.closePastDays(in: modelContext, now: clock.now, calendar: calendar)
         try? modelContext.save()
     }
+
+    private func storeChanged() {
+        // Made-up data never reaches the Home Screen.
+        if !Launch.isDemo { WidgetCenter.shared.reloadAllTimelines() }
+        reschedule()
+    }
+
+    private func reschedule() {
+        let medicines = ((try? modelContext.fetch(FetchDescriptor<Medicine>())) ?? []).map(\.snapshot)
+        Task { await reminders.reschedule(medicines) }
+    }
 }
 
 #Preview("Light") {
-    RootView()
+    RootView(reminders: Reminders(center: SilentReminderCenter()))
         .modelContainer(.preview)
 }
 
 #Preview("Dark") {
-    RootView()
+    RootView(reminders: Reminders(center: SilentReminderCenter()))
         .modelContainer(.preview)
         .preferredColorScheme(.dark)
 }

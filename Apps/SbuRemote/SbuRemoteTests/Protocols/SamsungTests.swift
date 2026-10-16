@@ -4,12 +4,12 @@ import Testing
 
 struct SamsungTests {
     @Test func secureURLCarriesNameAndToken() throws {
-        let url = try #require(SamsungMessage.remoteURL(host: "192.168.1.20", secure: true, token: "12345678"))
+        let url = try #require(SamsungMessage.remoteURL(host: "192.168.1.20", transport: .secure, token: "12345678"))
         #expect(url.absoluteString == "wss://192.168.1.20:8002/api/v2/channels/samsung.remote.control?name=U2J1IFJlbW90ZQ==&token=12345678")
     }
 
-    @Test func plainURLForOldModelsHasNoToken() throws {
-        let url = try #require(SamsungMessage.remoteURL(host: "10.0.0.4", secure: false, token: nil))
+    @Test func plainURLNeverCarriesTheToken() throws {
+        let url = try #require(SamsungMessage.remoteURL(host: "10.0.0.4", transport: .plain, token: "12345678"))
         #expect(url.absoluteString == "ws://10.0.0.4:8001/api/v2/channels/samsung.remote.control?name=U2J1IFJlbW90ZQ==")
     }
 

@@ -12,6 +12,8 @@ nonisolated enum TVClientError: Error, Equatable, Sendable {
     case unexpectedReply
     /// This TV's protocol has no such command.
     case unsupported
+    /// The TV seems a legacy model without TLS: connecting needs the user's explicit yes to plain text.
+    case needsPlainConfirmation
     /// Local Network is off for Sbu Remote in Settings.
     case localNetworkDenied
 }

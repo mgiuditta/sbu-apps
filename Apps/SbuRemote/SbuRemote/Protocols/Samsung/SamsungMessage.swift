@@ -9,8 +9,10 @@ nonisolated enum SamsungMessage {
     /// The name shown in the TV's "Consenti/Nega" prompt and its device list.
     static let clientName = "Sbu Remote"
 
-    /// `wss://host:8002/...` on TVs with token support (2018+), `ws://host:8001/...` on older ones.
-    static func remoteURL(host: String, secure: Bool, token: String?) -> URL? {
+    /// `wss://host:8002/...` on TVs with token support, `ws://host:8001/...` only on legacy
+    /// models the user confirmed (`TransportPolicy`). The token is never put in a plain URL.
+    static func remoteURL(host: String, transport: TransportPolicy.Transport, token: String?) -> URL? {
+        let secure = transport == .secure
         var components = URLComponents()
         components.scheme = secure ? "wss" : "ws"
         components.host = host
@@ -21,7 +23,7 @@ nonisolated enum SamsungMessage {
             .replacingOccurrences(of: "+", with: "%2B")
             .replacingOccurrences(of: "/", with: "%2F")
         var items = [URLQueryItem(name: "name", value: name)]
-        if let token, !token.isEmpty, token.allSatisfy({ $0.isLetter || $0.isNumber }) {
+        if TransportPolicy.mayCarryToken(on: transport), let token, !token.isEmpty, token.allSatisfy({ $0.isLetter || $0.isNumber }) {
             items.append(URLQueryItem(name: "token", value: token))
         }
         components.percentEncodedQueryItems = items

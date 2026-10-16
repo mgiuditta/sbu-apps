@@ -18,8 +18,9 @@ protocol TVClient: AnyObject {
 
     /// Opens the remote channel with the saved credential; throws `.notPaired` without one.
     func connect() async throws
-    /// Starts pairing: the TV shows a prompt or a code.
-    func startPairing() async throws -> PairingStep
+    /// Starts pairing: the TV shows a prompt or a code. Over TLS unless the user confirmed
+    /// plain text for a legacy model (`allowingPlain`); throws `.needsPlainConfirmation` to ask.
+    func startPairing(allowingPlain: Bool) async throws -> PairingStep
     /// Finishes pairing with the code the TV shows.
     func finishPairing(code: String) async throws
     func disconnect()

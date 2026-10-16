@@ -21,13 +21,15 @@ final class SamsungClient: TVClient {
     }
 
     func connect() async throws {
-        guard let credential = await credentials.credential(for: tv.id), let token = credential.token else {
-            throw TVClientError.notPaired
-        }
-        let secure = credential.certificateSHA256 != nil
-        let event = try await open(secure: secure, token: token, pinned: credential.certificateSHA256, wait: .seconds(8))
+        guard let credential = await credentials.credential(for: tv.id) else { throw TVClientError.notPaired }
+        // Always the transport chosen at pairing: a TV paired over TLS that does not answer
+        // over TLS is unreachable, never retried in plain text.
+        let transport = TransportPolicy.reconnect(requiresSecure: credential.requiresSecure)
+        let token = TransportPolicy.mayCarryToken(on: transport) ? credential.token : nil
+        if transport == .secure, token?.isEmpty ?? true { throw TVClientError.notPaired }
+        let event = try await open(transport, token: token, pinned: credential.certificateSHA256, wait: .seconds(8))
         guard case .connected(let newToken) = event else { throw TVClientError.notPaired }
-        if let newToken, newToken != token {
+        if transport == .secure, let newToken, newToken != token {
             var updated = credential
             updated.token = newToken
             try? await credentials.save(updated, for: tv.id)
@@ -35,21 +37,28 @@ final class SamsungClient: TVClient {
         listen()
     }
 
-    func startPairing() async throws -> PairingStep {
+    func startPairing(allowingPlain: Bool) async throws -> PairingStep {
         let info = await deviceInfo()
         reportedDetails = info.map { TVDetails(name: $0.name, model: $0.model, macAddress: $0.macAddress) }
-        // Older models have no token and no 8002; try the secure port first otherwise.
-        let secure = info?.supportsToken ?? true
-        let event: SamsungEvent
-        do {
-            event = try await open(secure: secure, token: nil, pinned: nil, wait: .seconds(45))
-        } catch TVClientError.unreachable where secure {
-            event = try await open(secure: false, token: nil, pinned: nil, wait: .seconds(45))
-        }
+        // Only a TV that says it has no token support (2016-2017 Tizen, port 8001 only) may go
+        // in plain text, and only once the user confirms. Unknown info means TLS.
+        let decision = TransportPolicy.pairing(reportsLegacyPlainOnly: info?.supportsToken == false, userConfirmedPlain: allowingPlain)
+        guard case .use(let transport) = decision else { throw TVClientError.needsPlainConfirmation }
+
+        let event = try await open(transport, token: nil, pinned: nil, wait: .seconds(45))
         switch event {
         case .connected(let token):
-            let usedSecure = channel?.trust.observedFingerprint != nil
-            let credential = TVCredential(token: token ?? "", certificateSHA256: usedSecure ? channel?.trust.observedFingerprint : nil)
+            let credential: TVCredential
+            if transport == .secure {
+                guard let pin = channel?.trust.observedFingerprint, let token, !token.isEmpty else {
+                    disconnect()
+                    throw TVClientError.unexpectedReply
+                }
+                credential = TVCredential(token: token, certificateSHA256: pin, requiresSecure: true)
+            } else {
+                // Legacy models give no token; none would be kept for plain text anyway.
+                credential = TVCredential(requiresSecure: false)
+            }
             try await credentials.save(credential, for: tv.id)
             listen()
             return .paired
@@ -115,9 +124,9 @@ final class SamsungClient: TVClient {
 
     // MARK: - Channel
 
-    private func open(secure: Bool, token: String?, pinned: String?, wait limit: Duration) async throws -> SamsungEvent {
+    private func open(_ transport: TransportPolicy.Transport, token: String?, pinned: String?, wait limit: Duration) async throws -> SamsungEvent {
         disconnect()
-        guard let url = SamsungMessage.remoteURL(host: tv.host, secure: secure, token: token) else { throw TVClientError.unreachable }
+        guard let url = SamsungMessage.remoteURL(host: tv.host, transport: transport, token: token) else { throw TVClientError.unreachable }
         let channel = WebSocketChannel(url: url, pinnedCertificate: pinned)
         self.channel = channel
         channel.open()

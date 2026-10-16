@@ -3,9 +3,11 @@ import SwiftUI
 
 /// The app inside the standard Sbu shell.
 struct RootView: View {
+    let settings: CourseSettings
+
     var body: some View {
         SbuAppShell("Sbu Libretto", slug: "libretto", accent: SbuTheme.accentLibretto, appIcon: Image(.appIconArtwork)) {
-            MainView()
+            MainView(settings: settings)
         } settings: {
             EmptyView()
         }
@@ -13,10 +15,12 @@ struct RootView: View {
 }
 
 #Preview("Light") {
-    RootView()
+    RootView(settings: LaunchMode.sample.courseSettings())
+        .modelContainer(.preview)
 }
 
 #Preview("Dark") {
-    RootView()
+    RootView(settings: LaunchMode.sample.courseSettings())
+        .modelContainer(.preview)
         .preferredColorScheme(.dark)
 }

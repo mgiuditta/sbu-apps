@@ -1,6 +1,86 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@ (dagli esami %@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (exams alone %@)"
+          }
+        }
+      }
+    },
+    "%@ CFU" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ credits"
+          }
+        }
+      }
+    },
+    "%@ dall'ultimo esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ since the last exam"
+          }
+        }
+      }
+    },
+    "%@ esce dal libretto e dalla media." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ leaves the libretto and the average."
+          }
+        }
+      }
+    },
+    "%lld° anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year %lld"
+          }
+        }
+      }
+    },
+    "30 e lode" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 cum laude"
+          }
+        }
+      }
+    },
+    "Aggiungi esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add exam"
+          }
+        }
+      }
+    },
+    "Aggiungi gli esami del tuo piano, anche quelli da sostenere." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add the exams of your plan, the ones still to take too."
+          }
+        }
+      }
+    },
     "Algoritmi e strutture dati" : {
       "localizations" : {
         "en" : {
@@ -31,12 +111,312 @@
         }
       }
     },
+    "Andamento media" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average over time"
+          }
+        }
+      }
+    },
+    "Anno di corso" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year of the course"
+          }
+        }
+      }
+    },
+    "Anno di corso: %lld°" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year of the course: %lld"
+          }
+        }
+      }
+    },
+    "Annulla" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Appello" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sitting"
+          }
+        }
+      }
+    },
+    "Base %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Base %@"
+          }
+        }
+      }
+    },
+    "Base di laurea" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Graduation base"
+          }
+        }
+      }
+    },
     "Basi di dati" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Databases"
+          }
+        }
+      }
+    },
+    "C'è già un esame con questo nome nel libretto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is already an exam with this name in the libretto."
+          }
+        }
+      }
+    },
+    "CFU" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "credits"
+          }
+        }
+      }
+    },
+    "CFU acquisiti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credits earned"
+          }
+        }
+      }
+    },
+    "CFU anche decimali, per esempio 7,5." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credits can have decimals, such as 7.5."
+          }
+        }
+      }
+    },
+    "CFU pianificati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planned credits"
+          }
+        }
+      }
+    },
+    "Cambia filtro per vedere gli altri esami." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the filter to see the other exams."
+          }
+        }
+      }
+    },
+    "Con la data, l'esame compare tra i prossimi appelli con i giorni che mancano." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With a date, the exam shows among the next sittings with the days left."
+          }
+        }
+      }
+    },
+    "Con qualsiasi voto resti a %@ o più." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With any grade you stay at %@ or above."
+          }
+        }
+      }
+    },
+    "Con un solo esame da %@ CFU non ci arrivi, neanche con 30 e lode." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One %@-credit exam can't get you there, not even with 30 cum laude."
+          }
+        }
+      }
+    },
+    "Con voto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Graded"
+          }
+        }
+      }
+    },
+    "Crediti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credits"
+          }
+        }
+      }
+    },
+    "Crediti: %lld CFU" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credits: %lld"
+          }
+        }
+      }
+    },
+    "Da sostenere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To take"
+          }
+        }
+      }
+    },
+    "Dal primo voto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From your first grade"
+          }
+        }
+      }
+    },
+    "Data" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
+          }
+        }
+      }
+    },
+    "Data dell'appello" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sitting date"
+          }
+        }
+      }
+    },
+    "Elimina" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Elimina esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete exam"
+          }
+        }
+      }
+    },
+    "Eliminare questo esame?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this exam?"
+          }
+        }
+      }
+    },
+    "Esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exam"
+          }
+        }
+      }
+    },
+    "Esami con voto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Graded exams"
+          }
+        }
+      }
+    },
+    "Esami pianificati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planned exams"
+          }
+        }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
@@ -71,12 +451,82 @@
         }
       }
     },
+    "Idoneità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pass/fail"
+          }
+        }
+      }
+    },
+    "Idoneo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passed"
+          }
+        }
+      }
+    },
+    "Il grafico compare dal secondo voto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The chart appears from the second grade."
+          }
+        }
+      }
+    },
+    "Il tuo libretto è vuoto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your libretto is empty"
+          }
+        }
+      }
+    },
     "Ingegneria del software" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Software Engineering"
+          }
+        }
+      }
+    },
+    "Ingegneria informatica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computer Engineering"
+          }
+        }
+      }
+    },
+    "Invariata dall'ultimo esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unchanged since the last exam"
+          }
+        }
+      }
+    },
+    "La tua media attuale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your current average"
           }
         }
       }
@@ -91,12 +541,282 @@
         }
       }
     },
+    "Lode" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cum laude"
+          }
+        }
+      }
+    },
+    "Media" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average"
+          }
+        }
+      }
+    },
+    "Media aritmetica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arithmetic average"
+          }
+        }
+      }
+    },
+    "Media obiettivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Target average"
+          }
+        }
+      }
+    },
+    "Media ponderata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weighted average"
+          }
+        }
+      }
+    },
+    "Modifica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "Mostra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show"
+          }
+        }
+      }
+    },
+    "Nessun esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No exams"
+          }
+        }
+      }
+    },
+    "Nessun esame qui" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No exams here"
+          }
+        }
+      }
+    },
+    "Nessun voto ancora: la media sarà il voto del prossimo esame." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No grades yet: the average will be the grade of the next exam."
+          }
+        }
+      }
+    },
+    "Nome dell'esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exam name"
+          }
+        }
+      }
+    },
+    "Nuova media %@, %@, base %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New average %@, %@, base %@"
+          }
+        }
+      }
+    },
+    "Nuova media %@, base %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New average %@, base %@"
+          }
+        }
+      }
+    },
+    "Obiettivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Target"
+          }
+        }
+      }
+    },
+    "Ordina per" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort by"
+          }
+        }
+      }
+    },
+    "Ordine crescente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ascending order"
+          }
+        }
+      }
+    },
+    "Ordine decrescente" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descending order"
+          }
+        }
+      }
+    },
+    "Pesata sui CFU" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weighted by credits"
+          }
+        }
+      }
+    },
+    "Piano di studi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Study plan"
+          }
+        }
+      }
+    },
+    "Proiezione con %lld CFU in più, con le regole del tuo corso." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Projection with %lld more credits, under the rules of your course."
+          }
+        }
+      }
+    },
+    "Prossimo esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next exam"
+          }
+        }
+      }
+    },
+    "Prova con dati di esempio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try with sample data"
+          }
+        }
+      }
+    },
+    "Quanto vale la lode nella media lo scegli in Impostazioni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You choose what cum laude is worth in the average in Settings."
+          }
+        }
+      }
+    },
+    "Registra i voti che hai e gli esami che ti mancano: vedi subito la media, i CFU e la base di laurea." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record the grades you have and the exams you still need: you see the average, the credits and the graduation base right away."
+          }
+        }
+      }
+    },
+    "Registra il primo voto per vedere la media." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record your first grade to see the average."
+          }
+        }
+      }
+    },
+    "Registra voto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record grade"
+          }
+        }
+      }
+    },
     "Reti di calcolatori" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Computer Networks"
+          }
+        }
+      }
+    },
+    "Salva" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         }
       }
@@ -111,6 +831,76 @@
         }
       }
     },
+    "Scenari futuri" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scenarios"
+          }
+        }
+      }
+    },
+    "Scrivi i crediti come numero, per esempio 6 o 7,5." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write the credits as a number, such as 6 or 7.5."
+          }
+        }
+      }
+    },
+    "Scrivi la media che vuoi raggiungere: ti dico il voto che serve al prossimo esame." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write the average you want to reach: you'll see the grade the next exam needs."
+          }
+        }
+      }
+    },
+    "Scrivi la media come numero, per esempio 27,5." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write the average as a number, such as 27.5."
+          }
+        }
+      }
+    },
+    "Se non l'hai ancora sostenuto, resta tra gli esami da sostenere e non entra nella media." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you haven't taken it yet, it stays among the exams to take and out of the average."
+          }
+        }
+      }
+    },
+    "Simula esame" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simulate exam"
+          }
+        }
+      }
+    },
+    "Simulazione media" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average simulation"
+          }
+        }
+      }
+    },
     "Sistemi operativi" : {
       "localizations" : {
         "en" : {
@@ -121,12 +911,182 @@
         }
       }
     },
-    "Valore" : {
+    "Sostenuti" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Value"
+            "value" : "Taken"
+          }
+        }
+      }
+    },
+    "Sostenuto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taken"
+          }
+        }
+      }
+    },
+    "Statistiche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics"
+          }
+        }
+      }
+    },
+    "Su %@ CFU con voto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Over %@ graded credits"
+          }
+        }
+      }
+    },
+    "Superato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passed"
+          }
+        }
+      }
+    },
+    "Ti serve 30 e lode nell'esame da %@ CFU." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need 30 cum laude in the %@-credit exam."
+          }
+        }
+      }
+    },
+    "Ti serve almeno %lld nell'esame da %@ CFU." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need at least %lld in the %@-credit exam."
+          }
+        }
+      }
+    },
+    "Tipo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kind"
+          }
+        }
+      }
+    },
+    "Tutti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "Tutti gli anni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All years"
+          }
+        }
+      }
+    },
+    "Un esame ha da 0,5 a 60 CFU." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An exam has 0.5 to 60 credits."
+          }
+        }
+      }
+    },
+    "Un voto non può avere una data futura. Se non l'hai ancora sostenuto, spegni Sostenuto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A grade cannot have a future date. If you haven't taken it yet, turn off Taken."
+          }
+        }
+      }
+    },
+    "Un'idoneità conta nei CFU, non nella media." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A pass/fail exam counts in the credits, not in the average."
+          }
+        }
+      }
+    },
+    "Voti esclusi dalla media" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grades out of the average"
+          }
+        }
+      }
+    },
+    "Voto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grade"
+          }
+        }
+      }
+    },
+    "appello %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sitting %@"
+          }
+        }
+      }
+    },
+    "da sostenere" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to take"
+          }
+        }
+      }
+    },
+    "fuori media" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "out of the average"
           }
         }
       }

@@ -1,0 +1,32 @@
+{
+  "id": "6474590995",
+  "name": "GridArt - Drawing Grid",
+  "developer": "Vaghani Keyur",
+  "bundle_id": "com.patel.gridart.drawing",
+  "store_country": "it",
+  "ranks": {},
+  "price": 0.0,
+  "formatted_price": "Gratis",
+  "currency": "EUR",
+  "genre": "Graphics & Design",
+  "genres": [
+    "Grafica e design",
+    "Foto e video"
+  ],
+  "description": "With precision and confidence using GridArt – a powerful tool that helps artists accurately sketch or replicate images using the classic grid drawing technique. Whether you're an aspiring artist or a seasoned professional, GridArt streamlines the process of transferring images to your canvas by guiding you square by square.\n\nWith a range of customization options, GridArt makes it easier than ever to overlay grids, adjust cell sizes, apply sketch filters, and prepare reference images for drawing, painting, or other artistic work.\n\nKey Features:\n\n* Drawing grid overlay on any image\n* Diagonal grid option for improved outline accuracy\n* Multiple grid label styles\n* Customizable grid color, opacity, and text size\n* Sketch filter to simplify image details\n* Measurement-based grid setup (mm, cm, inch)\n* Zoom functionality for detailed viewing\n* Adjustable cell and page sizes\n* Convert images to black and white\n* Crop images to specific aspect ratios\n* Enable or disable row-column labels with customizable formatting\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://chief-cheque-627.notion.site/Privacy-Policy-23e6adfdb3748140a9e5f78e9ce25995",
+  "release_notes": "Draw with better accuracy and confidence!\n\n• New Square Grid helps you keep proportions and placement accurate  \n• New Diagonal Lines make it easier to align angles and details  \n• Smoother and faster app performance  \n• Bug fixes for a better drawing experience  \n\nUpdate now and enjoy easier, more precise drawing with GridArt!",
+  "version": "2.0.6",
+  "current_version_release_date": "2026-09-29T20:16:46Z",
+  "rating": 4.53333,
+  "rating_count": 15,
+  "minimum_os": "15.0",
+  "url": "https://apps.apple.com/it/app/gridart-drawing-grid/id6474590995?uo=4",
+  "screenshot_urls": [
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cf/74/84/cf7484fd-af51-a47d-f3a8-5d700ba71899/d80efb60-deba-4b84-87df-c81413abd208_ss1.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/19/44/48/19444843-4de1-8b7e-1bdf-d5b13634412c/7e1dc604-809e-47dd-9d55-e31dc520a474_ss5.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c1/5d/49/c15d4933-5322-9c62-06b6-2ae9dd70462e/62679b8a-4def-4dcb-96f5-81b2a433f909_ss3.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/19/1f/ef/191fefa2-9879-22fd-0942-155184f80d0d/2ec8ccd1-9a24-4dd9-9bcc-9d459cf05621_ss4.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7c/d2/d1/7cd2d1f8-e5ca-0e2f-9f84-45b34324757b/e321d2e7-22fd-4b79-8c4f-eae3af1961a2_ss2.jpg/392x696bb.jpg",
+    "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e4/4d/29/e44d29fb-563a-2973-a5be-b246784515b7/3118f1c2-46ac-42af-b203-9a8700c0c310_ss6.jpg/392x696bb.jpg"
+  ]
+}

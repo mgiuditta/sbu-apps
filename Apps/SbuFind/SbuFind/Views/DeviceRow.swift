@@ -1,61 +1,40 @@
 import SbuKit
 import SwiftUI
 
-/// One nearby device: its kind's symbol, its name and kind, and how near it sounds in a word.
-///
-/// No figure and no colored ring: the one figure of the app is on the finder.
+/// One nearby device, as in Find Air: its symbol inside a ring filled to the signal, its name,
+/// and the signal as a percentage under it. VoiceOver also hears the kind and the word.
 struct DeviceRow: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let device: NearbyDevice
 
-    @ScaledMetric(relativeTo: .headline) private var symbolWidth: CGFloat = 32
+    @ScaledMetric(relativeTo: .headline) private var ringSide: CGFloat = 56
 
     var body: some View {
-        // The word goes under the name at the accessibility sizes, where the name needs the width.
-        let layout = dynamicTypeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(alignment: .leading, spacing: SbuTheme.space1))
-            : AnyLayout(HStackLayout(spacing: SbuTheme.space3))
-
-        layout {
-            HStack(spacing: SbuTheme.space3) {
-                if !dynamicTypeSize.isAccessibilitySize {
-                    Image(systemName: device.kind.systemImage)
-                        .font(SbuTheme.headline)
-                        .fontWeight(.medium)
-                        .imageScale(.medium)
-                        .foregroundStyle(SbuTheme.ink)
-                        .frame(width: symbolWidth)
-                        .accessibilityHidden(true)
-                }
-
-                VStack(alignment: .leading, spacing: 0) {
-                    DeviceName(name: device.name)
-                        .font(SbuTheme.headline)
-                        .foregroundStyle(SbuTheme.ink)
-
-                    Text(device.kind.name)
-                        .font(SbuTheme.subheadline)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                }
-                .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-            }
-
+        HStack(spacing: SbuTheme.space4) {
+            // At the accessibility sizes the name gets the whole width.
             if !dynamicTypeSize.isAccessibilitySize {
-                Spacer(minLength: SbuTheme.space2)
+                SignalRing(proximity: device.proximity, systemImage: device.kind.systemImage)
+                    .frame(width: ringSide, height: ringSide)
             }
 
-            HStack(spacing: SbuTheme.space1) {
-                Image(systemName: device.warmth.systemImage)
-                    .fontWeight(.medium)
-                    .imageScale(.medium)
-                    .accessibilityHidden(true)
-                Text(device.warmth.name)
+            VStack(alignment: .leading, spacing: SbuTheme.space1) {
+                DeviceName(name: device.name)
+                    .font(SbuTheme.headline)
+                    .foregroundStyle(SbuTheme.ink)
+
+                Text(device.proximity.percent, format: .percent.precision(.fractionLength(0)))
+                    .font(SbuTheme.subheadline.monospacedDigit())
+                    .foregroundStyle(SbuTheme.inkMuted)
+                    .contentTransition(.numericText())
             }
-            .font(SbuTheme.footnote)
-            .foregroundStyle(SbuTheme.inkMuted)
+            .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
+
+            Spacer(minLength: 0)
         }
+        .padding(.vertical, SbuTheme.space1)
         .accessibilityElement(children: .combine)
+        .accessibilityValue(Text("\(Text(device.kind.name)), \(Text(device.warmth.name))"))
         .accessibilityIdentifier("device")
     }
 }
@@ -79,5 +58,6 @@ private struct DeviceRowPreview: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .background(SbuTheme.surface)
+        .tint(SbuTheme.accentFind)
     }
 }

@@ -44,10 +44,10 @@ final class FindFlowTests: XCTestCase {
         }
     }
 
-    /// The rows in the order they are on screen, by their combined VoiceOver labels.
+    /// The rows in the order they are on screen, by what VoiceOver reads: label, then value.
     @MainActor
     private func rowLabels(_ app: XCUIApplication) -> [String] {
-        devices(app).allElementsBoundByIndex.map(\.label)
+        devices(app).allElementsBoundByIndex.map { "\($0.label), \($0.value as? String ?? "")" }
     }
 
     @MainActor
@@ -63,7 +63,7 @@ final class FindFlowTests: XCTestCase {
 
         let labels = rowLabels(app)
         XCTAssertEqual(labels.count, 6, "\(labels)")
-        XCTAssertTrue(labels[0].hasPrefix("Buds Pro"), labels[0])
+        XCTAssertTrue(labels[0].hasPrefix("Buds Pro, 80%"), labels[0])
         XCTAssertTrue(labels[0].contains("Auricolari"), labels[0])
         XCTAssertTrue(labels[0].contains("Qui vicino"), labels[0])
         XCTAssertTrue(labels[1].hasPrefix("WH-1000XM5"), labels[1])

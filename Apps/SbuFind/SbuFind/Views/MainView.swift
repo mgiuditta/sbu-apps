@@ -8,6 +8,7 @@ import SwiftUI
 /// from scratch.
 struct MainView: View {
     @Environment(\.showSettings) private var showSettings
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let model: ScanModel
 
@@ -19,24 +20,32 @@ struct MainView: View {
 
     var body: some View {
         List {
-            Section {
-                ForEach(model.devices) { device in
+            // One card per device, as in Find Air.
+            ForEach(model.devices) { device in
+                Section {
                     NavigationLink(value: device.id) {
                         DeviceRow(device: device)
                     }
+                    .listRowBackground(SbuTheme.surfaceRaised)
                 }
-            } footer: {
-                if model.hiddenUnnamedCount > 0 {
+            }
+
+            if model.hiddenUnnamedCount > 0 {
+                Section {
+                } footer: {
                     Text("Dispositivi senza nome nascosti: \(model.hiddenUnnamedCount). Puoi mostrarli in Impostazioni.")
                         .font(SbuTheme.footnote)
                         .foregroundStyle(SbuTheme.inkMuted)
                 }
             }
-            .listRowBackground(SbuTheme.surfaceRaised)
-            .listRowSeparatorTint(SbuTheme.line)
         }
         .listStyle(.insetGrouped)
+        .listSectionSpacing(SbuTheme.space3)
         .scrollContentBackground(.hidden)
+        // Rows slide in and reorder as the signals change; still with Reduce Motion.
+        .animation(reduceMotion ? nil : .smooth, value: model.devices.map(\.id))
+        .navigationTitle("Sbu Find")
+        .navigationBarTitleDisplayMode(.large)
         .navigationDestination(for: UUID.self) { id in
             FinderView(model: model, deviceID: id)
         }
@@ -64,13 +73,11 @@ struct MainView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                // In ink: the accent belongs to the finder's full stop.
+                // In the accent, as in Find Air: this screen has no figure and no full stop.
                 Button("Impostazioni", systemImage: "gearshape", action: showSettings.callAsFunction)
-                    .tint(SbuTheme.ink)
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Aiuto", systemImage: "questionmark", action: showHelp)
-                    .tint(SbuTheme.ink)
+                Button("Aiuto", systemImage: "questionmark.circle", action: showHelp)
             }
         }
         .sheet(isPresented: $isShowingHelp) {

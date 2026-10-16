@@ -1,14 +1,435 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-    "Sbu Grid" : {
+    "%@ per %@" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Grid" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ by %2$@"
+          }
+        }
       }
     },
-    "Valore" : {
+    "%lld colonne" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld colonna"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld colonne"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld column"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld columns"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld righe" : {
+      "localizations" : {
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld riga"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld righe"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld row"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rows"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Anteprima della griglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grid preview"
+          }
+        }
+      }
+    },
+    "Apertura della foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opening the photo"
+          }
+        }
+      }
+    },
+    "Bianco e nero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Black and white"
+          }
+        }
+      }
+    },
+    "Cambia foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change photo"
+          }
+        }
+      }
+    },
+    "Celle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cells"
+          }
+        }
+      }
+    },
+    "Celle quadrate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Square cells"
+          }
+        }
+      }
+    },
+    "Chiara" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        }
+      }
+    },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Colonne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Columns"
+          }
+        }
+      }
+    },
+    "Colore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color"
+          }
+        }
+      }
+    },
+    "Con le celle quadrate le righe seguono le colonne e la forma della foto." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With square cells, the rows follow the columns and the shape of the photo."
+          }
+        }
+      }
+    },
+    "Diagonali" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diagonals"
+          }
+        }
+      }
+    },
+    "Fine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Foto con la griglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo with the grid"
+          }
+        }
+      }
+    },
+    "Foto non aperta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo not opened"
+          }
+        }
+      }
+    },
+    "Griglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grid"
+          }
+        }
+      }
+    },
+    "Impostazioni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "La foto non è arrivata. Se è su iCloud, controlla la connessione e riprova." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The photo didn't arrive. If it's in iCloud, check your connection and try again."
+          }
+        }
+      }
+    },
+    "Linee" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lines"
+          }
+        }
+      }
+    },
+    "Nessuna foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No photo"
+          }
+        }
+      }
+    },
+    "Numeri di righe e colonne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Row and column numbers"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Opacità" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opacity"
+          }
+        }
+      }
+    },
+    "Questo file non è una foto che iPhone sa leggere. Scegline un'altra." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file isn't a photo iPhone can read. Choose another one."
+          }
+        }
+      }
+    },
+    "Righe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rows"
+          }
+        }
+      }
+    },
+    "Righe e colonne vengono dal foglio e dalla misura della cella. Le cambi in Foglio." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rows and columns come from the sheet and the cell size. You change them in Sheet."
+          }
+        }
+      }
+    },
+    "Sbu Grid" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Grid"
+          }
+        }
+      },
+      "extractionState" : "manual"
+    },
+    "Sbu Grid vede solo la foto che scegli, non la tua libreria." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Grid sees only the photo you choose, not your library."
+          }
+        }
+      }
+    },
+    "Scegli la foto da disegnare: Sbu Grid ci stende sopra una griglia, e tu la ricopi sul foglio una cella alla volta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the photo you want to draw: Sbu Grid lays a grid over it, and you copy it onto paper one cell at a time."
+          }
+        }
+      }
+    },
+    "Scegli una foto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a photo"
+          }
+        }
+      }
+    },
+    "Schermo intero" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full screen"
+          }
+        }
+      }
+    },
+    "Scura" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        }
+      }
+    },
+    "Senza colori leggi meglio luci e ombre." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without color, light and shade are easier to read."
+          }
+        }
+      }
+    },
+    "Spessore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thickness"
+          }
+        }
       }
     }
   },

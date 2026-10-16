@@ -3,4 +3,6 @@ struct NoSearchActivity: SearchActivityPresenter {
     func apply(_ step: SearchActivityPlan.Step) {}
 
     func setBackground(_ isBackground: Bool) {}
+
+    func endLeftovers() {}
 }

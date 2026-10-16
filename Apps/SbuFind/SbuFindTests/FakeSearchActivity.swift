@@ -4,6 +4,7 @@
 final class FakeSearchActivity: SearchActivityPresenter {
     private(set) var steps: [SearchActivityPlan.Step] = []
     private(set) var isBackground = false
+    private(set) var leftoversEnded = 0
 
     func apply(_ step: SearchActivityPlan.Step) {
         if step != .none {
@@ -13,5 +14,9 @@ final class FakeSearchActivity: SearchActivityPresenter {
 
     func setBackground(_ isBackground: Bool) {
         self.isBackground = isBackground
+    }
+
+    func endLeftovers() {
+        leftoversEnded += 1
     }
 }

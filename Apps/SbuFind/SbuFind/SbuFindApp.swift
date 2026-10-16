@@ -8,7 +8,8 @@ struct SbuFindApp: App {
     /// The scan starts here, not in a view: iOS can relaunch the app in the background for a saved
     /// device, and then no view is built. Core Bluetooth must be set up again at every launch.
     init() {
-        let model = ScanModel()
+        // Relaunched by iOS for a saved device, the app starts in the background with no scene.
+        let model = ScanModel(isForeground: UIApplication.shared.applicationState != .background)
         self.model = model
         ringer = .requested(in: .standard)
         Task {

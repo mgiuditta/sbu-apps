@@ -95,7 +95,7 @@ final class ScanModel {
     @ObservationIgnored private var watchedLastSeen: Date?
 
     /// The app is in front. In the background only saved devices with services are heard.
-    private(set) var isForeground = true
+    private(set) var isForeground: Bool
     @ObservationIgnored private var backgroundEnteredAt: Date?
     /// When the background lost alert goes off unless the device is heard again.
     @ObservationIgnored private var lostDeadline: Date?
@@ -109,6 +109,8 @@ final class ScanModel {
     ///     would cover the screen.
     ///   - location: Core Location; a fixed place with the fixed scanner.
     ///   - sightingStore: Where the sightings are saved.
+    ///   - isForeground: Whether the app launched in front. iOS relaunches it in the background
+    ///     for a saved device, with no scene, so no scene phase ever says so.
     ///   - clock: The current time; tests move it by hand.
     init(
         scanner: (any BluetoothScanner)? = nil,
@@ -118,6 +120,7 @@ final class ScanModel {
         activity: (any SearchActivityPresenter)? = nil,
         myDevicesStore: MyDevicesStore = MyDevicesStore(),
         defaults: UserDefaults = .standard,
+        isForeground: Bool = true,
         clock: @escaping () -> Date = { .now }
     ) {
         let fixed = FixedScanner.requested(in: defaults)
@@ -140,6 +143,8 @@ final class ScanModel {
         placesInBackground = self.location.allowsBackground
         self.defaults = defaults
         self.clock = clock
+        self.isForeground = isForeground
+        backgroundEnteredAt = isForeground ? nil : clock()
         showsUnnamed = defaults.bool(forKey: Self.showsUnnamedKey)
         playsSound = defaults.bool(forKey: Self.playsSoundKey)
         // A launch argument arrives as the string "NO": bool(forKey:) reads it, `as? Bool` would not.
@@ -152,10 +157,15 @@ final class ScanModel {
         // The scanner says its state first, which starts the scan's first seconds.
         state = .starting
         isRunning = true
+        // What an earlier run left behind follows nothing now: its lost alert and its search.
+        notifier.cancelScheduledLost()
+        activity.endLeftovers()
+        activity.setBackground(!isForeground)
+        // In the background the position is read once per saved device heard, never followed.
         if remembersPlaces, isForeground {
             location.start()
         }
-        scanner.listen(currentScanMode)
+        listenAsPlanned()
         let events = scanner.events()
         await withDiscardingTaskGroup { group in
             group.addTask {
@@ -233,6 +243,13 @@ final class ScanModel {
             lostAlert?.pause()
             scheduleLostDeadline(at: now)
         }
+        listenAsPlanned()
+    }
+
+    /// Tells the scanner how to listen. In the background without your saved devices, as before
+    /// the first unlock, it keeps the scan iOS restored: a pause would stop the relaunches.
+    private func listenAsPlanned() {
+        guard isForeground || !myDevicesUnavailable else { return }
         scanner.listen(currentScanMode)
     }
 
@@ -312,7 +329,7 @@ final class ScanModel {
                 saveMyDevices()
             }
             publish(at: clock())
-            scanner.listen(currentScanMode)
+            listenAsPlanned()
         }
     }
 

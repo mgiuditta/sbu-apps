@@ -18,8 +18,19 @@ struct ScanModelBackgroundTests {
         defaults = try #require(UserDefaults(suiteName: "ScanModelBackgroundTests-\(UUID().uuidString)"))
     }
 
-    private func makeModel() -> ScanModel {
-        ScanModel(scanner: scanner, notifier: notifier, location: location, sightingStore: store, activity: activity, myDevicesStore: mineStore, defaults: defaults, clock: clock.read)
+    private func makeModel(isForeground: Bool = true) -> ScanModel {
+        ScanModel(scanner: scanner, notifier: notifier, location: location, sightingStore: store, activity: activity, myDevicesStore: mineStore, defaults: defaults, isForeground: isForeground, clock: clock.read)
+    }
+
+    /// Runs the model until the scanner finishes, as at a launch.
+    private func runBriefly(_ model: ScanModel) async {
+        let running = Task {
+            await model.run()
+        }
+        await Task.yield()
+        scanner.send(.state(.ready))
+        scanner.finish()
+        await running.value
     }
 
     /// A model with one saved watch that advertises the Heart Rate service, heard at the start.
@@ -40,6 +51,74 @@ struct ScanModelBackgroundTests {
         model.setForeground(true)
         #expect(scanner.modes.last == .foreground)
         #expect(!activity.isBackground)
+    }
+
+    /// Relaunched by iOS for a saved device: no scene says the app is in the background, so the
+    /// launch does. The scan listens only for the saved services and the position is not followed.
+    @Test func aLaunchInTheBackgroundListensOnlyForSavedDevicesAndDoesNotFollowThePosition() async {
+        mineStore.save([SavedDevice(name: "Il mio orologio", device: NearbyDevice(
+            id: Advertisement.testID(1), name: "Forerunner", kind: .watch, signal: -60,
+            lastSeen: Advertisement.start, serviceUUIDs: ["180D"]
+        ))])
+        defaults.set(true, forKey: "remembersPlaces")
+        let model = makeModel(isForeground: false)
+        await runBriefly(model)
+
+        #expect(!model.isForeground)
+        #expect(scanner.modes.first == .background(services: ["180D"]))
+        #expect(!scanner.modes.contains(.foreground))
+        #expect(!location.isRunning)
+        #expect(activity.isBackground)
+    }
+
+    @Test func aLaunchInFrontListensForEverythingAndFollowsThePosition() async {
+        defaults.set(true, forKey: "remembersPlaces")
+        let model = makeModel()
+        let running = Task {
+            await model.run()
+        }
+        await Task.yield()
+        #expect(scanner.modes.first == .foreground)
+        #expect(location.isRunning)
+        scanner.finish()
+        await running.value
+    }
+
+    /// A lost alert set before the app was closed watches nothing now: the watch lives only while
+    /// the app runs.
+    @Test func aLaunchCancelsTheLostAlertLeftScheduled() async {
+        notifier.scheduleLost(deviceName: "Il mio orologio", at: Advertisement.start.addingTimeInterval(60))
+        let model = makeModel(isForeground: false)
+        await runBriefly(model)
+        #expect(notifier.scheduled == nil)
+    }
+
+    @Test func aLaunchEndsTheLiveActivitiesLeftBehind() async {
+        let model = makeModel(isForeground: false)
+        await runBriefly(model)
+        #expect(activity.leftoversEnded == 1)
+    }
+
+    /// Before the first unlock the saved devices cannot be read: the scan iOS restored goes on
+    /// instead of pausing, and the plan applies once they can be read.
+    @Test func aLaunchInTheBackgroundWithoutTheSavedDevicesKeepsTheRestoredScan() async throws {
+        let saved = [SavedDevice(name: "Il mio orologio", device: NearbyDevice(
+            id: Advertisement.testID(1), name: "Forerunner", kind: .watch, signal: -60,
+            lastSeen: Advertisement.start, serviceUUIDs: ["180D"]
+        ))]
+        mineStore.save(saved)
+        defaults.set(true, forKey: "remembersPlaces")
+        try FileManager.default.setAttributes([.posixPermissions: 0o000], ofItemAtPath: mineStore.url.path())
+        defer { try? FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: mineStore.url.path()) }
+        let model = makeModel(isForeground: false)
+        await runBriefly(model)
+        #expect(scanner.modes.isEmpty)
+
+        try FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: mineStore.url.path())
+        model.reloadUnavailableFiles()
+
+        #expect(model.myDevices == saved)
+        #expect(scanner.modes.last == .background(services: ["180D"]))
     }
 
     @Test func aSavedDeviceKeepsItsServices() throws {

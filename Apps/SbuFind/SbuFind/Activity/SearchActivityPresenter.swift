@@ -4,4 +4,7 @@ protocol SearchActivityPresenter {
 
     /// In the background iOS reports the device far less often: readings stay current longer.
     func setBackground(_ isBackground: Bool)
+
+    /// Ends at once the activities an earlier run of the app left on the Lock Screen.
+    func endLeftovers()
 }

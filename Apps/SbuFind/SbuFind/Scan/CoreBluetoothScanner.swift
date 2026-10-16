@@ -14,7 +14,10 @@ final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDe
 
     private var manager: CBCentralManager?
     private var continuation: AsyncStream<ScanEvent>.Continuation?
-    private var mode = ScanMode.foreground
+    /// How the model asked to listen; `nil` until it does.
+    private var mode: ScanMode?
+    /// The services iOS was scanning for when it relaunched the app in the background.
+    private var restoredServices: [String] = []
 
     func events() -> AsyncStream<ScanEvent> {
         let (stream, continuation) = AsyncStream.makeStream(of: ScanEvent.self, bufferingPolicy: .bufferingNewest(512))
@@ -59,6 +62,12 @@ final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDe
 
     private func scan(with manager: CBCentralManager) {
         switch mode {
+        case nil:
+            // Not told yet, as when the saved devices cannot be read before the first unlock:
+            // go on with the scan iOS restored, so it keeps relaunching the app for them.
+            if !restoredServices.isEmpty {
+                manager.scanForPeripherals(withServices: restoredServices.map(CBUUID.init(string:)), options: nil)
+            }
         case .foreground:
             // Duplicates on, so every advertisement updates the signal, not only the first.
             manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
@@ -81,8 +90,12 @@ final class CoreBluetoothScanner: NSObject, BluetoothScanner, CBCentralManagerDe
     }
 
     nonisolated func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
-        // Relaunched in the background for a saved device: the scan in the restored state goes
-        // on, and the model sets the mode again as soon as it runs.
+        // Relaunched in the background for a saved device: the model sets the mode from its
+        // saved devices; until it can, the scan goes on for the services restored here.
+        let services = (dict[CBCentralManagerRestoredStateScanServicesKey] as? [CBUUID] ?? []).map(\.uuidString)
+        MainActor.assumeIsolated {
+            restoredServices = services
+        }
     }
 
     nonisolated func centralManager(

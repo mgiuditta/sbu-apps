@@ -37,6 +37,23 @@ final class LiveSearchActivity: SearchActivityPresenter {
         }
     }
 
+    func endLeftovers() {
+        // Only those there now: an activity started right after is this run's.
+        let leftovers = Set(Activity<SearchActivityAttributes>.activities.map(\.id))
+        guard !leftovers.isEmpty else { return }
+        let previous = pending
+        pending = Task {
+            await previous?.value
+            await Self.end(leftovers)
+        }
+    }
+
+    private nonisolated static func end(_ ids: Set<String>) async {
+        for activity in Activity<SearchActivityAttributes>.activities where ids.contains(activity.id) {
+            await activity.end(nil, dismissalPolicy: .immediate)
+        }
+    }
+
     private nonisolated static func content(
         _ state: SearchActivityAttributes.ContentState,
         staleAfter: TimeInterval

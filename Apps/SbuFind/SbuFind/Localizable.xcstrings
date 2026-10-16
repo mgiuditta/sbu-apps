@@ -171,6 +171,16 @@
         }
       }
     },
+    "Durante la ricerca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "While searching"
+          }
+        }
+      }
+    },
     "Freddo" : {
       "localizations" : {
         "en" : {
@@ -311,6 +321,16 @@
         }
       }
     },
+    "Suono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound"
+          }
+        }
+      }
+    },
     "Tablet" : {
       "localizations" : {
         "en" : {
@@ -367,6 +387,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "It comes back by itself in a few seconds."
+          }
+        }
+      }
+    },
+    "Un tic che accelera quando ti avvicini, così cerchi senza guardare lo schermo. Il suono segue l'interruttore silenzioso." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A tick that speeds up as you get closer, so you can search without looking at the screen. The sound follows the silent switch."
+          }
+        }
+      }
+    },
+    "Vibrazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vibration"
           }
         }
       }

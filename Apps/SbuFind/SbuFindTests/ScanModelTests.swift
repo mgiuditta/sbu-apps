@@ -22,6 +22,27 @@ struct ScanModelTests {
         #expect(model.showsUnnamed == false)
     }
 
+    @Test func soundStartsOffAndVibrationOn() {
+        let model = makeModel()
+        #expect(model.playsSound == false)
+        #expect(model.vibrates == true)
+    }
+
+    @Test func soundAndVibrationAreSaved() {
+        let model = makeModel()
+        model.playsSound = true
+        model.vibrates = false
+        let reopened = ScanModel(scanner: FakeScanner(), defaults: defaults)
+        #expect(reopened.playsSound)
+        #expect(!reopened.vibrates)
+    }
+
+    @Test(arguments: [("NO", false), ("YES", true), ("0", false), ("1", true)])
+    func aLaunchArgumentStringSetsVibration(raw: String, vibrates: Bool) {
+        defaults.set(raw, forKey: "vibrates")
+        #expect(makeModel().vibrates == vibrates)
+    }
+
     @Test func advertisementsReachTheScreenAtTheNextRefresh() {
         let model = makeModel()
         model.handle(.state(.ready))

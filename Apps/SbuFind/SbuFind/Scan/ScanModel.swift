@@ -10,6 +10,8 @@ final class ScanModel {
     /// How often the list on screen catches up with what was heard.
     static let refreshInterval = Duration.milliseconds(500)
     private static let showsUnnamedKey = "showsUnnamed"
+    private static let playsSoundKey = "playsSound"
+    private static let vibratesKey = "vibrates"
 
     private(set) var state = BluetoothState.starting
     /// The devices on screen, strongest signal first.
@@ -27,6 +29,18 @@ final class ScanModel {
         }
     }
 
+    /// Ticks on the finder with a short sound, faster as the device gets closer. Off by default:
+    /// a sound out of nowhere surprises; it follows the ringer switch.
+    var playsSound: Bool {
+        didSet { defaults.set(playsSound, forKey: Self.playsSoundKey) }
+    }
+
+    /// Ticks on the finder with a tap, faster as the device gets closer. On by default: it lets
+    /// you search without looking at the screen.
+    var vibrates: Bool {
+        didSet { defaults.set(vibrates, forKey: Self.vibratesKey) }
+    }
+
     @ObservationIgnored private var roster = DeviceRoster()
     @ObservationIgnored private let scanner: any BluetoothScanner
     @ObservationIgnored private let defaults: UserDefaults
@@ -38,6 +52,9 @@ final class ScanModel {
         self.scanner = scanner ?? FixedScanner.requested(in: defaults) ?? CoreBluetoothScanner()
         self.defaults = defaults
         showsUnnamed = defaults.bool(forKey: Self.showsUnnamedKey)
+        playsSound = defaults.bool(forKey: Self.playsSoundKey)
+        // A launch argument arrives as the string "NO": bool(forKey:) reads it, `as? Bool` would not.
+        vibrates = defaults.object(forKey: Self.vibratesKey) == nil ? true : defaults.bool(forKey: Self.vibratesKey)
     }
 
     /// Scans until the calling task is cancelled, as when the app goes to the background.

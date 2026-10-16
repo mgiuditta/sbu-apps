@@ -3,8 +3,9 @@ import SwiftUI
 
 /// The finder's tool field for a tracked device: the proximity closed by the full stop, the word
 /// or how long it has been silent, the bar, and the hint.
-struct FinderContent: View {
+struct FinderContent<Pills: View>: View {
     let tracked: TrackedDevice?
+    @ViewBuilder let pills: Pills
 
     private var value: Int { tracked?.device.proximity.value ?? 0 }
 
@@ -40,7 +41,7 @@ struct FinderContent: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
         } pills: {
-            EmptyView()
+            pills
         }
     }
 }
@@ -50,7 +51,9 @@ struct FinderContent: View {
         device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, signal: -55, lastSeen: .now),
         warmth: .hot,
         silence: 0
-    ))
+    )) {
+        EmptyView()
+    }
     .background(SbuTheme.surface)
 }
 
@@ -59,7 +62,9 @@ struct FinderContent: View {
         device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, signal: -70, lastSeen: .now),
         warmth: .warm,
         silence: 8
-    ))
+    )) {
+        EmptyView()
+    }
     .background(SbuTheme.surface)
     .preferredColorScheme(.dark)
 }

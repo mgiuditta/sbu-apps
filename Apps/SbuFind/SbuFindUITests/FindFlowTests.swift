@@ -132,6 +132,31 @@ final class FindFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testTheSoundAndVibrationPillsAreTheSettingsSwitches() throws {
+        let app = launch()
+        let row = devices(app).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+
+        let sound = app.buttons["Suono"]
+        let vibration = app.buttons["Vibrazione"]
+        XCTAssertTrue(sound.waitForExistence(timeout: 5))
+        XCTAssertFalse(sound.isSelected)
+        XCTAssertFalse(vibration.isSelected)
+
+        sound.tap()
+        XCTAssertTrue(sound.isSelected)
+        try audit(app)
+
+        app.navigationBars.buttons.firstMatch.tap()
+        app.navigationBars.buttons["Impostazioni"].tap()
+        let soundSwitch = app.switches["Suono"]
+        XCTAssertTrue(soundSwitch.waitForExistence(timeout: 5))
+        XCTAssertEqual(soundSwitch.value as? String, "1")
+        XCTAssertEqual(app.switches["Vibrazione"].value as? String, "0")
+    }
+
+    @MainActor
     func testTheFinderSaysWhenTheDeviceFallsSilent() throws {
         let app = launch(scanner: "fading")
         let row = devices(app).firstMatch

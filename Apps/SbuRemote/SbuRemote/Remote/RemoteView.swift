@@ -40,6 +40,7 @@ struct RemoteView: View {
                     RemoteKeyButton(key: .back, session: session)
                     Spacer()
                 }
+                VolumeChannelView(session: session)
             }
             .padding(.horizontal, SbuTheme.space4)
             .padding(.bottom, SbuTheme.space4)

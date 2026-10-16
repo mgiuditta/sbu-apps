@@ -131,6 +131,16 @@
         }
       }
     },
+    "Canale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channel"
+          }
+        }
+      }
+    },
     "Canale precedente" : {
       "localizations" : {
         "en" : {
@@ -857,6 +867,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use the key"
+          }
+        }
+      }
+    },
+    "Volume" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume"
           }
         }
       }

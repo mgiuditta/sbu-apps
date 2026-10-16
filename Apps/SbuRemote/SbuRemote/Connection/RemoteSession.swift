@@ -8,6 +8,7 @@ final class RemoteSession {
     private(set) var status: ConnectionStatus = .noTV
     private(set) var client: (any TVClient)?
 
+    @ObservationIgnored private var hold: (key: RemoteKey, strategy: HoldStrategy, task: Task<Void, Never>?)?
     @ObservationIgnored private let makeClient: @MainActor (SavedTV) -> any TVClient
 
     init(store: TVStore, makeClient: @escaping @MainActor (SavedTV) -> any TVClient = TVClientFactory.client(for:)) {
@@ -78,6 +79,37 @@ final class RemoteSession {
     /// One tap: one event to the TV. No limit on taps.
     func press(_ key: RemoteKey) async {
         await run { try await $0.send(key, .click) }
+    }
+
+    /// The finger stays on a key: the TV repeats it, or the remote does, until `endHold`.
+    func beginHold(_ key: RemoteKey) async {
+        guard let client, isAvailable(key) else { return }
+        await endHold()
+        let strategy = HoldStrategy(key: key, holdsKeysNatively: client.holdsKeysNatively)
+        switch strategy {
+        case .native:
+            hold = (key, strategy, nil)
+            await run { try await $0.send(key, .press) }
+        case .repeating(let interval):
+            let task = Task { [weak self] in
+                while !Task.isCancelled {
+                    await self?.press(key)
+                    try? await Task.sleep(for: interval)
+                }
+            }
+            hold = (key, strategy, task)
+        case .none:
+            await press(key)
+        }
+    }
+
+    func endHold() async {
+        guard let hold else { return }
+        self.hold = nil
+        hold.task?.cancel()
+        if hold.strategy == .native {
+            await run { try await $0.send(hold.key, .release) }
+        }
     }
 
     /// Runs a command on the connected client; a dropped connection shows in the status.

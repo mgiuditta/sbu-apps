@@ -54,6 +54,8 @@ final class AddFlowTests: XCTestCase {
             if issue.auditType == .textClipped, let label = issue.element?.label, label == label.uppercased() {
                 return true
             }
+            // The system search field's own placeholder, drawn by iOS, not by the app.
+            if issue.auditType == .textClipped, issue.element?.elementType == .searchField { return true }
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }

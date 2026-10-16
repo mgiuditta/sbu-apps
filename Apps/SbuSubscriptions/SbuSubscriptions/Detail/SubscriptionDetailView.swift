@@ -2,7 +2,8 @@ import SbuKit
 import SwiftData
 import SwiftUI
 
-/// One subscription in full: what you pay and when, how it's filed, and what you can do with it.
+/// One subscription in full, in a sheet: name and price on top, what you pay and since when, how it's filed,
+/// and what you can do with it.
 struct SubscriptionDetailView: View {
     let subscription: Subscription
     let currency: CurrencySettings
@@ -14,87 +15,43 @@ struct SubscriptionDetailView: View {
     @State private var isChangingPrice = false
 
     var body: some View {
-        List {
-            Section {
-                LabeledContent("Prezzo") {
-                    Text(subscription.price, format: .currency(code: subscription.currencyCode))
-                        .foregroundStyle(SbuTheme.ink)
+        NavigationStack {
+            List {
+                Section {
+                    DetailHeader(subscription: subscription)
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
                 }
-                if let upcoming {
-                    LabeledContent("Dal \(upcoming.effectiveDate.formatted(.dateTime.day().month(.wide)))") {
-                        Text(upcoming.price, format: .currency(code: subscription.currencyCode))
-                    }
-                }
-                LabeledContent("Ciclo") { Text(subscription.cycle.label) }
-                if let count = subscription.paymentCount {
-                    LabeledContent("Pagamenti", value: count, format: .number)
-                }
-                LabeledContent("Prossimo pagamento") { Text(nextPaymentText) }
-                if let trialEnd = subscription.trialEndDate, subscription.isInTrial() {
-                    LabeledContent("Prova fino al") { Text(trialEnd, format: .dateTime.day().month(.wide).year()) }
-                }
-                LabeledContent("Promemoria") { Text(reminderText) }
-            }
+                DetailFactsSection(subscription: subscription, tally: subscription.tally())
+                DetailMoreSection(subscription: subscription)
 
-            Section {
-                LabeledContent("Categoria") {
-                    if let category = subscription.category {
-                        HStack(spacing: SbuTheme.space2) {
-                            Image(systemName: category.symbol)
-                                .fontWeight(.medium)
-                                .imageScale(.medium)
-                                .accessibilityHidden(true)
-                            Text(category.name)
-                        }
-                    } else {
-                        Text("Nessuna")
-                    }
+                Section {
+                    Button("Cambia prezzo") { isChangingPrice = true }
+                    NavigationLink("Cronologia") { HistoryView(subscription: subscription) }
                 }
-                if let list = subscription.list {
-                    LabeledContent("Lista", value: list.name)
-                }
-                if !subscription.paymentMethod.isEmpty {
-                    LabeledContent("Metodo di pagamento", value: subscription.paymentMethod)
-                }
-                if let url = subscription.url, WebPage.isWebPage(url) {
-                    Link(destination: url) {
-                        LabeledContent("Sito") { Text(url.host() ?? url.absoluteString) }
-                    }
-                }
-                if !subscription.notes.isEmpty {
-                    Text(subscription.notes)
+
+                CancelHelpSection(subscription: subscription)
+                StatusActionsSection(subscription: subscription)
+
+                Section {
+                    SbuButton("Elimina abbonamento", kind: .destructive, confirmationTitle: "Eliminare \(subscription.name)?", action: delete)
+                        .accessibilityIdentifier("delete")
                 }
             }
-
-            Section {
-                Button("Cambia prezzo") { isChangingPrice = true }
-                NavigationLink("Cronologia") { HistoryView(subscription: subscription) }
-            }
-
-            CancelHelpSection(subscription: subscription)
-            StatusActionsSection(subscription: subscription)
-
-            Section {
-                SbuButton("Elimina abbonamento", kind: .destructive, confirmationTitle: "Eliminare \(subscription.name)?", action: delete)
-                    .accessibilityIdentifier("delete")
+            .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(SbuTheme.surface)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Modifica") { isEditing = true }
+                        .accessibilityIdentifier("edit")
+                }
             }
         }
-        .listStyle(.insetGrouped)
-        .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .navigationTitle(subscription.name)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            Button("Modifica") { isEditing = true }
-                .accessibilityIdentifier("edit")
-        }
-        // Deleted only once this screen is gone: a deleted model must never be read by a view on screen.
-        .onDisappear {
-            if isDeleting {
-                modelContext.delete(subscription)
-                try? modelContext.save()
-            }
-        }
+        .presentationDragIndicator(.visible)
+        // Deleted only once this sheet is gone: a deleted model must never be read by a view on screen.
+        .onDisappear(perform: deleteIfAsked)
         .sheet(isPresented: $isChangingPrice) {
             PriceChangeSheet(subscription: subscription)
         }
@@ -107,43 +64,31 @@ struct SubscriptionDetailView: View {
         }
     }
 
-    /// The next price change still to come, if any.
-    private var upcoming: PriceChange? {
-        let today = Calendar.current.startOfDay(for: .now)
-        return (subscription.priceChanges ?? []).filter { $0.effectiveDate > today }.min { $0.effectiveDate < $1.effectiveDate }
-    }
-
-    private var nextPaymentText: LocalizedStringKey {
-        switch subscription.status {
-        case .paused: return "In pausa"
-        case .cancelled: return "Annullato"
-        case .active: break
-        }
-        guard let next = subscription.nextPayment() else { return "Concluso" }
-        return "\(next.formatted(.dateTime.day().month(.wide).year()))"
-    }
-
-    private var reminderText: LocalizedStringKey {
-        switch subscription.reminderDaysBefore {
-        case nil: "Nessuno"
-        case 0: "Il giorno stesso"
-        case let days?: "^[\(days) giorno](inflect: true) prima"
-        }
-    }
-
     private func delete() {
         isDeleting = true
         dismiss()
     }
+
+    private func deleteIfAsked() {
+        guard isDeleting else { return }
+        modelContext.delete(subscription)
+        try? modelContext.save()
+    }
 }
 
 #Preview("Light") {
-    NavigationStack { SubscriptionDetailView(subscription: .preview, currency: CurrencySettings()) }
+    Color.clear
+        .sheet(isPresented: .constant(true)) {
+            SubscriptionDetailView(subscription: .preview, currency: CurrencySettings())
+        }
         .modelContainer(.preview)
 }
 
 #Preview("Dark") {
-    NavigationStack { SubscriptionDetailView(subscription: .preview, currency: CurrencySettings()) }
+    Color.clear
+        .sheet(isPresented: .constant(true)) {
+            SubscriptionDetailView(subscription: .preview, currency: CurrencySettings())
+        }
         .modelContainer(.preview)
         .preferredColorScheme(.dark)
 }

@@ -57,7 +57,7 @@ final class DeviceCheckTests: XCTestCase {
         app.buttons["edit"].tap()
         attach(app, "modifica-ax5")
         app.buttons["Annulla"].tap()
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.navigationBars.firstMatch.swipeDown(velocity: .fast)
         app.swipeDown()
         app.swipeDown()
         app.tabBars.buttons["Impostazioni"].tap()

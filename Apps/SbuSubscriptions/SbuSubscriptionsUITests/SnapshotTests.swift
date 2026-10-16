@@ -24,7 +24,8 @@ final class SnapshotTests: XCTestCase {
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "Musica", "Music")).firstMatch.tap()
         XCTAssertTrue(app.buttons["edit"].waitForExistence(timeout: 5))
         snapshot("03-detail")
-        app.navigationBars.buttons.firstMatch.tap()
+        // The detail is a sheet: pulled down by its bar.
+        app.navigationBars.firstMatch.swipeDown(velocity: .fast)
 
         tabs.element(boundBy: 2).tap()
         snapshot("04-privacy")

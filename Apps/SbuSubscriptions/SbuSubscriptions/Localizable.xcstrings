@@ -241,6 +241,16 @@
         }
       }
     },
+    "Abbonato da" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribed for"
+          }
+        }
+      }
+    },
     "Accedi a iCloud nelle Impostazioni dell'iPhone per sincronizzare." : {
       "localizations" : {
         "en" : {
@@ -1087,6 +1097,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Family"
+          }
+        }
+      }
+    },
+    "Fatturazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Billing"
           }
         }
       }
@@ -2697,6 +2717,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Monthly spending"
+          }
+        }
+      }
+    },
+    "Speso finora" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spent so far"
           }
         }
       }

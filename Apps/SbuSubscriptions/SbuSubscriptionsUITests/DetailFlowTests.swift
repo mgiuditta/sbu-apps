@@ -28,7 +28,9 @@ final class DetailFlowTests: XCTestCase {
         app.buttons["save"].tap()
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "11,99")).firstMatch.waitForExistence(timeout: 5))
 
-        app.buttons["Metti in pausa"].tap()
+        let pause = app.buttons["Metti in pausa"]
+        for _ in 0..<6 where !pause.exists || !pause.isHittable { app.swipeUp() }
+        pause.tap()
         XCTAssertTrue(app.buttons["Riprendi"].waitForExistence(timeout: 5))
 
         // A full-screen window left by the edit sheet's keyboard makes XCTest call the button not hittable,

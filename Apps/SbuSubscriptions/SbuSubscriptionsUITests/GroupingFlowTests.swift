@@ -40,6 +40,8 @@ final class GroupingFlowTests: XCTestCase {
     private func audit(_ app: XCUIApplication) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
             if issue.auditType == .textClipped, let label = issue.element?.label, label == label.uppercased() { return true }
+            // The system search field's own placeholder, drawn by iOS, not by the app.
+            if issue.auditType == .textClipped, issue.element?.elementType == .searchField { return true }
             XCTFail("\(issue.compactDescription): \(issue.element.map { "'\($0.label)' \($0.frame)" } ?? issue.detailedDescription)")
             return true
         }

@@ -66,9 +66,9 @@ struct MainView: View {
                     }
                 }
             }
-            CollapsedSection(title: "In pausa", subscriptions: groups.paused, today: today)
-            CollapsedSection(title: "Annullati", subscriptions: groups.cancelled, today: today)
-            CollapsedSection(title: "Conclusi", subscriptions: groups.finished, today: today)
+            CollapsedSection(title: "In pausa", subscriptions: groups.paused, today: today, open: open)
+            CollapsedSection(title: "Annullati", subscriptions: groups.cancelled, today: today, open: open)
+            CollapsedSection(title: "Conclusi", subscriptions: groups.finished, today: today, open: open)
             ReceivedListsSection(received: received, currency: currency, period: period)
         }
         .listStyle(.insetGrouped)
@@ -110,10 +110,7 @@ struct MainView: View {
                     .accessibilityIdentifier("add")
             }
         }
-        .navigationDestination(for: Subscription.self) { subscription in
-            SubscriptionDetailView(subscription: subscription, currency: currency)
-        }
-        .navigationDestination(item: $opened) { subscription in
+        .sheet(item: $opened) { subscription in
             SubscriptionDetailView(subscription: subscription, currency: currency)
         }
         .onChange(of: router.pending, initial: true) {
@@ -126,10 +123,12 @@ struct MainView: View {
 
     private func rows(_ subscriptions: [Subscription], today: Date) -> some View {
         ForEach(subscriptions) { subscription in
-            NavigationLink(value: subscription) {
-                SubscriptionRow(subscription: subscription, today: today)
-            }
+            SubscriptionButton(subscription: subscription, today: today, open: open)
         }
+    }
+
+    private func open(_ subscription: Subscription) {
+        opened = subscription
     }
 
     private func isCollapsed(_ title: String) -> Binding<Bool> {

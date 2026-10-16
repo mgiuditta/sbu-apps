@@ -1,1 +1,1 @@
-
+compressor,shrink,reduce,size,resize,MB,storage,space,mp4,mov,hevc,resolution,batch

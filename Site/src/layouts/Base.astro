@@ -63,6 +63,8 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Classic and blocking: pagereveal fires before the first frame, and the CSP allows no inline script. */}
+    <script is:inline src="/flight.js"></script>
     <title>{title}</title>
     {/* Every page opens on a Bricolage title: fetched with the HTML, so the title is not drawn twice. */}
     <link rel="preload" href="/fonts/BricolageGrotesque-Bold.woff2" as="font" type="font/woff2" crossorigin />

@@ -209,7 +209,7 @@
   .bar { view-transition-name: bar; }
   .full-stop { view-transition-name: full-stop; }
   /* The square arrives by flight, not by stamp. */
-  html:active-view-transition .full-stop { animation: none; }
+  html.flown .full-stop { animation: none; }
 
   ::view-transition-group(full-stop) { animation-duration: .5s; animation-timing-function: cubic-bezier(.6, 0, .2, 1); }
   ::view-transition-old(root) { animation: page-out .22s cubic-bezier(.4, 0, 1, 1) both; }

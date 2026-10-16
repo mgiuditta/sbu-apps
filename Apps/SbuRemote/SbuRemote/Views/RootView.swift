@@ -14,6 +14,8 @@ struct RootView: View {
             MainView(session: session)
         } settings: {
             SavedTVsSection(session: session)
+            SupportedSystemsSection()
+            HelpSection()
         }
     }
 }

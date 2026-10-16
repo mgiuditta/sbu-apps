@@ -131,6 +131,16 @@
         }
       }
     },
+    "Aiuto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        }
+      }
+    },
     "Alza il volume" : {
       "localizations" : {
         "en" : {
@@ -821,6 +831,16 @@
         }
       }
     },
+    "Per vedere foto e video sulla TV usa AirPlay, da Foto o dal Centro di Controllo, se la TV lo supporta." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To see photos and videos on the TV, use AirPlay from Photos or Control Center, if the TV supports it."
+          }
+        }
+      }
+    },
     "Play o pausa" : {
       "localizations" : {
         "en" : {
@@ -961,6 +981,16 @@
         }
       }
     },
+    "Sbu Remote parla solo con la tua TV, sulla rete di casa. Nessun dato esce dal telefono." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Remote talks only to your TV, on your home network. No data leaves the phone."
+          }
+        }
+      }
+    },
     "Sconosciuto" : {
       "localizations" : {
         "en" : {
@@ -977,6 +1007,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Type on the TV"
+          }
+        }
+      }
+    },
+    "Se Sbu Remote non trova la TV, controlla che Rete locale sia attiva in Impostazioni › Privacy e sicurezza." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If Sbu Remote cannot find the TV, check that Local Network is on in Settings › Privacy & Security."
           }
         }
       }

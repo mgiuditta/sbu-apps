@@ -68,6 +68,32 @@ final class RemoteSession {
         await connect()
     }
 
+    // MARK: - Keys
+
+    /// Whether a key does something on this TV right now.
+    func isAvailable(_ key: RemoteKey) -> Bool {
+        status.acceptsKeys && (client?.supportedKeys.contains(key) ?? false)
+    }
+
+    /// One tap: one event to the TV. No limit on taps.
+    func press(_ key: RemoteKey) async {
+        await run { try await $0.send(key, .click) }
+    }
+
+    /// Runs a command on the connected client; a dropped connection shows in the status.
+    func run(_ command: (any TVClient) async throws -> Void) async {
+        guard let client, status.acceptsKeys else { return }
+        do {
+            try await command(client)
+        } catch TVClientError.unsupported {
+            return
+        } catch {
+            guard client === self.client else { return }
+            disconnect()
+            status = ConnectionStatus(error)
+        }
+    }
+
     func forget(_ tv: SavedTV) async {
         let wasCurrent = tv.id == self.tv?.id
         if wasCurrent { disconnect() }

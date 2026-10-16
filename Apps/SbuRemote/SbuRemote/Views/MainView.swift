@@ -10,9 +10,19 @@ struct MainView: View {
     var body: some View {
         Group {
             if let tv = session.tv {
-                ConnectionStatusView(tvName: tv.name, status: session.status, onRetry: retry)
+                RemoteView(session: session, tvName: tv.name)
             } else {
                 NoTVView(onAdd: showAddTV)
+            }
+        }
+        .toolbar {
+            if let tv = session.tv {
+                ToolbarItem(placement: .principal) {
+                    Text(tv.name)
+                        .font(SbuTheme.headline)
+                        .foregroundStyle(SbuTheme.ink)
+                        .accessibilityAddTraits(.isHeader)
+                }
             }
         }
         .task(id: session.tv?.id) {
@@ -29,10 +39,6 @@ struct MainView: View {
 
     private func add(_ tv: SavedTV) {
         Task { await session.add(tv) }
-    }
-
-    private func retry() {
-        Task { await session.connect() }
     }
 }
 

@@ -8,7 +8,7 @@ import mark from '../../../Design/logos/sbu-mark.svg?url';
 import { capitalize, localePath, statusLabel, ui } from '../i18n';
 import { iconThumb, text } from '../lib/apps';
 import { breadcrumbs } from '../lib/jsonld';
-import { SUPPORT_EMAIL } from '../lib/pages';
+import { REPO_URL, SUPPORT_EMAIL } from '../lib/pages';
 import type { Route } from '../lib/routes';
 
 type Props = Route & { view: 'press' };
@@ -25,7 +25,10 @@ const copy = {
     oneLineText: 'Sbu fa app gratuite per iPhone che fanno una cosa sola, senza abbonamento, account, pubblicità né tracking.',
     paragraph: 'In un paragrafo',
     paragraphText:
-      'Sbu prende lavori semplici che l’iPhone sa già fare, come misurare una pendenza o contare i giorni di fila, e per ognuno fa un’app gratuita. Ogni app fa una cosa sola e rispetta sei promesse: nessun abbonamento, nessun acquisto in-app, nessun account, nessuna pubblicità, nessun tracking, dati solo sul dispositivo. Se un’app ne viola una, non esce.',
+      'Sbu prende le app a pagamento più vendute dell’App Store per lavori semplici, come tenere d’occhio gli abbonamenti o leggere un codice QR, e per ognuna fa un’alternativa gratuita, un’app a settimana. Ogni app fa una cosa sola e rispetta sei promesse: nessun abbonamento, nessun acquisto in-app, nessun account, nessuna pubblicità, nessun tracking, dati solo sul dispositivo. Se un’app ne viola una, non esce.',
+    maker: 'Chi lo fa',
+    makerText:
+      'Sbu lo fa una persona sola, Matteo Giuditta, in Italia. Le app sono native in SwiftUI e condividono un unico design system, Quaderno: il foglio a quadretti, una cifra per schermata, il punto fermo come unico colore. Il codice di ogni app e del sito è pubblico su GitHub.',
     facts: 'Fatti',
     factRows: [
       ['Prezzo', '0 €, per ogni app, senza acquisti in-app.'],
@@ -56,7 +59,10 @@ const copy = {
     oneLineText: 'Sbu makes free iPhone apps that each do one thing, with no subscription, account, ads or tracking.',
     paragraph: 'In one paragraph',
     paragraphText:
-      'Sbu takes simple jobs your iPhone can already do, like measuring a slope or counting days in a row, and makes a free app for each. Every app does one thing and keeps six promises: no subscription, no in-app purchases, no account, no ads, no tracking, data stays on your device. If an app breaks one, it does not ship.',
+      'Sbu takes the top-paid App Store apps for simple jobs, like keeping track of subscriptions or reading a QR code, and makes a free alternative to each, one app a week. Every app does one thing and keeps six promises: no subscription, no in-app purchases, no account, no ads, no tracking, data stays on your device. If an app breaks one, it does not ship.',
+    maker: 'Who makes it',
+    makerText:
+      'Sbu is made by one person, Matteo Giuditta, in Italy. The apps are native SwiftUI and share one design system, Quaderno: the squared page, one figure per screen, the full stop as the only colour. The code of every app and of the site is public on GitHub.',
     facts: 'Facts',
     factRows: [
       ['Price', '€0 for every app, with no in-app purchases.'],
@@ -105,6 +111,10 @@ const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, 
       <div class="flex flex-col gap-2">
         <h2 class="text-caption uppercase text-ink-muted">{copy.paragraph}</h2>
         <p>{copy.paragraphText}</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h2 class="text-caption uppercase text-ink-muted">{copy.maker}</h2>
+        <p>{copy.makerText} <a href={REPO_URL}>{REPO_URL.replace('https://', '')}</a></p>
       </div>
     </section>
 

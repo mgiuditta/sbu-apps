@@ -1,7 +1,9 @@
 ---
 // Press kit: what Sbu is in one line and one paragraph, the facts, every app's icon and preview,
 // the logo and how to use it. Facts are computed from content, so they never go stale.
+import { getImage, Image } from 'astro:assets';
 import PageTitle from '../components/PageTitle.astro';
+import portrait from '../assets/press/matteo-giuditta.jpg';
 import Base from '../layouts/Base.astro';
 import logo from '../../../Design/logos/sbu-logo.svg?url';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
@@ -14,6 +16,8 @@ import type { Route } from '../lib/routes';
 type Props = Route & { view: 'press' };
 const { locale, path, alternates, apps, upcoming } = Astro.props;
 const t = ui[locale];
+// The portrait full size, for journalists: the page shows a small copy.
+const portraitFull = await getImage({ src: portrait, format: 'jpg', quality: 92 });
 const live = apps.filter((app) => app.status === 'live').length;
 const total = apps.length + upcoming.length;
 const copy = {
@@ -27,6 +31,9 @@ const copy = {
     paragraphText:
       'Sbu prende le app a pagamento più vendute dell’App Store per lavori semplici, come tenere d’occhio gli abbonamenti o leggere un codice QR, e per ognuna fa un’alternativa gratuita, un’app a settimana. Ogni app fa una cosa sola e rispetta sei promesse: nessun abbonamento, nessun acquisto in-app, nessun account, nessuna pubblicità, nessun tracking, dati solo sul dispositivo. Se un’app ne viola una, non esce.',
     maker: 'Chi lo fa',
+    portraitAlt: 'Matteo Giuditta, ritratto su sfondo grigio chiaro.',
+    portraitCredit: 'Foto: Matteo Giuditta. Libera per la stampa, con il credito.',
+    portraitDownload: 'Foto, JPG',
     makerText:
       'Sbu lo fa una persona sola, Matteo Giuditta, in Italia. Le app sono native in SwiftUI e condividono un unico design system, Quaderno: il foglio a quadretti, una cifra per schermata, il punto fermo come unico colore. Il codice di ogni app e del sito è pubblico su GitHub.',
     facts: 'Fatti',
@@ -61,6 +68,9 @@ const copy = {
     paragraphText:
       'Sbu takes the top-paid App Store apps for simple jobs, like keeping track of subscriptions or reading a QR code, and makes a free alternative to each, one app a week. Every app does one thing and keeps six promises: no subscription, no in-app purchases, no account, no ads, no tracking, data stays on your device. If an app breaks one, it does not ship.',
     maker: 'Who makes it',
+    portraitAlt: 'Matteo Giuditta, portrait on a light grey background.',
+    portraitCredit: 'Photo: Matteo Giuditta. Free to use in press, with the credit.',
+    portraitDownload: 'Photo, JPG',
     makerText:
       'Sbu is made by one person, Matteo Giuditta, in Italy. The apps are native SwiftUI and share one design system, Quaderno: the squared page, one figure per screen, the full stop as the only colour. The code of every app and of the site is public on GitHub.',
     facts: 'Facts',
@@ -114,6 +124,10 @@ const jsonLd = [breadcrumbs(Astro.site!, locale, [['sbu.dev', ''], [copy.title, 
       </div>
       <div class="flex flex-col gap-2">
         <h2 class="text-caption uppercase text-ink-muted">{copy.maker}</h2>
+        <figure class="flex flex-col items-start gap-2">
+          <Image src={portrait} alt={copy.portraitAlt} width={192} height={240} densities={[1, 2]} class="rounded-card" />
+          <figcaption class="text-footnote text-ink-muted">{copy.portraitCredit} <a href={portraitFull.src} download="matteo-giuditta.jpg">{copy.portraitDownload}</a></figcaption>
+        </figure>
         <p>{copy.makerText} <a href={REPO_URL}>{REPO_URL.replace('https://', '')}</a></p>
       </div>
     </section>

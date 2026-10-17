@@ -14,7 +14,7 @@ struct RootView: View {
     @State private var clock = Clock(fixed: Launch.isSnapshot ? Launch.snapshotNow : nil)
 
     var body: some View {
-        SbuAppShell("Sbu Meds", slug: "meds", accent: SbuTheme.accentMeds, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Meds", slug: "meds", accent: .meds, appIcon: Image(.appIconArtwork)) {
             TodayView()
         } settings: {
             ReminderSection(reminders: reminders)

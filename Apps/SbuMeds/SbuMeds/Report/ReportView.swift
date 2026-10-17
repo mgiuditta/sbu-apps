@@ -50,6 +50,8 @@ struct ReportView: View {
                         Toggle(isOn: inclusion(of: medicine.id)) {
                             Text(medicine.strength.isEmpty ? medicine.name : "\(medicine.name) · \(medicine.strength)")
                         }
+                        // A list to pick from: checkboxes, not switches.
+                        .toggleStyle(SbuCheckboxStyle())
                     }
                 } header: {
                     Text("Farmaci")
@@ -75,7 +77,7 @@ struct ReportView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Rapporto per il medico")
         .navigationBarTitleDisplayMode(.inline)
         .task(id: report) {
@@ -103,7 +105,7 @@ struct ReportView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
@@ -112,6 +114,6 @@ struct ReportView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
     .preferredColorScheme(.dark)
 }

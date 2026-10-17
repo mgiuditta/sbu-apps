@@ -67,13 +67,13 @@ struct ReminderSection: View {
     Form {
         ReminderSection(reminders: Reminders(defaults: UserDefaults(suiteName: "preview") ?? .standard, center: SilentReminderCenter()))
     }
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
     Form {
         ReminderSection(reminders: Reminders(defaults: UserDefaults(suiteName: "preview") ?? .standard, center: SilentReminderCenter()))
     }
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
     .preferredColorScheme(.dark)
 }

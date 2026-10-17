@@ -8,9 +8,9 @@ class MedsUITestCase: XCTestCase {
     }
 
     @MainActor
-    func launch(sample: Bool = false) -> XCUIApplication {
+    func launch(sample: Bool = false, arguments: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
+        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT"] + arguments
         app.launchArguments += sample ? ["-FASTLANE_SNAPSHOT", "YES"] : ["-SBU_EMPTY_STORE", "YES"]
         app.launch()
         return app
@@ -64,9 +64,10 @@ class MedsUITestCase: XCTestCase {
         app.buttons["saveMedicine"].tap()
     }
 
+    /// The figure: one element whose label starts with what it counts, then the count and the context.
     @MainActor
     func figure(_ app: XCUIApplication, startingWith prefix: String) -> XCUIElement {
-        app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", prefix)).firstMatch
+        app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", prefix)).firstMatch
     }
 
     /// Swipes up until `element` is there: lists are lazy and keep rows off screen unbuilt.

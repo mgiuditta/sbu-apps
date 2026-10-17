@@ -24,7 +24,7 @@ struct RefillSheet: View {
             }
             .listRowBackground(SbuTheme.surfaceRaised)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Ricarica")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -52,11 +52,11 @@ struct RefillSheet: View {
 
 #Preview("Light") {
     RefillSheet(form: .tablet) { _ in }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
     RefillSheet(form: .tablet) { _ in }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
         .preferredColorScheme(.dark)
 }

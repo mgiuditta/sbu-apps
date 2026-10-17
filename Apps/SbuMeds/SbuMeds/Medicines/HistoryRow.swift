@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// One entry of a medicine's history: when it was due, and taken at what time, skipped or missed.
+/// One entry of a medicine's history: when it was due, then the row marker (filled when taken) and
+/// taken at what time, skipped or missed.
 struct HistoryRow: View {
     let record: DoseRecordSnapshot
     let form: MedicineForm
@@ -13,15 +14,12 @@ struct HistoryRow: View {
             Text(record.key.date(in: calendar), format: .dateTime.weekday(.abbreviated).day().month(.abbreviated).year().hour().minute())
                 .font(SbuTheme.body)
                 .foregroundStyle(SbuTheme.ink)
-            HStack(alignment: .firstTextBaseline, spacing: SbuTheme.space1) {
-                Image(systemName: symbol)
-                    .fontWeight(.medium)
-                    .imageScale(.medium)
-                    .accessibilityHidden(true)
+            HStack(spacing: SbuTheme.space2) {
+                SbuRowMark(filled: record.mark == .taken)
                 text
             }
             .font(SbuTheme.footnote)
-            .foregroundStyle(color)
+            .foregroundStyle(record.mark == .taken ? SbuTheme.ink : SbuTheme.inkMuted)
         }
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("historyEntry")
@@ -36,23 +34,6 @@ struct HistoryRow: View {
         case .skipped: return Text("Saltata")
         case .missed: return Text("Non segnata")
         case .moved: return Text("Spostata")
-        }
-    }
-
-    private var symbol: String {
-        switch record.mark {
-        case .taken: "checkmark.circle.fill"
-        case .skipped: "minus.circle"
-        case .missed: "exclamationmark.circle"
-        case .moved: "clock.arrow.circlepath"
-        }
-    }
-
-    private var color: Color {
-        switch record.mark {
-        case .taken: SbuTheme.success
-        case .missed: SbuTheme.danger
-        case .skipped, .moved: SbuTheme.inkMuted
         }
     }
 }
@@ -77,6 +58,6 @@ private struct HistoryRowPreview: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

@@ -48,7 +48,7 @@ struct WeekStrip: View {
     }
 }
 
-/// One day of the strip: its weekday initial and its number, filled in the accent when picked.
+/// One day of the strip: its weekday initial and its number, filled in ink when picked.
 private struct DayButton: View {
     let day: Day
     let isSelected: Bool
@@ -66,11 +66,11 @@ private struct DayButton: View {
                 Text(date, format: .dateTime.day())
                     .font(SbuTheme.headline)
                     .monospacedDigit()
-                    .foregroundStyle(isSelected ? SbuTheme.onAccent : SbuTheme.ink)
+                    .foregroundStyle(isSelected ? SbuTheme.paper : SbuTheme.ink)
                     .frame(minWidth: SbuTheme.space8, minHeight: SbuTheme.space8)
                     .background {
                         if isSelected {
-                            Circle().fill(.tint)
+                            Circle().fill(SbuTheme.ink)
                         } else if isToday {
                             Circle().stroke(SbuTheme.line, lineWidth: SbuTheme.hairline)
                         }
@@ -104,7 +104,7 @@ private struct WeekStripPreview: View {
         WeekStrip(selection: $selection, today: Day(.now, calendar: .current))
             .padding(SbuTheme.space4)
             .frame(maxHeight: .infinity, alignment: .top)
-            .background(SbuTheme.surface)
-            .tint(SbuTheme.accentMeds)
+            .background(SbuTheme.paper)
+            .environment(\.sbuAccent, .meds)
     }
 }

@@ -54,9 +54,9 @@ private struct MedicineHistorySectionPreview: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
         }
         .modelContainer(.preview)
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

@@ -96,6 +96,6 @@ private struct DoseTimesSectionPreview: View {
         Form {
             DoseTimesSection(draft: $draft)
         }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

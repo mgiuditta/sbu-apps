@@ -60,12 +60,11 @@ struct MedicineView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(medicine.name)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Modifica", action: edit)
-                    .tint(SbuTheme.ink)
                     .accessibilityIdentifier("editMedicine")
             }
         }
@@ -80,7 +79,7 @@ struct MedicineView: View {
                 try? modelContext.save()
             }
         }
-        .sensoryFeedback(.success, trigger: takeCount)
+        .sbuAffectsFigure(takeCount)
     }
 
     /// As needed, the dose set for it; otherwise the first scheduled amount.
@@ -124,6 +123,6 @@ private struct MedicineViewPreview: View {
         }
         .modelContainer(.preview)
         .environment(Clock())
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

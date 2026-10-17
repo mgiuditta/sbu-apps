@@ -25,7 +25,7 @@ final class SnapshotTests: XCTestCase {
 
         app.navigationBars.buttons.firstMatch.tap()
         app.buttons["report"].tap()
-        XCTAssertTrue(app.buttons["sharePDF"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.descendants(matching: .any)["reportFigure"].waitForExistence(timeout: 10))
         snapshot("04-report")
 
         app.navigationBars.buttons.firstMatch.tap()

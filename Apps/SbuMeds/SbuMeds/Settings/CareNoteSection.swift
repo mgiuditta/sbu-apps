@@ -39,7 +39,7 @@ struct CareNoteSection: View {
         CareNoteSection()
     }
     .scrollContentBackground(.hidden)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
@@ -47,6 +47,6 @@ struct CareNoteSection: View {
         CareNoteSection()
     }
     .scrollContentBackground(.hidden)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
     .preferredColorScheme(.dark)
 }

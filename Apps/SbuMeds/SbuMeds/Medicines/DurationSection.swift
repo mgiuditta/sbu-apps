@@ -47,6 +47,6 @@ private struct DurationSectionPreview: View {
         Form {
             DurationSection(draft: $draft)
         }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

@@ -53,7 +53,7 @@ private struct AsNeededSectionPreview: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentMeds)
+        .background(SbuTheme.paper)
+        .environment(\.sbuAccent, .meds)
     }
 }

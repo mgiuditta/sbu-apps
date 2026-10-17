@@ -42,7 +42,7 @@ struct DoseSheet: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(medicine.name)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -115,6 +115,6 @@ private struct DoseSheetPreview: View {
         }
         .modelContainer(.preview)
         .environment(Clock())
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

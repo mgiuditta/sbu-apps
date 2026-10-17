@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The days of the week, in the calendar's order, each switched on or off.
+/// The days of the week, in the calendar's order, each checked or not.
 struct WeekdayPicker: View {
     @Binding var selection: Set<Int>
 
@@ -10,6 +10,7 @@ struct WeekdayPicker: View {
     var body: some View {
         ForEach(weekdays, id: \.self) { weekday in
             Toggle(calendar.weekdaySymbols[weekday - 1].capitalized(with: calendar.locale), isOn: binding(for: weekday))
+                .toggleStyle(SbuCheckboxStyle())
         }
     }
 
@@ -43,6 +44,6 @@ private struct WeekdayPickerPreview: View {
         Form {
             WeekdayPicker(selection: $selection)
         }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

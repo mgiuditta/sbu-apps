@@ -23,7 +23,7 @@ struct MedicineHistoryView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Storico")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -48,6 +48,6 @@ private struct MedicineHistoryViewPreview: View {
             }
         }
         .modelContainer(.preview)
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

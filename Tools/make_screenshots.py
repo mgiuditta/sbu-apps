@@ -28,7 +28,7 @@ import webbrowser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageChops
 
 ROOT = Path(__file__).resolve().parent.parent
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -124,16 +124,31 @@ def serve():
     return f"http://127.0.0.1:{server.server_port}/Tools/screenshots/store.html"
 
 
-def render(url, out):
+def shoot(url, out):
     # ponytail: headless Chrome sometimes leaves the bottom ~70px of the window unpainted when the
     # 3D phones are heavy, so render a taller window and keep the top SIZE.
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
-                    f"--window-size={SIZE[0]},{SIZE[1] + 200}", "--virtual-time-budget=5000", f"--screenshot={out}", url],
+                    "--run-all-compositor-stages-before-draw",
+                    f"--window-size={SIZE[0]},{SIZE[1] + 200}", "--virtual-time-budget=20000", f"--screenshot={out}", url],
                    check=True, capture_output=True)
     with Image.open(out) as image:
         if image.size != (SIZE[0], SIZE[1] + 200):
             sys.exit(f"{out}: {image.size}, expected {SIZE[0]}×{SIZE[1] + 200}")
-        image.crop((0, 0) + SIZE).convert("RGB").save(out)  # App Store Connect rejects alpha
+        return image.crop((0, 0) + SIZE).convert("RGB")  # App Store Connect rejects alpha
+
+
+def render(url, out):
+    """Headless Chrome now and then skips tiles of the tilted phones, never the same way twice:
+    a slice is kept once two renders in a row agree."""
+    previous = shoot(url, out)
+    for _ in range(5):
+        image = shoot(url, out)
+        if ImageChops.difference(image, previous).getbbox() is None:
+            break
+        previous = image
+    else:
+        print(f"warning: {out.name} never rendered the same twice, check it by eye")
+    image.save(out)
 
 
 def main():

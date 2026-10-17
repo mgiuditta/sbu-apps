@@ -64,9 +64,14 @@
   .device .bezel { inset: 0; width: 100%; height: 100%; }
   /* Screen and bezel share one flat layer: as two coplanar 3D planes Chrome let the screen win. */
   .face { position: absolute; inset: 0; }
+  /* Tilted phones only: the flat last one has no side to show, and as a 3D stack headless Chrome
+     left most of its screen unpainted. */
+  .l .face, .r .face { transform: translateZ(1px); }
   .device .side { filter: brightness(.82); }
 
-  .engraving { position: absolute; top: 640px; width: 2200px; height: 2200px; background: var(--ink); opacity: .9; }
+  /* The engraving mask is white ink: brightness(0) turns it to ink. A CSS mask on a 2200px ink
+     square left whole black tiles when headless Chrome painted before applying it. */
+  .engraving { position: absolute; top: 640px; width: 2200px; height: 2200px; object-fit: contain; filter: brightness(0); opacity: .9; }
   .cover { position: absolute; top: 0; width: 1320px; height: 2868px; background: var(--brand); }
   .mark { position: absolute; top: 1146px; width: 576px; } /* 576px tile = 360px wordmark */
 </style>
@@ -99,13 +104,12 @@
   // A slice is not a whole number of cells: each title starts on the first vertical line past 120px.
   const cell = parseFloat(app.tokens["grid-cell"]), offset = parseFloat(app.tokens["grid-offset"]);
   const margin = i => offset + cell * Math.ceil((i * W + 120 - offset) / cell);
-  const mask = `url('${app.engraving}') center / contain no-repeat`;
   const pano = `
-    <div class="engraving" style="left:${W - 1100}px;-webkit-mask:${mask};mask:${mask}"></div>
+    <img class="engraving" src="${app.engraving}" alt="" style="left:${W - 1100}px">
     ${app.shots.map((s, i) => {
       const p = phone(i);
       return `${i === 0 ? `<p class="c" style="left:${margin(0)}px">${esc(app.cartiglio)}</p>` : ""}<p class="t" style="left:${margin(i)}px">${esc(s.title)}${i === n - 1 ? '<span class="stop"></span>' : ""}${s.subtitle ? `<small>${esc(s.subtitle)}</small>` : ""}</p>
-        <div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px"><div class="device">${side(p.w)}<div class="face"><img class="screen" src="${s.image}" alt=""><img class="bezel" src="${BEZEL}" alt=""></div></div></div>`;
+        <div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px"><div class="device">${p.tilt ? side(p.w) : ""}<div class="face"><img class="screen" src="${s.image}" alt=""><img class="bezel" src="${BEZEL}" alt=""></div></div></div>`;
     }).join("")}
     <div class="cover" style="left:${n * W}px"></div>
     <img class="mark" src="../../Design/logos/sbu-mark.svg" alt="sbu" style="left:${n * W + 372}px">`;

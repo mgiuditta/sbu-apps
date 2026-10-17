@@ -1,19 +1,15 @@
 import SbuKit
 import SwiftUI
 
-/// The check and the count, as in the original: "5 video compressi e salvati in Foto".
+/// The row mark and the count, as in the original: "5 video compressi e salvati in Foto".
 struct DoneHeader: View {
     let summary: BatchSummary
     let access: LibraryAccess
 
     var body: some View {
-        VStack(alignment: .leading, spacing: SbuTheme.space2) {
-            Image(systemName: summary.compressed > 0 ? "checkmark.circle.fill" : "exclamationmark.triangle")
-                .font(SbuTheme.largeTitle)
-                .fontWeight(.medium)
-                .imageScale(.medium)
-                .foregroundStyle(summary.compressed > 0 ? SbuTheme.success : SbuTheme.warning)
-                .accessibilityHidden(true)
+        HStack(spacing: SbuTheme.space2) {
+            // Filled when something got lighter, empty when nothing did: the words say which.
+            SbuRowMark(filled: summary.compressed > 0)
 
             Text(message)
                 .font(SbuTheme.headline)
@@ -21,8 +17,6 @@ struct DoneHeader: View {
                 .accessibilityAddTraits(.isHeader)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        // In line with the figure's caption inside its card.
-        .padding(.horizontal, SbuTheme.space4)
     }
 
     private var message: LocalizedStringKey {

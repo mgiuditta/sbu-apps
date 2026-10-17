@@ -151,12 +151,12 @@
         }
       }
     },
-    "Avanzamento": {
+    "Avanzamento, %@, %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Progress"
+            "value": "Progress, %@, %@"
           }
         }
       }
@@ -211,16 +211,6 @@
         }
       }
     },
-    "Comprimi i tuoi video": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compress your videos"
-          }
-        }
-      }
-    },
     "Con la dimensione massima la qualità si regola da sola.": {
       "localizations": {
         "en": {
@@ -271,12 +261,12 @@
         }
       }
     },
-    "Dimensione stimata": {
+    "Dimensione stimata, %@, %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Estimated size"
+            "value": "Estimated size, %@, %@"
           }
         }
       }
@@ -717,6 +707,26 @@
         }
       }
     },
+    "Ridotto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shrunk"
+          }
+        }
+      }
+    },
+    "Riduci": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shrink"
+          }
+        }
+      }
+    },
     "Riduci le dimensioni del video per risparmiare ancora più spazio. Ti consigliamo l'80%.": {
       "localizations": {
         "en": {
@@ -747,12 +757,12 @@
         }
       }
     },
-    "Risparmio": {
+    "Risparmio, %@, %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Savings"
+            "value": "Savings, %@, %@"
           }
         }
       }
@@ -770,6 +780,16 @@
     "Sbu Shrink": {
       "shouldTranslate": false
     },
+    "Sbu · Riduci · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu · Shrink · %@"
+          }
+        }
+      }
+    },
     "Scegli da Foto": {
       "localizations": {
         "en": {
@@ -780,12 +800,12 @@
         }
       }
     },
-    "Scegli uno o più video: diventano più leggeri e liberi spazio sull'iPhone. Tutto resta sul telefono.": {
+    "Scegli uno o più video: diventano più leggeri e liberano spazio sull'iPhone.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose one or more videos: they get lighter and free up space on your iPhone. Everything stays on the phone."
+            "value": "Choose one or more videos: they get lighter and free up space on your iPhone."
           }
         }
       }
@@ -856,6 +876,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove audio"
+          }
+        }
+      }
+    },
+    "Tutto resta sul telefono.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Everything stays on your phone."
           }
         }
       }

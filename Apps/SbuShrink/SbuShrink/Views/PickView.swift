@@ -1,60 +1,61 @@
 import SbuKit
 import SwiftUI
 
-/// The empty start: what the app does in one line, and where the videos come from.
+/// The empty start: the title, the empty figure with what the app does, and where the videos
+/// come from, on the grid paper. Photos opens the system picker, which asks for no permission.
+///
+/// In a scroll view at least as tall as the screen, so the largest text sizes scroll instead of
+/// clipping, and the grid scrolls with the figure.
 struct PickView: View {
     let pickPhotos: () -> Void
     let pickFiles: () -> Void
 
+    /// The metadata line under the title: the app and today's date.
+    private var cartiglio: String {
+        String(localized: "Sbu · Riduci · \(Date.now.formatted(.dateTime.weekday(.abbreviated).day().month(.abbreviated)))")
+    }
+
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
-                VStack(spacing: SbuTheme.space4) {
-                    Image(systemName: "film.stack")
-                        .font(SbuTheme.largeTitle)
-                        .fontWeight(.medium)
-                        .imageScale(.medium)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                        .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: SbuTheme.space6) {
+                    SbuScreenTitle("Riduci", cartiglio: cartiglio)
 
-                    Text("Comprimi i tuoi video")
-                        .font(SbuTheme.title2)
-                        .foregroundStyle(SbuTheme.ink)
-                        .accessibilityAddTraits(.isHeader)
+                    SbuEmpty(sentence: "Scegli uno o più video: diventano più leggeri e liberano spazio sull'iPhone.") {
+                        VStack(spacing: SbuTheme.space3) {
+                            SbuButton("Scegli da Foto", action: pickPhotos)
+                            SbuButton("Importa da File", kind: .secondary, action: pickFiles)
+                        }
+                    }
 
-                    Text("Scegli uno o più video: diventano più leggeri e liberi spazio sull'iPhone. Tutto resta sul telefono.")
-                        .font(SbuTheme.body)
+                    Text("Tutto resta sul telefono.")
+                        .font(SbuTheme.footnote)
                         .foregroundStyle(SbuTheme.inkMuted)
                 }
-                .multilineTextAlignment(.center)
                 .padding(.horizontal, SbuTheme.space4)
-                .padding(.vertical, SbuTheme.space12)
-                // Centred on the free space; it scrolls only when the text grows past it.
-                .frame(maxWidth: .infinity, minHeight: proxy.size.height)
+                .padding(.top, SbuTheme.space4)
+                .padding(.bottom, SbuTheme.space8)
+                .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .top)
+                // Inside the scroll, so the grid and the figure's baseline move together.
+                .sbuPaper(grid: true)
             }
             .scrollBounceBehavior(.basedOnSize)
         }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            VStack(spacing: SbuTheme.space3) {
-                SbuButton("Scegli da Foto", action: pickPhotos)
-                SbuButton("Importa da File", kind: .secondary, action: pickFiles)
-            }
-            .padding(.horizontal, SbuTheme.space4)
-            .padding(.vertical, SbuTheme.space3)
-            .background(SbuTheme.surface)
-        }
+        .background(SbuTheme.paper)
     }
 }
 
 #Preview("Light") {
-    PickView(pickPhotos: {}, pickFiles: {})
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentShrink)
+    NavigationStack {
+        PickView(pickPhotos: {}, pickFiles: {})
+    }
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
-    PickView(pickPhotos: {}, pickFiles: {})
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentShrink)
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        PickView(pickPhotos: {}, pickFiles: {})
+    }
+    .tint(SbuTheme.ink)
+    .preferredColorScheme(.dark)
 }

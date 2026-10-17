@@ -12,7 +12,7 @@ struct CompressionSettingsScreen: View {
         List {
             Section {
                 EstimateStat(model: model)
-                    .listRowInsets(EdgeInsets())
+                    .listRowInsets(EdgeInsets(top: SbuTheme.space2, leading: SbuTheme.space4, bottom: SbuTheme.space2, trailing: SbuTheme.space4))
                     .listRowBackground(Color.clear)
             }
 
@@ -54,7 +54,7 @@ struct CompressionSettingsScreen: View {
         .listSectionSpacing(.compact)
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.interactively)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Compressione")
         .navigationBarTitleDisplayMode(.inline)
         .bottomAction {
@@ -68,13 +68,13 @@ struct CompressionSettingsScreen: View {
     NavigationStack {
         CompressionSettingsScreen(model: .preview(videos: 5))
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         CompressionSettingsScreen(model: .preview(videos: 5, scenario: "mixed"))
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

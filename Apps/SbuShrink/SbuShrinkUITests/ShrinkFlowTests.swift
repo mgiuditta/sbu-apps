@@ -12,10 +12,13 @@ final class ShrinkFlowTests: XCTestCase {
     private static let screenExclusions: XCUIAccessibilityAuditType = [.contrast]
 
     @MainActor
-    private func launch(_ arguments: [String] = []) -> XCUIApplication {
+    private func launch(_ arguments: [String] = [], contentSize: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-Demo", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launchArguments += arguments
+        if let contentSize {
+            app.launchArguments += ["-UIPreferredContentSizeCategoryName", contentSize]
+        }
         app.launch()
         return app
     }
@@ -23,6 +26,7 @@ final class ShrinkFlowTests: XCTestCase {
     @MainActor
     private func audit(_ app: XCUIApplication, excluding excluded: XCUIAccessibilityAuditType = screenExclusions) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(excluded)) { issue in
+            guard Self.isSbuKitGridType(issue) == false else { return true }
             // Text with no element at all is the list scrolled under the iOS 26 glass bar, which
             // redraws it blurred: the audit reads that copy, never the real rows.
             if issue.element == nil, issue.auditType == .dynamicType || issue.auditType == .textClipped || issue.compactDescription.hasPrefix("Potentially inaccessible text") {
@@ -42,6 +46,22 @@ final class ShrinkFlowTests: XCTestCase {
         }
     }
 
+    /// SbuKit's figure keeps its grid-snapped size at every text size, by design, and the
+    /// cartiglio's tracking reads as clipping though every letter shows: only those two. The
+    /// figure is matched by its label or by its value alone ("200,1 MB", "37%"), as the audit
+    /// reports the value's text inside it.
+    private static func isSbuKitGridType(_ issue: XCUIAccessibilityAuditIssue) -> Bool {
+        guard let label = issue.element?.label else { return false }
+        let isCartiglio = label.hasPrefix("SBU ·")
+        let isFigure = ["Dimensione stimata,", "Avanzamento,", "Risparmio,"].contains { label.hasPrefix($0) }
+            || label.range(of: #"^[0-9.,]+\s?(kB|MB|GB|%)$"#, options: .regularExpression) != nil
+        switch issue.auditType {
+        case .dynamicType: return isCartiglio || isFigure
+        case .textClipped: return isCartiglio
+        default: return false
+        }
+    }
+
     private static let footers = ["Video", "Più fotogrammi", "Riduci le dimensioni", "Più qualità", "Con la dimensione", "H.264", "HEVC", "Lettura", "Non leggibili", "MP4 si carica", "Ogni video", "Per alcuni video", "I video ci stanno"]
 
     @MainActor
@@ -54,7 +74,7 @@ final class ShrinkFlowTests: XCTestCase {
 
     @MainActor
     private func estimate(_ app: XCUIApplication) -> XCUIElement {
-        app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Dimensione stimata'")).firstMatch
+        app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Dimensione stimata'")).firstMatch
     }
 
     @MainActor
@@ -81,9 +101,17 @@ final class ShrinkFlowTests: XCTestCase {
         let app = launch()
         XCTAssertTrue(app.buttons["Scegli da Foto"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Importa da File"].exists)
-        XCTAssertTrue(app.staticTexts["Comprimi i tuoi video"].exists)
+        XCTAssertTrue(app.staticTexts["Riduci"].exists)
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'SBU · RIDUCI ·'")).firstMatch.exists)
         keepScreenshot(app, "pick")
         try audit(app)
+
+        // At the largest accessibility size the empty start scrolls and both ways in stay there.
+        app.terminate()
+        let large = launch(contentSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        XCTAssertTrue(large.buttons["Scegli da Foto"].waitForExistence(timeout: 5))
+        keepScreenshot(large, "pick-ax5")
+        try audit(large)
     }
 
     // MARK: - Settings
@@ -129,6 +157,8 @@ final class ShrinkFlowTests: XCTestCase {
         XCTAssertTrue(estimate(app).waitForExistence(timeout: 5))
         let advanced = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Avanzate'")).firstMatch
         XCTAssertTrue(advanced.label.contains("H.264"), advanced.label)
+        // The figure fills the top: the row sits under Comprimi until the list scrolls.
+        estimate(app).swipeUp()
         advanced.tap()
 
         XCTAssertTrue(app.navigationBars["Avanzate"].waitForExistence(timeout: 5))
@@ -138,7 +168,7 @@ final class ShrinkFlowTests: XCTestCase {
         XCTAssertTrue(app.switches["Togli l'audio"].exists)
         XCTAssertTrue(app.buttons["Codec"].exists || app.staticTexts["Codec"].exists)
 
-        target.switches.firstMatch.tap()
+        target.tap()
         XCTAssertTrue(app.textFields["MB per video"].waitForExistence(timeout: 5))
         XCTAssertEqual(app.textFields["MB per video"].value as? String, "25")
         keepScreenshot(app, "advanced")
@@ -167,7 +197,7 @@ final class ShrinkFlowTests: XCTestCase {
         compress(app)
 
         XCTAssertTrue(app.navigationBars["Compressione dei video"].waitForExistence(timeout: 5))
-        let progress = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Avanzamento'")).firstMatch
+        let progress = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Avanzamento'")).firstMatch
         XCTAssertTrue(progress.waitForExistence(timeout: 5))
         XCTAssertTrue(progress.label.contains("Video 1 di 5"), progress.label)
         XCTAssertEqual(app.descendants(matching: .any).matching(identifier: "job").count, 5)
@@ -180,11 +210,13 @@ final class ShrinkFlowTests: XCTestCase {
     func testTheResultSaysHowManyAndKeepsTheOriginals() throws {
         let app = launch(["-DemoVideos", "5"])
         compress(app)
+        // The result opens on the Closure over the savings, then the figure comes back.
+        XCTAssertTrue(app.descendants(matching: .any)["Ridotto"].waitForExistence(timeout: 20))
         waitForDone(app)
 
         XCTAssertTrue(app.staticTexts["5 video compressi e salvati in Foto"].exists)
-        let savings = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Risparmio'")).firstMatch
-        XCTAssertTrue(savings.exists)
+        let savings = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Risparmio'")).firstMatch
+        XCTAssertTrue(savings.waitForExistence(timeout: 5))
         XCTAssertTrue(savings.label.contains("in meno"), savings.label)
         XCTAssertTrue(app.staticTexts["Cosa vuoi fare con i video originali?"].exists)
         XCTAssertTrue(app.buttons["Elimina originali"].exists)
@@ -207,7 +239,7 @@ final class ShrinkFlowTests: XCTestCase {
         XCTAssertTrue(confirm.waitForExistence(timeout: 5))
         confirm.tap()
 
-        let done = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Originali eliminati: 3'")).firstMatch
+        let done = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Originali eliminati: 3'")).firstMatch
         XCTAssertTrue(done.waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["Elimina originali"].exists)
         try audit(app)
@@ -220,13 +252,13 @@ final class ShrinkFlowTests: XCTestCase {
     func testInterruptingBeforeAnythingIsDoneGoesBackToTheSettings() throws {
         let app = launch(["-DemoVideos", "2", "-DemoSpeed", "slow"])
         compress(app)
+        // Taps without polling first: the first demo video takes 4 s, and it must not finish.
         let interrupt = app.buttons["Interrompi"]
-        XCTAssertTrue(interrupt.waitForExistence(timeout: 5))
         interrupt.tap()
-        let confirm = app.sheets.buttons["Interrompi"].firstMatch
-        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
-        confirm.tap()
+        app.sheets.buttons["Interrompi"].firstMatch.tap()
 
+        // The settings stay under the run: wait for the run to go before reading them.
+        XCTAssertTrue(interrupt.waitForNonExistence(timeout: 5))
         XCTAssertTrue(estimate(app).waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Comprimi"].isEnabled)
     }
@@ -282,7 +314,7 @@ final class ShrinkFlowTests: XCTestCase {
         keepScreenshot(app, "settings-sheet")
         try audit(app, excluding: Self.sheetExclusions)
 
-        album.switches.firstMatch.tap()
+        album.tap()
         XCTAssertEqual(album.value as? String, "0")
         let licenses = app.buttons["Licenze"]
         for _ in 0..<5 where !licenses.isHittable {

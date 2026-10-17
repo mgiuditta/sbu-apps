@@ -35,13 +35,13 @@ struct CompressionPreferencesSection: View {
     List {
         CompressionPreferencesSection(model: .preview())
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     List {
         CompressionPreferencesSection(model: .preview())
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

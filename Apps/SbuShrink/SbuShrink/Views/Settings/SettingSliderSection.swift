@@ -31,6 +31,8 @@ struct SettingSliderSection: View {
                 }
                 .accessibilityValue(valueText)
                 .accessibilityAdjustableAction(adjust)
+                // Every step moves the estimate above: a tick and a beat of its full stop.
+                .sbuAffectsFigure(value)
             }
             .listRowBackground(SbuTheme.surfaceRaised)
         } footer: {
@@ -62,7 +64,7 @@ struct SettingSliderSection: View {
     List {
         SettingSliderSection(title: "Dimensioni", value: $value, range: 10...100, step: 5, valueText: Text("\(value)%"), hint: "Ti consigliamo l'80%.")
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -70,6 +72,6 @@ struct SettingSliderSection: View {
     List {
         SettingSliderSection(title: "Frame rate", value: $value, range: 10...60, step: 1, valueText: Text("\(value) fps"), hint: "Ti consigliamo di non scendere sotto 24.")
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

@@ -51,7 +51,7 @@ struct AdvancedScreen: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.interactively)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Avanzate")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -87,7 +87,7 @@ struct AdvancedScreen: View {
     NavigationStack {
         AdvancedScreen(settings: $settings, targetFit: .fits)
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -95,6 +95,6 @@ struct AdvancedScreen: View {
     NavigationStack {
         AdvancedScreen(settings: $settings, targetFit: .tooSmall)
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

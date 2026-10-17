@@ -21,7 +21,6 @@ struct JobRow: View {
             }
 
             ProgressView(value: job.state.fraction)
-                .tint(job.state == .failed ? SbuTheme.danger : nil)
                 .accessibilityHidden(true)
         }
         .padding(.vertical, SbuTheme.space1)
@@ -61,6 +60,6 @@ private struct JobRowPreview: View {
             JobRow(job: VideoJob(assetID: nil, name: "IMG_BROKEN.MOV", source: source, state: .failed))
             JobRow(job: VideoJob(assetID: nil, name: "IMG_2210.MOV", source: source, state: .cancelled))
         }
-        .tint(SbuTheme.accentShrink)
+        .tint(SbuTheme.ink)
     }
 }

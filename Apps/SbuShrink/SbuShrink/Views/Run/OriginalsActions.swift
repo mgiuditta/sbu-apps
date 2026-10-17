@@ -28,12 +28,12 @@ struct OriginalsActions: View {
 #Preview("Light") {
     OriginalsActions(model: .preview(), count: 5)
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentShrink)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     OriginalsActions(model: .preview(), count: 0)
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentShrink)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

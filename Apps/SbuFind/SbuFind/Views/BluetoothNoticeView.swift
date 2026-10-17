@@ -8,9 +8,9 @@ struct BluetoothNoticeView: View {
     let notice: BluetoothNotice
 
     var body: some View {
-        NoticeView(title: notice.title, message: notice.message, systemImage: notice.systemImage) {
+        NoticeView(title: notice.title, message: notice.message) {
             if notice.opensSettings {
-                SbuButton("Apri Impostazioni", action: openSettings)
+                Button("Apri Impostazioni", action: openSettings)
             }
         }
     }
@@ -24,9 +24,11 @@ struct BluetoothNoticeView: View {
 
 #Preview("Light") {
     BluetoothNotice(state: .denied).map(BluetoothNoticeView.init)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
-    BluetoothNotice(state: .poweredOff).map(BluetoothNoticeView.init)
+    BluetoothNotice(state: .restricted).map(BluetoothNoticeView.init)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

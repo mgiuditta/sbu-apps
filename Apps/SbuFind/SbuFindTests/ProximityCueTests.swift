@@ -23,18 +23,6 @@ struct ProximityCueTests {
         }
     }
 
-    @Test(arguments: [(0, 0.35), (100, 1.0)])
-    func intensityGrowsToFull(value: Int, intensity: Double) {
-        #expect(abs(ProximityCue.intensity(for: Proximity(value: value)) - intensity) < 0.0001)
-    }
-
-    @Test func intensityStaysInRange() {
-        for value in 0...100 {
-            let intensity = ProximityCue.intensity(for: Proximity(value: value))
-            #expect((ProximityCue.softest...1).contains(intensity))
-        }
-    }
-
     private func tracked(silence: TimeInterval) -> TrackedDevice {
         TrackedDevice(
             device: NearbyDevice(id: Advertisement.testID(1), name: "Buds", kind: .earbuds, signal: -60, lastSeen: Advertisement.start),

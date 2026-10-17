@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// One nearby device, as in Find Air: its symbol inside a ring filled to the signal, its name,
-/// and the signal as a percentage under it. VoiceOver also hears the kind and the word.
+/// One nearby device: its symbol, its name, and the signal as a percentage under it. VoiceOver
+/// also hears the kind and the word.
 struct DeviceRow: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -12,14 +12,14 @@ struct DeviceRow: View {
     /// Recognised only by the name it advertises: probably yours, not for sure.
     var isProbable = false
 
-    @ScaledMetric(relativeTo: .headline) private var ringSide = SbuTheme.controlRound
+    @ScaledMetric(relativeTo: .headline) private var symbolSide = SbuTheme.controlRoundXs
 
     var body: some View {
         HStack(spacing: SbuTheme.space4) {
             // At the accessibility sizes the name gets the whole width.
             if !dynamicTypeSize.isAccessibilitySize {
-                SignalRing(proximity: device.proximity, systemImage: device.kind.systemImage)
-                    .frame(width: ringSide, height: ringSide)
+                DeviceSymbol(systemImage: device.kind.systemImage)
+                    .frame(width: symbolSide, height: symbolSide)
             }
 
             VStack(alignment: .leading, spacing: SbuTheme.space1) {
@@ -67,7 +67,7 @@ private struct DeviceRowPreview: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFind)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

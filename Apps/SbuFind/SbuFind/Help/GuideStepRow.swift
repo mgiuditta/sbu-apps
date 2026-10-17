@@ -32,13 +32,13 @@ struct GuideStepRow: View {
     List {
         GuideStepRow(number: 1, step: AirPodGuide.steps[0])
     }
-    .tint(SbuTheme.accentFind)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     List {
         GuideStepRow(number: 2, step: AirPodGuide.steps[1])
     }
-    .tint(SbuTheme.accentFind)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

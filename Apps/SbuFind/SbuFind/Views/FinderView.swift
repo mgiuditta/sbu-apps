@@ -1,18 +1,21 @@
 import SbuKit
 import SwiftUI
 
-/// The search for one device, as in Find Air: the name as a large title, a hint to move,
-/// Avvisami se lo perdi, a large ring around the device's symbol, and the signal as the one
-/// figure under it.
+/// The search for one device, as in Find Air: the name as a large title, a hint to move, the
+/// signal as the one figure on the grid, and Avvisami se lo perdi under it.
 ///
-/// It celebrates the "found it" moment with a strong tap and a pop of the ring, and ticks faster
-/// as the device gets closer.
+/// It ticks faster as the device gets closer. The first "found it" moment of a search closes with
+/// "Trovato"; from then on the full stop is set while the device stays in reach.
 struct FinderView: View {
     let model: ScanModel
     let ringer: HeadphoneRinger
     let deviceID: UUID
 
-    @State private var ticker = ProximityTicker()
+    /// Goes up by one at each vibrating tick: the `tick` haptic follows it.
+    @State private var ticks = 0
+    @State private var isClosing = false
+    /// The Closure plays once per search, not again when the device comes back in reach.
+    @State private var hasClosed = false
 
     /// Your name for the device if it is one of yours, else the one it advertises.
     private var title: String {
@@ -32,7 +35,7 @@ struct FinderView: View {
         // largest text sizes.
         GeometryReader { proxy in
             ScrollView {
-                VStack(spacing: SbuTheme.space6) {
+                VStack(alignment: .leading, spacing: SbuTheme.space6) {
                     Text("Muoviti per far crescere il segnale")
                         .font(SbuTheme.body)
                         .foregroundStyle(SbuTheme.inkMuted)
@@ -45,12 +48,10 @@ struct FinderView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
 
+                    FinderFigure(tracked: model.tracked, isFound: model.isFound)
+                        .sbuClosure($isClosing, word: "Trovato", playsHaptic: model.vibrates)
+
                     LostAlertRow(model: model, deviceID: deviceID)
-
-                    FinderRing(tracked: model.tracked, foundMoments: model.foundMoments)
-                        .frame(maxWidth: min(proxy.size.width * 0.66, 280))
-
-                    FinderFigure(tracked: model.tracked)
 
                     // Only while the device is not heard: then the place is where to go back to.
                     if let tracked = model.tracked, tracked.isLost, let sighting = model.sighting(for: tracked.device) {
@@ -78,14 +79,18 @@ struct FinderView: View {
                     PillsLayout(spacing: SbuTheme.space2) {
                         FeedbackPills(model: model)
                     }
+                    .frame(maxWidth: .infinity)
                 }
                 .padding(.horizontal, SbuTheme.space4)
+                .padding(.top, SbuTheme.space4)
                 .padding(.bottom, SbuTheme.space8)
                 .frame(minHeight: proxy.size.height, alignment: .top)
+                // The grid scrolls with the figure, so the figure stays on its line.
+                .sbuPaper(grid: true)
             }
             .scrollBounceBehavior(.basedOnSize)
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text(verbatim: title))
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
@@ -100,8 +105,8 @@ struct FinderView: View {
                 BluetoothNoticeView(notice: notice)
             }
         }
-        .sensoryFeedback(.success, trigger: model.foundMoments)
-        .sensoryFeedback(.warning, trigger: model.lostAlerts)
+        .sbuHaptic(.tick, trigger: ticks)
+        .onChange(of: model.foundMoments, close)
         .onAppear(perform: startTracking)
         .onDisappear(perform: leave)
         .task {
@@ -113,6 +118,12 @@ struct FinderView: View {
         model.track(deviceID)
     }
 
+    private func close() {
+        guard !hasClosed, model.foundMoments > 0 else { return }
+        hasClosed = true
+        isClosing = true
+    }
+
     /// Leaving the finder stops following the device and any ringing.
     private func leave() {
         model.stopTracking()
@@ -122,12 +133,16 @@ struct FinderView: View {
     /// Ticks with the latest proximity, waiting the gap it gives; checks again often while
     /// silent or switched off, so a switch turned on starts ticking at once.
     private func tickUntilCancelled() async {
-        ticker.prepare()
         while !Task.isCancelled {
             var gap = ProximityCue.slowest / 5
             if ProximityCue.shouldTick(tracked: model.tracked, playsSound: model.playsSound, vibrates: model.vibrates),
                let proximity = model.tracked?.device.proximity {
-                ticker.tick(proximity: proximity, playsSound: model.playsSound, vibrates: model.vibrates)
+                if model.playsSound {
+                    ProximityTicker.playSound()
+                }
+                if model.vibrates {
+                    ticks += 1
+                }
                 gap = ProximityCue.interval(for: proximity)
             }
             try? await Task.sleep(for: gap)
@@ -153,6 +168,7 @@ private struct FinderPreview: View {
             FinderView(model: model, ringer: ringer, deviceID: FixedScanner.demoDevices[0].id)
                 .task { await model.run() }
         }
-        .tint(SbuTheme.accentFind)
+        .tint(SbuTheme.ink)
+        .environment(\.sbuAccent, .find)
     }
 }

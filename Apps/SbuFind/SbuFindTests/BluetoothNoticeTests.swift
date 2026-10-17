@@ -12,7 +12,6 @@ struct BluetoothNoticeTests {
         let notice = try #require(BluetoothNotice(state: state))
         #expect(!String(localized: notice.title).isEmpty)
         #expect(!String(localized: notice.message).isEmpty)
-        #expect(!notice.systemImage.isEmpty)
     }
 
     @Test(arguments: [

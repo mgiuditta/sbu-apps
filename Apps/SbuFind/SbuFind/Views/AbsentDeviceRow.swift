@@ -1,21 +1,20 @@
 import SbuKit
 import SwiftUI
 
-/// One of your devices that is not heard now: its symbol dimmed, your name for it, and
+/// One of your devices that is not heard now: its symbol, your name for it, and
 /// "Non nelle vicinanze".
 struct AbsentDeviceRow: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let saved: SavedDevice
 
-    @ScaledMetric(relativeTo: .headline) private var ringSide = SbuTheme.controlRound
+    @ScaledMetric(relativeTo: .headline) private var symbolSide = SbuTheme.controlRoundXs
 
     var body: some View {
         HStack(spacing: SbuTheme.space4) {
             if !dynamicTypeSize.isAccessibilitySize {
-                SignalRing(proximity: Proximity(value: 0), systemImage: saved.kind.systemImage)
-                    .frame(width: ringSide, height: ringSide)
-                    .opacity(0.4)
+                DeviceSymbol(systemImage: saved.kind.systemImage)
+                    .frame(width: symbolSide, height: symbolSide)
             }
 
             VStack(alignment: .leading, spacing: SbuTheme.space1) {

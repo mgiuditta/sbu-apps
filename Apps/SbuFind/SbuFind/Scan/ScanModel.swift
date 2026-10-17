@@ -31,12 +31,14 @@ final class ScanModel {
     /// In the first seconds of a scan: the list says it is searching, not that nothing is near.
     private(set) var isSettling = false
     @ObservationIgnored private var scanWindow = ScanWindow()
-    /// Goes up by one at each "found it" moment on the finder: the screen celebrates each change.
+    /// Goes up by one at each "found it" moment on the finder: the screen closes on the first one.
     private(set) var foundMoments = 0
+    /// From the "found it" moment until the device sounds far again: the finder's full stop is set.
+    private(set) var isFound = false
     /// The device Avvisami se lo perdi watches, if any. Kept only while the app runs: iOS may
     /// give the same device another identifier next time.
     private(set) var watchedID: UUID?
-    /// Goes up by one at each lost alert: the screen vibrates on each change.
+    /// Goes up by one at each lost alert, when the notification goes out.
     private(set) var lostAlerts = 0
     /// The last attempt to watch found notifications not allowed.
     private(set) var notificationsDenied = false
@@ -417,6 +419,7 @@ final class ScanModel {
         tracked = nil
         warmthTracker.reset()
         foundMoment.reset()
+        isFound = false
         activity.apply(activityPlan.close())
         updateTracked(at: clock())
         if let tracked {
@@ -434,6 +437,7 @@ final class ScanModel {
         tracked = nil
         warmthTracker.reset()
         foundMoment.reset()
+        isFound = false
         activity.apply(activityPlan.close())
     }
 
@@ -548,6 +552,9 @@ final class ScanModel {
         let isFound = isNewReading && foundMoment.update(with: device.proximity)
         if isFound {
             foundMoments += 1
+        }
+        if self.isFound == foundMoment.isArmed {
+            self.isFound = !foundMoment.isArmed
         }
         let updated = TrackedDevice(device: device, warmth: warmth, silence: max(0, now.timeIntervalSince(device.lastSeen)))
         if updated != tracked {

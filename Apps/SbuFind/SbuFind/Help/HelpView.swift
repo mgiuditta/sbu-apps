@@ -64,7 +64,7 @@ struct HelpView: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Aiuto")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -82,11 +82,11 @@ struct HelpView: View {
 
 #Preview("Light") {
     HelpView()
-        .tint(SbuTheme.accentFind)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     HelpView()
-        .tint(SbuTheme.accentFind)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

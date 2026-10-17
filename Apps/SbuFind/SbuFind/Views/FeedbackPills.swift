@@ -27,7 +27,7 @@ struct FeedbackPills: View {
         FeedbackPills(model: ScanModel(scanner: FixedScanner()))
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
@@ -35,6 +35,6 @@ struct FeedbackPills: View {
         FeedbackPills(model: ScanModel(scanner: FixedScanner()))
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
     .preferredColorScheme(.dark)
 }

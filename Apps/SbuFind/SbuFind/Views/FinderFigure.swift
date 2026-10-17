@@ -1,14 +1,24 @@
 import SbuKit
 import SwiftUI
 
-/// The one figure of the finder: the signal as a percentage, as in Find Air, closed by the full
-/// stop; under it the word, or how long the device has been silent.
+/// The one figure of the finder: the signal as a percentage, as in Find Air. The full stop waits
+/// while you search and is set once the device is in reach of your hand; under the figure the
+/// word, or how long the device has been silent.
 struct FinderFigure: View {
     let tracked: TrackedDevice?
-
-    @ScaledMetric(relativeTo: .largeTitle) private var valueSize = SbuTheme.statHeroSize
+    /// From the "found it" moment until the device sounds far again.
+    let isFound: Bool
 
     private var percent: Double { tracked?.device.proximity.percent ?? 0 }
+
+    private var value: String {
+        percent.formatted(.percent.precision(.fractionLength(0)))
+    }
+
+    private var fullStop: SbuFullStop.State {
+        guard let tracked, isFound, !tracked.isLost else { return .waiting }
+        return .set
+    }
 
     private var contextText: Text {
         guard let tracked else { return Text(Warmth.cold.name) }
@@ -22,61 +32,40 @@ struct FinderFigure: View {
         return Text(tracked.warmth.name)
     }
 
-    private var contextSystemImage: String {
-        guard let tracked else { return Warmth.cold.systemImage }
-        return tracked.isLost ? "antenna.radiowaves.left.and.right.slash" : tracked.warmth.systemImage
-    }
-
     var body: some View {
-        VStack(spacing: SbuTheme.space1) {
-            HStack(alignment: .firstTextBaseline, spacing: 0) {
-                Text(percent, format: .percent.precision(.fractionLength(0)))
-                    .font(SbuTheme.numberFont(size: valueSize))
-                    .tracking(SbuTheme.statHeroTracking)
-                    // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
-                    .padding(.trailing, -SbuTheme.statHeroTracking)
-                    .foregroundStyle(SbuTheme.ink)
-                    .contentTransition(.numericText(value: percent))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-
-                SbuFullStop(fontSize: valueSize)
-            }
-            .animation(.smooth, value: percent)
-
-            HStack(alignment: .firstTextBaseline, spacing: SbuTheme.space1) {
-                Image(systemName: contextSystemImage)
-                    .fontWeight(.medium)
-                    .imageScale(.medium)
-                    .accessibilityHidden(true)
-                contextText
-            }
-            .font(SbuTheme.footnote)
-            .foregroundStyle(SbuTheme.inkMuted)
-            .multilineTextAlignment(.center)
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(Text("Segnale"))
-        .accessibilityValue(Text("\(Text(percent, format: .percent.precision(.fractionLength(0)))), \(contextText)"))
-        .accessibilityIdentifier("figure")
+        SbuFigure(value: value, fullStop: fullStop, context: contextText, accessibilityLabel: Text("Segnale"))
+            .accessibilityValue(Text("\(Text(verbatim: value)), \(contextText)"))
+            .accessibilityIdentifier("figure")
     }
 }
 
 #Preview("Light") {
-    FinderFigure(tracked: TrackedDevice(
-        device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, signal: -55, lastSeen: .now),
-        warmth: .hot,
-        silence: 0
-    ))
-    .tint(SbuTheme.accentFind)
+    FinderFigure(
+        tracked: TrackedDevice(
+            device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, signal: -45, lastSeen: .now),
+            warmth: .veryClose,
+            silence: 0
+        ),
+        isFound: true
+    )
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper()
+    .environment(\.sbuAccent, .find)
 }
 
 #Preview("Dark") {
-    FinderFigure(tracked: TrackedDevice(
-        device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, signal: -70, lastSeen: .now),
-        warmth: .warm,
-        silence: 8
-    ))
-    .tint(SbuTheme.accentFind)
+    FinderFigure(
+        tracked: TrackedDevice(
+            device: NearbyDevice(id: UUID(), name: "Buds Pro", kind: .earbuds, signal: -70, lastSeen: .now),
+            warmth: .warm,
+            silence: 8
+        ),
+        isFound: false
+    )
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper()
+    .environment(\.sbuAccent, .find)
     .preferredColorScheme(.dark)
 }

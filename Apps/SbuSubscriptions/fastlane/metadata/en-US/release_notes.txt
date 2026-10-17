@@ -1,6 +1,6 @@
 Three tabs: Subscriptions, Calendar and Settings. The payments calendar is one tap away.
 
-The detail opens in a sheet: the price up top, what you've spent so far, how long you've been subscribed, the latest payments and prices. Mark as cancelled is the button at the bottom.
+The detail opens in a sheet: the price up top, what you've spent so far, how long you've been subscribed, the latest payments and prices. Mark as cancelled is the main button of the detail.
 
 Each row says in how many days it renews, and you change the order above the list. If notifications are off, the form tells you and takes you to Settings.
 

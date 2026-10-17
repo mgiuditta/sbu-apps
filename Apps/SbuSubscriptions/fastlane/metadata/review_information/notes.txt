@@ -1,17 +1,18 @@
-No account. Sbu Subscriptions has no server of its own and sends nothing to sbu.dev: no analytics, ads or tracking. By default all data stays on the device. Two optional features use the user's own iCloud, both off until the user acts: "Sync with iCloud" (Settings > Data), which mirrors the store to the user's private CloudKit database, and sharing one list read only with people they invite (Settings > Lists, the share button next to a list), through CloudKit sharing.
+No account. Sbu Subscriptions has no server of its own and sends nothing to sbu.dev: no analytics, ads or tracking. By default all data stays on the device. Two optional features use the user's own iCloud, both off until the user acts: "Sync with iCloud" (Settings tab > Data), which mirrors the store to the user's private CloudKit database, and sharing one list read only with people they invite (Settings tab > Lists, the share button next to a list), through CloudKit sharing.
 
-This is version 2.0 of an app already on the App Store, rebuilt in Swift. At first launch it brings over the subscriptions saved by version 1.0 on the same device; on a new install it opens empty.
+This is version 2.1 of an app already on the App Store. It has three tabs: Subscriptions, Calendar and Settings.
 
-1. Add a subscription: tap "+" at the top left, or "Add" on the empty screen. Search a known service (for example "Netflix") or tap "Custom". The form opens: type a price and tap "Save". The home shows what you spend a year, with the subscription under "Active".
-2. Tap a subscription to open it: Edit, Change price, History (payments with "Mark as paid"), How to cancel (the service's website in Safari, or the App Store subscriptions sheet), Pause, Mark as cancelled, Delete (with confirmation).
-3. "Payments calendar" under the figure shows the month: a dot on each payment day; touch and hold a day to add a subscription from it.
-4. The menu next to "+" sorts, groups and filters the list; the total follows the filter.
+1. Add a subscription: tap "+" at the top right, or "Add" on the empty screen. Search a known service (for example "Netflix") or tap "Custom". The form opens: type a price and tap "Save". The Subscriptions tab shows what you spend a year, with the subscription under "Active".
+2. Tap a subscription: its detail opens in a sheet with the price, what you have spent so far and since when, the latest payments ("Mark as paid"), the prices (Change price), Pause, Mark as cancelled, Delete (with confirmation) and How to cancel (the service's website in Safari, or the App Store subscriptions sheet). "Edit" is at the top right, "Close" at the top left.
+3. The Calendar tab shows the month: a dot on each payment day, the month's total and what is still to pay; touch and hold a day to add a subscription from it.
+4. The menu at the top left sorts, groups and filters the list; the total follows the filter. The order of the list also changes from the "Active" header.
+5. "Share the figure" under the total makes a picture of it to send with the share sheet; nothing leaves the device unless the user shares it.
 
 Notifications: iOS asks only once a subscription has a reminder (one day before by default), never at launch. Settings > Reminders has the reminder time and "Send a test reminder".
 
 Exchange rates: the ECB reference rates are bundled with the app and refreshed with each release; the app never goes online. Users can type their own rate in Settings > Exchange rates.
 
-Widgets: "Upcoming payments" for the Home Screen (small, medium, large) and the Lock Screen, read-only, configurable by list.
+Widgets: for the Home Screen (small, medium, large) and the Lock Screen, read-only, configurable by list: what you spend and the next payment.
 
 Siri and Shortcuts: "Next renewal in Sbu Subscriptions", "How much do I pay this month with Sbu Subscriptions". Answers about money need the iPhone unlocked.
 

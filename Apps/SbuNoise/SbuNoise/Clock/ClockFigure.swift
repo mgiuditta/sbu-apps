@@ -6,33 +6,23 @@ import SwiftUI
 struct ClockFigure: View {
     let date: Date
 
-    @ScaledMetric(relativeTo: .largeTitle) private var size = SbuTheme.statHeroSize * 1.5
-
     var body: some View {
-        HStack(alignment: .lastTextBaseline, spacing: 0) {
-            Text(date, format: .dateTime.hour().minute())
-                .font(SbuTheme.numberFont(size: size))
-                .tracking(SbuTheme.statHeroTracking)
-                // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
-                .padding(.trailing, -SbuTheme.statHeroTracking)
-                .foregroundStyle(SbuTheme.ink)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-            SbuFullStop(fontSize: size)
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(date, format: .dateTime.hour().minute()))
-        .accessibilityAddTraits(.isHeader)
+        SbuFigure(value: date.formatted(.dateTime.hour().minute()))
+            .accessibilityAddTraits(.isHeader)
     }
 }
 
 #Preview("Light") {
     ClockFigure(date: .now)
-        .tint(SbuTheme.accentNoise)
+        .padding(SbuTheme.space4)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .noise)
 }
 
 #Preview("Dark") {
     ClockFigure(date: .now)
-        .tint(SbuTheme.accentNoise)
+        .padding(SbuTheme.space4)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .noise)
         .preferredColorScheme(.dark)
 }

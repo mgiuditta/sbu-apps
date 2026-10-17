@@ -57,11 +57,9 @@ struct AlarmSoundPicker: View {
 
 #Preview("Light") {
     NavigationStack { AlarmSoundPicker(sounds: Sound.catalog, selection: .constant("alarm.chimes")) }
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     NavigationStack { AlarmSoundPicker(sounds: Sound.catalog, selection: .constant("noise.pink")) }
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

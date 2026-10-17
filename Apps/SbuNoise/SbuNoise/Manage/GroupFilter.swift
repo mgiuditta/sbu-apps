@@ -23,11 +23,9 @@ struct GroupFilter: View {
 
 #Preview("Light") {
     GroupFilter(selection: .constant(nil))
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     GroupFilter(selection: .constant(.rain))
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

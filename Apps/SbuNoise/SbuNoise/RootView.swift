@@ -8,7 +8,7 @@ struct RootView: View {
     let alarms: AlarmsModel
 
     var body: some View {
-        SbuAppShell("Sbu Noise", slug: "noise", accent: SbuTheme.accentNoise, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Noise", slug: "noise", accent: .noise, appIcon: Image(.appIconArtwork)) {
             MainView(model: model, timers: timers, alarms: alarms)
         } settings: {
             Section {

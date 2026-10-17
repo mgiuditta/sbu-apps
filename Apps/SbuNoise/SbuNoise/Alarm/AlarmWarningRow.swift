@@ -42,11 +42,9 @@ struct AlarmWarningRow: View {
 
 #Preview("Light") {
     List { AlarmWarningRow(warning: .notificationsDenied) }
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     List { AlarmWarningRow(warning: .soundStopsBefore(.notifications)) }
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

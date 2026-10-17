@@ -6,8 +6,8 @@ import SwiftUI
 struct RoutePicker: UIViewRepresentable {
     func makeUIView(context: Context) -> AVRoutePickerView {
         let view = AVRoutePickerView()
-        view.tintColor = UIColor(SbuTheme.ink)
-        view.activeTintColor = UIColor(SbuTheme.accentNoise)
+        view.tintColor = UIColor(SbuTheme.inkMuted)
+        view.activeTintColor = UIColor(SbuTheme.ink)
         view.accessibilityLabel = String(localized: "Uscita audio")
         return view
     }

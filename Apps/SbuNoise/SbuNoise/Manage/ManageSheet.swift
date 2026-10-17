@@ -8,6 +8,7 @@ struct ManageSheet: View {
     let model: PlayerModel
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var query = ""
     @State private var group: SoundCategory?
     /// Reordering works on the whole list: Modifica clears the search and the filter.
@@ -45,7 +46,11 @@ struct ManageSheet: View {
             .listStyle(.insetGrouped)
             .overlay {
                 if isFiltering && results.isEmpty {
-                    ContentUnavailableView.search(text: query)
+                    SbuEmpty(sentence: Text("Nessun suono per «\(query.trimmingCharacters(in: .whitespaces))». Prova un'altra parola.")) { EmptyView() }
+                        .padding(.horizontal, SbuTheme.space4)
+                        .padding(.top, SbuTheme.gridCell)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .sbuPaper(grid: true)
                 }
             }
             .environment(\.editMode, $editMode)
@@ -104,7 +109,6 @@ struct ManageSheet: View {
             Button(isFavorite ? "Togli dai preferiti" : "Aggiungi ai preferiti", systemImage: isFavorite ? "heart.slash" : "heart") {
                 model.toggleFavorite(.sound(sound))
             }
-            .tint(SbuTheme.accentNoise)
         }
         .accessibilityHint(isHidden ? Text("Lo rimette nel player.") : Text("Lo riproduce."))
     }
@@ -114,7 +118,9 @@ struct ManageSheet: View {
             query = ""
             group = nil
         }
-        withAnimation { editMode = editMode.isEditing ? .inactive : .active }
+        withAnimation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion)) {
+            editMode = editMode.isEditing ? .inactive : .active
+        }
     }
 
     private func play(_ sound: Sound) {
@@ -125,11 +131,9 @@ struct ManageSheet: View {
 
 #Preview("Light") {
     ManageSheet(model: PlayerModel())
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     ManageSheet(model: PlayerModel())
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

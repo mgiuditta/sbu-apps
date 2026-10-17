@@ -1,55 +1,36 @@
 import SbuKit
 import SwiftUI
 
-/// One page of the player: the sound's or mix's symbol where the original shows a photo, then its
-/// name as the screen's figure, closed by the full stop.
+/// One page of the player, on the squared paper: the sound's or mix's name as the screen's figure,
+/// closed by the full stop, set while it plays, and its place in the list under it.
 struct PlayerPage: View {
     let item: PlayerItem
-    let category: PlayerCategory
     let position: Int
     let count: Int
-
-    @ScaledMetric(relativeTo: .largeTitle) private var nameSize = SbuTheme.statSize
-    @ScaledMetric(relativeTo: .largeTitle) private var symbolSize: CGFloat = 120
+    /// Whether this page is the one on screen and its sound is playing.
+    let isPlaying: Bool
 
     var body: some View {
-        VStack(spacing: SbuTheme.space4) {
-            Spacer(minLength: 0)
-            // The symbol gives way first: with the largest text the name and the position must fit.
-            Image(systemName: item.systemImage)
-                .resizable()
-                .fontWeight(.medium)
-                .scaledToFit()
-                .frame(maxWidth: symbolSize, maxHeight: symbolSize)
-                .frame(minHeight: 0)
-                .layoutPriority(-1)
-                .foregroundStyle(SbuTheme.inkMuted)
-                .accessibilityHidden(true)
-            Spacer(minLength: 0)
-            // The full stop inside the text: on a name that wraps it follows the last word.
-            (Text(item.name).tracking(SbuTheme.statTracking)
-                + InlineFullStop.text(fontSize: nameSize, tracking: SbuTheme.statTracking))
-                .font(SbuTheme.numberFont(size: nameSize))
-                .foregroundStyle(SbuTheme.ink)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-                .accessibilityLabel(Text(item.name))
-            .accessibilityAddTraits(.isHeader)
-            Text("\(Text(category.title)) · \(position) di \(count)")
-                .font(SbuTheme.footnote)
-                .foregroundStyle(SbuTheme.inkMuted)
-        }
-        .padding(SbuTheme.space4)
+        SbuFigure(
+            value: item.name,
+            fullStop: isPlaying ? .set : .waiting,
+            context: Text("\(position) di \(count)")
+        )
+        .padding(.horizontal, SbuTheme.space4)
+        // Top-aligned: the figure snaps its baseline to the grid from where it starts.
+        .padding(.top, SbuTheme.gridCell)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .sbuPaper(grid: true)
     }
 }
 
 #Preview("Light") {
-    PlayerPage(item: .sound(Sound.generated[2]), category: .sounds, position: 3, count: 5)
-        .tint(SbuTheme.accentNoise)
+    PlayerPage(item: .sound(Sound.generated[2]), position: 3, count: 5, isPlaying: true)
+        .environment(\.sbuAccent, .noise)
 }
 
 #Preview("Dark") {
-    PlayerPage(item: .mix(Mix(name: "Temporale", soundIDs: ["noise.pink"])), category: .favorites, position: 1, count: 2)
-        .tint(SbuTheme.accentNoise)
+    PlayerPage(item: .mix(Mix(name: "Temporale", soundIDs: ["noise.pink"])), position: 1, count: 2, isPlaying: false)
+        .environment(\.sbuAccent, .noise)
         .preferredColorScheme(.dark)
 }

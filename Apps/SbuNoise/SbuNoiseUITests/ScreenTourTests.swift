@@ -47,7 +47,6 @@ final class ScreenTourTests: XCTestCase {
 
         tap(app, "Timer", "Timers")
         snap(app, "11-timer-vuoti")
-        tap(app, "Aggiungi", "Add")
         tap(app, "Nuovo timer", "New Timer")
         tap(app, "Salva", "Save")
         tap(app, "Aggiungi", "Add")

@@ -48,13 +48,11 @@ struct ManageRow: View {
         ManageRow(sound: Sound.generated[0], isFavorite: true, isHidden: false)
         ManageRow(sound: Sound.generated[1], isFavorite: false, isHidden: true)
     }
-    .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     List {
         ManageRow(sound: Sound.generated[2], isFavorite: true, isHidden: false)
     }
-    .tint(SbuTheme.accentNoise)
     .preferredColorScheme(.dark)
 }

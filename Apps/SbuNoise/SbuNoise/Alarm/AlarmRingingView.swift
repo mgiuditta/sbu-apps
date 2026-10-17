@@ -27,17 +27,15 @@ struct AlarmRingingView: View {
         }
         .padding(SbuTheme.space4)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }
 
 #Preview("Light") {
     AlarmRingingView(alarm: SoundAlarm(), soundName: "Rintocchi", snooze: {}, stop: {})
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     AlarmRingingView(alarm: SoundAlarm(), soundName: "Pioggia", snooze: {}, stop: {})
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

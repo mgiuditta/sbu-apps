@@ -126,11 +126,9 @@ struct AlarmEditor: View {
 
 #Preview("Light") {
     AlarmEditor(alarm: SoundAlarm(), isNew: true, sounds: Sound.catalog, backupKind: .notifications, warnings: { _ in [] }, onSave: { _ in }, onDelete: {})
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     AlarmEditor(alarm: SoundAlarm(weekdays: [2, 3, 4, 5, 6]), isNew: false, sounds: Sound.catalog, backupKind: .systemAlarm, warnings: { _ in [.soundStopsBefore(.systemAlarm)] }, onSave: { _ in }, onDelete: {})
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

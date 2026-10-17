@@ -15,7 +15,7 @@ struct MixToken: View {
                 .frame(width: SbuTheme.controlRound, height: SbuTheme.controlRound)
                 .background(SbuTheme.surfaceRaised, in: .circle)
                 .overlay {
-                    Circle().stroke(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.line), lineWidth: SbuTheme.hairline * 2)
+                    Circle().stroke(isSelected ? SbuTheme.ink : SbuTheme.line, lineWidth: SbuTheme.hairline * 2)
                 }
             Text(sound.name)
                 .font(.caption2)
@@ -27,11 +27,9 @@ struct MixToken: View {
 
 #Preview("Light") {
     MixToken(sound: Sound.generated[0], isSelected: true)
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     MixToken(sound: Sound.generated[3], isSelected: false)
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

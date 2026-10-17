@@ -411,16 +411,6 @@
         }
       }
     },
-    "Nessun mix" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Mixes"
-          }
-        }
-      }
-    },
     "Nessuna" : {
       "localizations" : {
         "en" : {
@@ -917,26 +907,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Play or pause the Sbu Noise sound."
-          }
-        }
-      }
-    },
-    "%@ · %lld di %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ · %2$lld of %3$lld"
-          }
-        }
-      }
-    },
-    "Nessun preferito" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Favorites"
           }
         }
       }
@@ -1841,22 +1811,62 @@
         }
       }
     },
-    "Nessun timer né sveglia" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Timers or Alarms"
-          }
-        }
-      }
-    },
     "Timer e sveglie" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Timers and Alarms"
+          }
+        }
+      }
+    },
+    "Rumore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noise"
+          }
+        }
+      }
+    },
+    "Sbu · Rumore · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu · Noise · %@"
+          }
+        }
+      }
+    },
+    "%lld di %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "Spento" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off"
+          }
+        }
+      }
+    },
+    "Nessun suono per «%@». Prova un'altra parola." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sounds for “%@”. Try another word."
           }
         }
       }

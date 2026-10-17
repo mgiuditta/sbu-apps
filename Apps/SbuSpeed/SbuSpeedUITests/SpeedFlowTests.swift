@@ -11,37 +11,79 @@ final class SpeedFlowTests: XCTestCase {
     }
 
     @MainActor
-    private func launch() -> XCUIApplication {
+    private func launch(contentSize: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += [
             "-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES",
             // Whatever an earlier run chose: km/h and no limit.
             "-unit", "kilometersPerHour", "-speedLimit", "",
         ]
+        if let contentSize {
+            app.launchArguments += ["-UIPreferredContentSizeCategoryName", contentSize]
+        }
         app.launch()
         return app
+    }
+
+    /// The figure: one element whose label starts with what it measures, then the speed and the status.
+    @MainActor
+    private func figureElement(_ app: XCUIApplication, _ caption: String = "Velocità") -> XCUIElement {
+        app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", caption + ",")).firstMatch
+    }
+
+    /// SbuKit sizes the figure in grid cells rather than a text style, and draws the cartiglio in
+    /// Plex Mono scaled by hand: on purpose, so the Dynamic Type check skips just those two, and
+    /// still checks every other text on the screen. The audit also reads the cartiglio's tracking
+    /// as clipping, though every letter shows.
+    private static func isSbuKitGridType(_ issue: XCUIAccessibilityAuditIssue) -> Bool {
+        guard let label = issue.element?.label else { return false }
+        let isCartiglio = label.hasPrefix("SBU ·")
+        // The figure, and its digits alone as the audit also reads them: "52", or a dash with no speed.
+        let isFigure = label.hasPrefix("Velocità,") || label.hasPrefix("SOG,") || label.allSatisfy { $0.isNumber || $0 == "–" }
+        switch issue.auditType {
+        case .dynamicType: return isCartiglio || isFigure
+        case .textClipped: return isCartiglio
+        default: return false
+        }
+    }
+
+    /// Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,
+    /// and the audit misreads the iOS 26 glass bar.
+    @MainActor
+    private func audit(_ app: XCUIApplication, excluding excluded: XCUIAccessibilityAuditType = .contrast) throws {
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(excluded)) { issue in
+            guard Self.isSbuKitGridType(issue) == false else { return true }
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
+            return true
+        }
     }
 
     @MainActor
     func testToolScreenShowsTheSpeedAndTheTripAndPassesTheAccessibilityAudit() throws {
         let app = launch()
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Velocità'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("52"), figure.label)
-        XCTAssertTrue(app.descendants(matching: .any)["Massima"].exists)
-        XCTAssertEqual(app.descendants(matching: .any)["Durata"].value as? String, "16 minuti e 10 secondi")
-        XCTAssertEqual(app.descendants(matching: .any)["Altitudine"].value as? String, "122 metri")
-        XCTAssertEqual(app.descendants(matching: .any)["Rotta"].value as? String, "247 gradi, sud-ovest")
-        XCTAssertTrue(app.staticTexts["247° SO"].exists)
+        XCTAssertTrue(app.staticTexts["SBU · VELOCITÀ · KM/H · GPS PRECISO"].exists)
+        XCTAssertTrue(app.otherElements["Massima"].exists)
+        XCTAssertEqual(app.otherElements["Durata"].value as? String, "16 minuti e 10 secondi")
+        XCTAssertEqual(app.otherElements["Altitudine"].value as? String, "122 metri")
+        XCTAssertEqual(app.otherElements["Rotta"].value as? String, "247 gradi, sud-ovest")
         XCTAssertTrue(app.buttons["Salva e azzera"].isEnabled)
 
-        // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,
-        // and the audit misreads the iOS 26 glass bar and the dial's decorative track.
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
-            return true
-        }
+        try audit(app)
+    }
+
+    @MainActor
+    func testToolScreenAtTheLargestTextSizePassesTheAccessibilityAudit() throws {
+        let app = launch(contentSize: "UICTContentSizeCategoryAccessibilityXXXL")
+
+        let figure = figureElement(app)
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.contains("52"), figure.label)
+
+        try audit(app)
     }
 
     @MainActor
@@ -50,9 +92,9 @@ final class SpeedFlowTests: XCTestCase {
         XCUIDevice.shared.orientation = .landscapeLeft
         defer { XCUIDevice.shared.orientation = .portrait }
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Velocità'")).firstMatch
+        let figure = figureElement(app)
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
-        let duration = app.descendants(matching: .any)["Durata"]
+        let duration = app.otherElements["Durata"]
         XCTAssertTrue(duration.waitForExistence(timeout: 5))
         // Beside, not under: the trip starts right of the figure.
         XCTAssertGreaterThan(duration.frame.minX, figure.frame.maxX)
@@ -60,10 +102,7 @@ final class SpeedFlowTests: XCTestCase {
         let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: app.buttons["Salva e azzera"])
         XCTAssertEqual(XCTWaiter.wait(for: [hittable], timeout: 5), .completed)
 
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
-            return true
-        }
+        try audit(app)
     }
 
     @MainActor
@@ -79,7 +118,13 @@ final class SpeedFlowTests: XCTestCase {
         let confirm = dialog.buttons["Salva e azzera"]
         XCTAssertTrue(confirm.waitForExistence(timeout: 5))
         confirm.tap()
+
+        // The Closure says it once on the figure for two seconds, then gives the figure back:
+        // looked for right after the tap, since waiting for the dialog first can outlast it.
+        let closure = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Salvato'")).firstMatch
+        XCTAssertTrue(closure.waitForExistence(timeout: 2))
         XCTAssertTrue(dialog.waitForNonExistence(timeout: 5))
+        XCTAssertTrue(closure.waitForNonExistence(timeout: 5), "The Closure goes after two seconds")
 
         // Nothing left to keep: the pill is a plain, disabled reset.
         let reset = app.buttons["Azzera viaggio"]
@@ -154,13 +199,12 @@ final class SpeedFlowTests: XCTestCase {
         // VoiceOver reads the speed unmirrored; the tool screen and its bar are out of the way.
         let figure = app.descendants(matching: .any).matching(NSPredicate(format: "label == 'Velocità' AND value == '52 km/h'")).firstMatch
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons["Impostazioni"].isHittable)
-        XCTAssertFalse(app.buttons["Salva e azzera"].isHittable)
+        XCTAssertFalse(app.buttons["Impostazioni"].exists && app.buttons["Impostazioni"].isHittable)
+        XCTAssertFalse(app.buttons["Salva e azzera"].exists)
 
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
-            return true
-        }
+        // Dynamic Type is left out on Parabrezza: the figure and its unit are sized to fill the
+        // screen for the windshield, not to a text style.
+        try audit(app, excluding: [.contrast, .dynamicType])
 
         app.buttons["Esci dal parabrezza"].tap()
         XCTAssertTrue(app.buttons["Salva e azzera"].waitForExistence(timeout: 5))

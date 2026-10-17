@@ -36,21 +36,6 @@ nonisolated enum SpeedUnit: String, CaseIterable, Codable, Identifiable, Sendabl
     /// Short symbol next to the figure: "km/h", "mph" or "kn".
     var symbol: String { speed.symbol }
 
-    /// The possible tops of the dial in this unit, smallest first, like the scales of car speedometers.
-    var dialScales: [Double] {
-        switch self {
-        case .kilometersPerHour: [60, 120, 200, 300]
-        case .milesPerHour: [40, 80, 130, 200]
-        case .knots: [30, 60, 110, 160]
-        }
-    }
-
-    /// The smallest dial top that contains `value` (in this unit); the largest when nothing does.
-    func fullScale(containing value: Double) -> Double {
-        let scales = dialScales
-        return scales.first { $0 >= value } ?? scales[scales.count - 1]
-    }
-
     /// km/h where the metric system is used, mph in the US and the UK. Knots are only a choice: no region drives in them.
     static func preferred(for locale: Locale) -> SpeedUnit {
         locale.measurementSystem == .metric ? .kilometersPerHour : .milesPerHour

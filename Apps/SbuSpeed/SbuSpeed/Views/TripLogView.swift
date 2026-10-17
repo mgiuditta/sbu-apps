@@ -14,38 +14,11 @@ struct TripLogView: View {
     }
 
     var body: some View {
-        List {
-            if !log.trips.isEmpty {
-                Section {
-                    ForEach(log.trips) { trip in
-                        NavigationLink {
-                            TripDetailView(trip: trip, log: log, unit: unit)
-                        } label: {
-                            TripRow(trip: trip, unit: unit)
-                        }
-                        .accessibilityIdentifier("trip")
-                        .listRowBackground(SbuTheme.surfaceRaised)
-                        .swipeActions {
-                            Button("Elimina", systemImage: "trash", role: .destructive) {
-                                pendingDeletion = trip
-                            }
-                        }
-                    }
-                } footer: {
-                    Text("Solo numeri e orari: nessuna posizione.")
-                }
-            }
-        }
-        .listStyle(.insetGrouped)
-        .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .overlay {
+        Group {
             if log.trips.isEmpty {
-                ContentUnavailableView {
-                    Label("Nessun viaggio", systemImage: "road.lanes")
-                } description: {
-                    Text("Salva e azzera un viaggio per trovarlo qui.")
-                }
+                empty
+            } else {
+                list
             }
         }
         .navigationTitle("Viaggi")
@@ -58,7 +31,6 @@ struct TripLogView: View {
                 ) {
                     Label("Esporta CSV", systemImage: "square.and.arrow.up")
                 }
-                .tint(SbuTheme.ink)
                 .disabled(log.trips.isEmpty)
             }
         }
@@ -68,20 +40,60 @@ struct TripLogView: View {
             }
         }
     }
+
+    private var list: some View {
+        List {
+            Section {
+                ForEach(log.trips) { trip in
+                    NavigationLink {
+                        TripDetailView(trip: trip, log: log, unit: unit)
+                    } label: {
+                        TripRow(trip: trip, unit: unit)
+                    }
+                    .accessibilityIdentifier("trip")
+                    .listRowBackground(SbuTheme.surfaceRaised)
+                    .swipeActions {
+                        Button("Elimina", systemImage: "trash", role: .destructive) {
+                            pendingDeletion = trip
+                        }
+                    }
+                }
+            } footer: {
+                Text("Solo numeri e orari: nessuna posizione.")
+            }
+        }
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        .background(SbuTheme.paper)
+    }
+
+    /// No trip yet: the way to keep one is on the tool screen, so no button here.
+    private var empty: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                SbuEmpty(sentence: "Salva e azzera un viaggio per trovarlo qui.")
+                    .padding(SbuTheme.space4)
+                    .frame(maxWidth: .infinity, minHeight: geometry.size.height, alignment: .topLeading)
+                    .sbuPaper(grid: true)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+        .background(SbuTheme.paper)
+    }
 }
 
 #Preview("Light") {
     NavigationStack {
         TripLogView(log: TripLog(trips: TripLogFile.demo(now: .now).trips), unit: .kilometersPerHour)
     }
-    .tint(SbuTheme.accentSpeed)
+    .environment(\.sbuAccent, .speed)
 }
 
 #Preview("Dark") {
     NavigationStack {
         TripLogView(log: TripLog(trips: TripLogFile.demo(now: .now).trips), unit: .kilometersPerHour)
     }
-    .tint(SbuTheme.accentSpeed)
+    .environment(\.sbuAccent, .speed)
     .preferredColorScheme(.dark)
 }
 
@@ -89,5 +101,13 @@ struct TripLogView: View {
     NavigationStack {
         TripLogView(log: TripLog(trips: []), unit: .kilometersPerHour)
     }
-    .tint(SbuTheme.accentSpeed)
+    .environment(\.sbuAccent, .speed)
+}
+
+#Preview("Vuoto scuro") {
+    NavigationStack {
+        TripLogView(log: TripLog(trips: []), unit: .kilometersPerHour)
+    }
+    .environment(\.sbuAccent, .speed)
+    .preferredColorScheme(.dark)
 }

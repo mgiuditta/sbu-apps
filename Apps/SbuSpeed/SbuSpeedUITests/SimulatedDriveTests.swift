@@ -48,15 +48,15 @@ final class SimulatedDriveTests: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'SOG'")).firstMatch
+        let figure = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'SOG,'")).firstMatch
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         XCTAssertTrue(figure.label.contains("20"), figure.label)
         XCTAssertTrue(figure.label.contains("kn"), figure.label)
-        let top = app.descendants(matching: .any)["Massima"]
+        let top = app.otherElements["Massima"]
         XCTAssertEqual(top.value as? String, "20 kn")
-        let distance = (app.descendants(matching: .any)["Distanza"].value as? String)?.replacingOccurrences(of: "\u{00A0}", with: " ")
+        let distance = (app.otherElements["Distanza"].value as? String)?.replacingOccurrences(of: "\u{00A0}", with: " ")
         XCTAssertEqual(distance, "0,1 nmi")
-        XCTAssertEqual(app.descendants(matching: .any)["Durata"].value as? String, "20 secondi")
+        XCTAssertEqual(app.otherElements["Durata"].value as? String, "20 secondi")
 
         let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         attachment.name = "drive-knots"

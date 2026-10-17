@@ -43,7 +43,7 @@ struct TripDetailView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text(trip.startedAt, format: .dateTime.day().month()))
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -70,6 +70,6 @@ private struct TripDetailPreview: View {
         NavigationStack {
             TripDetailView(trip: log.trips[0], log: log, unit: .kilometersPerHour)
         }
-        .tint(SbuTheme.accentSpeed)
+        .environment(\.sbuAccent, .speed)
     }
 }

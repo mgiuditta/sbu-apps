@@ -241,6 +241,46 @@
         }
       }
     },
+    "GPS assente": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No GPS"
+          }
+        }
+      }
+    },
+    "GPS buono": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPS good"
+          }
+        }
+      }
+    },
+    "GPS debole": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPS weak"
+          }
+        }
+      }
+    },
+    "GPS preciso": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPS precise"
+          }
+        }
+      }
+    },
     "Il viaggio riparte da zero.": {
       "localizations": {
         "en": {
@@ -587,6 +627,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Save and reset a trip to find it here."
+          }
+        }
+      }
+    },
+    "Salvato": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved"
           }
         }
       }

@@ -36,9 +36,13 @@ nonisolated struct SpeedLimit: Codable, Hashable, Sendable {
         return values.map { SpeedLimit(value: $0, unit: unit) }
     }
 
-    /// The highest limit Altro valore accepts in `unit`: the top of its largest dial.
+    /// The highest limit Altro valore accepts in `unit`: the top of a car speedometer's largest dial.
     static func highestValue(for unit: SpeedUnit) -> Int {
-        Int(unit.dialScales.last ?? 300)
+        switch unit {
+        case .kilometersPerHour: 300
+        case .milesPerHour: 200
+        case .knots: 160
+        }
     }
 
     /// A limit typed in Altro valore: whole units within range, or `nil`.

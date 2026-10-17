@@ -1,0 +1,73 @@
+---
+// The hub of the alternative pages: every paid app Sbu remakes, with the free one beside it.
+// Built from the same alternatives as their pages, so it lists only the live ones.
+import PageTitle from '../components/PageTitle.astro';
+import Base from '../layouts/Base.astro';
+import { localePath } from '../i18n';
+import { text } from '../lib/apps';
+import { breadcrumbs } from '../lib/jsonld';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { view: 'alternatives' };
+const { locale, path, alternates, alternatives } = Astro.props;
+const copy = {
+  it: {
+    title: 'App iPhone gratis al posto di quelle a pagamento',
+    metaTitle: 'Alternative gratis alle app iPhone a pagamento, senza abbonamento · sbu.dev',
+    description: 'Le app iPhone a pagamento più vendute e la loro alternativa gratuita, senza abbonamento, senza account e senza pubblicità. Prezzi letti sull’App Store.',
+    lede: 'Ogni app Sbu fa la stessa cosa sola di un’app a pagamento, gratis. Per ognuna c’è un confronto onesto: cosa costa l’originale, cosa fa Sbu e cosa non fa.',
+    with: 'Con',
+  },
+  en: {
+    title: 'Free iPhone apps instead of paid ones',
+    metaTitle: 'Free alternatives to paid iPhone apps, no subscription · sbu.dev',
+    description: 'The top-paid iPhone apps and their free alternative, with no subscription, no account and no ads. Prices as read on the App Store.',
+    lede: 'Every Sbu app does the same one thing as a paid app, free. Each has an honest comparison: what the original costs, what Sbu does and what it doesn’t.',
+    with: 'With',
+  },
+}[locale];
+
+const entries = alternatives
+  .filter((alternative) => alternative.locale === locale)
+  .sort((a, b) => a.app.order - b.app.order)
+  .map(({ entry, slug, app }) => ({
+    href: localePath(locale, `alternatives/${slug}`),
+    title: entry.data.title,
+    description: entry.data.description,
+    app: text(app, locale).name,
+  }));
+
+const site = Astro.site!;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: copy.title,
+    itemListElement: entries.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.title, url: new URL(item.href, site).href })),
+  },
+  breadcrumbs(site, locale, [['sbu.dev', ''], [copy.title, path]]),
+];
+---
+<Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} jsonLd={jsonLd}>
+  <article class="flex flex-col gap-12 py-8">
+    <header class="flex flex-col gap-4">
+      <PageTitle text={copy.title} />
+      <p class="text-ink-muted">{copy.lede}</p>
+    </header>
+
+    <ul class="rows">
+      {entries.map((item) => (
+        <li class="row">
+          <h2 class="text-headline"><a href={item.href}>{item.title}</a></h2>
+          <p class="text-ink-muted">{item.description}</p>
+          <p class="text-caption uppercase text-ink-muted">{copy.with} {item.app}</p>
+        </li>
+      ))}
+    </ul>
+  </article>
+</Base>
+
+<style>
+  .rows { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
+  .row { display: grid; gap: var(--spacing-1); padding-block: var(--spacing-4); border-bottom: var(--sbu-hairline) solid var(--sbu-line); }
+</style>

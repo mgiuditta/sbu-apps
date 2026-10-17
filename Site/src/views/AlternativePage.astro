@@ -36,7 +36,7 @@ const jsonLd = [
       </tbody>
     </table>
 
-    <p><a href={localePath(locale, `apps/${app.slug}`)}>{t.backToApp(listing.name)}</a></p>
+    <p><a href={localePath(locale, `apps/${app.slug}`)}>{t.backToApp(listing.name)}</a> · <a href={localePath(locale, 'alternatives')}>{t.nav.alternatives}</a></p>
 
     {entry.data.faq.length > 0 && (
       <section aria-labelledby="faq" class="flex flex-col gap-4">

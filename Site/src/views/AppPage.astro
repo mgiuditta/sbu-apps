@@ -71,7 +71,7 @@ const jsonLd = [
       {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
       <p class="flex flex-wrap items-center gap-x-6 gap-y-0">
         {app.storeUrl ? (
-          <a href={app.storeUrl} class="badge">
+          <a href={app.campaignUrl} class="badge">
             {/* Apple's official badge, unchanged (App Store marketing guidelines): black on paper, white in dark. */}
             <picture>
               <source srcset={`/badges/app-store-white-${badgeLocale}.svg`} media="(prefers-color-scheme: dark)" />

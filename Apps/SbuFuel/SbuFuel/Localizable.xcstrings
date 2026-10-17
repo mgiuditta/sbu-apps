@@ -121,12 +121,12 @@
         }
       }
     },
-    "Aggiungi il tuo veicolo" : {
+    "Aggiungi il tuo veicolo: dal secondo pieno vedi quanto consuma." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add your vehicle"
+            "value" : "Add your vehicle: from the second full tank you see how much it uses."
           }
         }
       }
@@ -161,22 +161,22 @@
         }
       }
     },
+    "Aggiungi un veicolo per registrare i rifornimenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a vehicle to log your fuel-ups."
+          }
+        }
+      }
+    },
     "Aggiungi veicolo" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add vehicle"
-          }
-        }
-      }
-    },
-    "Aggiungine uno con +." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add one with +."
           }
         }
       }
@@ -331,16 +331,6 @@
         }
       }
     },
-    "Carburante %@ · interventi %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fuel %@ · services %@"
-          }
-        }
-      }
-    },
     "Carburante al km" : {
       "localizations" : {
         "en" : {
@@ -427,6 +417,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Average consumption"
+          }
+        }
+      }
+    },
+    "Consumo medio, %@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average consumption, %1$@, %2$@"
           }
         }
       }
@@ -1181,32 +1181,22 @@
         }
       }
     },
-    "Nessun intervento" : {
+    "Nessun intervento registrato." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No services"
+            "value" : "No services logged."
           }
         }
       }
     },
-    "Nessun rifornimento" : {
+    "Nessun rifornimento registrato." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No fuel-ups"
-          }
-        }
-      }
-    },
-    "Nessun veicolo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No vehicles"
+            "value" : "No fuel-ups logged."
           }
         }
       }
@@ -1391,16 +1381,6 @@
         }
       }
     },
-    "Poi registra i rifornimenti: dal secondo pieno vedi quanto consuma." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Then log your fuel-ups: from the second full tank you see how much it uses."
-          }
-        }
-      }
-    },
     "Prezzo" : {
       "localizations" : {
         "en" : {
@@ -1531,16 +1511,6 @@
         }
       }
     },
-    "Quello che registri compare qui, dal più recente. Puoi aggiungere anche voci passate: i consumi si ricalcolano." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "What you log shows up here, newest first. You can add past entries too: consumption is worked out again."
-          }
-        }
-      }
-    },
     "Quest'anno" : {
       "localizations" : {
         "en" : {
@@ -1561,6 +1531,16 @@
         }
       }
     },
+    "Registra il primo rifornimento: compare qui, e puoi aggiungere anche quelli passati." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log your first fuel-up: it shows here, and you can add past ones too."
+          }
+        }
+      }
+    },
     "Registra intervento" : {
       "localizations" : {
         "en" : {
@@ -1577,6 +1557,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Log a full tank to start."
+          }
+        }
+      }
+    },
+    "Registrato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logged"
           }
         }
       }
@@ -1737,6 +1727,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spent"
+          }
+        }
+      }
+    },
+    "Speso %@: carburante %@, interventi %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spent %1$@: fuel %2$@, services %3$@"
+          }
+        }
+      }
+    },
+    "Speso · carburante %@ · interventi %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spent · fuel %1$@ · services %2$@"
           }
         }
       }

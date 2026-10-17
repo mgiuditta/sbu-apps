@@ -24,7 +24,7 @@ struct ConsumptionChart: View {
                         .accessibilityLabel(segment.endDate.formatted(date: .abbreviated, time: .omitted))
                         .accessibilityValue(text(segment))
                 }
-                .foregroundStyle(.tint)
+                .foregroundStyle(SbuTheme.ink)
                 if let selected {
                     RuleMark(x: .value("Data", selected.endDate))
                         .foregroundStyle(SbuTheme.line)
@@ -68,13 +68,11 @@ struct ConsumptionChart: View {
             FillRecord(date: .now, odometerKm: 2_150, litres: 32),
         ]).segments, unit: .litresPer100Km)
     }
-    .tint(SbuTheme.accentFuel)
 }
 
 #Preview("Dark") {
     List {
         ConsumptionChart(segments: [], unit: .mpgUS)
     }
-    .tint(SbuTheme.accentFuel)
     .preferredColorScheme(.dark)
 }

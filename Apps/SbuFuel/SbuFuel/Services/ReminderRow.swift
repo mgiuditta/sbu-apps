@@ -14,7 +14,7 @@ struct ReminderRow: View {
             subtitle: words.interval.map { Text($0) },
             systemImage: reminder.kind.systemImage,
             status: words.status.map { Text($0) },
-            statusTone: words.tone
+            statusMark: words.isUrgent
         )
     }
 }

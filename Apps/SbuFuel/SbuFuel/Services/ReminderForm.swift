@@ -83,7 +83,7 @@ struct ReminderForm: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Promemoria")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

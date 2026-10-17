@@ -71,7 +71,7 @@ struct ServiceForm: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Intervento")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

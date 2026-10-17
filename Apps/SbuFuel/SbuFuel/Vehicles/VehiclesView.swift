@@ -26,7 +26,7 @@ struct VehiclesView: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Veicoli")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -43,7 +43,12 @@ struct VehiclesView: View {
             }
             .overlay {
                 if vehicles.isEmpty {
-                    ContentUnavailableView("Nessun veicolo", systemImage: "car", description: Text("Aggiungine uno con +."))
+                    SbuEmpty(sentence: "Aggiungi un veicolo per registrare i rifornimenti.") {
+                        SbuButton("Aggiungi veicolo", action: add)
+                    }
+                    .padding(SbuTheme.space4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .sbuPaper(grid: true)
                 }
             }
         }

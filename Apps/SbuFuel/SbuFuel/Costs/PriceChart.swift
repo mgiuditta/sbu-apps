@@ -26,7 +26,7 @@ struct PriceChart: View {
                         .accessibilityLabel(fill.date.formatted(date: .abbreviated, time: .omitted))
                         .accessibilityValue(text(fill))
                 }
-                .foregroundStyle(.tint)
+                .foregroundStyle(SbuTheme.ink)
                 if let selected = nearest(in: points) {
                     RuleMark(x: .value("Data", selected.date))
                         .foregroundStyle(SbuTheme.line)
@@ -34,7 +34,7 @@ struct PriceChart: View {
                             ChartCallout(value: text(selected), date: selected.date.formatted(date: .abbreviated, time: .omitted))
                         }
                     PointMark(x: .value("Data", selected.date), y: .value("Prezzo", price(selected)))
-                        .foregroundStyle(.tint)
+                        .foregroundStyle(SbuTheme.ink)
                         .symbolSize(60)
                 }
             }
@@ -83,13 +83,11 @@ struct PriceChart: View {
             FillRecord(date: .now, odometerKm: 2_150, litres: 32, totalPrice: 57),
         ], volumeUnit: .litres)
     }
-    .tint(SbuTheme.accentFuel)
 }
 
 #Preview("Dark") {
     List {
         PriceChart(fills: [], volumeUnit: .usGallons)
     }
-    .tint(SbuTheme.accentFuel)
     .preferredColorScheme(.dark)
 }

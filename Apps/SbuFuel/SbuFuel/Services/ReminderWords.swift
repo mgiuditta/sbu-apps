@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// A reminder in words: its interval, and how close it is, with the tone of the status.
+/// A reminder in words: its interval, and how close it is, with how urgent it is.
 struct ReminderWords {
     let reminder: ServiceReminder
     let due: ReminderDue
@@ -40,11 +40,11 @@ struct ReminderWords {
         return "\(date.formatted(.dateTime.day().month(.abbreviated).year()))"
     }
 
-    var tone: SbuStatusTone {
+    /// The row mark: filled when the service is overdue or soon, empty when it is later.
+    var isUrgent: Bool {
         switch due.status {
-        case .overdue: .danger
-        case .soon: .warning
-        case .later: .neutral
+        case .overdue, .soon: true
+        case .later: false
         }
     }
 }

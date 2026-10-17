@@ -30,14 +30,11 @@ struct AccessScreen: View {
                     .foregroundStyle(SbuTheme.ink)
                     .fixedSize(horizontal: false, vertical: true)
 
+                // SbuButton, not .borderedProminent: its white label vanishes on the ink tint in dark mode.
                 if isDenied {
-                    Button("Apri Impostazioni", action: openSettings)
-                        .buttonStyle(.borderedProminent)
-                        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusCard))
+                    SbuButton("Apri Impostazioni", action: openSettings)
                 } else {
-                    Button("Continua", action: requestAccess)
-                        .buttonStyle(.borderedProminent)
-                        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusCard))
+                    SbuButton("Continua", action: requestAccess)
                 }
             }
             .padding(.horizontal, SbuTheme.space4)

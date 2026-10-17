@@ -23,7 +23,7 @@ struct PresetPicker: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Suggerimenti")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -78,13 +78,13 @@ private struct PresetRow: View {
     NavigationStack {
         PresetPicker(kind: .kitchen, existing: ["Lavare i piatti"]) { _ in }
     }
-    .tint(SbuTheme.accentTidy)
+    .environment(\.sbuAccent, .tidy)
 }
 
 #Preview("Dark") {
     NavigationStack {
         PresetPicker(kind: .kitchen, existing: []) { _ in }
     }
-    .tint(SbuTheme.accentTidy)
+    .environment(\.sbuAccent, .tidy)
     .preferredColorScheme(.dark)
 }

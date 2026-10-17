@@ -7,15 +7,13 @@ final class TidyFlowTests: TidyUITestCase {
     func testFirstRunOffersTheBaseRoomsAndPassesTheAudit() throws {
         let app = launch()
         XCTAssertTrue(app.buttons["addBaseRooms"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["addFirstRoom"].exists)
         try audit(app)
 
         addBaseRooms(app)
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Da fare oggi'")).firstMatch
-        XCTAssertTrue(figure.waitForExistence(timeout: 5))
-        // Base chores start just done: nothing to do, and the list says so.
-        XCTAssertTrue(figure.label.contains("0"), figure.label)
-        XCTAssertTrue(app.staticTexts["Niente da fare oggi"].exists)
+        // Base chores start just done: nothing to do and nothing done, so the empty state says so.
+        let empty = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Niente da fare oggi'")).firstMatch
+        XCTAssertTrue(empty.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.switches.matching(identifier: "todayChore").firstMatch.exists)
         try audit(app)
     }
 
@@ -58,7 +56,7 @@ final class TidyFlowTests: TidyUITestCase {
         let oven = app.buttons.matching(NSPredicate(format: "identifier == 'chore' AND label BEGINSWITH 'Pulire il forno'")).firstMatch
         XCTAssertTrue(scroll(app, to: oven))
         oven.tap()
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Giorni alla scadenza'")).firstMatch
+        let figure = figureElement(app, "choreFigure")
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         try audit(app)
 
@@ -111,26 +109,43 @@ final class TidyFlowTests: TidyUITestCase {
     }
 
     @MainActor
-    func testSwipeMarksTheDirtiestChoreDoneAndTheFigureDrops() throws {
+    func testTheBoxMarksTheDirtiestChoreDoneAndTheFigureDrops() throws {
         let app = launch(["-FASTLANE_SNAPSHOT", "YES"])
-        let figure = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Da fare oggi'")).firstMatch
+        let figure = figureElement(app, "todayFigure")
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         let before = figure.label
         try audit(app)
 
-        let first = app.buttons.matching(identifier: "chore").firstMatch
+        let first = app.switches.matching(NSPredicate(format: "identifier == 'todayChore' AND value == '0'")).firstMatch
+        XCTAssertTrue(first.exists)
         let name = first.label
-        first.swipeRight()
-        app.buttons["Fatta"].firstMatch.tap()
-        let after = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Da fare oggi'")).firstMatch
-        XCTAssertTrue(after.waitForExistence(timeout: 5))
-        XCTAssertNotEqual(after.label, before)
-        XCTAssertNotEqual(app.buttons.matching(identifier: "chore").firstMatch.label, name)
+        first.tap()
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertNotEqual(figure.label, before)
+        // Ticked, the chore stays in the list, done, after the ones still to do.
+        let chore = String(name.prefix { $0 != "," })
+        let done = app.switches.matching(NSPredicate(format: "identifier == 'todayChore' AND label BEGINSWITH %@", chore)).firstMatch
+        XCTAssertTrue(scroll(app, to: done))
+        XCTAssertEqual(done.value as? String, "1")
+        XCTAssertTrue(done.label.contains("Fatta oggi"), done.label)
+
+        // Taken back, the figure is as before.
+        done.tap()
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertEqual(figure.label, before)
 
         app.buttons["In scadenza"].tap()
-        let upcoming = app.buttons.matching(NSPredicate(format: "identifier == 'chore' AND (label CONTAINS 'Tra ' OR label CONTAINS 'Domani')")).firstMatch
+        let upcoming = app.switches.matching(NSPredicate(format: "identifier == 'todayChore' AND (label CONTAINS 'Tra ' OR label CONTAINS 'Domani')")).firstMatch
         XCTAssertTrue(upcoming.waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons.matching(NSPredicate(format: "identifier == 'chore' AND label CONTAINS 'ritardo'")).firstMatch.exists)
+        XCTAssertFalse(app.switches.matching(NSPredicate(format: "identifier == 'todayChore' AND label CONTAINS 'ritardo'")).firstMatch.exists)
+        try audit(app)
+    }
+
+    @MainActor
+    func testTheToolScreenPassesTheAuditAtTheLargestTextSize() throws {
+        let app = launch(["-FASTLANE_SNAPSHOT", "YES", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
+        let figure = figureElement(app, "todayFigure")
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
         try audit(app)
     }
 
@@ -142,7 +157,7 @@ final class TidyFlowTests: TidyUITestCase {
         let toggle = app.switches["remindersToggle"]
         XCTAssertTrue(scroll(app, to: toggle))
         XCTAssertEqual(toggle.value as? String, "0")
-        toggle.switches.firstMatch.tap()
+        toggle.tap()
         XCTAssertTrue(app.datePickers.firstMatch.waitForExistence(timeout: 5))
         try audit(app)
     }

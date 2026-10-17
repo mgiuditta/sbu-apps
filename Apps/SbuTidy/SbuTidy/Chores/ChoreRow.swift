@@ -13,7 +13,7 @@ struct ChoreRow: View {
                 .font(SbuTheme.headline)
                 .foregroundStyle(SbuTheme.ink)
             ProgressView(value: state.level)
-                .tint(state.status == .paused ? SbuTheme.inkMuted : nil)
+                .tint(state.status == .paused ? SbuTheme.inkMuted : SbuTheme.ink)
                 .accessibilityHidden(true)
             HStack(alignment: .firstTextBaseline, spacing: SbuTheme.space2) {
                 DueText(label: DueLabel(state))
@@ -47,8 +47,8 @@ private struct ChoreRowPreview: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentTidy)
+        .background(SbuTheme.paper)
+        .environment(\.sbuAccent, .tidy)
     }
 
     private func row(_ name: String, every days: Int, daysAgo: Double, effort: Effort) -> some View {

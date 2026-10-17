@@ -38,7 +38,7 @@ struct RoomForm: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .scrollDismissesKeyboard(.interactively)
             .navigationTitle(room == nil ? "Nuova stanza" : "Modifica stanza")
             .navigationBarTitleDisplayMode(.inline)
@@ -84,12 +84,12 @@ struct RoomForm: View {
 #Preview("Light") {
     RoomForm(room: nil)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
 }
 
 #Preview("Dark") {
     RoomForm(room: nil)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
         .preferredColorScheme(.dark)
 }

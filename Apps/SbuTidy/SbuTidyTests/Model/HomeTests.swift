@@ -141,6 +141,21 @@ struct HomeTests {
         #expect(chore.history.isEmpty)
     }
 
+    @Test func takingBackTodaysTickRestartsFromTheTimeBefore() throws {
+        let room = Home.addRoom(RoomDraft(kind: .kitchen), in: context, now: Fixtures.daysAgo(20))
+        let chore = try #require(room.choreList.first)
+        chore.markDone(at: Fixtures.daysAgo(3), now: now, in: context)
+        #expect(chore.completion(on: now, calendar: Fixtures.calendar) == nil)
+        chore.markDone(at: now, now: now, in: context)
+        try context.save()
+
+        let today = try #require(chore.completion(on: now, calendar: Fixtures.calendar))
+        chore.remove(today, in: context)
+        try context.save()
+        #expect(chore.completion(on: now, calendar: Fixtures.calendar) == nil)
+        #expect(chore.lastDone == Fixtures.daysAgo(3))
+    }
+
     @Test func pauseAndResumeThroughTheModel() throws {
         let room = Home.addRoom(RoomDraft(kind: .garden), in: context, now: Fixtures.daysAgo(10))
         let chore = try #require(room.choreList.first)

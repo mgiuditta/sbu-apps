@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The due words of a chore, in `danger` when late and `warning` when due today: the color only
-/// repeats what the words say.
+/// The due words of a chore, in `ink` when to do today or late and `inkMuted` otherwise: the only
+/// color on screen is the full stop's, so the words say it.
 struct DueText: View {
     let label: DueLabel
 
@@ -13,8 +13,7 @@ struct DueText: View {
 
     private var color: Color {
         switch label {
-        case .late: SbuTheme.danger
-        case .today: SbuTheme.warning
+        case .late, .today: SbuTheme.ink
         case .tomorrow, .inDays, .paused: SbuTheme.inkMuted
         }
     }
@@ -41,6 +40,6 @@ private struct DueTextPreview: View {
         .font(SbuTheme.subheadline)
         .padding(SbuTheme.space4)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

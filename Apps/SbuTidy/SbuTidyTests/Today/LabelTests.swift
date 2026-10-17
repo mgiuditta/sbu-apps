@@ -40,9 +40,9 @@ struct LabelTests {
         let late = ChoreState(frequency: Frequency(7, .day), clock: ChoreClock(lastDone: Fixtures.daysAgo(9)), now: Fixtures.now, calendar: Fixtures.calendar)
         let clean = ChoreState(frequency: Frequency(7, .day), clock: ChoreClock(lastDone: Fixtures.now), now: Fixtures.now, calendar: Fixtures.calendar)
         #expect(RoomSummary([late, clean]).statusText.key == "%lld in ritardo")
-        #expect(RoomSummary([late, clean]).tone == .danger)
+        #expect(RoomSummary([late, clean]).hasWork)
         #expect(RoomSummary([clean]).statusText.key == "Pulita")
-        #expect(RoomSummary([clean]).tone == .success)
+        #expect(!RoomSummary([clean]).hasWork)
         #expect(RoomSummary([]).statusText.key == "Nessuna attività")
     }
 }

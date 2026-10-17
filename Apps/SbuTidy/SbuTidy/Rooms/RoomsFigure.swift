@@ -1,29 +1,36 @@
 import SbuKit
 import SwiftUI
 
-/// The figure of the rooms screen: how many rooms have nothing to do today.
+/// The figure of the rooms screen: how many rooms have nothing to do today. The full stop is set
+/// once they all do.
 struct RoomsFigure: View {
     let summaries: [RoomSummary]
 
     var body: some View {
-        let tidy = summaries.filter { !$0.status.hasWork }.count
-        SbuStat("Stanze in ordine", value: tidy, format: .number, context: "su \(summaries.count) stanze")
+        let tidy = summaries.filter { !$0.hasWork }.count
+        SbuFigure(
+            value: tidy.formatted(),
+            fullStop: !summaries.isEmpty && tidy == summaries.count ? .set : .waiting,
+            context: Text("in ordine · su \(summaries.count) stanze"),
+            accessibilityLabel: Text("Stanze in ordine: \(tidy) su \(summaries.count)")
+        )
+        .accessibilityIdentifier("roomsFigure")
     }
-}
-
-private extension RoomSummary.Status {
-    var hasWork: Bool { self == .due || self == .overdue }
 }
 
 #Preview("Light") {
     RoomsFigure(summaries: [RoomSummary([]), RoomSummary([])])
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentTidy)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .tidy)
 }
 
 #Preview("Dark") {
     RoomsFigure(summaries: [RoomSummary([])])
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentTidy)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .tidy)
         .preferredColorScheme(.dark)
 }

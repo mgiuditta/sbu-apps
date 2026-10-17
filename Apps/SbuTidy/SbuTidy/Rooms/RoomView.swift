@@ -31,6 +31,10 @@ struct RoomView: View {
         return List {
             Section {
                 RoomFigure(summary: summary)
+                    .padding(.vertical, SbuTheme.gridCell)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    // On the row's content, not the list: the grid scrolls with the figure.
+                    .sbuPaper(grid: true)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
             }
@@ -41,10 +45,10 @@ struct RoomView: View {
                             ChoreRow(name: entry.chore.name, effort: entry.chore.effort, state: entry.state)
                         }
                         .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                            DoneButton { markDone(chore) }
+                            Button("Fatta", systemImage: "checkmark") { markDone(chore) }
                         }
                         .contextMenu {
-                            DoneButton { markDone(chore) }
+                            Button("Fatta", systemImage: "checkmark") { markDone(chore) }
                         }
                         .accessibilityIdentifier("chore")
                     }
@@ -60,14 +64,14 @@ struct RoomView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(room.name)
         .safeAreaInset(edge: .bottom) {
             SbuButton("Aggiungi attività", action: addChore)
                 .accessibilityIdentifier("addChore")
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space2)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -92,7 +96,7 @@ struct RoomView: View {
         } message: {
             Text("Le sue attività e il loro storico se ne vanno con lei.")
         }
-        .sensoryFeedback(.success, trigger: doneCount)
+        .sbuAffectsFigure(doneCount)
     }
 
     private func markDone(_ chore: Chore) {
@@ -146,6 +150,6 @@ private struct RoomViewPreview: View {
         }
         .modelContainer(.preview)
         .environment(Clock())
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
     }
 }

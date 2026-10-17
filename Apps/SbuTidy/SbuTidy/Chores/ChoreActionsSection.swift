@@ -44,7 +44,7 @@ private struct ChoreActionsSectionPreview: View {
             ChoreActionsSection(isPaused: true, isOneOff: true, markDoneNow: {}, pickDay: {}, togglePause: {})
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentTidy)
+        .background(SbuTheme.paper)
+        .environment(\.sbuAccent, .tidy)
     }
 }

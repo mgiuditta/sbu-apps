@@ -1,5 +1,4 @@
 import Foundation
-import SbuKit
 
 extension RoomSummary {
     /// The word next to a room, never color alone: "Pulita", "2 da fare", "1 in ritardo".
@@ -13,12 +12,6 @@ extension RoomSummary {
         }
     }
 
-    var tone: SbuStatusTone {
-        switch status {
-        case .empty, .paused: .neutral
-        case .clean: .success
-        case .due: .warning
-        case .overdue: .danger
-        }
-    }
+    /// Something due today or late: the room is not in order.
+    var hasWork: Bool { status == .due || status == .overdue }
 }

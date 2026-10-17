@@ -29,6 +29,10 @@ struct ChoreView: View {
         return List {
             Section {
                 ChoreFigure(state: state)
+                    .padding(.vertical, SbuTheme.gridCell)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    // On the row's content, not the list: the grid scrolls with the figure.
+                    .sbuPaper(grid: true)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
             }
@@ -47,7 +51,7 @@ struct ChoreView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(chore.name)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -64,7 +68,7 @@ struct ChoreView: View {
         .sheet(isPresented: $isPickingDay) {
             DoneOnSheet(markDone: markDone)
         }
-        .sensoryFeedback(.success, trigger: doneCount)
+        .sbuAffectsFigure(doneCount)
     }
 
     private func markDoneNow() {
@@ -118,6 +122,6 @@ private struct ChoreViewPreview: View {
         }
         .modelContainer(.preview)
         .environment(Clock())
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
     }
 }

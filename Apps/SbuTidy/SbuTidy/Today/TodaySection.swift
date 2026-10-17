@@ -1,36 +1,28 @@
 import SbuKit
 import SwiftUI
 
-/// One room in the to-do list: its name and count, then its chores, each opening its screen and
-/// marked done with a swipe, as in Tody.
+/// One room in the to-do list, on paper: its name and count in mono, then its chores in a card,
+/// each ticked as done with its box and opened with its chevron.
 struct TodaySection: View {
     let section: TodayList.Section
     let chores: [UUID: Chore]
-    let markDone: (Chore) -> Void
+    let setDone: (Chore, Bool) -> Void
+
+    @Environment(\.locale) private var locale
+    @ScaledMetric(relativeTo: .caption2) private var labelSize = SbuTheme.cartiglioSize
 
     var body: some View {
-        Section {
-            ForEach(section.items) { item in
+        VStack(alignment: .leading, spacing: SbuTheme.space2) {
+            // Uppercased in the string, as the cartiglio: the accessibility audit measures the string.
+            Text(verbatim: "\(section.roomName.uppercased(with: locale)) · \(section.items.count.formatted())")
+                .font(.sbuCartiglio)
+                .tracking(labelSize * SbuTheme.cartiglioTracking)
+                .foregroundStyle(SbuTheme.inkMuted)
+                .accessibilityAddTraits(.isHeader)
+            SbuListCard(section.items) { item in
                 if let chore = chores[item.id] {
-                    NavigationLink(value: chore) {
-                        ChoreRow(name: item.chore.name, effort: item.chore.effort, state: item.state)
-                    }
-                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                        DoneButton { markDone(chore) }
-                    }
-                    .contextMenu {
-                        DoneButton { markDone(chore) }
-                    }
-                    .accessibilityIdentifier("chore")
+                    TodayChoreRow(item: item, chore: chore, setDone: setDone)
                 }
-            }
-            .listRowBackground(SbuTheme.surfaceRaised)
-        } header: {
-            HStack {
-                Text(section.roomName)
-                Spacer()
-                Text(section.items.count, format: .number)
-                    .monospacedDigit()
             }
         }
     }
@@ -46,21 +38,23 @@ struct TodaySection: View {
 }
 
 private struct TodaySectionPreview: View {
-    private let now = Date.now
-
     var body: some View {
-        let room = UUID()
+        let now = Date.now
         let chores = [7.0, 3, 12].enumerated().map { index, age in
-            ChoreSnapshot(id: UUID(), name: "Attività \(index + 1)", roomID: room, roomName: "Cucina", roomOrder: 0, effort: .medium,
-                          frequency: Frequency(5, .day), clock: ChoreClock(lastDone: now.addingTimeInterval(-age * 86_400)))
+            Chore(name: "Attività \(index + 1)", frequency: Frequency(5, .day), effort: .medium, lastDone: now.addingTimeInterval(-age * 86_400))
         }
-        return List {
-            ForEach(TodayList(chores, filter: .toDo, now: now, calendar: .current).sections) { section in
-                TodaySection(section: section, chores: [:]) { _ in }
+        let byID = Dictionary(uniqueKeysWithValues: chores.map { ($0.id, $0) })
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: SbuTheme.space6) {
+                    ForEach(TodayList(chores.map(\.snapshot), filter: .toDo, now: now, calendar: .current).sections) { section in
+                        TodaySection(section: section, chores: byID) { _, _ in }
+                    }
+                }
+                .padding(SbuTheme.space4)
             }
+            .sbuPaper()
         }
-        .listStyle(.insetGrouped)
-        .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .modelContainer(.preview)
     }
 }

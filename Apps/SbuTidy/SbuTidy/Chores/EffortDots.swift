@@ -1,20 +1,17 @@
 import SbuKit
 import SwiftUI
 
-/// Tody's effort: one to three filled dots out of three. VoiceOver reads the word instead.
+/// Tody's effort: one to three filled ink squares out of three, the size of the row mark; never
+/// the accent. VoiceOver reads the word instead.
 struct EffortDots: View {
     let effort: Effort
 
     var body: some View {
         HStack(spacing: SbuTheme.space1) {
             ForEach(Effort.allCases, id: \.self) { level in
-                Image(systemName: level <= effort ? "circle.fill" : "circle")
+                SbuRowMark(filled: level <= effort)
             }
         }
-        .font(SbuTheme.caption)
-        .fontWeight(.medium)
-        .imageScale(.small)
-        .foregroundStyle(SbuTheme.inkMuted)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text("Sforzo: \(Text(effort.name))"))
     }
@@ -35,6 +32,6 @@ private struct EffortDotsPreview: View {
             ForEach(Effort.allCases, id: \.self) { EffortDots(effort: $0) }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

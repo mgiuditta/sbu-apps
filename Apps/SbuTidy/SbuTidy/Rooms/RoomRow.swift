@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// A room in the rooms list: its symbol, name and chore count, and its state in words.
+/// A room in the rooms list: its symbol in ink on a sunken tile, name and chore count, and its
+/// state in words; the accent belongs to the figure's full stop alone.
 struct RoomRow: View {
     let name: String
     let kind: RoomKind
@@ -12,9 +13,9 @@ struct RoomRow: View {
             "\(name)",
             subtitle: "\(summary.choreCount) attività",
             systemImage: kind.symbol,
-            iconBackground: SbuTheme.accentTidy,
-            status: "\(Text(summary.statusText))",
-            statusTone: summary.tone
+            iconBackground: SbuTheme.surfaceSunken,
+            iconForeground: SbuTheme.ink,
+            status: "\(Text(summary.statusText))"
         )
     }
 }
@@ -36,6 +37,6 @@ private struct RoomRowPreview: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

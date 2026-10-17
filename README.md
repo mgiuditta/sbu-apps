@@ -2,6 +2,15 @@
 
 Free iOS apps from [sbu.dev](https://sbu.dev). Each one remakes a single paid utility from the top of the App Store: no subscription, no in-app purchases, no account, no ads, no tracking, data only on the device.
 
+**On the App Store:** [Sbu Subscriptions](https://apps.apple.com/app/id6780154928), a free alternative to Orbit, and [Sbu Scanner](https://apps.apple.com/app/id6772572337), QR codes and barcodes without ads. One new app a week; the rest are below.
+
+<p>
+  <a href="https://sbu.dev/en/apps/subscriptions"><img src="Site/public/og/subscriptions.png" width="49%" alt="Sbu Subscriptions: what your subscriptions cost, and no renewal surprises you"></a>
+  <a href="https://sbu.dev/en/apps/scanner"><img src="Site/public/og/scanner.png" width="49%" alt="Sbu Scanner: reads any code and shows where it goes before you open it"></a>
+</p>
+
+Native SwiftUI, one shared design system (`Packages/SbuKit`), Italian and English, iOS 17+. The apps depend only on Apple frameworks: no third-party code, no analytics, no network. MIT licence.
+
 ```
 Design/            design system snapshot: tokens.json, icons, logos, fonts
 Packages/SbuKit/   SwiftUI package: SbuTheme tokens, components, app shell
@@ -52,13 +61,28 @@ Specs come only from public App Store data. Nothing here decompiles or extracts 
 
 ## Apps
 
-| App | Accent | Remakes |
-|---|---|---|
-| [Sbu Level](Apps/SbuLevel) | `accent-level` | Clinometer + bubble level |
-| [Sbu Habits](Apps/SbuHabits) | `accent-habits` | Streaks |
-| [Sbu Noise](Apps/SbuNoise) | `accent-noise` | White Noise |
-| [Sbu Moon](Apps/SbuMoon) | `accent-moon` | My Moon Phase Pro - Alerts |
-| [Sbu Speed](Apps/SbuSpeed) | `accent-speed` | Speedometer 55 Pro. GPS kit. |
+| App | Accent | Remakes | Status |
+|---|---|---|---|
+| [Sbu Subscriptions](Apps/SbuSubscriptions) | `accent-subscriptions` | Orbit | [App Store](https://apps.apple.com/app/id6780154928) |
+| [Sbu Scanner](Apps/SbuScanner) | `accent-scanner` | QR Reader for iPhone | [App Store](https://apps.apple.com/app/id6772572337) |
+| [Sbu Find](Apps/SbuFind) | `accent-find` | Find Air | In App Review |
+| [Sbu Habits](Apps/SbuHabits) | `accent-habits` | Streaks | In App Review |
+| [Sbu Noise](Apps/SbuNoise) | `accent-noise` | White Noise | In App Review |
+| [Sbu Speed](Apps/SbuSpeed) | `accent-speed` | Speedometer 55 Pro. GPS kit. | TestFlight |
+| [Sbu Moon](Apps/SbuMoon) | `accent-moon` | My Moon Phase Pro | In App Review |
+| [Sbu Clean](Apps/SbuClean) | `accent-clean` | Cleanup | In App Review |
+| [Sbu Chats](Apps/SbuChats) | `accent-chats` | The Cringe: Chat Wrapped | TestFlight |
+| [Sbu Fuel](Apps/SbuFuel) | `accent-fuel` | Fuelly: MPG & Service Tracker | TestFlight |
+| [Sbu Inventory](Apps/SbuInventory) | `accent-inventory` | Sortly | TestFlight |
+| [Sbu Shrink](Apps/SbuShrink) | `accent-shrink` | Compress Videos & Resize Video | In development |
+| [Sbu Grid](Apps/SbuGrid) | `accent-grid` | DrawinGrid | In development |
+| [Sbu Tidy](Apps/SbuTidy) | `accent-tidy` | Tody | In development |
+| [Sbu Libretto](Apps/SbuLibretto) | `accent-libretto` | — | In development |
+| [Sbu Meds](Apps/SbuMeds) | `accent-meds` | Medisafe | In development |
+| [Sbu Remote](Apps/SbuRemote) | `accent-remote` | TV Remote - Universal Control | In development |
+| [Sbu Level](Apps/SbuLevel) | `accent-level` | Clinometer + bubble level | In development |
+
+Live, in review and coming apps, with their pages: [sbu.dev](https://sbu.dev).
 
 ## Site
 

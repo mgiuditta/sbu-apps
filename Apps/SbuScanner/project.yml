@@ -34,6 +34,8 @@ targets:
         # English in InfoPlist.xcstrings.
         NSCameraUsageDescription: "Sbu Scanner usa la fotocamera per leggere QR e codici a barre. Le immagini restano sull'iPhone."
         CFBundleShortVersionString: $(MARKETING_VERSION)
+        # The App Store id: settings link to the review form.
+        SbuAppStoreID: "6772572337"
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     settings:
       base:

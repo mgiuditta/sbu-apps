@@ -40,6 +40,8 @@ targets:
       properties:
         # The version and build from the project settings, as without a plist of our own.
         CFBundleShortVersionString: $(MARKETING_VERSION)
+        # The App Store id: settings link to the review form.
+        SbuAppStoreID: "6780154928"
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         # Wakes the app for iCloud's silent notification: changes from your other devices, or a shared list.
         UIBackgroundModes: [remote-notification]

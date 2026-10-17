@@ -26,6 +26,17 @@ struct SbuSettingsView<Settings: View>: View {
         SbuPrivacyPage.url(slug: slug, languageCode: SbuTheme.bundle.preferredLocalizations.first)
     }
 
+    /// The app's page on sbu.dev, in the language these settings are shown in.
+    private var appPageURL: URL {
+        SbuPrivacyPage.appURL(slug: slug, languageCode: SbuTheme.bundle.preferredLocalizations.first)
+    }
+
+    /// The App Store's review form, once the app's project sets `SbuAppStoreID` in its Info.plist.
+    private var reviewURL: URL? {
+        guard let id = Bundle.main.object(forInfoDictionaryKey: "SbuAppStoreID") as? String, !id.isEmpty else { return nil }
+        return URL(string: "https://apps.apple.com/app/id\(id)?action=write-review")
+    }
+
     var body: some View {
         NavigationStack {
             List {
@@ -71,20 +82,22 @@ struct SbuSettingsView<Settings: View>: View {
                 }
 
                 Section {
-                    Link(destination: privacyURL) {
-                        HStack {
-                            Text("Privacy", bundle: SbuTheme.bundle)
-                                .font(SbuTheme.body)
-                                .foregroundStyle(SbuTheme.ink)
+                    ShareLink(item: appPageURL) {
+                        SbuSettingsRowLabel(title: Text("Condividi l'app", bundle: SbuTheme.bundle), systemImage: "square.and.arrow.up")
+                    }
 
-                            Spacer(minLength: 0)
-
-                            Image(systemName: "arrow.up.right")
-                                .fontWeight(.medium)
-                                .imageScale(.medium)
-                                .foregroundStyle(SbuTheme.inkMuted)
-                                .accessibilityHidden(true)
+                    if let reviewURL {
+                        Link(destination: reviewURL) {
+                            SbuSettingsRowLabel(title: Text("Scrivi una recensione", bundle: SbuTheme.bundle), systemImage: "arrow.up.right")
                         }
+                        .accessibilityHint(Text("Apre l'App Store", bundle: SbuTheme.bundle))
+                    }
+                }
+                .listRowBackground(SbuTheme.surfaceRaised)
+
+                Section {
+                    Link(destination: privacyURL) {
+                        SbuSettingsRowLabel(title: Text("Privacy", bundle: SbuTheme.bundle), systemImage: "arrow.up.right")
                     }
                     .accessibilityHint(Text("Apre sbu.dev in Safari", bundle: SbuTheme.bundle))
 

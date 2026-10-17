@@ -20,6 +20,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CKSharingSupported</key>
 	<true/>
+	<key>SbuAppStoreID</key>
+	<string>6780154928</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

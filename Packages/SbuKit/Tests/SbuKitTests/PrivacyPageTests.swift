@@ -17,4 +17,12 @@ struct PrivacyPageTests {
     @Test func missingLanguageFallsBackToItalian() {
         #expect(SbuPrivacyPage.url(slug: "level", languageCode: nil).absoluteString == "https://sbu.dev/privacy/level")
     }
+
+    @Test(arguments: [
+        ("it", "https://sbu.dev/apps/scanner"),
+        ("en", "https://sbu.dev/en/apps/scanner"),
+    ])
+    func appPageFollowsLanguage(languageCode: String, expected: String) {
+        #expect(SbuPrivacyPage.appURL(slug: "scanner", languageCode: languageCode).absoluteString == expected)
+    }
 }

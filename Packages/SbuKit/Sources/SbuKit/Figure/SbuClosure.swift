@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(iOS)
+import StoreKit
+#endif
 
 /// The Closure: for two seconds the figure gives way to one word and the full stop, in an ink block.
 ///
@@ -12,6 +15,9 @@ struct SbuClosure: ViewModifier {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.sbuPlaysHaptics) private var playsHaptics
+    #if os(iOS)
+    @Environment(\.requestReview) private var requestReview
+    #endif
 
     func body(content: Content) -> some View {
         content
@@ -30,8 +36,26 @@ struct SbuClosure: ViewModifier {
                 try? await Task.sleep(for: .seconds(SbuTheme.closureDuration))
                 guard !Task.isCancelled else { return }
                 isPresented = false
+                #if os(iOS)
+                askForReviewIfDue()
+                #endif
             }
     }
+
+    #if os(iOS)
+    /// The Closure is the moment the person got what they came for: after it, on the third
+    /// different day, the App Store review prompt.
+    private func askForReviewIfDue() {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        var prompt = SbuReviewPrompt(defaults: .standard)
+        prompt.recordClosure(on: .now)
+        if prompt.shouldAsk(version: version) {
+            prompt.markAsked(version: version)
+            requestReview()
+        }
+        prompt.save(to: .standard)
+    }
+    #endif
 
     private var block: some View {
         HStack(alignment: .lastTextBaseline, spacing: 0) {

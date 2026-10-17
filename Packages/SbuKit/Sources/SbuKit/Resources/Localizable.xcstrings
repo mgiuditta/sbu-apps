@@ -21,6 +21,17 @@
         }
       }
     },
+    "Apre l'App Store" : {
+      "comment" : "VoiceOver hint of Scrivi una recensione.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens the App Store"
+          }
+        }
+      }
+    },
     "Apre sbu.dev in Safari" : {
       "localizations" : {
         "en" : {
@@ -37,6 +48,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paper"
+          }
+        }
+      }
+    },
+    "Condividi l'app" : {
+      "comment" : "Settings row: shares the app's page on sbu.dev.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share the app"
           }
         }
       }
@@ -178,6 +200,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Privacy"
+          }
+        }
+      }
+    },
+    "Scrivi una recensione" : {
+      "comment" : "Settings row: opens the App Store review form.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write a review"
           }
         }
       }

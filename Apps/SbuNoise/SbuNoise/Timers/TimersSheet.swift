@@ -43,7 +43,13 @@ struct TimersSheet: View {
             }
             .overlay {
                 if timers.timers.isEmpty && alarms.alarms.isEmpty {
-                    ContentUnavailableView("Nessun timer né sveglia", systemImage: "timer", description: Text("Aggiungi un timer per fermare il suono, o una sveglia per il mattino."))
+                    SbuEmpty(sentence: "Aggiungi un timer per fermare il suono, o una sveglia per il mattino.") {
+                        Button("Nuovo timer") { editingTimer = SoundTimer() }
+                    }
+                    .padding(.horizontal, SbuTheme.space4)
+                    .padding(.top, SbuTheme.gridCell)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .sbuPaper(grid: true)
                 }
             }
             .navigationTitle("Timer e sveglie")
@@ -121,12 +127,10 @@ struct TimersSheet: View {
 #Preview("Light") {
     let player = PlayerModel()
     TimersSheet(timers: .preview, alarms: .preview(player: player), sounds: player.sounds)
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     let player = PlayerModel()
     TimersSheet(timers: .preview, alarms: .preview(player: player), sounds: player.sounds)
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

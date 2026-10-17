@@ -26,6 +26,8 @@ struct PlayerControls: View {
                 }
             }
             .disabled(model.current == nil)
+            // Previous, next and a swipe change the figure.
+            .sbuAffectsFigure(model.index)
             HStack(spacing: SbuTheme.space3) {
                 SystemVolumeSlider()
                     .frame(height: SbuTheme.controlRoundSm)
@@ -71,7 +73,7 @@ private struct FavoriteButton: View {
         ) {
             if let current = model.current { model.toggleFavorite(current) }
         }
-        .sensoryFeedback(.selection, trigger: isFavorite)
+        .sbuHaptic(.tick, trigger: isFavorite)
     }
 }
 
@@ -85,9 +87,9 @@ private struct PlayButton: View {
         Button(isPlaying ? "Pausa" : "Riproduci", systemImage: isPlaying ? "pause.fill" : "play.fill", action: action)
             .labelStyle(.iconOnly)
             .font(.title.weight(.medium))
-            .foregroundStyle(isEnabled ? SbuTheme.onAccent : SbuTheme.inkMuted)
+            .foregroundStyle(isEnabled ? SbuTheme.paper : SbuTheme.inkMuted)
             .frame(width: SbuTheme.controlRoundLg, height: SbuTheme.controlRoundLg)
-            .background(isEnabled ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.line), in: .circle)
+            .background(isEnabled ? SbuTheme.ink : SbuTheme.line, in: .circle)
             .contentShape(.circle)
     }
 }
@@ -95,12 +97,10 @@ private struct PlayButton: View {
 #Preview("Light") {
     PlayerControls(model: PlayerModel()) {}
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     PlayerControls(model: PlayerModel()) {}
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

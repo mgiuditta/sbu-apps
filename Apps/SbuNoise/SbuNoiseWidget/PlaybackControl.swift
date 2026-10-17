@@ -13,7 +13,7 @@ struct PlaybackControl: ControlWidget {
             } valueLabel: { isOn in
                 Label(isOn ? "In riproduzione" : "In pausa", systemImage: isOn ? "speaker.wave.2.fill" : "speaker.fill")
             }
-            .tint(SbuTheme.accentNoise)
+            .tint(SbuTheme.ink)
         }
         .displayName("Riproduci un suono")
         .description("Avvia o metti in pausa il suono di Sbu Noise.")

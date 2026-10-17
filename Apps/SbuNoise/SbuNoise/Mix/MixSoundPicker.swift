@@ -81,13 +81,11 @@ struct MixSoundPicker: View {
     NavigationStack {
         MixSoundPicker(sounds: Sound.generated, limit: 5, confirmTitle: "Avanti") { _ in }
     }
-    .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     NavigationStack {
         MixSoundPicker(sounds: Sound.generated, limit: 2, confirmTitle: "Aggiungi") { _ in }
     }
-    .tint(SbuTheme.accentNoise)
     .preferredColorScheme(.dark)
 }

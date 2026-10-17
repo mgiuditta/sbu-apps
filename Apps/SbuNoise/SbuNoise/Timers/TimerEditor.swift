@@ -124,11 +124,9 @@ struct TimerEditor: View {
 
 #Preview("Light") {
     TimerEditor(timer: SoundTimer(), isNew: true) { _ in } onDelete: {}
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     TimerEditor(timer: SoundTimer(trigger: .clock(hour: 23, minute: 30), weekdays: [2, 3, 4, 5, 6]), isNew: false) { _ in } onDelete: {}
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

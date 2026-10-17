@@ -214,14 +214,18 @@ final class PlayerModel {
 
     /// Fades the sound out over `duration`, then pauses it. If the sound was restarted meanwhile
     /// (the output back at full volume) the user's choice wins and it keeps playing.
-    func fadeOut(over duration: Duration) async {
-        guard isPlaying else { return }
+    /// - Returns: `true` if the sound faded out and stopped.
+    @discardableResult
+    func fadeOut(over duration: Duration) async -> Bool {
+        guard isPlaying else { return false }
         await engine.fadeOutput(to: 0, over: duration)
         if Task.isCancelled {
             engine.outputVolume = 1
         } else if engine.outputVolume < 0.01 {
             pause()
+            return true
         }
+        return false
     }
 
     // MARK: Alarm

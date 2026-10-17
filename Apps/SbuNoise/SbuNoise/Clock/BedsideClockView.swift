@@ -20,7 +20,7 @@ struct BedsideClockView: View {
                 clock
             }
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
@@ -76,12 +76,10 @@ struct BedsideClockView: View {
 #Preview("Light") {
     let player = PlayerModel()
     BedsideClockView(model: player, alarms: .preview(player: player))
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     let player = PlayerModel()
     BedsideClockView(model: player, alarms: .preview(player: player))
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

@@ -23,11 +23,9 @@ struct NewMixFlow: View {
 
 #Preview("Light") {
     NewMixFlow(player: PlayerModel())
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     NewMixFlow(player: PlayerModel())
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

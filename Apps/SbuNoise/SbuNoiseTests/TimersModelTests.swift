@@ -63,5 +63,18 @@ struct TimersModelTests {
         try await Task.sleep(for: .milliseconds(300))
         #expect(!player.isPlaying)
         #expect(timers.timers.first?.isOn == false)
+        #expect(timers.lastStop != nil, "The player closes on the stop")
+    }
+
+    @Test func aTimerWithNothingPlayingIsNoStop() async throws {
+        let timers = TimersModel(store: store, player: player)
+        timers.save(SoundTimer(fade: .none, trigger: .duration(minutes: 0)))
+        try await Task.sleep(for: .milliseconds(300))
+        #expect(timers.lastStop == nil)
+    }
+
+    @Test(arguments: [(-1.0, false), (0.0, true), (4.0, true), (5.0, true), (6.0, false), (3_600.0, false)])
+    func aStopClosesOnlyWhileRecent(elapsed: TimeInterval, closes: Bool) {
+        #expect(TimersModel.isRecent(start, at: start.addingTimeInterval(elapsed)) == closes)
     }
 }

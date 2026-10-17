@@ -7,7 +7,7 @@ import SwiftUI
 struct SystemVolumeSlider: UIViewRepresentable {
     func makeUIView(context: Context) -> MPVolumeView {
         let view = MPVolumeView()
-        view.tintColor = UIColor(SbuTheme.accentNoise)
+        view.tintColor = UIColor(SbuTheme.ink)
         return view
     }
 

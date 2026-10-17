@@ -2,68 +2,53 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// On the Home Screen, the sound's name as the widget's one figure, closed by the full stop, with
-/// its symbol and the play/pause button; on the Lock Screen, the button alone or with the name.
+/// The sound's name as the widget's one figure, its full stop set while it plays, with the
+/// play/pause button; on the Lock Screen's circle, the button alone.
 struct NowPlayingWidgetView: View {
     let nowPlaying: NowPlaying
 
     @Environment(\.widgetFamily) private var family
 
     var body: some View {
-        Group {
-            switch family {
-            case .accessoryCircular:
-                ZStack {
-                    AccessoryWidgetBackground()
-                    PlayPauseButton(isPlaying: nowPlaying.isPlaying, filled: false)
-                }
-            case .accessoryRectangular:
-                HStack(spacing: SbuTheme.space2) {
-                    VStack(alignment: .leading) {
-                        Text(name)
-                            .font(.headline)
-                            .widgetAccentable()
-                        Text(nowPlaying.isPlaying ? "In riproduzione" : "In pausa")
-                            .font(.caption)
-                    }
-                    Spacer(minLength: 0)
-                    PlayPauseButton(isPlaying: nowPlaying.isPlaying, filled: false)
-                }
-            case .systemMedium:
-                HStack(alignment: .bottom, spacing: SbuTheme.space4) {
-                    symbol
-                    NowPlayingFigure(name: name)
+        switch family {
+        case .accessoryCircular:
+            ZStack {
+                AccessoryWidgetBackground()
+                PlayPauseButton(isPlaying: nowPlaying.isPlaying, filled: false)
+            }
+            // The Lock Screen shows its wallpaper through the accessory widgets.
+            .containerBackground(for: .widget) {}
+        case .accessoryRectangular:
+            HStack(spacing: SbuTheme.space2) {
+                figure
+                PlayPauseButton(isPlaying: nowPlaying.isPlaying, filled: false)
+            }
+        default:
+            figure
+                .overlay(alignment: .topTrailing) {
                     PlayPauseButton(isPlaying: nowPlaying.isPlaying, filled: true)
                 }
-            default:
-                VStack(alignment: .leading, spacing: SbuTheme.space2) {
-                    HStack(alignment: .top) {
-                        symbol
-                        Spacer(minLength: 0)
-                        PlayPauseButton(isPlaying: nowPlaying.isPlaying, filled: true)
-                    }
-                    Spacer(minLength: 0)
-                    NowPlayingFigure(name: name)
-                }
-            }
-        }
-        .tint(SbuTheme.accentNoise)
-        .containerBackground(for: .widget) {
-            // The Lock Screen shows its wallpaper through the accessory widgets.
-            if family == .systemSmall || family == .systemMedium {
-                SbuTheme.surface
-            }
         }
     }
 
-    private var name: String {
-        nowPlaying.name ?? "Sbu Noise"
+    private var figure: some View {
+        SbuWidgetFigure(
+            value: nowPlaying.name ?? "Sbu Noise",
+            label: nowPlaying.isPlaying ? Text("In riproduzione") : Text("In pausa"),
+            fullStop: nowPlaying.isPlaying ? .set : .waiting,
+            accent: .noise
+        )
     }
+}
 
-    private var symbol: some View {
-        Image(systemName: nowPlaying.systemImage ?? "waveform")
-            .font(.title2.weight(.medium))
-            .foregroundStyle(SbuTheme.inkMuted)
-            .accessibilityHidden(true)
-    }
+#Preview("Light", as: .systemSmall) {
+    NowPlayingWidget()
+} timeline: {
+    NowPlayingEntry(date: .now, nowPlaying: NowPlaying(name: "Rumore marrone", systemImage: "water.waves", isPlaying: true))
+}
+
+#Preview("Dark", as: .systemMedium) {
+    NowPlayingWidget()
+} timeline: {
+    NowPlayingEntry(date: .now, nowPlaying: .sample)
 }

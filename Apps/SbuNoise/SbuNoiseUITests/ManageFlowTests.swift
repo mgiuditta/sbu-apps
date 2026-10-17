@@ -31,7 +31,7 @@ final class ManageFlowTests: XCTestCase {
         XCTAssertTrue(vento.waitForExistence(timeout: 2))
         vento.tap()
 
-        XCTAssertTrue(app.staticTexts["Vento"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Vento,'")).firstMatch.waitForExistence(timeout: 2))
         XCTAssertTrue(app.buttons["Pausa"].exists, "A tap in Gestisci plays the sound")
         app.buttons["Pausa"].tap()
     }
@@ -42,7 +42,8 @@ final class ManageFlowTests: XCTestCase {
 
         app.buttons["Categorie"].tap()
         app.buttons["Natura"].tap()
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Natura · 1 di'")).firstMatch.waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["SBU · RUMORE · NATURA"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS ', 1 di '")).firstMatch.exists)
         try audit(app)
 
         app.buttons["Dormi"].tap()

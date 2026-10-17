@@ -7,6 +7,11 @@ import UIKit
 @Observable
 final class TimersModel {
     private(set) var timers: [SoundTimer]
+    /// When a timer last faded the sound out and stopped it: the player closes on it, once.
+    private(set) var lastStop: Date?
+
+    /// How long after a stop the player still closes on it, if the app comes back meanwhile.
+    nonisolated static let closureWindow: TimeInterval = 5
 
     @ObservationIgnored private let store: NoiseStore
     @ObservationIgnored private let player: PlayerModel
@@ -30,6 +35,12 @@ final class TimersModel {
     /// The timer that stops the sound next, with the moment it is silent.
     var next: (timer: SoundTimer, date: Date)? {
         SoundTimer.next(in: timers, after: now())
+    }
+
+    /// Whether a stop at `stop` is still recent enough at `now` for the player to close on it.
+    nonisolated static func isRecent(_ stop: Date, at now: Date) -> Bool {
+        let elapsed = now.timeIntervalSince(stop)
+        return elapsed >= 0 && elapsed <= closureWindow
     }
 
     /// Adds a new timer or replaces the one with the same id; a duration starts counting now.
@@ -91,8 +102,9 @@ final class TimersModel {
         waiting = Task { [weak self, player] in
             try? await Task.sleep(for: .seconds(fadeStart.timeIntervalSince(Date.now)))
             guard !Task.isCancelled else { return }
-            await player.fadeOut(over: .seconds(max(0, date.timeIntervalSince(Date.now))))
+            let stopped = await player.fadeOut(over: .seconds(max(0, date.timeIntervalSince(Date.now))))
             guard !Task.isCancelled else { return }
+            if stopped { self?.lastStop = self?.now() }
             self?.fired(timer.id)
         }
     }

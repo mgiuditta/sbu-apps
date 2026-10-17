@@ -43,7 +43,7 @@ struct MixPadView: View {
                 .padding(SbuTheme.space4)
             }
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(isNew ? Text("Mix Pad") : Text(verbatim: mix.name))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -109,10 +109,10 @@ struct MixPadView: View {
     private func tokens(radius: CGFloat, time: TimeInterval) -> some View {
         ZStack {
             MixPadGrid(radius: radius)
-            // The variance as a faint accent halo around each sound's place: the pad's only accent.
+            // The variance as a faint ink halo around each sound's place.
             ForEach(mix.layers.filter { $0.variance > 0 }) { layer in
                 Circle()
-                    .fill(.tint.opacity(0.12))
+                    .fill(SbuTheme.ink.opacity(0.12))
                     .frame(width: 2 * layer.variance * radius, height: 2 * layer.variance * radius)
                     .offset(x: layer.position.x * radius, y: layer.position.y * radius)
                     .accessibilityHidden(true)
@@ -189,13 +189,11 @@ struct MixPadView: View {
     NavigationStack {
         MixPadView(mix: Mix(name: "Temporale", soundIDs: ["noise.pink", "noise.brown", "noise.white"]), isNew: true, player: PlayerModel())
     }
-    .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     NavigationStack {
         MixPadView(mix: Mix(name: "Temporale", soundIDs: ["noise.pink", "noise.blue"]), isNew: false, player: PlayerModel())
     }
-    .tint(SbuTheme.accentNoise)
     .preferredColorScheme(.dark)
 }

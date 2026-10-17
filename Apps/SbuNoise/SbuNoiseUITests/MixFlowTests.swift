@@ -31,7 +31,8 @@ final class MixFlowTests: XCTestCase {
         XCTAssertTrue(app.alerts["Salva il mix"].waitForExistence(timeout: 2))
         app.alerts.buttons["Salva"].tap()
 
-        XCTAssertTrue(app.staticTexts["Mix · 1 di 1"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["SBU · RUMORE · MIX"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label ENDSWITH ', 1 di 1'")).firstMatch.exists)
         XCTAssertFalse(app.navigationBars["Scegli i suoni"].exists, "Saving closes the whole sheet")
         XCTAssertTrue(app.buttons["Pausa"].exists, "The new mix plays")
         try audit(app)

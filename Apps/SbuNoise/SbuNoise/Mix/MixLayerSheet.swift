@@ -57,11 +57,9 @@ struct MixLayerSheet: View {
 
 #Preview("Light") {
     MixLayerSheet(soundName: "Rumore rosa", layer: .constant(MixLayer(soundID: "noise.pink", position: .center, variance: 0.3))) {}
-        .tint(SbuTheme.accentNoise)
 }
 
 #Preview("Dark") {
     MixLayerSheet(soundName: "Rumore rosa", layer: .constant(MixLayer(soundID: "noise.pink", position: .center))) {}
-        .tint(SbuTheme.accentNoise)
         .preferredColorScheme(.dark)
 }

@@ -10,7 +10,7 @@ the slides from fastlane/screenshots/scenes.json:
                "engraving": "icon" | "subject": "<what Gemini engraves>",
                "zoom": [x0, y0, x1, y1],                       # detail: the screen region to enlarge
                "mark": {"shape": "circle" | "underline", "box": [x0, y0, x1, y1]}}}  # ink on a real value
-Boxes are pixels of the raw screenshot. Without scenes.json the slides alternate tilted phones on the
+Boxes are pixels of the raw screenshot; a scene may override keys per language, as "en-US": {"mark": …}. Without scenes.json the slides alternate tilted phones on the
 icon engraving. A "subject" is engraved once with --engrave (Tools/make_icons.py style, GEMINI_API_KEY)
 into Design/icons/scenes/sbu-<app>-<key>.png and kept, like the icon masks.
 
@@ -127,6 +127,7 @@ def app_config(app, lang_dir, colors):
             sys.exit(f"{image}: no title for {key!r} in {lang_dir / 'title.strings'}")
         title, subtitle = titles[key]
         scene = scenes.get(key, {"layout": "flat" if i == len(images) - 1 else ("tilt-l", "tilt-r")[i % 2]})
+        scene = {**scene, **scene.get(lang_dir.name, {})}  # a language may move the mark (a week starting on Sunday)
         engraving = icon
         if "subject" in scene:
             mask = scene_mask(app, key)

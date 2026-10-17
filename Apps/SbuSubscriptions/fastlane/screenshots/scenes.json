@@ -2,24 +2,74 @@
   "01-main": {
     "layout": "hero",
     "engraving": "icon",
-    "mark": { "shape": "circle", "box": [30, 1060, 1260, 1440] }
+    "mark": {
+      "shape": "circle",
+      "box": [
+        30,
+        1060,
+        1260,
+        1440
+      ]
+    }
   },
   "02-trial": {
-    "layout": "tilt-l",
-    "subject": "an antique brass and glass hourglass with the sand almost run out, three-quarter view"
+    "layout": "detail",
+    "subject": "an antique brass and glass hourglass with the sand almost run out, three-quarter view",
+    "zoom": [
+      40,
+      1200,
+      1280,
+      1510
+    ],
+    "mark": {
+      "shape": "circle",
+      "box": [
+        840,
+        1385,
+        1225,
+        1480
+      ]
+    }
   },
   "03-calendar": {
     "layout": "tilt-r",
     "subject": "an antique tear-off wall calendar hanging from a nail, a few pages curling, three-quarter view",
-    "mark": { "shape": "circle", "box": [260, 1440, 440, 1610] }
+    "mark": {
+      "shape": "circle",
+      "box": [
+        260,
+        1440,
+        440,
+        1610
+      ]
+    },
+    "en-US": {
+      "mark": {
+        "shape": "circle",
+        "box": [
+          414,
+          1355,
+          594,
+          1525
+        ]
+      }
+    }
   },
   "04-widget": {
-    "layout": "detail",
+    "layout": "tilt-l",
     "subject": "a long paper shop receipt curling as it unrolls from a small old receipt printer"
   },
   "05-privacy": {
     "layout": "flat",
     "subject": "an old wrought iron padlock, closed, with its key beside it",
-    "mark": { "shape": "underline", "box": [120, 2120, 1010, 2400] }
+    "mark": {
+      "shape": "underline",
+      "box": [
+        120,
+        2120,
+        1010,
+        2400
+      ]
+    }
   }
 }

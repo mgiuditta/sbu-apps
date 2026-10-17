@@ -6,7 +6,7 @@ import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import { capitalize, formatDate, formatPrice, localePath, statusLabel, ui } from '../i18n';
 import { text } from '../lib/apps';
-import { DEVELOPER_URL, PROFILES } from '../lib/pages';
+import { DEVELOPER_URL, PROFILES, REPO_URL } from '../lib/pages';
 import type { Route } from '../lib/routes';
 
 type Props = Route & { view: 'home' };
@@ -30,6 +30,12 @@ const copy = {
     promises: 'Sei promesse, in ogni app',
     promisesClose: 'Se un’app ne viola una, non esce.',
     principles: 'Leggi i principi',
+    catch: 'Dov’è la fregatura?',
+    catchAnswer: [
+      'Non c’è. Le app girano solo sul tuo iPhone: nessun server da pagare, nessun dato da vendere, niente da farti comprare dopo.',
+      'Le fa una persona sola, uno studente di Sicurezza Informatica a Milano, che rifà le app a pagamento e le regala.',
+    ],
+    catchCode: 'Il codice è pubblico: puoi controllare.',
     tools: 'Nel browser, senza app',
     subscriptions: { title: 'Quanto spendi in abbonamenti', line: 'Scrivi gli abbonamenti che paghi e guarda il totale dell’anno.' },
     qrCode: { title: 'Crea un codice QR', line: 'Per un link, un testo o il Wi-Fi. Gratis, e non scade.' },
@@ -51,6 +57,12 @@ const copy = {
     promises: 'Six promises, in every app',
     promisesClose: 'If an app breaks one, it does not ship.',
     principles: 'Read the principles',
+    catch: 'What’s the catch?',
+    catchAnswer: [
+      'There isn’t one. The apps run only on your iPhone: no server to pay for, no data to sell, nothing to buy later.',
+      'One person makes them: a computer security student in Milan who remakes paid apps and gives them away.',
+    ],
+    catchCode: 'The code is public: you can check.',
     tools: 'In your browser, no app',
     subscriptions: { title: 'What your subscriptions cost', line: 'Write down the subscriptions you pay and see the yearly total.' },
     qrCode: { title: 'Make a QR code', line: 'For a link, some text or your Wi-Fi. Free, and it never expires.' },
@@ -102,6 +114,11 @@ const jsonLd = [
     logo: new URL(mark, site).href,
     sameAs: PROFILES,
     founder: { '@type': 'Person', name: 'Matteo Giuditta', sameAs: ['https://github.com/mgiuditta', DEVELOPER_URL] },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [{ '@type': 'Question', name: copy.catch, acceptedAnswer: { '@type': 'Answer', text: [...copy.catchAnswer, copy.catchCode].join(' ') } }],
   },
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription },
 ];
@@ -173,6 +190,14 @@ const jsonLd = [
       {t.promises.map((promise) => <li>{promise}</li>)}
     </ul>
     <p class="text-ink-muted">{copy.promisesClose} <a href={localePath(locale, 'principi')} class="underline">{copy.principles}</a></p>
+  </section>
+
+  <section aria-labelledby="catch" class="section">
+    <h2 id="catch" class="section-title font-display">{copy.catch}</h2>
+    <div class="section-lede">
+      {copy.catchAnswer.map((line) => <p>{line}</p>)}
+      <p><a href={REPO_URL} class="underline">{copy.catchCode}</a></p>
+    </div>
   </section>
 
   <section aria-labelledby="tools" class="section">

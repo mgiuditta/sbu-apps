@@ -26,6 +26,7 @@ public struct SbuFigure: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.sbuIsOnPaper) private var isOnPaper
     @State private var gridOffset: CGFloat = 0
+    @State private var hasSnapped = false
 
     /// Creates the figure.
     /// - Parameters:
@@ -81,11 +82,11 @@ public struct SbuFigure: View {
                 } action: { minY in
                     // Off paper (a List row, a sheet) there is no grid to meet: snapping there
                     // would only feed layout back into itself.
-                    guard isOnPaper else { return }
-                    // Self-sizing containers (List rows) move the block by fractions of a point
-                    // when the offset changes: only a whole point is worth another layout pass.
-                    let offset = Self.offsetToGrid(minY)
-                    if abs(offset - gridOffset) >= 1 { gridOffset = offset }
+                    // Snap once, on the first layout: self-sizing containers (List rows) and scrolling
+                    // move the block again after the offset changes, and following them never settles.
+                    guard isOnPaper, !hasSnapped else { return }
+                    hasSnapped = true
+                    gridOffset = Self.offsetToGrid(minY)
                 }
         case .fixed(let size, let stop):
             line(size: size, fullStop: stop)

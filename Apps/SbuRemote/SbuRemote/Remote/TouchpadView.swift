@@ -2,8 +2,8 @@ import SbuKit
 import SwiftUI
 
 /// A surface to swipe on: each step of the finger is an arrow, a tap is OK. On LG the finger
-/// moves the TV's pointer instead. Raised paper, no border, no shadow; a short mark in the
-/// accent under the finger, off with Reduce Motion. Hidden from VoiceOver, which uses the D-pad.
+/// moves the TV's pointer instead. Raised paper with a `line` border, no shadow; a short mark in
+/// `line` under the finger, off with Reduce Motion. Hidden from VoiceOver, which uses the D-pad.
 struct TouchpadView: View {
     let session: RemoteSession
 
@@ -16,12 +16,13 @@ struct TouchpadView: View {
     private var hasPointer: Bool { session.client?.hasPointer ?? false }
 
     var body: some View {
-        RoundedRectangle(cornerRadius: SbuTheme.radiusLg)
+        RoundedRectangle(cornerRadius: SbuTheme.radiusCard)
             .fill(SbuTheme.surfaceRaised)
+            .strokeBorder(SbuTheme.line)
             .overlay {
                 if let touch, !reduceMotion {
                     Circle()
-                        .fill(SbuTheme.accentRemote.opacity(0.3))
+                        .fill(SbuTheme.line)
                         .frame(width: SbuTheme.controlRoundSm, height: SbuTheme.controlRoundSm)
                         .position(touch)
                         .allowsHitTesting(false)
@@ -31,7 +32,7 @@ struct TouchpadView: View {
             .frame(height: SbuTheme.controlRound * 4)
             .contentShape(.rect)
             .gesture(drag)
-            .sensoryFeedback(.selection, trigger: steps)
+            .sbuHaptic(.tick, trigger: steps)
             .opacity(session.status.acceptsKeys ? 1 : 0.5)
             .accessibilityHidden(true)
     }
@@ -75,12 +76,12 @@ struct TouchpadView: View {
 #Preview("Light") {
     TouchpadView(session: .preview)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     TouchpadView(session: .preview)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

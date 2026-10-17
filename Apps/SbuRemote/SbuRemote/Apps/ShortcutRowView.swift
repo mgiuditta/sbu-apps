@@ -17,8 +17,7 @@ struct ShortcutRowView: View {
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, minHeight: SbuTheme.controlRoundSm)
                 }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusLg))
+                .buttonStyle(.remoteKey)
                 .disabled(!session.status.acceptsKeys)
                 .accessibilityHint(Text("Apre l'app sulla TV"))
             }

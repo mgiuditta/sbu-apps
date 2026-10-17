@@ -31,7 +31,7 @@ struct ShortcutListSheet: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -50,11 +50,11 @@ struct ShortcutListSheet: View {
 
 #Preview("Light") {
     ShortcutListSheet(title: "Sorgente", systemImage: "rectangle.on.rectangle", items: [TVShortcut(id: "1", name: "HDMI 1"), TVShortcut(id: "2", name: "PlayStation")]) { _ in }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     ShortcutListSheet(title: "Sorgente", systemImage: "rectangle.on.rectangle", items: [TVShortcut(id: "1", name: "HDMI 1"), TVShortcut(id: "2", name: "PlayStation")]) { _ in }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

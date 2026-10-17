@@ -43,6 +43,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.remote
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: AppIcon-Inversa
+        ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Remote
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities

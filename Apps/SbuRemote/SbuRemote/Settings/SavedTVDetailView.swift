@@ -53,7 +53,7 @@ struct SavedTVDetailView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(tv.name)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { name = tv.name }
@@ -76,13 +76,13 @@ struct SavedTVDetailView: View {
     NavigationStack {
         SavedTVDetailView(tv: .sample, session: RemoteSession(store: TVStore(defaults: UserDefaults(suiteName: "preview") ?? .standard)))
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         SavedTVDetailView(tv: .sample, session: RemoteSession(store: TVStore(defaults: UserDefaults(suiteName: "preview") ?? .standard)))
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

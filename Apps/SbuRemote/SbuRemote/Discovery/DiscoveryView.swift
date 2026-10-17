@@ -17,7 +17,7 @@ struct DiscoveryView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .task {
             discovery.start()
         }
@@ -135,7 +135,7 @@ private struct LocalNetworkDeniedSection: View {
             .navigationTitle("Aggiungi una TV")
             .navigationBarTitleDisplayMode(.inline)
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -144,6 +144,6 @@ private struct LocalNetworkDeniedSection: View {
             .navigationTitle("Aggiungi una TV")
             .navigationBarTitleDisplayMode(.inline)
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

@@ -29,7 +29,7 @@ struct VoiceSheet: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Cerca con la voce")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -79,7 +79,7 @@ struct VoiceSheet: View {
         .sheet(isPresented: .constant(true)) {
             VoiceSheet(session: .preview, voice: VoiceSearch())
         }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -87,6 +87,6 @@ struct VoiceSheet: View {
         .sheet(isPresented: .constant(true)) {
             VoiceSheet(session: .preview, voice: VoiceSearch())
         }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

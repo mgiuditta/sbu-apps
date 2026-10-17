@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The current TV's name at the top; tapping it switches to another saved TV or adds one.
+/// The current TV's name beside its status; tapping it switches to another saved TV or adds one.
 struct TVPickerMenu: View {
     let session: RemoteSession
     let onAdd: () -> Void
@@ -32,6 +32,7 @@ struct TVPickerMenu: View {
                     .foregroundStyle(SbuTheme.inkMuted)
                     .accessibilityHidden(true)
             }
+            .frame(minHeight: SbuTheme.controlRoundSm)
         }
         .accessibilityLabel(Text(session.tv?.name ?? ""))
         .accessibilityHint(Text("Cambia TV"))
@@ -40,4 +41,17 @@ struct TVPickerMenu: View {
     private func switchTo(_ tv: SavedTV) {
         Task { await session.switchTo(tv) }
     }
+}
+
+#Preview("Light") {
+    TVPickerMenu(session: .preview) {}
+        .padding(SbuTheme.space4)
+        .tint(SbuTheme.ink)
+}
+
+#Preview("Dark") {
+    TVPickerMenu(session: .preview) {}
+        .padding(SbuTheme.space4)
+        .tint(SbuTheme.ink)
+        .preferredColorScheme(.dark)
 }

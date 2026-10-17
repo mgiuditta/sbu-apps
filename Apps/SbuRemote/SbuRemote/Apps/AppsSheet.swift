@@ -35,7 +35,7 @@ struct AppsSheet: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("App")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -111,11 +111,11 @@ private struct AppRow: View {
 
 #Preview("Light") {
     AppsSheet(session: .preview, pins: PinnedAppsStore(defaults: UserDefaults(suiteName: "preview") ?? .standard))
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     AppsSheet(session: .preview, pins: PinnedAppsStore(defaults: UserDefaults(suiteName: "preview") ?? .standard))
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

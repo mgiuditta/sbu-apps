@@ -28,12 +28,12 @@ struct KeyGridView: View {
 #Preview("Light") {
     KeyGridView(session: .preview)
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     KeyGridView(session: .preview)
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

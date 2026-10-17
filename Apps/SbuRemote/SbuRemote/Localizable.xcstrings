@@ -291,6 +291,16 @@
         }
       }
     },
+    "Cerca la TV" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find your TV"
+          }
+        }
+      }
+    },
     "Cerco le TV sulla tua Wi-Fi" : {
       "localizations" : {
         "en" : {
@@ -367,6 +377,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Connected"
+          }
+        }
+      }
+    },
+    "Collegato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paired"
           }
         }
       }

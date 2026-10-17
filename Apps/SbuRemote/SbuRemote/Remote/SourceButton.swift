@@ -17,11 +17,10 @@ struct SourceButton: View {
                 .font(SbuTheme.headline)
                 .frame(minWidth: SbuTheme.controlRoundSm, minHeight: SbuTheme.controlRoundSm)
         }
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusLg))
+        .buttonStyle(.remoteKey)
         .disabled(!session.status.acceptsKeys)
         .accessibilityLabel(Text(RemoteKey.source.title))
-        .sensoryFeedback(.impact(weight: .light), trigger: presses)
+        .sbuHaptic(.tick, trigger: presses)
     }
 
     private func open() {

@@ -1,6 +1,6 @@
 # LinkedIn e X: Sbu Clean
 
-Headline profilo: quella in `marketing/auth/linkedin.md`.
+Headline profilo: quella in `marketing/archivio/auth/linkedin.md`.
 Nei post con lo screenshot del paywall: "Cleanup è un marchio del rispettivo proprietario; Sbu non è affiliata."
 
 ## Giorno 0: uscita

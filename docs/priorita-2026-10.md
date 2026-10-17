@@ -1,6 +1,8 @@
 # Priorità di ottobre 2026: la punta di lancia
 
-Riassunto della sessione del 15/10/2026. Roadmap in `docs/factory.md`, piano in `docs/lancio-sbu.md`, spec in `specs/auth/` e `specs/clean/`, asset in `marketing/auth/` e `marketing/clean/`, sito in `docs/site-todo.md`.
+Riassunto della sessione del 15/10/2026. Roadmap in `docs/factory.md`, piano in `docs/lancio-sbu.md`, spec in `specs/auth/` e `specs/clean/`, asset in `marketing/subscriptions/` e `marketing/clean/`, sito in `docs/site-todo.md`.
+
+**Aggiornamento del 17/10/2026.** Il 16/10 il filtro di nicchia di `docs/factory.md` ha archiviato Auth, Docs, Steps e Focus (riga "Archiviate, fuori dal filtro"). La punta di lancia ora è **Sbu Subscriptions**, già pubblicata (2.0.0 dal 15/10; il lancio parte con la 2.1.0), poi **Sbu Find** (in revisione), poi **Sbu Clean** quando Apple accetta la risposta al 4.3. Gli asset di Auth sono in `marketing/archivio/auth/`. Le righe di Auth, Docs, Steps e Focus sotto restano come storia della decisione del 15/10; dove contraddicono `docs/lancio-sbu.md`, vale quel file.
 
 ## Corrispondenza tra il brief e la repo
 
@@ -17,15 +19,15 @@ Riassunto della sessione del 15/10/2026. Roadmap in `docs/factory.md`, piano in 
 
 | # | App | Tier | Prima | Motivo dello spostamento |
 |---|---|---|---|---|
-| 1 | Auth | spearhead | in coda "già avviate", senza data | Il numero più pulito (9,99 €/settimana per una funzione che è un HMAC), la persona giusta (studente di sicurezza), 3 giorni di lavoro, nessun entitlement |
+| ~~1~~ | ~~Auth~~ archiviata il 16/10 | spearhead | in coda "già avviate", senza data | Il numero più pulito (9,99 €/settimana per una funzione che è un HMAC), la persona giusta (studente di sicurezza), 3 giorni di lavoro, nessun entitlement |
 | 2 | Clean | spearhead | costruita, respinta il 14/10 | Già fatta: costa solo la risposta ad Apple. 834 mila valutazioni tra Cleanup e Swipewipe, il paywall più odiato (65% delle recensioni 1-3★) |
 | 3 | Level 1.1 | silent | settimana 2 | Resta in corso come esercizio di SbuKit, ma non è una storia: Clinometer costa una volta sola |
-| 4 | Steps | loop | in coda, con dubbio sul paywall | Il paywall di Stompers è sulla giornata intera e sullo storico: l'hook lo dice con precisione |
+| ~~4~~ | ~~Steps~~ archiviata il 16/10 | loop | in coda, con dubbio sul paywall | Il paywall di Stompers è sulla giornata intera e sullo storico: l'hook lo dice con precisione |
 | 5 | Speed 1.1 | silent | settimana 4 | invariata |
-| 6 | Docs | loop | in coda, originale "da definire" | Ora l'originale è CamScanner+; numero debole (50 $/anno, niente settimanale): loop, non punta |
+| ~~6~~ | ~~Docs~~ archiviata il 16/10 | loop | in coda, originale "da definire" | Ora l'originale è CamScanner+; numero debole (50 $/anno, niente settimanale): loop, non punta |
 | 7 | Chats | loop | settimana 1 | Scende: è pronta, ma The Cringe ha 446 valutazioni. Stesso paywall di Auth (9,99 €/settimana), pubblico minuscolo |
 | 8-9 | Fuel, Inventory | silent | settimane 3 e 5 | Pronte, fuori dalla storia di lancio |
-| 10 | Focus | loop | Wave 2 | Entitlement FamilyControls da chiedere **subito**, costruire dopo |
+| ~~10~~ | ~~Focus~~ archiviata il 16/10 | loop | Wave 2 | Entitlement FamilyControls da chiedere **subito**, costruire dopo |
 | – | Alarm, Cycle, PDF | loop, Wave 2 | Wave 2-3 | Cycle sale (Flo, dati sanitari, privacy come storia); PDF scende dal #2 della revisione: numero debole |
 | – | Remote, Lift, Collage, Words, Habits, Cards, Noise, Dark + Block | Wave 3 | Wave 1-3 | Habits, Cards, Noise, Dark, Block clonano app una tantum a prezzo equo: nessuna indignazione, rischio antipatia. Remote ha un numero (7,99 €/settimana) e resta l'unica loop della Wave 3 |
 
@@ -33,15 +35,15 @@ Lo slot è uno a settimana e parte solo dopo la risposta di Apple sul lotto del 
 
 ## I 5 rischi
 
-1. **App Review per Auth e Clean.** Auth: categoria affollata (4.3), sosia di Google/Microsoft Authenticator (4.1), il revisore non ha un account 2FA (2.1). Mitigazione: nome e icona Sbu, QR di prova nelle note, Auth inviata da sola. Clean: già respinta per 4.3. Se la risposta al Resolution Center non basta, reinvio da sola con la differenza da "Duplicati" di Foto nelle note. Un rifiuto non ferma il piano: diventa il post "Apple mi ha rifiutato" (`marketing/*/linkedin.md`).
-2. **Il limite del backup dei codici.** Senza iCloud, chi perde l'iPhone senza un file di backup perde i codici. È anche la prima domanda su HN. Per questo il backup cifrato è P0, con promemoria nella lista finché non esiste un backup, e la risposta pronta in `marketing/auth/showhn.md`. Va detto prima che lo chiedano: "se perdi il telefono senza backup, perdi i codici, come con qualsiasi app offline".
+1. **App Review per Clean** (Auth archiviata il 16/10; per Subscriptions 2.1.0 e Find il rischio è il 4.3 di categoria affollata, mitigato dalle note per il revisore). Testo originale del 15/10: Auth: categoria affollata (4.3), sosia di Google/Microsoft Authenticator (4.1), il revisore non ha un account 2FA (2.1). Mitigazione: nome e icona Sbu, QR di prova nelle note, Auth inviata da sola. Clean: già respinta per 4.3. Se la risposta al Resolution Center non basta, reinvio da sola con la differenza da "Duplicati" di Foto nelle note. Un rifiuto non ferma il piano: diventa il post "Apple mi ha rifiutato" (`marketing/*/linkedin.md`).
+2. **Il limite del backup dei codici.** Senza iCloud, chi perde l'iPhone senza un file di backup perde i codici. È anche la prima domanda su HN. Per questo il backup cifrato è P0, con promemoria nella lista finché non esiste un backup, e la risposta pronta in `marketing/archivio/auth/showhn.md`. Va detto prima che lo chiedano: "se perdi il telefono senza backup, perdi i codici, come con qualsiasi app offline".
 3. **Accesso limitato a Foto.** Con l'accesso limitato Clean vede solo le foto scelte: lo spazio liberabile è piccolo e il video prima/dopo mente. Clean lo gestisce già (`LibraryAccess.swift`); nei contenuti la cifra si mostra con accesso completo e la FAQ lo spiega.
 4. **Il thread HN che non prende.** Più probabile del contrario. Il piano non dipende da HN: Reddit e il video vanno comunque, la stampa parte solo con un thread che ha preso, e un secondo tentativo su HN si fa con Clean, non ripostando Auth. Se nessun canale supera i 200 download in 3 giorni, il problema è l'hook: si riscrive da `hooks.md` prima di Clean.
 5. **Il tempo reale di Matteo.** Università e ripetizioni. Il piano chiede: giorno 1 sei ore di presenza su HN, giorni 1-3 un'ora al giorno su Reddit, i test insieme. Tutto il resto lo prepara un agente. Se una settimana non c'è tempo, salta il lancio e non la qualità: un loop dimezzato brucia l'app.
 
 Altri due vincoli trovati in repo:
 - ~~La repo è privata~~: pubblica dal 15/10 (vedi sotto).
-- **Il totale "oltre 2.000 €" usa Heartica**, che non ha un'App Sbu. Va bene per raccontare il fenomeno, non nel post "4 app, 0 €" (con le quattro app vere il totale è circa 1.550 €). Vedi `docs/lancio-sbu.md`, sezione d.
+- ~~Il totale "oltre 2.000 €" usa Heartica~~: superato il 17/10. Il totale si fa solo con le app Sbu pubblicate: con Subscriptions, Scanner, Find e Clean è 1.237,83 € l'anno, prezzi letti il 17/10. Vedi `docs/lancio-sbu.md`, sezioni a e d.
 
 ## Endpoint Apple
 
@@ -56,4 +58,4 @@ Tutti hanno risposto il 15/10: `itunes.apple.com/lookup` (valutazioni e prezzo d
 
 ## La prima azione di domani
 
-Chiedere l'entitlement FamilyControls per Focus. Poi partire con Sbu Auth: `Tools/new_app.sh`, spec in `specs/auth/spec.json`, tre giorni.
+~~Chiedere l'entitlement FamilyControls per Focus. Poi partire con Sbu Auth.~~ Superata il 16/10 (Focus e Auth archiviate). Dal 17/10: inviare Subscriptions 2.1.0 con gli screenshot nuovi nel primo slot libero dopo Find, poi il giorno 0 di `docs/lancio-sbu.md`, sezione b.

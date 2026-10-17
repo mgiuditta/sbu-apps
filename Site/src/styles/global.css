@@ -39,6 +39,9 @@
     font-family: var(--font-sans);
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
+    /* Not visible, so body keeps its own overflow instead of handing it to the viewport: only then does
+       body clip the grid. Phones otherwise widen the layout to the grid's 200 extra cells and zoom out. */
+    overflow-x: clip;
   }
 
   body {

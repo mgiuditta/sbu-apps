@@ -25,13 +25,13 @@ const jsonLd = [
     <PageTitle text={entry.data.title} accent={app.accent} cartiglio={`SBU / ${String(app.order).padStart(2, '0')} / ${app.slug} · ${t.checked(formatDate(entry.data.checked, locale)).replace(/\.$/, '')}`} />
     <div class="prose"><Content /></div>
 
-    <table class="w-full overflow-hidden rounded-card border border-line bg-surface-raised text-left">
+    <table class="w-full overflow-hidden rounded-card border border-line bg-surface-raised text-left hyphens-auto [overflow-wrap:anywhere]">
       <thead class="text-caption uppercase text-ink-muted">
-        <tr><th scope="col" class="px-4 py-3"></th><th scope="col" class="px-4 py-3">{app.originale?.name}</th><th scope="col" class="px-4 py-3">{listing.name}</th></tr>
+        <tr><th scope="col" class="px-3 py-3 sm:px-4"></th><th scope="col" class="px-3 py-3 sm:px-4">{app.originale?.name}</th><th scope="col" class="px-3 py-3 sm:px-4">{listing.name}</th></tr>
       </thead>
       <tbody class="divide-y divide-line">
         {entry.data.facts.map((fact) => (
-          <tr><th scope="row" class="px-4 py-3 font-[var(--text-body--font-weight)] text-ink-muted">{fact.label}</th><td class="px-4 py-3">{fact.originale}</td><td class="px-4 py-3">{fact.sbu}</td></tr>
+          <tr><th scope="row" class="px-3 py-3 sm:px-4 font-[var(--text-body--font-weight)] text-ink-muted">{fact.label}</th><td class="px-3 py-3 sm:px-4">{fact.originale}</td><td class="px-3 py-3 sm:px-4">{fact.sbu}</td></tr>
         ))}
       </tbody>
     </table>

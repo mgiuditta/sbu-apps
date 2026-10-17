@@ -102,7 +102,7 @@ struct ItemFormSheet: View {
             }
             .scrollContentBackground(.hidden)
             .scrollDismissesKeyboard(.interactively)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -180,12 +180,12 @@ struct ItemFormSheet: View {
 #Preview("Light") {
     ItemFormSheet(editor: ItemEditor(mode: .new(folder: nil, code: nil)))
         .modelContainer(.preview)
-        .tint(SbuTheme.accentInventory)
+        .environment(\.sbuAccent, .inventory)
 }
 
 #Preview("Dark") {
     ItemFormSheet(editor: ItemEditor(mode: .new(folder: nil, code: "8001234567890")))
         .modelContainer(.preview)
-        .tint(SbuTheme.accentInventory)
+        .environment(\.sbuAccent, .inventory)
         .preferredColorScheme(.dark)
 }

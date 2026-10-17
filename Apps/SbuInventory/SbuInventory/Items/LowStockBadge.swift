@@ -1,14 +1,17 @@
 import SbuKit
 import SwiftUI
 
-/// "Da ricomprare": the word and its symbol in `warning`, never the color alone.
+/// "Da ricomprare": the filled row marker and the word, in ink. The word says the state; the marker
+/// only shows it at a glance.
 struct LowStockBadge: View {
     var body: some View {
-        Label("Da ricomprare", systemImage: "cart")
-            .font(SbuTheme.footnote)
-            .fontWeight(.medium)
-            .foregroundStyle(SbuTheme.warning)
-            .labelStyle(.titleAndIcon)
+        HStack(alignment: .firstTextBaseline, spacing: SbuTheme.space2) {
+            SbuRowMark(filled: true)
+            Text("Da ricomprare")
+                .font(SbuTheme.footnote)
+                .fontWeight(.medium)
+                .foregroundStyle(SbuTheme.ink)
+        }
     }
 }
 

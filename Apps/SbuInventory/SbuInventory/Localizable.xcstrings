@@ -383,16 +383,6 @@
         }
       }
     },
-    "Cartella vuota" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Empty folder"
-          }
-        }
-      }
-    },
     "Cartelle" : {
       "localizations" : {
         "en" : {
@@ -739,16 +729,6 @@
         }
       }
     },
-    "Gli oggetti arrivati alla quantità minima compaiono qui." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Items down to their minimum show up here."
-          }
-        }
-      }
-    },
     "Hai aggiunto 8 foto, il massimo per un oggetto." : {
       "localizations" : {
         "en" : {
@@ -875,16 +855,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inventory CSV"
-          }
-        }
-      }
-    },
-    "Inventario vuoto" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Empty inventory"
           }
         }
       }
@@ -1025,26 +995,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No item has this label. Link it to an item or a box: next time the scan opens it."
-          }
-        }
-      }
-    },
-    "Nessun risultato" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No results"
-          }
-        }
-      }
-    },
-    "Niente da ricomprare" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing to buy again"
           }
         }
       }
@@ -1651,6 +1601,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Empty"
+          }
+        }
+      }
+    },
+    "Oggetti: %lld, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items: %1$lld, %2$@"
+          }
+        }
+      }
+    },
+    "Quantità: %lld, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quantity: %1$lld, %2$@"
+          }
+        }
+      }
+    },
+    "Quantità: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quantity: %lld"
+          }
+        }
+      }
+    },
+    "Sbu · Inventario · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu · Inventory · %@"
+          }
+        }
+      }
+    },
+    "Aggiunto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Added"
+          }
+        }
+      }
+    },
+    "Nessun risultato. Prova con un altro tag." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No results. Try another tag."
+          }
+        }
+      }
+    },
+    "Nessun risultato per «%@». Prova con altre parole." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No results for “%@”. Try other words."
+          }
+        }
+      }
+    },
+    "Niente da ricomprare. Gli oggetti arrivati alla quantità minima compaiono qui." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to buy again. Items down to their minimum show up here."
           }
         }
       }

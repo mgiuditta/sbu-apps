@@ -3,9 +3,11 @@ import SwiftData
 import SwiftUI
 
 /// One item: its photos, how many (the figure of this screen) with − and +, where it is, what it is worth,
-/// its fields, tags, label and notes.
+/// its fields, tags, label and notes. Opened right after it was added, "Aggiunto" closes the figure once.
 struct ItemDetailView: View {
     @Bindable var item: Item
+    /// Whether the item was just added, as from a scanned label: the Closure plays when the screen appears.
+    var isNew = false
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
@@ -13,6 +15,8 @@ struct ItemDetailView: View {
     @State private var editor: ItemEditor?
     @State private var moving: InventoryEntry?
     @State private var isDeleting = false
+    @State private var isClosing = false
+    @State private var hasClosed = false
 
     var body: some View {
         let photos = item.sortedPhotos
@@ -25,15 +29,15 @@ struct ItemDetailView: View {
                 }
             }
             Section {
-                SbuStat("Quantità", value: item.quantity, format: .number, context: valueLine)
+                figure
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
-                    .accessibilityIdentifier("quantity")
             }
             Section {
                 Stepper(value: quantity, in: 0...999_999) {
                     Text("Cambia la quantità")
                 }
+                .sbuAffectsFigure(item.quantity)
                 .accessibilityIdentifier("quantityStepper")
                 if let minimum = item.minimumQuantity {
                     LabeledContent("Quantità minima") {
@@ -126,7 +130,7 @@ struct ItemDetailView: View {
         .listStyle(.insetGrouped)
         .listSectionSpacing(.compact)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(item.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -143,6 +147,35 @@ struct ItemDetailView: View {
             MoveSheet(entry: entry)
         }
         .onDisappear(perform: deleteIfLeaving)
+        .onAppear(perform: closeIfNew)
+    }
+
+    /// How many, on its paper: the one figure of this screen.
+    private var figure: some View {
+        SteadyFigure { isPlaceholder in
+            SbuFigure(
+                value: item.quantity.formatted(),
+                fullStop: isPlaceholder ? .absent : .set,
+                context: valueLine.map { Text($0) },
+                accessibilityLabel: accessibilityLabel
+            )
+            .sbuClosure($isClosing, word: "Aggiunto")
+            .accessibilityIdentifier("quantity")
+        }
+        .padding(SbuTheme.space4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        // On the row's own content, so the grid and the figure's baseline scroll together.
+        .sbuPaper(grid: true)
+        // The paper reaches past the row into the safe area: keep the grid inside it.
+        .clipped()
+    }
+
+    private var accessibilityLabel: Text {
+        if let valueLine {
+            Text("Quantità: \(item.quantity), \(Text(valueLine))")
+        } else {
+            Text("Quantità: \(item.quantity)")
+        }
     }
 
     private var path: String {
@@ -167,6 +200,12 @@ struct ItemDetailView: View {
         dismiss()
     }
 
+    private func closeIfNew() {
+        guard isNew, !hasClosed else { return }
+        hasClosed = true
+        isClosing = true
+    }
+
     private func deleteIfLeaving() {
         guard isDeleting else { return }
         InventoryActions.delete(item, context: context)
@@ -178,7 +217,7 @@ struct ItemDetailView: View {
         ItemDetailView(item: try! ModelContainer.preview.mainContext.fetch(FetchDescriptor<Item>()).first!)
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentInventory)
+    .environment(\.sbuAccent, .inventory)
 }
 
 #Preview("Dark") {
@@ -186,6 +225,6 @@ struct ItemDetailView: View {
         ItemDetailView(item: try! ModelContainer.preview.mainContext.fetch(FetchDescriptor<Item>()).first!)
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentInventory)
+    .environment(\.sbuAccent, .inventory)
     .preferredColorScheme(.dark)
 }

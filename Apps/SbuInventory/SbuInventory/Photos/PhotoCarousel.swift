@@ -28,7 +28,7 @@ struct PhotoCarousel: View {
         }
         .tabViewStyle(.page(indexDisplayMode: photos.count > 1 ? .always : .never))
         .frame(height: min(height, 420))
-        .clipShape(.rect(cornerRadius: SbuTheme.radiusLg))
+        .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
         .fullScreenCover(isPresented: $isShowingViewer) {
             PhotoViewer(photos: photos, selection: $selection)
         }

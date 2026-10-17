@@ -11,7 +11,10 @@ struct InventoryHome: View {
     @State private var scannedCode: String?
     /// What to open once the sheet has gone, so the push never races the sheet going down.
     @State private var pendingOwner: LabelLinker.Owner?
+    /// Whether the pending item was just added with the label, so its screen opens with the Closure.
+    @State private var isPendingNew = false
     @State private var openedItem: Item?
+    @State private var isOpenedNew = false
     @State private var openedFolder: Folder?
 
     var body: some View {
@@ -23,7 +26,7 @@ struct InventoryHome: View {
                 ItemDetailView(item: item)
             }
             .navigationDestination(item: $openedItem) { item in
-                ItemDetailView(item: item)
+                ItemDetailView(item: item, isNew: isOpenedNew)
             }
             .navigationDestination(item: $openedFolder) { folder in
                 FolderScreen(folder: folder)
@@ -33,7 +36,7 @@ struct InventoryHome: View {
                 case .scan:
                     ScanLabelSheet(purpose: .find) { scannedCode = $0 }
                 case let .unknown(code):
-                    UnknownLabelSheet(code: code, linked: show)
+                    UnknownLabelSheet(code: code, linked: show, added: showAdded)
                 }
             }
     }
@@ -43,12 +46,13 @@ struct InventoryHome: View {
         if let code = scannedCode {
             scannedCode = nil
             switch LabelLinker.owner(of: code, in: context) {
-            case let .some(owner): open(owner)
+            case let .some(owner): open(owner, isNew: false)
             case nil: sheet = .unknown(code)
             }
         } else if let owner = pendingOwner {
             pendingOwner = nil
-            open(owner)
+            open(owner, isNew: isPendingNew)
+            isPendingNew = false
         }
     }
 
@@ -58,9 +62,17 @@ struct InventoryHome: View {
         sheet = nil
     }
 
-    private func open(_ owner: LabelLinker.Owner) {
+    /// Closes the unknown-label sheet, then opens the item just added with the label.
+    private func showAdded(_ item: Item) {
+        isPendingNew = true
+        show(.item(item))
+    }
+
+    private func open(_ owner: LabelLinker.Owner, isNew: Bool) {
         switch owner {
-        case let .item(item): openedItem = item
+        case let .item(item):
+            isOpenedNew = isNew
+            openedItem = item
         case let .folder(folder): openedFolder = folder
         }
     }
@@ -71,7 +83,7 @@ struct InventoryHome: View {
         InventoryHome()
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentInventory)
+    .environment(\.sbuAccent, .inventory)
 }
 
 #Preview("Dark") {
@@ -79,6 +91,6 @@ struct InventoryHome: View {
         InventoryHome()
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentInventory)
+    .environment(\.sbuAccent, .inventory)
     .preferredColorScheme(.dark)
 }

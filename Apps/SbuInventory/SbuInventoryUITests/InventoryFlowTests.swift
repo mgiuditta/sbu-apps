@@ -9,7 +9,7 @@ final class InventoryFlowTests: XCTestCase {
     @MainActor
     func testFirstItemShowsInTheTotal() throws {
         let app = XCUIApplication.inventory(.empty)
-        XCTAssertTrue(app.staticTexts["Inventario vuoto"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.element("addFirst").waitForExistence(timeout: 5))
         try app.audit()
 
         app.element("addFirst").tap()
@@ -19,6 +19,12 @@ final class InventoryFlowTests: XCTestCase {
         name.tap()
         name.typeText("Trapano")
         app.buttons["saveItem"].tap()
+
+        // The new item closes the total with "Aggiunto" for two seconds, then the figure is back.
+        // The audit waits it out: the Closure's word shrinks to fit, which the audit reads as clipped.
+        let closure = app.staticTexts["Aggiunto"]
+        XCTAssertTrue(closure.waitForExistence(timeout: 5))
+        XCTAssertTrue(closure.waitForNonExistence(timeout: 5))
 
         let total = app.element("total")
         XCTAssertTrue(total.waitForExistence(timeout: 5))
@@ -66,7 +72,7 @@ final class InventoryFlowTests: XCTestCase {
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
         XCTAssertTrue(alert.staticTexts["Va via anche quello che contiene: 1 voce, con le foto."].exists)
         alert.buttons["Elimina"].tap()
-        XCTAssertTrue(app.staticTexts["Inventario vuoto"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.element("addFirst").waitForExistence(timeout: 5))
     }
 
     @MainActor
@@ -100,7 +106,7 @@ final class InventoryFlowTests: XCTestCase {
         app.element("folder-Esempio").swipeLeft()
         app.buttons["Elimina"].tap()
         app.alerts.firstMatch.buttons["Elimina"].tap()
-        XCTAssertTrue(app.staticTexts["Inventario vuoto"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.element("addFirst").waitForExistence(timeout: 5))
     }
 
     @MainActor
@@ -134,7 +140,20 @@ final class InventoryFlowTests: XCTestCase {
         XCTAssertEqual(name.value as? String, "Trapano")
         app.tapCancel()
         app.alerts.firstMatch.buttons["Ignora le modifiche"].tap()
-        XCTAssertTrue(app.staticTexts["Inventario vuoto"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.element("addFirst").waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testToolScreenPassesTheAuditAtTheLargestTextSize() throws {
+        let app = XCUIApplication.inventory(.sample, textSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        XCTAssertTrue(app.element("total").waitForExistence(timeout: 5))
+        try app.audit()
+        app.terminate()
+
+        let empty = XCUIApplication.inventory(.empty, textSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        // At this size the buttons start below the fold: the title says the screen is up.
+        XCTAssertTrue(empty.staticTexts["Inventario"].waitForExistence(timeout: 5))
+        try empty.audit()
     }
 
     @MainActor

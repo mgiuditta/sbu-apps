@@ -1,23 +1,21 @@
 import SbuKit
 import SwiftUI
-import UIKit
 
-/// The speed as the figure with its context line, what goes under it, and the pills: Salva e azzera and Parabrezza.
-struct SpeedToolField<Indicator: View>: View {
+/// The figure zone: the speed as the figure and the over-limit line, under `SpeedTitle`.
+/// The full stop is grey while the GPS has no speed, in the accent once it reads one. Salvato
+/// closes the figure when a trip is kept.
+struct SpeedToolField: View {
     let model: SpeedModel
-    /// Opens Parabrezza, the mirrored HUD.
-    let showHUD: () -> Void
-    /// Drawn under the figure: the dial and the trip in portrait, nothing in landscape where they sit beside.
-    @ViewBuilder let indicator: Indicator
+    /// Set once per trip kept in Viaggi.
+    @Binding var isClosing: Bool
 
-    @Environment(\.openURL) private var openURL
-    @State private var isConfirmingReset = false
+    /// With knots the speed is SOG, speed over ground, as on a chart plotter.
+    private var caption: LocalizedStringResource {
+        model.unit == .knots ? "SOG" : "Velocità"
+    }
 
-    private var context: LocalizedStringKey {
-        if model.isOverLimit, let limit = model.speedLimit {
-            return "Oltre il limite di \(limit.text())"
-        }
-        return switch model.status {
+    private var statusText: LocalizedStringResource {
+        switch model.status {
         case .needsAccess: "Consenti la posizione"
         case .denied: "Posizione non consentita"
         case .approximate: "Serve la posizione esatta"
@@ -27,70 +25,56 @@ struct SpeedToolField<Indicator: View>: View {
         }
     }
 
-    /// Salva e azzera when the trip went somewhere, Azzera viaggio when there is nothing to keep.
-    private var resetTitle: LocalizedStringKey {
-        model.canSaveTrip ? "Salva e azzera" : "Azzera viaggio"
+    /// The unit and what the GPS is doing, under the figure: "km/h · In movimento".
+    private var context: Text {
+        Text(verbatim: "\(model.unit.symbol) · \(String(localized: statusText))")
+    }
+
+    /// What VoiceOver reads for the figure: what it measures, the speed in words, and the status.
+    private var spokenFigure: String {
+        var parts = [String(localized: caption)]
+        if let speed = model.speed {
+            parts.append(model.unit.speedText(metersPerSecond: speed))
+        }
+        parts.append(String(localized: statusText))
+        return parts.joined(separator: ", ")
     }
 
     var body: some View {
-        SbuToolField(
-            // With knots the speed is SOG, speed over ground, as on a chart plotter.
-            model.unit == .knots ? "SOG" : "Velocità",
-            value: model.speed,
-            format: SpeedFigureStyle(unit: model.unit),
-            unit: model.unit.symbol,
-            context: context,
-            contextSystemImage: model.isOverLimit ? "exclamationmark.triangle" : nil,
-            contextTone: model.isOverLimit ? .danger : .neutral
-        ) {
-            indicator
-        } pills: {
-            if model.status.needsSettings {
-                Button("Apri Impostazioni", action: openSettings)
-                    .buttonStyle(SbuFieldPillStyle())
-            } else {
-                // A pill like the others, not a full-width red button: a rare action stays light.
-                Button(resetTitle) {
-                    isConfirmingReset = true
-                }
-                .buttonStyle(SbuFieldPillStyle())
-                .disabled(model.trip.isEmpty)
-                .confirmationDialog(resetTitle, isPresented: $isConfirmingReset, titleVisibility: .visible) {
-                    Button(resetTitle, role: .destructive, action: resetTrip)
-                } message: {
-                    Text(model.canSaveTrip ? "Il viaggio va in Viaggi e riparte da zero." : "Il viaggio riparte da zero.")
-                }
+        VStack(alignment: .leading, spacing: SbuTheme.space3) {
+            SbuFigure(
+                value: SpeedFigureStyle(unit: model.unit).format(model.speed),
+                fullStop: model.speed == nil ? .waiting : .set,
+                context: context,
+                accessibilityLabel: Text(verbatim: spokenFigure)
+            )
+            .sbuClosure($isClosing, word: "Salvato")
 
-                Button("Parabrezza", action: showHUD)
-                    .buttonStyle(SbuFieldPillStyle())
+            if model.isOverLimit, let limit = model.speedLimit {
+                // The warning is a word and a symbol in `danger`; the figure stays in ink.
+                Label("Oltre il limite di \(limit.text())", systemImage: "exclamationmark.triangle")
+                    .font(SbuTheme.headline)
+                    .foregroundStyle(SbuTheme.danger)
             }
-        }
-    }
-
-    private func resetTrip() {
-        model.saveAndResetTrip()
-    }
-
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            openURL(url)
         }
     }
 }
 
 #Preview("Light") {
-    SpeedToolField(model: SpeedModel(), showHUD: {}) {
-        EmptyView()
+    ScrollView {
+        SpeedToolField(model: SpeedModel(), isClosing: .constant(false))
+            .padding(SbuTheme.space4)
+            .sbuPaper()
     }
-    .background(SbuTheme.surface)
-    .tint(SbuTheme.accentSpeed)
+    .environment(\.sbuAccent, .speed)
 }
 
 #Preview("Dark") {
-    SpeedToolField(model: SpeedModel(), showHUD: {}) {
-        EmptyView()
+    ScrollView {
+        SpeedToolField(model: SpeedModel(), isClosing: .constant(false))
+            .padding(SbuTheme.space4)
+            .sbuPaper()
     }
-    .background(SbuTheme.surface)
-    .tint(SbuTheme.accentSpeed)
+    .environment(\.sbuAccent, .speed)
     .preferredColorScheme(.dark)
 }

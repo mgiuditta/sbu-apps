@@ -93,52 +93,6 @@ struct SpeedModelTests {
         #expect(model().trip.isEmpty)
     }
 
-    @Test func dialStartsAtTheSmallestScale() {
-        #expect(model(locale: "it_IT").dialFullScale == 60)
-    }
-
-    @Test func dialHoldsTheTripTopSpeedAfterSlowingDown() async {
-        // 25 m/s is 90 km/h, then 5 m/s is 18 km/h.
-        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 25)), .sample(.fix(at: 1, speed: 5))])
-
-        await model.run()
-
-        #expect(model.dialFullScale == 120)
-    }
-
-    @Test(arguments: [
-        // 5 m/s is 18 km/h on the 60 scale; 100 m/s is 360 km/h, past the 300 scale.
-        (Optional(5.0), 0.3),
-        (100, 1),
-        (nil, 0),
-    ])
-    func dialFractionIsTheSpeedOverTheScale(metersPerSecond: Double?, expected: Double) async {
-        let events: [SpeedEvent] = metersPerSecond.map { [.access(.granted), .sample(.fix(at: 0, speed: $0))] } ?? []
-        let model = model(events)
-
-        await model.run()
-
-        #expect(abs(model.dialFraction - expected) < 0.001)
-    }
-
-    @Test func dialHoldsTheLimit() {
-        let model = model(locale: "it_IT")
-
-        model.speedLimit = SpeedLimit(value: 130, unit: .kilometersPerHour)
-
-        #expect(model.dialFullScale == 200)
-    }
-
-    @Test func dialFollowsTheUnit() async {
-        // 25 m/s is 90 km/h or 56 mph.
-        let model = model([.access(.granted), .sample(.fix(at: 0, speed: 25))])
-        await model.run()
-
-        model.unit = .milesPerHour
-
-        #expect(model.dialFullScale == 80)
-    }
-
     @Test func speedLimitIsOffByDefault() {
         #expect(model().speedLimit == nil)
     }
@@ -190,7 +144,7 @@ struct SpeedModelTests {
         #expect(second.speedLimit == SpeedLimit(value: 27, unit: .knots))
     }
 
-    @Test func dialAndLimitAlertWorkInKnots() async {
+    @Test func limitAlertWorksInKnots() async {
         // 10 knots is 5.14 m/s: 6 m/s reads 12 kn, over the limit.
         let model = model([.access(.granted), .sample(.fix(at: 0, speed: 6))])
         model.unit = .knots
@@ -200,7 +154,6 @@ struct SpeedModelTests {
 
         #expect(model.isOverLimit)
         #expect(model.limitAlerts == 1)
-        #expect(model.dialFullScale == 30)
     }
 
     @Test func turningTheLimitOffIsSaved() {
@@ -289,8 +242,9 @@ struct SpeedModelTests {
         await model.run()
         #expect(model.canSaveTrip)
 
-        model.saveAndResetTrip()
+        let didSave = model.saveAndResetTrip()
 
+        #expect(didSave)
         let saved = try #require(tripLog.trips.first)
         #expect(tripLog.trips.count == 1)
         #expect(saved.maxSpeed == 14)
@@ -307,9 +261,22 @@ struct SpeedModelTests {
         #expect(model.canSaveTrip == false)
         #expect(model.trip.isEmpty == false)
 
-        model.saveAndResetTrip()
+        let didSave = model.saveAndResetTrip()
 
+        #expect(didSave == false)
         #expect(tripLog.trips.isEmpty)
         #expect(model.trip.isEmpty)
+    }
+
+    @Test func aFixSetsTheGPSAccuracyAndLosingAccessClearsIt() {
+        let model = model()
+
+        model.handle(.access(.granted))
+        model.handle(.sample(.fix(at: 0, speed: 10, horizontalAccuracy: 20)))
+        let withFix = model.gpsAccuracy
+        model.handle(.access(.denied))
+
+        #expect(withFix == .good)
+        #expect(model.gpsAccuracy == .none)
     }
 }

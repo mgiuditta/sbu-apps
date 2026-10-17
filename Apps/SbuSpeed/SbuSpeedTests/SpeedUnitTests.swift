@@ -73,26 +73,4 @@ struct SpeedUnitTests {
         // 300 m/s is 1080 km/h, grouped as the locale does.
         #expect(style.locale(Locale(identifier: "en_US")).format(300) == "1,080")
     }
-
-    @Test(arguments: [
-        (SpeedUnit.kilometersPerHour, 0.0, 60.0),
-        (.kilometersPerHour, 60, 60),
-        (.kilometersPerHour, 61, 120),
-        (.kilometersPerHour, 130, 200),
-        (.kilometersPerHour, 250, 300),
-        (.kilometersPerHour, 400, 300),
-        (.milesPerHour, 0, 40),
-        (.milesPerHour, 41, 80),
-        (.milesPerHour, 90, 130),
-        (.milesPerHour, 150, 200),
-        (.milesPerHour, 260, 200),
-        (.knots, 0, 30),
-        (.knots, 31, 60),
-        (.knots, 70, 110),
-        (.knots, 150, 160),
-        (.knots, 200, 160),
-    ])
-    func dialUsesTheSmallestScaleThatHoldsTheSpeed(unit: SpeedUnit, value: Double, expected: Double) {
-        #expect(unit.fullScale(containing: value) == expected)
-    }
 }

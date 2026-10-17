@@ -14,6 +14,8 @@ final class SpeedModel {
     private(set) var trip = Trip()
     /// Altitude and course of the latest fix; never saved.
     private(set) var navigation = NavigationReading()
+    /// How precise the latest fix is, for the cartiglio; never saved.
+    private(set) var gpsAccuracy = GPSAccuracy.none
     /// The trips kept by Salva e azzera.
     let tripLog: TripLog
     /// Goes up by one at each crossing above the limit that should alert: the screen vibrates and sounds on each change.
@@ -40,22 +42,6 @@ final class SpeedModel {
     @ObservationIgnored private let region: Locale.Region?
 
     var status: SpeedStatus { SpeedStatus(access: access, speed: speed) }
-
-    /// The top of the dial in the current unit: the smallest scale that holds the speed, the trip's top speed and the limit.
-    var dialFullScale: Double {
-        let highest = max(
-            unit.value(ofMetersPerSecond: speed ?? 0),
-            unit.value(ofMetersPerSecond: trip.maxSpeed),
-            Double(speedLimit?.value ?? 0)
-        )
-        return unit.fullScale(containing: highest)
-    }
-
-    /// How much of the dial the current speed fills: 0 without a speed, up to 1 at full scale.
-    var dialFraction: Double {
-        guard let speed else { return 0 }
-        return min(1, unit.value(ofMetersPerSecond: speed) / dialFullScale)
-    }
 
     /// The four limits one tap away on the tool screen, in the current unit.
     var quickLimits: [SpeedLimit] { SpeedLimit.quickPresets(for: unit, region: region) }
@@ -102,10 +88,12 @@ final class SpeedModel {
             if newAccess != .granted {
                 speed = nil
                 navigation = NavigationReading()
+                gpsAccuracy = .none
             }
         case .sample(let sample):
             speed = sample.hasValidSpeed ? sample.speed : nil
             navigation = NavigationReading(sample: sample)
+            gpsAccuracy = GPSAccuracy(horizontalAccuracy: sample.horizontalAccuracy)
             trip.record(sample)
             save(trip, forKey: Self.tripKey)
             if alarm.shouldAlert(speed: speed, limit: speedLimit) {
@@ -123,11 +111,15 @@ final class SpeedModel {
     var canSaveTrip: Bool { trip.distance > 0 }
 
     /// Salva e azzera: the trip goes into the log, if it went somewhere, and a new one starts.
-    func saveAndResetTrip(now: Date = .now) {
-        if let record = TripRecord(trip: trip, now: now) {
+    /// - Returns: Whether the trip was saved, so the screen can say Salvato once.
+    @discardableResult
+    func saveAndResetTrip(now: Date = .now) -> Bool {
+        let record = TripRecord(trip: trip, now: now)
+        if let record {
             tripLog.add(record)
         }
         resetTrip()
+        return record != nil
     }
 
     func resetTrip() {
@@ -155,6 +147,7 @@ final class SpeedModel {
         access = .granted
         speed = metersPerSecond(52)
         navigation = NavigationReading(altitude: 122, course: 247)
+        gpsAccuracy = .precise
         trip = Trip(maxSpeed: metersPerSecond(87), distance: 12_400, movingTime: 12_400 / metersPerSecond(46))
     }
 }

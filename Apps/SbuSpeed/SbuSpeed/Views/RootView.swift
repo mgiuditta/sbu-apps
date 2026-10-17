@@ -6,7 +6,7 @@ struct RootView: View {
     @State private var model = SpeedModel()
 
     var body: some View {
-        SbuAppShell("Sbu Speed", slug: "speed", accent: SbuTheme.accentSpeed, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Speed", slug: "speed", accent: .speed, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
             UnitSection(model: model)

@@ -16,7 +16,7 @@ struct HUDView: View {
         ZStack {
             // The whole screen is the way out, a large target for a hand on the wheel.
             Button(action: exit) {
-                SbuTheme.surface
+                SbuTheme.paper
                     .contentShape(.rect)
             }
             .buttonStyle(.plain)
@@ -51,11 +51,11 @@ struct HUDView: View {
 
 #Preview("Light") {
     HUDView(model: SpeedModel()) {}
-        .tint(SbuTheme.accentSpeed)
+        .environment(\.sbuAccent, .speed)
 }
 
 #Preview("Dark") {
     HUDView(model: SpeedModel()) {}
-        .tint(SbuTheme.accentSpeed)
+        .environment(\.sbuAccent, .speed)
         .preferredColorScheme(.dark)
 }

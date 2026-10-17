@@ -6,8 +6,17 @@ import SwiftUI
 struct QuickLimitPills: View {
     let model: SpeedModel
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Four in a row, two by two at accessibility text sizes.
+    private var rows: [[SpeedLimit]] {
+        let limits = model.quickLimits
+        guard dynamicTypeSize.isAccessibilitySize else { return [limits] }
+        return stride(from: 0, to: limits.count, by: 2).map { Array(limits[$0..<min($0 + 2, limits.count)]) }
+    }
+
     var body: some View {
-        VStack(spacing: SbuTheme.space2) {
+        VStack(alignment: .leading, spacing: SbuTheme.space2) {
             Text("Limite")
                 .font(SbuTheme.caption)
                 .textCase(.uppercase)
@@ -15,10 +24,12 @@ struct QuickLimitPills: View {
                 .foregroundStyle(SbuTheme.inkMuted)
                 .accessibilityAddTraits(.isHeader)
 
-            HStack(spacing: SbuTheme.space2) {
-                ForEach(model.quickLimits, id: \.self) { limit in
-                    QuickLimitPill(limit: limit, isOn: model.speedLimit == limit) {
-                        model.toggleLimit(limit)
+            ForEach(rows, id: \.self) { row in
+                HStack(spacing: SbuTheme.space2) {
+                    ForEach(row, id: \.self) { limit in
+                        QuickLimitPill(limit: limit, isOn: model.speedLimit == limit) {
+                            model.toggleLimit(limit)
+                        }
                     }
                 }
             }
@@ -48,14 +59,12 @@ private struct QuickLimitPill: View {
 #Preview("Light") {
     QuickLimitPills(model: SpeedModel())
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentSpeed)
+        .sbuPaper()
 }
 
 #Preview("Dark") {
     QuickLimitPills(model: SpeedModel())
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentSpeed)
+        .sbuPaper()
         .preferredColorScheme(.dark)
 }

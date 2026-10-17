@@ -14,6 +14,8 @@ struct ScanLabelSheet: View {
     @State private var access = Access.checking
     @State private var isTyping = false
     @State private var typed = ""
+    /// Codes the camera read: each plays the `dot` haptic, as the label settles.
+    @State private var reads = 0
     @FocusState private var isFieldFocused: Bool
 
     private enum Access {
@@ -40,10 +42,11 @@ struct ScanLabelSheet: View {
         case .checking:
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
         case .scanning where !isTyping:
-            LabelScannerView(found: finish)
+            LabelScannerView(found: read)
                 .ignoresSafeArea(edges: .bottom)
+                .sbuHaptic(.dot, trigger: reads)
                 .overlay(alignment: .bottom) {
                     VStack(spacing: SbuTheme.space3) {
                         Text("Inquadra il codice a barre o il QR sull'oggetto o sulla scatola.")
@@ -53,7 +56,7 @@ struct ScanLabelSheet: View {
                         SbuButton("Scrivi il codice", kind: .secondary) { isTyping = true }
                     }
                     .padding(SbuTheme.space4)
-                    .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusLg))
+                    .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusCard))
                     .padding(SbuTheme.space4)
                 }
         default:
@@ -96,7 +99,7 @@ struct ScanLabelSheet: View {
             .listRowBackground(Color.clear)
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .onAppear { isFieldFocused = true }
     }
 
@@ -111,6 +114,11 @@ struct ScanLabelSheet: View {
 
     private func submitTyped() {
         guard let code = LabelLinker.normalized(typed) else { return }
+        finish(code)
+    }
+
+    private func read(_ code: String) {
+        reads += 1
         finish(code)
     }
 
@@ -130,11 +138,11 @@ struct ScanLabelSheet: View {
 
 #Preview("Light") {
     ScanLabelSheet(purpose: .find) { _ in }
-        .tint(SbuTheme.accentInventory)
+        .environment(\.sbuAccent, .inventory)
 }
 
 #Preview("Dark") {
     ScanLabelSheet(purpose: .link) { _ in }
-        .tint(SbuTheme.accentInventory)
+        .environment(\.sbuAccent, .inventory)
         .preferredColorScheme(.dark)
 }

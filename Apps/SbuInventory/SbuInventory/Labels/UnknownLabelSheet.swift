@@ -7,8 +7,10 @@ import SwiftUI
 /// The code itself is never shown: it is only a label to find things, not something to read or open.
 struct UnknownLabelSheet: View {
     let code: String
-    /// Called with what now has the label: an item or folder you linked it to, or the item you added with it.
+    /// Called with the item or folder you linked the label to.
     let linked: (LabelLinker.Owner) -> Void
+    /// Called with the item you added with the label.
+    let added: (Item) -> Void
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
@@ -71,7 +73,7 @@ struct UnknownLabelSheet: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .searchable(text: $search, prompt: Text("Cerca"))
             .navigationTitle("Trova dall'etichetta")
             .navigationBarTitleDisplayMode(.inline)
@@ -81,9 +83,7 @@ struct UnknownLabelSheet: View {
                 }
             }
             .sheet(isPresented: $isAdding) {
-                ItemFormSheet(editor: ItemEditor(mode: .new(folder: nil, code: code))) { item in
-                    linked(.item(item))
-                }
+                ItemFormSheet(editor: ItemEditor(mode: .new(folder: nil, code: code)), saved: added)
             }
         }
     }
@@ -108,14 +108,14 @@ struct UnknownLabelSheet: View {
 }
 
 #Preview("Light") {
-    UnknownLabelSheet(code: "8001234567890") { _ in }
+    UnknownLabelSheet(code: "8001234567890", linked: { _ in }, added: { _ in })
         .modelContainer(.preview)
-        .tint(SbuTheme.accentInventory)
+        .environment(\.sbuAccent, .inventory)
 }
 
 #Preview("Dark") {
-    UnknownLabelSheet(code: "8001234567890") { _ in }
+    UnknownLabelSheet(code: "8001234567890", linked: { _ in }, added: { _ in })
         .modelContainer(.preview)
-        .tint(SbuTheme.accentInventory)
+        .environment(\.sbuAccent, .inventory)
         .preferredColorScheme(.dark)
 }

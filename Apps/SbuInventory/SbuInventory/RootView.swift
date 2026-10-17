@@ -17,7 +17,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Inventory", slug: "inventory", accent: SbuTheme.accentInventory, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Inventory", slug: "inventory", accent: .inventory, appIcon: Image(.appIconArtwork)) {
             InventoryHome()
         } settings: {
             DataSection()

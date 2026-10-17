@@ -57,7 +57,7 @@ final class SettingsFlowTests: XCTestCase {
     @MainActor
     func testEnglishShowsEnglishWords() throws {
         let app = XCUIApplication.inventory(.empty, language: "en")
-        XCTAssertTrue(app.staticTexts["Empty inventory"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Add the things you own, with a photo, where they are and how many."].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["Add item"].exists)
     }
 }

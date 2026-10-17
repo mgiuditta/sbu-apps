@@ -51,7 +51,7 @@ struct FieldFormSheet: View {
                 .listRowBackground(SbuTheme.surfaceRaised)
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(isCreating ? "Nuovo campo" : "Rinomina campo")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -38,7 +38,7 @@ struct FieldDefinitionsView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Campi personalizzati")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $editing) { editing in

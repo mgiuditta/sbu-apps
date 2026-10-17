@@ -17,10 +17,13 @@ struct LowStockList: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .overlay {
             if low.isEmpty {
-                ContentUnavailableView("Niente da ricomprare", systemImage: "cart", description: Text("Gli oggetti arrivati alla quantità minima compaiono qui."))
+                SbuEmpty(sentence: "Niente da ricomprare. Gli oggetti arrivati alla quantità minima compaiono qui.")
+                    .padding(SbuTheme.space4)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .sbuPaper(grid: true)
             }
         }
         .navigationTitle("Da ricomprare")

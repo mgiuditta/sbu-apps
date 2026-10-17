@@ -2,8 +2,9 @@ import SbuKit
 import SwiftData
 import SwiftUI
 
-/// The inventory, or one folder of it: the total closed by the full stop, then the folders and the items
-/// inside. Searching here searches this folder and everything inside it; at the top, everything.
+/// The inventory, or one folder of it: the title and the total closed by the full stop on paper, then the
+/// folders and the items inside. Searching here searches this folder and everything inside it; at the top,
+/// everything. Saving a new item closes the total with "Aggiunto".
 struct FolderScreen: View {
     /// `nil` for the top of the inventory.
     let folder: Folder?
@@ -22,6 +23,9 @@ struct FolderScreen: View {
     @State private var naming: FolderNaming?
     @State private var isLinkingLabel = false
     @State private var isDeletingSelf = false
+    /// A new item was saved in the sheet: the Closure plays once the sheet has gone.
+    @State private var hasAdded = false
+    @State private var isClosing = false
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -40,11 +44,20 @@ struct FolderScreen: View {
                     move: { moving = $0 },
                     delete: { deleting = $0 }
                 )
-            } else if !isEmpty {
+            } else {
                 Section {
-                    TotalFigure(total: tree.total(in: folder?.uuid))
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
+                    FolderHeader(
+                        name: folder?.name,
+                        path: folder.map { FolderPath.text(tree.path(of: $0.uuid), root: $0.name) },
+                        total: tree.total(in: folder?.uuid),
+                        isEmpty: isEmpty,
+                        isClosing: $isClosing
+                    )
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                }
+                if isEmpty {
+                    EmptyFolderActions(isTop: folder == nil, add: addItem, addSample: addSample)
                 }
                 if lowCount > 0 {
                     Section {
@@ -90,7 +103,7 @@ struct FolderScreen: View {
         .listStyle(.insetGrouped)
         .listSectionSpacing(.compact)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .searchable(text: $search, tokens: $tokens, suggestedTokens: .constant(suggestedTokens), prompt: Text(searchPrompt)) { token in
             Label(token.tag, systemImage: "tag")
         }
@@ -100,19 +113,15 @@ struct FolderScreen: View {
         }
         .overlay {
             if filter.isActive, !hasResults(filter, tree: tree) {
-                if search.isEmpty {
-                    ContentUnavailableView("Nessun risultato", systemImage: "magnifyingglass")
-                } else {
-                    ContentUnavailableView.search(text: search)
-                }
-            } else if !filter.isActive, isEmpty {
-                EmptyFolderView(isTop: folder == nil, add: addItem, addSample: addSample)
+                NoResultsView(search: search)
             }
         }
         .modifier(FolderTitle(name: folder?.name))
         .toolbar { toolbar }
-        .sheet(item: $editor) { editor in
-            ItemFormSheet(editor: editor)
+        .sheet(item: $editor, onDismiss: closeIfAdded) { editor in
+            ItemFormSheet(editor: editor) { _ in
+                if case .new = editor.mode { hasAdded = true }
+            }
         }
         .sheet(item: $moving) { entry in
             MoveSheet(entry: entry)
@@ -205,6 +214,12 @@ struct FolderScreen: View {
         editor = ItemEditor(mode: .new(folder: folder, code: nil))
     }
 
+    private func closeIfAdded() {
+        guard hasAdded else { return }
+        hasAdded = false
+        isClosing = true
+    }
+
     private func addSample() {
         InventorySample.insert(into: context)
     }
@@ -248,7 +263,7 @@ struct FolderScreen: View {
         FolderScreen(folder: nil)
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentInventory)
+    .environment(\.sbuAccent, .inventory)
 }
 
 #Preview("Dark") {
@@ -256,6 +271,6 @@ struct FolderScreen: View {
         FolderScreen(folder: nil)
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentInventory)
+    .environment(\.sbuAccent, .inventory)
     .preferredColorScheme(.dark)
 }

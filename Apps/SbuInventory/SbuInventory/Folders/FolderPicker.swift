@@ -33,7 +33,7 @@ struct FolderPicker: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 
     /// One step per level, a smaller step and fewer levels at the accessibility sizes, so a name never

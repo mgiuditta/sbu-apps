@@ -3,12 +3,20 @@ import SwiftUI
 
 /// The one figure of the inventory and of each folder: how many things, closed by the full stop.
 /// Under it, how many different items in how many folders and, when prices exist, what they are worth.
+/// The full stop waits while there is nothing to count.
 struct TotalFigure: View {
     let total: InventoryTotal
+    /// The hidden copy that holds a row's height: no full stop, so it never counts as a second one.
+    var isPlaceholder = false
 
     var body: some View {
-        SbuStat("Oggetti", value: total.quantity, format: .number, context: context)
-            .accessibilityIdentifier("total")
+        SbuFigure(
+            value: total.quantity.formatted(),
+            fullStop: isPlaceholder ? .absent : total.quantity > 0 ? .set : .waiting,
+            context: Text(context),
+            accessibilityLabel: Text("Oggetti: \(total.quantity), \(Text(context))")
+        )
+        .accessibilityIdentifier("total")
     }
 
     private var context: LocalizedStringKey {
@@ -29,12 +37,16 @@ struct TotalFigure: View {
 #Preview("Light") {
     TotalFigure(total: InventoryTotal(quantity: 42, itemCount: 7, folderCount: 4, value: Decimal(string: "712.10")))
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentInventory)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .inventory)
 }
 
 #Preview("Dark") {
     TotalFigure(total: InventoryTotal(quantity: 1, itemCount: 1))
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentInventory)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .inventory)
         .preferredColorScheme(.dark)
 }

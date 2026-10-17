@@ -22,7 +22,7 @@ struct PhotoViewer: View {
             }
             .tabViewStyle(.page(indexDisplayMode: photos.count > 1 ? .always : .never))
             .indexViewStyle(.page(backgroundDisplayMode: .always))
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(Text("\(selection + 1) di \(photos.count)"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

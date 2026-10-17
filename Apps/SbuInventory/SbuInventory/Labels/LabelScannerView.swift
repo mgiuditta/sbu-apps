@@ -55,7 +55,6 @@ struct LabelScannerView: UIViewControllerRepresentable {
                       let code = LabelLinker.normalized(payload) else { continue }
                 hasFound = true
                 dataScanner.stopScanning()
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 found(code)
             }
         }

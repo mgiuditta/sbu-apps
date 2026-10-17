@@ -49,24 +49,13 @@
     margin-inline-start: var(--mark-gap); background: var(--accent); }
 
   /* The real iPhone 17 Pro Max bezel (Apple Design Resources, via fastlane frameit): 1470×3000,
-     screen hole 1320×2868 at 75,66. The screenshot sits in the hole, the bezel image on top, and
-     copies of the bezel stacked behind give the phone its 8.75 mm of titanium side when tilted.
-     The shadow lives on the wrapper: a filter on the 3D element itself would flatten it. */
-  .phone { position: absolute; perspective: 4200px; filter: drop-shadow(var(--shadow)); }
-  .phone.l { filter: drop-shadow(50px 70px 60px rgba(20, 24, 31, .3)); }
-  .phone.r { filter: drop-shadow(-50px 70px 60px rgba(20, 24, 31, .3)); }
-  .device { position: absolute; inset: 0; transform-style: preserve-3d; }
-  .l .device { transform: rotateY(22deg) rotateX(6deg) rotateZ(-3deg); }
-  .r .device { transform: rotateY(-22deg) rotateX(6deg) rotateZ(3deg); }
-  .device img { position: absolute; display: block; }
-  .device .screen { left: 5.102%; top: 2.2%; width: 89.796%; height: 95.6%; border-radius: 8% / 3.7%; }
-  .device .bezel { inset: 0; width: 100%; height: 100%; }
-  /* Screen and bezel share one flat layer: as two coplanar 3D planes Chrome let the screen win. */
-  .face { position: absolute; inset: 0; }
-  /* Tilted phones only: the flat last one has no side to show, and as a 3D stack headless Chrome
-     left most of its screen unpainted. */
-  .l .face, .r .face { transform: translateZ(1px); }
-  .device .side { filter: brightness(.82); }
+     screen hole 1320×2868 at 75,66. The screenshot sits in the hole, the bezel image on top. Phones
+     always stand straight (#582: tilted, the app read stretched and small); slides differ by scale,
+     position and crop. */
+  .phone { position: absolute; filter: drop-shadow(var(--shadow)); }
+  .phone img { position: absolute; display: block; }
+  .phone .screen { left: 5.102%; top: 2.2%; width: 89.796%; height: 95.6%; border-radius: 8% / 3.7%; }
+  .phone .bezel { inset: 0; width: 100%; height: 100%; }
 
   /* The engraving mask is white ink: brightness(0) turns it to ink. A CSS mask on a 2200px ink
      square left whole black tiles when headless Chrome painted before applying it. */
@@ -74,7 +63,7 @@
 
   /* The ink mark on a real value: an SVG in the screenshot's own pixels, over the screen. */
   .ink { position: absolute; overflow: visible; fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
-  .device .ink { left: 5.102%; top: 2.2%; width: 89.796%; height: 95.6%; }
+  .phone .ink { left: 5.102%; top: 2.2%; width: 89.796%; height: 95.6%; }
 
   /* Detail: one region of the screen enlarged on a card (radius-card and the line border, at 3x). */
   .zoom { position: absolute; overflow: hidden; background: var(--surface-raised); border: 3px solid var(--line);
@@ -92,21 +81,18 @@
   const root = document.documentElement.style;
   for (const [k, v] of Object.entries(app.tokens)) root.setProperty(`--${k}`, v);
 
-  // Each layout: where the phone stands (x, top, width, lean) and the engraving (x, top, side).
+  // Each layout: where the phone stands (x, top, width) and the engraving (x, top, side).
   // Phones may run off the slide: the screen shows what the title talks about, not the whole phone.
   const LAYOUTS = {
-    hero:     { phone: { x: 420, top: 1040, w: 1000, tilt: "" },  engraving: { x: -700, top: 1100, w: 1700 } },
-    "tilt-l": { phone: { x: 120, top: 1000, w: 820, tilt: "l" },  engraving: { x: 480, top: 1500, w: 1100 } },
-    "tilt-r": { phone: { x: 420, top: 1000, w: 820, tilt: "r" },  engraving: { x: -260, top: 1500, w: 1100 } },
-    detail:   { phone: { x: 60, top: 1380, w: 700, tilt: "l" },   engraving: { x: 640, top: 1800, w: 1100 },
-                zoom: { x: 300, top: 960, w: 940 } },
-    flat:     { phone: { x: 120, top: 1060, w: 860, tilt: "" },   engraving: { x: 620, top: 1700, w: 1000 } },
+    hero:   { phone: { x: 420, top: 1040, w: 1000 }, engraving: { x: -700, top: 1100, w: 1700 } },
+    left:   { phone: { x: 100, top: 980, w: 940 },   engraving: { x: 640, top: 1500, w: 1100 } },
+    right:  { phone: { x: 300, top: 980, w: 940 },   engraving: { x: -420, top: 1500, w: 1100 } },
+    detail: { phone: { x: 60, top: 1380, w: 760 },   engraving: { x: 640, top: 1800, w: 1100 },
+              zoom: { x: 300, top: 960, w: 940 } },
+    flat:   { phone: { x: 120, top: 1060, w: 860 },  engraving: { x: 620, top: 1700, w: 1000 } },
   };
 
-  // The side: bezel copies every 1.5px down to the phone's depth (8.75 mm on 77.6 mm of width).
   const BEZEL = "../../Design/devices/iphone-17-pro-max-silver.png";
-  const side = w => Array.from({ length: Math.round(w * 8.75 / 77.6 / 1.5) }, (_, k) =>
-    `<img class="bezel side" src="${BEZEL}" alt="" style="transform:translateZ(${-1.5 * (k + 1)}px)">`).join("");
 
   // A hand-drawn ink mark in screenshot pixels: a loop that overshoots its start, or a double underline.
   function inkPath(mark) {
@@ -127,8 +113,8 @@
     ? `<svg class="ink" viewBox="0 0 ${W} ${H}" style="${style}"><path d="${inkPath(mark)}" stroke-width="9"/></svg>` : "";
 
   function phone(s, p) {
-    return `<div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px">
-      <div class="device">${p.tilt ? side(p.w) : ""}<div class="face"><img class="screen" src="${s.image}" alt="">${ink(s.mark)}<img class="bezel" src="${BEZEL}" alt=""></div></div></div>`;
+    return `<div class="phone" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px">
+      <img class="screen" src="${s.image}" alt="">${ink(s.mark)}<img class="bezel" src="${BEZEL}" alt=""></div>`;
   }
 
   // The zoom card shows s.zoom = [x0, y0, x1, y1] of the screenshot at the card's width, mark included.

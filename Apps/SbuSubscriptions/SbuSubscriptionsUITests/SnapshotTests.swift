@@ -21,7 +21,7 @@ final class SnapshotTests: XCTestCase {
         for _ in 0..<4 where !reminder.isHittable {
             app.swipeUp()
         }
-        snapshot("02-trial")
+        snapshot("03-trial")
         closeSheet(in: app)
 
         // The tabs, in order: Abbonamenti, Calendario, Impostazioni.
@@ -30,7 +30,7 @@ final class SnapshotTests: XCTestCase {
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "Oggi", "Today")).firstMatch.waitForExistence(timeout: 5))
         // A day with payments, so the list under the month shows them.
         app.buttons.matching(NSPredicate(format: "label CONTAINS %@ AND NOT (label BEGINSWITH %@) AND NOT (label BEGINSWITH %@)", ": ", "Oggi", "Today")).firstMatch.tap()
-        snapshot("03-calendar")
+        snapshot("04-calendar")
 
         tabs.element(boundBy: 2).tap()
         XCTAssertTrue(element("Ora dei promemoria", "Reminder time", in: app).exists, "Settings are on screen")
@@ -39,7 +39,7 @@ final class SnapshotTests: XCTestCase {
         for _ in 0..<6 where !sbuDev.isHittable {
             app.swipeUp()
         }
-        snapshot("05-privacy")
+        snapshot("02-privacy")
 
         // The medium widget in the gallery, with its sample data (the same figures as the demo).
         XCUIDevice.shared.press(.home)
@@ -61,7 +61,7 @@ final class SnapshotTests: XCTestCase {
         springboard.swipeLeft()
         // The gallery draws the widget a moment after the page settles.
         sleep(4)
-        snapshot("04-widget")
+        snapshot("05-widget")
     }
 
     /// A detail is a sheet: dragged down from its top edge.

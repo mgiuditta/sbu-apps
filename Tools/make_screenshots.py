@@ -6,11 +6,11 @@ Tools/screenshots/store.html. Every screenshot shows the app in use (guideline 2
 Per app it reads everything from the repo: the accent from Design/tokens.json, the titles from
 fastlane/screenshots/<lang>/title.strings ("Title. Subtitle." splits at the first full stop), and
 the slides from fastlane/screenshots/scenes.json:
-  {"01-main": {"layout": "hero" | "tilt-l" | "tilt-r" | "detail" | "flat",
+  {"01-main": {"layout": "hero" | "left" | "right" | "detail" | "flat",
                "engraving": "icon" | "subject": "<what Gemini engraves>",
                "zoom": [x0, y0, x1, y1],                       # detail: the screen region to enlarge
                "mark": {"shape": "circle" | "underline", "box": [x0, y0, x1, y1]}}}  # ink on a real value
-Boxes are pixels of the raw screenshot; a scene may override keys per language, as "en-US": {"mark": …}. Without scenes.json the slides alternate tilted phones on the
+Boxes are pixels of the raw screenshot; a scene may override keys per language, as "en-US": {"mark": …}. Without scenes.json the slides alternate phones left and right on the
 icon engraving. A "subject" is engraved once with --engrave (Tools/make_icons.py style, GEMINI_API_KEY)
 into Design/icons/scenes/sbu-<app>-<key>.png and kept, like the icon masks.
 
@@ -126,7 +126,7 @@ def app_config(app, lang_dir, colors):
         if key not in titles:
             sys.exit(f"{image}: no title for {key!r} in {lang_dir / 'title.strings'}")
         title, subtitle = titles[key]
-        scene = scenes.get(key, {"layout": "flat" if i == len(images) - 1 else ("tilt-l", "tilt-r")[i % 2]})
+        scene = scenes.get(key, {"layout": "flat" if i == len(images) - 1 else ("left", "right")[i % 2]})
         scene = {**scene, **scene.get(lang_dir.name, {})}  # a language may move the mark (a week starting on Sunday)
         engraving = icon
         if "subject" in scene:
@@ -166,8 +166,8 @@ def serve():
 
 
 def shoot(url, out):
-    # ponytail: headless Chrome sometimes leaves the bottom ~70px of the window unpainted when the
-    # 3D phones are heavy, so render a taller window and keep the top SIZE.
+    # ponytail: headless Chrome sometimes leaves the bottom ~70px of the window unpainted when a
+    # slide is heavy, so render a taller window and keep the top SIZE.
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
                     "--run-all-compositor-stages-before-draw",
                     f"--window-size={SIZE[0]},{SIZE[1] + 200}", "--virtual-time-budget=20000", f"--screenshot={out}", url],
@@ -179,7 +179,7 @@ def shoot(url, out):
 
 
 def render(url, out):
-    """Headless Chrome now and then skips tiles of the tilted phones, never the same way twice:
+    """Headless Chrome now and then skips tiles of a slide, never the same way twice:
     a slice is kept once two renders in a row agree."""
     previous = shoot(url, out)
     for _ in range(5):

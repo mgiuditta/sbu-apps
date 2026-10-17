@@ -1,5 +1,5 @@
 "01-main" = "QR and barcode reader. Point, it reads by itself.";
-"02-result" = "See where a link goes. Before you open it.";
-"03-history" = "Scan history. Folders and CSV export.";
-"04-created" = "Make QR codes for links and Wi-Fi. Barcodes too.";
-"05-privacy" = "No subscription, no account. Data only on your iPhone.";
+"02-privacy" = "No subscription, no account. Data only on your iPhone.";
+"03-result" = "See where a link goes. Before you open it.";
+"04-history" = "Scan history. Folders and CSV export.";
+"05-created" = "Make QR codes for links and Wi-Fi. Barcodes too.";

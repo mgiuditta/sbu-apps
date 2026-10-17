@@ -27,18 +27,18 @@ final class SnapshotTests: XCTestCase {
         sample.tap()
         _ = app.staticTexts["sbu.dev"].waitForExistence(timeout: 5)
         sleep(1)
-        snapshot("02-result")
+        snapshot("03-result")
         back(app)
 
         tap(app, "Cronologia", "History")
         sleep(1)
-        snapshot("03-history")
+        snapshot("04-history")
         back(app)
 
         tap(app, "Crea", "Create")
         app.cells.element(boundBy: 0).tap()
         sleep(1)
-        snapshot("04-created")
+        snapshot("05-created")
         back(app)
         back(app)
 
@@ -49,6 +49,6 @@ final class SnapshotTests: XCTestCase {
         for _ in 0..<6 where !sbuDev.isHittable {
             app.swipeUp()
         }
-        snapshot("05-privacy")
+        snapshot("02-privacy")
     }
 }

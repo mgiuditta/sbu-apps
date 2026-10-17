@@ -12,7 +12,20 @@
       ]
     }
   },
-  "02-trial": {
+  "02-privacy": {
+    "layout": "flat",
+    "subject": "an old wrought iron padlock, closed, with its key beside it",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        120,
+        2120,
+        1010,
+        2400
+      ]
+    }
+  },
+  "03-trial": {
     "layout": "detail",
     "subject": "an antique brass and glass hourglass with the sand almost run out, three-quarter view",
     "zoom": [
@@ -31,8 +44,8 @@
       ]
     }
   },
-  "03-calendar": {
-    "layout": "tilt-r",
+  "04-calendar": {
+    "layout": "right",
     "subject": "an antique tear-off wall calendar hanging from a nail, a few pages curling, three-quarter view",
     "mark": {
       "shape": "circle",
@@ -55,21 +68,8 @@
       }
     }
   },
-  "04-widget": {
-    "layout": "tilt-l",
+  "05-widget": {
+    "layout": "left",
     "subject": "a long paper shop receipt curling as it unrolls from a small old receipt printer"
-  },
-  "05-privacy": {
-    "layout": "flat",
-    "subject": "an old wrought iron padlock, closed, with its key beside it",
-    "mark": {
-      "shape": "underline",
-      "box": [
-        120,
-        2120,
-        1010,
-        2400
-      ]
-    }
   }
 }

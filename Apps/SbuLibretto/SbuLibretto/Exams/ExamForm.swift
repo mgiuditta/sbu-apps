@@ -9,6 +9,8 @@ struct ExamForm: View {
     }
 
     let exam: Exam?
+    /// Called once when the save makes the exam taken: passed, with its grade or as an idoneità.
+    let onPassed: () -> Void
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
@@ -29,8 +31,9 @@ struct ExamForm: View {
         return !name.isEmpty && exams.contains { $0.id != exam?.id && $0.name.localizedCaseInsensitiveCompare(name) == .orderedSame }
     }
 
-    init(exam: Exam?, startsTaken: Bool, courseYear: Int) {
+    init(exam: Exam?, startsTaken: Bool, courseYear: Int, onPassed: @escaping () -> Void = {}) {
         self.exam = exam
+        self.onPassed = onPassed
         if let exam {
             _draft = State(initialValue: ExamDraft(exam: exam, now: .now, locale: .current))
         } else {
@@ -87,7 +90,7 @@ struct ExamForm: View {
             }
             .scrollContentBackground(.hidden)
             .scrollDismissesKeyboard(.interactively)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             // One word: between Annulla and Salva a longer title has no room at larger text.
             .navigationTitle(exam == nil ? "Esame" : "Modifica")
             .navigationBarTitleDisplayMode(.inline)
@@ -125,10 +128,13 @@ struct ExamForm: View {
 
     private func save() {
         guard problem == nil else { return }
+        // Passed now, not before: editing an exam already passed does not close it again.
+        let wasPassed = exam?.result.isDone ?? false
         let target = exam ?? Exam(name: "", credits: 0, courseYear: draft.courseYear, kind: draft.kind, date: nil)
         draft.apply(to: target, locale: locale)
         if exam == nil { modelContext.insert(target) }
         try? modelContext.save()
+        if draft.isTaken && !wasPassed { onPassed() }
         dismiss()
     }
 
@@ -143,12 +149,12 @@ struct ExamForm: View {
 #Preview("Light") {
     ExamForm(exam: nil, startsTaken: true, courseYear: 2)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentLibretto)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     ExamForm(exam: nil, startsTaken: false, courseYear: 1)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentLibretto)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

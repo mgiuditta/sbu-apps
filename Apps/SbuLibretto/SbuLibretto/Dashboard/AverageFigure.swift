@@ -2,52 +2,33 @@ import SbuKit
 import SwiftUI
 
 /// The one figure of the app: the weighted average, closed by the full stop, and how the last
-/// exam moved it. Before the first grade, what to do instead.
+/// exam moved it, said with its sign. Before the first grade, a waiting "0" and what to do instead.
 struct AverageFigure: View {
     let transcript: Transcript
 
     var body: some View {
         if let average = transcript.weightedAverage {
-            SbuToolField(
-                "Media ponderata",
-                value: average,
-                format: LibrettoFormat.average,
-                context: context,
-                contextSystemImage: symbol,
-                contextTone: tone
-            ) {
-                EmptyView()
-            } pills: {
-                EmptyView()
-            }
+            let value = average.formatted(LibrettoFormat.average)
+            SbuFigure(
+                value: value,
+                fullStop: .set,
+                context: Text(context),
+                accessibilityLabel: Text("Media ponderata") + Text(verbatim: ", \(value), ") + Text(context)
+            )
             .accessibilityIdentifier("figure")
         } else {
-            SbuToolField("Media ponderata", context: "Registra il primo voto per vedere la media.") {
-                EmptyView()
-            } pills: {
-                EmptyView()
-            }
-            .accessibilityIdentifier("figure")
+            // No figure before the first grade: a 0,00 would read as a real average.
+            SbuEmpty(sentence: "Registra il primo voto per vedere la media.")
         }
     }
 
+    /// The change in words with its sign, never in a color alone.
     private var context: LocalizedStringKey {
         guard let change = transcript.lastChange else {
             return transcript.gradedExams.count == 1 ? "Dal primo voto" : "Pesata sui CFU"
         }
         if abs(change) < 0.005 { return "Invariata dall'ultimo esame" }
         return "\(change.formatted(LibrettoFormat.change)) dall'ultimo esame"
-    }
-
-    /// A word and a symbol with the status color, never the color alone.
-    private var symbol: String? {
-        guard let change = transcript.lastChange, abs(change) >= 0.005 else { return nil }
-        return change > 0 ? "arrow.up.right" : "arrow.down.right"
-    }
-
-    private var tone: SbuStatusTone {
-        guard let change = transcript.lastChange, abs(change) >= 0.005 else { return .neutral }
-        return change > 0 ? .success : .danger
     }
 }
 
@@ -56,13 +37,17 @@ struct AverageFigure: View {
         ExamRecord(credits: 12, result: .graded(.mark(26)), date: .now.addingTimeInterval(-86_400)),
         ExamRecord(credits: 6, result: .graded(.cumLaude), date: .now),
     ], rules: .standard))
-    .background(SbuTheme.surface)
-    .tint(SbuTheme.accentLibretto)
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper(grid: true)
+    .environment(\.sbuAccent, .libretto)
 }
 
 #Preview("Dark") {
     AverageFigure(transcript: Transcript([ExamRecord(credits: 9, result: .pending, date: nil)], rules: .standard))
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentLibretto)
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .libretto)
         .preferredColorScheme(.dark)
 }

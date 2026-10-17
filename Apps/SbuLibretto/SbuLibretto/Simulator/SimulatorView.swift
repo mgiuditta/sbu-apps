@@ -18,8 +18,9 @@ struct SimulatorView: View {
         let simulation = Simulation(records, rules: settings.rules, credits: Double(credits))
         List {
             Section {
+                // The one figure of the screen, on the paper behind the list, not in a row's card.
                 CurrentAverage(transcript: transcript)
-                    .listRowInsets(EdgeInsets())
+                    .listRowInsets(EdgeInsets(top: SbuTheme.space2, leading: SbuTheme.space4, bottom: SbuTheme.space2, trailing: SbuTheme.space4))
                     .listRowBackground(Color.clear)
             }
             Section("Prossimo esame") {
@@ -44,7 +45,7 @@ struct SimulatorView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .scrollDismissesKeyboard(.interactively)
         .navigationTitle("Simulazione media")
         .navigationBarTitleDisplayMode(.inline)
@@ -56,7 +57,8 @@ struct SimulatorView: View {
         SimulatorView(settings: LaunchMode.sample.courseSettings())
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentLibretto)
+    .environment(\.sbuAccent, .libretto)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -64,6 +66,6 @@ struct SimulatorView: View {
         SimulatorView(settings: LaunchMode.empty.courseSettings())
     }
     .modelContainer(for: [Exam.self, Lesson.self], inMemory: true)
-    .tint(SbuTheme.accentLibretto)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

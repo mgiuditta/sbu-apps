@@ -1071,6 +1071,16 @@
         }
       }
     },
+    "Media ponderata · %@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weighted average · %@ · %@"
+          }
+        }
+      }
+    },
     "Modifica" : {
       "localizations" : {
         "en" : {
@@ -1137,6 +1147,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No exams here"
+          }
+        }
+      }
+    },
+    "Nessun esame qui. Cambia filtro per vedere gli altri esami." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No exams here. Change the filter to see the others."
           }
         }
       }

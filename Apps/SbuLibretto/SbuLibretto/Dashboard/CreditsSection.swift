@@ -1,35 +1,33 @@
 import SbuKit
 import SwiftUI
 
-/// The credits earned out of the degree's total, with a bar, under the name of the course when you gave one.
+/// The credits earned out of the degree's total, with a bar in ink, under the name of the course when you gave one.
 struct CreditsSection: View {
     let transcript: Transcript
     let settings: CourseSettings
 
     var body: some View {
-        Section {
-            VStack(alignment: .leading, spacing: SbuTheme.space2) {
-                LabeledContent {
-                    Text(verbatim: credits)
-                        .monospacedDigit()
-                        .foregroundStyle(SbuTheme.inkMuted)
-                } label: {
-                    Text("CFU acquisiti")
-                        .foregroundStyle(SbuTheme.ink)
+        CardSection(title: header.map { Text(verbatim: $0) }) {
+            SbuListCard([StatisticValue(id: "credits", title: "CFU acquisiti", value: credits)]) { row in
+                VStack(alignment: .leading, spacing: SbuTheme.space2) {
+                    LabeledContent {
+                        Text(verbatim: row.value)
+                            .monospacedDigit()
+                            .foregroundStyle(SbuTheme.inkMuted)
+                    } label: {
+                        Text(row.title)
+                            .foregroundStyle(SbuTheme.ink)
+                    }
+                    ProgressView(value: transcript.progress)
+                        .tint(SbuTheme.ink)
+                        .accessibilityHidden(true)
                 }
-                ProgressView(value: transcript.progress)
-                    .accessibilityHidden(true)
-            }
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(Text("CFU acquisiti"))
-            .accessibilityValue(Text(verbatim: "\(credits), \(transcript.progress.formatted(.percent.precision(.fractionLength(0))))"))
-            .accessibilityIdentifier("credits")
-        } header: {
-            if let header {
-                Text(verbatim: header)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text(row.title))
+                .accessibilityValue(Text(verbatim: "\(row.value), \(transcript.progress.formatted(.percent.precision(.fractionLength(0))))"))
+                .accessibilityIdentifier("credits")
             }
         }
-        .listRowBackground(SbuTheme.surfaceRaised)
     }
 
     private var credits: String {
@@ -46,17 +44,17 @@ struct CreditsSection: View {
 }
 
 #Preview("Light") {
-    List {
-        CreditsSection(transcript: Transcript([ExamRecord(credits: 91, result: .graded(.mark(28)), date: nil)], rules: .standard),
-                       settings: LaunchMode.sample.courseSettings())
-    }
-    .tint(SbuTheme.accentLibretto)
+    CreditsSection(transcript: Transcript([ExamRecord(credits: 91, result: .graded(.mark(28)), date: nil)], rules: .standard),
+                   settings: LaunchMode.sample.courseSettings())
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: false)
 }
 
 #Preview("Dark") {
-    List {
-        CreditsSection(transcript: Transcript([], rules: .standard), settings: LaunchMode.empty.courseSettings())
-    }
-    .tint(SbuTheme.accentLibretto)
-    .preferredColorScheme(.dark)
+    CreditsSection(transcript: Transcript([], rules: .standard), settings: LaunchMode.empty.courseSettings())
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: false)
+        .preferredColorScheme(.dark)
 }

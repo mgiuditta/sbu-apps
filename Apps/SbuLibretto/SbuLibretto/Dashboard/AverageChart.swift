@@ -2,7 +2,7 @@ import Charts
 import SbuKit
 import SwiftUI
 
-/// The weighted average after each graded exam, oldest first. Touch the chart to read one.
+/// The weighted average after each graded exam, oldest first, in ink on paper. Touch the chart to read one.
 struct AverageChart: View {
     let points: [AveragePoint]
     /// The exam names by id, for the callout.
@@ -25,7 +25,7 @@ struct AverageChart: View {
                         .accessibilityLabel(names[point.id] ?? "")
                         .accessibilityValue(point.average.formatted(LibrettoFormat.average))
                 }
-                .foregroundStyle(.tint)
+                .foregroundStyle(SbuTheme.ink)
                 if let selected {
                     RuleMark(x: .value("Esame", selected.index + 1))
                         .foregroundStyle(SbuTheme.line)
@@ -43,7 +43,6 @@ struct AverageChart: View {
             .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             .frame(height: height)
             .padding(.vertical, SbuTheme.space2)
-            .listRowBackground(SbuTheme.surfaceRaised)
             .accessibilityIdentifier("averageChart")
         }
     }
@@ -56,7 +55,7 @@ struct AverageChart: View {
 }
 
 #Preview("Light") {
-    List {
+    VStack {
         AverageChart(points: Transcript([
             ExamRecord(credits: 12, result: .graded(.mark(24)), date: .now.addingTimeInterval(-86_400 * 90)),
             ExamRecord(credits: 6, result: .graded(.mark(28)), date: .now.addingTimeInterval(-86_400 * 60)),
@@ -64,13 +63,15 @@ struct AverageChart: View {
             ExamRecord(credits: 6, result: .graded(.mark(26)), date: .now),
         ], rules: .standard).trend, names: [:])
     }
-    .tint(SbuTheme.accentLibretto)
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper(grid: false)
 }
 
 #Preview("Dark") {
-    List {
-        AverageChart(points: [], names: [:])
-    }
-    .tint(SbuTheme.accentLibretto)
-    .preferredColorScheme(.dark)
+    AverageChart(points: [], names: [:])
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: false)
+        .preferredColorScheme(.dark)
 }

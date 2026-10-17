@@ -19,11 +19,13 @@ final class FirstRunFlowTests: LibrettoUITestCase {
         try audit(app)
         app.buttons["saveExam"].tap()
 
+        // Once per exam saved as passed, the Closure says it in one word over the figure.
+        XCTAssertTrue(app.descendants(matching: .any)["Superato"].waitForExistence(timeout: 5))
         let figure = app.descendants(matching: .any)["figure"]
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
         // The default grade is 30: the average is 30,00 and the base 110.
         XCTAssertTrue(figure.label.contains("30,00"), figure.label)
-        XCTAssertTrue(app.staticTexts["Dal primo voto"].exists)
+        XCTAssertTrue(figure.label.contains("Dal primo voto"), figure.label)
         XCTAssertEqual(app.descendants(matching: .any)["Base di laurea"].firstMatch.value as? String, "110")
         attach(app, "primo voto")
         try audit(app)
@@ -65,10 +67,12 @@ final class FirstRunFlowTests: LibrettoUITestCase {
         try audit(app)
         app.buttons["saveExam"].tap()
 
-        let figure = app.descendants(matching: .any)["figure"]
-        XCTAssertTrue(figure.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Registra il primo voto per vedere la media."].exists)
+        // No grade yet: the waiting empty state instead of a figure, and no Closure.
+        XCTAssertTrue(app.staticTexts["Registra il primo voto per vedere la media."].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.descendants(matching: .any)["figure"].exists)
+        XCTAssertFalse(app.descendants(matching: .any)["Superato"].exists)
         XCTAssertFalse(app.descendants(matching: .any)["Base di laurea"].exists)
+        try audit(app)
     }
 
     @MainActor

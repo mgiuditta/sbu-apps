@@ -10,19 +10,18 @@ struct ChartPlaceholder: View {
             .font(SbuTheme.footnote)
             .foregroundStyle(SbuTheme.inkMuted)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .listRowBackground(SbuTheme.surfaceRaised)
     }
 }
 
 #Preview("Light") {
-    List {
-        ChartPlaceholder(text: "Il grafico compare dal secondo voto.")
-    }
+    ChartPlaceholder(text: "Il grafico compare dal secondo voto.")
+        .padding(SbuTheme.space4)
+        .sbuPaper(grid: false)
 }
 
 #Preview("Dark") {
-    List {
-        ChartPlaceholder(text: "Il grafico compare dal secondo voto.")
-    }
-    .preferredColorScheme(.dark)
+    ChartPlaceholder(text: "Il grafico compare dal secondo voto.")
+        .padding(SbuTheme.space4)
+        .sbuPaper(grid: false)
+        .preferredColorScheme(.dark)
 }

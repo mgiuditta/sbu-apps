@@ -9,7 +9,7 @@ struct OverviewLink: View {
     var detail: String?
 
     var body: some View {
-        // Not a Label: in a list row the audit read its title as clipped, its frame starting under the icon.
+        // Not a Label: the audit read its title as clipped, its frame starting under the icon.
         HStack(spacing: SbuTheme.space3) {
             Image(systemName: systemImage)
                 .fontWeight(.medium)
@@ -20,11 +20,20 @@ struct OverviewLink: View {
             titleText
                 // The title takes its room first; at large text the detail wraps on its side, never cut.
                 .layoutPriority(1)
+            Spacer(minLength: SbuTheme.space2)
             if let detail {
-                Spacer(minLength: SbuTheme.space2)
                 detailText(detail)
             }
+            // On paper a link draws its own chevron, as a List row would.
+            Image(systemName: "chevron.forward")
+                .font(SbuTheme.footnote)
+                .fontWeight(.medium)
+                .foregroundStyle(SbuTheme.inkMuted)
+                .accessibilityHidden(true)
         }
+        // The whole row is the target, at least 44 pt tall.
+        .frame(maxWidth: .infinity, minHeight: SbuTheme.controlRoundSm, alignment: .leading)
+        .contentShape(.rect)
     }
 
     private var titleText: some View {
@@ -42,14 +51,20 @@ struct OverviewLink: View {
 }
 
 #Preview("Light") {
-    List {
-        OverviewLink(title: "Piano di studi", systemImage: "list.bullet.rectangle")
+    SbuListCard(DashboardDestination.allCases) { destination in
+        OverviewLink(title: destination.title, systemImage: destination.systemImage, detail: destination == .upcoming ? "Tra 12 giorni" : nil)
     }
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper(grid: false)
 }
 
 #Preview("Dark") {
-    List {
-        OverviewLink(title: "Piano di studi", systemImage: "list.bullet.rectangle")
+    SbuListCard(DashboardDestination.allCases) { destination in
+        OverviewLink(title: destination.title, systemImage: destination.systemImage)
     }
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper(grid: false)
     .preferredColorScheme(.dark)
 }

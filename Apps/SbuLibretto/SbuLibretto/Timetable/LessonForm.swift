@@ -51,7 +51,7 @@ struct LessonForm: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Lezione")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -100,12 +100,12 @@ struct LessonForm: View {
 #Preview("Light") {
     LessonForm(lesson: nil, weekday: 2)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentLibretto)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     LessonForm(lesson: nil, weekday: 4)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentLibretto)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

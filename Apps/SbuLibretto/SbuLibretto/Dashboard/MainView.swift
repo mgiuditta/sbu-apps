@@ -2,8 +2,8 @@ import SbuKit
 import SwiftData
 import SwiftUI
 
-/// The dashboard, in the order of the original: the weighted average closed by the full stop, the
-/// credits, Registra voto and Simula esame, the study plan, then the statistics.
+/// The tool screen: Media ponderata and its cartiglio, the weighted average as the figure on the
+/// grid, then the cards on paper: the credits, the ways into the libretto and the statistics.
 ///
 /// The original's tab bar (Dashboard, Piano di studi, Università, Profilo) becomes rows here: an
 /// Sbu app has one screen and Settings. Università's parameters live in Settings; Profilo is not needed.
@@ -14,70 +14,95 @@ struct MainView: View {
     @Environment(\.calendar) private var calendar
     @Query(sort: \Exam.createdAt) private var exams: [Exam]
     @State private var isRegistering = false
+    /// An exam was saved as passed in the sheet: the Closure waits for the sheet to go, so it is seen.
+    @State private var isExamPassed = false
+    @State private var isClosing = false
+    /// The visible height of the scroll view: on the first run the grid fills it.
+    @State private var viewportHeight: CGFloat = 0
 
     var body: some View {
         let transcript = Transcript(exams.map(\.record), rules: settings.rules)
         let countdown = ExamCountdown(exams.map(\.planItem), now: .now, calendar: calendar)
-        List {
-            if !exams.isEmpty {
-                Section {
-                    AverageFigure(transcript: transcript)
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
+        ScrollView {
+            VStack(alignment: .leading, spacing: SbuTheme.space6) {
+                figureZone(transcript)
+                if !exams.isEmpty {
+                    DashboardOverview(settings: settings, transcript: transcript, countdown: countdown, names: names)
+                        .padding(.horizontal, SbuTheme.space4)
+                        .padding(.bottom, SbuTheme.space6)
                 }
-                CreditsSection(transcript: transcript, settings: settings)
-                Section {
-                    Button(action: register) {
-                        OverviewLink(title: "Registra voto", systemImage: "plus.circle")
-                    }
-                    .accessibilityIdentifier("registerGrade")
-                    NavigationLink {
-                        SimulatorView(settings: settings)
-                    } label: {
-                        OverviewLink(title: "Simula esame", systemImage: "chart.line.uptrend.xyaxis")
-                    }
-                    .accessibilityIdentifier("simulate")
-                    NavigationLink {
-                        StudyPlanView(settings: settings)
-                    } label: {
-                        OverviewLink(title: "Piano di studi", systemImage: "list.bullet.rectangle")
-                    }
-                    .accessibilityIdentifier("studyPlan")
-                    NavigationLink {
-                        UpcomingExamsView()
-                    } label: {
-                        OverviewLink(title: "Prossimi appelli", systemImage: "calendar", detail: countdown.next?.day.text)
-                    }
-                    .accessibilityIdentifier("upcoming")
-                    NavigationLink {
-                        TimetableView()
-                    } label: {
-                        OverviewLink(title: "Orario lezioni", systemImage: "clock")
-                    }
-                    .accessibilityIdentifier("timetable")
-                }
-                .listRowBackground(SbuTheme.surfaceRaised)
-                StatisticsSection(transcript: transcript, names: Dictionary(exams.map { ($0.id, $0.name) }, uniquingKeysWith: { first, _ in first }))
             }
         }
-        .listStyle(.insetGrouped)
-        .listSectionSpacing(.compact)
-        .scrollContentBackground(.hidden)
-        .overlay {
-            if exams.isEmpty {
-                FirstExamView(addExam: register, addSample: addSample)
+        .scrollBounceBehavior(.basedOnSize)
+        .onGeometryChange(for: CGFloat.self) { proxy in
+            proxy.size.height
+        } action: { height in
+            viewportHeight = height
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            if !exams.isEmpty {
+                SbuButton("Registra voto", action: register)
+                    .accessibilityIdentifier("registerGrade")
+                    .padding(.horizontal, SbuTheme.space4)
+                    .padding(.vertical, SbuTheme.space2)
+                    .background(SbuTheme.paper)
             }
         }
         .task(id: WidgetSnapshot(transcript: transcript, countdown: countdown)) {
             WidgetSync.publish(WidgetSnapshot(transcript: transcript, countdown: countdown))
         }
-        .sheet(isPresented: $isRegistering) {
-            ExamForm(exam: nil, startsTaken: true, courseYear: exams.map(\.courseYear).max() ?? 1)
+        .sheet(isPresented: $isRegistering, onDismiss: closeExam) {
+            ExamForm(exam: nil, startsTaken: true, courseYear: exams.map(\.courseYear).max() ?? 1, onPassed: examPassed)
         }
+    }
+
+    /// Title, cartiglio and the figure on the grid; on the first run, the grid fills the screen.
+    private func figureZone(_ transcript: Transcript) -> some View {
+        VStack(alignment: .leading, spacing: SbuTheme.space6) {
+            SbuScreenTitle("Media ponderata", cartiglio: cartiglio(transcript))
+            Group {
+                if exams.isEmpty {
+                    FirstExamView(addExam: register, addSample: addSample)
+                } else {
+                    AverageFigure(transcript: transcript)
+                }
+            }
+            .sbuClosure($isClosing, word: "Superato")
+        }
+        .padding(.horizontal, SbuTheme.space4)
+        .padding(.vertical, SbuTheme.space6)
+        .frame(maxWidth: .infinity, minHeight: exams.isEmpty ? viewportHeight : nil, alignment: .topLeading)
+        .sbuPaper(grid: true)
+    }
+
+    /// "Sbu · Libretto · 69 CFU": the credits earned, once there is an exam.
+    private func cartiglio(_ transcript: Transcript) -> String {
+        // "Libretto" is the app's name in every language.
+        var parts = ["Sbu", "Libretto"]
+        if !exams.isEmpty {
+            parts.append(String(localized: "\(transcript.earnedCredits.formatted(LibrettoFormat.credits)) CFU"))
+        }
+        return parts.joined(separator: " · ")
+    }
+
+    /// The exam names by id, for the chart's callout.
+    private var names: [ExamRecord.ID: String] {
+        Dictionary(exams.map { ($0.id, $0.name) }, uniquingKeysWith: { first, _ in first })
     }
 
     private func register() {
         isRegistering = true
+    }
+
+    private func examPassed() {
+        isExamPassed = true
+    }
+
+    /// Once per exam saved as passed, when its sheet has gone.
+    private func closeExam() {
+        guard isExamPassed else { return }
+        isExamPassed = false
+        isClosing = true
     }
 
     private func addSample() {
@@ -90,7 +115,8 @@ struct MainView: View {
         MainView(settings: LaunchMode.sample.courseSettings())
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentLibretto)
+    .environment(\.sbuAccent, .libretto)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -98,6 +124,7 @@ struct MainView: View {
         MainView(settings: LaunchMode.empty.courseSettings())
     }
     .modelContainer(for: [Exam.self, Lesson.self], inMemory: true)
-    .tint(SbuTheme.accentLibretto)
+    .environment(\.sbuAccent, .libretto)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

@@ -13,14 +13,19 @@ struct StudyPlanView: View {
     @State private var editing: Exam?
     @State private var isAdding = false
     @State private var pendingDelete: Exam?
+    /// The visible height of the screen: with no exam the grid fills it.
+    @State private var viewportHeight: CGFloat = 0
 
     var body: some View {
         let transcript = Transcript(exams.map(\.record), rules: settings.rules)
         let items = exams.map(\.planItem)
         let groups = query.groups(items)
         List {
-            PlanSummarySection(transcript: transcript)
-            PlanControls(query: $query)
+            // With no exam the empty state on paper takes the screen: no summary of nothing under it.
+            if !exams.isEmpty {
+                PlanSummarySection(transcript: transcript)
+                PlanControls(query: $query)
+            }
             ForEach(groups) { group in
                 Section {
                     ForEach(group.items) { item in
@@ -39,23 +44,39 @@ struct StudyPlanView: View {
                     Text("\(group.courseYear)° anno")
                 }
             }
-            if groups.isEmpty {
-                // In the list, under the summary and the filters that may have emptied it.
+            if groups.isEmpty && !exams.isEmpty {
+                // In the list, under the filters that emptied it.
                 Section {
-                    ContentUnavailableView {
-                        Label(exams.isEmpty ? "Nessun esame" : "Nessun esame qui", systemImage: "list.bullet.rectangle")
-                    } description: {
-                        Text(exams.isEmpty
-                             ? "Aggiungi gli esami del tuo piano, anche quelli da sostenere."
-                             : "Cambia filtro per vedere gli altri esami.")
-                    }
+                    Text("Nessun esame qui. Cambia filtro per vedere gli altri esami.")
+                        .font(SbuTheme.body)
+                        .foregroundStyle(SbuTheme.inkMuted)
                 }
-                .listRowBackground(Color.clear)
+                .listRowBackground(SbuTheme.surfaceRaised)
+            }
+        }
+        .overlay {
+            if exams.isEmpty {
+                ScrollView {
+                    SbuEmpty(sentence: "Aggiungi gli esami del tuo piano, anche quelli da sostenere.") {
+                        SbuButton("Aggiungi esame", action: add)
+                            .accessibilityIdentifier("addFirstPlanExam")
+                    }
+                    .padding(.horizontal, SbuTheme.space4)
+                    .padding(.vertical, SbuTheme.space6)
+                    .frame(maxWidth: .infinity, minHeight: viewportHeight, alignment: .topLeading)
+                    .sbuPaper(grid: true)
+                }
+                .scrollBounceBehavior(.basedOnSize)
+                .onGeometryChange(for: CGFloat.self) { proxy in
+                    proxy.size.height
+                } action: { height in
+                    viewportHeight = height
+                }
             }
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Piano di studi")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -112,7 +133,7 @@ struct StudyPlanView: View {
         StudyPlanView(settings: LaunchMode.sample.courseSettings())
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentLibretto)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -120,6 +141,7 @@ struct StudyPlanView: View {
         StudyPlanView(settings: LaunchMode.empty.courseSettings())
     }
     .modelContainer(for: [Exam.self, Lesson.self], inMemory: true)
-    .tint(SbuTheme.accentLibretto)
+    .environment(\.sbuAccent, .libretto)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

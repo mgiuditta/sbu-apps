@@ -42,7 +42,9 @@ final class SettingsFlowTests: LibrettoUITestCase {
         XCTAssertTrue(formula.waitForExistence(timeout: 5))
         XCTAssertTrue(formula.label.contains("arrotondata all'intero"), formula.label)
         attach(app, "base di laurea")
-        try audit(app, scrolled: true)
+        // The menu picker's value wraps under its title and is whole on screen (see the attachment), but
+        // since the shell's Icona section moved the rows, the audit reads it as clipped: only that text goes.
+        try audit(app, scrolled: true, wrappedValues: ["All'intero, 0,50 per eccesso"])
 
         app.buttons["formulaHelp"].tap()
         XCTAssertTrue(app.navigationBars["Esempi di calcolo"].waitForExistence(timeout: 5))

@@ -7,16 +7,20 @@ struct CurrentAverage: View {
 
     var body: some View {
         if let average = transcript.weightedAverage {
-            SbuStat("La tua media attuale", value: average, format: LibrettoFormat.average, context: context)
-                .accessibilityIdentifier("currentAverage")
+            let value = average.formatted(LibrettoFormat.average)
+            SbuFigure(
+                value: value,
+                fullStop: .set,
+                context: Text(context),
+                accessibilityLabel: Text("La tua media attuale") + Text(verbatim: ", \(value), ") + Text(context)
+            )
+            .accessibilityIdentifier("currentAverage")
         } else {
             // No figure before the first grade: a 0,00 would read as a real average.
             Text("Nessun voto ancora: la media sarà il voto del prossimo esame.")
                 .font(SbuTheme.body)
                 .foregroundStyle(SbuTheme.inkMuted)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(SbuTheme.space4)
-                .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
                 .accessibilityIdentifier("currentAverage")
         }
     }
@@ -30,14 +34,14 @@ struct CurrentAverage: View {
 #Preview("Light") {
     CurrentAverage(transcript: Transcript([ExamRecord(credits: 91, result: .graded(.mark(28)), date: nil)], rules: .standard))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentLibretto)
+        .background(SbuTheme.paper)
+        .environment(\.sbuAccent, .libretto)
 }
 
 #Preview("Dark") {
     CurrentAverage(transcript: Transcript([], rules: .standard))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentLibretto)
+        .background(SbuTheme.paper)
+        .environment(\.sbuAccent, .libretto)
         .preferredColorScheme(.dark)
 }

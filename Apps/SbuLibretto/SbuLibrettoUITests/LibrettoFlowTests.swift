@@ -61,7 +61,8 @@ final class LibrettoFlowTests: LibrettoUITestCase {
         let exam = app.buttons["Reti di calcolatori"]
         XCTAssertTrue(exam.waitForExistence(timeout: 5))
         exam.tap()
-        app.switches["isTaken"].switches.firstMatch.tap()
+        // SbuToggleStyle draws the whole row as the switch: here its inner system switch is not hittable.
+        app.switches["isTaken"].tap()
         // The planned sitting is in the future: a grade needs a past date.
         XCTAssertTrue(app.descendants(matching: .any)["examProblem"].waitForExistence(timeout: 5))
         attach(app, "data futura")
@@ -95,6 +96,16 @@ final class LibrettoFlowTests: LibrettoUITestCase {
         XCTAssertTrue(figure.label.contains("27.77"), figure.label)
         XCTAssertTrue(app.buttons["Simulate exam"].exists)
         attach(app, "en_US")
+        try audit(app)
+    }
+
+    @MainActor
+    func testToolScreenAtTheLargestTextSize() throws {
+        let app = launch(sample: true, contentSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        let figure = app.descendants(matching: .any)["figure"]
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["registerGrade"].exists)
+        attach(app, "AX5")
         try audit(app)
     }
 }

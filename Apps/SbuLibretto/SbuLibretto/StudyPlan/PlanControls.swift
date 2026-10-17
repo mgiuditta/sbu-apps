@@ -51,7 +51,7 @@ struct PlanControls: View {
     List {
         PlanControls(query: $query)
     }
-    .tint(SbuTheme.accentLibretto)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -59,6 +59,6 @@ struct PlanControls: View {
     List {
         PlanControls(query: $query)
     }
-    .tint(SbuTheme.accentLibretto)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

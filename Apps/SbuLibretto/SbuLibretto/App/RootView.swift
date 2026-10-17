@@ -6,7 +6,7 @@ struct RootView: View {
     let settings: CourseSettings
 
     var body: some View {
-        SbuAppShell("Sbu Libretto", slug: "libretto", accent: SbuTheme.accentLibretto, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Libretto", slug: "libretto", accent: .libretto, appIcon: Image(.appIconArtwork)) {
             MainView(settings: settings)
         } settings: {
             CourseSection(settings: settings)

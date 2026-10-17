@@ -2,43 +2,31 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// The average closed by the full stop, then the next sitting, sized to each family.
+/// The weighted average closed by the full stop, and under it the next sitting. Before the first
+/// grade a waiting "0" and what to do.
 struct LibrettoWidgetView: View {
     let entry: LibrettoWidgetEntry
 
     @Environment(\.widgetFamily) private var family
 
     var body: some View {
-        content
-            .tint(SbuTheme.accentLibretto)
-            .containerBackground(for: .widget) {
-                if family == .accessoryRectangular || family == .accessoryInline { Color.clear } else { SbuTheme.surface }
-            }
+        let average = entry.snapshot?.average
+        SbuWidgetFigure(
+            value: average.map { $0.formatted(LibrettoFormat.average) } ?? 0.formatted(),
+            label: label(hasAverage: average != nil),
+            fullStop: average == nil ? .waiting : .set,
+            accent: .libretto
+        )
     }
 
-    @ViewBuilder
-    private var content: some View {
-        switch family {
-        case .accessoryInline:
-            InlineContent(entry: entry)
-        case .accessoryRectangular:
-            RectangularContent(entry: entry)
-        case .systemMedium:
-            HStack(alignment: .top, spacing: SbuTheme.space4) {
-                AverageBlock(snapshot: entry.snapshot, size: SbuTheme.statSize)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                NextExamBlock(entry: entry)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-        default:
-            VStack(alignment: .leading, spacing: SbuTheme.space2) {
-                AverageBlock(snapshot: entry.snapshot, size: SbuTheme.statSmallSize + 8)
-                Spacer(minLength: 0)
-                NextExamBlock(entry: entry)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    private func label(hasAverage: Bool) -> Text {
+        guard hasAverage else { return Text("Registra il primo voto") }
+        // Above the Lock Screen clock there is room for one word.
+        guard family != .accessoryInline, let next = entry.snapshot?.nextExam(now: entry.date, calendar: .current) else {
+            return Text("Media ponderata")
         }
+        let day = CountdownDay(next.date, from: entry.date, calendar: .current).text
+        return Text("Media ponderata · \(next.name) · \(day)")
     }
 }
 

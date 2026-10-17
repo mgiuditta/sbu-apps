@@ -25,7 +25,7 @@ struct FormulaHelpView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Esempi di calcolo")
         .navigationBarTitleDisplayMode(.inline)
     }

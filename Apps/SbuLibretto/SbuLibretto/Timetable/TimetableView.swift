@@ -51,7 +51,7 @@ struct TimetableView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Orario lezioni")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -99,7 +99,7 @@ struct TimetableView: View {
         TimetableView()
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentLibretto)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -107,6 +107,6 @@ struct TimetableView: View {
         TimetableView()
     }
     .modelContainer(for: [Exam.self, Lesson.self], inMemory: true)
-    .tint(SbuTheme.accentLibretto)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

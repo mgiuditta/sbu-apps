@@ -21,6 +21,7 @@ struct ValueRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(title))
         .accessibilityValue(spokenValue ?? value)
+        // In the study plan's List; in a card on paper it has no effect.
         .listRowBackground(SbuTheme.surfaceRaised)
     }
 }

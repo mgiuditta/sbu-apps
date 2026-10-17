@@ -8,6 +8,9 @@ struct UpcomingExamsView: View {
     @Environment(\.calendar) private var calendar
     @Query(sort: \Exam.createdAt) private var exams: [Exam]
     @State private var editing: Exam?
+    @State private var isAdding = false
+    /// The visible height of the screen: with no sitting the grid fills it.
+    @State private var viewportHeight: CGFloat = 0
 
     var body: some View {
         let countdown = ExamCountdown(exams.map(\.planItem), now: .now, calendar: calendar)
@@ -45,20 +48,34 @@ struct UpcomingExamsView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Prossimi appelli")
         .navigationBarTitleDisplayMode(.inline)
         .overlay {
             if countdown.isEmpty {
-                ContentUnavailableView {
-                    Label("Nessun appello", systemImage: "calendar")
-                } description: {
-                    Text("Aggiungi un esame da sostenere con la data dell'appello: qui vedi quanti giorni mancano.")
+                ScrollView {
+                    SbuEmpty(sentence: "Aggiungi un esame da sostenere con la data dell'appello: qui vedi quanti giorni mancano.") {
+                        SbuButton("Aggiungi esame", action: add)
+                            .accessibilityIdentifier("addPlannedExam")
+                    }
+                    .padding(.horizontal, SbuTheme.space4)
+                    .padding(.vertical, SbuTheme.space6)
+                    .frame(maxWidth: .infinity, minHeight: viewportHeight, alignment: .topLeading)
+                    .sbuPaper(grid: true)
+                }
+                .scrollBounceBehavior(.basedOnSize)
+                .onGeometryChange(for: CGFloat.self) { proxy in
+                    proxy.size.height
+                } action: { height in
+                    viewportHeight = height
                 }
             }
         }
         .sheet(item: $editing) { exam in
             ExamForm(exam: exam, startsTaken: false, courseYear: exam.courseYear)
+        }
+        .sheet(isPresented: $isAdding) {
+            ExamForm(exam: nil, startsTaken: false, courseYear: exams.map(\.courseYear).max() ?? 1)
         }
     }
 
@@ -71,6 +88,10 @@ struct UpcomingExamsView: View {
         .buttonStyle(.plain)
     }
 
+    private func add() {
+        isAdding = true
+    }
+
     private func edit(_ id: UUID) {
         editing = exams.first { $0.id == id }
     }
@@ -81,7 +102,7 @@ struct UpcomingExamsView: View {
         UpcomingExamsView()
     }
     .modelContainer(.preview)
-    .tint(SbuTheme.accentLibretto)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -89,6 +110,7 @@ struct UpcomingExamsView: View {
         UpcomingExamsView()
     }
     .modelContainer(for: [Exam.self, Lesson.self], inMemory: true)
-    .tint(SbuTheme.accentLibretto)
+    .environment(\.sbuAccent, .libretto)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

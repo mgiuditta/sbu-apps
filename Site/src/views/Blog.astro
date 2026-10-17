@@ -11,7 +11,6 @@ const { locale, path, alternates, posts = [], post } = Astro.props;
 const t = ui[locale];
 const rendered = post ? await render(post) : undefined;
 const Content = rendered?.Content;
-const description = locale === 'it' ? 'Come nascono le app Sbu.' : 'How Sbu apps are made.';
 const jsonLd = post
   ? [{
       '@context': 'https://schema.org',
@@ -33,7 +32,7 @@ const jsonLd = post
     </article>
   </Base>
 ) : (
-  <Base locale={locale} path={path} alternates={alternates} title={`${t.nav.blog} · sbu.dev`} description={description}>
+  <Base locale={locale} path={path} alternates={alternates} title={`${t.nav.blog} · sbu.dev`} description={t.blogDescription}>
     <section class="flex flex-col gap-6 py-8">
       <PageTitle text={t.nav.blog} />
       <ul class="flex flex-col gap-4">
@@ -45,6 +44,7 @@ const jsonLd = post
           </li>
         ))}
       </ul>
+      <p class="text-footnote text-ink-muted"><a href={localePath(locale, 'rss.xml')} type="application/rss+xml">{t.feed}</a></p>
     </section>
   </Base>
 )}

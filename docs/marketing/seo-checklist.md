@@ -9,6 +9,7 @@ Baseline: on 2026-10-12 `sbu.dev` did not resolve (no DNS answer), so there is n
 - [x] Sitemap from `@astrojs/sitemap`, with `xhtml:link` alternates for it/en; drafts never built, so never listed
 - [x] One canonical per page, self-referencing, absolute `https://sbu.dev/...`, no trailing slash (`trailingSlash: 'never'`, `build.format: 'file'`), so `https://sbu.dev/privacy` in the fastlane metadata is the canonical URL as written
 - [x] Custom 404 page, not indexed
+- [x] Blog RSS feed per locale (`@astrojs/rss`, built at build time): `/rss.xml` and `/en/rss.xml`, published posts only, newest first, absolute URLs without a trailing slash; `<link rel="alternate" type="application/rss+xml">` on every page and a link under the blog index
 - [ ] Verify the domain in Search Console and Bing Webmaster Tools via DNS TXT (no verification script or meta tag), submit the sitemap
 - [ ] Old public repo `mgiuditta/sbu.dev`: archive it so it can't publish a second copy of the domain
 

@@ -81,6 +81,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
     {/* public/apple-touch-icon.png: Design/logos/sbu-mark.svg at 180px, square corners (iOS rounds them). */}
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={t.feedTitle} href={new URL(localePath(locale, 'rss.xml'), site).href} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="sbu.dev" />
     <meta property="og:title" content={title} />

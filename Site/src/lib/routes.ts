@@ -1,6 +1,5 @@
-import { getCollection } from 'astro:content';
 import { locales, localePath, type Locale } from '../i18n';
-import { getAlternatives, getApps, getUpcoming, type Alternative, type App, type Post, type UpcomingApp } from './apps';
+import { getAlternatives, getApps, getPosts, getUpcoming, type Alternative, type App, type Post, type UpcomingApp } from './apps';
 
 type View =
   | { view: 'home'; upcoming: UpcomingApp[] }
@@ -27,7 +26,7 @@ export async function routes(): Promise<Route[]> {
   const apps = await getApps();
   const alternatives = await getAlternatives(apps);
   const upcoming = await getUpcoming();
-  const posts = (await getCollection('blog', (post) => !post.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+  const posts = await getPosts();
 
   const pages: (View & { path: string; locale: Locale })[] = [];
   for (const locale of locales) {

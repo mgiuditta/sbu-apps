@@ -16,11 +16,11 @@ Quando parte lo sviluppo:
 ## 2. Il bottone "Avvisami"
 
 **Non si fa come raccolta di email.** `docs/marketing/marketing-plan.md` l'ha scartato: una lista di email è un dato personale e un account travestito, e il sito non ha script né form. Alternative coerenti, in ordine:
-- link al feed RSS del blog (da aggiungere: `@astrojs/rss`, nessuna richiesta di terze parti), con un post al giorno 0 di ogni app;
+- link al feed RSS del blog (`@astrojs/rss`, nessuna richiesta di terze parti), con un post al giorno 0 di ogni app;
 - link a "Watch → Releases" della repo GitHub, quando è pubblica;
 - nessun bottone: lo stato "In arrivo" sulla home basta.
 
-Decisione di Matteo; consiglio il feed RSS.
+**Fatto: feed RSS.** `/rss.xml` (italiano) e `/en/rss.xml` (inglese), generati al build con `@astrojs/rss` (`Site/src/lib/feed.ts`): solo post pubblicati, dal più recente, URL assoluti senza slash finale. Ogni pagina ha `<link rel="alternate" type="application/rss+xml">` nella head e l'indice del blog un link "Segui il blog con il feed RSS". Resta la regola: un post al giorno 0 di ogni app.
 
 ## 3. "Il numero" sulla home e su `/principi`
 

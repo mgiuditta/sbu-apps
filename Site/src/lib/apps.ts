@@ -134,3 +134,8 @@ export async function getAlternatives(apps: App[]) {
 
 export type Alternative = Awaited<ReturnType<typeof getAlternatives>>[number];
 export type Post = CollectionEntry<'blog'>;
+
+/** Published posts, newest first: drafts are never built. */
+export async function getPosts() {
+  return (await getCollection('blog', (post) => !post.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+}

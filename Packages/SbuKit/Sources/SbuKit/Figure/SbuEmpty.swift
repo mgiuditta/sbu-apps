@@ -41,6 +41,11 @@ public extension SbuEmpty where Action == EmptyView {
     init(sentence: LocalizedStringKey) {
         self.init(sentence: sentence) { EmptyView() }
     }
+
+    /// Creates an empty state with no button from text that is already localized.
+    init(sentence: Text) {
+        self.init(sentence: sentence) { EmptyView() }
+    }
 }
 
 #Preview("Light") {

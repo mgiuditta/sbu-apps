@@ -24,10 +24,18 @@ struct PlaceSheet: View {
                         useCurrentLocation: useCurrentLocation,
                         openSettings: openSettings
                     )
+                    .listRowBackground(SbuTheme.surfaceRaised)
                 }
 
-                // No header over an empty list: the search's own message says nothing matched.
-                if cities.isEmpty == false {
+                if cities.isEmpty {
+                    // One plain sentence where the cities would be: the sheet is a list, not paper.
+                    Section {
+                        Text("Nessuna città trovata per «\(query)».")
+                            .font(SbuTheme.body)
+                            .foregroundStyle(SbuTheme.inkMuted)
+                    }
+                    .listRowBackground(SbuTheme.surfaceRaised)
+                } else {
                     Section("Città") {
                         ForEach(cities) { city in
                             CityRow(city: city, isSelected: places.city == city) {
@@ -35,14 +43,12 @@ struct PlaceSheet: View {
                             }
                         }
                     }
+                    .listRowBackground(SbuTheme.surfaceRaised)
                 }
             }
             .listStyle(.insetGrouped)
-            .overlay {
-                if cities.isEmpty {
-                    ContentUnavailableView.search(text: query)
-                }
-            }
+            .scrollContentBackground(.hidden)
+            .background(SbuTheme.paper)
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Cerca una città"))
             .navigationTitle("Luogo")
             .navigationBarTitleDisplayMode(.inline)
@@ -76,11 +82,11 @@ struct PlaceSheet: View {
 
 #Preview("Light") {
     PlaceSheet(places: PlaceModel(defaults: UserDefaults(suiteName: "preview") ?? .standard))
-        .tint(SbuTheme.accentMoon)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     PlaceSheet(places: PlaceModel(defaults: UserDefaults(suiteName: "preview") ?? .standard))
-        .tint(SbuTheme.accentMoon)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

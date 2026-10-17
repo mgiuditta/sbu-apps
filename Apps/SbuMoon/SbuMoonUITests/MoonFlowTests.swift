@@ -8,35 +8,44 @@ final class MoonFlowTests: XCTestCase {
     }
 
     @MainActor
-    private func launch() -> XCUIApplication {
+    private func launch(contentSize: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
+        if let contentSize {
+            app.launchArguments += ["-UIPreferredContentSizeCategoryName", contentSize]
+        }
         app.launch()
         return app
     }
 
+    /// The figure: one element, the percentage then the phase, such as "63%, Gibbosa crescente".
     @MainActor
     private func figure(in app: XCUIApplication) -> XCUIElement {
-        app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Illuminazione'")).firstMatch
+        app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS '%, '")).firstMatch
     }
 
     @MainActor
     func testToolScreenShowsTheFigureAndPassesTheAccessibilityAudit() throws {
         let app = launch()
 
+        XCTAssertTrue(app.staticTexts["Illuminazione"].waitForExistence(timeout: 5))
         XCTAssertTrue(figure(in: app).waitForExistence(timeout: 5))
-        XCTAssertTrue(figure(in: app).label.contains("%"), figure(in: app).label)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'SBU · LUNA · '")).firstMatch.exists)
         for phase in ["Luna nuova,", "Primo quarto,", "Luna piena,", "Ultimo quarto,", "Età della luna,", "Distanza dalla Terra,"] {
             XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", phase)).firstMatch.exists, phase)
         }
         XCTAssertFalse(app.buttons["today"].exists, "Oggi shows only on another day")
 
-        // Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios,
-        // and the audit misreads the iOS 26 glass bar as text contrast.
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
-            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? "no element")")
-            return true
-        }
+        try audit(app)
+    }
+
+    @MainActor
+    func testToolScreenAtTheLargestTextSizePassesTheAccessibilityAudit() throws {
+        let app = launch(contentSize: "UICTContentSizeCategoryAccessibilityXXXL")
+
+        XCTAssertTrue(figure(in: app).waitForExistence(timeout: 5))
+
+        try audit(app)
     }
 
     @MainActor
@@ -123,16 +132,23 @@ final class MoonFlowTests: XCTestCase {
         // Earlier runs, or the person on their own iPhone, may have left some on: the time row
         // shows while any is.
         for phase in ["Luna piena", "Luna nuova", "Primo quarto", "Ultimo quarto"] where app.switches[phase].value as? String == "1" {
-            app.switches[phase].switches.firstMatch.tap()
+            app.switches[phase].tap()
         }
 
-        fullMoon.switches.firstMatch.tap()
-        allowNotificationsIfAsked()
+        fullMoon.tap()
 
-        XCTAssertTrue(app.datePickers["Ora dell'avviso"].waitForExistence(timeout: 5) || app.staticTexts["Ora dell'avviso"].exists)
+        // The Closure, once the alert is set, for two seconds: right away when notifications are
+        // already allowed, or once they are allowed the first time on this simulator.
+        let closure = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Impostato'")).firstMatch
+        if closure.waitForExistence(timeout: 1) == false {
+            allowNotificationsIfAsked()
+            XCTAssertTrue(closure.waitForExistence(timeout: 2))
+        }
+        XCTAssertTrue(closure.waitForNonExistence(timeout: 5), "The Closure goes after two seconds")
+        XCTAssertTrue(app.staticTexts["Ora dell'avviso"].exists)
         try audit(app, inSheet: true)
 
-        fullMoon.switches.firstMatch.tap()
+        fullMoon.tap()
         XCTAssertFalse(app.staticTexts["Ora dell'avviso"].waitForExistence(timeout: 2))
     }
 
@@ -145,12 +161,31 @@ final class MoonFlowTests: XCTestCase {
         }
     }
 
+    /// SbuKit sizes the figure in grid cells rather than a text style, and draws the cartiglio in
+    /// Plex Mono scaled by hand: on purpose, so the Dynamic Type check skips just those two, as in
+    /// Sbu Level, and still checks every other text. The audit reads the cartiglio's tracking as clipping.
+    private static func isSbuKitGridType(_ issue: XCUIAccessibilityAuditIssue) -> Bool {
+        guard let label = issue.element?.label else { return false }
+        let isCartiglio = label.hasPrefix("SBU ·")
+        // The figure's own text, "63%", and the element that reads it with the phase.
+        let isFigure = label.first?.isNumber == true && label.contains("%")
+        switch issue.auditType {
+        case .dynamicType: return isCartiglio || isFigure
+        case .textClipped: return isCartiglio
+        default: return false
+        }
+    }
+
+    /// Contrast is left out as in Sbu Habits: text colors come from tokens with checked ratios, and
+    /// the audit misreads the iOS 26 glass bar as text contrast. In a sheet Dynamic Type too, as in
+    /// Sbu Habits and Sbu Speed: there the audit flags every text as partially unsupported, system ones included.
     @MainActor
-    /// Contrast is left out as on the tool screen. In a sheet Dynamic Type too, as in Sbu Habits and
-    /// Sbu Speed: there the audit flags every text as partially unsupported, system ones included.
     private func audit(_ app: XCUIApplication, inSheet: Bool = false) throws {
         let types = XCUIAccessibilityAuditType.all.subtracting(inSheet ? [.contrast, .dynamicType] : [.contrast])
         try app.performAccessibilityAudit(for: types) { issue in
+            if Self.isSbuKitGridType(issue) {
+                return true
+            }
             // The system's own bar button: SwiftUI gives it no Dynamic Type, as in Sbu Habits.
             if issue.auditType == .dynamicType, issue.element?.label == "Fine" {
                 return true

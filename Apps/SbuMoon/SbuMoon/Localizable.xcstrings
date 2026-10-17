@@ -161,6 +161,17 @@
         }
       }
     },
+    "Impostato" : {
+      "comment" : "The Closure word when a phase alert is turned on and iOS will deliver it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set"
+          }
+        }
+      }
+    },
     "La posizione è disattivata per Sbu Moon. Attivala nelle Impostazioni dell'iPhone, o scegli una città." : {
       "localizations" : {
         "en" : {
@@ -197,6 +208,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Read once, accurate to about a kilometer. It stays on this iPhone."
+          }
+        }
+      }
+    },
+    "Luna" : {
+      "comment" : "The app in the tool screen cartiglio: Sbu · Luna · day · place.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moon"
           }
         }
       }
@@ -268,6 +290,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show moonrise and moonset"
+          }
+        }
+      }
+    },
+    "Nessuna città trovata per «%@»." : {
+      "comment" : "The place search found no city; %@ is what the person typed.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No city found for “%@”."
           }
         }
       }

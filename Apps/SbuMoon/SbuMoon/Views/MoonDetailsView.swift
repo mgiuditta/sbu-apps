@@ -1,15 +1,22 @@
 import SbuKit
 import SwiftUI
 
-/// The moon's age since the last new moon and its distance from the Earth, for the date shown.
+/// The moon's age since the last new moon and its distance from the Earth, for the date shown, in a
+/// card on the paper.
 struct MoonDetailsView: View {
     let age: Duration
     let distance: Measurement<UnitLength>
 
+    private var facts: [MoonFact] {
+        [
+            MoonFact(id: "age", label: "Età della luna", value: Text(age, format: MoonDetailFormat.age)),
+            MoonFact(id: "distance", label: "Distanza dalla Terra", value: Text(distance, format: MoonDetailFormat.distance)),
+        ]
+    }
+
     var body: some View {
-        VStack(spacing: SbuTheme.space2) {
-            MoonFactRow("Età della luna", value: Text(age, format: MoonDetailFormat.age))
-            MoonFactRow("Distanza dalla Terra", value: Text(distance, format: MoonDetailFormat.distance))
+        SbuListCard(facts) { fact in
+            MoonFactRow(fact)
         }
     }
 }
@@ -30,6 +37,6 @@ private struct MoonDetailsPreview: View {
         MoonDetailsView(age: reading.age, distance: reading.distance)
             .padding(SbuTheme.space4)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(SbuTheme.surface)
+            .sbuPaper(grid: true)
     }
 }

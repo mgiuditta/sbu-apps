@@ -1,24 +1,31 @@
 import SbuKit
 import SwiftUI
 
-/// The moon as it looks: the lit part in the accent, the dark part sunken paper with a hairline
-/// in the accent. Decorative: the figure and the phase name already say it.
+/// The moon as it looks, in the paper's own colors: the lit part is always the lighter one, so it
+/// reads as light in both schemes. In light, `paper` lit and `inkMuted` in shadow; in dark, `ink`
+/// lit and `paper` in shadow. An `inkMuted` hairline closes the disc. No accent: the full stop is
+/// the only color. Decorative: the figure and the phase name already say it.
 struct MoonDiscView: View {
     let disc: MoonDisc
 
-    /// Twice the figure, so the moon reads as the drawing and the number as the figure.
-    @ScaledMetric(relativeTo: .largeTitle) private var side = SbuTheme.statHeroSize * 2
+    @Environment(\.colorScheme) private var colorScheme
+
+    /// Six grid cells across: the drawing, smaller than the figure, so the number stays the figure.
+    private let side = SbuTheme.gridCell * 6
+
+    private var lit: Color { colorScheme == .dark ? SbuTheme.ink : SbuTheme.paper }
+    private var shadow: Color { colorScheme == .dark ? SbuTheme.paper : SbuTheme.inkMuted }
 
     var body: some View {
         ZStack {
             Circle()
-                .fill(SbuTheme.surfaceSunken)
+                .fill(shadow)
 
             MoonLitShape(disc: disc)
-                .fill(.tint)
+                .fill(lit)
 
             Circle()
-                .strokeBorder(.tint, lineWidth: SbuTheme.hairline)
+                .strokeBorder(SbuTheme.inkMuted, lineWidth: SbuTheme.hairline)
         }
         .frame(width: side, height: side)
         .accessibilityHidden(true)
@@ -41,14 +48,13 @@ private struct MoonDiscPreview: View {
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: SbuTheme.statHeroSize * 2))], spacing: SbuTheme.space4) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: SbuTheme.gridCell * 6))], spacing: SbuTheme.space4) {
                 ForEach(discs.indices, id: \.self) { index in
                     MoonDiscView(disc: discs[index])
                 }
             }
             .padding(SbuTheme.space4)
         }
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentMoon)
+        .background(SbuTheme.paper)
     }
 }

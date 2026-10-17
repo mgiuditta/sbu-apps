@@ -1,9 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// One secondary line under the moon: a label on the left, its value on the right, read as one
-/// element. When they don't fit on one line, as at accessibility text sizes, the value goes under
-/// the label.
+/// One row of a card under the moon: a label on the left, its value on the right in `inkMuted`,
+/// read as one element. When they don't fit on one line, as at accessibility text sizes, the value
+/// goes under the label.
 struct MoonFactRow: View {
     private let label: LocalizedStringKey
     private let value: Text
@@ -13,6 +13,10 @@ struct MoonFactRow: View {
     init(_ label: LocalizedStringKey, value: Text) {
         self.label = label
         self.value = value
+    }
+
+    init(_ fact: MoonFact) {
+        self.init(fact.label, value: fact.value)
     }
 
     var body: some View {
@@ -27,20 +31,21 @@ struct MoonFactRow: View {
                 }
             }
         }
-        .foregroundStyle(SbuTheme.inkMuted)
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .combine)
     }
 
     private var labelText: some View {
         Text(label)
-            .font(SbuTheme.footnote)
+            .font(SbuTheme.body)
+            .foregroundStyle(SbuTheme.ink)
     }
 
     private var valueText: some View {
         value
-            .font(SbuTheme.subheadline)
+            .font(SbuTheme.body)
             .monospacedDigit()
+            .foregroundStyle(SbuTheme.inkMuted)
     }
 
     private var sideBySide: some View {
@@ -77,13 +82,17 @@ struct MoonFactRow: View {
 }
 
 private struct MoonFactRowPreview: View {
+    private let facts = [
+        MoonFact(id: "full", label: "Luna piena", value: Text(Date.now, format: .dateTime.weekday().day().month().hour().minute())),
+        MoonFact(id: "distance", label: "Distanza dalla Terra", value: Text(Measurement(value: 384_400, unit: UnitLength.kilometers), format: .measurement(width: .abbreviated))),
+    ]
+
     var body: some View {
-        VStack(spacing: SbuTheme.space2) {
-            MoonFactRow("Luna piena", value: Text(Date.now, format: .dateTime.weekday().day().month().hour().minute()))
-            MoonFactRow("Distanza dalla Terra", value: Text(Measurement(value: 384_400, unit: UnitLength.kilometers), format: .measurement(width: .abbreviated)))
+        SbuListCard(facts) { fact in
+            MoonFactRow(fact)
         }
         .padding(SbuTheme.space4)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .sbuPaper(grid: true)
     }
 }

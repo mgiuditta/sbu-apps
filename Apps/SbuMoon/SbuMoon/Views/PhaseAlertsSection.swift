@@ -3,15 +3,22 @@ import SwiftUI
 
 /// Settings section to choose which principal phases send an alert, and at what time.
 /// Turning the first one on asks for notification permission; a refusal is explained here.
+/// Each alert turned on, once iOS will deliver it, closes with "Impostato" under the toggles.
 struct PhaseAlertsSection: View {
     @Bindable var alerts: PhaseAlerts
 
     @Environment(\.openURL) private var openURL
+    @State private var isShowingClosure = false
 
     var body: some View {
         Section {
             ForEach(PrincipalPhase.allCases, id: \.self) { phase in
                 Toggle(phase.phase.name, isOn: $alerts.selection[phase])
+            }
+
+            // The settings sheet covers the figure: the Closure shows here, where the alert was set.
+            if isShowingClosure {
+                PhaseAlertClosure(isShowing: $isShowingClosure)
             }
 
             if alerts.selection.isEmpty == false {
@@ -31,7 +38,11 @@ struct PhaseAlertsSection: View {
             }
         }
         .onChange(of: alerts.selection) { previous, _ in
-            Task { await alerts.settingsChanged(from: previous) }
+            Task {
+                if await alerts.settingsChanged(from: previous) {
+                    isShowingClosure = true
+                }
+            }
         }
         .onChange(of: alerts.minutesAfterMidnight) {
             Task { await alerts.settingsChanged() }
@@ -69,6 +80,6 @@ private struct PhaseAlertsSectionPreview: View {
         Form {
             PhaseAlertsSection(alerts: alerts)
         }
-        .tint(SbuTheme.accentMoon)
+        .tint(SbuTheme.ink)
     }
 }

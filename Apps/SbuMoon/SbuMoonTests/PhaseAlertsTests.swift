@@ -58,8 +58,9 @@ struct PhaseAlertsTests {
         let previous = alerts.selection
 
         alerts.selection[.full] = true
-        await alerts.settingsChanged(from: previous, now: now)
+        let isSet = await alerts.settingsChanged(from: previous, now: now)
 
+        #expect(isSet)
         #expect(center.requests == 1)
         #expect(alerts.access == .allowed)
         let scheduled = center.scheduled.last ?? []
@@ -74,8 +75,9 @@ struct PhaseAlertsTests {
         let previous = alerts.selection
 
         alerts.selection[.full] = false
-        await alerts.settingsChanged(from: previous, now: now)
+        let isSet = await alerts.settingsChanged(from: previous, now: now)
 
+        #expect(isSet == false)
         #expect(center.requests == 0)
         #expect(center.scheduled.last?.isEmpty == true)
     }
@@ -86,8 +88,9 @@ struct PhaseAlertsTests {
         let previous = alerts.selection
 
         alerts.selection[.new] = true
-        await alerts.settingsChanged(from: previous, now: now)
+        let isSet = await alerts.settingsChanged(from: previous, now: now)
 
+        #expect(isSet == false)
         #expect(alerts.isBlocked)
         #expect(center.scheduled.last?.isEmpty == true)
     }

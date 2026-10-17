@@ -10,7 +10,7 @@ struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
-        SbuAppShell("Sbu Moon", slug: "moon", accent: SbuTheme.accentMoon, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Moon", slug: "moon", accent: .moon, appIcon: Image(.appIconArtwork)) {
             MainView(model: model, places: places)
         } settings: {
             PhaseAlertsSection(alerts: alerts)

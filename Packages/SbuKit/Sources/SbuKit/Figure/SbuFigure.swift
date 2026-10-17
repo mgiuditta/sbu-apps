@@ -61,6 +61,8 @@ public struct SbuFigure: View {
                 context
                     .font(SbuTheme.body)
                     .foregroundStyle(SbuTheme.inkMuted)
+                    // Never squeezed under its line height by a tight stack around the figure.
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .accessibilityElement(children: .ignore)

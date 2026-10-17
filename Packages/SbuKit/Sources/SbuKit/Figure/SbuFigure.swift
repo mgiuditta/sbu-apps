@@ -82,7 +82,10 @@ public struct SbuFigure: View {
                     // Off paper (a List row, a sheet) there is no grid to meet: snapping there
                     // would only feed layout back into itself.
                     guard isOnPaper else { return }
-                    gridOffset = Self.offsetToGrid(minY)
+                    // Self-sizing containers (List rows) move the block by fractions of a point
+                    // when the offset changes: only a whole point is worth another layout pass.
+                    let offset = Self.offsetToGrid(minY)
+                    if abs(offset - gridOffset) >= 1 { gridOffset = offset }
                 }
         case .fixed(let size, let stop):
             line(size: size, fullStop: stop)

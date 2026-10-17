@@ -23,10 +23,10 @@ EN (58):
 ## Descrizione lunga (YouTube, LinkedIn, Facebook, Product Hunt)
 
 IT:
-> sbu.dev fa app gratis per iPhone. Ogni app fa una cosa sola e la fa per intero: calcola quanto spendi in abbonamenti, legge un codice QR, misura quanto è dritta una mensola. Nessun abbonamento, nessun acquisto in-app, nessun account, nessuna pubblicità, nessun tracking. I dati restano sul tuo iPhone. Il codice è pubblico su GitHub.
+> sbu.dev fa app gratis per iPhone. Ogni app fa una cosa sola e la fa per intero: calcola quanto spendi in abbonamenti, legge un codice QR. Nessun abbonamento, nessun acquisto in-app, nessun account, nessuna pubblicità, nessun tracking. I dati restano sul tuo iPhone. Il codice è pubblico su GitHub.
 
 EN:
-> sbu.dev makes free iPhone apps. Each app does one thing, all the way: it adds up what you spend on subscriptions, reads a QR code, tells you if a shelf is level. No subscriptions, no in-app purchases, no accounts, no ads, no tracking. Your data stays on your iPhone. The code is public on GitHub.
+> sbu.dev makes free iPhone apps. Each app does one thing, all the way: it adds up what you spend on subscriptions, reads a QR code. No subscriptions, no in-app purchases, no accounts, no ads, no tracking. Your data stays on your iPhone. The code is public on GitHub.
 
 ## Lingua per profilo
 

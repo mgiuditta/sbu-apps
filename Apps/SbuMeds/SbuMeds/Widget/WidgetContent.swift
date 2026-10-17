@@ -13,6 +13,8 @@ nonisolated struct WidgetContent: Equatable, Sendable {
 
     let toTakeCount: Int
     let lateCount: Int
+    /// Doses due today, extras left out: with none, nothing is to take and nothing is done.
+    let scheduledCount: Int
     /// Still to take today, the earliest first.
     let items: [Item]
     /// No medicine yet: the widget says how to start.
@@ -23,6 +25,7 @@ nonisolated struct WidgetContent: Equatable, Sendable {
         let toTake = plan.items.filter { !$0.isExtra && $0.state.isToTake }
         let showsPerson = Set(medicines.map(\.personID)).count > 1
         toTakeCount = toTake.count
+        scheduledCount = plan.scheduledCount
         lateCount = toTake.filter { $0.state == .late }.count
         isEmpty = medicines.isEmpty
         items = toTake.prefix(max(limit, 0)).map {
@@ -31,12 +34,16 @@ nonisolated struct WidgetContent: Equatable, Sendable {
         }
     }
 
-    init(toTakeCount: Int, lateCount: Int, items: [Item], isEmpty: Bool) {
+    init(toTakeCount: Int, lateCount: Int, scheduledCount: Int? = nil, items: [Item], isEmpty: Bool) {
         self.toTakeCount = toTakeCount
         self.lateCount = lateCount
+        self.scheduledCount = scheduledCount ?? toTakeCount
         self.items = items
         self.isEmpty = isEmpty
     }
+
+    /// Every dose due today is taken, skipped or past: the full stop is set.
+    var isDone: Bool { scheduledCount > 0 && toTakeCount == 0 }
 
     /// The moments the widget changes by itself: now, each dose time still to come today (it
     /// turns late), and the next midnights (a new day's doses).

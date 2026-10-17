@@ -2,8 +2,9 @@ import SbuKit
 import SwiftData
 import SwiftUI
 
-/// The tool screen, Medisafe's home: the person on top, the week, how many doses are still to
-/// take that day, closed by the full stop, then the doses grouped by time. Always opens on today.
+/// The tool screen, Medisafe's home: the title and how many doses are still to take that day on
+/// the paper's grid, closed by the full stop, then the person, the week and the doses grouped by
+/// time. Always opens on today; the last dose of today taken plays the Closure "Presa".
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.calendar) private var calendar
@@ -16,6 +17,7 @@ struct TodayView: View {
     @State private var openDose: DoseItem?
     @State private var newMedicineFor: Person?
     @State private var markCount = 0
+    @State private var isClosing = false
 
     var body: some View {
         let person = people.first { $0.id.uuidString == personID } ?? people.first
@@ -28,25 +30,33 @@ struct TodayView: View {
         let asNeeded = mine.filter { $0.schedule.frequency == .asNeeded }.sorted { $0.name < $1.name }
         List {
             Section {
-                PersonPicker(people: people, selection: personSelection(current: person))
-                WeekStrip(selection: daySelection(today: today), today: today)
+                TodayFigure(plan: plan, isToday: day == today, hasMedicines: !mine.isEmpty, isClosing: $isClosing) {
+                    newMedicineFor = person
+                }
+                // On the row's content, not the list: the grid scrolls with the figure.
+                .sbuPaper(grid: true)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
             }
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
-            Section {
-                TodayFigure(plan: plan, isToday: day == today)
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
+            if people.count > 1 || !mine.isEmpty {
+                Section {
+                    if people.count > 1 {
+                        PersonPicker(people: people, selection: personSelection(current: person))
+                    }
+                    if !mine.isEmpty {
+                        WeekStrip(selection: daySelection(today: today), today: today)
+                            .sbuAffectsFigure(day)
+                    }
+                }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
             }
             if let days = reminders.openEveryDays {
                 Section {
                     OpenAppNotice(days: days)
                 }
                 .listRowBackground(SbuTheme.surfaceRaised)
-            }
-            if plan.isEmpty, asNeeded.isEmpty || day != today {
-                TodayEmptyRow(hasMedicines: !mine.isEmpty, isToday: day == today, addMedicine: { newMedicineFor = person })
             }
             ForEach(plan.groups) { group in
                 DoseGroupSection(group: group, canMark: day <= today, open: open, takeAll: takeAll, mark: { mark($0, as: $1, in: byID) })
@@ -62,12 +72,10 @@ struct TodayView: View {
                 NavigationLink(value: Destination.medicines) {
                     Label("Farmaci", systemImage: "pills")
                 }
-                .tint(SbuTheme.ink)
                 .accessibilityIdentifier("medicines")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Aggiungi farmaco", systemImage: "plus") { newMedicineFor = person }
-                    .tint(SbuTheme.ink)
                     .accessibilityIdentifier("addMedicine")
             }
         }
@@ -88,7 +96,13 @@ struct TodayView: View {
         .sheet(item: $newMedicineFor) { person in
             MedicineEditor(person: person, medicine: nil)
         }
-        .sensoryFeedback(.success, trigger: markCount)
+        .sbuAffectsFigure(markCount)
+        // The last dose of today taken, from a row, "Prendi tutto" or the dose's card: the Closure.
+        .onChange(of: day == today ? TodayProgress(personID: person?.id, plan: plan) : nil) { previous, current in
+            if let previous, let current, current.closes(after: previous) {
+                isClosing = true
+            }
+        }
     }
 
     private func personSelection(current: Person?) -> Binding<UUID?> {
@@ -136,7 +150,7 @@ struct TodayView: View {
     .modelContainer(.preview)
     .environment(Clock())
     .environment(Reminders(center: SilentReminderCenter()))
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
@@ -146,6 +160,6 @@ struct TodayView: View {
     .modelContainer(.preview)
     .environment(Clock())
     .environment(Reminders(center: SilentReminderCenter()))
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
     .preferredColorScheme(.dark)
 }

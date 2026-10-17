@@ -40,7 +40,7 @@ struct PersonMedicinesSection: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
@@ -49,6 +49,6 @@ struct PersonMedicinesSection: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
     .preferredColorScheme(.dark)
 }

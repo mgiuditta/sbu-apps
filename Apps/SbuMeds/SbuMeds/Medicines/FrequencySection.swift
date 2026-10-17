@@ -74,6 +74,6 @@ private struct FrequencySectionPreview: View {
         Form {
             FrequencySection(draft: $draft)
         }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

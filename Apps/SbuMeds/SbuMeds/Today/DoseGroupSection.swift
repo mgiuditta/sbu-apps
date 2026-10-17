@@ -17,11 +17,12 @@ struct DoseGroupSection: View {
                 Button { open(item) } label: {
                     DoseRow(item: item)
                 }
-                .tint(SbuTheme.ink)
                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                     if canMark, !item.isExtra, !item.state.isTaken {
+                        // In ink's grey, as "Saltata": the only color on the screen is the full stop,
+                        // and the system draws the swipe's label in white, which full ink hides in dark.
                         Button("Presa", systemImage: "checkmark") { mark(item, .taken) }
-                            .tint(SbuTheme.success)
+                            .tint(SbuTheme.inkMuted)
                     }
                 }
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
@@ -71,7 +72,7 @@ private struct DoseGroupSectionPreview: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentMeds)
+        .background(SbuTheme.paper)
+        .environment(\.sbuAccent, .meds)
     }
 }

@@ -32,6 +32,6 @@ private struct AmountStepperPreview: View {
         Form {
             AmountStepper(amount: $amount, form: .tablet)
         }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

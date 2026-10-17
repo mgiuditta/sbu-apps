@@ -8,7 +8,7 @@ final class MedsFlowTests: MedsUITestCase {
         let app = launch()
         let add = app.buttons["addFirstMedicine"]
         XCTAssertTrue(add.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Nessun farmaco"].exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Aggiungi un farmaco'")).firstMatch.exists)
         try audit(app)
 
         add.tap()
@@ -31,9 +31,23 @@ final class MedsFlowTests: MedsUITestCase {
         try audit(app)
         taken.tap()
 
+        // The last dose of today: the Closure says it, then the figure is back at 0.
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "Presa")).firstMatch.waitForExistence(timeout: 2))
         XCTAssertTrue(dose.waitForExistence(timeout: 5))
         XCTAssertTrue(dose.label.contains("Presa alle"), dose.label)
-        XCTAssertTrue(figure(app, startingWith: "Da prendere oggi").label.contains("0"))
+        let done = figure(app, startingWith: "Da prendere oggi")
+        XCTAssertTrue(done.waitForExistence(timeout: 5))
+        XCTAssertTrue(done.label.contains("0"), done.label)
+    }
+
+    /// The tool screen at the largest accessibility size: the title, the figure on one line and the doses still pass.
+    @MainActor
+    func testTodayAtTheLargestTextSize() throws {
+        let app = launch(sample: true, arguments: ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
+        XCTAssertTrue(figure(app, startingWith: "Da prendere oggi").waitForExistence(timeout: 5))
+        try audit(app)
+        XCTAssertTrue(scroll(app, to: app.buttons.matching(identifier: "dose").firstMatch))
+        try audit(app)
     }
 
     @MainActor
@@ -156,13 +170,14 @@ final class MedsFlowTests: MedsUITestCase {
         XCTAssertTrue(app.buttons["repeatMinutes"].exists)
         XCTAssertTrue(app.buttons["snoozeMinutes"].exists)
         try audit(app)
-        toggle.switches.firstMatch.tap()
+        toggle.tap()
         XCTAssertFalse(app.buttons["repeatMinutes"].waitForExistence(timeout: 2))
 
         // No dose advice, data on the iPhone: said once, in settings.
         let note = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Sbu Meds ti ricorda'")).firstMatch
         XCTAssertTrue(scroll(app, to: note))
-        XCTAssertTrue(app.staticTexts["Licenze"].exists || app.buttons["Licenze"].exists)
+        // Further down since v5 adds the icon and the full stop's sound to settings.
+        XCTAssertTrue(scroll(app, to: app.buttons["Licenze"]))
         try audit(app)
     }
 

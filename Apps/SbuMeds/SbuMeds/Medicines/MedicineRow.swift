@@ -49,7 +49,7 @@ struct MedicineRow: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
@@ -58,6 +58,6 @@ struct MedicineRow: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
     .preferredColorScheme(.dark)
 }

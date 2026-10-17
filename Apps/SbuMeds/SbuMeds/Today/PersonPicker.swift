@@ -63,6 +63,6 @@ private struct PersonPickerPreview: View {
         PersonPicker(people: people, selection: Binding { selection ?? people.first?.id } set: { selection = $0 })
             .padding(SbuTheme.space4)
             .frame(maxHeight: .infinity, alignment: .top)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
     }
 }

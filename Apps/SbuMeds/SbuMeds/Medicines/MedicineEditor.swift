@@ -69,7 +69,7 @@ struct MedicineEditor: View {
             }
             .listRowBackground(SbuTheme.surfaceRaised)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .scrollDismissesKeyboard(.interactively)
             .navigationTitle(medicine == nil ? "Nuovo farmaco" : "Modifica farmaco")
             .navigationBarTitleDisplayMode(.inline)
@@ -135,6 +135,6 @@ private struct MedicineEditorPreview: View {
             }
         }
         .modelContainer(.preview)
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

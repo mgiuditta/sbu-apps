@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
-    "%@ delle dosi previste" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ of the doses due"
-          }
-        }
-      }
-    },
     "%@ di %@: ne restano %@. Ricompralo." : {
       "localizations" : {
         "en" : {
@@ -27,6 +17,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ · extra dose"
+          }
+        }
+      }
+    },
+    "%@: %lld. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@: %2$lld. %3$@"
           }
         }
       }
@@ -151,12 +151,12 @@
         }
       }
     },
-    "Aggiungi un farmaco con i suoi orari: qui trovi le dosi del giorno, e una notifica te le ricorda." : {
+    "Aggiungi un farmaco con i suoi orari: qui trovi le dosi del giorno." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add a medicine with its times: the day's doses show up here, and a notification reminds you."
+            "value" : "Add a medicine with its times: the day's doses show up here."
           }
         }
       }
@@ -421,16 +421,6 @@
         }
       }
     },
-    "Da prendere oggi: %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "To take today: %lld"
-          }
-        }
-      }
-    },
     "Da sapere" : {
       "localizations" : {
         "en" : {
@@ -511,12 +501,12 @@
         }
       }
     },
-    "Dosi prese" : {
+    "Dosi prese: %@. %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Doses taken"
+            "value" : "Doses taken: %1$@. %2$@"
           }
         }
       }
@@ -607,6 +597,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Medicines, people and history stay on this iPhone: no server, no account. If you delete the app, you delete them with it."
+          }
+        }
+      }
+    },
+    "Farmaci: %lld. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medicines: %1$lld. %2$@"
           }
         }
       }
@@ -911,16 +911,6 @@
         }
       }
     },
-    "Nessun farmaco" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No medicines"
-          }
-        }
-      }
-    },
     "Nessun promemoria: la segni quando la prendi." : {
       "localizations" : {
         "en" : {
@@ -937,16 +927,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "None"
-          }
-        }
-      }
-    },
-    "Nessuna dose ancora passata" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No doses due yet"
           }
         }
       }
@@ -971,52 +951,12 @@
         }
       }
     },
-    "Nessuna dose prevista in questo giorno." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No doses due on this day."
-          }
-        }
-      }
-    },
-    "Nessuna dose prevista nel periodo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No doses due in this period"
-          }
-        }
-      }
-    },
-    "Niente da prendere" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing to take"
-          }
-        }
-      }
-    },
     "Niente da prendere oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nothing to take today"
-          }
-        }
-      }
-    },
-    "Niente in ritardo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing late"
           }
         }
       }
@@ -1411,16 +1351,6 @@
         }
       }
     },
-    "Prese %lld, saltate %lld, non segnate %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Taken %1$lld, skipped %2$lld, not marked %3$lld"
-          }
-        }
-      }
-    },
     "Prese %lld, saltate %lld, non segnate %lld · %@" : {
       "localizations" : {
         "en" : {
@@ -1441,12 +1371,12 @@
         }
       }
     },
-    "Prese in 30 giorni" : {
+    "Prese in 30 giorni: %lld. %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taken in 30 days"
+            "value" : "Taken in 30 days: %1$lld. %2$@"
           }
         }
       }
@@ -1477,6 +1407,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Medication reminder"
+          }
+        }
+      }
+    },
+    "Prossima alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next at %@"
           }
         }
       }
@@ -2031,12 +1971,22 @@
         }
       }
     },
-    "di cui %lld in ritardo" : {
+    "da prendere oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld of them late"
+            "value" : "to take today"
+          }
+        }
+      }
+    },
+    "da prendere oggi · %lld in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to take today · %lld late"
           }
         }
       }
@@ -2071,6 +2021,46 @@
         }
       }
     },
+    "dosi prese · nessuna dose prevista nel periodo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "doses taken · no doses due in this period"
+          }
+        }
+      }
+    },
+    "dosi prese · prese %lld, saltate %lld, non segnate %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "doses taken · %1$lld taken, %2$lld skipped, %3$lld not marked"
+          }
+        }
+      }
+    },
+    "farmaci · per %lld persone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "medicines · for %lld people"
+          }
+        }
+      }
+    },
+    "farmaci · per una persona" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "medicines · for one person"
+          }
+        }
+      }
+    },
     "gocce" : {
       "localizations" : {
         "en" : {
@@ -2087,16 +2077,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "drop"
-          }
-        }
-      }
-    },
-    "in ritardo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "late"
           }
         }
       }
@@ -2141,32 +2121,32 @@
         }
       }
     },
-    "per %lld persone" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "for %lld people"
-          }
-        }
-      }
-    },
-    "per una persona" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "for one person"
-          }
-        }
-      }
-    },
     "presa alle %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "taken at %@"
+          }
+        }
+      }
+    },
+    "prese in 30 giorni · %@ delle dosi previste" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "taken in 30 days · %@ of the doses due"
+          }
+        }
+      }
+    },
+    "prese in 30 giorni · nessuna dose ancora passata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "taken in 30 days · no dose due yet"
           }
         }
       }

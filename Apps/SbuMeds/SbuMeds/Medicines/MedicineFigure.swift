@@ -6,13 +6,22 @@ struct MedicineFigure: View {
     let adherence: Adherence
 
     var body: some View {
-        SbuStat("Prese in 30 giorni", value: adherence.taken, format: .number, context: context)
-            .accessibilityIdentifier("medicineFigure")
+        SbuFigure(
+            value: adherence.taken.formatted(),
+            fullStop: adherence.taken > 0 ? .set : .waiting,
+            context: Text(context),
+            accessibilityLabel: Text("Prese in 30 giorni: \(adherence.taken). \(Text(context))")
+        )
+        .accessibilityIdentifier("medicineFigure")
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, SbuTheme.space4)
+        // Plain paper, not the grid: the figure sits above List rows. It still gives the figure its grid space.
+        .sbuPaper(grid: false)
     }
 
     private var context: LocalizedStringKey {
-        guard let rate = adherence.rate else { return "Nessuna dose ancora passata" }
-        return "\(rate.formatted(.percent.precision(.fractionLength(0)))) delle dosi previste"
+        guard let rate = adherence.rate else { return "prese in 30 giorni · nessuna dose ancora passata" }
+        return "prese in 30 giorni · \(rate.formatted(.percent.precision(.fractionLength(0)))) delle dosi previste"
     }
 }
 
@@ -31,9 +40,8 @@ private struct MedicineFigurePreview: View {
             MedicineFigure(adherence: Adherence(taken: 27, skipped: 1, missed: 2))
             MedicineFigure(adherence: Adherence(taken: 0, skipped: 0, missed: 0))
         }
-        .padding(SbuTheme.space4)
-        .frame(maxHeight: .infinity)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentMeds)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .background(SbuTheme.paper)
+        .environment(\.sbuAccent, .meds)
     }
 }

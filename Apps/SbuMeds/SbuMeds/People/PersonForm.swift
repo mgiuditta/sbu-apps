@@ -45,7 +45,7 @@ struct PersonForm: View {
             }
             .listRowBackground(SbuTheme.surfaceRaised)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(person == nil ? "Nuova persona" : "Modifica persona")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -87,12 +87,12 @@ struct PersonForm: View {
 #Preview("Light") {
     PersonForm(person: nil, canDelete: false)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
     PersonForm(person: nil, canDelete: false)
         .modelContainer(.preview)
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
         .preferredColorScheme(.dark)
 }

@@ -15,10 +15,19 @@ struct MedicinesView: View {
     var body: some View {
         List {
             Section {
-                SbuStat("Farmaci", value: medicines.count, format: .number, context: context)
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
-                    .accessibilityIdentifier("medicinesFigure")
+                SbuFigure(
+                    value: medicines.count.formatted(),
+                    fullStop: medicines.isEmpty ? .waiting : .set,
+                    context: Text(context),
+                    accessibilityLabel: Text("Farmaci: \(medicines.count). \(Text(context))")
+                )
+                .accessibilityIdentifier("medicinesFigure")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, SbuTheme.space4)
+                // Plain paper, not the grid: the figure sits above List rows.
+                .sbuPaper(grid: false)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
             }
             ForEach(people) { person in
                 PersonMedicinesSection(person: person, edit: { editingPerson = person }, add: { newMedicineFor = person })
@@ -33,14 +42,13 @@ struct MedicinesView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Farmaci")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink(value: Destination.report) {
                     Label("Rapporto per il medico", systemImage: "doc.text")
                 }
-                .tint(SbuTheme.ink)
                 .accessibilityIdentifier("report")
             }
         }
@@ -56,7 +64,7 @@ struct MedicinesView: View {
     }
 
     private var context: LocalizedStringKey {
-        people.count == 1 ? "per una persona" : "per \(people.count) persone"
+        people.count == 1 ? "farmaci · per una persona" : "farmaci · per \(people.count) persone"
     }
 
     private func addPerson() {
@@ -70,7 +78,7 @@ struct MedicinesView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
 }
 
 #Preview("Dark") {
@@ -79,6 +87,6 @@ struct MedicinesView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentMeds)
+    .environment(\.sbuAccent, .meds)
     .preferredColorScheme(.dark)
 }

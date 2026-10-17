@@ -51,6 +51,6 @@ private struct StockSectionPreview: View {
         Form {
             StockSection(draft: $draft)
         }
-        .tint(SbuTheme.accentMeds)
+        .environment(\.sbuAccent, .meds)
     }
 }

@@ -2,7 +2,7 @@ import SbuKit
 import SwiftData
 import SwiftUI
 
-/// The home: the yearly (or monthly) total, then every subscription by section.
+/// The home: the title and the yearly (or monthly) total on paper, then every subscription by section.
 struct MainView: View {
     let currency: CurrencySettings
 
@@ -36,10 +36,24 @@ struct MainView: View {
                         otherTotal: total(figureGroups.counted, per: period.other),
                         period: period,
                         filterName: [listFilter, categoryFilter, methodFilter].first { !$0.isEmpty },
-                        currency: currency
+                        currency: currency,
+                        today: today
                     )
+                    .sbuPaper(grid: true)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
+                }
+            }
+            if !subscriptions.isEmpty, !search.isEmpty, groups.isEmpty {
+                Section {
+                    Text("Nessun abbonamento per «\(search)»")
+                        .foregroundStyle(SbuTheme.inkMuted)
+                }
+            } else if !subscriptions.isEmpty, shown.isEmpty {
+                Section {
+                    Text("Nessun abbonamento con questo filtro")
+                        .foregroundStyle(SbuTheme.inkMuted)
+                    Button("Mostra tutti", action: clearFilters)
                 }
             }
             if !groups.trials.isEmpty {
@@ -78,42 +92,26 @@ struct MainView: View {
         .scrollContentBackground(.hidden)
         .searchable(text: $search, prompt: Text("Cerca"))
         .overlay {
-            if !subscriptions.isEmpty, !search.isEmpty, groups.isEmpty {
-                ContentUnavailableView.search(text: search)
-            } else if !subscriptions.isEmpty, shown.isEmpty {
-                ContentUnavailableView {
-                    Label("Nessun abbonamento con questo filtro", systemImage: "line.3.horizontal.decrease.circle")
-                } actions: {
-                    Button("Mostra tutti", action: clearFilters)
-                }
-            }
             if subscriptions.isEmpty, received.lists.isEmpty {
-                // Scrollable, as the list under it: in a tab the audit read the fixed overlay's text as clipped.
-                ScrollView {
-                    ContentUnavailableView {
-                        Label("Nessun abbonamento", systemImage: "creditcard")
-                    } description: {
-                        Text("Gli abbonamenti che aggiungi compaiono qui, con quanto spendi.")
-                    } actions: {
-                        SbuButton("Aggiungi") { isAdding = true }
-                            .accessibilityIdentifier("addFirst")
-                    }
-                    .containerRelativeFrame(.vertical)
-                }
-                .background(SbuTheme.surface)
+                HomeEmpty(today: today) { isAdding = true }
             }
         }
         .toolbar {
-            // In ink: on this screen the accent belongs to the figure's full stop.
+            // The tool screen's title is SbuScreenTitle, in the figure zone: the bar stays empty.
+            ToolbarItem(placement: .principal) {
+                Text(verbatim: "")
+                    .accessibilityHidden(true)
+            }
             if !subscriptions.isEmpty {
                 ToolbarItem(placement: .topBarLeading) {
                     HomeOptionsMenu(sort: $sort, grouping: $grouping, list: $listFilter, category: $categoryFilter,
                                     paymentMethod: $methodFilter, subscriptions: subscriptions)
+                        // A filter narrows the figure.
+                        .sbuAffectsFigure([listFilter, categoryFilter, methodFilter])
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Aggiungi abbonamento", systemImage: "plus") { isAdding = true }
-                    .tint(SbuTheme.ink)
                     .accessibilityIdentifier("add")
             }
         }

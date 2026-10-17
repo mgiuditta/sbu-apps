@@ -14,11 +14,16 @@ final class GroupingFlowTests: XCTestCase {
 
         let monthly = app.buttons["Mensile"].firstMatch
         XCTAssertTrue(monthly.waitForExistence(timeout: 5))
-        let music = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Musica")).firstMatch
+        let music = app.subscriptionRow("Musica")
         XCTAssertTrue(music.exists)
         monthly.tap()
         XCTAssertFalse(music.waitForExistence(timeout: 2), "A folded section hides its rows")
+        // Audited from the top: scrolled, the figure under the translucent bar read as inaccessible text.
+        app.scrollHomeToTop()
         try audit(app)
+        for _ in 0..<4 where !monthly.isHittable {
+            app.swipeUp(velocity: .slow)
+        }
         monthly.tap()
         XCTAssertTrue(music.waitForExistence(timeout: 5))
 

@@ -45,7 +45,7 @@ struct ReceivedListView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(received.snapshot.name)
         .navigationBarTitleDisplayMode(.inline)
     }

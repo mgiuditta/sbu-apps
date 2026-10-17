@@ -79,7 +79,7 @@ struct SubscriptionFormView: View {
         }
         // On paper, as every screen.
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         // Back from the iPhone's Settings, the warning goes as soon as notifications are on.

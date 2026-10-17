@@ -7,9 +7,11 @@ struct CollapsibleHeader: View {
     let count: Int
     @Binding var isCollapsed: Bool
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         Button {
-            withAnimation { isCollapsed.toggle() }
+            withAnimation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion)) { isCollapsed.toggle() }
         } label: {
             HStack {
                 Text(title)

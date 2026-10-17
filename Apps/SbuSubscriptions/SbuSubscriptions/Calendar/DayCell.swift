@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// One day of the month: its number, a dot when something is paid, today in the accent.
+/// One day of the month in ink: its number, bold today, and a square when something is paid.
 struct DayCell: View {
     let day: Date
     let payments: [MonthPayments.Payment]
@@ -15,8 +15,8 @@ struct DayCell: View {
             VStack(spacing: SbuTheme.space1) {
                 Text(day, format: .dateTime.day())
                     .font(isToday ? SbuTheme.headline : SbuTheme.body)
-                    .foregroundStyle(isToday ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.ink))
-                Image(systemName: "circle.fill")
+                    .foregroundStyle(SbuTheme.ink)
+                Image(systemName: "square.fill")
                     .font(SbuTheme.caption)
                     .imageScale(.small)
                     .foregroundStyle(SbuTheme.ink)
@@ -24,7 +24,7 @@ struct DayCell: View {
             }
             .frame(maxWidth: .infinity, minHeight: 44)
             .padding(.vertical, SbuTheme.space1)
-            .background(isSelected ? SbuTheme.surfaceSunken : .clear, in: .rect(cornerRadius: SbuTheme.radiusMd))
+            .background(isSelected ? SbuTheme.surfaceSunken : .clear, in: .rect(cornerRadius: SbuTheme.radiusCard))
             .contentShape(.rect)
         }
         .buttonStyle(.plain)

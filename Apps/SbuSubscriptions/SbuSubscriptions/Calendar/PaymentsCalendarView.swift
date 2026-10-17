@@ -48,7 +48,7 @@ struct PaymentsCalendarView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .sheet(item: $opened) { subscription in
             SubscriptionDetailView(subscription: subscription, currency: currency)
         }

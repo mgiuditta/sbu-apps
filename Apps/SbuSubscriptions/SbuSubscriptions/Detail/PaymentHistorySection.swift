@@ -1,10 +1,14 @@
 import SbuKit
 import SwiftUI
 
-/// The last payments made, newest first, with the pencil that opens the whole history to mark them paid.
+/// The last payments made, newest first, each one you can mark paid, with the pencil that opens the whole history.
 struct PaymentHistorySection: View {
     let subscription: Subscription
     let edit: () -> Void
+    /// Runs once a payment is marked paid here: the detail closes on "Pagato".
+    let markedPaid: () -> Void
+
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         let calendar = Calendar.current
@@ -16,33 +20,28 @@ struct PaymentHistorySection: View {
                     .foregroundStyle(SbuTheme.inkMuted)
             }
             ForEach(payments, id: \.self) { day in
-                LabeledContent {
-                    HStack(spacing: SbuTheme.space2) {
-                        if paid.contains(day) {
-                            Label("Pagato", systemImage: "checkmark")
-                                .labelStyle(.iconOnly)
-                                .fontWeight(.medium)
-                                .foregroundStyle(SbuTheme.success)
-                        }
-                        Text(subscription.price(on: day), format: .currency(code: subscription.currencyCode))
-                    }
-                } label: {
-                    Text(day, format: .dateTime.day().month(.abbreviated).year())
-                }
+                PaymentRow(day: day, amount: subscription.price(on: day), currencyCode: subscription.currencyCode,
+                           isPaid: paid.contains(day)) { markPaid(day) }
             }
         } header: {
             HistoryHeader(title: "Storico dei pagamenti", editLabel: "Modifica lo storico dei pagamenti", edit: edit)
         }
     }
+
+    private func markPaid(_ day: Date) {
+        subscription.record(.paid, date: day, amount: subscription.price(on: day))
+        try? modelContext.save()
+        markedPaid()
+    }
 }
 
 #Preview("Light") {
-    List { PaymentHistorySection(subscription: .preview) {} }
+    List { PaymentHistorySection(subscription: .preview, edit: {}, markedPaid: {}) }
         .modelContainer(.preview)
 }
 
 #Preview("Dark") {
-    List { PaymentHistorySection(subscription: .preview) {} }
+    List { PaymentHistorySection(subscription: .preview, edit: {}, markedPaid: {}) }
         .modelContainer(.preview)
         .preferredColorScheme(.dark)
 }

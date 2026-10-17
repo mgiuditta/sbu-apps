@@ -14,17 +14,18 @@ struct SubscriptionDetailView: View {
     @State private var isDeleting = false
     @State private var isChangingPrice = false
     @State private var showsHistory = false
+    @State private var isClosing = false
 
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    DetailHeader(subscription: subscription)
+                    DetailHeader(subscription: subscription, isClosing: $isClosing)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                 }
                 DetailFactsSection(subscription: subscription, tally: subscription.tally())
-                PaymentHistorySection(subscription: subscription, edit: showHistory)
+                PaymentHistorySection(subscription: subscription, edit: showHistory, markedPaid: closeOnPaid)
                 PriceHistorySection(subscription: subscription, edit: changePrice)
                 DetailMoreSection(subscription: subscription)
                 PauseSection(subscription: subscription)
@@ -33,7 +34,7 @@ struct SubscriptionDetailView: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(isPresented: $showsHistory) {
                 HistoryView(subscription: subscription)
@@ -62,6 +63,10 @@ struct SubscriptionDetailView: View {
 
     private func showHistory() {
         showsHistory = true
+    }
+
+    private func closeOnPaid() {
+        isClosing = true
     }
 
     private func changePrice() {

@@ -18,7 +18,7 @@ struct FormHeader: View {
                     .imageScale(.medium)
                     .foregroundStyle(SbuTheme.inkMuted)
                     .frame(width: iconSide, height: iconSide)
-                    .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusLg))
+                    .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusCard))
                     .accessibilityHidden(true)
             }
             VStack(alignment: .leading, spacing: SbuTheme.space2) {
@@ -39,7 +39,7 @@ struct FormHeader: View {
                             .font(SbuTheme.body.monospacedDigit())
                             .padding(.horizontal, SbuTheme.space2)
                             .frame(minHeight: 44)
-                            .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusSm))
+                            .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusCard))
                     }
                     .fixedSize()
                     .accessibilityLabel(Text("Valuta"))

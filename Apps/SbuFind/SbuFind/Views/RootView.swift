@@ -17,7 +17,9 @@ struct RootView: View {
             FeedbackSection(model: model)
             PlacesSection(model: model)
             #if DEBUG
-            TuningSection(model: model)
+            if !UserDefaults.standard.bool(forKey: "FASTLANE_SNAPSHOT") {
+                TuningSection(model: model)
+            }
             #endif
         }
         .onChange(of: scenePhase, initial: true, phaseChanged)

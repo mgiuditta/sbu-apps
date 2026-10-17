@@ -12,4 +12,13 @@ Background mode bluetooth-central: used only for the user's saved devices that a
 
 The app does not use the name or icon of Apple's Find My, and its Help sends users to Find My for Apple products.
 
-How it differs from the other Sbu apps: it is the only one that listens to Bluetooth to find a lost device.
+Answers to the questions App Review asked about my earlier submissions (Guidelines 4.3 and 4.2.6):
+1. Purpose: find a lost Bluetooth device nearby by walking toward a stronger signal, with an optional alert and last place for saved devices.
+2. Audience: people who lost earbuds, headphones or a tracker-less device that Apple's Find My does not cover.
+3. Difference: similar apps put the search behind a subscription. This one is free, with no purchases, account, ads or analytics, and its Help says plainly what it cannot hear.
+4. Testing: internal, on my own iPhone and in the simulator, with a written checklist (light/dark, Italian/English, largest text, VoiceOver, background alerts). No outside testers.
+5. Standalone app. I publish a few apps as sbu.dev, each for one job in its own category, never two in one. This is the only one that uses Bluetooth to find a device.
+6. No other app of mine covers this; nothing to merge it with.
+7. Shared code: one design-system package I wrote (colours, type, buttons, Settings, licences). No Bluetooth, location or search logic in it. The app itself is about 5,000 lines.
+8. Third-party code: none. Apple frameworks only: SwiftUI, CoreBluetooth, CoreLocation, MapKit, ActivityKit, WidgetKit, UserNotifications, AVFoundation. Fonts: Bricolage Grotesque and IBM Plex Mono (SIL OFL), credited in Settings.
+9. No client, partner, template or app generation service. I designed and wrote the app myself as an individual developer.

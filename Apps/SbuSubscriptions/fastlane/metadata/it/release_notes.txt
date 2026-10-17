@@ -3,3 +3,5 @@ Tre schede: Abbonamenti, Calendario e Impostazioni. Il calendario dei pagamenti 
 Il dettaglio si apre in un foglio: il prezzo in grande, quanto hai speso finora, da quanto sei abbonato, gli ultimi pagamenti e i prezzi. Segna come annullato è il tasto in fondo.
 
 Ogni riga dice tra quanti giorni rinnova, e l'ordine si cambia sopra la lista. Se le notifiche sono disattivate, il modulo te lo dice e ti porta alle Impostazioni.
+
+Sotto la cifra c'è Condividi la cifra: un'immagine su carta a quadretti da mandare a chi vuoi.

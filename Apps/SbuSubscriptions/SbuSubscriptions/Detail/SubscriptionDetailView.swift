@@ -40,6 +40,10 @@ struct SubscriptionDetailView: View {
                 HistoryView(subscription: subscription)
             }
             .toolbar {
+                // The drag indicator is not an action for Voice Control or Switch Control.
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Chiudi") { dismiss() }
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Modifica") { isEditing = true }
                         .accessibilityIdentifier("edit")

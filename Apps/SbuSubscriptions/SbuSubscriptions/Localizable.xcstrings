@@ -691,6 +691,16 @@
         }
       }
     },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
     "Chiusa, ^[%lld abbonamento](inflect: true)" : {
       "localizations" : {
         "en" : {

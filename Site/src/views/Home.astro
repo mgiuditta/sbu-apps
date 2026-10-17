@@ -6,6 +6,7 @@ import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import { capitalize, formatDate, formatPrice, localePath, statusLabel, ui } from '../i18n';
 import { text } from '../lib/apps';
+import { DEVELOPER_URL, PROFILES } from '../lib/pages';
 import type { Route } from '../lib/routes';
 
 type Props = Route & { view: 'home' };
@@ -88,7 +89,15 @@ const tools = [{ href: localePath(locale, 'abbonamenti'), mark: markOf('subscrip
 
 const site = Astro.site!.href;
 const jsonLd = [
-  { '@context': 'https://schema.org', '@type': 'Organization', name: 'sbu.dev', url: site, logo: new URL(mark, site).href },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'sbu.dev',
+    url: site,
+    logo: new URL(mark, site).href,
+    sameAs: PROFILES,
+    founder: { '@type': 'Person', name: 'Matteo Giuditta', sameAs: ['https://github.com/mgiuditta', DEVELOPER_URL] },
+  },
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription },
 ];
 ---

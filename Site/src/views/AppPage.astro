@@ -53,6 +53,7 @@ const jsonLd = [
   description={`${listing.name} ${listing.oneThing}. ${t.metaSuffix}`}
   image={`/og/${app.slug}.png`}
   jsonLd={jsonLd}
+  appStoreId={app.storeUrl ? app.appStoreId : undefined}
   plate={app.engraving ? { src: app.engraving, caption: plateCaption(app.slug, app.order, locale), lead: true } : false}
 >
   {/* The scheda: the title closed by the full stop in the app's accent (the page's one colored square)

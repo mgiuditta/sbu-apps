@@ -16,6 +16,12 @@ interface TextPage {
 /** The public code of the site and every app. */
 export const REPO_URL = 'https://github.com/mgiuditta/sbu-apps';
 
+/** Every app on the App Store, under Matteo's developer page. */
+export const DEVELOPER_URL = 'https://apps.apple.com/us/developer/matteo-giuditta/id1872140737';
+
+/** sbu.dev elsewhere, for the Organization's sameAs: only profiles that exist. */
+export const PROFILES = [REPO_URL, DEVELOPER_URL];
+
 /** Support address, not decided yet: the contact paragraph appears only once it is set. */
 export const SUPPORT_EMAIL: string | undefined = 'matteogiuditta@gmail.com';
 

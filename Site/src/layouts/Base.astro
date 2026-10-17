@@ -22,9 +22,11 @@ interface Props {
   layout?: 'page' | 'wide';
   /** The plate beside the column: the app page passes its own engraving, or `false` without one; by default one is picked by the path. */
   plate?: { src: string; caption?: string; lead?: boolean } | false;
+  /** A live app's App Store id: Safari on iPhone shows its Smart App Banner. */
+  appStoreId?: number;
 }
 
-const { locale, path, alternates, title, description, jsonLd = [], image = `/og/home-${locale}.png`, noindex = false, layout = 'page' } = Astro.props;
+const { locale, path, alternates, title, description, jsonLd = [], image = `/og/home-${locale}.png`, noindex = false, layout = 'page', appStoreId } = Astro.props;
 const wide = layout === 'wide';
 const t = ui[locale];
 const site = Astro.site!;
@@ -69,6 +71,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
     {/* Every page opens on a Bricolage title: fetched with the HTML, so the title is not drawn twice. */}
     <link rel="preload" href="/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
+    {appStoreId && <meta name="apple-itunes-app" content={`app-id=${appStoreId}`} />}
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={absolute(locale)} />}
     {!noindex && alternates.map((alt) => <link rel="alternate" hreflang={alt} href={absolute(alt)} />)}
     {!noindex && alternates.includes('it') && <link rel="alternate" hreflang="x-default" href={absolute('it')} />}

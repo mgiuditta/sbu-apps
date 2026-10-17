@@ -63,6 +63,16 @@
         }
       }
     },
+    "Condividi la cifra" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share the figure"
+          }
+        }
+      }
+    },
     "Dati solo su questo iPhone" : {
       "localizations" : {
         "en" : {

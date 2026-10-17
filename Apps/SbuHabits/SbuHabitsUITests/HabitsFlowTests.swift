@@ -143,6 +143,25 @@ final class HabitsFlowTests: XCTestCase {
         XCTAssertTrue(figure(in: app).hasPrefix("Serie piena, 1 giorno, 1 di 1 oggi"), figure(in: app))
     }
 
+    /// With the day complete the figure is final, and next to it you can share it as a picture.
+    @MainActor
+    func testACompleteDayOffersToShareTheFigureAndPassesTheAccessibilityAudit() throws {
+        let app = launch()
+        add("Leggere", in: app)
+        XCTAssertFalse(app.buttons["Condividi la cifra"].exists, "Nothing to share while the day is open")
+        habit("Leggere", in: app).tap()
+
+        let share = app.buttons["Condividi la cifra"]
+        XCTAssertTrue(share.waitForExistence(timeout: 5), app.debugDescription)
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(.contrast)) { issue in
+            if issue.isCartiglio || issue.isHeroFigure {
+                return true
+            }
+            XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
+            return true
+        }
+    }
+
     @MainActor
     func testUntickingADoneHabitUndoesIt() {
         let app = launch()

@@ -93,13 +93,21 @@ struct MainView: View {
                 Button("Aggiungi", action: add)
             }
         } else {
-            SbuFigure(
-                value: tally.fullStreak.formatted(),
-                fullStop: tally.isComplete && tally.fullStreak > 0 ? .set : .waiting,
-                context: Self.context(of: tally),
-                accessibilityLabel: Self.spoken(tally)
-            )
-            .sbuClosure($isClosing, word: "Fatto")
+            let isSet = tally.isComplete && tally.fullStreak > 0
+            VStack(alignment: .leading, spacing: SbuTheme.gridCell) {
+                SbuFigure(
+                    value: tally.fullStreak.formatted(),
+                    fullStop: isSet ? .set : .waiting,
+                    context: Self.context(of: tally),
+                    accessibilityLabel: Self.spoken(tally)
+                )
+                .sbuClosure($isClosing, word: "Fatto")
+                if isSet {
+                    SbuFigureShareLink(SbuFigureCardImage(value: tally.fullStreak.formatted(),
+                                                          word: tally.fullStreak == 1 ? "giorno di fila" : "giorni di fila",
+                                                          appName: "Sbu Habits", accent: .habits))
+                }
+            }
         }
     }
 

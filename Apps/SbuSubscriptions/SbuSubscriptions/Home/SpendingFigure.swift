@@ -18,15 +18,23 @@ struct SpendingFigure: View {
             SbuScreenTitle("Abbonamenti", cartiglio: Self.cartiglio(filterName: filterName, today: today))
                 .wholeGridCells()
             SbuFigure(
-                value: total.amount.formatted(.currency(code: currency.mainCurrency)),
+                value: figure,
                 fullStop: fullStop,
                 context: Text(context)
             )
             notes
+            if fullStop == .set {
+                SbuFigureShareLink(SbuFigureCardImage(value: figure, word: period == .year ? "all'anno" : "al mese",
+                                                      appName: "Sbu Subscriptions", accent: .subscriptions))
+            }
         }
         .padding(.horizontal, SbuTheme.space4)
         .padding(.vertical, SbuTheme.gridCell)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var figure: String {
+        total.amount.formatted(.currency(code: currency.mainCurrency))
     }
 
     /// Set once there is something counted and every price could be converted; waiting otherwise.

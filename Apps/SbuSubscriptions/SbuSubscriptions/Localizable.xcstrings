@@ -3151,12 +3151,32 @@
         }
       }
     },
+    "al mese" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a month"
+          }
+        }
+      }
+    },
     "al mese · %@ all'anno · ^[%lld abbonamento](inflect: true)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "a month · %@ a year · ^[%lld subscription](inflect: true)"
+          }
+        }
+      }
+    },
+    "all'anno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a year"
           }
         }
       }

@@ -1,0 +1,19 @@
+Sbu Find ascolta il Bluetooth attorno a te e ti guida verso le cuffie, l'auricolare o il dispositivo che hai perso: più ti avvicini, più sale la percentuale.
+
+- I dispositivi vicini con nome, tipo e un anello con la forza del segnale
+- Ricerca caldo e freddo: una percentuale filtrata che non salta, e una parola accanto, da Freddo a Qui vicino
+- Un tic che accelera e una vibrazione quando ti avvicini, per cercare senza guardare lo schermo
+- I tuoi dispositivi in cima alla lista, riconosciuti anche dal nome quando iOS cambia il loro identificativo
+- Fai suonare le cuffie ancora collegate all'iPhone, con un suono che parte piano e cresce
+- Avvisami se lo perdi: una notifica quando non senti più un tuo dispositivo
+- Sulla mappa, dov'era il tuo iPhone quando l'ha sentito l'ultima volta
+- La ricerca sulla schermata di blocco e nella Dynamic Island
+- Una guida passo passo per ritrovare un auricolare solo
+- Un aiuto che dice chiaro cosa Sbu Find non può sentire, e quando usare Dov'è di Apple
+- Tema chiaro e scuro, testo dinamico, VoiceOver
+
+Sbu Find sente solo i dispositivi Bluetooth Low Energy accesi e fuori dalla custodia, e misura la forza del segnale, non la distanza.
+
+Sbu fa una cosa sola: ti aiuta a ritrovare un dispositivo Bluetooth vicino.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

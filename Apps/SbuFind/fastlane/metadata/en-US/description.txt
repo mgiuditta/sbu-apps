@@ -1,0 +1,19 @@
+Sbu Find listens to the Bluetooth around you and guides you to the headphones, earbud or device you lost: the closer you get, the higher the percentage.
+
+- Nearby devices with name, type and a ring showing signal strength
+- Hot and cold search: a filtered percentage that doesn't jump, with a word next to it, from Cold to Very close
+- A tick that speeds up and a vibration as you get closer, so you search without looking at the screen
+- Your devices at the top of the list, recognized by name too when iOS changes their identifier
+- Play a sound in headphones still connected to your iPhone, starting soft and growing
+- Notify me if I lose it: a notification when you stop hearing one of your devices
+- On the map, where your iPhone was when it last heard it
+- The search on the Lock Screen and in the Dynamic Island
+- A step-by-step guide to find a single earbud
+- Help that says plainly what Sbu Find cannot hear, and when to use Apple's Find My
+- Light and dark, Dynamic Type, VoiceOver
+
+Sbu Find only hears Bluetooth Low Energy devices that are on and out of their case, and it measures signal strength, not distance.
+
+Sbu does one thing: it helps you find a Bluetooth device nearby.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

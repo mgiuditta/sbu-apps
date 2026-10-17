@@ -22,7 +22,10 @@ private struct SbuToggleBody: View {
 
     var body: some View {
         Button {
-            configuration.isOn.toggle()
+            // Explicit: inside Form and List rows the value-based animation alone never fired.
+            withAnimation(SbuMotion.animation(SbuMotion.short, reduceMotion: reduceMotion)) {
+                configuration.isOn.toggle()
+            }
         } label: {
             HStack(spacing: SbuTheme.space3) {
                 configuration.label
@@ -32,7 +35,6 @@ private struct SbuToggleBody: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .animation(SbuMotion.animation(SbuMotion.short, reduceMotion: reduceMotion), value: configuration.isOn)
         .accessibilityRepresentation {
             Toggle(isOn: configuration.$isOn) { configuration.label }
                 .toggleStyle(.switch)
@@ -44,11 +46,12 @@ private struct SbuToggleBody: View {
         return RoundedRectangle(cornerRadius: SbuTheme.radiusControl)
             .fill(configuration.isOn ? ink : SbuTheme.line)
             .frame(width: SbuTheme.toggleWidth, height: SbuTheme.toggleHeight)
-            .overlay(alignment: configuration.isOn ? .trailing : .leading) {
+            .overlay(alignment: .leading) {
                 RoundedRectangle(cornerRadius: SbuTheme.radiusKnob)
                     .fill(configuration.isOn ? SbuTheme.paper : SbuTheme.surfaceRaised)
                     .frame(width: SbuTheme.toggleKnob, height: SbuTheme.toggleKnob)
                     .padding(inset)
+                    .offset(x: configuration.isOn ? SbuTheme.toggleWidth - SbuTheme.toggleHeight : 0)
             }
     }
 

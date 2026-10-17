@@ -4,7 +4,7 @@ import SwiftUI
 /// The grid drawn over the photo: the frame, the lines, the diagonals and the numbers.
 ///
 /// Everything grows with the picture (`GridLayout.scale`), so the overlay on screen, the image
-/// export and the PDF look the same at any size. The colors are `ink` and `surface` in their
+/// export and the PDF look the same at any size. The colors are `ink` and `paper` in their
 /// light values, whatever the iPhone's appearance: a dark line stays dark on the photo.
 struct GridOverlay: View {
     let rule: CellRule
@@ -34,7 +34,7 @@ struct GridOverlay: View {
     static func color(for tone: LineTone) -> Color {
         switch tone {
         case .dark: SbuTheme.ink
-        case .light: SbuTheme.surface
+        case .light: SbuTheme.paper
         }
     }
 
@@ -109,6 +109,6 @@ private struct GridOverlayPreview: View {
         return GridPicture(image: DemoPhoto.stillLife(), settings: settings, rule: settings.cellRule)
             .padding(SbuTheme.space4)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
     }
 }

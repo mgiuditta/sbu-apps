@@ -24,12 +24,15 @@ struct CellsSection: View {
         Section {
             CountStepper(title: "Colonne", value: $settings.columns, range: GridSettings.columnRange, shown: count.columns)
                 .disabled(columnsFollowPaper)
+                .sbuAffectsFigure(settings.columns)
 
             CountStepper(title: "Righe", value: $settings.rows, range: GridSettings.rowRange, shown: count.rows)
                 .disabled(rowsFollowColumns)
+                .sbuAffectsFigure(settings.rows)
 
             Toggle("Celle quadrate", isOn: $settings.hasSquareCells)
                 .disabled(columnsFollowPaper)
+                .sbuAffectsFigure(settings.hasSquareCells)
 
             Toggle("Diagonali", isOn: $settings.showsDiagonals)
 

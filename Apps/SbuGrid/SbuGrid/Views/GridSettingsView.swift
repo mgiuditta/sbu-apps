@@ -23,7 +23,7 @@ struct GridSettingsView: View {
                             .accessibilityValue(Text(verbatim: model.count.spoken))
                             .accessibilityAddTraits(.isImage)
                     }
-                    .listRowBackground(SbuTheme.surface)
+                    .listRowBackground(SbuTheme.paper)
                 }
 
                 Section {
@@ -47,7 +47,7 @@ struct GridSettingsView: View {
                 .listRowBackground(SbuTheme.surfaceRaised)
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Griglia")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -74,11 +74,11 @@ struct GridSettingsView: View {
 
 #Preview("Light") {
     GridSettingsView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     GridSettingsView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

@@ -18,8 +18,9 @@ struct SaveToPhotosRow: View {
             }
             .foregroundStyle(SbuTheme.inkMuted)
         case .saved:
+            // In ink: the one color is the full stop's, and the word says it.
             Label("Salvata in Foto", systemImage: "checkmark.circle")
-                .foregroundStyle(SbuTheme.success)
+                .foregroundStyle(SbuTheme.ink)
         case .failed:
             Button(action: action) {
                 Label("Non salvata. Riprova", systemImage: "exclamationmark.triangle")

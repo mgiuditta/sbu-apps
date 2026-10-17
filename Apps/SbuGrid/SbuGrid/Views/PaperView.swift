@@ -22,7 +22,7 @@ struct PaperView: View {
                             .accessibilityValue(Text(verbatim: model.count.spoken))
                             .accessibilityAddTraits(.isImage)
                     }
-                    .listRowBackground(SbuTheme.surface)
+                    .listRowBackground(SbuTheme.paper)
                 }
 
                 SheetSection(paper: $model.paper)
@@ -35,8 +35,10 @@ struct PaperView: View {
                                 Text(unit.title).tag(unit)
                             }
                         }
+                        .sbuAffectsFigure(model.paper.unit)
 
                         LengthStepper(title: "Lato della cella", value: $model.paper.cellLength, unit: model.paper.unit, range: model.paper.unit.cellRange)
+                            .sbuAffectsFigure(model.paper.cellLength)
                     } header: {
                         Text("Celle")
                     } footer: {
@@ -57,7 +59,7 @@ struct PaperView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Foglio")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -82,11 +84,11 @@ struct PaperView: View {
 
 #Preview("Light") {
     PaperView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     PaperView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

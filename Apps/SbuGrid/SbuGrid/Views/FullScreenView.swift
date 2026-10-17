@@ -22,7 +22,7 @@ struct FullScreenView: View {
                 .padding(SbuTheme.space4)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .statusBarHidden()
         .persistentSystemOverlays(.hidden)
     }
@@ -34,11 +34,11 @@ struct FullScreenView: View {
 
 #Preview("Light") {
     FullScreenView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     FullScreenView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

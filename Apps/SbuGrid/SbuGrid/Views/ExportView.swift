@@ -8,6 +8,8 @@ struct ExportView: View {
     @Environment(\.openURL) private var openURL
 
     let model: GridModel
+    /// Called once the gridded photo is in Photos.
+    var onSaved: () -> Void = {}
 
     @State private var files: ExportedFiles?
     @State private var failed = false
@@ -25,7 +27,7 @@ struct ExportView: View {
                             .frame(maxWidth: .infinity, maxHeight: SbuTheme.controlRoundLg * 3)
                             .accessibilityLabel(Text("Foto con la griglia"))
                     }
-                    .listRowBackground(SbuTheme.surface)
+                    .listRowBackground(SbuTheme.paper)
 
                     Section {
                         SaveToPhotosRow(state: saveState, action: save)
@@ -51,11 +53,11 @@ struct ExportView: View {
                             .frame(maxWidth: .infinity)
                             .accessibilityLabel(Text("Preparazione dell'esportazione"))
                     }
-                    .listRowBackground(SbuTheme.surface)
+                    .listRowBackground(SbuTheme.paper)
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Esporta")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -100,6 +102,7 @@ struct ExportView: View {
             do throws(ExportError) {
                 try await PhotoLibrarySaver.save(fileAt: url)
                 saveState = .saved
+                onSaved()
             } catch {
                 saveState = error == .photosDenied ? .idle : .failed
                 isShowingDenied = error == .photosDenied
@@ -120,11 +123,11 @@ struct ExportView: View {
 
 #Preview("Light") {
     ExportView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     ExportView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

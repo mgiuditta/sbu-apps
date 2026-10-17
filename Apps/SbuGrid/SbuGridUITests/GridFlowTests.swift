@@ -14,6 +14,20 @@ final class GridFlowTests: XCTestCase {
     /// in the iOS 26 glass toolbar of a sheet, as in the other apps.
     static let sheetExclusions: XCUIAccessibilityAuditType = [.contrast, .dynamicType, .textClipped]
 
+    /// SbuKit sizes the figure in grid cells rather than a text style, and draws the cartiglio in
+    /// Plex Mono scaled by hand: on purpose, so the Dynamic Type check skips just those two, and
+    /// still checks every other text. The audit also reads the cartiglio's tracking as clipping,
+    /// though every letter shows.
+    static func isSbuKitGridType(_ issue: XCUIAccessibilityAuditIssue) -> Bool {
+        guard let label = issue.element?.label else { return false }
+        let isCartiglio = label.hasPrefix("SBU ·")
+        switch issue.auditType {
+        case .dynamicType: return isCartiglio || label.contains(where: \.isNumber)
+        case .textClipped: return isCartiglio
+        default: return false
+        }
+    }
+
     @MainActor
     static func launch(photo: String = "demo", _ arguments: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
@@ -26,6 +40,7 @@ final class GridFlowTests: XCTestCase {
     @MainActor
     static func audit(_ app: XCUIApplication, excluding excluded: XCUIAccessibilityAuditType = screenExclusions) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(excluded)) { issue in
+            guard isSbuKitGridType(issue) == false else { return true }
             // The audit reports "Ricalca" as clipped in its pill, wherever the pill sits and
             // whatever its symbol, while the screenshots show the word whole with room to spare:
             // a false positive of the clipping heuristic on this word, checked by eye on iPhone 17
@@ -48,16 +63,19 @@ final class GridFlowTests: XCTestCase {
         }
     }
 
-    /// The figure, by what VoiceOver reads for it.
+    /// The figure, by what VoiceOver reads for it: one element with what it measures, the figure
+    /// in words and the context.
     @MainActor
     static func figure(_ app: XCUIApplication, _ spoken: String) -> XCUIElement {
-        app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", spoken)).firstMatch
+        app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@", spoken)).firstMatch
     }
 
     @MainActor
     func testWithoutAPhotoTheScreenOffersToChooseOne() throws {
         let app = Self.launch(photo: "none")
-        XCTAssertTrue(app.staticTexts["Nessuna foto"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Griglia"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["SBU · GRIGLIA · NESSUNA FOTO"].exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Scegli la foto da disegnare'")).firstMatch.exists)
         XCTAssertTrue(app.buttons["Scegli una foto"].exists)
         XCTAssertTrue(app.staticTexts["Sbu Grid vede solo la foto che scegli, non la tua libreria."].exists)
         XCTAssertFalse(app.buttons["Cambia foto"].exists)
@@ -69,13 +87,22 @@ final class GridFlowTests: XCTestCase {
     func testThePhotoShowsTheGridAndItsCount() throws {
         let app = Self.launch()
         // 1200 × 1600 with 4 square columns: 300-pixel cells, so 6 rows.
-        XCTAssertTrue(Self.figure(app, "4 colonne per 6 righe").waitForExistence(timeout: 5))
-        XCTAssertTrue(Self.figure(app, "Celle quadrate").exists)
+        let figure = Self.figure(app, "4 colonne per 6 righe")
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(figure.label.hasPrefix("Griglia"), figure.label)
+        XCTAssertTrue(figure.label.contains("Celle quadrate"), figure.label)
+        XCTAssertTrue(app.staticTexts["SBU · GRIGLIA · SENZA FOGLIO"].exists)
         XCTAssertTrue(app.images["Foto con la griglia"].exists)
         XCTAssertTrue(app.buttons["Griglia"].exists)
         XCTAssertTrue(app.buttons["Schermo intero"].exists)
         XCTAssertTrue(app.buttons["Cambia foto"].exists)
         try Self.audit(app)
+
+        // At the largest accessibility size the figure stays on one line and the pills wrap their words.
+        app.terminate()
+        let large = Self.launch(["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
+        XCTAssertTrue(Self.figure(large, "4 colonne per 6 righe").waitForExistence(timeout: 5))
+        try Self.audit(large)
     }
 
     @MainActor

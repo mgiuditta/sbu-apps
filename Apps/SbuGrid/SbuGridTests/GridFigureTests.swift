@@ -30,6 +30,17 @@ struct GridFigureTests {
         let context = try #require(figure.context)
         #expect(context.contains("A4"))
         #expect(context.contains("9 × 12"))
+        #expect(figure.value == "2,5 cm")
+        #expect(figure.cartiglio == "Sbu · \(String(localized: "Griglia")) · A4")
+        #expect(figure.accessibilityLabel == "\(String(localized: "Cella")), 2,5 centimetri, \(context)")
+    }
+
+    @Test func withoutASheetTheCartiglioSaysSo() {
+        let count = GridCount(columns: 4, rows: 6)
+        let figure = GridFigure(paper: PaperSettings(locale: italian), settings: GridSettings(), count: count, locale: italian)
+        #expect(figure.value == "4 × 6")
+        #expect(figure.cartiglio == "Sbu · \(String(localized: "Griglia")) · \(String(localized: "Senza foglio"))")
+        #expect(figure.accessibilityLabel.hasPrefix("\(String(localized: "Griglia")), \(count.spoken)"))
     }
 
     @Test func theCellFollowsTheUnit() {

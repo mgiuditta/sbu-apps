@@ -17,21 +17,21 @@ struct MainView: View {
     @State private var sheet: GridSheet?
     @State private var isFullScreen = false
     @State private var isTracing = false
+    /// The Closure over the figure, once the gridded photo is saved to Photos.
+    @State private var isClosing = false
+    /// Saved from the export: the Closure plays once the export has slid away, on the figure.
+    @State private var closesOnDismiss = false
 
     var body: some View {
         content
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    // In ink: the accent belongs to the figure's full stop.
                     Button("Impostazioni", systemImage: "gearshape", action: showSettings.callAsFunction)
-                        .tint(SbuTheme.ink)
                 }
                 if model.photo != nil {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button("Cambia foto", systemImage: "photo.on.rectangle.angled", action: choosePhoto)
-                            .tint(SbuTheme.ink)
                         Button("Esporta", systemImage: "square.and.arrow.up", action: showExport)
-                            .tint(SbuTheme.ink)
                     }
                 }
             }
@@ -51,14 +51,14 @@ struct MainView: View {
             } message: { error in
                 Text(error.message)
             }
-            .sheet(item: $sheet) { sheet in
+            .sheet(item: $sheet, onDismiss: closeIfSaved) { sheet in
                 switch sheet {
                 case .grid:
                     GridSettingsView(model: model)
                 case .paper:
                     PaperView(model: model)
                 case .export:
-                    ExportView(model: model)
+                    ExportView(model: model, onSaved: saved)
                 }
             }
             .fullScreenCover(isPresented: $isFullScreen) {
@@ -71,7 +71,7 @@ struct MainView: View {
 
     @ViewBuilder private var content: some View {
         if let picture = model.picture {
-            GridScreen(model: model, picture: picture, actions: GridActions(showGrid: showGrid, showPaper: showPaper, showFullScreen: showFullScreen, showTrace: showTrace))
+            GridScreen(model: model, picture: picture, actions: GridActions(showGrid: showGrid, showPaper: showPaper, showFullScreen: showFullScreen, showTrace: showTrace), isClosing: $isClosing)
         } else {
             EmptyPhotoView(choosePhoto: choosePhoto)
         }
@@ -103,6 +103,18 @@ private extension MainView {
         isTracing = true
     }
 
+    /// Saving to Photos ends the job: the export closes, and the figure says "Salvata".
+    func saved() {
+        closesOnDismiss = true
+        sheet = nil
+    }
+
+    func closeIfSaved() {
+        guard closesOnDismiss else { return }
+        closesOnDismiss = false
+        isClosing = true
+    }
+
     func open(_ item: PhotosPickerItem?) async {
         guard let item else { return }
         await model.open(item)
@@ -114,14 +126,14 @@ private extension MainView {
     NavigationStack {
         MainView(model: .forLaunch(.demo))
     }
-    .tint(SbuTheme.accentGrid)
+    .environment(\.sbuAccent, .grid)
 }
 
 #Preview("Dark") {
     NavigationStack {
         MainView(model: .forLaunch(.demo))
     }
-    .tint(SbuTheme.accentGrid)
+    .environment(\.sbuAccent, .grid)
     .preferredColorScheme(.dark)
 }
 
@@ -129,5 +141,5 @@ private extension MainView {
     NavigationStack {
         MainView(model: .forLaunch(.empty))
     }
-    .tint(SbuTheme.accentGrid)
+    .environment(\.sbuAccent, .grid)
 }

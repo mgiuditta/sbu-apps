@@ -12,6 +12,8 @@ struct SheetSection: View {
                     Text(format.title).tag(format)
                 }
             }
+            // A sheet turns the figure from columns × rows into the side of a cell.
+            .sbuAffectsFigure(paper.format)
 
             if paper.format.isSheet {
                 Picker("Orientamento", selection: $paper.orientation) {

@@ -51,24 +51,21 @@ struct TraceView: View {
         case .notDetermined:
             NoticeView(
                 title: "Ricalca sulla carta",
-                message: "Metti l'iPhone su un supporto sopra il foglio: vedi la carta con la fotocamera, e la foto con la griglia sopra. Segui le linee con la matita guardando lo schermo. Quello che la fotocamera vede resta sullo schermo: non viene salvato.",
-                systemImage: "camera.viewfinder"
+                message: "Metti l'iPhone su un supporto sopra il foglio: vedi la carta con la fotocamera, e la foto con la griglia sopra. Segui le linee con la matita guardando lo schermo. Quello che la fotocamera vede resta sullo schermo: non viene salvato."
             ) {
                 SbuButton("Usa la fotocamera", action: useCamera)
             }
         case .denied:
             NoticeView(
                 title: "Fotocamera non consentita",
-                message: "Per ricalcare, consenti a Sbu Grid di usare la fotocamera in Impostazioni.",
-                systemImage: "camera"
+                message: "Per ricalcare, consenti a Sbu Grid di usare la fotocamera in Impostazioni."
             ) {
                 SbuButton("Apri Impostazioni", action: openSettings)
             }
         case .unavailable:
             NoticeView(
                 title: "Fotocamera non disponibile",
-                message: "Per ricalcare serve la fotocamera posteriore. Puoi sempre copiare la foto cella per cella dallo schermo.",
-                systemImage: "camera"
+                message: "Per ricalcare serve la fotocamera posteriore. Puoi sempre copiare la foto cella per cella dallo schermo."
             ) {
                 EmptyView()
             }
@@ -101,11 +98,11 @@ struct TraceView: View {
 
 #Preview("Light") {
     TraceView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     TraceView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

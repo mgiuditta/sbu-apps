@@ -8,6 +8,7 @@ import SwiftUI
 /// ones too on an iPhone SE, where DrawinGrid's bottom handle cannot be reached.
 struct CropView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     let model: GridModel
 
@@ -59,7 +60,7 @@ struct CropView: View {
                     .accessibilityHidden(true)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Ritaglio")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -88,7 +89,7 @@ struct CropView: View {
 
     /// Back to the largest crop of the sheet's shape, or the whole photo without a sheet.
     private func reset() {
-        withAnimation(.snappy) {
+        withAnimation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion)) {
             rect = CropGeometry.fitted(aspect: aspect, imageSize: model.photoSize)
         }
     }
@@ -96,11 +97,11 @@ struct CropView: View {
 
 #Preview("Light") {
     CropView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     CropView(model: .forLaunch(.demo))
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

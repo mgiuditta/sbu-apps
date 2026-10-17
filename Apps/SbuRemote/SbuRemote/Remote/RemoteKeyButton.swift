@@ -1,8 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// One key of the remote: an SF Symbol in a bordered native button, the accent as tint,
-/// a light tap of haptics on every press.
+/// One key of the remote: an SF Symbol on a raised paper key in ink, the tick on every press.
 struct RemoteKeyButton: View {
     let key: RemoteKey
     let session: RemoteSession
@@ -19,12 +18,10 @@ struct RemoteKeyButton: View {
                 .font(SbuTheme.headline)
                 .frame(minWidth: side, minHeight: side)
         }
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusLg))
+        .buttonStyle(.remoteKey)
         .disabled(!session.isAvailable(key))
         .accessibilityLabel(Text(key.title))
-        .sensoryFeedback(.impact(weight: .light), trigger: presses)
-        .sensoryFeedback(.impact(weight: .medium), trigger: isHolding) { _, holding in holding }
+        .sbuHaptic(.tick, trigger: presses)
         .simultaneousGesture(LongPressGesture(minimumDuration: 0.4).onEnded { _ in beginHold() })
         .simultaneousGesture(DragGesture(minimumDistance: 0).onEnded { _ in endHold() })
     }

@@ -19,7 +19,7 @@ struct MainView: View {
     var body: some View {
         Group {
             if let tv = session.tv {
-                RemoteView(session: session, tvName: tv.name, pinnedApps: pins.pins.apps(for: tv.id), onInputs: showInputs)
+                RemoteView(session: session, tvName: tv.name, pinnedApps: pins.pins.apps(for: tv.id), onInputs: showInputs, onAddTV: showAddTV)
             } else {
                 NoTVView(onAdd: showAddTV)
             }
@@ -42,11 +42,6 @@ struct MainView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("App", systemImage: "square.grid.2x2", action: showApps)
                         .disabled(!session.status.acceptsKeys)
-                }
-            }
-            if session.tv != nil {
-                ToolbarItem(placement: .principal) {
-                    TVPickerMenu(session: session, onAdd: showAddTV)
                 }
             }
         }
@@ -117,13 +112,13 @@ struct MainView: View {
     NavigationStack {
         MainView(session: RemoteSession(store: TVStore(defaults: UserDefaults(suiteName: "preview") ?? .standard)))
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         MainView(session: RemoteSession(store: TVStore(defaults: UserDefaults(suiteName: "preview") ?? .standard)))
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

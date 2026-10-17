@@ -1,6 +1,6 @@
 import Foundation
 
-/// Where the remote stands with the current TV, said in words and an SF Symbol, never color alone.
+/// Where the remote stands with the current TV, said in words beside the row mark, never color alone.
 nonisolated enum ConnectionStatus: Equatable, Sendable {
     case noTV
     case connecting
@@ -25,17 +25,6 @@ nonisolated enum ConnectionStatus: Equatable, Sendable {
         case .notPaired: "Da collegare di nuovo"
         case .unreachable: "Non raggiungibile"
         case .localNetworkDenied: "Rete locale disattivata"
-        }
-    }
-
-    var systemImage: String {
-        switch self {
-        case .noTV: "tv"
-        case .connecting: "antenna.radiowaves.left.and.right"
-        case .connected: "checkmark.circle"
-        case .notPaired: "link"
-        case .unreachable: "wifi.exclamationmark"
-        case .localNetworkDenied: "exclamationmark.triangle"
         }
     }
 

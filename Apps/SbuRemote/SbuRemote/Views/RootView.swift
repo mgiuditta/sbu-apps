@@ -10,7 +10,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Remote", slug: "remote", accent: SbuTheme.accentRemote, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Remote", slug: "remote", accent: .remote, appIcon: Image(.appIconArtwork)) {
             MainView(session: session)
         } settings: {
             SavedTVsSection(session: session)

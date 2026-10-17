@@ -2,12 +2,14 @@ import SbuKit
 import SwiftUI
 
 /// The sheet that adds a TV: the TVs on the Wi-Fi, then pairing the one the user picks.
+/// Once paired, it closes when the pairing screen's Closure ends.
 struct AddTVView: View {
     let onPaired: (SavedTV) -> Void
 
     @Environment(\.dismiss) private var dismiss
     @State private var discovery = TVDiscovery()
     @State private var candidate: TVCandidate?
+    @State private var isPaired = false
 
     var body: some View {
         NavigationStack {
@@ -23,6 +25,12 @@ struct AddTVView: View {
                     }
                 }
         }
+        .task(id: isPaired) {
+            guard isPaired else { return }
+            try? await Task.sleep(for: .seconds(SbuTheme.closureDuration))
+            guard !Task.isCancelled else { return }
+            dismiss()
+        }
     }
 
     private func pick(_ candidate: TVCandidate) {
@@ -31,7 +39,7 @@ struct AddTVView: View {
 
     private func paired(_ tv: SavedTV) {
         onPaired(tv)
-        dismiss()
+        isPaired = true
     }
 
     private func close() {
@@ -41,11 +49,11 @@ struct AddTVView: View {
 
 #Preview("Light") {
     AddTVView { _ in }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     AddTVView { _ in }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

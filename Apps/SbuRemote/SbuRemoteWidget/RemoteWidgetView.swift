@@ -3,7 +3,8 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// Volume, mute, play/pause and power for the last TV used, on paper like the app.
+/// Volume, mute, play/pause and power for the last TV used, on paper like the app. A control
+/// widget, not a figure: keys in ink, no full stop.
 struct RemoteWidgetView: View {
     let entry: RemoteWidgetEntry
 
@@ -44,9 +45,9 @@ struct RemoteWidgetView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .containerBackground(for: .widget) {
-            SbuTheme.surface
+            SbuTheme.paper
         }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
     }
 }
 
@@ -62,7 +63,7 @@ private struct WidgetKeyButton<Intent: AppIntent>: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .buttonStyle(.bordered)
-        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusMd))
+        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusCard))
         .widgetAccentable()
         .accessibilityLabel(Text(key.title))
     }

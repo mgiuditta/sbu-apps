@@ -2,8 +2,12 @@ import SbuKit
 import SwiftUI
 
 /// Pairing one TV: what will appear on it, the setting it needs, then the prompt or the code.
+///
+/// Once paired, the code zone gives way to the Closure, "Collegato", the one full stop of this
+/// screen. The TV is saved at once; the sheet waits for the Closure to end before closing.
 struct PairingView: View {
     @State private var model: PairingModel
+    @State private var isClosing = false
     let onPaired: (SavedTV) -> Void
 
     init(candidate: TVCandidate, onPaired: @escaping (SavedTV) -> Void) {
@@ -17,6 +21,19 @@ struct PairingView: View {
     }
 
     var body: some View {
+        ScrollViewReader { proxy in
+            list
+                .onChange(of: model.phase) { _, phase in
+                    guard phase == .paired, let tv = model.tv else { return }
+                    isClosing = true
+                    proxy.scrollTo(PairingPhaseSection.pairedID)
+                    onPaired(tv)
+                }
+        }
+        .onDisappear(perform: model.cancel)
+    }
+
+    private var list: some View {
         List {
             Section {
                 VStack(alignment: .leading, spacing: SbuTheme.space1) {
@@ -42,23 +59,22 @@ struct PairingView: View {
             }
             .listRowBackground(SbuTheme.surfaceRaised)
 
-            PairingPhaseSection(model: model)
+            PairingPhaseSection(model: model, isClosing: $isClosing)
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Collega la TV")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: model.phase) { _, phase in
-            if phase == .paired, let tv = model.tv { onPaired(tv) }
-        }
-        .onDisappear(perform: model.cancel)
     }
 }
 
 /// The part of the pairing screen that changes with each step.
 private struct PairingPhaseSection: View {
+    static let pairedID = "paired"
+
     let model: PairingModel
+    @Binding var isClosing: Bool
 
     @State private var code = ""
     @State private var preSharedKey = ""
@@ -118,17 +134,21 @@ private struct PairingPhaseSection: View {
             .listRowBackground(SbuTheme.surfaceRaised)
         case .paired:
             Section {
-                Label {
+                HStack(spacing: SbuTheme.space2) {
+                    SbuRowMark(filled: true)
                     Text("Collegata")
                         .font(SbuTheme.body)
                         .foregroundStyle(SbuTheme.ink)
-                } icon: {
-                    Image(systemName: "checkmark.circle")
-                        .fontWeight(.medium)
-                        .foregroundStyle(SbuTheme.success)
                 }
+                .padding(SbuTheme.space4)
+                .frame(maxWidth: .infinity, minHeight: SbuTheme.gridCell * 5, alignment: .leading)
+                .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusCard))
+                .accessibilityElement(children: .combine)
+                .sbuClosure($isClosing, word: "Collegato")
+                .id(Self.pairedID)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
             }
-            .listRowBackground(SbuTheme.surfaceRaised)
         }
     }
 
@@ -179,13 +199,13 @@ private struct PairingPhaseSection: View {
     NavigationStack {
         PairingView(candidate: TVCandidate(host: "192.168.1.20", brand: .samsung)) { _ in }
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         PairingView(candidate: TVCandidate(host: "192.168.1.40", brand: .sony)) { _ in }
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

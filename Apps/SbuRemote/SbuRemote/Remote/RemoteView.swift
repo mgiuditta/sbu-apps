@@ -1,24 +1,46 @@
 import SbuKit
 import SwiftUI
 
-/// The remote: Home and power on top, the navigation area, then the other keys.
-/// On `surface` like every Sbu screen; no figure and no full stop (#349).
+/// The remote: the title with the TV in the cartiglio, Home and power, the navigation area, then
+/// the other keys. On plain paper: the keys and the touchpad are the instrument, so no grid under
+/// them. No figure and no full stop (#349).
 struct RemoteView: View {
     let session: RemoteSession
     let tvName: String
     var pinnedApps: [TVShortcut] = []
     var onInputs: ([TVShortcut]) -> Void = { _ in }
+    var onAddTV: () -> Void = {}
 
     @AppStorage("navigationMode") private var mode = NavigationMode.dPad
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     /// VoiceOver always gets the labelled arrows: the touchpad is a gesture surface.
     private var shownMode: NavigationMode { voiceOver ? .dPad : mode }
 
+    /// "Sbu · Telecomando · Soggiorno": the TV the keys go to.
+    private var cartiglio: String {
+        ["Sbu", String(localized: "Telecomando"), tvName].joined(separator: " · ")
+    }
+
+    private var statusLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: SbuTheme.space2))
+            : AnyLayout(HStackLayout(spacing: SbuTheme.space4))
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: SbuTheme.space4) {
-                ConnectionStatusView(tvName: tvName, status: session.status, onRetry: retry)
+                SbuScreenTitle("Telecomando", cartiglio: cartiglio)
+                // The bar stays empty on the tool screen, so the TV switch sits by its status.
+                // Stacked at the accessibility sizes, so the TV's name never squeezes the status.
+                statusLayout {
+                    ConnectionStatusView(tvName: tvName, status: session.status, onRetry: retry)
+                    Spacer(minLength: 0)
+                    TVPickerMenu(session: session, onAdd: onAddTV)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 HStack(spacing: SbuTheme.space4) {
                     RemoteKeyButton(key: .home, session: session, side: SbuTheme.controlRoundSm)
                     Picker("Navigazione", selection: $mode) {
@@ -45,9 +67,11 @@ struct RemoteView: View {
                 }
             }
             .padding(.horizontal, SbuTheme.space4)
+            .padding(.top, SbuTheme.space4)
             .padding(.bottom, SbuTheme.space4)
         }
         .scrollBounceBehavior(.basedOnSize)
+        .sbuPaper(grid: false)
     }
 
     private func retry() {
@@ -58,16 +82,14 @@ struct RemoteView: View {
 #Preview("Light") {
     NavigationStack {
         RemoteView(session: .preview, tvName: "Soggiorno")
-            .background(SbuTheme.surface)
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         RemoteView(session: .preview, tvName: "Soggiorno")
-            .background(SbuTheme.surface)
     }
-    .tint(SbuTheme.accentRemote)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

@@ -23,6 +23,10 @@ extension XCUIApplication {
             if issue.auditType == .dynamicType, let element = issue.element, bars.contains(where: { $0.contains(element.frame) }) {
                 return true
             }
+            // SbuKit's cartiglio, by design: it scales with Dynamic Type, but its fixed tracking
+            // reads as partly unsupported or clipped (as in Sbu Level).
+            if issue.auditType == .dynamicType || issue.auditType == .textClipped,
+               issue.element?.label.hasPrefix("SBU ·") == true { return true }
             issues.append("\(issue.compactDescription): \(issue.element?.label ?? "no element") \(issue.element?.frame ?? .zero)")
             return true
         }

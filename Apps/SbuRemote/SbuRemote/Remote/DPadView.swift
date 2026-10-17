@@ -21,11 +21,11 @@ struct DPadView: View {
 
 #Preview("Light") {
     DPadView(session: .preview)
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     DPadView(session: .preview)
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

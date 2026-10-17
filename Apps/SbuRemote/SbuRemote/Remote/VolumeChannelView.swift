@@ -23,12 +23,12 @@ struct VolumeChannelView: View {
 #Preview("Light") {
     VolumeChannelView(session: .preview)
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     VolumeChannelView(session: .preview)
         .padding(SbuTheme.space4)
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

@@ -28,7 +28,7 @@ struct KeyboardSheet: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Tastiera")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -64,7 +64,7 @@ struct KeyboardSheet: View {
         .sheet(isPresented: .constant(true)) {
             KeyboardSheet(session: .preview)
         }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -72,6 +72,6 @@ struct KeyboardSheet: View {
         .sheet(isPresented: .constant(true)) {
             KeyboardSheet(session: .preview)
         }
-        .tint(SbuTheme.accentRemote)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

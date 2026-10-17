@@ -7,12 +7,15 @@ final class RemoteFlowTests: XCTestCase {
     }
 
     @MainActor
-    private func launch(_ language: String = "it", touchpad: Bool = false) -> XCUIApplication {
+    private func launch(_ language: String = "it", touchpad: Bool = false, textSize: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = [
             "-demoTV", "-AppleLanguages", "(\(language))", "-AppleLocale", language == "it" ? "it_IT" : "en_US",
             "-navigationMode", touchpad ? "touchpad" : "dPad",
         ]
+        if let textSize {
+            app.launchArguments += ["-UIPreferredContentSizeCategoryName", textSize]
+        }
         app.launch()
         return app
     }
@@ -28,6 +31,14 @@ final class RemoteFlowTests: XCTestCase {
         }
         app.buttons["OK"].tap()
         app.buttons["Alza il volume"].press(forDuration: 1)
+        try app.auditAccessibility()
+    }
+
+    @MainActor
+    func testRemoteAtTheLargestTextSizePasses() throws {
+        let app = launch(textSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        XCTAssertTrue(app.staticTexts["Telecomando"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["SBU · TELECOMANDO · SOGGIORNO"].exists)
         try app.auditAccessibility()
     }
 
@@ -90,7 +101,8 @@ final class RemoteFlowTests: XCTestCase {
             .first { $0.isHittable && $0.frame != original }
         try XCTUnwrap(confirm).tap()
         app.buttons["Fine"].tap()
-        XCTAssertTrue(app.buttons["Aggiungi una TV"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Cerca la TV"].waitForExistence(timeout: 5))
+        try app.auditAccessibility()
     }
 
     @MainActor

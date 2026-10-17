@@ -22,23 +22,6 @@ struct CostsView: View {
         let months = costs.months(from: start, to: now)
         List {
             Section {
-                Picker("Periodo", selection: $range) {
-                    ForEach(ChartRange.allCases) { range in
-                        Text(range.name).tag(range)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .accessibilityIdentifier("range")
-            }
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-            Section {
-                SbuStat("Speso", value: costs.total, format: .currency(code: Money.currencyCode(for: .current)),
-                        context: "Carburante \(Money.text(costs.fuelTotal)) · interventi \(Money.text(costs.serviceTotal))")
-                    .listRowInsets(EdgeInsets())
-                    .listRowBackground(Color.clear)
-            }
-            Section {
                 if let perKm = costs.fuelCostPerKm {
                     ValueRow(title: vehicle.odometerUnit == .kilometres ? "Carburante al km" : "Carburante al miglio",
                              value: Money.perDistance(perKm, unit: vehicle.odometerUnit))
@@ -62,7 +45,25 @@ struct CostsView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
+        // The period and the figure it changes stay above the rows: in a List row the figure's
+        // grid snap and ViewThatFits kept the row resizing.
+        .safeAreaInset(edge: .top, spacing: 0) {
+            VStack(alignment: .leading, spacing: SbuTheme.space4) {
+                Picker("Periodo", selection: $range) {
+                    ForEach(ChartRange.allCases) { range in
+                        Text(range.name).tag(range)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .accessibilityIdentifier("range")
+                .sbuAffectsFigure(range)
+                SpentFigure(costs: costs)
+            }
+            .padding(.horizontal, SbuTheme.space4)
+            .padding(.vertical, SbuTheme.space2)
+            .background(SbuTheme.paper)
+        }
         .navigationTitle("Spese e grafici")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -88,6 +89,5 @@ private struct CostsPreview: View {
                 CostsView(vehicle: vehicle, units: UnitSettings())
             }
         }
-        .tint(SbuTheme.accentFuel)
     }
 }

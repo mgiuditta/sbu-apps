@@ -76,9 +76,19 @@ final class LogFlowTests: FuelUITestCase {
         let app = launch(sample: true, language: "en", locale: "en_US")
         let figure = app.descendants(matching: .any)["figure"]
         XCTAssertTrue(figure.waitForExistence(timeout: 5))
-        XCTAssertTrue(figure.label.contains("mpg"), figure.label)
+        XCTAssertTrue(figure.label.contains("miles per US gallon"), figure.label)
         XCTAssertTrue(app.staticTexts["AVERAGE CONSUMPTION"].exists || figure.label.localizedCaseInsensitiveContains("Average consumption"))
         attach(app, "en_US")
+        try audit(app)
+    }
+
+    @MainActor
+    func testToolScreenAtTheLargestTextSize() throws {
+        let app = launch(sample: true, contentSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        let figure = app.descendants(matching: .any)["figure"]
+        XCTAssertTrue(figure.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["addFuelUp"].exists)
+        attach(app, "AX5")
         try audit(app)
     }
 }

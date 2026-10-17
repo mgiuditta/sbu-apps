@@ -8,6 +8,16 @@ struct ValueRow: View {
     /// The value in full words for VoiceOver, when its unit is an abbreviation such as "mpg".
     var spokenValue: String?
 
+    init(title: LocalizedStringKey, value: String, spokenValue: String? = nil) {
+        self.title = title
+        self.value = value
+        self.spokenValue = spokenValue
+    }
+
+    init(_ value: OverviewValue) {
+        self.init(title: value.title, value: value.value, spokenValue: value.spokenValue)
+    }
+
     var body: some View {
         LabeledContent {
             Text(value)
@@ -21,6 +31,7 @@ struct ValueRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(title))
         .accessibilityValue(spokenValue ?? value)
+        // In the List of Spese e grafici; in a card on paper it has no effect.
         .listRowBackground(SbuTheme.surfaceRaised)
     }
 }

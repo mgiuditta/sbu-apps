@@ -2,7 +2,7 @@ import Charts
 import SbuKit
 import SwiftUI
 
-/// Fuel and services per month, stacked. Fuel in the accent, services in inkMuted, named in the legend.
+/// Fuel and services per month, stacked. Fuel in ink, services in inkMuted, named in the legend.
 struct MonthlySpendChart: View {
     let months: [MonthSpend]
 
@@ -35,7 +35,7 @@ struct MonthlySpendChart: View {
                         }
                 }
             }
-            .chartForegroundStyleScale([fuelName: SbuTheme.accentFuel, serviceName: SbuTheme.inkMuted])
+            .chartForegroundStyleScale([fuelName: SbuTheme.ink, serviceName: SbuTheme.inkMuted])
             .chartLegend(position: .bottom, alignment: .leading)
             .chartXSelection(value: $selectedDate)
             // Axis labels stop growing at the largest standard size: beyond it the months turned into ellipses.
@@ -65,13 +65,11 @@ struct MonthlySpendChart: View {
             MonthSpend(month: .now, fuel: 134, service: 0),
         ])
     }
-    .tint(SbuTheme.accentFuel)
 }
 
 #Preview("Dark") {
     List {
         MonthlySpendChart(months: [])
     }
-    .tint(SbuTheme.accentFuel)
     .preferredColorScheme(.dark)
 }

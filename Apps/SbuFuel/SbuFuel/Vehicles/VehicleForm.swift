@@ -76,7 +76,7 @@ struct VehicleForm: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Veicolo")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

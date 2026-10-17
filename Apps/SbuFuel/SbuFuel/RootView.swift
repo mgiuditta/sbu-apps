@@ -17,7 +17,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Fuel", slug: "fuel", accent: SbuTheme.accentFuel, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Fuel", slug: "fuel", accent: .fuel, appIcon: Image(.appIconArtwork)) {
             MainView(units: units, notifications: notifications)
         } settings: {
             UnitsSection(units: units)

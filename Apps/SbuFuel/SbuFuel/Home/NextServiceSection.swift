@@ -7,22 +7,26 @@ struct NextServiceSection: View {
 
     var body: some View {
         if let next = vehicle.sortedReminders().first {
-            Section("Prossimo intervento") {
-                ReminderRow(reminder: next.reminder, due: next.due, distanceUnit: vehicle.odometerUnit)
+            CardSection(title: "Prossimo intervento") {
+                SbuListCard([next.reminder]) { reminder in
+                    ReminderRow(reminder: reminder, due: next.due, distanceUnit: vehicle.odometerUnit)
+                }
             }
         }
     }
 }
 
 #Preview("Light") {
-    List {
-        NextServiceSection(vehicle: Vehicle(name: "Panda"))
-    }
+    NextServiceSection(vehicle: Vehicle(name: "Panda"))
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: false)
 }
 
 #Preview("Dark") {
-    List {
-        NextServiceSection(vehicle: Vehicle(name: "Panda"))
-    }
-    .preferredColorScheme(.dark)
+    NextServiceSection(vehicle: Vehicle(name: "Panda"))
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper(grid: false)
+        .preferredColorScheme(.dark)
 }

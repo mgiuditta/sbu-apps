@@ -2,44 +2,41 @@ import SbuKit
 import SwiftUI
 
 /// The one figure of the app: the average consumption of the selected vehicle, closed by the full stop.
-/// Until the second full tank there is no figure, only what to do next.
+/// Until the second full tank there is nothing to count: a waiting "0" and what to do next.
 struct ConsumptionFigure: View {
     let consumption: ConsumptionCalculator
     let hasFuelUps: Bool
     let unit: ConsumptionUnit
     let distanceUnit: DistanceUnit
 
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
     var body: some View {
         if let average = consumption.averageKmPerLitre {
-            SbuToolField(
-                "Consumo medio",
-                value: unit.value(fromKmPerLitre: average),
-                format: .number.precision(.fractionLength(1)),
-                // At the accessibility sizes "L/100 km" broke over three lines beside the figure: there it moves into the context line.
-                unit: dynamicTypeSize.isAccessibilitySize ? nil : "\u{2009}" + unit.symbol,
-                context: context
-            ) {
-                EmptyView()
-            } pills: {
-                EmptyView()
-            }
+            // The unit goes in the context line: beside the figure "L/100 km" shrank the number to a third.
+            SbuFigure(
+                value: unit.formatted(kmPerLitre: average),
+                fullStop: .set,
+                context: Text(verbatim: context),
+                accessibilityLabel: Text("Consumo medio, \(unit.spoken(kmPerLitre: average)), \(stretch)")
+            )
             .accessibilityIdentifier("figure")
         } else {
-            SbuToolField("Consumo medio", context: hasFuelUps ? "Fai il prossimo pieno per vedere il consumo." : "Registra un pieno per iniziare.") {
-                EmptyView()
-            } pills: {
-                EmptyView()
-            }
-            .accessibilityIdentifier("figure")
+            SbuEmpty(sentence: hasFuelUps ? "Fai il prossimo pieno per vedere il consumo." : "Registra un pieno per iniziare.")
         }
     }
 
-    private var context: LocalizedStringKey {
-        let distance = distanceUnit.formatted(km: consumption.segments.reduce(0) { $0 + $1.distanceKm })
-        let line = String(localized: "Da pieno a pieno, su \(distance)")
-        return dynamicTypeSize.isAccessibilitySize ? "\(unit.symbol) · \(line)" : "\(line)"
+    /// "1.600 km" from the first full tank to the last.
+    private var distance: String {
+        distanceUnit.formatted(km: consumption.segments.reduce(0) { $0 + $1.distanceKm })
+    }
+
+    /// "Da pieno a pieno, su 1.600 km".
+    private var stretch: String {
+        String(localized: "Da pieno a pieno, su \(distance)")
+    }
+
+    /// "L/100 km · Da pieno a pieno, su 1.600 km".
+    private var context: String {
+        [unit.symbol, stretch].joined(separator: " · ")
     }
 }
 
@@ -48,13 +45,15 @@ struct ConsumptionFigure: View {
         FillRecord(date: .now.addingTimeInterval(-86_400 * 14), odometerKm: 1_000, litres: 30),
         FillRecord(date: .now, odometerKm: 1_600, litres: 37),
     ]), hasFuelUps: true, unit: .litresPer100Km, distanceUnit: .kilometres)
-    .background(SbuTheme.surface)
-    .tint(SbuTheme.accentFuel)
+    .padding(SbuTheme.space4)
+    .sbuPaper(grid: true)
+    .environment(\.sbuAccent, .fuel)
 }
 
 #Preview("Dark") {
     ConsumptionFigure(consumption: ConsumptionCalculator([]), hasFuelUps: true, unit: .mpgUS, distanceUnit: .miles)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFuel)
+        .padding(SbuTheme.space4)
+        .sbuPaper(grid: true)
+        .environment(\.sbuAccent, .fuel)
         .preferredColorScheme(.dark)
 }

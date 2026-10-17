@@ -6,7 +6,7 @@ final class FirstRunFlowTests: FuelUITestCase {
     func testTwoFullTanksShowTheAverage() throws {
         let app = launch()
 
-        XCTAssertTrue(app.staticTexts["Aggiungi il tuo veicolo"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Aggiungi il tuo veicolo: dal secondo pieno vedi quanto consuma."].waitForExistence(timeout: 5))
         try audit(app)
 
         app.buttons["addFirstVehicle"].tap()
@@ -23,6 +23,8 @@ final class FirstRunFlowTests: FuelUITestCase {
         XCTAssertTrue(app.staticTexts["Fai il prossimo pieno per vedere il consumo."].waitForExistence(timeout: 5))
 
         try addFuelUp(app, odometer: "10600", litres: "36", price: "64,80")
+        // Once per saved fill-up, the Closure says it in one word over the figure.
+        XCTAssertTrue(app.descendants(matching: .any)["Registrato"].waitForExistence(timeout: 5))
         // 36 litres over 600 km: 6,0 L/100 km, read with its caption and context as one element.
         let figure = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@", "6,0")).firstMatch
         XCTAssertTrue(figure.waitForExistence(timeout: 5), "36 L su 600 km fanno 6,0 L/100 km")
@@ -54,7 +56,7 @@ final class FirstRunFlowTests: FuelUITestCase {
             XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
             sleep(1)
             attach(app, "modulo")
-            try audit(app)
+            try audit(app, keyboardUp: true)
         }
         type(odometer, into: field)
         type(litres, into: app.textFields["quantity"])

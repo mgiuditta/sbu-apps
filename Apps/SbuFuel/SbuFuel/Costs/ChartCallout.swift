@@ -18,7 +18,7 @@ struct ChartCallout: View {
         }
         .padding(.horizontal, SbuTheme.space2)
         .padding(.vertical, SbuTheme.space1)
-        .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusSm))
+        .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusCard))
     }
 }
 

@@ -15,6 +15,48 @@ struct HistoryView: View {
     var body: some View {
         let consumption = ConsumptionCalculator(vehicle.fillRecords)
         let months = HistoryEntry.months(vehicle, filter: filter, calendar: .current)
+        Group {
+            if (vehicle.fuelUps ?? []).isEmpty, (vehicle.services ?? []).isEmpty {
+                empty
+            } else {
+                list(months: months, consumption: consumption)
+            }
+        }
+        .navigationTitle("Storico")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu("Aggiungi", systemImage: "plus") {
+                    Button("Aggiungi rifornimento", systemImage: "fuelpump") { sheet = .newFuelUp }
+                    Button("Registra intervento", systemImage: "wrench.and.screwdriver") { sheet = .newService }
+                }
+                .accessibilityIdentifier("historyAdd")
+            }
+        }
+        .sheet(item: $sheet) { sheet in
+            HistorySheetContent(sheet: sheet, vehicle: vehicle, units: units)
+        }
+        .confirmationDialog("Eliminare questa voce?", isPresented: isConfirmingDelete, titleVisibility: .visible, presenting: pendingDelete) { entry in
+            Button("Elimina", role: .destructive) { delete(entry) }
+        } message: { _ in
+            Text("I consumi si ricalcolano senza.")
+        }
+    }
+
+    /// Nothing logged yet: the first fill-up, on paper.
+    private var empty: some View {
+        ScrollView {
+            SbuEmpty(sentence: "Registra il primo rifornimento: compare qui, e puoi aggiungere anche quelli passati.") {
+                SbuButton("Aggiungi rifornimento") { sheet = .newFuelUp }
+                    .accessibilityIdentifier("historyEmptyAdd")
+            }
+            .padding(SbuTheme.space4)
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        .sbuPaper(grid: true)
+    }
+
+    private func list(months: [(month: Date, entries: [HistoryEntry])], consumption: ConsumptionCalculator) -> some View {
         List {
             Section {
                 Picker("Mostra", selection: $filter) {
@@ -37,38 +79,17 @@ struct HistoryView: View {
                     Text(month.month.formatted(.dateTime.month(.wide).year()))
                 }
             }
+            if months.isEmpty {
+                // Only this filter is empty: the other kind is there, one tap away.
+                Text(filter == .services ? "Nessun intervento registrato." : "Nessun rifornimento registrato.")
+                    .font(SbuTheme.body)
+                    .foregroundStyle(SbuTheme.inkMuted)
+                    .listRowBackground(SbuTheme.surfaceRaised)
+            }
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .navigationTitle("Storico")
-        .navigationBarTitleDisplayMode(.inline)
-        .overlay {
-            if months.isEmpty {
-                ContentUnavailableView {
-                    Label(filter == .services ? "Nessun intervento" : "Nessun rifornimento", systemImage: "list.bullet.rectangle")
-                } description: {
-                    Text("Quello che registri compare qui, dal più recente. Puoi aggiungere anche voci passate: i consumi si ricalcolano.")
-                }
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu("Aggiungi", systemImage: "plus") {
-                    Button("Aggiungi rifornimento", systemImage: "fuelpump") { sheet = .newFuelUp }
-                    Button("Registra intervento", systemImage: "wrench.and.screwdriver") { sheet = .newService }
-                }
-                .accessibilityIdentifier("historyAdd")
-            }
-        }
-        .sheet(item: $sheet) { sheet in
-            HistorySheetContent(sheet: sheet, vehicle: vehicle, units: units)
-        }
-        .confirmationDialog("Eliminare questa voce?", isPresented: isConfirmingDelete, titleVisibility: .visible, presenting: pendingDelete) { entry in
-            Button("Elimina", role: .destructive) { delete(entry) }
-        } message: { _ in
-            Text("I consumi si ricalcolano senza.")
-        }
+        .background(SbuTheme.paper)
     }
 
     private var isConfirmingDelete: Binding<Bool> {

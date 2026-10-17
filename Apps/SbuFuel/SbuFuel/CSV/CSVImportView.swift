@@ -79,7 +79,7 @@ struct CSVImportView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Importa CSV")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -2,7 +2,7 @@ import SbuKit
 import SwiftData
 import SwiftUI
 
-/// The sections of the tool screen for one vehicle: the figure, the way into the log, the next
+/// The cards of the tool screen under the figure, for one vehicle: the way into the log, the next
 /// service, then the secondary figures.
 struct VehicleOverview: View {
     let vehicle: Vehicle
@@ -12,39 +12,35 @@ struct VehicleOverview: View {
     var body: some View {
         let records = vehicle.fillRecords
         let consumption = ConsumptionCalculator(records)
-        let costs = CostSummary(fills: records, services: (vehicle.services ?? []).map { ServiceCost(date: $0.date, cost: $0.cost) }, calendar: .current)
-        Section {
-            ConsumptionFigure(consumption: consumption, hasFuelUps: !records.isEmpty, unit: units.consumption, distanceUnit: vehicle.odometerUnit)
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
-        }
-        Section {
-            NavigationLink {
-                HistoryView(vehicle: vehicle, units: units)
-            } label: {
-                OverviewLink(title: "Storico", systemImage: "list.bullet.rectangle")
+        VStack(alignment: .leading, spacing: SbuTheme.space6) {
+            SbuListCard(OverviewDestination.allCases) { destination in
+                NavigationLink {
+                    view(for: destination)
+                } label: {
+                    OverviewLink(destination: destination)
+                }
+                // The link is the whole row: the card's own padding goes inside its 44 pt target.
+                .padding(.vertical, -SbuTheme.space3)
+                .accessibilityIdentifier(destination.id)
             }
-            .accessibilityIdentifier("history")
-            NavigationLink {
-                CostsView(vehicle: vehicle, units: units)
-            } label: {
-                OverviewLink(title: "Spese e grafici", systemImage: "chart.bar")
+            NextServiceSection(vehicle: vehicle)
+            if !consumption.segments.isEmpty {
+                ConsumptionSection(consumption: consumption, unit: units.consumption)
             }
-            .accessibilityIdentifier("costs")
-            NavigationLink {
-                ServicesView(vehicle: vehicle, units: units, notifications: notifications)
-            } label: {
-                OverviewLink(title: "Manutenzione", systemImage: "wrench.and.screwdriver")
+            if !records.isEmpty {
+                let costs = CostSummary(fills: records, services: (vehicle.services ?? []).map { ServiceCost(date: $0.date, cost: $0.cost) },
+                                        calendar: .current)
+                SpendingSection(costs: costs, distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume)
             }
-            .accessibilityIdentifier("services")
         }
-        .listRowBackground(SbuTheme.surfaceRaised)
-        NextServiceSection(vehicle: vehicle)
-        if !consumption.segments.isEmpty {
-            ConsumptionSection(consumption: consumption, unit: units.consumption)
-        }
-        if !records.isEmpty {
-            SpendingSection(costs: costs, distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume)
+    }
+
+    @ViewBuilder
+    private func view(for destination: OverviewDestination) -> some View {
+        switch destination {
+        case .history: HistoryView(vehicle: vehicle, units: units)
+        case .costs: CostsView(vehicle: vehicle, units: units)
+        case .services: ServicesView(vehicle: vehicle, units: units, notifications: notifications)
         }
     }
 }
@@ -65,12 +61,14 @@ private struct VehicleOverviewPreview: View {
 
     var body: some View {
         NavigationStack {
-            List {
+            ScrollView {
                 if let vehicle = vehicles.first {
                     VehicleOverview(vehicle: vehicle, units: UnitSettings(), notifications: ReminderNotifications(center: SilentReminderCenter()))
+                        .padding(SbuTheme.space4)
                 }
             }
+            .background(SbuTheme.paper)
         }
-        .tint(SbuTheme.accentFuel)
+        .tint(SbuTheme.ink)
     }
 }

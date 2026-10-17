@@ -61,7 +61,7 @@ struct ServicesView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Manutenzione")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $sheet) { sheet in

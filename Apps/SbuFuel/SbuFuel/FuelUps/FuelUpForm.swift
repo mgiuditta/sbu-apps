@@ -11,6 +11,8 @@ struct FuelUpForm: View {
     let vehicle: Vehicle
     let fuelUp: FuelUp?
     let units: UnitSettings
+    /// Runs after the fill-up is saved, before the sheet goes: the tool screen closes it with "Registrato".
+    let onSave: () -> Void
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
@@ -21,10 +23,11 @@ struct FuelUpForm: View {
         draft.problem(id: fuelUp?.id, among: vehicle.odometerReadings, calendar: .current)
     }
 
-    init(vehicle: Vehicle, fuelUp: FuelUp?, units: UnitSettings) {
+    init(vehicle: Vehicle, fuelUp: FuelUp?, units: UnitSettings, onSave: @escaping () -> Void = {}) {
         self.vehicle = vehicle
         self.fuelUp = fuelUp
         self.units = units
+        self.onSave = onSave
         if let fuelUp {
             _draft = State(initialValue: FuelUpDraft(fuelUp.record, station: fuelUp.station, note: fuelUp.note,
                                                      distanceUnit: vehicle.odometerUnit, volumeUnit: units.volume))
@@ -66,7 +69,7 @@ struct FuelUpForm: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             // One word: between Annulla and Salva a longer title has no room at larger text.
             .navigationTitle("Rifornimento")
             .navigationBarTitleDisplayMode(.inline)
@@ -111,6 +114,7 @@ struct FuelUpForm: View {
                                        note: draft.note.trimmingCharacters(in: .whitespacesAndNewlines)))
         }
         try? modelContext.save()
+        onSave()
         dismiss()
     }
 

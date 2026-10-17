@@ -7,38 +7,52 @@ struct ConsumptionSection: View {
     let unit: ConsumptionUnit
 
     var body: some View {
-        Section("Consumo") {
-            if let last = consumption.last {
-                ValueRow(title: "Ultimo pieno", value: text(last), spokenValue: unit.spoken(kmPerLitre: last.kmPerLitre))
-            }
-            if consumption.segments.count > 1, let best = consumption.best, let worst = consumption.worst {
-                ValueRow(title: "Il migliore", value: text(best), spokenValue: unit.spoken(kmPerLitre: best.kmPerLitre))
-                ValueRow(title: "Il peggiore", value: text(worst), spokenValue: unit.spoken(kmPerLitre: worst.kmPerLitre))
+        let values = values
+        if !values.isEmpty {
+            CardSection(title: "Consumo") {
+                SbuListCard(values) { value in
+                    ValueRow(value)
+                }
             }
         }
     }
 
-    private func text(_ segment: ConsumptionSegment) -> String {
-        unit.formatted(kmPerLitre: segment.kmPerLitre) + "\u{00A0}" + unit.symbol
+    private var values: [OverviewValue] {
+        var values: [OverviewValue] = []
+        if let last = consumption.last {
+            values.append(value(id: "last", title: "Ultimo pieno", last))
+        }
+        if consumption.segments.count > 1, let best = consumption.best, let worst = consumption.worst {
+            values.append(value(id: "best", title: "Il migliore", best))
+            values.append(value(id: "worst", title: "Il peggiore", worst))
+        }
+        return values
+    }
+
+    private func value(id: String, title: LocalizedStringKey, _ segment: ConsumptionSegment) -> OverviewValue {
+        OverviewValue(id: id, title: title, value: unit.formatted(kmPerLitre: segment.kmPerLitre) + "\u{00A0}" + unit.symbol,
+                      spokenValue: unit.spoken(kmPerLitre: segment.kmPerLitre))
     }
 }
 
 #Preview("Light") {
-    List {
-        ConsumptionSection(consumption: ConsumptionCalculator([
-            FillRecord(date: .now, odometerKm: 1_000, litres: 30),
-            FillRecord(date: .now, odometerKm: 1_600, litres: 37),
-            FillRecord(date: .now, odometerKm: 2_100, litres: 33),
-        ]), unit: .litresPer100Km)
-    }
+    ConsumptionSection(consumption: ConsumptionCalculator([
+        FillRecord(date: .now, odometerKm: 1_000, litres: 30),
+        FillRecord(date: .now, odometerKm: 1_600, litres: 37),
+        FillRecord(date: .now, odometerKm: 2_100, litres: 33),
+    ]), unit: .litresPer100Km)
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper(grid: false)
 }
 
 #Preview("Dark") {
-    List {
-        ConsumptionSection(consumption: ConsumptionCalculator([
-            FillRecord(date: .now, odometerKm: 1_000, litres: 30),
-            FillRecord(date: .now, odometerKm: 1_600, litres: 37),
-        ]), unit: .mpgUS)
-    }
+    ConsumptionSection(consumption: ConsumptionCalculator([
+        FillRecord(date: .now, odometerKm: 1_000, litres: 30),
+        FillRecord(date: .now, odometerKm: 1_600, litres: 37),
+    ]), unit: .mpgUS)
+    .padding(SbuTheme.space4)
+    .frame(maxHeight: .infinity, alignment: .top)
+    .sbuPaper(grid: false)
     .preferredColorScheme(.dark)
 }

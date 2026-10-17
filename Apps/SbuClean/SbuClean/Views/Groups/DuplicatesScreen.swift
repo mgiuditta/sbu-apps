@@ -24,7 +24,7 @@ struct DuplicatesScreen: View {
             }
             .padding(SbuTheme.space4)
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Duplicati e simili")
         .navigationBarTitleDisplayMode(.inline)
         .bottomAction {
@@ -57,7 +57,7 @@ private struct DuplicatesPreview: View {
         NavigationStack {
             DuplicatesScreen(model: model)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
         }

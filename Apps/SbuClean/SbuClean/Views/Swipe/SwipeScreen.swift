@@ -35,8 +35,9 @@ struct SwipeScreen: View {
 
     var body: some View {
         VStack(spacing: SbuTheme.space3) {
-            SpaceStat(label: "Nel cestino", bytes: model.trashBytes, context: context)
-                // The photo is the point of this screen: the figure stops growing before it.
+            // Waiting while you swipe: the bin grows until the queue ends.
+            SpaceStat(label: "Nel cestino", bytes: model.trashBytes, context: context, isCounting: deck?.isDone != true)
+                // The photo is the point of this screen: the line under the figure stops growing before it.
                 .dynamicTypeSize(...DynamicTypeSize.accessibility1)
 
             ZStack {
@@ -51,7 +52,7 @@ struct SwipeScreen: View {
                     }
                     SwipeCard(item: item, decide: decide, showDetails: { detailsItem = item })
                         .id(item.id)
-                        .transition(.asymmetric(insertion: .opacity, removal: .move(edge: exitEdge).combined(with: .opacity)))
+                        .transition(.asymmetric(insertion: .opacity, removal: SbuMotion.transition(from: exitEdge, reduceMotion: reduceMotion)))
                 } else {
                     ProgressView()
                 }
@@ -64,18 +65,16 @@ struct SwipeScreen: View {
         }
         .padding(.horizontal, SbuTheme.space4)
         .padding(.bottom, SbuTheme.space3)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(source.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Annulla l'ultima scelta", systemImage: "arrow.uturn.backward", action: undo)
                     .disabled(deck?.canUndo != true)
-                    // In ink, as the shell's gear: the accent belongs to the figure's full stop.
-                    .tint(SbuTheme.ink)
             }
         }
-        .sensoryFeedback(.selection, trigger: deck?.number)
+        .sbuHaptic(.tick, trigger: deck?.number)
         .sheet(item: $detailsItem) { item in
             MediaDetailsSheet(item: item)
         }
@@ -101,14 +100,14 @@ struct SwipeScreen: View {
         guard let id = deck?.current else { return }
 
         exitEdge = decision == .trash ? .leading : .trailing
-        withAnimation(reduceMotion ? nil : .snappy) {
+        withAnimation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion)) {
             let previous = model.decide(decision, on: id)
             deck?.advance(previous: previous)
         }
     }
 
     private func undo() {
-        withAnimation(reduceMotion ? nil : .snappy) {
+        withAnimation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion)) {
             if let step = deck?.undo() {
                 model.decide(step.previous, on: step.id)
             }
@@ -136,7 +135,7 @@ private struct SwipePreview: View {
         NavigationStack {
             SwipeScreen(model: model, source: .recent)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task { await model.reload() }
     }
 }

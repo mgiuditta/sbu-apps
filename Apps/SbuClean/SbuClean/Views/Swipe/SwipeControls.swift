@@ -21,12 +21,12 @@ struct SwipeControls: View {
 #Preview("Light") {
     SwipeControls { _ in }
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     SwipeControls { _ in }
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

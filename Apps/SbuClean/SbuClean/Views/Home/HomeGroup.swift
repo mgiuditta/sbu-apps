@@ -1,12 +1,10 @@
 import SbuKit
 import SwiftUI
 
-/// A group of rows on the home, drawn like an inset grouped list section so the whole home can
-/// scroll as one page: a header, then the rows on `surfaceRaised`. Put `HomeRowDivider`
-/// between the rows.
-struct HomeGroup<Content: View>: View {
+/// A group of ways to clean on the home's paper: a header, then the rows in a `SbuListCard`.
+struct HomeGroup: View {
     let title: LocalizedStringKey?
-    @ViewBuilder let content: Content
+    let entries: [HomeEntry]
 
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space2) {
@@ -14,34 +12,35 @@ struct HomeGroup<Content: View>: View {
                 Text(title)
                     .font(SbuTheme.footnote)
                     .foregroundStyle(SbuTheme.inkMuted)
-                    .padding(.horizontal, SbuTheme.space4)
                     .accessibilityAddTraits(.isHeader)
             }
-
-            VStack(spacing: 0) {
-                content
+            SbuListCard(entries) { entry in
+                HomeEntryRow(entry: entry)
             }
-            .background(SbuTheme.surfaceRaised)
-            .clipShape(.rect(cornerRadius: SbuTheme.radiusLg))
         }
     }
 }
 
 #Preview("Light") {
-    HomeGroup(title: "Libera spazio") {
-        Text(verbatim: "Uno").padding()
-        HomeRowDivider()
-        Text(verbatim: "Due").padding()
+    NavigationStack {
+        HomeGroup(title: "Libera spazio", entries: [
+            HomeEntry(route: .videos, title: "Video", subtitle: "12 elementi", symbol: "video", bytes: 1_260_000_000),
+            HomeEntry(route: .livePhotos, title: "Live Photo", subtitle: "37 elementi", symbol: "livephoto"),
+        ])
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper()
     }
-    .padding()
-    .background(SbuTheme.surface)
 }
 
 #Preview("Dark") {
-    HomeGroup(title: nil) {
-        Text(verbatim: "Uno").padding()
+    NavigationStack {
+        HomeGroup(title: nil, entries: [
+            HomeEntry(route: .bin, title: "Cestino", subtitle: "12 elementi", symbol: "trash"),
+        ])
+        .padding(SbuTheme.space4)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .sbuPaper()
     }
-    .padding()
-    .background(SbuTheme.surface)
     .preferredColorScheme(.dark)
 }

@@ -23,7 +23,7 @@ struct GroupListScreen: View {
             }
             .padding(SbuTheme.space4)
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(kind == .duplicate ? "Duplicati" : "Simili")
         .navigationBarTitleDisplayMode(.inline)
         .bottomAction {
@@ -56,7 +56,7 @@ private struct GroupListPreview: View {
         NavigationStack {
             GroupListScreen(model: model, kind: .duplicate)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
         }

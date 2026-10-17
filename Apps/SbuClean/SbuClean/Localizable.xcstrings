@@ -1,22 +1,32 @@
 {
   "sourceLanguage": "it",
   "strings": {
-    "%@ usati su %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ used of %@"
-          }
-        }
-      }
-    },
     "%@ · %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ · %@"
+          }
+        }
+      }
+    },
+    "%@, %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, %@"
+          }
+        }
+      }
+    },
+    "%@, %@, %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, %@, %@"
           }
         }
       }
@@ -905,16 +915,6 @@
         }
       }
     },
-    "Apri Sbu Clean per cercare": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open Sbu Clean to look"
-          }
-        }
-      }
-    },
     "Avvia la compressione": {
       "localizations": {
         "en": {
@@ -981,6 +981,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bin: %lld"
+          }
+        }
+      }
+    },
+    "Clean": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clean"
           }
         }
       }
@@ -1675,6 +1685,16 @@
         }
       }
     },
+    "Liberato": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freed"
+          }
+        }
+      }
+    },
     "Libreria": {
       "localizations": {
         "en": {
@@ -2015,16 +2035,6 @@
         }
       }
     },
-    "Puoi liberare %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You can free %@"
-          }
-        }
-      }
-    },
     "Qualità": {
       "localizations": {
         "en": {
@@ -2195,6 +2205,16 @@
         }
       }
     },
+    "Sbu · Clean · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu · Clean · %@"
+          }
+        }
+      }
+    },
     "Scarica da iCloud": {
       "localizations": {
         "en": {
@@ -2355,6 +2375,16 @@
         }
       }
     },
+    "Spazio liberabile, %@, %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Space you can free, %@, %@"
+          }
+        }
+      }
+    },
     "Spazio liberato": {
       "localizations": {
         "en": {
@@ -2375,52 +2405,32 @@
         }
       }
     },
+    "Spazio libero · apri Sbu Clean per cercare": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free space · open Sbu Clean to look"
+          }
+        }
+      }
+    },
+    "Spazio libero · puoi liberare %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free space · you can free %@"
+          }
+        }
+      }
+    },
     "Stima. Prima %@, %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Estimate. Before: %@, %@"
-          }
-        }
-      }
-    },
-    "Su %lld foto e video": {
-      "localizations": {
-        "it": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Su %lld foto o video"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "Su %lld foto e video"
-                }
-              }
-            }
-          }
-        },
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "In %lld photo or video"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "In %lld photos and videos"
-                }
-              }
-            }
           }
         }
       }
@@ -2631,6 +2641,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "iPhone"
+          }
+        }
+      }
+    },
+    "liberabili · %lld foto e video": {
+      "localizations": {
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "liberabili · %lld foto o video"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "liberabili · %lld foto e video"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "to free · %lld photo or video"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "to free · %lld photos and videos"
+                }
+              }
+            }
           }
         }
       }

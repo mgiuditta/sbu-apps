@@ -1,31 +1,35 @@
 import SbuKit
 import SwiftUI
 
-/// The corner mark of a tile: a filled bin in the accent when the item goes to the bin, an
-/// empty ring on paper when not. The shape, not the color alone, tells the two apart.
+/// The corner mark of a tile, drawn over the photo like `SbuCheckboxStyle`'s box: a square filled
+/// with `ink` and a `paper` check when the item is chosen, an empty `paper` square with an `ink`
+/// border when not. The fill and the check, not a color, tell the two apart.
 struct SelectionMark: View {
     let isSelected: Bool
 
+    @ScaledMetric(relativeTo: .title2) private var side = SbuTheme.checkbox
+
     var body: some View {
-        Group {
-            if isSelected {
-                // Opaque already: no disk behind, or its edge shows around the mark.
-                Image(systemName: "trash.circle.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(SbuTheme.onAccent, .tint)
-            } else {
-                ZStack {
-                    Image(systemName: "circle.fill")
-                        .foregroundStyle(SbuTheme.surface)
-                    Image(systemName: "circle")
-                        .foregroundStyle(SbuTheme.ink)
+        let shape = RoundedRectangle(cornerRadius: SbuTheme.radiusCheckbox)
+        // Opaque either way, so the mark reads on any photo.
+        shape
+            .fill(isSelected ? SbuTheme.ink : SbuTheme.paper)
+            .overlay {
+                shape.strokeBorder(SbuTheme.ink, lineWidth: SbuTheme.checkboxStroke)
+            }
+            .overlay {
+                if isSelected {
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .scaledToFit()
+                        .fontWeight(.bold)
+                        .foregroundStyle(SbuTheme.paper)
+                        .padding(SbuTheme.space1 + SbuTheme.hairline)
                 }
             }
-        }
-        .font(.title2)
-        .fontWeight(.medium)
-        .padding(SbuTheme.space1)
-        .accessibilityHidden(true)
+            .frame(width: side, height: side)
+            .padding(SbuTheme.space2)
+            .accessibilityHidden(true)
     }
 }
 
@@ -46,6 +50,5 @@ private struct SelectionMarkPreview: View {
         }
         .padding()
         .background(SbuTheme.surfaceSunken)
-        .tint(SbuTheme.accentClean)
     }
 }

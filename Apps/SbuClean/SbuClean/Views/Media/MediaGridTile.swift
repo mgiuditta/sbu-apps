@@ -20,13 +20,14 @@ struct MediaGridTile: View {
                         .monospacedDigit()
                         .foregroundStyle(SbuTheme.ink)
                         .padding(.horizontal, SbuTheme.space1)
-                        .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusSm))
+                        .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusSm))
                         .padding(SbuTheme.space1)
                         .accessibilityHidden(true)
                 }
                 .clipShape(.rect(cornerRadius: SbuTheme.radiusSm))
         }
         .buttonStyle(.plain)
+        .sbuAffectsFigure(isSelected)
         .accessibilityLabel(item.spokenDescription)
         .accessibilityValue(isSelected ? Text("Da eliminare") : Text("Da tenere"))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -36,12 +37,12 @@ struct MediaGridTile: View {
 #Preview("Light") {
     MediaGridTile(item: MediaItem(id: "screenshot-0", kind: .photo, isScreenshot: true, size: ItemSize(bytes: 900_000)), isSelected: true) {}
         .frame(width: 120)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     MediaGridTile(item: MediaItem(id: "recording-0", kind: .video, isScreenRecording: true, duration: 22), isSelected: false) {}
         .frame(width: 120)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

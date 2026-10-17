@@ -13,6 +13,24 @@ struct VideosScreen: View {
     var body: some View {
         let videos = model.items(in: .videos).filter { !model.state.trash.contains($0.id) }
         let bytes = model.bytes(of: selection)
+        Group {
+            if videos.isEmpty {
+                EmptyScreen(sentence: "Nessun video nella libreria.")
+            } else {
+                list(videos, bytes: bytes)
+            }
+        }
+        .navigationTitle("Video")
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $playing) { video in
+            VideoPreviewSheet(item: video)
+        }
+        .navigationDestination(isPresented: $showsBin) {
+            BinScreen(model: model)
+        }
+    }
+
+    private func list(_ videos: [MediaItem], bytes: Int64) -> some View {
         List {
             Section {
                 SpaceStat(label: "Selezionati", bytes: bytes, context: "\(selection.count) di \(videos.count) video")
@@ -22,19 +40,12 @@ struct VideosScreen: View {
 
             Section {
                 ForEach(videos) { video in
-                    VideoRow(
-                        item: video,
-                        isSelected: selection.contains(video.id),
-                        toggle: { toggle(video.id) },
-                        play: { playing = video }
-                    )
+                    VideoRow(item: video, isSelected: isSelected(video.id)) {
+                        playing = video
+                    }
                 }
             } footer: {
-                if videos.isEmpty {
-                    Text("Nessun video nella libreria.")
-                } else {
-                    Text("Tocca un video per guardarlo. Scorrilo verso sinistra per comprimerlo.")
-                }
+                Text("Tocca un video per guardarlo. Scorrilo verso sinistra per comprimerlo.")
             }
             .listRowBackground(SbuTheme.surfaceRaised)
         }
@@ -42,9 +53,7 @@ struct VideosScreen: View {
         // The figure starts where it does on the other screens.
         .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .navigationTitle("Video")
-        .navigationBarTitleDisplayMode(.inline)
+        .background(SbuTheme.paper)
         .bottomAction {
             SbuButton(DeleteTitle.forBytes(bytes)) {
                 model.moveToTrash(videos.map(\.id).filter(selection.contains))
@@ -54,19 +63,18 @@ struct VideosScreen: View {
             .disabled(selection.isEmpty)
             .accessibilityIdentifier("bottomAction")
         }
-        .sheet(item: $playing) { video in
-            VideoPreviewSheet(item: video)
-        }
-        .navigationDestination(isPresented: $showsBin) {
-            BinScreen(model: model)
-        }
     }
 
-    private func toggle(_ id: String) {
-        if selection.contains(id) {
-            selection.remove(id)
-        } else {
-            selection.insert(id)
+    /// Whether one video is selected, as the binding its checkbox toggles.
+    private func isSelected(_ id: String) -> Binding<Bool> {
+        Binding {
+            selection.contains(id)
+        } set: { isOn in
+            if isOn {
+                selection.insert(id)
+            } else {
+                selection.remove(id)
+            }
         }
     }
 }
@@ -87,7 +95,7 @@ private struct VideosPreview: View {
         NavigationStack {
             VideosScreen(model: model)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
         }

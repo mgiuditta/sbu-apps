@@ -1,16 +1,14 @@
 import SbuKit
 import SwiftUI
 
-/// A video in the list: its frame (tap to play), size and length, date, and the selection.
+/// A video in the list: its frame (tap to play), then the checkbox with size, length and date.
 /// Swipe or long press for Comprimi.
 struct VideoRow: View {
     let item: MediaItem
-    let isSelected: Bool
-    let toggle: () -> Void
+    @Binding var isSelected: Bool
     let play: () -> Void
 
     @ScaledMetric(relativeTo: .body) private var thumbnailSide: CGFloat = 64
-    @ScaledMetric(relativeTo: .title2) private var amountSize = SbuTheme.statSmallSize
 
     var body: some View {
         HStack(spacing: SbuTheme.space3) {
@@ -22,7 +20,7 @@ struct VideoRow: View {
                             .fontWeight(.medium)
                             .foregroundStyle(SbuTheme.ink)
                             .padding(SbuTheme.space2)
-                            .background(Circle().fill(SbuTheme.surface))
+                            .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusSm))
                     }
                     .clipShape(.rect(cornerRadius: SbuTheme.radiusSm))
             }
@@ -30,29 +28,19 @@ struct VideoRow: View {
             .accessibilityLabel("Riproduci")
             .accessibilityIdentifier("video.play")
 
-            Button(action: toggle) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(item.bytes.sizeText)
-                            .font(SbuTheme.smallNumberFont(size: amountSize))
-                            .foregroundStyle(SbuTheme.ink)
-                        Text("\(item.durationText) · \(item.creationDate?.formatted(date: .abbreviated, time: .omitted) ?? "")")
-                            .font(SbuTheme.subheadline)
-                            .foregroundStyle(SbuTheme.inkMuted)
-                    }
-                    Spacer(minLength: SbuTheme.space2)
-                    Image(systemName: isSelected ? "trash.circle.fill" : "circle")
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .foregroundStyle(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.inkMuted))
-                        .accessibilityHidden(true)
+            Toggle(isOn: $isSelected) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(item.bytes.sizeText)
+                        .font(SbuTheme.statSmall)
+                        .foregroundStyle(SbuTheme.ink)
+                    Text("\(item.durationText) · \(item.creationDate?.formatted(date: .abbreviated, time: .omitted) ?? "")")
+                        .font(SbuTheme.subheadline)
+                        .foregroundStyle(SbuTheme.inkMuted)
                 }
-                .contentShape(.rect)
             }
-            .buttonStyle(.plain)
+            .toggleStyle(SbuCheckboxStyle())
+            .sbuAffectsFigure(isSelected)
             .accessibilityLabel(item.spokenDescription)
-            .accessibilityValue(isSelected ? Text("Da eliminare") : Text("Da tenere"))
-            .accessibilityAddTraits(isSelected ? .isSelected : [])
         }
         .swipeActions(edge: .trailing) {
             NavigationLink(value: Route.compress(item.id)) {
@@ -70,15 +58,15 @@ struct VideoRow: View {
 
 #Preview("Light") {
     List {
-        VideoRow(item: MediaItem(id: "video-0", creationDate: .now, kind: .video, duration: 95, size: ItemSize(bytes: 420_000_000)), isSelected: true, toggle: {}, play: {})
+        VideoRow(item: MediaItem(id: "video-0", creationDate: .now, kind: .video, duration: 95, size: ItemSize(bytes: 420_000_000)), isSelected: .constant(true), play: {})
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     List {
-        VideoRow(item: MediaItem(id: "video-1", creationDate: .now, kind: .video, duration: 48, size: ItemSize(bytes: 140_000_000)), isSelected: false, toggle: {}, play: {})
+        VideoRow(item: MediaItem(id: "video-1", creationDate: .now, kind: .video, duration: 48, size: ItemSize(bytes: 140_000_000)), isSelected: .constant(false), play: {})
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
     .preferredColorScheme(.dark)
 }

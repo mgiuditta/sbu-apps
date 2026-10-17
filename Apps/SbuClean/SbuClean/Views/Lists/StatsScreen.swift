@@ -7,8 +7,20 @@ struct StatsScreen: View {
     let model: CleanModel
 
     var body: some View {
+        Group {
+            if model.state.freed.lastDate == nil {
+                EmptyScreen(sentence: "Non hai ancora eliminato niente con Sbu Clean.")
+            } else {
+                list
+            }
+        }
+        .navigationTitle("Spazio liberato")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var list: some View {
         let freed = model.state.freed
-        List {
+        return List {
             Section {
                 SpaceStat(label: "Spazio liberato", bytes: freed.totalBytes, context: "\(freed.totalCount) elementi eliminati in tutto")
                     .listRowInsets(EdgeInsets())
@@ -20,9 +32,6 @@ struct StatsScreen: View {
                     LabeledContent("Ultima eliminazione", value: date.formatted(date: .abbreviated, time: .shortened))
                     LabeledContent("Elementi", value: freed.lastCount.formatted())
                     LabeledContent("Spazio", value: freed.lastBytes.sizeText)
-                } else {
-                    Text("Non hai ancora eliminato niente con Sbu Clean.")
-                        .foregroundStyle(SbuTheme.inkMuted)
                 }
             }
             .listRowBackground(SbuTheme.surfaceRaised)
@@ -43,9 +52,7 @@ struct StatsScreen: View {
         // The figure starts where it does on the other screens.
         .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .navigationTitle("Spazio liberato")
-        .navigationBarTitleDisplayMode(.inline)
+        .background(SbuTheme.paper)
     }
 }
 
@@ -53,13 +60,13 @@ struct StatsScreen: View {
     NavigationStack {
         StatsScreen(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     NavigationStack {
         StatsScreen(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
     .preferredColorScheme(.dark)
 }

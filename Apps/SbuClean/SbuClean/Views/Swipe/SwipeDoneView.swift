@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The end of a queue, or a queue with nothing to see: what that means for this queue, and the
-/// way to the bin.
+/// The end of a queue, or a queue with nothing to see, on gridded paper: what that means for this
+/// queue, and the way to the bin.
 struct SwipeDoneView: View {
     let source: SwipeSource
     let isEmptyQueue: Bool
@@ -27,43 +27,43 @@ struct SwipeDoneView: View {
     }
 
     var body: some View {
-        VStack(spacing: SbuTheme.space4) {
-            Image(systemName: "checkmark.circle")
-                .font(.largeTitle)
-                .fontWeight(.medium)
-                .foregroundStyle(.tint)
-                .accessibilityHidden(true)
+        // On paper, as an empty state: the figure above is the bin, so no second "0" here.
+        ScrollView {
+            VStack(alignment: .leading, spacing: SbuTheme.space4) {
+                Text(isEmptyQueue ? "Niente da vedere qui." : "Hai visto tutto qui.")
+                    .font(SbuTheme.headline)
+                    .foregroundStyle(SbuTheme.ink)
 
-            Text(isEmptyQueue ? "Niente da vedere qui." : "Hai visto tutto qui.")
-                .font(SbuTheme.headline)
-                .foregroundStyle(SbuTheme.ink)
+                Text(message)
+                    .font(SbuTheme.body)
+                    .foregroundStyle(SbuTheme.inkMuted)
+                    .fixedSize(horizontal: false, vertical: true)
 
-            Text(message)
-                .font(SbuTheme.subheadline)
-                .foregroundStyle(SbuTheme.inkMuted)
-                .multilineTextAlignment(.center)
-
-            VStack(spacing: SbuTheme.space3) {
-                if binCount > 0 {
-                    SbuButton("Rivedi il cestino", action: reviewBin)
+                VStack(spacing: SbuTheme.space3) {
+                    if binCount > 0 {
+                        SbuButton("Rivedi il cestino", action: reviewBin)
+                    }
+                    SbuButton("Torna all'elenco", kind: .secondary) {
+                        dismiss()
+                    }
                 }
-                SbuButton("Torna all'elenco", kind: .secondary) {
-                    dismiss()
-                }
+                .padding(.top, SbuTheme.space2)
             }
-            .padding(.top, SbuTheme.space2)
+            .padding(.vertical, SbuTheme.space4)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(SbuTheme.space4)
+        .scrollBounceBehavior(.basedOnSize)
+        .sbuPaper(grid: true)
     }
 }
 
 #Preview("Light") {
     SwipeDoneView(source: .recent, isEmptyQueue: false, binCount: 4) {}
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     SwipeDoneView(source: .onThisDay, isEmptyQueue: true, binCount: 0) {}
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

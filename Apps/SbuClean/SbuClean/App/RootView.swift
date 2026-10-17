@@ -6,7 +6,7 @@ struct RootView: View {
     let model: CleanModel
 
     var body: some View {
-        SbuAppShell("Sbu Clean", slug: "clean", accent: SbuTheme.accentClean, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Clean", slug: "clean", accent: .clean, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
             LibrarySettingsSection(model: model)

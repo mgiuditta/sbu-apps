@@ -9,7 +9,7 @@ extension View {
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space3)
                 .frame(maxWidth: .infinity)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
         }
     }
 }

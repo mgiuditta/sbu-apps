@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The word that appears on a card while it is dragged: Tieni in the accent, Elimina in danger,
+/// The word that appears on a card while it is dragged: Tieni in ink, Elimina in danger,
 /// each with its symbol.
 struct DecisionLabel: View {
     let decision: SwipeDecision
@@ -13,13 +13,13 @@ struct DecisionLabel: View {
                     .foregroundStyle(SbuTheme.danger)
             } else {
                 Label("Tieni", systemImage: "checkmark")
-                    .foregroundStyle(.tint)
+                    .foregroundStyle(SbuTheme.ink)
             }
         }
         .font(SbuTheme.title2)
         .padding(.horizontal, SbuTheme.space3)
         .padding(.vertical, SbuTheme.space2)
-        .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusMd))
+        .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusCard))
         .padding(SbuTheme.space4)
         .accessibilityHidden(true)
     }
@@ -31,7 +31,7 @@ struct DecisionLabel: View {
         DecisionLabel(decision: .trash)
     }
     .background(SbuTheme.surfaceSunken)
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
@@ -40,6 +40,6 @@ struct DecisionLabel: View {
         DecisionLabel(decision: .trash)
     }
     .background(SbuTheme.surfaceSunken)
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
     .preferredColorScheme(.dark)
 }

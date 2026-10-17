@@ -27,7 +27,7 @@ struct CompressScreen: View {
                         .aspectRatio(CGFloat(max(item.pixelWidth, 1)) / CGFloat(max(item.pixelHeight, 1)), contentMode: .fit)
                         .frame(maxHeight: 360)
                         .frame(maxWidth: .infinity)
-                        .clipShape(.rect(cornerRadius: SbuTheme.radiusLg))
+                        .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
 
                     SpaceStat(label: "Dopo la compressione", bytes: estimate, context: "Stima. Prima \(item.bytes.sizeText), \(item.durationText)")
 
@@ -51,7 +51,7 @@ struct CompressScreen: View {
                 }
                 .padding(SbuTheme.space4)
             }
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Comprimi")
             .navigationBarTitleDisplayMode(.inline)
             .bottomAction {
@@ -125,7 +125,7 @@ private struct CompressPreview: View {
         NavigationStack {
             CompressScreen(model: model, id: "video-0")
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
         }

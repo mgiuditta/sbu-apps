@@ -117,6 +117,8 @@ final class ScreenTourTests: XCTestCase {
         shot("t16-confirm", app)
         let confirm = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Elimina' OR label BEGINSWITH 'Delete'")).allElementsBoundByIndex.last
         confirm?.tap()
+        // The Closure plays first, then the result sheet rises.
+        _ = app.buttons.matching(NSPredicate(format: "label == 'Fine' OR label == 'Done'")).firstMatch.waitForExistence(timeout: 10)
         shot("t17-result", app)
         app.navigationBars.buttons.element(boundBy: app.navigationBars.buttons.count - 1).tap()
         shot("t18-bin-empty", app)
@@ -135,7 +137,7 @@ final class ScreenTourTests: XCTestCase {
         tap("video.play", in: app)
         shot("t22-video-sheet", app)
         app.swipeDown(velocity: .fast)
-        let row = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Video,'")).firstMatch
+        let row = app.switches.matching(NSPredicate(format: "label BEGINSWITH 'Video,'")).firstMatch
         if row.waitForExistence(timeout: 3) {
             row.swipeLeft()
             app.buttons.matching(NSPredicate(format: "label == 'Comprimi' OR label == 'Compress'")).firstMatch.tap()

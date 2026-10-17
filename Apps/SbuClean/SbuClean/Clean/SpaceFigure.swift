@@ -22,13 +22,9 @@ nonisolated struct SpaceFigure: Equatable, Sendable {
         }
     }
 
-    /// Passes the number through, for the components that take a value and a format.
-    let format = VerbatimFormat()
-}
-
-/// A format that returns its text as it is.
-nonisolated struct VerbatimFormat: FormatStyle {
-    func format(_ value: String) -> String {
-        value
+    /// The figure's unit as `SbuFigure` draws it, after a narrow no-break space: "MB" never
+    /// leaves its number, and at figure size a full space would open a gap.
+    var figureUnit: String {
+        unit.isEmpty ? "" : "\u{202F}" + unit
     }
 }

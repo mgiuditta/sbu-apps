@@ -38,8 +38,10 @@ struct DoneNotes: View {
 
             switch deletion {
             case .deleted(let count):
-                Label("Originali eliminati: \(count). Restano in Eliminati di recente per 30 giorni.", systemImage: "checkmark.circle")
-                    .foregroundStyle(SbuTheme.success)
+                HStack(spacing: SbuTheme.space2) {
+                    SbuRowMark(filled: true)
+                    Text("Originali eliminati: \(count). Restano in Eliminati di recente per 30 giorni.")
+                }
             case .failed:
                 Label("Foto non ha eliminato gli originali.", systemImage: "exclamationmark.triangle")
                     .foregroundStyle(SbuTheme.danger)
@@ -52,7 +54,6 @@ struct DoneNotes: View {
         .font(SbuTheme.subheadline)
         .foregroundStyle(SbuTheme.inkMuted)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, SbuTheme.space4)
     }
 
     private func openSettings() {

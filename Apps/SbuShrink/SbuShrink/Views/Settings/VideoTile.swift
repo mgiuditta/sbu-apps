@@ -11,7 +11,7 @@ struct VideoTile: View {
         VStack(spacing: SbuTheme.space1) {
             VideoThumbnail(file: job.file)
                 .frame(width: side, height: side)
-                .clipShape(.rect(cornerRadius: SbuTheme.radiusMd))
+                .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
                 .overlay {
                     if job.state == .loading {
                         ProgressView()
@@ -36,7 +36,7 @@ struct VideoTile: View {
         VideoTile(job: VideoJob(assetID: nil))
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
@@ -45,6 +45,6 @@ struct VideoTile: View {
         VideoTile(job: VideoJob(assetID: nil))
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
     .preferredColorScheme(.dark)
 }

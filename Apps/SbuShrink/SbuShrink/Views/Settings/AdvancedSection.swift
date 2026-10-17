@@ -44,7 +44,7 @@ struct AdvancedSection: View {
             AdvancedSection(settings: $settings, targetFit: .fits)
         }
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -54,6 +54,6 @@ struct AdvancedSection: View {
             AdvancedSection(settings: $settings, targetFit: .tooSmall)
         }
     }
-    .tint(SbuTheme.accentShrink)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

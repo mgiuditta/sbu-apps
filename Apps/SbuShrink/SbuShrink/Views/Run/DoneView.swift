@@ -4,27 +4,44 @@ import SwiftUI
 /// The original's "Done": how many videos went to the library, the savings as the figure with
 /// before and after, then what to do with the originals: delete them (danger, confirmed twice,
 /// by the app and by iOS) or keep them.
+///
+/// The screen opens on the Closure: "Ridotto" over the savings for two seconds, once per run,
+/// only when some video got lighter.
 struct DoneView: View {
     let model: ShrinkModel
 
+    @State private var isClosing = false
+
     var body: some View {
         let summary = model.summary
-        ScrollView {
-            VStack(alignment: .leading, spacing: SbuTheme.space4) {
-                DoneHeader(summary: summary, access: model.access)
+        let saved = summary.savedBytes.formatted(.size)
+        let context = Text("\(summary.savedFraction.formatted(.percent.precision(.fractionLength(0)))) in meno")
+        GeometryReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: SbuTheme.space6) {
+                    DoneHeader(summary: summary, access: model.access)
 
-                SbuStat(
-                    "Risparmio",
-                    value: summary.savedBytes,
-                    format: .size,
-                    context: "\(summary.savedFraction.formatted(.percent.precision(.fractionLength(0)))) in meno"
-                )
+                    SbuFigure(
+                        value: saved,
+                        context: context,
+                        accessibilityLabel: Text("Risparmio, \(saved), \(context)")
+                    )
+                    .sbuClosure($isClosing, word: "Ridotto")
 
-                BeforeAfterRow(before: summary.beforeBytes, after: summary.afterBytes)
+                    BeforeAfterRow(before: summary.beforeBytes, after: summary.afterBytes)
 
-                DoneNotes(summary: summary, access: model.access, deletion: model.deletion)
+                    DoneNotes(summary: summary, access: model.access, deletion: model.deletion)
+                }
+                .padding(SbuTheme.space4)
+                .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .topLeading)
+                // Inside the scroll, so the grid and the figure's baseline move together.
+                .sbuPaper(grid: true)
             }
-            .padding(SbuTheme.space4)
+            .scrollBounceBehavior(.basedOnSize)
+        }
+        .background(SbuTheme.paper)
+        .onAppear {
+            isClosing = summary.compressed > 0
         }
         .toolbar {
             let outputs = model.jobs.compactMap(\.output)
@@ -33,7 +50,6 @@ struct DoneView: View {
                     ShareLink(items: outputs) {
                         Label("Condividi", systemImage: "square.and.arrow.up")
                     }
-                    .tint(SbuTheme.ink)
                 }
             }
         }
@@ -44,14 +60,18 @@ struct DoneView: View {
 }
 
 #Preview("Light") {
-    DoneView(model: .preview(videos: 5))
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentShrink)
+    NavigationStack {
+        DoneView(model: .preview(videos: 5))
+    }
+    .tint(SbuTheme.ink)
+    .environment(\.sbuAccent, .shrink)
 }
 
 #Preview("Dark") {
-    DoneView(model: .preview(videos: 5, scenario: "mixed"))
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentShrink)
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        DoneView(model: .preview(videos: 5, scenario: "mixed"))
+    }
+    .tint(SbuTheme.ink)
+    .environment(\.sbuAccent, .shrink)
+    .preferredColorScheme(.dark)
 }

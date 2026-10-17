@@ -11,7 +11,7 @@ final class SnapshotTests: XCTestCase {
         app.launchArguments += ["-DemoVideos", "5", "-DemoSpeed", "slow"]
         app.launch()
 
-        let estimate = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Dimensione stimata' OR label BEGINSWITH 'Estimated size'")).firstMatch
+        let estimate = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Dimensione stimata' OR label BEGINSWITH 'Estimated size'")).firstMatch
         XCTAssertTrue(estimate.waitForExistence(timeout: 10))
         sleep(1)
         snapshot("01-settings")

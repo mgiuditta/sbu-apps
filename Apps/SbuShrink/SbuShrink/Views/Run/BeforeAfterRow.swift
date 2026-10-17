@@ -18,7 +18,6 @@ struct BeforeAfterRow: View {
             figure("Dopo", after)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, SbuTheme.space4)
     }
 
     private func figure(_ label: LocalizedStringKey, _ bytes: Int64) -> some View {

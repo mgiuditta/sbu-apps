@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// Where a video of the run is, in words; a status color always comes with its symbol.
+/// Where a video of the run is, in words; a done video has the filled row mark, a status color
+/// always comes with its symbol.
 struct JobStatus: View {
     let job: VideoJob
 
@@ -16,14 +17,11 @@ struct JobStatus: View {
                     .monospacedDigit()
                     .foregroundStyle(SbuTheme.ink)
             case .done(let bytes, _):
-                Label {
+                HStack(spacing: SbuTheme.space1) {
+                    SbuRowMark(filled: true)
                     Text("\(job.source?.bytes ?? 0, format: .size) → \(bytes, format: .size)")
                         .monospacedDigit()
                         .foregroundStyle(SbuTheme.ink)
-                } icon: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(SbuTheme.success)
-                        .accessibilityLabel(Text("Fatto"))
                 }
             case .notSmaller:
                 Text("Già leggero, resta com'è")

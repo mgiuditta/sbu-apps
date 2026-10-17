@@ -12,7 +12,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Shrink", slug: "shrink", accent: SbuTheme.accentShrink, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Shrink", slug: "shrink", accent: .shrink, appIcon: Image(.appIconArtwork)) {
             MainView(model: model)
         } settings: {
             CompressionPreferencesSection(model: model)

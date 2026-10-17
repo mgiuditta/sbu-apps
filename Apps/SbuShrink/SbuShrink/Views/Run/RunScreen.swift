@@ -1,10 +1,13 @@
 import SbuKit
 import SwiftUI
 
-/// The run over the settings, as in the original: the compression, then Fatto in its place.
+/// The run over the settings, as in the original: the compression, then Fatto in its place,
+/// opening on the Closure.
 /// It closes only from its own buttons.
 struct RunScreen: View {
     let model: ShrinkModel
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         NavigationStack {
@@ -17,13 +20,13 @@ struct RunScreen: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle(model.stage == .done ? "Fatto" : "Compressione dei video")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .tint(SbuTheme.accentShrink)
+        .tint(SbuTheme.ink)
         .interactiveDismissDisabled()
-        .animation(.default, value: model.stage)
+        .animation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion), value: model.stage)
     }
 }
 

@@ -2,9 +2,9 @@ import Foundation
 
 /// The prices a subscription has had, newest first, each from its day.
 ///
-/// A price change, once its day comes, becomes the subscription's own price (`PriceSettler`), so the price
-/// before the first change isn't kept: with no changes the history is the price from the first payment,
-/// otherwise it is the changes.
+/// A price change, once its day comes, becomes the subscription's own price (`PriceSettler`); the first change
+/// also records the price it replaces from the first payment (`changePrice`). With no changes the history is
+/// the price from the first payment, otherwise it is the changes.
 nonisolated enum PriceHistory {
     struct Entry: Hashable, Sendable {
         let date: Date

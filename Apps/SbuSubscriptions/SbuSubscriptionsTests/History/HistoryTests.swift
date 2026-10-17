@@ -65,6 +65,29 @@ struct HistoryTests {
         #expect(subscription.price == 12)
     }
 
+    @Test func spentSoFarKeepsTheOldPriceForPaymentsBeforeTheChange() throws {
+        let context = ModelContext(try ModelContainer.subscriptions(inMemory: true))
+        let subscription = Subscription(name: "Video", price: 10, currencyCode: "EUR", startDate: day(2025, 1, 20))
+        context.insert(subscription)
+        subscription.changePrice(to: 12, from: day(2026, 1, 20), in: context, today: day(2026, 1, 20), calendar: calendar)
+
+        #expect(subscription.price == 12)
+        #expect(subscription.price(on: day(2025, 6, 20), calendar: calendar) == 10)
+        // 12 payments at 10, then 2026-01-20 and 2026-02-20 at 12.
+        #expect(subscription.tally(today: day(2026, 2, 20), calendar: calendar).spent == 144)
+        subscription.changePrice(to: 15, from: day(2026, 3, 20), in: context, today: day(2026, 2, 20), calendar: calendar)
+        #expect(subscription.priceChanges?.count == 3)
+    }
+
+    @Test func aChangeFromTheFirstPaymentAddsNoOldPrice() throws {
+        let context = ModelContext(try ModelContainer.subscriptions(inMemory: true))
+        let subscription = Subscription(name: "Video", price: 10, currencyCode: "EUR", startDate: day(2026, 1, 20))
+        context.insert(subscription)
+        subscription.changePrice(to: 8, from: day(2026, 1, 20), in: context, today: day(2026, 1, 20), calendar: calendar)
+        #expect(subscription.priceChanges?.count == 1)
+        #expect(subscription.price == 8)
+    }
+
     @Test func eventsAreKeptAndGoWithTheSubscription() throws {
         let context = ModelContext(try ModelContainer.subscriptions(inMemory: true))
         let subscription = Subscription(name: "Video", price: 10, currencyCode: "EUR", startDate: day(2026, 1, 20))

@@ -51,11 +51,7 @@ struct PriceChangeSheet: View {
 
     private func save() {
         guard let price else { return }
-        let change = PriceChange(effectiveDate: Calendar.current.startOfDay(for: effectiveDate), price: price)
-        modelContext.insert(change)
-        change.subscription = subscription
-        subscription.record(.priceChanged, amount: price)
-        PriceSettler.settle([subscription])
+        subscription.changePrice(to: price, from: effectiveDate, in: modelContext)
         try? modelContext.save()
         dismiss()
     }

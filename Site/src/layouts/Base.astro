@@ -4,7 +4,7 @@ import mark from '../../../Design/logos/sbu-mark.svg?url';
 import logoSvg from '../../../Design/logos/sbu-logo.svg?raw';
 import { localePath, ui, type Locale } from '../i18n';
 import { allEngravings } from '../lib/apps';
-import { REPO_URL } from '../lib/pages';
+import { REPO_URL, SOCIAL } from '../lib/pages';
 import GitHubMark from '../components/GitHubMark.astro';
 
 interface Props {
@@ -187,6 +187,7 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
         <ul class="flex flex-col gap-2 text-footnote" aria-label={t.footerSite}>
           {footer.filter((item) => !tools.has(item.href)).map((item) => <li><a href={item.href} aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>)}
           <li><a href={REPO_URL} class="inline-flex items-center gap-2"><GitHubMark class="h-4 w-4" />{t.code}</a></li>
+          {SOCIAL.map((profile) => <li><a href={profile.href} rel="me">{profile.label}</a></li>)}
         </ul>
         <p class="site-footer-note text-footnote">{t.footerNote}</p>
       </div>

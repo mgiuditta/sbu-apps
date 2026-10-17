@@ -19,8 +19,11 @@ export const REPO_URL = 'https://github.com/mgiuditta/sbu-apps';
 /** Every app on the App Store, under Matteo's developer page. */
 export const DEVELOPER_URL = 'https://apps.apple.com/us/developer/matteo-giuditta/id1872140737';
 
+/** sbu.dev on the social networks, in the footer: only accounts that exist (#569). */
+export const SOCIAL = [{ label: 'Instagram', href: 'https://www.instagram.com/sbudevapp/' }];
+
 /** sbu.dev elsewhere, for the Organization's sameAs: only profiles that exist. */
-export const PROFILES = [REPO_URL, DEVELOPER_URL];
+export const PROFILES = [REPO_URL, DEVELOPER_URL, ...SOCIAL.map((profile) => profile.href)];
 
 /** Support address, not decided yet: the contact paragraph appears only once it is set. */
 export const SUPPORT_EMAIL: string | undefined = 'matteogiuditta@gmail.com';

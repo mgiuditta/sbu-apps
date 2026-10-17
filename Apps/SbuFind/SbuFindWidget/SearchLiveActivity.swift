@@ -3,38 +3,37 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// The search's Live Activity: the Lock Screen on paper, the Dynamic Island on its own black,
-/// in the app's one accent.
+/// The search's Live Activity: the Lock Screen on paper, the Dynamic Island on its own black.
+/// The app's accent reaches only the full stop, set at the "found it" moment.
 struct SearchLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: SearchActivityAttributes.self) { context in
             SearchActivityView(attributes: context.attributes, state: context.state, isStale: context.isStale)
-                .padding(SbuTheme.space4)
-                .tint(SbuTheme.accentFind)
-                .activityBackgroundTint(SbuTheme.surface)
+                .activityBackgroundTint(SbuTheme.paper)
                 .activitySystemActionForegroundColor(SbuTheme.ink)
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.bottom) {
                     SearchActivityView(attributes: context.attributes, state: context.state, isStale: context.isStale)
-                        .tint(SbuTheme.accentFind)
                         .environment(\.colorScheme, .dark)
                 }
             } compactLeading: {
-                SignalRing(proximity: context.state.proximity, systemImage: context.attributes.systemImage, lineWidth: SbuTheme.space1)
-                    .tint(SbuTheme.accentFind)
+                Image(systemName: context.attributes.systemImage)
+                    .fontWeight(.medium)
+                    .foregroundStyle(SbuTheme.ink)
                     .environment(\.colorScheme, .dark)
+                    .accessibilityHidden(true)
             } compactTrailing: {
                 Text(Double(context.state.percent) / 100, format: .percent.precision(.fractionLength(0)))
                     .font(SbuTheme.caption.monospacedDigit())
                     .foregroundStyle(SbuTheme.ink)
                     .environment(\.colorScheme, .dark)
             } minimal: {
-                SignalRing(proximity: context.state.proximity, systemImage: context.attributes.systemImage, lineWidth: SbuTheme.space1)
-                    .tint(SbuTheme.accentFind)
+                Text(Double(context.state.percent) / 100, format: .percent.precision(.fractionLength(0)))
+                    .font(SbuTheme.caption.monospacedDigit())
+                    .foregroundStyle(SbuTheme.ink)
                     .environment(\.colorScheme, .dark)
             }
-            .keylineTint(SbuTheme.accentFind)
         }
     }
 }
@@ -51,6 +50,7 @@ struct SearchLiveActivity: Widget {
     SearchLiveActivity()
 } contentStates: {
     SearchActivityAttributes.ContentState(percent: 64, warmth: .hot)
+    SearchActivityAttributes.ContentState(percent: 92, warmth: .veryClose, isFound: true)
 }
 
 #Preview("Compact", as: .dynamicIsland(.compact), using: SearchActivityAttributes.preview) {

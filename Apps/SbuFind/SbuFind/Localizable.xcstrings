@@ -151,12 +151,12 @@
         }
       }
     },
-    "Apri Sbu Find per continuare la ricerca" : {
+    "Apri Sbu Find" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open Sbu Find to keep searching"
+            "value" : "Open Sbu Find"
           }
         }
       }
@@ -671,16 +671,6 @@
         }
       }
     },
-    "Non si sente più" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No longer heard"
-          }
-        }
-      }
-    },
     "Oltre una decina di metri, e meno tra muri e metallo. Il numero dice quanto è forte il segnale, non quanto è lontano." : {
       "localizations" : {
         "en" : {
@@ -921,6 +911,46 @@
         }
       }
     },
+    "Sbu · Trova · %lld dispositivi" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sbu · Find · %lld device"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sbu · Find · %lld devices"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sbu · Trova · %lld dispositivo"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sbu · Trova · %lld dispositivi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Se chiudi Sbu Find dal selettore delle app, si ferma tutto finché non lo riapri." : {
       "localizations" : {
         "en" : {
@@ -1107,6 +1137,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "It comes back by itself in a few seconds."
+          }
+        }
+      }
+    },
+    "Trova" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find"
           }
         }
       }

@@ -1,4 +1,5 @@
 import ActivityKit
+import SbuKit
 import Foundation
 
 /// The search's Live Activity with ActivityKit. Steps run one after the other in the order they
@@ -12,9 +13,6 @@ final class LiveSearchActivity: SearchActivityPresenter {
     /// How long a reading stays current without a newer one, with the app open and in the background.
     nonisolated static let staleInForeground: TimeInterval = 5
     nonisolated static let staleInBackground: TimeInterval = 120
-    /// How long the "Trovato" state stays before the activity goes.
-    nonisolated static let foundLinger: TimeInterval = 4
-
     private var pending: Task<Void, Never>?
     private var staleAfter = LiveSearchActivity.staleInForeground
 
@@ -68,7 +66,7 @@ final class LiveSearchActivity: SearchActivityPresenter {
                 await activity.update(content(state, staleAfter: staleAfter))
             case .end(let state?):
                 let final = ActivityContent(state: state, staleDate: nil)
-                await activity.end(final, dismissalPolicy: .after(.now.addingTimeInterval(foundLinger)))
+                await activity.end(final, dismissalPolicy: .after(.now + SbuTheme.liveEndDelay))
             case .end(nil):
                 await activity.end(nil, dismissalPolicy: .immediate)
             case .start, .none:

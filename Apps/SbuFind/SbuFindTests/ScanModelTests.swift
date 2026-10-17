@@ -470,6 +470,24 @@ struct ScanModelTests {
         #expect(model.foundMoments == 1)
     }
 
+    @Test func comingCloseSetsTheFinderFoundUntilItCloses() {
+        let model = makeModel()
+        model.handle(.advertisement(.fixture(rssi: -70)))
+        model.track(Advertisement.testID(1))
+        #expect(!model.isFound)
+
+        var second = 0.0
+        for _ in 0..<20 {
+            second += 0.1
+            model.handle(.advertisement(.fixture(rssi: -42, after: second)))
+            model.refresh(at: Advertisement.start.addingTimeInterval(second))
+        }
+        #expect(model.isFound)
+
+        model.stopTracking()
+        #expect(!model.isFound)
+    }
+
     @Test func soundStartsOffAndVibrationOn() {
         let model = makeModel()
         #expect(model.playsSound == false)

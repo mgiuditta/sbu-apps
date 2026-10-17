@@ -3,8 +3,9 @@ import SwiftUI
 
 /// The nearby devices, strongest signal first; or why Bluetooth cannot scan.
 ///
-/// As in Find Air: settings at the top left, help at the top right, the list. As in Wunderfind:
-/// your devices on top, then Altri dispositivi with the system spinner while the scan runs. The
+/// As in Find Air: settings at the top left, help at the top right, the title with how many
+/// devices are heard, the list. As in Wunderfind: your devices on top, then Altri dispositivi with
+/// the system spinner while the scan runs. The list has no figure: the figure is the finder's. The
 /// scan never stops while the app is open; pulling the list down, or Cerca di nuovo when nothing
 /// is near, forgets the list and listens from scratch.
 struct MainView: View {
@@ -25,8 +26,57 @@ struct MainView: View {
         isScanning && !model.isSettling && model.devices.isEmpty && model.hiddenUnnamedCount == 0
     }
 
+    /// Nothing at all to list: not even your devices or the ones heard before.
+    private var isEmpty: Bool {
+        isNothingNearby && model.myDevices.isEmpty && !showsSightings
+    }
+
+    private var showsSightings: Bool {
+        model.remembersPlaces && !model.recentSightings.isEmpty
+    }
+
+    /// The metadata line under the title: how many devices are heard now, yours included.
+    private var cartiglio: String {
+        let count = model.devices.count + model.myMatches.count
+        return String(localized: "Sbu · Trova · \(count) dispositivi")
+    }
+
     var body: some View {
+        Group {
+            if isEmpty {
+                NothingNearbyView(cartiglio: cartiglio, searchAgain: model.rescan)
+            } else {
+                list
+            }
+        }
+        .navigationDestination(for: UUID.self) { id in
+            FinderView(model: model, ringer: ringer, deviceID: id)
+        }
+        .overlay {
+            if let notice = BluetoothNotice(state: model.state) {
+                BluetoothNoticeView(notice: notice)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Impostazioni", systemImage: "gearshape", action: showSettings.callAsFunction)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Aiuto", systemImage: "questionmark.circle", action: showHelp)
+            }
+        }
+        .sheet(isPresented: $isShowingHelp) {
+            HelpView()
+        }
+    }
+
+    private var list: some View {
         List {
+            Section {
+                SbuScreenTitle("Trova", cartiglio: cartiglio)
+                    .listRowBackground(SbuTheme.paper)
+            }
+
             // Yours first, as in Wunderfind; one card per device, as in Find Air.
             ForEach(model.myDevices) { saved in
                 Section {
@@ -76,7 +126,7 @@ struct MainView: View {
                 }
             }
 
-            if model.remembersPlaces, !model.recentSightings.isEmpty {
+            if showsSightings {
                 Section("Sentiti prima") {
                     ForEach(model.recentSightings) { sighting in
                         NavigationLink(value: sighting.id) {
@@ -91,30 +141,8 @@ struct MainView: View {
         .listSectionSpacing(SbuTheme.space3)
         .scrollContentBackground(.hidden)
         // Rows slide in and reorder as the signals change; still with Reduce Motion.
-        .animation(reduceMotion ? nil : .smooth, value: model.devices.map(\.id))
-        .navigationTitle("Sbu Find")
-        .navigationBarTitleDisplayMode(.large)
-        .navigationDestination(for: UUID.self) { id in
-            FinderView(model: model, ringer: ringer, deviceID: id)
-        }
+        .animation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion), value: model.devices.map(\.id))
         .refreshable(action: searchAgain)
-        .overlay {
-            if let notice = BluetoothNotice(state: model.state) {
-                BluetoothNoticeView(notice: notice)
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                // In the accent, as in Find Air: this screen has no figure and no full stop.
-                Button("Impostazioni", systemImage: "gearshape", action: showSettings.callAsFunction)
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("Aiuto", systemImage: "questionmark.circle", action: showHelp)
-            }
-        }
-        .sheet(isPresented: $isShowingHelp) {
-            HelpView()
-        }
     }
 }
 
@@ -160,6 +188,9 @@ private struct MainViewPreview: View {
         NavigationStack {
             MainView(model: model, ringer: ringer)
                 .task { await model.run() }
+                .background(SbuTheme.paper)
         }
+        .tint(SbuTheme.ink)
+        .environment(\.sbuAccent, .find)
     }
 }

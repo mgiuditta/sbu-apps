@@ -2,7 +2,7 @@ import SbuKit
 import SwiftUI
 
 /// Avvisami se lo perdi, as in Find Air: a row with a bell and a switch, and under it what the
-/// alert can and cannot do on iOS.
+/// alert can and cannot do on iOS. The switch takes the shell's `SbuToggleStyle`.
 struct LostAlertRow: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -11,20 +11,16 @@ struct LostAlertRow: View {
 
     @State private var isOn = false
 
-    @ScaledMetric(relativeTo: .body) private var tileSide: CGFloat = 32
-
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space2) {
             Toggle(isOn: $isOn) {
                 HStack(spacing: SbuTheme.space3) {
                     // At the accessibility sizes the words get the whole width.
                     if !dynamicTypeSize.isAccessibilitySize {
-                        Image(systemName: "bell.fill")
+                        Image(systemName: "bell")
                             .fontWeight(.medium)
                             .imageScale(.medium)
-                            .foregroundStyle(SbuTheme.onAccent)
-                            .frame(width: tileSide, height: tileSide)
-                            .background(.tint, in: .rect(cornerRadius: SbuTheme.radiusSm))
+                            .foregroundStyle(SbuTheme.ink)
                             .accessibilityHidden(true)
                     }
 
@@ -35,7 +31,7 @@ struct LostAlertRow: View {
             }
             .padding(.horizontal, SbuTheme.space4)
             .padding(.vertical, SbuTheme.space3)
-            .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
+            .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusCard))
 
             VStack(alignment: .leading, spacing: SbuTheme.space1) {
                 if model.notificationsDenied {
@@ -92,14 +88,16 @@ struct LostAlertRow: View {
 #Preview("Light") {
     LostAlertRow(model: ScanModel(scanner: FixedScanner(), notifier: AcceptingLostNotifier()), deviceID: UUID())
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFind)
+        .sbuPaper(grid: false)
+        .toggleStyle(SbuToggleStyle())
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     LostAlertRow(model: ScanModel(scanner: FixedScanner(), notifier: AcceptingLostNotifier()), deviceID: UUID())
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFind)
+        .sbuPaper(grid: false)
+        .toggleStyle(SbuToggleStyle())
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

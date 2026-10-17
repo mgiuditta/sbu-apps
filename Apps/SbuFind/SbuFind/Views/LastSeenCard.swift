@@ -34,10 +34,10 @@ struct LastSeenCard: View {
 
             Map(initialPosition: .region(region), interactionModes: [.pan, .zoom]) {
                 Marker(sighting.name, systemImage: sighting.kind.systemImage, coordinate: coordinate)
-                    .tint(SbuTheme.accentFind)
+                    .tint(SbuTheme.ink)
             }
             .frame(height: 180)
-            .clipShape(.rect(cornerRadius: SbuTheme.radiusMd))
+            .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
             .accessibilityLabel(Text("Mappa del punto in cui l'hai sentito l'ultima volta"))
 
             Text("È dove era il tuo iPhone quando l'ha sentito: da lì inizia a cercare.")
@@ -45,21 +45,21 @@ struct LastSeenCard: View {
                 .foregroundStyle(SbuTheme.inkMuted)
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
+        .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusCard))
     }
 }
 
 #Preview("Light") {
     LastSeenCard(sighting: Sighting(id: UUID(), name: "Buds Pro", kind: .earbuds, date: .now.addingTimeInterval(-2520), place: FixedLocationProvider.demo))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFind)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     LastSeenCard(sighting: Sighting(id: UUID(), name: "Buds Pro", kind: .earbuds, date: .now.addingTimeInterval(-2520), place: FixedLocationProvider.demo))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFind)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

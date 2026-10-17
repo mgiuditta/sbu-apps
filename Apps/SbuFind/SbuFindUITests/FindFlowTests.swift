@@ -39,6 +39,21 @@ final class FindFlowTests: XCTestCase {
             if issue.auditType == .dynamicType, let label = issue.element?.label, systemFooters.contains(label) {
                 return true
             }
+            // SbuKit's screen title: the cartiglio, Plex Mono relative to caption2, which the system caps
+            // below the largest sizes, as with the section footers.
+            if issue.auditType == .dynamicType, issue.element?.label.hasPrefix("SBU · ") == true {
+                return true
+            }
+            // The same cartiglio over the empty state: tracked uppercase Plex Mono, drawn whole; the audit
+            // measures it without the tracking and reports it clipped (as in Sbu Scanner).
+            if issue.auditType == .textClipped, issue.element?.label.hasPrefix("SBU · ") == true {
+                return true
+            }
+            // SbuFigure: the hero figure snaps to the grid by its length, not by text size, by design.
+            if issue.auditType == .dynamicType, let label = issue.element?.label, label.hasSuffix("%"),
+               label.dropLast().trimmingCharacters(in: .whitespaces).allSatisfy(\.isNumber) {
+                return true
+            }
             XCTFail("\(issue.compactDescription):\(issue.element?.debugDescription ?? "no element")")
             return true
         }
@@ -72,6 +87,18 @@ final class FindFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Dispositivi senza nome nascosti: 3. Puoi mostrarli in Impostazioni."].exists)
         XCTAssertTrue(app.staticTexts["Altri dispositivi"].exists)
         XCTAssertFalse(app.staticTexts["Ricerca…"].exists)
+        try audit(app)
+    }
+
+    @MainActor
+    func testTheListAndTheFinderPassTheAuditAtTheLargestTextSize() throws {
+        let app = launch(["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
+        let first = devices(app).firstMatch
+        XCTAssertTrue(first.waitForExistence(timeout: 5))
+        try audit(app)
+
+        first.tap()
+        XCTAssertTrue(figure(app).waitForExistence(timeout: 5))
         try audit(app)
     }
 
@@ -200,7 +227,8 @@ final class FindFlowTests: XCTestCase {
         }
         XCTAssertTrue(places.isHittable)
         XCTAssertEqual(places.value as? String, "0")
-        places.switches.firstMatch.tap()
+        // SbuToggleStyle draws the whole row as the switch: no inner system switch to tap.
+        places.tap()
         let on = NSPredicate(format: "value == '1'")
         expectation(for: on, evaluatedWith: places)
         waitForExpectations(timeout: 5)
@@ -306,7 +334,8 @@ final class FindFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Solo con l'app aperta"].exists)
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Ti avvisa se non lo senti per 15 secondi mentre Sbu Find è aperto'")).firstMatch.exists)
 
-        alert.switches.firstMatch.tap()
+        // SbuToggleStyle draws the whole row as the switch: no inner system switch to tap.
+        alert.tap()
         let on = NSPredicate(format: "value == '1'")
         expectation(for: on, evaluatedWith: alert)
         waitForExpectations(timeout: 5)
@@ -364,7 +393,8 @@ final class FindFlowTests: XCTestCase {
         XCTAssertTrue(app.switches["Vibrazione"].exists)
         try audit(app, excluding: Self.sheetExclusions)
 
-        unnamed.switches.firstMatch.tap()
+        // SbuToggleStyle draws the whole row as the switch: no inner system switch to tap.
+        unnamed.tap()
         XCTAssertEqual(unnamed.value as? String, "1")
         let licenses = app.buttons["Licenze"]
         for _ in 0..<5 where !licenses.isHittable {

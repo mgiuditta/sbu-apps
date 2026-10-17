@@ -7,18 +7,11 @@ nonisolated enum ProximityCue {
     static let slowest = Duration.milliseconds(1500)
     /// The gap between two ticks at proximity 100.
     static let fastest = Duration.milliseconds(150)
-    /// Haptic intensity at proximity 0; it grows to 1 at proximity 100.
-    static let softest = 0.35
 
     /// The gap before the next tick, shrinking linearly as the proximity grows.
     static func interval(for proximity: Proximity) -> Duration {
         let fraction = Double(proximity.value) / 100
         return slowest - (slowest - fastest) * fraction
-    }
-
-    /// How hard the haptic tap is, from `softest` to 1.
-    static func intensity(for proximity: Proximity) -> Double {
-        softest + (1 - softest) * Double(proximity.value) / 100
     }
 
     /// Whether a tick plays at all: only with a switch on and the device still heard.

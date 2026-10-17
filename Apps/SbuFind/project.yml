@@ -52,6 +52,8 @@ targets:
         # XcodeGen's target default is iPhone and iPad, which beats the project setting.
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: AppIcon-Inversa
+        ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
         ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         SWIFT_APPROACHABLE_CONCURRENCY: YES
@@ -61,13 +63,11 @@ targets:
     platform: iOS
     sources:
       - SbuFindWidget
-      # The Live Activity shares its attributes, the scale, the words and the ring with the app.
+      # The Live Activity shares its attributes, the scale and the words with the app.
       - SbuFind/Activity/SearchActivityAttributes.swift
       - SbuFind/Signal/Proximity.swift
       - SbuFind/Signal/SignalTuning.swift
       - SbuFind/Signal/Warmth.swift
-      - SbuFind/Signal/RingFill.swift
-      - SbuFind/Views/SignalRing.swift
       - SbuFind/Localizable.xcstrings
     dependencies:
       - package: SbuKit

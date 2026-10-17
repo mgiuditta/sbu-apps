@@ -49,7 +49,7 @@ struct AirPodGuideView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Un auricolare solo")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -59,13 +59,13 @@ struct AirPodGuideView: View {
     NavigationStack {
         AirPodGuideView()
     }
-    .tint(SbuTheme.accentFind)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         AirPodGuideView()
     }
-    .tint(SbuTheme.accentFind)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

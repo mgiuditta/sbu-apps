@@ -10,7 +10,7 @@ struct RootView: View {
     let ringer: HeadphoneRinger
 
     var body: some View {
-        SbuAppShell("Sbu Find", slug: "find", accent: SbuTheme.accentFind, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
+        SbuAppShell("Sbu Find", slug: "find", accent: .find, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
             MainView(model: model, ringer: ringer)
         } settings: {
             ListSection(model: model)

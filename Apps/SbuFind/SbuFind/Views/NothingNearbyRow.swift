@@ -1,29 +1,23 @@
 import SbuKit
 import SwiftUI
 
-/// Nothing heard: a symbol, one line, and Cerca di nuovo, in the style of ContentUnavailableView.
+/// Nothing else heard, under your devices: one line and Cerca di nuovo. With nothing at all to
+/// list, the screen shows `SbuEmpty` instead.
 struct NothingNearbyRow: View {
     let searchAgain: () -> Void
 
     var body: some View {
-        VStack(spacing: SbuTheme.space3) {
-            Image(systemName: "antenna.radiowaves.left.and.right.slash")
-                .font(SbuTheme.title2)
-                .fontWeight(.medium)
-                .foregroundStyle(SbuTheme.inkMuted)
-                .accessibilityHidden(true)
-
+        VStack(alignment: .leading, spacing: SbuTheme.space2) {
             Text("Nessun dispositivo vicino. Tienilo acceso e fuori dalla custodia.")
                 .font(SbuTheme.body)
                 .foregroundStyle(SbuTheme.inkMuted)
-                .multilineTextAlignment(.center)
 
             Button("Cerca di nuovo", action: searchAgain)
                 .font(SbuTheme.body.weight(.semibold))
                 .frame(minHeight: SbuTheme.controlRoundSm)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, SbuTheme.space4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, SbuTheme.space1)
     }
 }
 
@@ -31,13 +25,13 @@ struct NothingNearbyRow: View {
     List {
         NothingNearbyRow {}
     }
-    .tint(SbuTheme.accentFind)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     List {
         NothingNearbyRow {}
     }
-    .tint(SbuTheme.accentFind)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

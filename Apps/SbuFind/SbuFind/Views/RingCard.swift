@@ -38,15 +38,15 @@ struct RingCard: View {
     let audio = FixedAudio()
     RingCard(ringer: HeadphoneRinger(route: audio, player: audio))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFind)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     let audio = FixedAudio(outputs: [])
     RingCard(ringer: HeadphoneRinger(route: audio, player: audio))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentFind)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

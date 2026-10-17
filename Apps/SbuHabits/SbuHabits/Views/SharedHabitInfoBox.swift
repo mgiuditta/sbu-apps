@@ -23,12 +23,12 @@ struct SharedHabitInfoBox: View {
 #Preview("Light") {
     SharedHabitInfoBox()
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     SharedHabitInfoBox()
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

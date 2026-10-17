@@ -36,14 +36,14 @@ struct ShareImageHeader: View {
 #Preview("Light") {
     ShareImageHeader(share: .preview(.preview, page: 1, period: .month))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     ShareImageHeader(share: .preview(.preview, page: 0, period: .year))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

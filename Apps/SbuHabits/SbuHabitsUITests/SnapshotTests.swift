@@ -18,8 +18,8 @@ final class SnapshotTests: XCTestCase {
         snapshot("02-privacy")
         button("Fine", "Done", in: app).tap()
 
-        // The settings sheet is still sliding away: wait until the habit can take the tap.
-        let walking = element("Camminare", "Walk", in: app)
+        // The settings sheet is still sliding away: wait until the habit's menu can take the tap.
+        let walking = button("Opzioni di Camminare", "Options for Walk", in: app)
         let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: walking)
         XCTAssertEqual(XCTWaiter.wait(for: [hittable], timeout: 5), .completed)
         walking.tap()

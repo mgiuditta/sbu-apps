@@ -78,15 +78,15 @@ private struct EmptyHours: View {
     let model = HabitsModel.preview
     CompletionsSection(statistics: .all(model.habits, period: .all, today: model.today, firstWeekday: 2), isAvoided: false)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     let model = HabitsModel.preview
     CompletionsSection(statistics: .all(model.habits, period: .all, today: model.today, firstWeekday: 2), isAvoided: true)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

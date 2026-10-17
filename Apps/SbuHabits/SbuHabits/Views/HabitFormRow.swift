@@ -53,6 +53,6 @@ private struct HabitFormRowPreview: View {
                 }
             }
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

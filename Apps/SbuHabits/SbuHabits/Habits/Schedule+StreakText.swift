@@ -9,4 +9,13 @@ extension Schedule {
         case nil: "\(count) giorni"
         }
     }
+
+    /// The same Serie, abbreviated for a row of the tool screen: "12 gg".
+    nonisolated func shortStreakText(_ count: Int) -> LocalizedStringResource {
+        switch period {
+        case .week: "\(count) sett."
+        case .month: "\(count) mesi"
+        case nil: "\(count) gg"
+        }
+    }
 }

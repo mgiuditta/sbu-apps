@@ -56,7 +56,7 @@ struct HabitGoalScreen: View {
             .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text(draft.goal?.title ?? "Obiettivo"))
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -84,6 +84,6 @@ private struct HabitGoalScreenPreview: View {
         NavigationStack {
             HabitGoalScreen(draft: $draft)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

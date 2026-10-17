@@ -4,13 +4,12 @@ import SwiftUI
 import WidgetKit
 
 /// The Live Activity of the countdown of an Abitudine a tempo: the Lock Screen and the banner on
-/// paper, the Dynamic Island on its own black, in the app's one accent.
+/// paper, the Dynamic Island on its own black. The only color is the full stop, set at the end.
 struct TimerLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: HabitTimerAttributes.self) { context in
             TimerActivityView(face: Self.face(context), habitID: context.attributes.habitID)
-                .padding(SbuTheme.space4)
-                .activityBackgroundTint(SbuTheme.surface)
+                .activityBackgroundTint(SbuTheme.paper)
                 .activitySystemActionForegroundColor(SbuTheme.ink)
         } dynamicIsland: { context in
             let face = Self.face(context)
@@ -20,17 +19,25 @@ struct TimerLiveActivity: Widget {
                         .environment(\.colorScheme, .dark)
                 }
             } compactLeading: {
-                TimerActivityRing(face: face, symbolFont: SbuTheme.caption)
-                    .environment(\.colorScheme, .dark)
+                Self.symbol(face)
             } compactTrailing: {
                 TimerActivityCompactTime(face: face)
                     .environment(\.colorScheme, .dark)
             } minimal: {
-                TimerActivityRing(face: face, symbolFont: SbuTheme.caption)
-                    .environment(\.colorScheme, .dark)
+                Self.symbol(face)
             }
-            .keylineTint(SbuTheme.accentHabits)
         }
+    }
+
+    /// The habit's symbol, a checkmark once done: the time is the trailing side's.
+    private static func symbol(_ face: TimerActivityFace) -> some View {
+        Image(systemName: face.symbol)
+            .font(SbuTheme.caption)
+            .fontWeight(.medium)
+            .imageScale(.medium)
+            .foregroundStyle(SbuTheme.ink)
+            .environment(\.colorScheme, .dark)
+            .accessibilityHidden(true)
     }
 
     private static func face(_ context: ActivityViewContext<HabitTimerAttributes>) -> TimerActivityFace {

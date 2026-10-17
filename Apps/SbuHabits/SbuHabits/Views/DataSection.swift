@@ -55,13 +55,13 @@ struct DataSection: View {
     Form {
         DataSection(model: .preview, sync: .preview(model: .preview))
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     Form {
         DataSection(model: .preview, sync: .preview(model: .preview))
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

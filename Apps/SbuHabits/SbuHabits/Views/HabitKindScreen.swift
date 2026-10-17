@@ -25,7 +25,7 @@ struct HabitKindScreen: View {
             .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Tipo")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -56,6 +56,6 @@ private struct HabitKindScreenPreview: View {
         NavigationStack {
             HabitKindScreen(draft: $draft, choices: HabitKind.allCases)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

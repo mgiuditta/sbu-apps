@@ -38,7 +38,7 @@ private struct HabitSymbolButtonPreview: View {
     var body: some View {
         HabitSymbolButton(selection: $selection)
             .padding(SbuTheme.space4)
-            .background(SbuTheme.surface)
-            .tint(SbuTheme.accentHabits)
+            .background(SbuTheme.paper)
+            .tint(SbuTheme.ink)
     }
 }

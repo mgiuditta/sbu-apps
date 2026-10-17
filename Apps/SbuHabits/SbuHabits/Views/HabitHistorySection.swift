@@ -121,7 +121,7 @@ private struct HabitHistorySectionPreview: View {
             HabitHistorySection(habit: habit, streak: 5, today: today, firstWeekday: 2) { _ in }
                 .padding(SbuTheme.space4)
         }
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

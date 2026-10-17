@@ -105,6 +105,6 @@ private struct RemindersSectionPreview: View {
         Form {
             RemindersSection(mode: $mode, rows: $rows)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

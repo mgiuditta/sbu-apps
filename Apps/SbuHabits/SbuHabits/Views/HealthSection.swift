@@ -63,6 +63,6 @@ private struct HealthSectionPreview: View {
         Form {
             HealthSection(isOn: $isOn, measure: $measure, goal: $goal)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

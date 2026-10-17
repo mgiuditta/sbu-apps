@@ -68,8 +68,7 @@ final class ScreenTourTests: XCTestCase {
 
     @MainActor
     private func tourHabitMenu() {
-        let reading = cell(isEnglish ? "Read" : "Leggere")
-        tap(reading)
+        tap(button("Opzioni di Leggere", "Options for Read"))
         shot("06-habit-menu")
         tap(button("Scrivi nota", "Write note"))
         shot("07-note")
@@ -80,8 +79,6 @@ final class ScreenTourTests: XCTestCase {
     private func tourSharedHabit() {
         let shared = cell("Correre")
         reveal(shared)
-        shared.press(forDuration: 1)
-        shot("08-shared-hold")
         tap(shared)
         shot("09-shared-screen")
         scrollDown(times: 4, named: "09-shared-screen")
@@ -176,7 +173,7 @@ final class ScreenTourTests: XCTestCase {
     private func tourEditAndDelete() {
         let water = cell(isEnglish ? "Drink water" : "Bere acqua")
         reveal(water)
-        tap(water)
+        tap(button("Opzioni di Bere acqua", "Options for Drink water"))
         tap(button("Modifica", "Edit"))
         shot("21-edit")
         let delete = button("Elimina", "Delete")

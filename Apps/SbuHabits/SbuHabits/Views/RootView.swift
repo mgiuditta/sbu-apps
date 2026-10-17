@@ -15,8 +15,8 @@ struct RootView: View {
     @State private var isShowingTimer = false
 
     var body: some View {
-        SbuAppShell("Sbu Habits", slug: "habits", accent: SbuTheme.accentHabits, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content, dataLocation: dataLocation) {
-            // The gear sits at the bottom of the tool screen, as in Streaks.
+        SbuAppShell("Sbu Habits", slug: "habits", accent: SbuAccent.habits, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content, dataLocation: dataLocation) {
+            // The gear sits at the bottom of the tool screen.
             MainView(model: model, received: received, present: present)
         } settings: {
             StartOfDaySection(model: model)
@@ -38,11 +38,15 @@ struct RootView: View {
                     SharedHabitScreen(received: received, key: habit.key)
                 }
             }
-            .tint(SbuTheme.accentHabits)
+            // Outside the shell: its ink, its switches and the accent of the full stop.
+            .tint(SbuTheme.ink)
+            .toggleStyle(SbuToggleStyle())
+            .environment(\.sbuAccent, .habits)
         }
         .fullScreenCover(isPresented: $isShowingTimer) {
             TimerView(model: model)
-                .tint(SbuTheme.accentHabits)
+                .tint(SbuTheme.ink)
+                .environment(\.sbuAccent, .habits)
         }
         .onChange(of: model.timer != nil, initial: true) { _, hasTimer in
             isShowingTimer = hasTimer
@@ -73,8 +77,8 @@ struct RootView: View {
             await sharing.appDidBecomeActive()
             await received.refresh()
         }
-        // A countdown that ends with the app open.
-        .sensoryFeedback(.success, trigger: model.timersEnded)
+        // A countdown that ends with the app open: the Timer's full stop settles.
+        .sbuHaptic(.dot, trigger: model.timersEnded)
     }
 
     /// With Sincronizza con iCloud on, the data also goes to the user's other devices.

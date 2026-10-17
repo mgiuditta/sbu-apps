@@ -27,7 +27,7 @@ struct HabitOrderView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         // Always in edit mode: the only thing to do here is move.
         .environment(\.editMode, .constant(.active))
         .navigationTitle("Ordine delle abitudini")
@@ -39,13 +39,13 @@ struct HabitOrderView: View {
     NavigationStack {
         HabitOrderView(model: .preview)
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         HabitOrderView(model: .preview)
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

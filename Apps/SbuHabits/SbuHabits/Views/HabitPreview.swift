@@ -64,7 +64,7 @@ private struct HabitPreviewPreview: View {
             HabitPreview(draft: avoided, ringSize: SbuTheme.space12 * 2, symbolFont: SbuTheme.title2)
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

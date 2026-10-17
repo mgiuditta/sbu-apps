@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// A round icon button of a fixed side from the design tokens: filled in the accent with
-/// `onAccent` for the one main action, raised paper with `ink` for the others. Use it with a
+/// A square icon button of a fixed side from the design tokens, with `radiusCard` corners: filled
+/// in `ink` with `paper` for the one main action, raised paper with `ink` for the others. Use it with a
 /// labelled `Button` and `.labelStyle(.iconOnly)`, so VoiceOver reads the label. A button can be
 /// drawn smaller than it is touched, as play on a small ring: the hit area keeps `side`.
 struct RoundButtonStyle: ButtonStyle {
@@ -10,7 +10,7 @@ struct RoundButtonStyle: ButtonStyle {
 
     /// The side: `SbuTheme.controlRoundSm`, `controlRound` or `controlRoundLg`.
     let side: CGFloat
-    /// Filled in the accent: the screen's main action.
+    /// Filled in `ink`: the screen's main action.
     var isProminent = false
     /// The side of the circle drawn, when smaller than the side touched; `nil` draws `side`.
     var drawnSide: CGFloat?
@@ -36,12 +36,12 @@ struct RoundButtonStyle: ButtonStyle {
 
     private var foreground: AnyShapeStyle {
         guard isEnabled else { return AnyShapeStyle(SbuTheme.inkMuted) }
-        return isProminent ? AnyShapeStyle(SbuTheme.onAccent) : AnyShapeStyle(SbuTheme.ink)
+        return isProminent ? AnyShapeStyle(SbuTheme.paper) : AnyShapeStyle(SbuTheme.ink)
     }
 
     private var background: AnyShapeStyle {
         guard isEnabled else { return AnyShapeStyle(SbuTheme.surfaceSunken) }
-        return isProminent ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.surfaceRaised)
+        return isProminent ? AnyShapeStyle(SbuTheme.ink) : AnyShapeStyle(SbuTheme.surfaceRaised)
     }
 
     func makeBody(configuration: Configuration) -> some View {
@@ -53,10 +53,10 @@ struct RoundButtonStyle: ButtonStyle {
             .dynamicTypeSize(...largestTextSize)
             .foregroundStyle(foreground)
             .frame(width: circleSide, height: circleSide)
-            .background(background, in: .circle)
+            .background(background, in: .rect(cornerRadius: SbuTheme.radiusCard))
             // Touched on the whole side, however small the circle drawn.
             .frame(width: side, height: side)
-            .contentShape(.circle)
+            .contentShape(.rect(cornerRadius: SbuTheme.radiusCard))
             // As SbuButton does.
             .opacity(configuration.isPressed ? 0.7 : 1)
             .accessibilityShowsLargeContentViewer()
@@ -86,7 +86,7 @@ private struct RoundButtonStylePreview: View {
         }
         .labelStyle(.iconOnly)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

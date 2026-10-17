@@ -107,15 +107,15 @@ struct CompletionLineChart: View {
     let model = HabitsModel.preview
     CompletionLineChart(statistics: .all(model.habits, period: .all, today: model.today, firstWeekday: 2))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     let model = HabitsModel.preview
     CompletionLineChart(statistics: .all(model.habits, period: .all, today: model.today, firstWeekday: 2))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

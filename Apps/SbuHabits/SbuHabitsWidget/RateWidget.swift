@@ -1,7 +1,7 @@
 import SwiftUI
 import WidgetKit
 
-/// A one-habit widget from Streaks: the completion rate since the habit began, as a line.
+/// A one-habit widget: the completion rate since the habit began, as the figure.
 struct RateWidget: Widget {
     static let kind = "dev.sbu.habits.rate"
 
@@ -10,7 +10,7 @@ struct RateWidget: Widget {
             HabitInsightWidgetView(entry: entry)
         }
         .configurationDisplayName("Completamento")
-        .description("Il completamento di un'abitudine nel tempo.")
+        .description("Il completamento di un'abitudine da quando hai iniziato.")
         .supportedFamilies([.systemSmall])
     }
 }

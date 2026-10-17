@@ -1,7 +1,7 @@
 import Foundation
 
 /// What to do with the Live Activities on the device for an update of the countdown: which go at
-/// once, which end reading "Fatta", which follow the new state, and whether a new one starts.
+/// once, which end with the full stop set, which follow the new state, and whether a new one starts.
 /// One countdown at a time, so at most one activity is kept.
 nonisolated struct TimerActivityPlan: Equatable, Sendable {
     /// An activity still on the device, by its id and its habit.
@@ -10,12 +10,9 @@ nonisolated struct TimerActivityPlan: Equatable, Sendable {
         let habitID: UUID
     }
 
-    /// How long a countdown that ended done stays on the Lock Screen, reading "Fatta".
-    static let doneLinger: TimeInterval = 60
-
     /// Activities that go at once.
     private(set) var dismissed: [String] = []
-    /// Activities that end reading "Fatta", then go after `doneLinger`.
+    /// Activities that end with the full stop set, then go after `SbuTheme.liveEndDelay`.
     private(set) var finished: [String] = []
     /// Activities that follow `state`.
     private(set) var followed: [String] = []

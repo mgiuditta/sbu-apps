@@ -30,7 +30,7 @@ struct ComplicationCircular: View {
 
 #Preview("Light") {
     ComplicationCircular(today: ComplicationEntry.sample.today)
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {

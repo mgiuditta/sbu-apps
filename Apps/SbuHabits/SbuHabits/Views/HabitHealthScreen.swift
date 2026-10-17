@@ -11,7 +11,7 @@ struct HabitHealthScreen: View {
                 .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Salute")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -37,6 +37,6 @@ private struct HabitHealthScreenPreview: View {
         NavigationStack {
             HabitHealthScreen(draft: $draft)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

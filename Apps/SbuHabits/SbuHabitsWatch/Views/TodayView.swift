@@ -1,10 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// The watch's one screen: the Serie piena on top, today's habits in two columns under it, one at
-/// accessibility text sizes. On `surface`, warm black on the watch, like every screen.
+/// The watch's one screen: the Serie piena on top, today's habits in a list under it, each with
+/// its checkbox. On `paper`, warm black on the watch, like every screen.
 struct TodayView: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -12,10 +11,6 @@ struct TodayView: View {
 
     /// The moment the grid is checked against: now, then the end of the grid's day.
     @State private var now = Date.now
-
-    private var columns: [GridItem] {
-        Array(repeating: GridItem(.flexible(), spacing: SbuTheme.space2, alignment: .top), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
-    }
 
     var body: some View {
         Group {
@@ -29,7 +24,7 @@ struct TodayView: View {
                 ContentUnavailableView("Nessuna abitudine", systemImage: "iphone", description: Text("Apri Sbu Habits sull'iPhone per vedere qui le tue abitudini."))
             }
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
             now = .now
@@ -53,9 +48,9 @@ struct TodayView: View {
         let tally = TodayTally(snapshot)
         return ScrollView {
             VStack(alignment: .leading, spacing: SbuTheme.space3) {
-                WatchFigure(value: tally.fullStreak, context: context(tally))
+                WatchFigure(value: tally.fullStreak, fullStop: tally.isComplete && tally.fullStreak > 0 ? .set : .waiting, context: context(tally))
 
-                LazyVGrid(columns: columns, spacing: SbuTheme.space3) {
+                VStack(alignment: .leading, spacing: SbuTheme.space3) {
                     ForEach(snapshot.habits) { habit in
                         WatchHabitCell(
                             habit: habit,
@@ -69,7 +64,7 @@ struct TodayView: View {
             }
             .padding(.horizontal, SbuTheme.space1)
         }
-        .animation(reduceMotion ? nil : .snappy, value: snapshot.fullStreak)
+        .animation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion), value: snapshot.fullStreak)
     }
 
     private func context(_ tally: TodayTally) -> Text {
@@ -83,11 +78,13 @@ struct TodayView: View {
 
 #Preview("Light") {
     TodayView(habits: .demo())
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
+        .environment(\.sbuAccent, .habits)
 }
 
 #Preview("Dark") {
     TodayView(habits: .demo())
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
+        .environment(\.sbuAccent, .habits)
         .preferredColorScheme(.dark)
 }

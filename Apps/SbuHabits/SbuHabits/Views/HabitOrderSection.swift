@@ -27,7 +27,7 @@ struct HabitOrderSection: View {
             HabitOrderSection(model: .preview)
         }
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -36,6 +36,6 @@ struct HabitOrderSection: View {
             HabitOrderSection(model: .preview)
         }
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

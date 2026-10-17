@@ -108,7 +108,7 @@ private struct WidgetRingButtonPreview: View {
                 .frame(width: 72, height: 72)
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

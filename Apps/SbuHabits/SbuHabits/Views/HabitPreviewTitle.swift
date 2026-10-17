@@ -50,6 +50,6 @@ private struct HabitPreviewTitlePreview: View {
             HabitPreviewTitle(title: "Leggere", mark: nil)
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

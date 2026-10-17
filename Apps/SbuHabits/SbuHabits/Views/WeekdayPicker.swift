@@ -73,6 +73,6 @@ private struct WeekdayPickerPreview: View {
         Form {
             WeekdayPicker(selection: $selection)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

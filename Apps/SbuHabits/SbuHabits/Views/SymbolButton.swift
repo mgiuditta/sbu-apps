@@ -44,7 +44,7 @@ private struct SymbolButtonPreview: View {
             SymbolButton(symbol: HabitSymbol.all[1], isSelected: false) {}
         }
         .padding()
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

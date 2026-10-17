@@ -3,7 +3,7 @@ import SwiftUI
 import WidgetKit
 
 /// The complication: on a round slot, today's habits done as a ring around the Serie piena; on a
-/// rectangle, the Serie piena closed by the full stop over a bar of today's habits done. With no
+/// rectangle, the Serie piena as `SbuWidgetFigure`, with today's habits done as its label. With no
 /// grid for today, a word to open the iPhone app, which sends it.
 struct ComplicationView: View {
     @Environment(\.widgetFamily) private var family
@@ -11,14 +11,15 @@ struct ComplicationView: View {
     let entry: ComplicationEntry
 
     var body: some View {
-        Group {
-            switch family {
-            case .accessoryRectangular: ComplicationRectangular(today: entry.today)
-            default: ComplicationCircular(today: entry.today)
-            }
+        switch family {
+        case .accessoryRectangular:
+            // SbuWidgetFigure sets the container background itself.
+            ComplicationRectangular(today: entry.today)
+        default:
+            ComplicationCircular(today: entry.today)
+                // On the watch face: no background of its own.
+                .containerBackground(for: .widget) {}
         }
-        // On the watch face: no background of its own.
-        .containerBackground(for: .widget) {}
     }
 }
 

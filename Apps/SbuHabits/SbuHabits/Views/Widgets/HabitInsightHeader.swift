@@ -46,7 +46,7 @@ private struct HabitInsightHeaderPreview: View {
         return HabitInsightHeader(habit: water, progress: HabitProgress(of: water, today: today, firstWeekday: 2), streak: 4)
             .frame(width: 138)
             .padding(SbuTheme.space4)
-            .background(SbuTheme.surface)
-            .tint(SbuTheme.accentHabits)
+            .background(SbuTheme.paper)
+            .tint(SbuTheme.ink)
     }
 }

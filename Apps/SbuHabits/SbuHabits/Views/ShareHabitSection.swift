@@ -72,7 +72,7 @@ struct ShareHabitSection: View {
         ShareHabitSection(sharing: .preview(model: model), habit: model.habits[1])
         ShareHabitSection(sharing: .preview(model: model, isAvailable: false), habit: model.habits[1])
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -81,6 +81,6 @@ struct ShareHabitSection: View {
         ShareHabitSection(sharing: .preview(model: model), habit: model.habits[1])
         ShareHabitSection(sharing: .preview(model: model, isAvailable: false), habit: model.habits[1])
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

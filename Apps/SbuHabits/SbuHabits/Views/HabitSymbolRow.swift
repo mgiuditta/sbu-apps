@@ -60,14 +60,14 @@ private struct SymbolButtons: View {
 #Preview("Light") {
     HabitSymbolRow(habits: HabitsModel.preview.habits, page: 2) { _ in }
         .padding(.vertical, SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     HabitSymbolRow(habits: HabitsModel.preview.habits, page: 0) { _ in }
         .padding(.vertical, SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

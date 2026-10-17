@@ -53,7 +53,7 @@ struct StatisticsPage: View {
         .sheet(item: $noteDay) { day in
             if let habit {
                 DailyNoteEditor(model: model, habit: habit, day: day)
-                    .tint(SbuTheme.accentHabits)
+                    .tint(SbuTheme.ink)
             }
         }
     }
@@ -76,15 +76,15 @@ private struct Separator: View {
 #Preview("Light") {
     let model = HabitsModel.preview
     StatisticsPage(model: model, habit: nil, statistics: .all(model.habits, period: .all, today: model.today, firstWeekday: model.firstWeekday), isCurrent: true)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     let model = HabitsModel.preview
     let habit = model.habits[1]
     StatisticsPage(model: model, habit: habit, statistics: .habit(habit, period: .all, today: model.today, firstWeekday: model.firstWeekday), isCurrent: true)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

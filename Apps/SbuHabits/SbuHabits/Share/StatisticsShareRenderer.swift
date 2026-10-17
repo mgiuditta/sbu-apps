@@ -38,7 +38,7 @@ enum StatisticsShareRenderer {
 
     private static func content(of share: StatisticsShare) -> some View {
         StatisticsShareImage(share: share)
-            .tint(SbuTheme.accentHabits)
+            .tint(SbuTheme.ink)
             .environment(\.colorScheme, .light)
             .environment(\.dynamicTypeSize, .large)
     }

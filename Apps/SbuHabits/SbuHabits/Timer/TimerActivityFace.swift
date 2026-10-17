@@ -60,7 +60,7 @@ nonisolated struct TimerActivityFace: Equatable, Sendable {
         return min(max(1 - secondsLeft(at: now) / totalSeconds, 0), 1)
     }
 
-    /// When a running countdown reaches its end: past it the activity reads "Fatta" until the
+    /// When a running countdown reaches its end: past it the activity reads done until the
     /// app comes back and ends it. A paused or done one never goes stale.
     var staleDate: Date? {
         if case .running(let endsAt) = phase { endsAt } else { nil }

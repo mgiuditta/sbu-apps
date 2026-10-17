@@ -32,9 +32,9 @@ struct HabitsWidgetView: View {
                 )
             }
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
         .containerBackground(for: .widget) {
-            SbuTheme.surface
+            SbuTheme.paper
         }
     }
 }

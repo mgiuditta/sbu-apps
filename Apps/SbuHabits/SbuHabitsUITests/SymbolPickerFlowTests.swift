@@ -80,7 +80,7 @@ final class SymbolPickerFlowTests: XCTestCase {
         app.tapButton(app.addHabitButton)
         let habit = app.descendants(matching: .any).matching(identifier: "Correre").firstMatch
         XCTAssertTrue(habit.waitForExistence(timeout: 5))
-        habit.tap()
+        app.buttons["Opzioni di Correre"].tap()
         app.buttons["Modifica"].tap()
         _ = scrollToSymbolRow(in: app)
         XCTAssertTrue("\(row.label) \(row.value as? String ?? "")".contains("Corsa"), row.debugDescription)

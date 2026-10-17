@@ -47,7 +47,7 @@ struct DailyNoteEditor: View {
             // a short iPhone the field grows past them, and the ring scrolls away instead.
             .defaultScrollAnchor(.bottom)
             .scrollBounceBehavior(.basedOnSize)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .safeAreaInset(edge: .bottom) {
                 // Above the keyboard with Fine, so the count stays in sight while typing.
                 VStack(alignment: .trailing, spacing: SbuTheme.space2) {
@@ -56,7 +56,7 @@ struct DailyNoteEditor: View {
                 }
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space2)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
             }
             .navigationTitle("Nota del giorno")
             .navigationBarTitleDisplayMode(.inline)
@@ -157,6 +157,6 @@ private struct DailyNoteEditorPreview: View {
         var habit = model.habits[0]
         habit.setNote("Venti pagine prima di dormire.", on: model.today)
         return DailyNoteEditor(model: model, habit: habit, day: model.today)
-            .tint(SbuTheme.accentHabits)
+            .tint(SbuTheme.ink)
     }
 }

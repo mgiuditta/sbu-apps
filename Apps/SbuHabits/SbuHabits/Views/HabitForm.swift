@@ -35,12 +35,12 @@ struct HabitForm: View {
 #Preview("Light") {
     let model = HabitsModel.preview
     HabitForm(model: model, editing: model.habits[0], sharing: .preview(model: model))
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     let model = HabitsModel.preview
     HabitForm(model: model, editing: model.habits[1], sharing: .preview(model: model, isAvailable: false))
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

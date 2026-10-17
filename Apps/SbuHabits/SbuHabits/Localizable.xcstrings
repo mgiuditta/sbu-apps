@@ -7548,6 +7548,226 @@
           }
         }
       }
+    },
+    "Sbu · Abitudini · %@" : {
+      "comment" : "Cartiglio of the tool screen; the logical day, such as sab 17 ott.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu · Habits · %@"
+          }
+        }
+      }
+    },
+    "Aggiungi la tua prima abitudine." : {
+      "comment" : "Empty state of the tool screen, first run.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your first habit."
+          }
+        }
+      }
+    },
+    "Niente previsto oggi." : {
+      "comment" : "Empty state of the tool screen: no habit expected today.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing due today."
+          }
+        }
+      }
+    },
+    "giorno di fila" : {
+      "comment" : "Context under the Serie piena figure, when it is 1.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "day in a row"
+          }
+        }
+      }
+    },
+    "giorni di fila" : {
+      "comment" : "Context under the Serie piena figure.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "days in a row"
+          }
+        }
+      }
+    },
+    "%lld di %lld oggi" : {
+      "comment" : "Context under the figure: today's habits done out of all.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld of %lld today"
+          }
+        }
+      }
+    },
+    "Fatto" : {
+      "comment" : "The Closure's word, when the last habit of today gets done. No full stop: the square is the period.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "Domani" : {
+      "comment" : "Section label on the tool screen: habits only tomorrow asks for.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tomorrow"
+          }
+        }
+      }
+    },
+    "%lld gg" : {
+      "comment" : "A habit's Serie in days, abbreviated, in a row of the tool screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld d"
+          }
+        }
+      }
+    },
+    "%lld sett." : {
+      "comment" : "A weekly habit's Serie in weeks, abbreviated, in a row of the tool screen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld wk"
+          }
+        }
+      }
+    },
+    "saltata" : {
+      "comment" : "Counter in a row of the tool screen: the habit was skipped today.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "skipped"
+          }
+        }
+      }
+    },
+    "oltre il limite" : {
+      "comment" : "Counter in a row of the tool screen: an avoided habit went over its Limite today.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "over the limit"
+          }
+        }
+      }
+    },
+    "Aggiungi una volta a %@" : {
+      "comment" : "Plus button of a habit done more times a day; the habit title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add one time to %@"
+          }
+        }
+      }
+    },
+    "Segna che hai ceduto a %@" : {
+      "comment" : "Plus button of an avoided habit; the habit title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark that you gave in to %@"
+          }
+        }
+      }
+    },
+    "Opzioni di %@" : {
+      "comment" : "Menu button of a habit row; the habit title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Options for %@"
+          }
+        }
+      }
+    },
+    "Serie di %@" : {
+      "comment" : "Label of the Serie widget; the habit title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ streak"
+          }
+        }
+      }
+    },
+    "Completamento di %@" : {
+      "comment" : "Label of the completion widget; the habit title.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ completion"
+          }
+        }
+      }
+    },
+    "Sbu · A tempo · %@" : {
+      "comment" : "Cartiglio of the Timer; the habit's length, such as 10 min.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu · Timed · %@"
+          }
+        }
+      }
+    },
+    "La serie di un'abitudine, da segnare con un tocco." : {
+      "comment" : "Description of the one-habit widget.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit's streak, marked with a tap."
+          }
+        }
+      }
+    },
+    "Il completamento di un'abitudine da quando hai iniziato." : {
+      "comment" : "Description of the completion widget.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One habit's completion since you started."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

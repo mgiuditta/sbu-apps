@@ -34,14 +34,14 @@ struct StatisticsBar: View {
 #Preview("Light") {
     StatisticsBar(symbols: ["drop", "book", "figure.walk"], page: 1, share: .preview(.preview, page: 1), turn: { _ in }) {}
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     StatisticsBar(symbols: ["drop", "book", "figure.walk"], page: 0, share: .preview(.preview, page: 0), turn: { _ in }) {}
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

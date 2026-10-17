@@ -152,6 +152,6 @@ private struct HistoryGridPreview: View {
         return List {
             HistoryGrid(habit: habit, today: today, firstWeekday: 2)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

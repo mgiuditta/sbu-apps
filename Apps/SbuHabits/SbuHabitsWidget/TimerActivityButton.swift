@@ -21,7 +21,7 @@ struct TimerActivityButton: View {
         }
         .labelStyle(.iconOnly)
         .buttonStyle(RoundButtonStyle(side: SbuTheme.controlRoundSm, isProminent: true))
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }
 
@@ -41,6 +41,6 @@ private struct TimerActivityButtonPreview: View {
             TimerActivityButton(face: TimerActivityFace(attributes: .preview, state: .previewPaused), habitID: UUID())
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

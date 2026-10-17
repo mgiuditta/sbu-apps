@@ -15,12 +15,12 @@ struct WidgetEmptyText: View {
 #Preview("Light") {
     WidgetEmptyText()
         .frame(width: 138, height: 138)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     WidgetEmptyText()
         .frame(width: 138, height: 138)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

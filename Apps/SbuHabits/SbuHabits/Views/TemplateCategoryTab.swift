@@ -1,8 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// One round tab of Aggiungi abitudine: the category's symbol, filled in the accent with
-/// `onAccent` when chosen, sunken paper with `inkMuted` otherwise.
+/// One square tab of Aggiungi abitudine: the category's symbol, filled in `ink` with `paper` when
+/// chosen, sunken paper with `inkMuted` otherwise.
 struct TemplateCategoryTab: View {
     let category: HabitTemplateCategory
     let isSelected: Bool
@@ -22,10 +22,10 @@ struct TemplateCategoryTab: View {
             .imageScale(.medium)
             // The side is fixed: past the largest text sizes the symbol would spill out.
             .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-            .foregroundStyle(isSelected ? SbuTheme.onAccent : SbuTheme.inkMuted)
+            .foregroundStyle(isSelected ? SbuTheme.paper : SbuTheme.inkMuted)
             .frame(width: SbuTheme.controlRound, height: SbuTheme.controlRound)
-            .background(isSelected ? SbuTheme.accentHabits : SbuTheme.surfaceSunken, in: .circle)
-            .contentShape(.circle)
+            .background(isSelected ? SbuTheme.ink : SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusCard))
+            .contentShape(.rect(cornerRadius: SbuTheme.radiusCard))
         }
         .buttonStyle(.plain)
         // Both ways: adding no trait would leave a tab once chosen read as selected.
@@ -41,7 +41,7 @@ struct TemplateCategoryTab: View {
         TemplateCategoryTab(category: .toAvoid, isSelected: false) {}
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
@@ -50,6 +50,6 @@ struct TemplateCategoryTab: View {
         TemplateCategoryTab(category: .toAvoid, isSelected: false) {}
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
     .preferredColorScheme(.dark)
 }

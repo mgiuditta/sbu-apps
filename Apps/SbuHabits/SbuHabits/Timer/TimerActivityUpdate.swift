@@ -7,6 +7,6 @@ nonisolated enum TimerActivityUpdate: Hashable, Sendable {
     /// The saved countdown, just paused or resumed, or found at launch: its activity follows it
     /// and any other ends. It never starts one: an activity swiped away stays away.
     case follow(HabitTimer)
-    /// No countdown any more. Done, it reads "Fatta" for a moment; cancelled, it goes at once.
+    /// No countdown any more. Done, it sets its full stop for a moment; cancelled, it goes at once.
     case end(isDone: Bool)
 }

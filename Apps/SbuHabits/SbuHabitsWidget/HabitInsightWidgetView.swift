@@ -2,21 +2,41 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// A one-habit widget on paper, in the habits' accent.
+/// A one-habit widget. The Serie and the completion rate are figures, so `SbuWidgetFigure` draws
+/// them, the full stop set once the figure is final; the bars per weekday and the month's
+/// calendar are pictures in `ink` on paper, with no figure to close.
 struct HabitInsightWidgetView: View {
     let entry: HabitInsightEntry
 
     var body: some View {
-        Group {
-            if let content = entry.content {
+        if let content = entry.content {
+            switch content.insight {
+            case .streak:
+                SbuWidgetFigure(
+                    value: content.streak.formatted(),
+                    label: Text("Serie di \(content.habit.title)"),
+                    // Final once today is done: until then today can still add to it.
+                    fullStop: content.streak > 0 && content.progress.isComplete ? .set : .waiting,
+                    accent: .habits
+                )
+            case .rate:
+                let rate = content.statistics?.tally.rate
+                SbuWidgetFigure(
+                    // An en dash, never 0 %, when nothing was expected yet.
+                    value: rate?.formatted(.percent.precision(.fractionLength(0))) ?? "–",
+                    label: Text("Completamento di \(content.habit.title)"),
+                    fullStop: rate == nil ? .absent : .set,
+                    accent: .habits
+                )
+            case .weekdays, .calendar:
                 HabitInsightView(content: content)
-            } else {
-                WidgetEmptyText()
+                    .tint(SbuTheme.ink)
+                    .containerBackground(for: .widget) {
+                        SbuTheme.paper
+                    }
             }
-        }
-        .tint(SbuTheme.accentHabits)
-        .containerBackground(for: .widget) {
-            SbuTheme.surface
+        } else {
+            SbuWidgetFigure(value: 0.formatted(), label: Text("Aggiungi un'abitudine nell'app"), fullStop: .waiting, accent: .habits)
         }
     }
 }

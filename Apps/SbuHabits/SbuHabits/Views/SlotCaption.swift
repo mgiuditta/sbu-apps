@@ -51,12 +51,12 @@ struct SlotCaption: View {
 #Preview("Light") {
     SlotCaption(title: Text(verbatim: "Lavarsi i denti"), kindSymbol: "heart.fill", hasNote: true, detail: Text(verbatim: "3 min"))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     SlotCaption(title: Text(verbatim: "Lavarsi i denti"), kindSymbol: "heart.fill", hasNote: true, detail: Text(verbatim: "3 min"))
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

@@ -15,19 +15,19 @@ struct SymbolSectionHeader: View {
         }
         .padding(.top, SbuTheme.space4)
         .padding(.bottom, SbuTheme.space2)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }
 
 #Preview("Light") {
     SymbolSectionHeader(title: HabitSymbolCategory.health.title)
         .padding()
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     SymbolSectionHeader(title: HabitSymbolCategory.health.title)
         .padding()
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

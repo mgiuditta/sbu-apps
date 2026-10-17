@@ -46,6 +46,6 @@ private struct TimerActivityCompactTimePreview: View {
             TimerActivityCompactTime(face: TimerActivityFace(attributes: .preview, state: .done))
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

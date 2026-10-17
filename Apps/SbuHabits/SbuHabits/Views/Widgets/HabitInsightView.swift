@@ -1,9 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// A one-habit widget of Streaks, drawn on paper: the habit's small ring and title at the top,
-/// its insight under them. Only the Serie is a figure, with the full stop; the line, the bars and
-/// the calendar are pictures, with no figure to close. A tap opens the app.
+/// A one-habit picture widget, drawn in `ink` on paper: the habit's small ring and title at the
+/// top, the bars per weekday or the month's calendar under them, with no figure to close. The
+/// Serie and the completion rate are figures, which `SbuWidgetFigure` draws. A tap opens the app.
 struct HabitInsightView: View {
     let content: HabitInsightContent
 
@@ -13,12 +13,8 @@ struct HabitInsightView: View {
 
             Group {
                 switch content.insight {
-                case .streak:
-                    StreakInsight(streak: content.streak, schedule: content.habit.schedule)
-                case .rate:
-                    if let statistics = content.statistics {
-                        RateInsight(statistics: statistics)
-                    }
+                case .streak, .rate:
+                    EmptyView()
                 case .weekdays:
                     if let statistics = content.statistics {
                         WeekdayInsight(bars: WeekdayBar.bars(from: statistics.weekdays))
@@ -50,7 +46,7 @@ private struct HabitInsightViewPreview: View {
         }
         let habits = [habit]
         return LazyVGrid(columns: [GridItem(.fixed(138)), GridItem(.fixed(138))], spacing: SbuTheme.space8) {
-            ForEach(HabitInsight.allCases, id: \.self) { insight in
+            ForEach([HabitInsight.weekdays, .calendar], id: \.self) { insight in
                 if let content = HabitInsightContent(habits: habits, chosen: nil, insight: insight, today: today, firstWeekday: 2) {
                     HabitInsightView(content: content)
                         .frame(width: 138, height: 138)
@@ -58,7 +54,7 @@ private struct HabitInsightViewPreview: View {
             }
         }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

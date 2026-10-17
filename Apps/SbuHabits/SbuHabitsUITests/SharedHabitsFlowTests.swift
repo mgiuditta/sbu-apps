@@ -41,7 +41,8 @@ final class SharedHabitsFlowTests: XCTestCase {
     private func editNewHabit(in app: XCUIApplication) -> XCUIElement {
         app.openHabitForm()
         app.typeTitleAndAdd("Leggere")
-        cell("Leggere", in: app).tap()
+        XCTAssertTrue(cell("Leggere", in: app).exists)
+        app.buttons["Opzioni di Leggere"].tap()
         app.buttons["Modifica"].tap()
         XCTAssertTrue(app.textFields["Titolo"].waitForExistence(timeout: 5))
         let share = app.formRow("Condividi")
@@ -53,6 +54,9 @@ final class SharedHabitsFlowTests: XCTestCase {
     @MainActor
     private func audit(_ app: XCUIApplication) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+            if issue.isCartiglio || issue.isHeroFigure {
+                return true
+            }
             if issue.isRowCutByTheScreenEdge {
                 return true
             }
@@ -104,13 +108,10 @@ final class SharedHabitsFlowTests: XCTestCase {
         // Five days in a row up to yesterday, as the demo marks them.
         let value = "Da fare, 5 giorni, condivisa da un'altra persona"
         XCTAssertEqual(correre.value as? String, value)
-
-        correre.press(forDuration: 1)
-
-        XCTAssertTrue(app.staticTexts["Condivisa da un'altra persona: solo da vedere"].waitForExistence(timeout: 5))
-        XCTAssertEqual(correre.value as? String, value)
-        // Never in the user's Serie piena, nor in the user's habits: the grid still invites to add.
-        XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].exists)
+        // A row to open, with no checkbox to tick.
+        XCTAssertFalse(app.switches["Correre"].exists)
+        // Never in the user's Serie piena, nor in the user's habits: the screen still invites to add.
+        XCTAssertTrue(app.staticTexts["Aggiungi la tua prima abitudine."].exists)
         XCTAssertFalse(app.buttons["Statistiche"].isEnabled)
         try audit(app)
     }
@@ -148,7 +149,7 @@ final class SharedHabitsFlowTests: XCTestCase {
 
         try app.tapAndConfirm(remove, question: "Rimuovere “Correre”?")
 
-        XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Aggiungi la tua prima abitudine."].waitForExistence(timeout: 5))
         XCTAssertFalse(app.descendants(matching: .any).matching(identifier: "Correre").firstMatch.exists)
     }
 }

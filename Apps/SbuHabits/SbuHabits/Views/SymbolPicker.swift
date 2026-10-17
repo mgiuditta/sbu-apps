@@ -38,7 +38,7 @@ struct SymbolPicker: View {
                     ContentUnavailableView.search(text: query)
                 }
             }
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Simbolo")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Cerca un simbolo"))
@@ -78,6 +78,6 @@ private struct SymbolPickerPreview: View {
             .sheet(isPresented: .constant(true)) {
                 SymbolPicker(selection: $selection)
             }
-            .tint(SbuTheme.accentHabits)
+            .tint(SbuTheme.ink)
     }
 }

@@ -71,15 +71,15 @@ struct HourChart: View {
     HourChart(hours: (0..<24).map { max(0, 12 - abs($0 - 9) * 2) + max(0, 8 - abs($0 - 20) * 2) })
         .frame(height: SbuTheme.space12 * 3)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     HourChart(hours: (0..<24).map { max(0, 12 - abs($0 - 9) * 2) + max(0, 8 - abs($0 - 20) * 2) })
         .frame(height: SbuTheme.space12 * 3)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

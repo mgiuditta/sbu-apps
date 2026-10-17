@@ -25,7 +25,9 @@ struct SbuHabitsWatchApp: App {
     var body: some Scene {
         WindowGroup {
             TodayView(habits: habits)
-                .tint(SbuTheme.accentHabits)
+                .tint(SbuTheme.ink)
+                // No shell on the watch: the accent of the full stop comes from here.
+                .environment(\.sbuAccent, .habits)
         }
         // watchOS wakes the app in the background to deliver a grid: stay until it is in.
         .backgroundTask(.watchConnectivity) {

@@ -2,8 +2,9 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// A habit's symbol inside a ring that fills in the accent, one segment per time of the day;
-/// over the Limite of an Abitudine da evitare, in `danger`, with the cross.
+/// A habit's symbol inside a ring that fills in `ink`, one segment per time of the day; over the
+/// Limite of an Abitudine da evitare, in `danger`, with the cross. Not on the tool screen, where
+/// the checkbox says it: in the widgets, the Timer's header and the habit's own screens.
 struct HabitRing: View {
     @Environment(\.widgetRenderingMode) private var renderingMode
     /// Space between segments, as a fraction of the whole ring.
@@ -34,10 +35,9 @@ struct HabitRing: View {
         self.init(symbol: face.symbol, segments: face.segments, filled: face.filled(isHolding: isHolding), isOverLimit: face.isOverLimit, symbolFont: symbolFont, lineWidth: lineWidth)
     }
 
-    /// The accent from the environment's tint, or `danger` over the Limite. Never `.tint(nil)`:
-    /// that drops the app's tint, and inside a full-screen cover it falls back to system blue.
+    /// `ink`, or `danger` over the Limite: the only color of a screen is the full stop.
     private var fillStyle: AnyShapeStyle {
-        isOverLimit ? AnyShapeStyle(SbuTheme.danger) : AnyShapeStyle(.tint)
+        isOverLimit ? AnyShapeStyle(SbuTheme.danger) : AnyShapeStyle(SbuTheme.ink)
     }
 
     private var lineCap: CGLineCap {
@@ -99,7 +99,7 @@ private struct HabitRingPreview: View {
         }
         .frame(height: SbuTheme.space12 * 2)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
     }
 }

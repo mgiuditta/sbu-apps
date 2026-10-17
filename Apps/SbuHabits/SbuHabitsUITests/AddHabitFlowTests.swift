@@ -172,6 +172,6 @@ final class AddHabitFlowTests: XCTestCase {
         XCTAssertTrue(["", "Automatico"].contains(title.value as? String ?? ""), title.debugDescription)
 
         app.cancelNewHabit()
-        XCTAssertTrue(app.staticTexts["Aggiungi la prima abitudine"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Aggiungi la tua prima abitudine."].waitForExistence(timeout: 5))
     }
 }

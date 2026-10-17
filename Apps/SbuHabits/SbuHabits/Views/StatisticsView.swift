@@ -49,7 +49,7 @@ struct StatisticsView: View {
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space2)
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 
     /// The page on show over the period chosen, its numbers from the cache the page filled.
@@ -62,7 +62,7 @@ struct StatisticsView: View {
     /// Turns to a page from a symbol or the page indicator, sliding unless Reduce Motion is on.
     private func turn(to page: Int) {
         guard (0...model.habits.count).contains(page) else { return }
-        withAnimation(reduceMotion ? nil : .snappy) {
+        withAnimation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion)) {
             self.page = page
         }
     }
@@ -94,11 +94,11 @@ private struct CachedStatisticsPage: View {
 
 #Preview("Light") {
     StatisticsView(model: .preview)
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     StatisticsView(model: .preview)
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

@@ -1,18 +1,15 @@
 import SbuKit
 import SwiftUI
 
-/// The Timer of an Abitudine a tempo, full screen: the habit and its length at the top, its ring
-/// filling as time goes by, the time left as the screen's one figure, then Annulla, Pausa or
-/// Riprendi, and Segna come fatta. At the end the habit is marked and the screen closes.
+/// The Timer of an Abitudine a tempo, full screen on paper: the habit as the title with its
+/// length in the cartiglio, the time left as the screen's one figure, then Annulla, Pausa or
+/// Riprendi, and Segna come fatta. The full stop waits while the time runs and is set at the end,
+/// when the habit is marked and the screen closes.
 struct TimerView: View {
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
     let model: HabitsModel
 
     /// The countdown on screen: kept while the screen slides away after it ends.
     @State private var shown: HabitTimer?
-
-    @ScaledMetric(relativeTo: .largeTitle) private var figureSize = SbuTheme.statHeroSize
 
     init(model: HabitsModel) {
         self.model = model
@@ -26,7 +23,7 @@ struct TimerView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .sbuPaper(grid: true)
         .onChange(of: model.timer) { _, timer in
             if let timer {
                 shown = timer
@@ -39,25 +36,16 @@ struct TimerView: View {
     }
 
     private func content(for timer: HabitTimer) -> some View {
-        let symbol = model.habits.first { $0.id == timer.habitID }?.symbol ?? "timer"
         let clock = TimerFormat.clock(for: timer.duration)
         // Ticks on the countdown's own seconds, so the figure turns as each second ends.
         let start = (timer.endDate ?? .now).addingTimeInterval(-Double(timer.duration.components.seconds))
-        return VStack(spacing: SbuTheme.space6) {
-            header(timer, clock: clock)
+        return VStack(alignment: .leading, spacing: SbuTheme.space6) {
+            SbuScreenTitle(verbatim: timer.title, cartiglio: Self.cartiglio(timer))
 
-            Spacer(minLength: 0)
-
+            // Right under the title, never between spacers: the figure snaps to the grid, and a
+            // spacer that gave way to the snap would move it off the line again.
             TimelineView(.periodic(from: start, by: 1)) { context in
-                let remaining = timer.remaining(at: context.date)
-                VStack(spacing: SbuTheme.space6) {
-                    HabitRing(symbol: symbol, segments: 1, filled: timer.progress(at: context.date), symbolFont: SbuTheme.largeTitle)
-                        .frame(maxWidth: SbuTheme.space12 * 5, maxHeight: SbuTheme.space12 * 5)
-                        .aspectRatio(1, contentMode: .fit)
-                        .animation(reduceMotion ? nil : .linear(duration: 1), value: remaining)
-
-                    figure(remaining, clock: clock)
-                }
+                figure(timer.remaining(at: context.date), clock: clock)
             }
 
             Spacer(minLength: 0)
@@ -68,41 +56,18 @@ struct TimerView: View {
         .padding(.vertical, SbuTheme.space4)
     }
 
-    private func header(_ timer: HabitTimer, clock: Duration.TimeFormatStyle) -> some View {
-        HStack(spacing: SbuTheme.space2) {
-            Image(systemName: "clock")
-                .fontWeight(.medium)
-                .imageScale(.medium)
-            Text(timer.title)
-                .textCase(.uppercase)
-                .foregroundStyle(SbuTheme.ink)
-            Text(timer.duration, format: clock)
-                .monospacedDigit()
-                .foregroundStyle(SbuTheme.inkMuted)
-        }
-        .font(SbuTheme.headline)
-        .foregroundStyle(SbuTheme.inkMuted)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(timer.title)
-        .accessibilityValue(timer.duration.formatted(TimerFormat.spoken))
-        .accessibilityAddTraits(.isHeader)
+    /// "Sbu · A tempo · 10 min".
+    private static func cartiglio(_ timer: HabitTimer) -> String {
+        String(localized: "Sbu · A tempo · \(timer.duration.formatted(TimerFormat.length))")
     }
 
+    /// The time left: waiting while it runs, set once it reaches zero.
     private func figure(_ remaining: Duration, clock: Duration.TimeFormatStyle) -> some View {
-        HStack(alignment: .firstTextBaseline, spacing: 0) {
-            Text(remaining, format: clock)
-                .font(SbuTheme.numberFont(size: figureSize))
-                .tracking(SbuTheme.statHeroTracking)
-                // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
-                .padding(.trailing, -SbuTheme.statHeroTracking)
-                .foregroundStyle(SbuTheme.ink)
-                .contentTransition(.numericText(countsDown: true))
-                .animation(reduceMotion ? nil : .snappy, value: remaining)
-
-            SbuFullStop(fontSize: figureSize)
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Tempo rimanente")
+        SbuFigure(
+            value: remaining.formatted(clock),
+            fullStop: remaining <= .zero ? .set : .waiting,
+            accessibilityLabel: Text("Tempo rimanente")
+        )
         .accessibilityValue(remaining.formatted(TimerFormat.spoken))
         .accessibilityAddTraits(.updatesFrequently)
     }
@@ -180,6 +145,6 @@ private struct TimerViewPreview: View {
 
     var body: some View {
         TimerView(model: model)
-            .tint(SbuTheme.accentHabits)
+            .tint(SbuTheme.ink)
     }
 }

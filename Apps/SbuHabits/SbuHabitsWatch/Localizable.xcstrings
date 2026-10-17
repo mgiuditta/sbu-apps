@@ -763,6 +763,28 @@
           }
         }
       }
+    },
+    "%lld gg" : {
+      "comment" : "A habit's Serie in days, abbreviated.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld d"
+          }
+        }
+      }
+    },
+    "%lld sett." : {
+      "comment" : "A weekly habit's Serie in weeks, abbreviated.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld wk"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

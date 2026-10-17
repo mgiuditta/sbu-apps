@@ -21,6 +21,9 @@ nonisolated struct TodayTally: Equatable, Sendable {
         total = toDo.count
     }
 
+    /// Every habit to do today is done, and there was one.
+    var isComplete: Bool { total > 0 && done == total }
+
     /// For VoiceOver: "12 giorni, 3 su 5 oggi".
     var spokenValue: Text {
         Text("\(fullStreak) giorni") + Text(verbatim: ", ") + Text("\(done) su \(total) oggi")

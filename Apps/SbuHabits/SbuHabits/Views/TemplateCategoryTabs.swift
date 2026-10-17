@@ -46,7 +46,7 @@ private struct TemplateCategoryTabsPreview: View {
     var body: some View {
         TemplateCategoryTabs(selection: $selection)
             .padding(SbuTheme.space4)
-            .background(SbuTheme.surface)
-            .tint(SbuTheme.accentHabits)
+            .background(SbuTheme.paper)
+            .tint(SbuTheme.ink)
     }
 }

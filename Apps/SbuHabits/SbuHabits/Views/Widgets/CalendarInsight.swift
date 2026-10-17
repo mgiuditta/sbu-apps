@@ -65,7 +65,7 @@ private struct CalendarInsightPreview: View {
         return CalendarInsight(dots: MonthCalendar.dots(of: habit, today: today))
             .frame(width: 138, height: 90)
             .padding(SbuTheme.space4)
-            .background(SbuTheme.surface)
-            .tint(SbuTheme.accentHabits)
+            .background(SbuTheme.paper)
+            .tint(SbuTheme.ink)
     }
 }

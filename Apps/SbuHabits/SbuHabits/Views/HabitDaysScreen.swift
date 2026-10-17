@@ -43,7 +43,7 @@ struct HabitDaysScreen: View {
             .listRowBackground(SbuTheme.surfaceRaised)
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Giorni")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -69,6 +69,6 @@ private struct HabitDaysScreenPreview: View {
         NavigationStack {
             HabitDaysScreen(draft: $draft, oneDayRange: Date.now...)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

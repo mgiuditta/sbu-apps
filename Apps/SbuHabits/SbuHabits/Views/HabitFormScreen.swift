@@ -129,13 +129,13 @@ struct HabitFormScreen: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .safeAreaInset(edge: .bottom) {
             if dynamicTypeSize.isAccessibilitySize == false {
                 confirmButton
                     .padding(.horizontal, SbuTheme.space4)
                     .padding(.vertical, SbuTheme.space2)
-                    .background(SbuTheme.surface)
+                    .background(SbuTheme.paper)
             }
         }
         .navigationDestination(for: HabitFormRoute.self, destination: screen)
@@ -222,13 +222,13 @@ struct HabitFormScreen: View {
     NavigationStack {
         HabitFormScreen(model: .preview, draft: HabitTemplate.all[0].draft(today: LogicalDay(.now))) {}
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     NavigationStack {
         HabitFormScreen(model: .preview, draft: HabitTemplateCategory.health.customDraft(today: LogicalDay(.now))) {}
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

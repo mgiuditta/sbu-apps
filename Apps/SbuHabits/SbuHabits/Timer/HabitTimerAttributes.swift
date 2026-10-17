@@ -10,7 +10,7 @@ nonisolated struct HabitTimerAttributes: ActivityAttributes, Hashable, Sendable 
             case running(endsAt: Date)
             /// Seconds left, exact, as the timer keeps them.
             case paused(secondsLeft: Double)
-            /// Ran to its end or marked done: the activity says "Fatta" before it goes.
+            /// Ran to its end or marked done: the activity sets its full stop before it goes.
             case done
         }
 

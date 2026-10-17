@@ -47,6 +47,6 @@ private struct HabitTitleSectionPreview: View {
         Form {
             HabitTitleSection(title: $title)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

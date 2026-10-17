@@ -27,7 +27,7 @@ struct AddHabitSheet: View {
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
             .scrollDismissesKeyboard(.immediately)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .overlay {
                 if showsResults, results.isEmpty {
                     ContentUnavailableView.search(text: query)
@@ -72,11 +72,11 @@ struct AddHabitSheet: View {
 
 #Preview("Light") {
     AddHabitSheet(model: .preview)
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     AddHabitSheet(model: .preview)
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

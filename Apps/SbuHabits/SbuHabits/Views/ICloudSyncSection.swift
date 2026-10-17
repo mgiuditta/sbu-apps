@@ -50,7 +50,7 @@ struct ICloudSyncSection: View {
         ICloudSyncSection(sync: .preview(model: .preview))
         ICloudSyncSection(sync: .preview(model: .preview, isAvailable: false))
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
@@ -58,6 +58,6 @@ struct ICloudSyncSection: View {
         ICloudSyncSection(sync: .preview(model: .preview))
         ICloudSyncSection(sync: .preview(model: .preview, isAvailable: false))
     }
-    .tint(SbuTheme.accentHabits)
+    .tint(SbuTheme.ink)
     .preferredColorScheme(.dark)
 }

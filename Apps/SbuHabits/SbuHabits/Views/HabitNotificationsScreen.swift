@@ -54,7 +54,7 @@ struct HabitNotificationsScreen: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Notifiche")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: draft.notificationStyle.sound) { _, sound in
@@ -92,6 +92,6 @@ private struct HabitNotificationsScreenPreview: View {
         NavigationStack {
             HabitNotificationsScreen(draft: $draft, reminders: $reminders)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

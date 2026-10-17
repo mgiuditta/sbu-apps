@@ -63,6 +63,18 @@ final class HabitsModel {
         HomePages(todayHabits: todayHabits, habitCount: habits.count, isAddEnabled: isUnreadable == false, shared: shared)
     }
 
+    /// The habits expected tomorrow that today does not show: the tool screen's Domani.
+    var tomorrowOnlyHabits: [Habit] {
+        let shown = Set(todayHabits.map(\.id))
+        return TodayGrid.habits(habits, on: today + 1, firstWeekday: calendar.firstWeekday).filter { shown.contains($0.id) == false }
+    }
+
+    /// Today's habits to do, done out of all, with the Serie piena: the figure and its Closure.
+    var todayTally: TodayTally {
+        let checks = todayHabits.map(check(of:)).filter(\.counts)
+        return TodayTally(fullStreak: fullStreak, done: checks.count(where: \.isDone), total: checks.count)
+    }
+
     /// Below the limit of `HomePages.habitLimit` habits, and the file is readable.
     var canAdd: Bool {
         isUnreadable == false && habits.count < HomePages.habitLimit
@@ -110,6 +122,10 @@ final class HabitsModel {
 
     func progress(of habit: Habit) -> HabitProgress {
         HabitProgress(of: habit, today: today, firstWeekday: calendar.firstWeekday)
+    }
+
+    func check(of habit: Habit) -> HabitCheck {
+        HabitCheck(habit: habit, progress: progress(of: habit), today: today)
     }
 
     /// The moment the next logical day starts, when the grid has to move on.
@@ -368,6 +384,15 @@ final class HabitsModel {
     func markDone(_ habit: Habit) {
         let hour = calendar.component(.hour, from: now())
         update(habit) { $0.mark(on: today, hour: hour) }
+    }
+
+    /// Marks every time left today at once, and takes back a skip: the habit's checkbox ticked.
+    func fill(_ habit: Habit) {
+        let hour = calendar.component(.hour, from: now())
+        update(habit) { habit in
+            habit.mark(on: today, hour: hour)
+            habit.fill(on: today, hour: hour)
+        }
     }
 
     /// Takes back today's last mark.

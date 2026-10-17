@@ -1,5 +1,6 @@
 import ActivityKit
 import Foundation
+import SbuKit
 
 /// Starts, follows and ends the countdown's Live Activity with ActivityKit, as
 /// `TimerActivityPlan` decides. Updates and ends run one after the other in the order they come,
@@ -35,7 +36,7 @@ enum TimerActivity {
                 await activity.end(nil, dismissalPolicy: .immediate)
             } else if plan.finished.contains(activity.id) {
                 let content = ActivityContent(state: HabitTimerAttributes.ContentState.done, staleDate: nil)
-                await activity.end(content, dismissalPolicy: .after(.now.addingTimeInterval(TimerActivityPlan.doneLinger)))
+                await activity.end(content, dismissalPolicy: .after(.now.addingTimeInterval(SbuTheme.liveEndDelay)))
             } else if plan.followed.contains(activity.id), let state = plan.state {
                 let face = TimerActivityFace(attributes: activity.attributes, state: state)
                 await activity.update(ActivityContent(state: state, staleDate: face.staleDate))

@@ -1,14 +1,12 @@
 import SbuKit
 import SwiftUI
 
-/// The bar at the bottom of the tool screen, as in Streaks: the settings gear at the leading
-/// edge, the page dots in the middle, Statistiche at the trailing edge. Both buttons in `ink` on
-/// raised paper: on this screen the accent belongs to the figure's full stop.
+/// The bar at the bottom of the tool screen: the settings gear at the leading edge, Statistiche
+/// at the trailing edge. Both in `ink` on raised paper: on this screen the only color is the
+/// figure's full stop.
 struct HomeBar: View {
     @Environment(\.showSettings) private var showSettings
 
-    let pageCount: Int
-    @Binding var page: Int?
     let isStatisticsEnabled: Bool
     let showStatistics: () -> Void
 
@@ -19,11 +17,7 @@ struct HomeBar: View {
 
             Spacer(minLength: 0)
 
-            PageDots(count: pageCount, page: $page)
-
-            Spacer(minLength: 0)
-
-            Button("Statistiche", systemImage: "star.fill", action: showStatistics)
+            Button("Statistiche", systemImage: "chart.bar", action: showStatistics)
                 .disabled(isStatisticsEnabled == false)
         }
         .labelStyle(.iconOnly)
@@ -36,16 +30,16 @@ struct HomeBar: View {
 }
 
 #Preview("Light") {
-    HomeBar(pageCount: 2, page: .constant(0), isStatisticsEnabled: true) {}
+    HomeBar(isStatisticsEnabled: true) {}
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
-    HomeBar(pageCount: 2, page: .constant(0), isStatisticsEnabled: true) {}
+    HomeBar(isStatisticsEnabled: true) {}
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

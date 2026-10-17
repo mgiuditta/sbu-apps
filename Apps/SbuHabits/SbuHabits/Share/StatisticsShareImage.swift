@@ -42,17 +42,17 @@ struct StatisticsShareImage: View {
         .padding(.horizontal, SbuTheme.space6)
         .padding(.vertical, SbuTheme.space8)
         .frame(width: Self.size.width, height: Self.size.height)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }
 
 #Preview("Light") {
     StatisticsShareImage(share: .preview(.preview, page: 0, period: .month))
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     StatisticsShareImage(share: .preview(.preview, page: 2, period: .all))
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

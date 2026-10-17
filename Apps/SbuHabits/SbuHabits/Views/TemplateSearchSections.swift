@@ -38,8 +38,8 @@ private struct TemplateSearchSectionsPreview: View {
                 TemplateSearchSections(sections: TemplateSearch.sections(of: HabitTemplate.all, matching: "legg"))
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

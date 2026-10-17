@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The pages of the Statistiche at the bottom, as in Streaks: a star for every habit, then each
+/// The pages of the Statistiche at the bottom, a grid for all the habits, then each
 /// habit's symbol, the page on show in `ink`. With too many habits to fit, "2 di 25".
 ///
 /// For VoiceOver and Switch Control it is one adjustable element, "Pagina, 2 di 25", that turns
@@ -17,7 +17,7 @@ struct StatisticsPageIndicator: View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: SbuTheme.space1) {
                 ForEach(0..<count, id: \.self) { index in
-                    Image(systemName: index == 0 ? "star.fill" : symbols[index - 1])
+                    Image(systemName: index == 0 ? "square.grid.2x2" : symbols[index - 1])
                         .foregroundStyle(index == page ? SbuTheme.ink : SbuTheme.inkMuted)
                 }
             }
@@ -56,12 +56,12 @@ struct StatisticsPageIndicator: View {
 #Preview("Light") {
     StatisticsPageIndicator(symbols: ["drop", "book", "figure.walk", "cup.and.saucer"], page: 2) { _ in }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     StatisticsPageIndicator(symbols: ["drop", "book", "figure.walk", "cup.and.saucer"], page: 0) { _ in }
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

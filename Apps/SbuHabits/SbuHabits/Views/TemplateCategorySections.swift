@@ -53,8 +53,8 @@ private struct TemplateCategorySectionsPreview: View {
                 TemplateCategorySections(category: $category)
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

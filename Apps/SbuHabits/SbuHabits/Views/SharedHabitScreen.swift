@@ -25,7 +25,7 @@ struct SharedHabitScreen: View {
                     content(of: habit)
                 }
             }
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Abitudine condivisa")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -98,12 +98,12 @@ struct SharedHabitScreen: View {
 #Preview("Light") {
     let received = ReceivedHabits.preview
     SharedHabitScreen(received: received, key: received.habits[0].key)
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     let received = ReceivedHabits.preview
     SharedHabitScreen(received: received, key: received.habits[0].key)
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

@@ -56,7 +56,7 @@ private struct WeekdayInsightPreview: View {
         WeekdayInsight(bars: WeekdayBar.bars(from: [2, 3, 4, 5, 6, 7, 1].enumerated().map { WeekdayCount(weekday: $1, count: [9, 8, 5, 7, 4, 10, 0][$0]) }))
             .frame(width: 138, height: 90)
             .padding(SbuTheme.space4)
-            .background(SbuTheme.surface)
-            .tint(SbuTheme.accentHabits)
+            .background(SbuTheme.paper)
+            .tint(SbuTheme.ink)
     }
 }

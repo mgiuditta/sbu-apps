@@ -41,7 +41,7 @@ struct OwnerBadge: View {
         OwnerBadge(emoji: "😎", side: SbuTheme.space8)
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
@@ -50,6 +50,6 @@ struct OwnerBadge: View {
         OwnerBadge(emoji: "😎")
     }
     .padding(SbuTheme.space4)
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
     .preferredColorScheme(.dark)
 }

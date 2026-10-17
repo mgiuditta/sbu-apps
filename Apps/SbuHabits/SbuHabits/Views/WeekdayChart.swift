@@ -40,15 +40,15 @@ struct WeekdayChart: View {
     WeekdayChart(weekdays: (1...7).map { WeekdayCount(weekday: ($0 % 7) + 1, count: $0 * 3) })
         .frame(height: SbuTheme.space12 * 3)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     WeekdayChart(weekdays: (1...7).map { WeekdayCount(weekday: ($0 % 7) + 1, count: $0 * 3) })
         .frame(height: SbuTheme.space12 * 3)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

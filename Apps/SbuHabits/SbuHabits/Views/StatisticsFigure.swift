@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// The one figure of a Statistiche page, the completion rate in `statHero` closed by the full
+/// The one figure of a Statistiche page, the completion rate as `SbuFigure` closed by the full
 /// stop, with the Serie migliore and the completions small under it. With nothing expected the
 /// figure is a dash, and a dash is not a closed figure: it has no full stop.
 ///
@@ -38,9 +38,9 @@ struct StatisticsFigure: View {
                     .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                     .foregroundStyle(SbuTheme.inkMuted)
 
-                HeroRate(rate: rate, isClosed: statistics.tally.rate != nil, showsFullStop: showsFullStop)
-                    // Past the first accessibility size "100%" would not fit across the screen.
-                    .dynamicTypeSize(...DynamicTypeSize.accessibility1)
+                // The dash of a period with nothing expected stays open.
+                SbuFigure(value: rate, fullStop: statistics.tally.rate != nil && showsFullStop ? .set : .absent)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 if statistics.tally.rate == nil {
                     Text("Niente previsto in questo periodo")
@@ -57,34 +57,6 @@ struct StatisticsFigure: View {
             }
         }
         .frame(maxWidth: .infinity)
-    }
-}
-
-/// The completion rate in `statHero`, closed by the full stop when its page is on show; the dash
-/// of a period with nothing expected stays open.
-private struct HeroRate: View {
-    let rate: String
-    /// A real rate: the dash of a period with nothing expected has no full stop, nor its room.
-    let isClosed: Bool
-    let showsFullStop: Bool
-
-    @ScaledMetric(relativeTo: .largeTitle) private var size = SbuTheme.statHeroSize
-
-    var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 0) {
-            Text(verbatim: rate)
-                .font(SbuTheme.numberFont(size: size))
-                .tracking(SbuTheme.statHeroTracking)
-                // Tracking also follows the last glyph: give it back, or it eats the full stop's gap.
-                .padding(.trailing, -SbuTheme.statHeroTracking)
-                .foregroundStyle(SbuTheme.ink)
-                .contentTransition(.numericText())
-
-            if isClosed {
-                SbuFullStop(fontSize: size)
-                    .opacity(showsFullStop ? 1 : 0)
-            }
-        }
     }
 }
 
@@ -120,15 +92,15 @@ private struct SmallNumber: View {
     let model = HabitsModel.preview
     StatisticsFigure(statistics: .all(model.habits, period: .all, today: model.today, firstWeekday: 2), streakSchedule: .everyDay, showsFullStop: true)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     let model = HabitsModel.preview
     StatisticsFigure(statistics: .all(model.habits, period: .all, today: model.today, firstWeekday: 2), streakSchedule: .everyDay, showsFullStop: true)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
-        .tint(SbuTheme.accentHabits)
+        .background(SbuTheme.paper)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

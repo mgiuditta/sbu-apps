@@ -40,9 +40,9 @@ struct TemplateRow: View {
                 .font(SbuTheme.body)
                 .fontWeight(.medium)
                 .imageScale(.medium)
-                .foregroundStyle(SbuTheme.accentHabits)
+                .foregroundStyle(SbuTheme.ink)
                 .frame(width: circleSide, height: circleSide)
-                .background(SbuTheme.surfaceSunken, in: .circle)
+                .background(SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusCard))
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: SbuTheme.space1) {
                 // The heart follows the title, so every title starts on the same edge.
@@ -84,6 +84,6 @@ private struct TemplateRowPreview: View {
                 }
             }
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 }

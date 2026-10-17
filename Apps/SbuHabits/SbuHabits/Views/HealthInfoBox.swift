@@ -24,12 +24,12 @@ struct HealthInfoBox: View {
 #Preview("Light") {
     HealthInfoBox()
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     HealthInfoBox()
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

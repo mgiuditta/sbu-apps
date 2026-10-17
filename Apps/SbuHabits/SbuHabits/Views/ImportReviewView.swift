@@ -50,7 +50,7 @@ struct ImportReviewView: View {
             }
             .importFailureAlert($failure)
         }
-        .tint(SbuTheme.accentHabits)
+        .tint(SbuTheme.ink)
     }
 
     private func replace() {

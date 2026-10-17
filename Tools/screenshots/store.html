@@ -1,9 +1,9 @@
 <!doctype html>
-<!-- App Store screenshots: one panorama cut into 2-5 slices of 1320×2868, plus a closing card.
-     Driven by Tools/make_screenshots.py, which passes the app as JSON in the hash and a slice
-     index (one PNG per slice). Without a slice it shows every slice side by side, for review.
-     Layout decided in #437: the icon engraving across the first seam, 3D phones, one full stop
-     on the last title, closing card in brand warm black with sbu-mark.svg. Quaderno (v5): paper with
+<!-- App Store screenshots: 2-5 slides of 1320×2868, each composed on its own (layout per slide in
+     the app's fastlane/screenshots/scenes.json): an engraving drawn for that slide, the real screen,
+     and an ink mark on one real value. Driven by Tools/make_screenshots.py, which passes the app as
+     JSON in the hash and a slice index (one PNG per slice). Without a slice it shows every slide side
+     by side, for review. One full stop on the last title. Quaderno (v5): paper with
      the notebook grid at 3x (one cell = 3 × grid-cell), a vertical line on the titles' margin, titles in
      Bricolage variable at 800 and width 87, the full stop exactly one cell, a Plex Mono cartiglio. -->
 <html lang="it">
@@ -29,11 +29,10 @@
   .row { display: flex; gap: 14px; justify-content: center; }
   .slice { width: 1320px; height: 2868px; position: relative; overflow: hidden; flex: none; }
   .preview .slice { border-radius: 12px; }
-  .pano { position: absolute; top: 0; left: 0; height: 2868px; transform-origin: 0 0;
-    background: var(--paper); perspective: 4200px; }
+  .page { position: absolute; inset: 0; background: var(--paper); }
   /* The grid: `grid` ink through a one-cell mask (the site's own Site/public/grid-cell.svg), a vertical
      line every cell from the grid offset, so the titles' margin falls on one. No gradient. */
-  .pano::before { content: ""; position: absolute; inset: 0; background: var(--grid);
+  .page::before { content: ""; position: absolute; inset: 0; background: var(--grid);
     -webkit-mask: url("../../Site/public/grid-cell.svg") var(--grid-offset) 0 / var(--grid-cell) var(--grid-cell) repeat;
     mask: url("../../Site/public/grid-cell.svg") var(--grid-offset) 0 / var(--grid-cell) var(--grid-cell) repeat; }
 
@@ -71,56 +70,95 @@
 
   /* The engraving mask is white ink: brightness(0) turns it to ink. A CSS mask on a 2200px ink
      square left whole black tiles when headless Chrome painted before applying it. */
-  .engraving { position: absolute; top: 640px; width: 2200px; height: 2200px; object-fit: contain; filter: brightness(0); opacity: .9; }
-  .cover { position: absolute; top: 0; width: 1320px; height: 2868px; background: var(--brand); }
-  .mark { position: absolute; top: 1146px; width: 576px; } /* 576px tile = 360px wordmark */
+  .engraving { position: absolute; object-fit: contain; filter: brightness(0); opacity: .9; }
+
+  /* The ink mark on a real value: an SVG in the screenshot's own pixels, over the screen. */
+  .ink { position: absolute; overflow: visible; fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
+  .device .ink { left: 5.102%; top: 2.2%; width: 89.796%; height: 95.6%; }
+
+  /* Detail: one region of the screen enlarged on a card (radius-card and the line border, at 3x). */
+  .zoom { position: absolute; overflow: hidden; background: var(--surface-raised); border: 3px solid var(--line);
+    border-radius: 18px; filter: drop-shadow(var(--shadow)); }
+  .zoom img, .zoom svg { position: absolute; }
 </style>
 </head>
 <body>
 <div class="row" id="row"></div>
 <script>
-  const W = 1320, PHONE = 820;
+  const W = 1320, H = 2868;
   const app = JSON.parse(decodeURIComponent(location.hash.slice(1)));
   const slice = new URLSearchParams(location.search).get("slice");
   const n = app.shots.length; // 2...5
   const root = document.documentElement.style;
   for (const [k, v] of Object.entries(app.tokens)) root.setProperty(`--${k}`, v);
 
-  // Where each phone goes: the first leans in from the left, the last stands flat, the
-  // penultimate crosses the seam into the last, the others alternate their lean.
-  function phone(i) {
-    if (i === 0) return { x: 160, top: 950, w: PHONE, tilt: "l" };
-    if (i === n - 1) return { x: i * W + 320, top: 1000, w: 860, tilt: "" };
-    if (i === n - 2) return { x: i * W + 700, top: 950, w: PHONE, tilt: "r" };
-    return { x: i * W + 250, top: 950, w: PHONE, tilt: i % 2 ? "r" : "l" };
-  }
+  // Each layout: where the phone stands (x, top, width, lean) and the engraving (x, top, side).
+  // Phones may run off the slide: the screen shows what the title talks about, not the whole phone.
+  const LAYOUTS = {
+    hero:     { phone: { x: 420, top: 1040, w: 1000, tilt: "" },  engraving: { x: -700, top: 1100, w: 1700 } },
+    "tilt-l": { phone: { x: 120, top: 1000, w: 820, tilt: "l" },  engraving: { x: 480, top: 1500, w: 1100 } },
+    "tilt-r": { phone: { x: 420, top: 1000, w: 820, tilt: "r" },  engraving: { x: -260, top: 1500, w: 1100 } },
+    detail:   { phone: { x: 60, top: 1380, w: 700, tilt: "l" },   engraving: { x: 640, top: 1800, w: 1100 },
+                zoom: { x: 300, top: 960, w: 940 } },
+    flat:     { phone: { x: 120, top: 1060, w: 860, tilt: "" },   engraving: { x: 620, top: 1700, w: 1000 } },
+  };
 
   // The side: bezel copies every 1.5px down to the phone's depth (8.75 mm on 77.6 mm of width).
   const BEZEL = "../../Design/devices/iphone-17-pro-max-silver.png";
   const side = w => Array.from({ length: Math.round(w * 8.75 / 77.6 / 1.5) }, (_, k) =>
     `<img class="bezel side" src="${BEZEL}" alt="" style="transform:translateZ(${-1.5 * (k + 1)}px)">`).join("");
 
-  const esc = s => s.replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
-  // A slice is not a whole number of cells: each title starts on the first vertical line past 120px.
-  const cell = parseFloat(app.tokens["grid-cell"]), offset = parseFloat(app.tokens["grid-offset"]);
-  const margin = i => offset + cell * Math.ceil((i * W + 120 - offset) / cell);
-  const pano = `
-    <img class="engraving" src="${app.engraving}" alt="" style="left:${W - 1100}px">
-    ${app.shots.map((s, i) => {
-      const p = phone(i);
-      return `${i === 0 ? `<p class="c" style="left:${margin(0)}px">${esc(app.cartiglio)}</p>` : ""}<p class="t" style="left:${margin(i)}px">${esc(s.title)}${i === n - 1 ? '<span class="stop"></span>' : ""}${s.subtitle ? `<small>${esc(s.subtitle)}</small>` : ""}</p>
-        <div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px"><div class="device">${p.tilt ? side(p.w) : ""}<div class="face"><img class="screen" src="${s.image}" alt=""><img class="bezel" src="${BEZEL}" alt=""></div></div></div>`;
-    }).join("")}
-    <div class="cover" style="left:${n * W}px"></div>
-    <img class="mark" src="../../Design/logos/sbu-mark.svg" alt="sbu" style="left:${n * W + 372}px">`;
+  // A hand-drawn ink mark in screenshot pixels: a loop that overshoots its start, or a double underline.
+  function inkPath(mark) {
+    const [x0, y0, x1, y1] = mark.box;
+    if (mark.shape === "underline") {
+      const y = y1, d = (x1 - x0) / 2;
+      return `M${x0} ${y} Q${x0 + d} ${y + 16} ${x1} ${y - 8} M${x0 + 30} ${y + 26} Q${x0 + d} ${y + 40} ${x1 - 40} ${y + 20}`;
+    }
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, rx = (x1 - x0) / 2, ry = (y1 - y0) / 2;
+    const pts = [];
+    for (let t = -0.4; t <= Math.PI * 2 + 0.5; t += 0.08) {
+      const wobble = 1 + 0.035 * Math.sin(3 * t + 1) + 0.03 * t / Math.PI;
+      pts.push(`${(cx + rx * wobble * Math.cos(t)).toFixed(1)} ${(cy + ry * wobble * Math.sin(t)).toFixed(1)}`);
+    }
+    return `M${pts.join(" L")}`;
+  }
+  const ink = (mark, style = "") => mark
+    ? `<svg class="ink" viewBox="0 0 ${W} ${H}" style="${style}"><path d="${inkPath(mark)}" stroke-width="9"/></svg>` : "";
 
-  const indices = slice === null ? [...Array(n + 1).keys()] : [Number(slice)];
-  document.getElementById("row").innerHTML = indices.map(i =>
-    `<div class="slice"><div class="pano" style="width:${(n + 1) * W}px;transform:translateX(${-i * W}px)">${pano}</div></div>`
-  ).join("");
+  function phone(s, p) {
+    return `<div class="phone ${p.tilt}" style="left:${p.x}px;top:${p.top}px;width:${p.w}px;height:${p.w * 3000 / 1470}px">
+      <div class="device">${p.tilt ? side(p.w) : ""}<div class="face"><img class="screen" src="${s.image}" alt="">${ink(s.mark)}<img class="bezel" src="${BEZEL}" alt=""></div></div></div>`;
+  }
+
+  // The zoom card shows s.zoom = [x0, y0, x1, y1] of the screenshot at the card's width, mark included.
+  function zoom(s, z) {
+    const [x0, y0, x1, y1] = s.zoom, k = z.w / (x1 - x0);
+    const place = `left:${-x0 * k}px;top:${-y0 * k}px;width:${W * k}px;height:${H * k}px`;
+    return `<div class="zoom" style="left:${z.x}px;top:${z.top}px;width:${z.w}px;height:${(y1 - y0) * k}px">
+      <img src="${s.image}" alt="" style="${place}">${ink(s.mark, place)}</div>`;
+  }
+
+  const esc = s => s.replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
+  const cell = parseFloat(app.tokens["grid-cell"]), offset = parseFloat(app.tokens["grid-offset"]);
+  const margin = offset + cell * Math.ceil((120 - offset) / cell); // first vertical line past 120px
+
+  function slide(s, i) {
+    const L = LAYOUTS[s.layout] ?? LAYOUTS.flat, e = L.engraving;
+    const zoomed = L.zoom && s.zoom;
+    return `<div class="page">
+      <img class="engraving" src="${s.engraving}" alt="" style="left:${e.x}px;top:${e.top}px;width:${e.w}px;height:${e.w}px">
+      ${i === 0 ? `<p class="c" style="left:${margin}px">${esc(app.cartiglio)}</p>` : ""}
+      <p class="t" style="left:${margin}px">${esc(s.title)}${i === n - 1 ? '<span class="stop"></span>' : ""}${s.subtitle ? `<small>${esc(s.subtitle)}</small>` : ""}</p>
+      ${phone(zoomed ? { ...s, mark: null } : s, L.phone)}
+      ${zoomed ? zoom(s, L.zoom) : ""}</div>`;
+  }
+
+  const indices = slice === null ? [...Array(n).keys()] : [Number(slice)];
+  document.getElementById("row").innerHTML = indices.map(i => `<div class="slice">${slide(app.shots[i], i)}</div>`).join("");
   if (slice === null) {
     document.body.classList.add("preview");
-    const fit = Math.min(0.25, (innerWidth - 32 - n * 14) / ((n + 1) * W));
+    const fit = Math.min(0.25, (innerWidth - 32 - n * 14) / (n * W));
     for (const s of document.querySelectorAll(".slice")) s.style.zoom = fit;
   }
 </script>

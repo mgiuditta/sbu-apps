@@ -19,9 +19,9 @@ struct SubscriptionsWidgetEntry: TimelineEntry {
         return SubscriptionsWidgetEntry(
             date: date, period: .year, total: Decimal(string: "544.34")!, monthRemaining: Decimal(string: "27.97")!, currencyCode: "EUR",
             upcoming: [
-                UpcomingPayment(name: "Musica", day: day(1), price: Decimal(string: "10.99")!, currencyCode: "EUR"),
-                UpcomingPayment(name: "Archivio cloud", day: day(4), price: Decimal(string: "2.99")!, currencyCode: "EUR"),
-                UpcomingPayment(name: "Film e serie", day: day(9), price: Decimal(string: "13.99")!, currencyCode: "EUR"),
+                UpcomingPayment(name: String(localized: "Musica"), day: day(1), price: Decimal(string: "10.99")!, currencyCode: "EUR"),
+                UpcomingPayment(name: String(localized: "Archivio cloud"), day: day(4), price: Decimal(string: "2.99")!, currencyCode: "EUR"),
+                UpcomingPayment(name: String(localized: "Film e serie"), day: day(9), price: Decimal(string: "13.99")!, currencyCode: "EUR"),
             ],
             listName: nil, isEmpty: false
         )

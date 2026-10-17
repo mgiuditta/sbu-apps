@@ -1,4 +1,5 @@
-"01-main" = "What you really spend. In one figure.";
-"02-calendar" = "Every renewal on the calendar.";
-"03-detail" = "What you have spent, and since when.";
-"04-privacy" = "No account. Data on your iPhone.";
+"01-main" = "All your subscriptions. In one figure.";
+"02-trial" = "Free trials under control. A reminder before you pay.";
+"03-calendar" = "Every renewal on the calendar. What you pay, and when.";
+"04-widget" = "A widget on your Home Screen. Your spending at a glance.";
+"05-privacy" = "No subscription to pay. No account, data only on your iPhone.";

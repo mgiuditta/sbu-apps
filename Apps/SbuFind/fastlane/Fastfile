@@ -85,7 +85,12 @@ platform :ios do
     begin
       version.fetch_app_store_review_detail
     rescue StandardError
-      version.create_app_store_review_detail(attributes: { notes: "No account needed. All data stays on the device." })
+      info = ->(name) { File.read(File.join(__dir__, "metadata/review_information/#{name}.txt")).strip }
+      version.create_app_store_review_detail(attributes: {
+        contactFirstName: info.call("first_name"), contactLastName: info.call("last_name"),
+        contactEmail: info.call("email_address"), contactPhone: info.call("phone_number"),
+        notes: "No account needed. All data stays on the device."
+      })
     end
   end
 

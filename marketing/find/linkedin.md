@@ -9,7 +9,7 @@ Headline profilo: quella in `marketing/subscriptions/linkedin.md`. Immagine dei 
 > Ho fatto Sbu Find. Ascolta il Bluetooth e ti dice se ti avvicini: Freddo, Tiepido, Caldo, Qui vicino.
 > Non ti dice i metri, perché il Bluetooth non li sa. Lo dice anche l'app.
 > Niente abbonamento, niente account, nessun server. Il codice è pubblico.
-> È la seconda app che rifaccio e regalo, dopo Sbu Subscriptions.
+> Dopo Sbu Subscriptions e Sbu Scanner, è la terza app che rifaccio e regalo.
 > sbu.dev/apps/find
 
 X: `Earbud finder apps put the search behind a subscription, up to $12.99 a week. I made a free one: Bluetooth hot and cold, no account, no server, honest about meters. sbu.dev/apps/find`

@@ -15,10 +15,10 @@ Subject: A free Bluetooth earbud finder that's honest about what it can't do
 
 ## 9to5Mac (EN)
 
-Subject: Student's second free remake of a paid iPhone utility: finding lost earbuds
+Subject: Student's third free remake of a paid iPhone utility: finding lost earbuds
 > Hi, I'm Matteo Giuditta, a computer security student in Milan.
 > I rebuild paid App Store utilities and give them away, with the code public.
-> After a subscription tracker, the second is Sbu Find: a Bluetooth earbud finder without a weekly subscription.
+> After a subscription tracker and a QR scanner, the third is Sbu Find: a Bluetooth earbud finder without a weekly subscription.
 > Cold, Warm, Hot, Very close; works for non-Apple earbuds too.
 > Discussion so far: <link>.
 > Page: https://sbu.dev/apps/find
@@ -39,7 +39,7 @@ Oggetto: Ritrovare le cuffie perse senza abbonamento settimanale: Sbu Find, grat
 
 Oggetto: Sbu Find, il "più caldo, più freddo" per le cuffie perse, gratis
 > Ciao, sono Matteo Giuditta, studio Sicurezza Informatica a Milano.
-> Rifaccio le utility a pagamento dell'App Store e le regalo. Sbu Find è la seconda, dopo Sbu Subscriptions.
+> Rifaccio le utility a pagamento dell'App Store e le regalo. Sbu Find è la terza, dopo Sbu Subscriptions e Sbu Scanner.
 > Percentuale filtrata, tic e vibrazione, suono sulle cuffie collegate, avviso quando un tuo dispositivo non si sente più, Dynamic Island.
 > Non promette i metri: il Bluetooth misura il segnale, non la distanza.
 > Il thread: <link>. Pagina: https://sbu.dev/apps/find

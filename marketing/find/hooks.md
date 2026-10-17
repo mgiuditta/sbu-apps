@@ -14,7 +14,7 @@ Onestà sul prodotto: Sbu Find misura la forza del segnale, non i metri. Sente s
 | 6 | Il tic accelera, l'iPhone vibra. Cerchi sotto il divano senza guardare lo schermo. | The tick speeds up, the iPhone buzzes. You search under the couch without looking. |
 | 7 | Nessuna app sa a quanti metri sono le tue cuffie. Questa non finge: ti dice solo se ti avvicini. | No app knows how many meters away your earbuds are. This one doesn't pretend: it just tells you if you're getting closer. |
 | 8 | Ti avviso quando un tuo dispositivo non si sente più. Prima che sia lontano. | I tell you when one of your devices goes quiet. Before it's far away. |
-| 9 | Uno studente di sicurezza rifà le app a pagamento e le regala. La seconda ritrova le cuffie. | A security student remakes paid apps and gives them away. The second one finds your earbuds. |
+| 9 | Uno studente di sicurezza rifà le app a pagamento e le regala. La terza ritrova le cuffie. | A security student remakes paid apps and gives them away. The third one finds your earbuds. |
 | 10 | Se sono spente o nella custodia, usa Dov'è. Se sono qui vicino, usa Sbu Find. Te lo dice l'app stessa. | If they're off or in the case, use Find My. If they're nearby, use Sbu Find. The app tells you which. |
 
 Nota: hook 4 è il numero (IT 8,99 × 52 = 467,48 €; US 12.99 × 52 = $675.48). Hook 7 è il più forte per HN ma attira la domanda "allora a cosa serve": risposta pronta in `showhn.md`. Nei post con lo screenshot del paywall di Find Air: "Find Air è un marchio del rispettivo proprietario; Sbu non è affiliata." / "Find Air is a trademark of its owner; Sbu is not affiliated."

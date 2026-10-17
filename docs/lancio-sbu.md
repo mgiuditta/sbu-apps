@@ -73,7 +73,7 @@ Lo stesso schema in checklist. Copiare `marketing/subscriptions/` in `marketing/
 
 | App | Hook | Sub Reddit | Asset |
 |---|---|---|---|
-| Find | Hai perso le cuffie. Find Air ti chiede fino a 8,99 € a settimana per dirti "più caldo". Sbu Find te lo dice gratis. | r/airpods, r/iphone, r/apple | da scrivere, sul modello di `marketing/subscriptions/` |
+| Find | Hai perso le cuffie. Find Air ti chiede fino a 8,99 € a settimana per dirti "più caldo". Sbu Find te lo dice gratis. | r/airpods, r/iphone, r/apple | `marketing/find/` (pronti, prezzi del 17/10) |
 | Clean | Cleanup ti fa scegliere le foto per mezz'ora e poi chiede fino a 12,99 € a settimana per eliminarle. Sbu Clean le elimina gratis. | r/iphone, r/ios, r/DataHoarder, r/declutter | `marketing/clean/` (pronti, numeri del 15/10 confermati il 17/10) |
 
 Nota Find: Sbu Find non dice i metri, nessuna app può farlo con il Bluetooth. L'hook parla di "più caldo, più freddo", non di "trovale in un secondo". Per gli auricolari spenti o nella custodia serve Dov'è: si dice prima che lo chiedano.

@@ -43,6 +43,6 @@ private struct DatePillPreview: View {
             DatePill(date: .now.addingTimeInterval(86_400 * 40), isToday: false) {}
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

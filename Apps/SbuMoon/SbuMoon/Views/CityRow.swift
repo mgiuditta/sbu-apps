@@ -43,6 +43,6 @@ private struct CityRowPreview: View {
                 CityRow(city: city, isSelected: city.id == "rome") {}
             }
         }
-        .tint(SbuTheme.accentMoon)
+        .tint(SbuTheme.ink)
     }
 }

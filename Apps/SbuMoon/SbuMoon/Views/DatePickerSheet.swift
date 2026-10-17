@@ -18,7 +18,10 @@ struct DatePickerSheet: View {
             Form {
                 DatePicker("Data", selection: $date, in: MoonModel.dateRange, displayedComponents: .date)
                     .datePickerStyle(.graphical)
+                    .listRowBackground(SbuTheme.surfaceRaised)
             }
+            .scrollContentBackground(.hidden)
+            .background(SbuTheme.paper)
             .navigationTitle("Data")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -44,11 +47,11 @@ struct DatePickerSheet: View {
 
 #Preview("Light") {
     DatePickerSheet(model: MoonModel())
-        .tint(SbuTheme.accentMoon)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     DatePickerSheet(model: MoonModel())
-        .tint(SbuTheme.accentMoon)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

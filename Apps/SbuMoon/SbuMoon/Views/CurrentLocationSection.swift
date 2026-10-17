@@ -68,6 +68,6 @@ private struct CurrentLocationPreview: View {
             CurrentLocationSection(state: .denied, isSelected: false, useCurrentLocation: {}, openSettings: {})
             CurrentLocationSection(state: .unavailable, isSelected: false, useCurrentLocation: {}, openSettings: {})
         }
-        .tint(SbuTheme.accentMoon)
+        .tint(SbuTheme.ink)
     }
 }

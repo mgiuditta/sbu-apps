@@ -1,20 +1,22 @@
 import SbuKit
 import SwiftUI
 
-/// Moonrise and moonset for the day shown, secondary like the other facts, and the place they
-/// are for. A city in another time zone says whose clock the times are on. Without a place, one
-/// pill offers to show them.
+/// Moonrise and moonset for the day shown, in a card on the paper, and the place they are for. A
+/// city in another time zone says whose clock the times are on. Without a place, one pill offers
+/// to show them.
 struct RiseSetView: View {
     let times: PlaceRiseSet?
     let placeName: String?
     let choosePlace: () -> Void
 
     var body: some View {
-        VStack(spacing: SbuTheme.space2) {
+        VStack(alignment: .leading, spacing: SbuTheme.space2) {
             if let times, let placeName {
-                RiseSetRows(riseSet: times.riseSet)
-                    // Text(_:format:) takes the clock from the environment, not from the format.
-                    .environment(\.timeZone, times.timeZone)
+                SbuListCard(RiseSetFacts.facts(for: times.riseSet)) { fact in
+                    MoonFactRow(fact)
+                }
+                // Text(_:format:) takes the clock from the environment, not from the format.
+                .environment(\.timeZone, times.timeZone)
 
                 if times.isOtherTimeZone {
                     Text("Ora locale di \(placeName)")
@@ -54,32 +56,6 @@ private struct PlacePill: View {
     }
 }
 
-/// The two rows, or one when the moon stays on one side of the horizon all day.
-private struct RiseSetRows: View {
-    let riseSet: MoonRiseSet
-
-    var body: some View {
-        switch riseSet {
-        case let .crosses(rise, set):
-            MoonFactRow("Sorge", value: time(rise))
-            MoonFactRow("Tramonta", value: time(set))
-        case .aboveAllDay:
-            MoonFactRow("Sorgere e tramonto", value: Text("Sopra l'orizzonte tutto il giorno"))
-        case .belowAllDay:
-            MoonFactRow("Sorgere e tramonto", value: Text("Sotto l'orizzonte tutto il giorno"))
-        }
-    }
-
-    /// The time, or that there is none on the day shown, which need not be today.
-    private func time(_ date: Date?) -> Text {
-        if let date {
-            Text(date, format: .dateTime.hour().minute())
-        } else {
-            Text("Non in questo giorno")
-        }
-    }
-}
-
 #Preview("Light") {
     RiseSetPreview()
 }
@@ -107,6 +83,6 @@ private struct RiseSetPreview: View {
         }
         .padding(SbuTheme.space4)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(SbuTheme.surface)
+        .sbuPaper(grid: true)
     }
 }

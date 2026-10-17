@@ -48,12 +48,16 @@ final class PhaseAlerts {
     }
 
     /// Saves a change of phases or time; turning a phase on asks for permission the first time.
-    func settingsChanged(from previous: PhaseSelection? = nil, now: Date = .now, calendar: Calendar = .current) async {
+    /// Returns whether a phase was turned on and iOS will deliver its alerts: the moment to say "Impostato".
+    @discardableResult
+    func settingsChanged(from previous: PhaseSelection? = nil, now: Date = .now, calendar: Calendar = .current) async -> Bool {
         save()
-        if let previous, selection.adds(to: previous), access != .allowed {
+        let turnsOn = previous.map(selection.adds(to:)) ?? false
+        if turnsOn, access != .allowed {
             access = await center.requestAccess()
         }
         await reschedule(now: now, calendar: calendar)
+        return turnsOn && access == .allowed
     }
 
     /// Plans the alerts again from now, if iOS lets the app send them.

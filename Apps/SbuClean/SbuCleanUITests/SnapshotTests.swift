@@ -21,27 +21,34 @@ final class SnapshotTests: XCTestCase {
         sleep(1)
         snapshot("01-main")
 
-        app.buttons.element(matching: NSPredicate(format: "label BEGINSWITH 'Scorri' OR label BEGINSWITH 'Swipe'")).firstMatch.tap()
-        app.cells.element(boundBy: 1).tap()
+        // The home is cards on paper, not a list: its rows are found by identifier.
+        app.descendants(matching: .any)["home.swipe.recent"].firstMatch.tap()
         _ = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Foto,' OR label BEGINSWITH 'Photo,'")).firstMatch.waitForExistence(timeout: 5)
         sleep(1)
         snapshot("02-swipe")
-        back(app)
-        back(app)
+        // Back from the deck lands on a home still settling: start it again instead.
+        app.terminate()
+        app.launch()
+        _ = app.buttons.matching(found).firstMatch.waitForExistence(timeout: 30)
 
-        app.cells.element(boundBy: 0).tap()
-        app.buttons.matching(NSPredicate(format: "label CONTAINS 'gruppi' OR label CONTAINS 'groups'")).firstMatch.tap()
+        app.descendants(matching: .any)["home.duplicates"].firstMatch.tap()
+        app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'card.'")).firstMatch.tap()
         sleep(1)
         snapshot("03-duplicates")
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Elimina' OR label BEGINSWITH 'Delete'")).firstMatch.tap()
+        app.descendants(matching: .any)["bottomAction"].firstMatch.tap()
         sleep(1)
         snapshot("04-bin")
         back(app)
         back(app)
         back(app)
 
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.buttons.matching(NSPredicate(format: "label == %@ OR label == %@", "Impostazioni", "Settings")).firstMatch.tap()
+        // The promises close the settings, under Icona and Suono.
+        let sbuDev = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Parte di sbu.dev' OR label BEGINSWITH 'Part of sbu.dev'")).firstMatch
+        for _ in 0..<6 where !sbuDev.isHittable {
+            app.swipeUp()
+        }
         snapshot("05-privacy")
     }
 }

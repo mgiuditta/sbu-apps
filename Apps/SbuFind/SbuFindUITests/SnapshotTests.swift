@@ -26,6 +26,11 @@ final class SnapshotTests: XCTestCase {
 
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         app.navigationBars.buttons.element(boundBy: 0).tap()
+        // The promises close the settings, under Icona and Suono.
+        let sbuDev = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Parte di sbu.dev' OR label BEGINSWITH 'Part of sbu.dev'")).firstMatch
+        for _ in 0..<6 where !sbuDev.isHittable {
+            app.swipeUp()
+        }
         snapshot("04-privacy")
     }
 }

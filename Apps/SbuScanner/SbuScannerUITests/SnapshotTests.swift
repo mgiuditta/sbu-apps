@@ -44,6 +44,11 @@ final class SnapshotTests: XCTestCase {
 
         tap(app, "Impostazioni", "Settings")
         sleep(1)
+        // The promises close the settings, under Icona and Suono.
+        let sbuDev = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Parte di sbu.dev' OR label BEGINSWITH 'Part of sbu.dev'")).firstMatch
+        for _ in 0..<6 where !sbuDev.isHittable {
+            app.swipeUp()
+        }
         snapshot("05-privacy")
     }
 }

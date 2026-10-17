@@ -2,7 +2,7 @@ import SbuKit
 import SwiftUI
 
 /// The timeline, as in the Originale's home: Recenti, Casuale and Accadde oggi on top, then one
-/// month per row from the newest, each with how far you got. Native list, one accent, no
+/// month per row from the newest, each with how far you got. Native list on paper, no
 /// colored rows.
 struct MonthsScreen: View {
     let model: CleanModel
@@ -45,7 +45,7 @@ struct MonthsScreen: View {
         // The figure starts where it does on the other screens.
         .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Mese per mese")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -53,8 +53,6 @@ struct MonthsScreen: View {
                 NavigationLink(value: Route.bin) {
                     Label("Cestino", systemImage: "trash")
                 }
-                // In ink, as the shell's gear: the accent belongs to the figure's full stop.
-                .tint(SbuTheme.ink)
             }
         }
     }
@@ -90,7 +88,7 @@ private struct MonthsPreview: View {
         NavigationStack {
             MonthsScreen(model: model)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
         }

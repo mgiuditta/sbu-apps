@@ -36,7 +36,7 @@ struct LivePhotosScreen: View {
             }
             .padding(SbuTheme.space4)
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Live Photo")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -110,7 +110,7 @@ private struct LivePhotosPreview: View {
         NavigationStack {
             LivePhotosScreen(model: model)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
         }

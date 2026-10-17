@@ -15,18 +15,29 @@ struct MediaGridScreen: View {
     var body: some View {
         let items = model.items(in: category).filter { !model.state.trash.contains($0.id) }
         let bytes = model.bytes(of: selection)
+        Group {
+            if items.isEmpty {
+                EmptyScreen(sentence: category == .screenshots
+                            ? "Nessuno screenshot nella libreria."
+                            : "Nessuna registrazione dello schermo nella libreria.")
+            } else {
+                grid(items, bytes: bytes)
+            }
+        }
+        .navigationTitle(category.title)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(isPresented: $showsBin) {
+            BinScreen(model: model)
+        }
+    }
+
+    private func grid(_ items: [MediaItem], bytes: Int64) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: SbuTheme.space4) {
                 SpaceStat(label: "Selezionati", bytes: bytes, context: "\(selection.count) di \(items.count)")
 
-                if items.isEmpty {
-                    Text(category == .screenshots ? "Nessuno screenshot nella libreria." : "Nessuna registrazione dello schermo nella libreria.")
-                        .font(SbuTheme.body)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                } else {
-                    NavigationLink("Scorri uno per uno", value: Route.swipe(.category(category)))
-                        .buttonStyle(SbuFieldPillStyle())
-                }
+                NavigationLink("Scorri uno per uno", value: Route.swipe(.category(category)))
+                    .buttonStyle(SbuFieldPillStyle())
 
                 LazyVGrid(columns: columns, spacing: SbuTheme.space1) {
                     ForEach(items) { item in
@@ -38,15 +49,12 @@ struct MediaGridScreen: View {
             }
             .padding(SbuTheme.space4)
         }
-        .background(SbuTheme.surface)
-        .navigationTitle(category.title)
-        .navigationBarTitleDisplayMode(.inline)
+        .background(SbuTheme.paper)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(selection.count == items.count && !items.isEmpty ? "Deseleziona tutto" : "Seleziona tutto") {
+                Button(selection.count == items.count ? "Deseleziona tutto" : "Seleziona tutto") {
                     selection = selection.count == items.count ? [] : Set(items.map(\.id))
                 }
-                .disabled(items.isEmpty)
             }
         }
         .bottomAction {
@@ -57,9 +65,6 @@ struct MediaGridScreen: View {
             }
             .disabled(selection.isEmpty)
             .accessibilityIdentifier("bottomAction")
-        }
-        .navigationDestination(isPresented: $showsBin) {
-            BinScreen(model: model)
         }
     }
 
@@ -88,7 +93,7 @@ private struct MediaGridPreview: View {
         NavigationStack {
             MediaGridScreen(model: model, category: .screenshots)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
         }

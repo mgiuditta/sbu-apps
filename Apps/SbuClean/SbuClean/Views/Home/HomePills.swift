@@ -37,13 +37,13 @@ struct HomePills: View {
     NavigationStack {
         HomePills(binCount: 4)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     NavigationStack {
         HomePills(binCount: 0)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
     .preferredColorScheme(.dark)
 }

@@ -9,7 +9,7 @@ struct BestBadge: View {
             .foregroundStyle(SbuTheme.ink)
             .padding(.horizontal, SbuTheme.space2)
             .padding(.vertical, SbuTheme.space1)
-            .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusSm))
+            .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusSm))
             .padding(SbuTheme.space1)
             // A tag on a thumbnail: it stays a tag. The tile's VoiceOver label says it.
             .dynamicTypeSize(...DynamicTypeSize.xxLarge)

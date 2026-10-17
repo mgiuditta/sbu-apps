@@ -19,7 +19,7 @@ struct SwipeCardContent: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(SbuTheme.surfaceSunken)
-        .clipShape(.rect(cornerRadius: SbuTheme.radiusLg))
+        .clipShape(.rect(cornerRadius: SbuTheme.radiusCard))
     }
 }
 

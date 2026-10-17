@@ -104,6 +104,18 @@ final class CleanFlowTests: XCTestCase {
     }
 
     @MainActor
+    func testHomeAtTheLargestTextSize() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(it)", "-AppleLocale", "it_IT", "-FASTLANE_SNAPSHOT", "YES", "-DemoAccess", "full",
+                                "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+
+        XCTAssertTrue(element(startingWith: "Spazio liberabile", in: app).waitForExistence(timeout: 10))
+        attachScreenshot("03-home-ax5", of: app)
+        try audit(app)
+    }
+
+    @MainActor
     func testSwipeLeftMarksForTheBinAndUndoBringsItBack() throws {
         let app = launch()
         app.buttons["Scorri le foto"].tap()
@@ -164,7 +176,9 @@ final class CleanFlowTests: XCTestCase {
         XCTAssertTrue(confirm.waitForExistence(timeout: 5))
         confirm.tap()
 
-        XCTAssertTrue(element(startingWith: "Spazio liberato", in: app).waitForExistence(timeout: 5))
+        // The bin closes with its word, then the result opens.
+        XCTAssertTrue(app.staticTexts["Liberato"].waitForExistence(timeout: 5))
+        XCTAssertTrue(element(startingWith: "Spazio liberato", in: app).waitForExistence(timeout: 10))
         // Let the sheet finish rising: mid-animation the audit reads the caption as clipped.
         _ = app.buttons["Fine"].waitForExistence(timeout: 2)
         Thread.sleep(forTimeInterval: 1)
@@ -179,7 +193,8 @@ final class CleanFlowTests: XCTestCase {
         let app = launch()
         openHomeRow("Video", in: app)
 
-        let first = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Video,'")).firstMatch
+        // Each video is a checkbox: a system toggle for VoiceOver.
+        let first = app.switches.matching(NSPredicate(format: "label BEGINSWITH 'Video,'")).firstMatch
         XCTAssertTrue(first.waitForExistence(timeout: 5))
         XCTAssertTrue(first.label.contains("420"), first.label)
         attachScreenshot("10-videos", of: app)

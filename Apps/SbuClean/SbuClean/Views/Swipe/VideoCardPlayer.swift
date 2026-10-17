@@ -90,12 +90,12 @@ struct VideoCardPlayer: View {
 #Preview("Light") {
     VideoCardPlayer(item: MediaItem(id: "video-0", kind: .video))
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     VideoCardPlayer(item: MediaItem(id: "video-0", kind: .video))
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

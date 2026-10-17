@@ -22,7 +22,7 @@ struct DeletionResultSheet: View {
                 }
                 .padding(SbuTheme.space4)
             }
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Eliminati")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -38,11 +38,11 @@ struct DeletionResultSheet: View {
 
 #Preview("Light") {
     DeletionResultSheet(result: DeletionResult(count: 37, bytes: 1_240_000_000, totalBytes: 3_100_000_000, totalCount: 120))
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     DeletionResultSheet(result: DeletionResult(count: 37, bytes: 1_240_000_000, totalBytes: 3_100_000_000, totalCount: 120))
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

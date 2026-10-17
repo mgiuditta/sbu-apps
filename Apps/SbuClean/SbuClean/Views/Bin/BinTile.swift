@@ -20,7 +20,7 @@ struct BinTile: View {
                             .monospacedDigit()
                             .foregroundStyle(SbuTheme.ink)
                             .padding(.horizontal, SbuTheme.space1)
-                            .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusSm))
+                            .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusSm))
                             .padding(SbuTheme.space1)
                             .accessibilityHidden(true)
                     }
@@ -36,12 +36,12 @@ struct BinTile: View {
 #Preview("Light") {
     BinTile(item: MediaItem(id: "photo-3", kind: .photo)) {}
         .frame(width: 120)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     BinTile(item: MediaItem(id: "video-1", kind: .video, duration: 48)) {}
         .frame(width: 120)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

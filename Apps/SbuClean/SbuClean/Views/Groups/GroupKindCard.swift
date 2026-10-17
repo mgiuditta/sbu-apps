@@ -53,7 +53,11 @@ struct GroupKindCard: View {
                             .accessibilityHidden(true)
                     }
                     .padding(SbuTheme.space3)
-                    .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusLg))
+                    .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusCard))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: SbuTheme.radiusCard)
+                            .strokeBorder(SbuTheme.line, lineWidth: SbuTheme.hairline)
+                    }
                     .contentShape(.rect)
                 }
                 .buttonStyle(.plain)

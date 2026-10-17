@@ -31,12 +31,12 @@ struct CompressionProgressView: View {
 #Preview("Light") {
     CompressionProgressView(isDownloading: true, fraction: 0.3) {}
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     CompressionProgressView(isDownloading: false, fraction: 0.7) {}
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

@@ -10,6 +10,18 @@ struct KeepForeverScreen: View {
 
     var body: some View {
         let items = model.items.filter { model.state.keepForever.contains($0.id) }
+        Group {
+            if items.isEmpty {
+                EmptyScreen(sentence: "Scorrendo, tocca Tieni sempre: quella foto non ti verrà più proposta.")
+            } else {
+                list(items)
+            }
+        }
+        .navigationTitle("Da tenere sempre")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func list(_ items: [MediaItem]) -> some View {
         List {
             Section {
                 SpaceStat(label: "Da tenere sempre", bytes: model.bytes(of: items.map(\.id)), context: "\(items.count) elementi protetti")
@@ -34,9 +46,7 @@ struct KeepForeverScreen: View {
                     }
                 }
             } footer: {
-                Text(items.isEmpty
-                     ? "Scorrendo, tocca Tieni sempre: quella foto non ti verrà più proposta."
-                     : "Scorri un elemento verso sinistra e tocca Proponi di nuovo perché torni nelle code.")
+                Text("Scorri un elemento verso sinistra e tocca Proponi di nuovo perché torni nelle code.")
             }
             .listRowBackground(SbuTheme.surfaceRaised)
         }
@@ -44,9 +54,7 @@ struct KeepForeverScreen: View {
         // The figure starts where it does on the other screens.
         .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .navigationTitle("Da tenere sempre")
-        .navigationBarTitleDisplayMode(.inline)
+        .background(SbuTheme.paper)
     }
 }
 
@@ -54,13 +62,13 @@ struct KeepForeverScreen: View {
     NavigationStack {
         KeepForeverScreen(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     NavigationStack {
         KeepForeverScreen(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
     .preferredColorScheme(.dark)
 }

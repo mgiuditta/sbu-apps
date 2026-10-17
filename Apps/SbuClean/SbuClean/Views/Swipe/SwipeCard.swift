@@ -53,7 +53,7 @@ struct SwipeCard: View {
                 } else if distance < -Self.threshold {
                     decide(.trash)
                 } else {
-                    withAnimation(reduceMotion ? nil : .spring) {
+                    withAnimation(SbuMotion.animation(SbuMotion.spring, reduceMotion: reduceMotion)) {
                         offset = .zero
                     }
                 }
@@ -64,12 +64,12 @@ struct SwipeCard: View {
 #Preview("Light") {
     SwipeCard(item: MediaItem(id: "photo-2", kind: .photo), decide: { _ in }, showDetails: {})
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     SwipeCard(item: MediaItem(id: "photo-2", kind: .photo), decide: { _ in }, showDetails: {})
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

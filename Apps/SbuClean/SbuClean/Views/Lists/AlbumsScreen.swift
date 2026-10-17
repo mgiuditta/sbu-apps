@@ -8,6 +8,22 @@ struct AlbumsScreen: View {
     @State private var hasLoaded = false
 
     var body: some View {
+        Group {
+            if hasLoaded && model.albums.isEmpty {
+                EmptyScreen(sentence: "Non hai ancora album.")
+            } else {
+                list
+            }
+        }
+        .navigationTitle("Album")
+        .navigationBarTitleDisplayMode(.inline)
+        .task {
+            await model.loadAlbums()
+            hasLoaded = true
+        }
+    }
+
+    private var list: some View {
         List {
             Section {
                 SpaceStat(label: "Nel cestino", bytes: model.trashBytes, context: "\(model.state.trash.count) elementi da rivedere")
@@ -29,12 +45,7 @@ struct AlbumsScreen: View {
                     }
                 }
             } footer: {
-                VStack(alignment: .leading, spacing: SbuTheme.space2) {
-                    if hasLoaded && model.albums.isEmpty {
-                        Text("Non hai ancora album.")
-                    }
-                    Text("Eliminare dal cestino toglie la foto dalla libreria e da tutti gli album, non solo da questo.")
-                }
+                Text("Eliminare dal cestino toglie la foto dalla libreria e da tutti gli album, non solo da questo.")
             }
             .listRowBackground(SbuTheme.surfaceRaised)
         }
@@ -42,13 +53,7 @@ struct AlbumsScreen: View {
         // The figure starts where it does on the other screens.
         .contentMargins(.top, SbuTheme.space4, for: .scrollContent)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .navigationTitle("Album")
-        .navigationBarTitleDisplayMode(.inline)
-        .task {
-            await model.loadAlbums()
-            hasLoaded = true
-        }
+        .background(SbuTheme.paper)
     }
 }
 
@@ -56,13 +61,13 @@ struct AlbumsScreen: View {
     NavigationStack {
         AlbumsScreen(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     NavigationStack {
         AlbumsScreen(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
     .preferredColorScheme(.dark)
 }

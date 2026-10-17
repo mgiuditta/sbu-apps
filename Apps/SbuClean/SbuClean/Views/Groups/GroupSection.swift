@@ -49,12 +49,12 @@ struct GroupSection: View {
 #Preview("Light") {
     GroupSection(model: .preview, group: PhotoGroup(kind: .duplicate, members: ["duplicate-b0", "duplicate-b1", "duplicate-b2"]))
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     GroupSection(model: .preview, group: PhotoGroup(kind: .similar, members: ["burst-0", "burst-1"]))
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

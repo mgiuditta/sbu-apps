@@ -28,7 +28,7 @@ struct LivePhotoTile: View {
                             .fontWeight(.medium)
                             .foregroundStyle(SbuTheme.ink)
                             .padding(SbuTheme.space1)
-                            .background(Circle().fill(SbuTheme.surface))
+                            .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusSm))
                             .padding(SbuTheme.space1)
                     }
                     .clipShape(.rect(cornerRadius: SbuTheme.radiusMd))
@@ -40,6 +40,7 @@ struct LivePhotoTile: View {
             }
         }
         .buttonStyle(.plain)
+        .sbuAffectsFigure(isSelected)
         .accessibilityElement(children: .combine)
         .accessibilityValue(isSelected ? Text("Da convertire") : Text("Da lasciare così"))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -49,12 +50,12 @@ struct LivePhotoTile: View {
 #Preview("Light") {
     LivePhotoTile(item: MediaItem(id: "live-0", kind: .photo, isLivePhoto: true, size: ItemSize(bytes: 5_600_000, pairedVideoBytes: 2_400_000)), isSelected: true) {}
         .frame(width: 160)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     LivePhotoTile(item: MediaItem(id: "live-1", kind: .photo, isLivePhoto: true, size: ItemSize(bytes: 5_600_000, pairedVideoBytes: 2_400_000)), isSelected: false) {}
         .frame(width: 160)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

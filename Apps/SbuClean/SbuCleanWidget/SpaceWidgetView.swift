@@ -2,57 +2,27 @@ import SbuKit
 import SwiftUI
 import WidgetKit
 
-/// The free space on paper: the figure closed by the full stop, what you can free under it,
-/// and on the medium size the storage bar.
+/// The free space on paper: the figure closed by the full stop, and what you can free under it.
+/// The stop waits while the system does not say how much space is free.
 struct SpaceWidgetView: View {
     let entry: SpaceEntry
 
-    @Environment(\.widgetFamily) private var family
-
     var body: some View {
-        HStack(alignment: .bottom, spacing: SbuTheme.space4) {
-            VStack(alignment: .leading, spacing: SbuTheme.space1) {
-                Text("Spazio libero")
-                    .font(SbuTheme.caption)
-                    .textCase(.uppercase)
-                    .tracking(SbuTheme.captionTracking)
-                    .foregroundStyle(SbuTheme.inkMuted)
-
-                if let storage = entry.storage {
-                    SpaceWidgetFigure(bytes: storage.availableBytes)
-                }
-
-                freeable
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-
-            if family == .systemMedium, let storage = entry.storage {
-                VStack(alignment: .leading, spacing: SbuTheme.space1) {
-                    Text("\(storage.usedBytes.sizeText) usati su \(storage.totalBytes.sizeText)")
-                        .font(SbuTheme.footnote)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                    ProgressView(value: storage.usedFraction)
-                        .widgetAccentable()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-            }
-        }
-        .dynamicTypeSize(...DynamicTypeSize.large)
-        .tint(SbuTheme.accentClean)
-        .containerBackground(for: .widget) {
-            SbuTheme.surface
-        }
+        let figure = entry.storage.map { SpaceFigure(bytes: $0.availableBytes) }
+        SbuWidgetFigure(
+            value: figure?.number ?? "–",
+            unit: figure?.figureUnit,
+            label: label,
+            fullStop: figure == nil ? .waiting : .set,
+            accent: .clean
+        )
     }
 
-    @ViewBuilder private var freeable: some View {
+    private var label: Text {
         if let bytes = entry.freeableBytes {
-            Text("Puoi liberare \(bytes.sizeText)")
-                .font(SbuTheme.footnote)
-                .foregroundStyle(SbuTheme.inkMuted)
+            Text("Spazio libero · puoi liberare \(bytes.sizeText)")
         } else {
-            Text("Apri Sbu Clean per cercare")
-                .font(SbuTheme.footnote)
-                .foregroundStyle(SbuTheme.inkMuted)
+            Text("Spazio libero · apri Sbu Clean per cercare")
         }
     }
 }
@@ -68,4 +38,10 @@ struct SpaceWidgetView: View {
     SpaceWidget()
 } timeline: {
     SpaceEntry.sample
+}
+
+#Preview("Piccolo, senza dati", as: .systemSmall) {
+    SpaceWidget()
+} timeline: {
+    SpaceEntry(date: .now, storage: nil, freeableBytes: nil)
 }

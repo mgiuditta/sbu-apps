@@ -24,6 +24,7 @@ struct GroupTile: View {
                 .clipShape(.rect(cornerRadius: SbuTheme.radiusMd))
         }
         .buttonStyle(.plain)
+        .sbuAffectsFigure(isSelected)
         .accessibilityLabel(isBest ? Text("Foto \(position) di \(count), la migliore") : Text("Foto \(position) di \(count)"))
         .accessibilityValue(isSelected ? Text("Da eliminare") : Text("Da tenere"))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -33,12 +34,12 @@ struct GroupTile: View {
 #Preview("Light") {
     GroupTile(id: "burst-0", position: 1, count: 3, isBest: true, isSelected: false) {}
         .frame(width: 120, height: 120)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     GroupTile(id: "burst-1", position: 2, count: 3, isBest: false, isSelected: true) {}
         .frame(width: 120, height: 120)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

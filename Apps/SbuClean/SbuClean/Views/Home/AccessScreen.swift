@@ -1,45 +1,52 @@
 import SbuKit
 import SwiftUI
 
-/// The first screen: what Sbu Clean does in a line, and the Photos permission. When the user
-/// said no, it says how to change it in Settings.
+/// The first screen: what Sbu Clean does in a line, and the Photos permission, asked only when
+/// you tap Continua. When you said no, it says how to change it in Settings. No figure yet, so
+/// no full stop: there is nothing to count before the library opens.
 struct AccessScreen: View {
     let model: CleanModel
 
     @Environment(\.openURL) private var openURL
-    @ScaledMetric(relativeTo: .largeTitle) private var symbolSize: CGFloat = 64
 
     private var isDenied: Bool {
         model.access == .denied
     }
 
+    /// The metadata line under the title: the app and today's date.
+    private var cartiglio: String {
+        String(localized: "Sbu · Clean · \(Date.now.formatted(.dateTime.weekday(.abbreviated).day().month(.abbreviated)))")
+    }
+
     var body: some View {
-        SbuToolField(
-            "Accesso alle foto",
-            context: isDenied
-                ? "Sbu Clean non può vedere le tue foto. Consenti l'accesso in Impostazioni, alla voce Foto."
-                : "Libera spazio nella libreria Foto: scorri, rivedi, elimina. Tutto resta su questo iPhone."
-        ) {
-            Image(systemName: isDenied ? "photo.badge.exclamationmark" : "photo.on.rectangle.angled")
-                .font(.system(size: symbolSize))
-                .fontWeight(.medium)
-                .foregroundStyle(.tint)
-                .accessibilityHidden(true)
-        } pills: {
-            if isDenied {
-                Button(action: openSettings) {
-                    Text("Apri Impostazioni")
-                        .fixedSize(horizontal: false, vertical: true)
+        ScrollView {
+            VStack(alignment: .leading, spacing: SbuTheme.space6) {
+                SbuScreenTitle("Accesso alle foto", cartiglio: cartiglio)
+
+                Text(isDenied
+                     ? "Sbu Clean non può vedere le tue foto. Consenti l'accesso in Impostazioni, alla voce Foto."
+                     : "Libera spazio nella libreria Foto: scorri, rivedi, elimina. Tutto resta su questo iPhone.")
+                    .font(SbuTheme.body)
+                    .foregroundStyle(SbuTheme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                if isDenied {
+                    Button("Apri Impostazioni", action: openSettings)
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusCard))
+                } else {
+                    Button("Continua", action: requestAccess)
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.roundedRectangle(radius: SbuTheme.radiusCard))
                 }
-                .buttonStyle(SbuFieldPillStyle())
-            } else {
-                Button(action: requestAccess) {
-                    Text("Continua")
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .buttonStyle(SbuFieldPillStyle())
             }
+            .padding(.horizontal, SbuTheme.space4)
+            .padding(.vertical, SbuTheme.space4)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .scrollBounceBehavior(.basedOnSize)
+        // The first run is a paper area: the grid shows.
+        .sbuPaper(grid: true)
     }
 
     private func requestAccess() {
@@ -57,11 +64,11 @@ struct AccessScreen: View {
 
 #Preview("Da chiedere") {
     AccessScreen(model: .preview(access: .notDetermined))
-        .tint(SbuTheme.accentClean)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Negato, scuro") {
     AccessScreen(model: .preview(access: .denied))
-        .tint(SbuTheme.accentClean)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

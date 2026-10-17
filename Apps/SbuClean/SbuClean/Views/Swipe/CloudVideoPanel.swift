@@ -31,7 +31,7 @@ struct CloudVideoPanel: View {
         }
         .padding(SbuTheme.space3)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusMd))
+        .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusCard))
     }
 }
 
@@ -42,13 +42,13 @@ struct CloudVideoPanel: View {
     }
     .padding()
     .background(SbuTheme.surfaceSunken)
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     CloudVideoPanel(isDownloading: false, failed: true, fraction: 0, download: {}, cancel: {})
         .padding()
         .background(SbuTheme.surfaceSunken)
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

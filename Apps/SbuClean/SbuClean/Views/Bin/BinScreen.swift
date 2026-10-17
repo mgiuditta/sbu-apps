@@ -2,11 +2,16 @@ import SbuKit
 import SwiftUI
 
 /// The final review: everything marked waits here. Tap an item to take it out; delete the rest
-/// with one confirmed action, then the system asks once more.
+/// with one confirmed action, then the system asks once more. A deletion closes with
+/// "Liberato", then the result opens.
 struct BinScreen: View {
     let model: CleanModel
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var result: DeletionResult?
+    /// The deletion just done, waiting for the Closure to end before its sheet opens.
+    @State private var freed: DeletionResult?
+    @State private var isClosing = false
     @State private var isDeleting = false
     @State private var failed = false
 
@@ -16,13 +21,17 @@ struct BinScreen: View {
         let ids = model.state.trash.filter { model.itemsByID[$0] != nil }
         ScrollView {
             VStack(alignment: .leading, spacing: SbuTheme.space4) {
-                SpaceStat(label: "Nel cestino", bytes: model.trashBytes, context: "\(ids.count) elementi")
+                Group {
+                    if ids.isEmpty {
+                        SbuEmpty(sentence: "Il cestino è vuoto. Quello che metti nel cestino scorrendo o dai duplicati arriva qui.")
+                    } else {
+                        SpaceStat(label: "Nel cestino", bytes: model.trashBytes, context: "\(ids.count) elementi")
+                    }
+                }
+                // Once per deletion: the figure gives way to the word, then the result opens.
+                .sbuClosure($isClosing, word: "Liberato")
 
-                if ids.isEmpty {
-                    Text("Il cestino è vuoto. Quello che metti nel cestino scorrendo o dai duplicati arriva qui.")
-                        .font(SbuTheme.body)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                } else {
+                if !ids.isEmpty {
                     Text("Tocca un elemento per toglierlo dal cestino.")
                         .font(SbuTheme.footnote)
                         .foregroundStyle(SbuTheme.inkMuted)
@@ -41,8 +50,10 @@ struct BinScreen: View {
                 RecentlyDeletedNote()
             }
             .padding(SbuTheme.space4)
+            // The empty bin is a paper area; the photos never sit on the grid.
+            .sbuPaper(grid: ids.isEmpty)
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Cestino")
         .navigationBarTitleDisplayMode(.inline)
         .bottomAction {
@@ -65,11 +76,20 @@ struct BinScreen: View {
         } message: {
             Text("Non è stato eliminato niente. Riprova tra poco.")
         }
-        .sensoryFeedback(.success, trigger: result)
+        .onChange(of: isClosing) { _, isClosing in
+            guard !isClosing, let freed else { return }
+            self.freed = nil
+            result = freed
+        }
+        .onDisappear {
+            // Left during the Closure: the space is freed and counted, the sheet has nowhere to open.
+            freed = nil
+            isClosing = false
+        }
     }
 
     private func restore(_ id: String) {
-        withAnimation {
+        withAnimation(SbuMotion.animation(SbuMotion.short, reduceMotion: reduceMotion)) {
             model.restore(id)
         }
     }
@@ -79,7 +99,8 @@ struct BinScreen: View {
         Task {
             defer { isDeleting = false }
             do {
-                result = try await model.deleteTrash()
+                freed = try await model.deleteTrash()
+                isClosing = true
             } catch LibraryError.cancelled {
                 // The user said no in the system dialog: the bin stays, nothing to say.
             } catch {
@@ -105,7 +126,7 @@ private struct BinPreview: View {
         NavigationStack {
             BinScreen(model: model)
         }
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .task {
             await model.reload()
             model.moveToTrash(model.items.prefix(7).map(\.id))

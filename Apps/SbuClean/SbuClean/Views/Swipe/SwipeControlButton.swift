@@ -47,25 +47,25 @@ struct SwipeControlButton: View {
     private var glyph: AnyShapeStyle {
         switch role {
         case .trash: AnyShapeStyle(SbuTheme.danger)
-        case .keep: AnyShapeStyle(SbuTheme.onAccent)
+        case .keep: AnyShapeStyle(SbuTheme.paper)
         case .secondary: AnyShapeStyle(SbuTheme.ink)
         }
     }
 
     private var fill: AnyShapeStyle {
-        role == .keep ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.surfaceRaised)
+        role == .keep ? AnyShapeStyle(SbuTheme.ink) : AnyShapeStyle(SbuTheme.surfaceRaised)
     }
 }
 
 #Preview("Light") {
     SwipeControlButton(title: "Tieni", systemImage: "checkmark", role: .keep) {}
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     SwipeControlButton(title: "Elimina", systemImage: "trash", role: .trash) {}
         .padding()
-        .tint(SbuTheme.accentClean)
+        .environment(\.sbuAccent, .clean)
         .preferredColorScheme(.dark)
 }

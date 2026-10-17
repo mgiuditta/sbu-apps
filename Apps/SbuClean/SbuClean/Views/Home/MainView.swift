@@ -23,13 +23,13 @@ struct MainView: View {
     NavigationStack {
         MainView(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
 }
 
 #Preview("Dark") {
     NavigationStack {
         MainView(model: .preview)
     }
-    .tint(SbuTheme.accentClean)
+    .environment(\.sbuAccent, .clean)
     .preferredColorScheme(.dark)
 }

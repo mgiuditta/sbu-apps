@@ -1,7 +1,8 @@
 import SbuKit
 import SwiftUI
 
-/// The tool screen: how many messages, then each person's numbers, over the chosen period.
+/// The chat's screen: how many messages, then each person's numbers, over the chosen period.
+/// After an import the figure closes with "Importata", once.
 struct ChatView: View {
     let library: ChatLibrary
     let chatID: Int64
@@ -13,6 +14,9 @@ struct ChatView: View {
     @State private var isRenaming = false
     @State private var newTitle = ""
     @State private var isConfirmingDelete = false
+    @State private var isClosing = false
+    /// An import saved this chat: the Closure plays once the screen is still.
+    @State private var isClosePending = false
 
     private var chat: ChatSummary? { library.chat(id: chatID) }
 
@@ -31,7 +35,6 @@ struct ChatView: View {
     var body: some View {
         List {
             if let chat {
-                ChatTotalSection(total: statistics?.totalMessages, statistics: statistics)
                 if let addedByMerge {
                     MergeNoticeSection(added: addedByMerge)
                 }
@@ -53,7 +56,18 @@ struct ChatView: View {
         .listStyle(.insetGrouped)
         .listSectionSpacing(SbuTheme.space6)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
+        // The figure stays above the rows, on its paper: in a List row its grid snap and
+        // ViewThatFits kept the row resizing.
+        .safeAreaInset(edge: .top, spacing: 0) {
+            if chat != nil {
+                ChatFigure(total: statistics?.totalMessages, statistics: statistics)
+                    .sbuClosure($isClosing, word: "Importata")
+                    .padding(SbuTheme.space4)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .sbuPaper(grid: true)
+            }
+        }
         .navigationTitle(Text(verbatim: chat?.title ?? ""))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -72,6 +86,13 @@ struct ChatView: View {
         }
         .onAppear {
             if addedByMerge == nil { addedByMerge = library.takeAddedByMerge(chatID: chatID) }
+            closeIfImported()
+        }
+        // A re-import of the chat on screen, or "Chi sei?" answered over it.
+        .onChange(of: library.importedChatID) { closeIfImported() }
+        .onChange(of: library.sheet) { closeIfImported() }
+        .task(id: isClosePending) {
+            await closeAfterSettling()
         }
         .onChange(of: chat == nil) { _, isGone in
             if isGone { dismiss() }
@@ -94,6 +115,21 @@ struct ChatView: View {
         let result = try? await library.store.statistics(chatID: chat.id, from: bounds.start, to: bounds.end, owner: chat.owner)
         guard !Task.isCancelled else { return }
         statistics = result ?? .empty
+    }
+
+    /// The Closure, once per import, when no sheet covers the figure.
+    private func closeIfImported() {
+        guard library.sheet == nil, library.takeImported(chatID: chatID) else { return }
+        isClosePending = true
+    }
+
+    /// Lets the push or the sheet settle first, so the Closure plays whole on a still screen.
+    private func closeAfterSettling() async {
+        guard isClosePending else { return }
+        try? await Task.sleep(for: .seconds(SbuTheme.motionBase))
+        guard !Task.isCancelled else { return }
+        isClosePending = false
+        isClosing = true
     }
 
     private func startRenaming(_ chat: ChatSummary) {
@@ -128,7 +164,7 @@ private struct ChatViewPreview: View {
         NavigationStack {
             ChatView(library: library, chatID: 1)
         }
-        .tint(SbuTheme.accentChats)
+        .environment(\.sbuAccent, .chats)
         .task {
             library.importSample()
         }

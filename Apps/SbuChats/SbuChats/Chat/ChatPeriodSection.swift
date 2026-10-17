@@ -16,11 +16,11 @@ struct ChatPeriodSection: View {
                 }
             } label: {
                 Text("Periodo")
+                    .font(SbuTheme.body)
                     .foregroundStyle(SbuTheme.ink)
             }
-            // In ink: on this screen the accent belongs to the figure's full stop.
-            .tint(SbuTheme.ink)
             .modifier(PeriodPickerStyle(isAccessibilitySize: dynamicTypeSize.isAccessibilitySize))
+            .sbuAffectsFigure(period.option)
 
             if period.option == .custom {
                 DatePicker(selection: $period.customStart, in: dayRange, displayedComponents: .date) {

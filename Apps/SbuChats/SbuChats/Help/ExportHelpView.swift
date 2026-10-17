@@ -44,7 +44,7 @@ struct ExportHelpView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text("Come esportare una chat"))
         .navigationBarTitleDisplayMode(.inline)
     }

@@ -68,7 +68,7 @@ struct WordsView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text("Parole ed emoji"))
         .navigationBarTitleDisplayMode(.inline)
         .task {

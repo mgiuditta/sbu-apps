@@ -18,13 +18,36 @@ final class ChatsFlowTests: XCTestCase {
         return app
     }
 
+    /// SbuKit sizes the figure in grid cells rather than a text style, and draws the cartiglio in
+    /// Plex Mono scaled by hand: on purpose, so the checks skip just those two elements.
+    private static func isSbuKitGridType(_ issue: XCUIAccessibilityAuditIssue) -> Bool {
+        guard let label = issue.element?.label else { return false }
+        let isCartiglio = label.hasPrefix("SBU ·")
+        // The figure's element, or its digits alone ("5342", "4.218").
+        let isFigure = label.hasPrefix("Messaggi, ") || label.hasPrefix("Messages, ")
+            || label.allSatisfy { $0.isNumber || $0 == "." || $0 == "," }
+        switch issue.auditType {
+        case .dynamicType: return isCartiglio || isFigure
+        case .textClipped: return isCartiglio
+        default: return false
+        }
+    }
+
+    /// - Parameter checksDynamicType: `true` for the run at the largest text size.
     @MainActor
-    private func audit(_ app: XCUIApplication) throws {
+    private func audit(_ app: XCUIApplication, checksDynamicType: Bool = false) throws {
         // After a push the audit can catch rows mid-slide and report them clipped: let the screen settle.
         sleep(1)
         // Contrast and Dynamic Type are left out as in the other Sbu apps: colors come from tokens with
-        // checked ratios, the audit misreads the iOS 26 glass bar, and large text has its own test.
-        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in
+        // checked ratios, the audit misreads the iOS 26 glass bar, and large text has its own run.
+        let excluded: XCUIAccessibilityAuditType = checksDynamicType ? [.contrast] : [.contrast, .dynamicType]
+        try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(excluded)) { issue in
+            if Self.isSbuKitGridType(issue) { return true }
+            // The system navigation-link Picker caps its own label at the largest sizes ("Periodo"
+            // in body is set by the app; the cap is the system row's, and the audit reports it
+            // only on some runs).
+            if issue.auditType == .dynamicType, let label = issue.element?.label,
+               label == "Periodo" || label == "Period" { return true }
             // No element: rows the screen's edge cuts in half, or blurred under the iOS 26 glass bar
             // after scrolling. Scrolling shows them whole.
             if issue.element == nil { return true }
@@ -57,8 +80,10 @@ final class ChatsFlowTests: XCTestCase {
     /// Scrolls the screen until `element` can be tapped: lists build rows only near the screen.
     @MainActor
     private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
-        for _ in 0 ..< 8 where !(element.exists && element.isHittable) {
-            app.swipeUp()
+        for _ in 0 ..< 16 where !(element.exists && element.isHittable) {
+            // From low on the screen: on the chat the figure stays above the rows and doesn't scroll.
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.9))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.7)))
         }
         XCTAssertTrue(element.isHittable, "\(element) not on screen")
     }
@@ -71,8 +96,8 @@ final class ChatsFlowTests: XCTestCase {
     @MainActor
     func testFirstLaunchExplainsHowToBringAChat() throws {
         let app = launch(seeded: false)
-        XCTAssertTrue(app.staticTexts["Nessuna chat"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.buttons["Scegli un file"].exists)
+        XCTAssertTrue(app.buttons["Scegli un file"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["Chat"].exists)
         XCTAssertTrue(app.buttons["Prova con una chat di esempio"].exists)
         XCTAssertTrue(app.buttons["Importa una chat"].exists)
         try audit(app)
@@ -98,10 +123,15 @@ final class ChatsFlowTests: XCTestCase {
         XCTAssertTrue(confirm.isEnabled)
         confirm.tap()
 
+        // The import closes on the chat's figure with "Importata", then the figure comes back.
+        let closure = app.descendants(matching: .any).matching(NSPredicate(format: "label == 'Importata'")).firstMatch
+        XCTAssertTrue(closure.waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts["Tu · Giulia"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.staticTexts["Marco"].exists)
-        XCTAssertTrue(app.staticTexts["MESSAGGI"].exists)
+        let gone = expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: closure)
+        wait(for: [gone], timeout: 5)
+        XCTAssertTrue(figure(app).exists)
         try audit(app)
+        reveal(app.staticTexts["Marco"], in: app)
 
         // Back in the list, the chat is there with its count.
         app.navigationBars.buttons.element(boundBy: 0).tap()
@@ -150,7 +180,7 @@ final class ChatsFlowTests: XCTestCase {
     func testThePeriodNarrowsEveryNumber() throws {
         let app = launch(seeded: true)
         openSampleChat(app)
-        let total = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Messaggi, '")).firstMatch
+        let total = figure(app)
         let before = total.label
 
         periodButton(app).tap()
@@ -177,7 +207,7 @@ final class ChatsFlowTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Lista della spesa"].exists)
         try audit(app)
         app.buttons["Chiudi"].tap()
-        XCTAssertTrue(app.staticTexts["Nessuna chat"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Scegli un file"].waitForExistence(timeout: 5))
     }
 
     @MainActor
@@ -189,7 +219,7 @@ final class ChatsFlowTests: XCTestCase {
         app.buttons["Elimina"].firstMatch.tap()
         XCTAssertTrue(app.staticTexts["Eliminare “Chat di esempio”?"].waitForExistence(timeout: 5))
         app.buttons.matching(NSPredicate(format: "label == 'Elimina'")).element(boundBy: 0).tap()
-        XCTAssertTrue(app.staticTexts["Nessuna chat"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Scegli un file"].waitForExistence(timeout: 5))
     }
 
     @MainActor
@@ -212,12 +242,21 @@ final class ChatsFlowTests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Marco e Giulia"].waitForExistence(timeout: 5))
     }
 
-    /// At the largest text size the figure and the rows stay on screen and readable.
+    /// The figure: one element, "Messaggi, 4.218, …".
+    @MainActor
+    private func figure(_ app: XCUIApplication) -> XCUIElement {
+        app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Messaggi, '")).firstMatch
+    }
+
+    /// At the largest text size the title, the figure and the rows stay on screen and readable.
     @MainActor
     func testLargestTextKeepsTheChatReadable() throws {
         let app = launch(seeded: true, textSize: "UICTContentSizeCategoryAccessibilityXXXL")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Chat di esempio'")).firstMatch.waitForExistence(timeout: 15))
+        try audit(app, checksDynamicType: true)
         openSampleChat(app)
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Messaggi, '")).firstMatch.isHittable)
+        XCTAssertTrue(figure(app).isHittable)
+        try audit(app, checksDynamicType: true)
         reveal(periodButton(app), in: app)
         reveal(app.buttons["Cerca nei messaggi"], in: app)
     }

@@ -1,7 +1,7 @@
 import SbuKit
 import SwiftUI
 
-/// A row you pick, with a check mark when picked.
+/// A row you pick, one among several: the row marker fills when picked.
 struct ChoiceRow: View {
     let title: Text
     let isSelected: Bool
@@ -9,17 +9,12 @@ struct ChoiceRow: View {
 
     var body: some View {
         Button(action: select) {
-            HStack {
+            HStack(spacing: SbuTheme.space3) {
+                SbuRowMark(filled: isSelected)
                 title
                     .font(SbuTheme.body)
                     .foregroundStyle(SbuTheme.ink)
                 Spacer(minLength: SbuTheme.space2)
-                if isSelected {
-                    Image(systemName: "checkmark")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.tint)
-                        .accessibilityHidden(true)
-                }
             }
             .contentShape(.rect)
         }
@@ -28,10 +23,16 @@ struct ChoiceRow: View {
 }
 
 #Preview("Light") {
-    List { ChoiceRow(title: Text(verbatim: "Giulia"), isSelected: true) {} }
+    List {
+        ChoiceRow(title: Text(verbatim: "Giulia"), isSelected: true) {}
+        ChoiceRow(title: Text(verbatim: "Marco"), isSelected: false) {}
+    }
 }
 
 #Preview("Dark") {
-    List { ChoiceRow(title: Text(verbatim: "Giulia"), isSelected: true) {} }
-        .preferredColorScheme(.dark)
+    List {
+        ChoiceRow(title: Text(verbatim: "Giulia"), isSelected: true) {}
+        ChoiceRow(title: Text(verbatim: "Marco"), isSelected: false) {}
+    }
+    .preferredColorScheme(.dark)
 }

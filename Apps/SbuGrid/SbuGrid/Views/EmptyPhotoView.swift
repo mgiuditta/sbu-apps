@@ -1,59 +1,55 @@
 import SbuKit
 import SwiftUI
 
-/// The first screen, before any photo: what the app does, and the button to choose one.
+/// The first screen, before any photo: the title, the empty figure with what to do, and the
+/// button to choose a photo, on the grid paper.
 ///
-/// Laid out like `ContentUnavailableView`, in a scroll view at least as tall as the screen, so
-/// the largest text sizes scroll instead of clipping.
+/// In a scroll view at least as tall as the screen, so the largest text sizes scroll instead of
+/// clipping, and the grid scrolls with the figure.
 struct EmptyPhotoView: View {
     let choosePhoto: () -> Void
+
+    private var cartiglio: String {
+        ["Sbu", String(localized: "Griglia"), String(localized: "Nessuna foto")].joined(separator: " · ")
+    }
 
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
-                VStack(spacing: SbuTheme.space4) {
-                    Image(systemName: "square.grid.3x3")
-                        .font(SbuTheme.largeTitle)
-                        .fontWeight(.medium)
-                        .imageScale(.large)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                        .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: SbuTheme.space6) {
+                    SbuScreenTitle("Griglia", cartiglio: cartiglio)
 
-                    VStack(spacing: SbuTheme.space2) {
-                        Text("Nessuna foto")
-                            .font(SbuTheme.title2)
-                            .foregroundStyle(SbuTheme.ink)
-                            .accessibilityAddTraits(.isHeader)
-
-                        Text("Scegli la foto da disegnare: Sbu Grid ci stende sopra una griglia, e tu la ricopi sul foglio una cella alla volta.")
-                            .font(SbuTheme.body)
-                            .foregroundStyle(SbuTheme.inkMuted)
+                    SbuEmpty(sentence: "Scegli la foto da disegnare: Sbu Grid ci stende sopra una griglia, e tu la ricopi sul foglio una cella alla volta.") {
+                        SbuButton("Scegli una foto", action: choosePhoto)
                     }
-                    .multilineTextAlignment(.center)
-
-                    SbuButton("Scegli una foto", action: choosePhoto)
-                        .padding(.top, SbuTheme.space2)
 
                     Text("Sbu Grid vede solo la foto che scegli, non la tua libreria.")
                         .font(SbuTheme.footnote)
                         .foregroundStyle(SbuTheme.inkMuted)
-                        .multilineTextAlignment(.center)
                 }
-                .padding(SbuTheme.space8)
-                .frame(maxWidth: .infinity, minHeight: proxy.size.height)
+                .padding(.horizontal, SbuTheme.space4)
+                .padding(.top, SbuTheme.space4)
+                .padding(.bottom, SbuTheme.space8)
+                .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .top)
+                .sbuPaper(grid: true)
             }
+            .scrollBounceBehavior(.basedOnSize)
         }
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }
 
 #Preview("Light") {
-    EmptyPhotoView(choosePhoto: {})
-        .tint(SbuTheme.accentGrid)
+    NavigationStack {
+        EmptyPhotoView(choosePhoto: {})
+    }
+    .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
-    EmptyPhotoView(choosePhoto: {})
-        .tint(SbuTheme.accentGrid)
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        EmptyPhotoView(choosePhoto: {})
+    }
+    .tint(SbuTheme.ink)
+    .preferredColorScheme(.dark)
 }

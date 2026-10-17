@@ -11,6 +11,8 @@ struct ZoomablePicture<Content: View>: View {
     let value: String
     @ViewBuilder let content: Content
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     @State private var zoom = ZoomState.identity
     /// The zoom while a gesture runs; `nil` between gestures.
     @State private var liveZoom: ZoomState?
@@ -77,7 +79,7 @@ struct ZoomablePicture<Content: View>: View {
     }
 
     private func toggleZoom(in size: CGSize) {
-        withAnimation(.snappy) {
+        withAnimation(SbuMotion.animation(SbuMotion.base, reduceMotion: reduceMotion)) {
             zoom = zoom.isZoomed ? .identity : zoom.zoomed(by: ZoomState.step, in: size)
         }
     }
@@ -93,13 +95,13 @@ private extension CGSize {
     ZoomablePicture(aspect: DemoPhoto.size, label: "Foto con la griglia", value: "4 × 6") {
         GridPicture(image: DemoPhoto.stillLife(), settings: GridSettings(), rule: GridSettings().cellRule)
     }
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     ZoomablePicture(aspect: DemoPhoto.size, label: "Foto con la griglia", value: "4 × 6") {
         GridPicture(image: DemoPhoto.stillLife(), settings: GridSettings(), rule: GridSettings().cellRule)
     }
-    .background(SbuTheme.surface)
+    .background(SbuTheme.paper)
     .preferredColorScheme(.dark)
 }

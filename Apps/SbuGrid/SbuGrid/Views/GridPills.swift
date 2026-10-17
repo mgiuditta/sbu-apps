@@ -45,12 +45,12 @@ struct GridPills: View {
 #Preview("Light") {
     GridPills(actions: .preview)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     GridPills(actions: .preview)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

@@ -30,12 +30,12 @@ struct TraceStage: View {
 #Preview("Light") {
     @Previewable @State var isLocked = false
     TraceStage(model: .forLaunch(.demo), session: AVCaptureSession(), isLocked: $isLocked)
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
 }
 
 #Preview("Dark") {
     @Previewable @State var isLocked = true
     TraceStage(model: .forLaunch(.demo), session: AVCaptureSession(), isLocked: $isLocked)
-        .tint(SbuTheme.accentGrid)
+        .tint(SbuTheme.ink)
         .preferredColorScheme(.dark)
 }

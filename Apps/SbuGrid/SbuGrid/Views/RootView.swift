@@ -10,7 +10,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuAppShell("Sbu Grid", slug: "grid", accent: SbuTheme.accentGrid, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
+        SbuAppShell("Sbu Grid", slug: "grid", accent: .grid, appIcon: Image(.appIconArtwork), settingsButtonPlacement: .content) {
             MainView(model: model)
         } settings: {
             HelpSection()

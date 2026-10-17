@@ -891,6 +891,17 @@
         }
       }
     },
+    "Salvata" : {
+      "comment" : "The Closure once the gridded photo is saved to Photos: one participle, the full stop is drawn after it.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved"
+          }
+        }
+      }
+    },
     "Salvata in Foto" : {
       "localizations" : {
         "en" : {
@@ -1028,6 +1039,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Without color, light and shade are easier to read."
+          }
+        }
+      }
+    },
+    "Senza foglio" : {
+      "comment" : "Cartiglio of the grid screen when no sheet is chosen.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sheet"
           }
         }
       }

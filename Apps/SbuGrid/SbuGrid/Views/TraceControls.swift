@@ -22,7 +22,7 @@ struct TraceControls: View {
         .font(SbuTheme.body)
         .foregroundStyle(SbuTheme.ink)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface, in: .rect(cornerRadius: SbuTheme.radiusLg))
+        .background(SbuTheme.paper, in: .rect(cornerRadius: SbuTheme.radiusCard))
         .padding(SbuTheme.space4)
     }
 

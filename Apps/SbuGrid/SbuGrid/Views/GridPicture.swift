@@ -27,12 +27,12 @@ struct GridPicture: View {
 #Preview("Light") {
     GridPicture(image: DemoPhoto.stillLife(), settings: GridSettings(), rule: GridSettings().cellRule)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
 }
 
 #Preview("Dark") {
     GridPicture(image: DemoPhoto.stillLife(), settings: GridSettings(), rule: GridSettings().cellRule)
         .padding(SbuTheme.space4)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .preferredColorScheme(.dark)
 }

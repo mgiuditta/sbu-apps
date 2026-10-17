@@ -29,13 +29,13 @@ struct CropFrame: View {
                     path.addRect(CGRect(origin: .zero, size: proxy.size))
                     path.addRect(frame)
                 }
-                .fill(SbuTheme.surface.opacity(0.6), style: FillStyle(eoFill: true))
+                .fill(SbuTheme.paper.opacity(0.6), style: FillStyle(eoFill: true))
                 .allowsHitTesting(false)
 
                 Rectangle()
                     .strokeBorder(SbuTheme.ink, lineWidth: SbuTheme.hairline * 3)
                     .overlay {
-                        Rectangle().strokeBorder(SbuTheme.surface, lineWidth: SbuTheme.hairline)
+                        Rectangle().strokeBorder(SbuTheme.paper, lineWidth: SbuTheme.hairline)
                     }
                     .contentShape(.rect)
                     .frame(width: frame.width, height: frame.height)
@@ -68,7 +68,7 @@ struct CropFrame: View {
 
     private var handle: some View {
         Rectangle()
-            .fill(SbuTheme.surface)
+            .fill(SbuTheme.paper)
             .strokeBorder(SbuTheme.ink, lineWidth: SbuTheme.hairline * 2)
             .frame(width: Self.handleSide, height: Self.handleSide)
     }

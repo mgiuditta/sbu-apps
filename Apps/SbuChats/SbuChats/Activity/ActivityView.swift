@@ -36,7 +36,7 @@ struct ActivityView: View {
                 ActivityChart(data: data, axis: axis, selectedLabel: $selectedLabel, seriesName: seriesName, height: min(chartHeight, Self.maximumChartHeight))
             } footer: {
                 if owner != nil {
-                    Text("Nel colore dell'app i tuoi messaggi, in grigio quelli degli altri. Tocca o trascina sul grafico per leggere una barra.")
+                    Text("In inchiostro i tuoi messaggi, in grigio quelli degli altri. Tocca o trascina sul grafico per leggere una barra.")
                 } else {
                     Text("Tocca o trascina sul grafico per leggere una barra. Scegli chi sei per separare i tuoi messaggi.")
                 }
@@ -45,7 +45,7 @@ struct ActivityView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text("Attività"))
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: axis) {

@@ -45,6 +45,14 @@ struct SearchView: View {
                 } footer: {
                     Text("Scrivi una o più parole: trovi i messaggi che le contengono tutte. Metti una frase tra virgolette per cercarla esatta, scrivi OR tra due parole per trovare l'una o l'altra.")
                 }
+            } else if hasSearched, total == 0 {
+                // A plain sentence where the results would be: nothing to draw for no result.
+                Section {
+                } footer: {
+                    Text("Nessun messaggio trovato per “\(query)”.")
+                        .font(SbuTheme.body)
+                        .foregroundStyle(SbuTheme.inkMuted)
+                }
             } else if hasSearched {
                 Section {
                     ForEach(hits) { hit in
@@ -58,12 +66,7 @@ struct SearchView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
-        .overlay {
-            if hasSearched, total == 0, SearchQuery.match(for: query) != nil {
-                ContentUnavailableView.search(text: query)
-            }
-        }
+        .background(SbuTheme.paper)
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Parole da cercare"))
         .autocorrectionDisabled()
         .navigationTitle(Text("Cerca nei messaggi"))

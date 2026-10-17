@@ -2,7 +2,8 @@ import SbuKit
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// The first screen: the imported chats, or how to bring in the first one.
+/// The first screen: the title, then the imported chats, or how to bring in the first one.
+/// No figure here: each chat's count is the figure of its own screen.
 struct ChatsListView: View {
     @Bindable var library: ChatLibrary
     @State private var isPickingFile = false
@@ -10,35 +11,13 @@ struct ChatsListView: View {
     @State private var isConfirmingDelete = false
 
     var body: some View {
-        List {
+        Group {
             if library.chats.isEmpty {
-                Section {
-                    EmptyChatsView(pickFile: pickFile, trySample: library.importSample)
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
-                }
+                empty
             } else {
-                Section {
-                    ForEach(library.chats) { chat in
-                        NavigationLink(value: chat.id) {
-                            ChatRow(chat: chat)
-                        }
-                        .swipeActions {
-                            Button("Elimina", systemImage: "trash", role: .destructive) {
-                                confirmDelete(chat)
-                            }
-                        }
-                    }
-                } footer: {
-                    Text("Per aggiornare una chat, esportala di nuovo: Sbu Chats aggiunge solo i messaggi nuovi.")
-                        .font(SbuTheme.footnote)
-                        .foregroundStyle(SbuTheme.inkMuted)
-                }
-                .listRowBackground(SbuTheme.surfaceRaised)
+                list
             }
         }
-        .listStyle(.insetGrouped)
-        .scrollContentBackground(.hidden)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 // In ink, like the gear: the accent belongs to the chat's full stop.
@@ -69,6 +48,57 @@ struct ChatsListView: View {
         } message: { _ in
             Text("I messaggi e i numeri di questa chat spariscono da Sbu Chats. La chat nell'app di messaggi resta com'è.")
         }
+    }
+
+    /// The first run, on paper with the grid: the title, the waiting zero and the way in.
+    private var empty: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: SbuTheme.space6) {
+                title
+                EmptyChatsView(pickFile: pickFile, trySample: library.importSample)
+            }
+            .padding(.horizontal, SbuTheme.space4)
+            .padding(.vertical, SbuTheme.space6)
+            // The grid scrolls with the page, so the zero stays on its line.
+            .sbuPaper(grid: true)
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        .background(SbuTheme.paper)
+    }
+
+    /// The chats, a native list on plain paper.
+    private var list: some View {
+        List {
+            Section {
+                ForEach(library.chats) { chat in
+                    NavigationLink(value: chat.id) {
+                        ChatRow(chat: chat)
+                    }
+                    .swipeActions {
+                        Button("Elimina", systemImage: "trash", role: .destructive) {
+                            confirmDelete(chat)
+                        }
+                    }
+                }
+            } header: {
+                // The header, not a row: a row's edge clipped the cartiglio's first letter.
+                title
+                    .textCase(nil)
+                    .padding(.bottom, SbuTheme.space4)
+            } footer: {
+                Text("Per aggiornare una chat, esportala di nuovo: Sbu Chats aggiunge solo i messaggi nuovi.")
+                    .font(SbuTheme.footnote)
+                    .foregroundStyle(SbuTheme.inkMuted)
+            }
+            .listRowBackground(SbuTheme.surfaceRaised)
+        }
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        .background(SbuTheme.paper)
+    }
+
+    private var title: some View {
+        SbuScreenTitle("Chat", cartiglio: String(localized: "Sbu · Chat · \(library.chats.count) chat"))
     }
 
     private var deleteTitle: Text {

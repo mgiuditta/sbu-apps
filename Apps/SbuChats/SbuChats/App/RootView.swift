@@ -6,7 +6,7 @@ struct RootView: View {
     let library: ChatLibrary
 
     var body: some View {
-        SbuAppShell("Sbu Chats", slug: "chats", accent: SbuTheme.accentChats, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Chats", slug: "chats", accent: .chats, appIcon: Image(.appIconArtwork)) {
             ChatsListView(library: library)
         } settings: {
             ChatsSettingsSection(knownOwners: library.knownOwners)

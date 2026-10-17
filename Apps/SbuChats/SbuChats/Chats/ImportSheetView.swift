@@ -20,11 +20,11 @@ struct ImportSheetView: View {
                     ImportFailureView(failure: failure)
                 }
             }
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
         }
         .presentationDetents(sheet == .reading ? [.medium] : [.large])
         // Reading can only be stopped with Annulla, so the file is never left half-imported.
         .interactiveDismissDisabled(sheet == .reading)
-        .tint(SbuTheme.accentChats)
+        .tint(SbuTheme.ink)
     }
 }

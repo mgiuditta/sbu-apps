@@ -11,7 +11,7 @@ struct SenderDetailView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle(Text(verbatim: sender.name))
         .navigationBarTitleDisplayMode(.inline)
     }

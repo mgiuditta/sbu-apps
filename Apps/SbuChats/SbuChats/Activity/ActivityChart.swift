@@ -64,9 +64,9 @@ struct ActivityChart: View {
         series.map(seriesName)
     }
 
-    /// You and everyone in the accent, the others in grey.
+    /// You and everyone in ink, the others in grey.
     private var seriesColors: [Color] {
-        series.map { $0 == .others ? SbuTheme.inkMuted : SbuTheme.accentChats }
+        series.map { $0 == .others ? SbuTheme.inkMuted : SbuTheme.ink }
     }
 
     /// Every hour would crowd the axis: one label in three (six at the accessibility sizes); months

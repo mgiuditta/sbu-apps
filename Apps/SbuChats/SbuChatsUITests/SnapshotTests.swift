@@ -10,7 +10,8 @@ final class SnapshotTests: XCTestCase {
         app.launchArguments += ["-SEED_SAMPLE", "YES"]
         app.launch()
 
-        let row = app.cells.element(boundBy: 0)
+        // The first chat's link: the title above the list is a cell too.
+        let row = app.collectionViews.buttons.firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 20))
         row.tap()
         sleep(1)
@@ -37,8 +38,10 @@ final class SnapshotTests: XCTestCase {
     @MainActor
     private func open(_ identifier: String, in app: XCUIApplication) {
         let row = app.buttons[identifier]
-        for _ in 0 ..< 8 where !(row.exists && row.isHittable) {
-            app.swipeUp()
+        for _ in 0 ..< 16 where !(row.exists && row.isHittable) {
+            // From low on the screen: the figure stays above the rows and doesn't scroll.
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.9))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.7)))
         }
         row.tap()
     }

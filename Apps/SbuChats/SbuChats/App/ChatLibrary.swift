@@ -14,6 +14,8 @@ final class ChatLibrary {
     var openedChatID: Int64?
     /// Messages a re-import added, by chat, until the chat screen has said so once.
     private(set) var addedByMerge: [Int64: Int] = [:]
+    /// The chat an import just saved, until its screen has closed with "Importata".
+    private(set) var importedChatID: Int64?
 
     @ObservationIgnored let knownOwners: KnownOwners
     @ObservationIgnored private var importTask: Task<Void, Never>?
@@ -74,6 +76,7 @@ final class ChatLibrary {
                 Task { @MainActor in self.progress = fraction }
             }
             await reload()
+            importedChatID = outcome.chatID
             if outcome.merged { addedByMerge[outcome.chatID] = outcome.addedMessages }
             if outcome.needsOwner {
                 sheet = .owner(OwnerRequest(chatID: outcome.chatID, senders: outcome.senders))
@@ -135,8 +138,16 @@ final class ChatLibrary {
     func delete(_ chat: ChatSummary) async {
         try? await store.delete(chatID: chat.id)
         if openedChatID == chat.id { openedChatID = nil }
+        if importedChatID == chat.id { importedChatID = nil }
         addedByMerge[chat.id] = nil
         await reload()
+    }
+
+    /// Whether `chatID` is the chat an import just saved; says yes once.
+    func takeImported(chatID: Int64) -> Bool {
+        guard importedChatID == chatID else { return false }
+        importedChatID = nil
+        return true
     }
 
     /// The messages the last re-import added to `chatID`, said once.

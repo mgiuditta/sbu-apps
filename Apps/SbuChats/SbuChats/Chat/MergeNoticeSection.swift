@@ -1,13 +1,14 @@
 import SbuKit
 import SwiftUI
 
-/// After a re-import: how many messages the newer export added.
+/// After a re-import: how many messages the newer export added, marked like a done row.
 struct MergeNoticeSection: View {
     let added: Int
 
     var body: some View {
         Section {
-            Label {
+            HStack(spacing: SbuTheme.space3) {
+                SbuRowMark(filled: true)
                 Group {
                     if added == 0 {
                         Text("Nessun messaggio nuovo: la chat era già aggiornata")
@@ -17,10 +18,6 @@ struct MergeNoticeSection: View {
                 }
                 .font(SbuTheme.body)
                 .foregroundStyle(SbuTheme.ink)
-            } icon: {
-                Image(systemName: "checkmark.circle")
-                    .fontWeight(.medium)
-                    .foregroundStyle(SbuTheme.success)
             }
         }
         .listRowBackground(SbuTheme.surfaceRaised)

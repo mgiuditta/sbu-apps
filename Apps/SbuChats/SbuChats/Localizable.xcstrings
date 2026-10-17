@@ -271,6 +271,16 @@
         }
       }
     },
+    "Chat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chats"
+          }
+        }
+      }
+    },
     "Chi" : {
       "localizations" : {
         "en" : {
@@ -571,12 +581,32 @@
         }
       }
     },
+    "Importata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imported"
+          }
+        }
+      }
+    },
     "Importazione" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import"
+          }
+        }
+      }
+    },
+    "In inchiostro i tuoi messaggi, in grigio quelli degli altri. Tocca o trascina sul grafico per leggere una barra." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your messages in ink, everyone else's in grey. Tap or drag on the chart to read a bar."
           }
         }
       }
@@ -791,16 +821,6 @@
         }
       }
     },
-    "Nel colore dell'app i tuoi messaggi, in grigio quelli degli altri. Tocca o trascina sul grafico per leggere una barra." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your messages in the app's color, everyone else's in grey. Tap or drag on the chart to read a bar."
-          }
-        }
-      }
-    },
     "Nel file non ci sono messaggi scritti da qualcuno, solo avvisi dell'app o nessuna riga." : {
       "localizations" : {
         "en" : {
@@ -861,12 +881,12 @@
         }
       }
     },
-    "Nessuna chat" : {
+    "Nessun messaggio trovato per “%@”." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Chats"
+            "value" : "No messages found for “%@”."
           }
         }
       }
@@ -1171,6 +1191,28 @@
         }
       }
     },
+    "Sbu · Chat · %lld chat" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sbu · Chats · %lld chat"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sbu · Chats · %lld chats"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Scegli Senza media." : {
       "localizations" : {
         "en" : {
@@ -1407,6 +1449,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@"
+          }
+        }
+      }
+    },
+    "messaggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "messages"
+          }
+        }
+      }
+    },
+    "messaggio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "message"
           }
         }
       }

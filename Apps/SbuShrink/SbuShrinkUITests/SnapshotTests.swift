@@ -17,8 +17,9 @@ final class SnapshotTests: XCTestCase {
         snapshot("01-settings")
 
         app.buttons.matching(NSPredicate(format: "label == 'Comprimi' OR label == 'Compress'")).firstMatch.tap()
-        // Halfway through the second video, as in the original's screenshot.
-        sleep(6)
+        // Mid-run, as in the original's screenshot: half a second past a
+        // step, once the figure has settled.
+        Thread.sleep(forTimeInterval: 6.5)
         snapshot("02-compressing")
 
         let keep = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Tieni' OR label BEGINSWITH 'Keep'")).firstMatch

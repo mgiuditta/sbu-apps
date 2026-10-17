@@ -6,7 +6,9 @@ nonisolated struct DemoCompressor: VideoCompressor {
     var duration: Duration = .milliseconds(600)
 
     func compress(_ input: URL, plan: CompressionPlan, to output: URL, progress: @escaping @Sendable (Double) -> Void) async throws -> Int64 {
-        let steps = 20
+        // A step a second when slow: the figure then rests between steps, so a screenshot never
+        // catches its digits mid-transition.
+        let steps = duration >= .seconds(2) ? Int(duration.components.seconds) : 20
         for step in 1...steps {
             do {
                 try await Task.sleep(for: duration / steps)

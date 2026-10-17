@@ -1,0 +1,75 @@
+{
+  "01-main": {
+    "layout": "hero",
+    "engraving": "icon",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        270,
+        1210,
+        1060,
+        1990
+      ]
+    }
+  },
+  "02-result": {
+    "layout": "tilt-r",
+    "subject": "an old wooden signpost at a crossroads with arrow-shaped boards pointing different ways, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        140,
+        1060,
+        1060,
+        1150
+      ]
+    },
+    "en-US": {
+      "mark": {
+        "shape": "underline",
+        "box": [
+          140,
+          1060,
+          860,
+          1150
+        ]
+      }
+    }
+  },
+  "03-history": {
+    "layout": "tilt-l",
+    "subject": "an antique wooden library card catalogue drawer pulled open, full of index cards, three-quarter view"
+  },
+  "04-created": {
+    "layout": "detail",
+    "subject": "an antique hand rubber stamp on a small ink pad, three-quarter view",
+    "zoom": [
+      80,
+      1440,
+      1260,
+      2250
+    ],
+    "mark": {
+      "shape": "underline",
+      "box": [
+        110,
+        2100,
+        960,
+        2180
+      ]
+    }
+  },
+  "05-privacy": {
+    "layout": "flat",
+    "subject": "a small antique cast iron safe with its door closed, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        140,
+        2280,
+        1060,
+        2530
+      ]
+    }
+  }
+}

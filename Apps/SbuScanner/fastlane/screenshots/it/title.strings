@@ -1,5 +1,5 @@
-"01-main" = "Inquadra. Si legge da solo.";
-"02-result" = "Vedi dove porta il link.";
-"03-history" = "Cronologia, cartelle e CSV.";
-"04-created" = "Crea QR e codici a barre.";
-"05-privacy" = "Senza account. Dati sull'iPhone.";
+"01-main" = "Lettore QR e codici a barre. Inquadra, si legge da solo.";
+"02-result" = "Vedi dove porta il link. Prima di aprirlo.";
+"03-history" = "Cronologia dei codici. Cartelle ed esportazione CSV.";
+"04-created" = "Crea QR per link e Wi-Fi. Anche codici a barre.";
+"05-privacy" = "Nessun abbonamento, nessun account. Dati solo sull'iPhone.";

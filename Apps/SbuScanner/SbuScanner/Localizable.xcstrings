@@ -1301,6 +1301,16 @@
         }
       }
     },
+    "Ospiti": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guests"
+          }
+        }
+      }
+    },
     "Password": {
       "localizations": {
         "en": {
@@ -1777,6 +1787,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wi-Fi"
+          }
+        }
+      }
+    },
+    "Wi-Fi ospiti": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guest Wi-Fi"
           }
         }
       }

@@ -18,7 +18,7 @@ enum DemoContent {
         ]
         records.forEach(context.insert)
         records[2].isFavorite = true
-        context.insert(CreatedCode(title: "Wi-Fi ospiti", kind: .wifi, format: .qr, payload: "WIFI:T:WPA;S:Ospiti;P:benvenuti;;", created: now.addingTimeInterval(-7_200)))
+        context.insert(CreatedCode(title: String(localized: "Wi-Fi ospiti"), kind: .wifi, format: .qr, payload: "WIFI:T:WPA;S:\(String(localized: "Ospiti"));P:benvenuti;;", created: now.addingTimeInterval(-7_200)))
         context.insert(CreatedCode(title: "sbu.dev", kind: .link, format: .qr, payload: "https://sbu.dev", created: now.addingTimeInterval(-100_000)))
         try? context.save()
     }

@@ -22,6 +22,7 @@ const url = new URL(localePath(locale, path), site).href;
 const replaced = originale && [
   t.replaces(originale.name),
   originale.price !== undefined && t.oneTime(formatPrice(originale.price, locale)),
+  originale.cost?.[locale],
 ].filter(Boolean).join(' · ');
 const cartiglio = `SBU / ${String(app.order).padStart(2, '0')} / ${app.slug}${replaced ? ` · ${replaced}` : ''}`;
 
@@ -68,7 +69,10 @@ const jsonLd = [
       {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
       <p class="flex flex-wrap items-center gap-x-6 gap-y-0">
         {app.storeUrl ? (
-          <a href={app.storeUrl} class="cta">{t.appStore}</a>
+          <a href={app.storeUrl} class="cta">
+            <svg aria-hidden="true" viewBox="0 0 384 512" width="1em" height="1em" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            {t.appStore}
+          </a>
         ) : (
           <span class="cartiglio text-ink">{statusLabel(app, locale)}</span>
         )}
@@ -146,7 +150,9 @@ const jsonLd = [
 
   /* Filled in ink. The app's accent stays on the full stop alone. */
   .cta {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
     padding: var(--spacing-3) var(--spacing-6);
     border-radius: var(--radius-card);
     background: var(--sbu-ink);

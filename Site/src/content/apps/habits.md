@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuHabits/fastlane/metadata. Do not repeat them here.
 app: SbuHabits
 accent: accent-habits
-order: 1
+order: 4
 status: review
 appStoreId: null
 category: HealthApplication

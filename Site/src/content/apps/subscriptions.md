@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuSubscriptions/fastlane/metadata. Do not repeat them here.
 app: SbuSubscriptions
 accent: accent-subscriptions
-order: 2
+order: 1
 status: live
 published: 2026-06-15
 appStoreId: 6780154928

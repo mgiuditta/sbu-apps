@@ -2,13 +2,16 @@
 # Name, subtitle, description and features come from Apps/SbuFind/fastlane/metadata. Do not repeat them here.
 app: SbuFind
 accent: accent-find
-order: 14
-status: development
+order: 3
+status: review
 appStoreId: null
 category: UtilitiesApplication
 originale:
   name: Find Air
   appStoreId: 1507917112
+  cost:
+    it: "da 4,99 $ a settimana"
+    en: "from $4.99 a week"
 permissions:
   it:
     - Bluetooth, per sentire i dispositivi vicini. Con l'app chiusa ascolta solo i tuoi dispositivi salvati che trasmettono un servizio, e solo se hai acceso l'avviso o le posizioni per loro. Quello che sente resta sull'iPhone.

@@ -37,9 +37,16 @@ const apps = defineCollection({
     /**
      * The paid app this one remakes. `price`: its public one-time price on the Italian App Store, in euros,
      * as seen on `checked`; the build compares it with research/<appStoreId>/meta.json when that exists.
+     * `cost`: for a free download behind a subscription, its plan as written on its App Store page.
      */
     originale: z
-      .object({ name: z.string(), appStoreId: z.number(), price: z.number().optional(), checked: z.coerce.date().optional() })
+      .object({
+        name: z.string(),
+        appStoreId: z.number(),
+        price: z.number().optional(),
+        checked: z.coerce.date().optional(),
+        cost: localized(z.string()).optional(),
+      })
       .refine((o) => (o.price === undefined) === (o.checked === undefined), 'originale.price needs originale.checked, and the reverse')
       .optional(),
     figure: localized(z.object({ value: z.string(), label: z.string() })).optional(),

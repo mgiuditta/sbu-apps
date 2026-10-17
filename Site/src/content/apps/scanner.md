@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuScanner/fastlane/metadata. Do not repeat them here.
 app: SbuScanner
 accent: accent-scanner
-order: 3
+order: 2
 status: live
 published: 2026-05-26
 appStoreId: 6772572337

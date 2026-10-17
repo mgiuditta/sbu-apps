@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuNoise/fastlane/metadata. Do not repeat them here.
 app: SbuNoise
 accent: accent-noise
-order: 4
+order: 5
 status: review
 appStoreId: null
 category: LifestyleApplication

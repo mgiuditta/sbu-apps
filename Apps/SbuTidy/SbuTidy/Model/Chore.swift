@@ -99,6 +99,11 @@ final class Chore {
         self.clock = clock
     }
 
+    /// The latest completion on the day of `now`: the tick of the to-do list, taken back with `remove`.
+    func completion(on now: Date, calendar: Calendar) -> Completion? {
+        history.first { calendar.isDate($0.date, inSameDayAs: now) }
+    }
+
     /// Removes one entry of the history; the cycle starts again from the latest one left.
     func remove(_ completion: Completion, in context: ModelContext) {
         let remaining = (completions ?? []).filter { $0.id != completion.id }.map(\.date)

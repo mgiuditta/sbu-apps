@@ -41,6 +41,6 @@ private struct RoomKindPickerPreview: View {
                 RoomKindPicker(selection: $kind)
             }
         }
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
     }
 }

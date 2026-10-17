@@ -16,7 +16,7 @@ struct DoneOnSheet: View {
                     .listRowBackground(SbuTheme.surfaceRaised)
             }
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .navigationTitle("Fatta il…")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -44,11 +44,11 @@ struct DoneOnSheet: View {
 
 #Preview("Light") {
     DoneOnSheet { _ in }
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
 }
 
 #Preview("Dark") {
     DoneOnSheet { _ in }
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
         .preferredColorScheme(.dark)
 }

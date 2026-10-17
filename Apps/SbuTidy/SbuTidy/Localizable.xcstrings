@@ -211,16 +211,6 @@
         }
       }
     },
-    "Aggiungi una stanza" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a room"
-          }
-        }
-      }
-    },
     "Altra stanza" : {
       "localizations" : {
         "en" : {
@@ -481,16 +471,6 @@
         }
       }
     },
-    "di cui %lld in ritardo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld of them late"
-          }
-        }
-      }
-    },
     "Domani" : {
       "localizations" : {
         "en" : {
@@ -661,16 +641,6 @@
         }
       }
     },
-    "Giorni alla scadenza" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Days until due"
-          }
-        }
-      }
-    },
     "Giorno" : {
       "localizations" : {
         "en" : {
@@ -771,16 +741,6 @@
         }
       }
     },
-    "Inizia dalle stanze" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start with the rooms"
-          }
-        }
-      }
-    },
     "Invia un promemoria di prova" : {
       "localizations" : {
         "en" : {
@@ -867,16 +827,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wash the curtains"
-          }
-        }
-      }
-    },
-    "Le attività tornano qui quando sono da fare. Le trovi tutte in Stanze." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chores come back here when they're due. You'll find them all in Rooms."
           }
         }
       }
@@ -1007,36 +957,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No rooms. Add the first one."
-          }
-        }
-      }
-    },
-    "Niente da fare oggi" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing to do today"
-          }
-        }
-      }
-    },
-    "Niente in ritardo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing late"
-          }
-        }
-      }
-    },
-    "Niente in scadenza questa settimana" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nothing coming up this week"
           }
         }
       }
@@ -1227,16 +1147,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "Ogni stanza arriva con le sue attività di base. Le cambi quando vuoi." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Each room comes with its base chores. Change them whenever you like."
           }
         }
       }
@@ -1541,16 +1451,6 @@
         }
       }
     },
-    "Qui trovi quello che diventa da fare nei prossimi 7 giorni." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Here you find what becomes due in the next 7 days."
-          }
-        }
-      }
-    },
     "Raccogliere le foglie" : {
       "localizations" : {
         "en" : {
@@ -1831,16 +1731,6 @@
         }
       }
     },
-    "Stanze in ordine" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rooms in order"
-          }
-        }
-      }
-    },
     "Stato" : {
       "localizations" : {
         "en" : {
@@ -1877,86 +1767,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Study"
-          }
-        }
-      }
-    },
-    "su %lld attività" : {
-      "localizations" : {
-        "it" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "su %lld attività"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "su %lld attività"
-                }
-              }
-            }
-          }
-        },
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "of %lld chore"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "of %lld chores"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "su %lld stanze" : {
-      "localizations" : {
-        "it" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "su %lld stanza"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "su %lld stanze"
-                }
-              }
-            }
-          }
-        },
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "of %lld room"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "of %lld rooms"
-                }
-              }
-            }
           }
         }
       }
@@ -2117,6 +1927,216 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use the base rooms"
+          }
+        }
+      }
+    },
+    "Casa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "Inizia dalle stanze: ognuna arriva con le sue attività di base." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start from the rooms: each one comes with its basic chores."
+          }
+        }
+      }
+    },
+    "Niente da fare oggi. Le attività tornano qui quando sono da fare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to do today. Chores come back here when they are due."
+          }
+        }
+      }
+    },
+    "Da fare oggi: %lld. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To do today: %1$lld. %2$@"
+          }
+        }
+      }
+    },
+    "da fare oggi · %lld in ritardo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to do today · %lld late"
+          }
+        }
+      }
+    },
+    "da fare oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "to do today"
+          }
+        }
+      }
+    },
+    "In ordine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidy"
+          }
+        }
+      }
+    },
+    "Niente in scadenza questa settimana. Qui trovi quello che diventa da fare nei prossimi 7 giorni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing coming up this week. Here you find what becomes due in the next 7 days."
+          }
+        }
+      }
+    },
+    "Apri %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open %@"
+          }
+        }
+      }
+    },
+    "Fatta oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done today"
+          }
+        }
+      }
+    },
+    "giorni alla scadenza · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "days to due · %@"
+          }
+        }
+      }
+    },
+    "Giorni alla scadenza: %lld. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days to due: %1$lld. %2$@"
+          }
+        }
+      }
+    },
+    "da fare oggi · su %lld attività" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "to do today · of %lld chore"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "to do today · of %lld chores"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "da fare oggi · su %lld attività"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "da fare oggi · su %lld attività"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "in ordine · su %lld stanze" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "tidy · of %lld room"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "tidy · of %lld rooms"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "in ordine · su %lld stanza"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "in ordine · su %lld stanze"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Stanze in ordine: %lld su %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rooms tidy: %1$lld of %2$lld"
           }
         }
       }

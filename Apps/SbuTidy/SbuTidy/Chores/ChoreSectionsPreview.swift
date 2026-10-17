@@ -8,7 +8,7 @@ struct ChoreSectionsPreview: View {
         ChoreSectionsPreviewList()
             .modelContainer(.preview)
             .environment(Clock())
-            .tint(SbuTheme.accentTidy)
+            .environment(\.sbuAccent, .tidy)
     }
 }
 
@@ -24,6 +24,6 @@ private struct ChoreSectionsPreviewList: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
     }
 }

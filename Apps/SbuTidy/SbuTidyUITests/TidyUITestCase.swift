@@ -32,6 +32,13 @@ class TidyUITestCase: XCTestCase {
             if issue.auditType == .textClipped, issue.element == nil {
                 return true
             }
+            // SbuToggleStyle and SbuCheckboxStyle draw the label in a button and hand VoiceOver a
+            // system switch through accessibilityRepresentation: the audit measures the label in that
+            // switch's layout and reports it clipped, while on screen it is whole (SbuKit, v5).
+            if issue.auditType == .textClipped, let label = issue.element?.label, !label.isEmpty,
+               app.switches.matching(NSPredicate(format: "label CONTAINS %@", label)).count > 0 {
+                return true
+            }
             XCTFail("\(issue.compactDescription): \(issue.element?.debugDescription ?? issue.detailedDescription)")
             return true
         }
@@ -42,6 +49,12 @@ class TidyUITestCase: XCTestCase {
         let button = app.buttons["addBaseRooms"]
         XCTAssertTrue(button.waitForExistence(timeout: 5))
         button.tap()
+    }
+
+    /// SbuFigure is one element of its own kind, figure and context read together: found by its identifier.
+    @MainActor
+    func figureElement(_ app: XCUIApplication, _ identifier: String) -> XCUIElement {
+        app.descendants(matching: .any).matching(identifier: identifier).firstMatch
     }
 
     /// Swipes up until `element` is there: lists are lazy and keep rows off screen unbuilt.

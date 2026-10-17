@@ -13,7 +13,7 @@ struct ChoreStatusSection: View {
                     .monospacedDigit()
             }
             ProgressView(value: state.level)
-                .tint(state.status == .paused ? SbuTheme.inkMuted : nil)
+                .tint(state.status == .paused ? SbuTheme.inkMuted : SbuTheme.ink)
                 .accessibilityHidden(true)
             LabeledContent("Frequenza") {
                 Text(chore.frequency.text)

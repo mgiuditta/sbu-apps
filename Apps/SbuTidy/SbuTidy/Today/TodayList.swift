@@ -1,10 +1,13 @@
 import Foundation
 
 /// The to-do list: the chores of a filter grouped by room, rooms in your order, chores by urgency.
+/// "Da fare" keeps the chores done today after the others, ticked, so a tick can be taken back.
 nonisolated struct TodayList: Equatable, Sendable {
     nonisolated struct Item: Identifiable, Equatable, Sendable {
         let chore: ChoreSnapshot
         let state: ChoreState
+        /// Done today: ticked in "Da fare", left out of "In scadenza".
+        var isDone = false
         var id: UUID { chore.id }
     }
 
@@ -19,18 +22,24 @@ nonisolated struct TodayList: Equatable, Sendable {
     /// Chores due today or late, whatever the filter: the screen's figure.
     let toDoCount: Int
     let overdueCount: Int
+    /// Chores done today and no longer to do: with none left to do, the day is closed.
+    let doneCount: Int
 
-    init(_ chores: [ChoreSnapshot], filter: TodayFilter, now: Date, calendar: Calendar) {
+    /// - Parameter doneToday: The chores with a completion today.
+    init(_ chores: [ChoreSnapshot], filter: TodayFilter, now: Date, calendar: Calendar, doneToday: Set<UUID> = []) {
         let ranked = Urgency.sorted(chores, at: now, calendar: calendar)
-        toDoCount = ranked.filter { $0.state.status.isToDo }.count
-        overdueCount = ranked.filter { $0.state.status == .overdue }.count
+        let toDo = ranked.filter { $0.state.status.isToDo }
+        let done = ranked.filter { !$0.state.status.isToDo && doneToday.contains($0.chore.id) }
+        toDoCount = toDo.count
+        overdueCount = toDo.filter { $0.state.status == .overdue }.count
+        doneCount = done.count
 
         let shown: [Item] = switch filter {
         case .toDo:
-            ranked.filter { $0.state.status.isToDo }.map { Item(chore: $0.chore, state: $0.state) }
+            toDo.map { Item(chore: $0.chore, state: $0.state) } + done.map { Item(chore: $0.chore, state: $0.state, isDone: true) }
         case .upcoming:
             ranked
-                .filter { $0.state.status == .clean && $0.state.daysUntilDue <= TodayFilter.upcomingDays }
+                .filter { $0.state.status == .clean && $0.state.daysUntilDue <= TodayFilter.upcomingDays && !doneToday.contains($0.chore.id) }
                 // What comes first comes first, not what is dirtiest.
                 .sorted { $0.state.dueDate < $1.state.dueDate }
                 .map { Item(chore: $0.chore, state: $0.state) }
@@ -51,4 +60,7 @@ nonisolated struct TodayList: Equatable, Sendable {
     }
 
     var isEmpty: Bool { sections.isEmpty }
+
+    /// Nothing left to do today, and something was done: the full stop is set.
+    var isDayClosed: Bool { toDoCount == 0 && doneCount > 0 }
 }

@@ -78,7 +78,7 @@ struct ChoreForm: View {
             }
             .listRowBackground(SbuTheme.surfaceRaised)
             .scrollContentBackground(.hidden)
-            .background(SbuTheme.surface)
+            .background(SbuTheme.paper)
             .scrollDismissesKeyboard(.interactively)
             .navigationTitle(chore == nil ? "Nuova attività" : "Modifica attività")
             .navigationBarTitleDisplayMode(.inline)
@@ -155,6 +155,6 @@ private struct ChoreFormPreview: View {
             }
         }
         .modelContainer(.preview)
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
     }
 }

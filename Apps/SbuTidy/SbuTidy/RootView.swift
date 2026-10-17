@@ -12,7 +12,7 @@ struct RootView: View {
     @State private var reminders = Reminders(center: Launch.isDemo ? SilentReminderCenter() : SystemReminderCenter())
 
     var body: some View {
-        SbuAppShell("Sbu Tidy", slug: "tidy", accent: SbuTheme.accentTidy, appIcon: Image(.appIconArtwork)) {
+        SbuAppShell("Sbu Tidy", slug: "tidy", accent: .tidy, appIcon: Image(.appIconArtwork)) {
             TodayView()
         } settings: {
             ReminderSection(reminders: reminders)

@@ -80,4 +80,35 @@ struct TodayListTests {
         ]
         #expect(list(chores, .toDo).sections.map(\.roomName) == ["Bagno", "Studio"])
     }
+
+    @Test func doneTodayStaysTickedAfterWhatIsStillToDo() throws {
+        let done = Fixtures.chore("Piatti", roomID: kitchen, every: 1, lastDone: Fixtures.daysAgo(0.1))
+        let toDo = Fixtures.chore("Forno", roomID: kitchen, lastDone: Fixtures.daysAgo(9))
+        let list = TodayList([done, toDo], filter: .toDo, now: Fixtures.now, calendar: Fixtures.calendar, doneToday: [done.id])
+        let section = try #require(list.sections.first)
+        #expect(section.items.map(\.chore.name) == ["Forno", "Piatti"])
+        #expect(section.items.map(\.isDone) == [false, true])
+        #expect(list.toDoCount == 1)
+        #expect(list.doneCount == 1)
+        #expect(!list.isDayClosed)
+    }
+
+    @Test func theDayClosesOnlyWhenSomethingWasDone() {
+        let done = Fixtures.chore(every: 1, lastDone: Fixtures.daysAgo(0.1))
+        #expect(TodayList([done], filter: .toDo, now: Fixtures.now, calendar: Fixtures.calendar, doneToday: [done.id]).isDayClosed)
+        #expect(!TodayList([done], filter: .toDo, now: Fixtures.now, calendar: Fixtures.calendar).isDayClosed)
+    }
+
+    @Test func aChoreStillToDoIsNeverTickedEvenIfDoneEarlierToday() {
+        let late = Fixtures.chore(lastDone: Fixtures.daysAgo(9))
+        let list = TodayList([late], filter: .toDo, now: Fixtures.now, calendar: Fixtures.calendar, doneToday: [late.id])
+        #expect(list.sections.first?.items.map(\.isDone) == [false])
+        #expect(list.doneCount == 0)
+    }
+
+    @Test func upcomingLeavesOutWhatWasDoneToday() {
+        let done = Fixtures.chore(every: 2, lastDone: Fixtures.daysAgo(0.1))
+        #expect(TodayList([done], filter: .upcoming, now: Fixtures.now, calendar: Fixtures.calendar, doneToday: [done.id]).isEmpty)
+        #expect(!TodayList([done], filter: .upcoming, now: Fixtures.now, calendar: Fixtures.calendar).isEmpty)
+    }
 }

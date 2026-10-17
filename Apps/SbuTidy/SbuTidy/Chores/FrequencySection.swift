@@ -40,6 +40,6 @@ private struct FrequencySectionPreview: View {
         Form {
             FrequencySection(value: $value, unit: $unit)
         }
-        .tint(SbuTheme.accentTidy)
+        .environment(\.sbuAccent, .tidy)
     }
 }

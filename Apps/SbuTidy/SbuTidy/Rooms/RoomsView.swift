@@ -18,6 +18,10 @@ struct RoomsView: View {
             if !rooms.isEmpty {
                 Section {
                     RoomsFigure(summaries: summaries)
+                        .padding(.vertical, SbuTheme.gridCell)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        // On the row's content, not the list: the grid scrolls with the figure.
+                        .sbuPaper(grid: true)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
                 }
@@ -48,14 +52,14 @@ struct RoomsView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(SbuTheme.surface)
+        .background(SbuTheme.paper)
         .navigationTitle("Stanze")
         .safeAreaInset(edge: .bottom) {
             SbuButton("Aggiungi stanza", action: add)
                 .accessibilityIdentifier("addRoom")
                 .padding(.horizontal, SbuTheme.space4)
                 .padding(.vertical, SbuTheme.space2)
-                .background(SbuTheme.surface)
+                .background(SbuTheme.paper)
         }
         .toolbar {
             if !rooms.isEmpty {
@@ -110,7 +114,7 @@ struct RoomsView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentTidy)
+    .environment(\.sbuAccent, .tidy)
 }
 
 #Preview("Dark") {
@@ -119,6 +123,6 @@ struct RoomsView: View {
     }
     .modelContainer(.preview)
     .environment(Clock())
-    .tint(SbuTheme.accentTidy)
+    .environment(\.sbuAccent, .tidy)
     .preferredColorScheme(.dark)
 }

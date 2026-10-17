@@ -3,7 +3,10 @@
 
 Grammar (Design/README.md, CLAUDE.md): the real instrument behind the app, engraved in
 warm black (`ink`) on paper (`paper`), centred, with the square full stop in the app's
-`accent-*` at the bottom right. Dark: the engraving in light ink on warm black, the square
+`accent-*` at the bottom right. Since v5 the engraving sits on the notebook grid (8x8 cells of
+128 px, multiply), is scaled 20% past its frame so it bleeds off the edges and reads at 60 px,
+has its tone levelled to one ink density across apps, and the full stop is one whole grid cell,
+one cell in from the bottom-right corner. Dark: the engraving in light ink on warm black, the square
 in the accent's dark value. Tinted: the dark variant in greys, for iOS to tint. Inversa, the one
 alternate icon (ADR-0013): paper engraving on ink, the square in `accent-on-ink-*`.
 
@@ -31,7 +34,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps, ImageStat
 
 ROOT = Path(__file__).resolve().parent.parent
 TOKENS = ROOT / "Design" / "tokens.json"
@@ -39,8 +42,10 @@ ICONS = ROOT / "Design" / "icons"
 SPECS = ICONS / "engravings.json"
 CANVAS = 1024
 MARGIN = 0.15  # space around the engraving, as a fraction of its longer side
-STOP_SIDE = 0.085  # full stop side, as a fraction of the canvas
-STOP_INSET = 0.10  # full stop distance from the bottom-right corner
+GRID = 8  # cells per side of the notebook grid under the engraving (128 px at 1024)
+GRID_LINE = 4  # grid line width at 1024 px
+ZOOM = 1.2  # the engraving is scaled past its frame and cropped at the edges
+INK_TONE = 85  # mean ink alpha inside the subject's silhouette, the same for every app
 WATCH_SAFE = 0.70  # watchOS: side of the composed icon, as a fraction of the canvas (inscribed square is 0.707)
 MODEL = "gemini-2.5-flash-image"
 STYLE = (
@@ -133,14 +138,57 @@ def generate(subject: str) -> Image.Image:
     sys.exit("the model returned no image: " + json.dumps(reply)[:300])
 
 
-def compose(mask: Image.Image, line: str, ground: str, stop: str | None) -> Image.Image:
-    icon = Image.composite(Image.new("RGB", mask.size, rgb(line)), Image.new("RGB", mask.size, rgb(ground)), mask)
+def zoom(mask: Image.Image) -> Image.Image:
+    """Scale the engraving by ZOOM around the centre and crop what falls off the canvas."""
+    side = mask.width
+    crop = round(side / ZOOM)
+    offset = (side - crop) // 2
+    return mask.crop((offset, offset, offset + crop, offset + crop)).resize((side, side), Image.LANCZOS)
+
+
+def level_tone(mask: Image.Image) -> Image.Image:
+    """Levels on the ink: a gamma that brings the mean ink inside the silhouette to INK_TONE.
+
+    ponytail: one gamma per icon, bisected; dense crosshatching lightens, a thin outline darkens.
+    """
+    silhouette = mask.filter(ImageFilter.GaussianBlur(12)).point(lambda v: 255 if v > 12 else 0)
+    low, high = 0.2, 5.0
+    for _ in range(24):
+        gamma = (low * high) ** 0.5
+        levelled = mask.point(lambda v, g=gamma: round(255 * (v / 255) ** g))
+        if ImageStat.Stat(levelled, silhouette).mean[0] > INK_TONE:
+            low = gamma
+        else:
+            high = gamma
+    return levelled
+
+
+def compose(mask: Image.Image, line: str, ground: str, stop: str | None, grid: str | None = None) -> Image.Image:
+    """Ground, grid, engraving (multiply on light grounds), then the full stop on one grid cell."""
+    canvas = mask.width
+    cell = canvas / GRID
+    paper = Image.new("RGB", mask.size, rgb(ground))
+    if grid:
+        draw = ImageDraw.Draw(paper)
+        width = max(1, round(GRID_LINE * canvas / CANVAS))
+        for i in range(1, GRID):
+            at = round(i * cell)
+            draw.rectangle([at - width // 2, 0, at - width // 2 + width - 1, canvas], fill=rgb(grid))
+            draw.rectangle([0, at - width // 2, canvas, at - width // 2 + width - 1], fill=rgb(grid))
+    if luminance(ground) > luminance(line):
+        engraving = Image.composite(Image.new("RGB", mask.size, rgb(line)), Image.new("RGB", mask.size, "white"), mask)
+        icon = ImageChops.multiply(paper, engraving)
+    else:
+        icon = Image.composite(Image.new("RGB", mask.size, rgb(line)), paper, mask)
     if stop:
-        canvas = mask.width
-        side, inset = int(canvas * STOP_SIDE), int(canvas * STOP_INSET)
-        corner = canvas - inset
-        ImageDraw.Draw(icon).rectangle([corner - side, corner - side, corner, corner], fill=rgb(stop))
+        # One whole cell, one cell in from the bottom-right corner.
+        start, end = round((GRID - 2) * cell), round((GRID - 1) * cell)
+        ImageDraw.Draw(icon).rectangle([start, start, end - 1, end - 1], fill=rgb(stop))
     return icon
+
+
+def luminance(hex_value: str) -> int:
+    return sum(rgb(hex_value))
 
 
 def write_appiconset(icons: dict, folder: Path) -> None:
@@ -157,12 +205,12 @@ def write_appiconset(icons: dict, folder: Path) -> None:
     (folder / "Contents.json").write_text(json.dumps({"images": images, "info": {"author": "xcode", "version": 1}}, indent=2) + "\n")
 
 
-def write_watch_appiconset(mask: Image.Image, line: str, ground: str, stop: str, folder: Path) -> None:
+def write_watch_appiconset(mask: Image.Image, line: str, ground: str, stop: str, grid: str, folder: Path) -> None:
     """watchOS crops the icon to a circle: compose inside its safe square, on the same ground."""
     inner = int(CANVAS * WATCH_SAFE)
     icon = Image.new("RGB", (CANVAS, CANVAS), rgb(ground))
     offset = (CANVAS - inner) // 2
-    icon.paste(compose(mask.resize((inner, inner), Image.LANCZOS), line, ground, stop), (offset, offset))
+    icon.paste(compose(mask.resize((inner, inner), Image.LANCZOS), line, ground, stop, grid), (offset, offset))
     folder.mkdir(parents=True, exist_ok=True)
     for old in folder.glob("*.png"):
         old.unlink()
@@ -213,13 +261,13 @@ def main() -> None:
         Image.merge("LA", (Image.new("L", mask.size, 255), mask)).save(source)
     if not source.exists():
         sys.exit(f"{source.relative_to(ROOT)} is missing: run with --generate or --from-image")
-    mask = Image.open(source).getchannel("A")
+    mask = level_tone(zoom(Image.open(source).getchannel("A")))
 
-    ink, surface = palette["ink"], palette["paper"]
+    ink, surface, grid = palette["ink"], palette["paper"], palette["grid"]
     variants = {
-        "light": compose(mask, ink["light"], surface["light"], accent["light"]),
-        "dark": compose(mask, ink["dark"], ink["light"], accent["dark"]),
-        "tinted": ImageOps.grayscale(compose(mask, "#ffffff", "#000000", "#ffffff")).convert("RGB"),
+        "light": compose(mask, ink["light"], surface["light"], accent["light"], grid["light"]),
+        "dark": compose(mask, ink["dark"], ink["light"], accent["dark"], grid["dark"]),
+        "tinted": ImageOps.grayscale(compose(mask, "#ffffff", "#000000", "#ffffff", grid["dark"])).convert("RGB"),
     }
     # Design/icons keeps the light icon; the variants go only into the app's asset catalog.
     variants["light"].save(ICONS / f"sbu-{args.name}.png")
@@ -232,10 +280,10 @@ def main() -> None:
         print(args.artwork)
     if args.inverse:
         on_ink = palette.get(spec["accent"].replace("accent-", "accent-on-ink-"), accent)
-        write_appiconset({"light": compose(mask, surface["light"], ink["light"], on_ink["light"])}, args.inverse)
+        write_appiconset({"light": compose(mask, surface["light"], ink["light"], on_ink["light"], grid["dark"])}, args.inverse)
         print(args.inverse)
     if args.watch_appiconset:
-        write_watch_appiconset(mask, ink["dark"], ink["light"], accent["dark"], args.watch_appiconset)
+        write_watch_appiconset(mask, ink["dark"], ink["light"], accent["dark"], grid["dark"], args.watch_appiconset)
         print(args.watch_appiconset)
 
 

@@ -65,8 +65,8 @@ nonisolated struct SoundAlarm: Codable, Equatable, Identifiable, Sendable {
     }
 
     /// A one-off alarm whose time passed without the app ringing it (the backup did).
-    func hasExpired(at now: Date) -> Bool {
-        isOn && weekdays.isEmpty && fireDate(after: now) == nil
+    func hasExpired(at now: Date, calendar: Calendar = .current) -> Bool {
+        isOn && weekdays.isEmpty && fireDate(after: now, calendar: calendar) == nil
     }
 
     /// The alarm that rings first among `alarms`, with its date.

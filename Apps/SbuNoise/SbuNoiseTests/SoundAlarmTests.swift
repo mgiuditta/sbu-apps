@@ -24,7 +24,7 @@ struct SoundAlarmTests {
         let alarm = SoundAlarm(hour: 7, minute: 30).armed(at: monday(6))
         #expect(alarm.fireDate(after: monday(7, 29), calendar: calendar) == monday(7, 30))
         #expect(alarm.fireDate(after: monday(8), calendar: calendar) == nil)
-        #expect(alarm.hasExpired(at: monday(8)))
+        #expect(alarm.hasExpired(at: monday(8), calendar: calendar))
     }
 
     @Test func aRepeatingAlarmPicksTheNextOfItsDays() {
@@ -32,7 +32,7 @@ struct SoundAlarmTests {
         let alarm = SoundAlarm(hour: 6, minute: 45, weekdays: [4, 6])
         let wednesday = calendar.date(from: DateComponents(year: 2026, month: 10, day: 14, hour: 6, minute: 45))!
         #expect(alarm.fireDate(after: monday(12), calendar: calendar) == wednesday)
-        #expect(!alarm.hasExpired(at: monday(12)))
+        #expect(!alarm.hasExpired(at: monday(12), calendar: calendar))
     }
 
     @Test func rimandaRingsAgainAfterTheSnoozeMinutes() {

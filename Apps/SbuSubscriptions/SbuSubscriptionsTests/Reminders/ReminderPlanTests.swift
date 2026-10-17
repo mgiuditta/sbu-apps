@@ -64,7 +64,7 @@ struct ReminderPlanTests {
     @Test(arguments: [PlannedReminder.Kind.renewal, .trialEnds], [0, 1, 3])
     func textSaysTheAmountAndTheDay(kind: PlannedReminder.Kind, daysBefore: Int) {
         let reminder = PlannedReminder(kind: kind, subscriptionID: "a", name: "Musica", price: 10, currencyCode: "EUR",
-                                       paymentDate: day(2026, 10, 20), daysBefore: daysBefore, fireDate: day(2026, 10, 17, hour: 9))
+                                       paymentDate: day(2026, 10, 20, hour: 12), daysBefore: daysBefore, fireDate: day(2026, 10, 17, hour: 9))
         // The sentence follows the app's language; amount and date follow the locale passed in.
         let body = ReminderText.body(for: reminder, locale: Locale(identifier: "it_IT"))
         #expect(body.contains("10,00"))

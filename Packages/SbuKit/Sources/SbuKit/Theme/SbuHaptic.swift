@@ -20,8 +20,19 @@ public nonisolated enum SbuHaptic: Sendable, CaseIterable {
 }
 
 public extension View {
-    /// Plays a Sbu haptic each time `trigger` changes.
+    /// Plays a Sbu haptic each time `trigger` changes, unless `\.sbuPlaysHaptics` is off.
     func sbuHaptic(_ haptic: SbuHaptic, trigger: some Equatable) -> some View {
-        sensoryFeedback(haptic.feedback, trigger: trigger)
+        modifier(SbuHapticModifier(haptic: haptic, trigger: trigger))
+    }
+}
+
+private struct SbuHapticModifier<Trigger: Equatable>: ViewModifier {
+    let haptic: SbuHaptic
+    let trigger: Trigger
+
+    @Environment(\.sbuPlaysHaptics) private var playsHaptics
+
+    func body(content: Content) -> some View {
+        content.sensoryFeedback(haptic.feedback, trigger: trigger) { _, _ in playsHaptics }
     }
 }

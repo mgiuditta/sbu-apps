@@ -11,6 +11,7 @@ struct SbuClosure: ViewModifier {
     let playsHaptic: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.sbuPlaysHaptics) private var playsHaptics
 
     func body(content: Content) -> some View {
         content
@@ -22,7 +23,7 @@ struct SbuClosure: ViewModifier {
                 }
             }
             .animation(SbuMotion.animation(SbuMotion.short, reduceMotion: reduceMotion), value: isPresented)
-            .sensoryFeedback(SbuHaptic.closure.feedback, trigger: isPresented) { _, new in new && playsHaptic }
+            .sensoryFeedback(SbuHaptic.closure.feedback, trigger: isPresented) { _, new in new && playsHaptic && playsHaptics }
             .task(id: isPresented) {
                 guard isPresented else { return }
                 AccessibilityNotification.Announcement(String(localized: word)).post()

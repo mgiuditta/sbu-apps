@@ -13,7 +13,12 @@ public struct SbuEmpty<Action: View>: View {
     ///   - sentence: What to do first, in the second person: "Aggiungi la tua prima abitudine."
     ///   - action: One native button, such as `Button("Aggiungi", action: add)`.
     public init(sentence: LocalizedStringKey, @ViewBuilder action: () -> Action) {
-        self.sentence = Text(sentence)
+        self.init(sentence: Text(sentence), action: action)
+    }
+
+    /// Creates the empty state from text that is already localized or composed.
+    public init(sentence: Text, @ViewBuilder action: () -> Action) {
+        self.sentence = sentence
         self.action = action()
     }
 

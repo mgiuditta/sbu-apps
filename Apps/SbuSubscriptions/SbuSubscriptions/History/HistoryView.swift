@@ -47,6 +47,9 @@ struct HistoryView: View {
                 }
             }
         }
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        .background(SbuTheme.paper)
         .navigationTitle("Cronologia")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -69,30 +72,13 @@ struct HistoryView: View {
     }
 }
 
-/// One payment made: its day and amount, and whether you marked it paid.
-private struct PaymentRow: View {
-    let day: Date
-    let amount: Decimal
-    let currencyCode: String
-    let isPaid: Bool
-    let markPaid: () -> Void
+#Preview("Light") {
+    NavigationStack { HistoryView(subscription: .preview) }
+        .modelContainer(.preview)
+}
 
-    var body: some View {
-        LabeledContent {
-            if isPaid {
-                Label("Pagato", systemImage: "checkmark")
-                    .foregroundStyle(SbuTheme.success)
-            } else {
-                Button("Segna come pagato", action: markPaid)
-                    .buttonStyle(.borderless)
-            }
-        } label: {
-            VStack(alignment: .leading) {
-                Text(day, format: .dateTime.day().month(.wide).year())
-                Text(amount, format: .currency(code: currencyCode))
-                    .font(SbuTheme.subheadline)
-                    .foregroundStyle(SbuTheme.inkMuted)
-            }
-        }
-    }
+#Preview("Dark") {
+    NavigationStack { HistoryView(subscription: .preview) }
+        .modelContainer(.preview)
+        .preferredColorScheme(.dark)
 }

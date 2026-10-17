@@ -17,8 +17,8 @@ struct SymbolPicker: View {
                         .fontWeight(.medium)
                         .imageScale(.medium)
                         .frame(width: side, height: side)
-                        .foregroundStyle(symbol == category.symbol ? SbuTheme.onAccent : SbuTheme.ink)
-                        .background(symbol == category.symbol ? AnyShapeStyle(.tint) : AnyShapeStyle(SbuTheme.surfaceSunken), in: .rect(cornerRadius: SbuTheme.radiusMd))
+                        .foregroundStyle(symbol == category.symbol ? SbuTheme.paper : SbuTheme.ink)
+                        .background(symbol == category.symbol ? SbuTheme.ink : SbuTheme.surfaceSunken, in: .rect(cornerRadius: SbuTheme.radiusCard))
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(category.name)

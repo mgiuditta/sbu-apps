@@ -27,6 +27,19 @@ final class TabsFlowTests: XCTestCase {
         XCTAssertTrue(app.buttons["add"].waitForExistence(timeout: 5))
     }
 
+    /// The tool screen at the largest accessibility size: the title, the figure on one line and the rows still pass.
+    @MainActor
+    func testToolScreenAtAX5() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
+        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+
+        XCTAssertTrue(app.tabBars.buttons["Abbonamenti"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["add"].waitForExistence(timeout: 5))
+        try audit(app, "abbonamenti AX5")
+    }
+
     @MainActor
     private func audit(_ app: XCUIApplication, _ screen: String) throws {
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting([.contrast, .dynamicType])) { issue in

@@ -29,7 +29,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        SbuTabShell("Sbu Subscriptions", slug: "subscriptions", accent: SbuTheme.accentSubscriptions, appIcon: Image(.appIconArtwork),
+        SbuTabShell("Sbu Subscriptions", slug: "subscriptions", accent: .subscriptions, appIcon: Image(.appIconArtwork),
                     dataLocation: Self.syncsWithICloud ? .yourDevices : .thisDevice, selection: $tab, settingsTab: AppTab.settings) {
             SbuTab("Abbonamenti", systemImage: "creditcard", value: AppTab.subscriptions) {
                 MainView(currency: currency)

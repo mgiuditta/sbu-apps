@@ -41,6 +41,24 @@ struct RenewalStatusTests {
         #expect(RenewalStatus(status: state, trialEnd: nil, nextPayment: nil, today: day(2026, 10, 16), calendar: calendar) == expected)
     }
 
+    @Test(arguments: [(0, true), (6, true), (7, false), (31, false)])
+    func theMarkIsFilledWithinTheWeek(days: Int, filled: Bool) {
+        let on = day(2026, 10, 16)
+        #expect(RenewalStatus.renews(inDays: days, on: on).isWithinWeek == filled)
+        #expect(RenewalStatus.trialEnds(inDays: days, on: on).isWithinWeek == filled)
+    }
+
+    @Test(arguments: [RenewalStatus.paused, .cancelled, .finished])
+    func stoppedOnesHaveNoDayAndAnEmptyMark(status: RenewalStatus) {
+        #expect(status.day == nil)
+        #expect(!status.isWithinWeek)
+    }
+
+    @Test func theDayIsTheRenewal() {
+        let on = day(2026, 10, 20)
+        #expect(RenewalStatus.renews(inDays: 4, on: on).day == on)
+    }
+
     @Test func withoutANextPaymentItIsFinished() {
         #expect(RenewalStatus(status: .active, trialEnd: nil, nextPayment: nil, today: day(2026, 10, 16), calendar: calendar) == .finished)
     }

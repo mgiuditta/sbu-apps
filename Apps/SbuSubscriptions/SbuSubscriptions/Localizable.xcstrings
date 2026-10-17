@@ -321,6 +321,16 @@
         }
       }
     },
+    "Aggiungi il tuo primo abbonamento: qui vedi quanto spendi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your first subscription: this is where you see what you spend."
+          }
+        }
+      }
+    },
     "Aggiungi un abbonamento" : {
       "localizations" : {
         "en" : {
@@ -367,16 +377,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Other"
-          }
-        }
-      }
-    },
-    "Ancora da pagare questo mese: %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Still to pay this month: %@"
           }
         }
       }
@@ -931,16 +931,6 @@
         }
       }
     },
-    "Domani" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tomorrow"
-          }
-        }
-      }
-    },
     "Dopo la prova: %@ al mese" : {
       "localizations" : {
         "en" : {
@@ -1221,16 +1211,6 @@
         }
       }
     },
-    "Gli abbonamenti che aggiungi compaiono qui, con quanto spendi." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The subscriptions you add show up here, with what you spend."
-          }
-        }
-      }
-    },
     "Gli abbonamenti restano, senza categoria." : {
       "localizations" : {
         "en" : {
@@ -1451,16 +1431,6 @@
         }
       }
     },
-    "La prova finisce domani · %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trial ends tomorrow · %@"
-          }
-        }
-      }
-    },
     "La prova finisce oggi" : {
       "localizations" : {
         "en" : {
@@ -1471,22 +1441,12 @@
         }
       }
     },
-    "La prova finisce oggi · %@" : {
+    "La prova finisce tra ^[%lld giorno](inflect: true)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trial ends today · %@"
-          }
-        }
-      }
-    },
-    "La prova finisce tra ^[%lld giorno](inflect: true) · %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trial ends in ^[%lld day](inflect: true) · %@"
+            "value" : "The trial ends in ^[%lld day](inflect: true)"
           }
         }
       }
@@ -1767,6 +1727,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No subscriptions with this filter"
+          }
+        }
+      }
+    },
+    "Nessun abbonamento per «%@»" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No subscriptions for “%@”"
           }
         }
       }
@@ -2321,6 +2291,16 @@
         }
       }
     },
+    "Prossimo: %@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next: %@, %@"
+          }
+        }
+      }
+    },
     "Prova fino al" : {
       "localizations" : {
         "en" : {
@@ -2531,32 +2511,32 @@
         }
       }
     },
-    "Rinnova domani · %@" : {
+    "Rinnova domani" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Renews tomorrow · %@"
+            "value" : "Renews tomorrow"
           }
         }
       }
     },
-    "Rinnova oggi · %@" : {
+    "Rinnova oggi" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Renews today · %@"
+            "value" : "Renews today"
           }
         }
       }
     },
-    "Rinnova tra ^[%lld giorno](inflect: true) · %@" : {
+    "Rinnova tra ^[%lld giorno](inflect: true)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Renews in ^[%lld day](inflect: true) · %@"
+            "value" : "Renews in ^[%lld day](inflect: true)"
           }
         }
       }
@@ -3151,26 +3131,6 @@
         }
       }
     },
-    "^[%lld abbonamento](inflect: true) · %@ al mese" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "^[%lld subscription](inflect: true) · %@ a month"
-          }
-        }
-      }
-    },
-    "^[%lld abbonamento](inflect: true) · %@ all'anno" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "^[%lld subscription](inflect: true) · %@ a year"
-          }
-        }
-      }
-    },
     "^[%lld giorno](inflect: true) prima" : {
       "localizations" : {
         "en" : {
@@ -3187,6 +3147,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "^[%lld payment](inflect: true)"
+          }
+        }
+      }
+    },
+    "al mese · %@ all'anno · ^[%lld abbonamento](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a month · %@ a year · ^[%lld subscription](inflect: true)"
+          }
+        }
+      }
+    },
+    "all'anno · %@ al mese · ^[%lld abbonamento](inflect: true)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a year · %@ a month · ^[%lld subscription](inflect: true)"
+          }
+        }
+      }
+    },
+    "domani" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tomorrow"
+          }
+        }
+      }
+    },
+    "oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "today"
+          }
+        }
+      }
+    },
+    "tra %lld giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %lld days"
           }
         }
       }

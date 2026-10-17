@@ -8,7 +8,7 @@ final class DetailFlowTests: XCTestCase {
         app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launch()
 
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Musica")).firstMatch.tap()
+        app.subscriptionRow("Musica").tap()
         XCTAssertTrue(app.buttons["edit"].waitForExistence(timeout: 5))
         let shot = XCTAttachment(screenshot: app.screenshot())
         shot.name = "dettaglio"
@@ -57,7 +57,7 @@ final class DetailFlowTests: XCTestCase {
         let confirm = app.buttons.matching(NSPredicate(format: "label == %@ AND identifier != %@", "Elimina abbonamento", "delete")).firstMatch
         XCTAssertTrue(confirm.waitForExistence(timeout: 5))
         confirm.tap()
-        XCTAssertTrue(app.staticTexts["Film e serie"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.subscriptionRow("Film e serie").waitForExistence(timeout: 5))
         XCTAssertFalse(app.staticTexts["Musica"].exists)
     }
 
@@ -66,7 +66,7 @@ final class DetailFlowTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launch()
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Musica")).firstMatch.tap()
+        app.subscriptionRow("Musica").tap()
 
         // The detail shows the latest payments and prices; each pencil opens the rest.
         XCTAssertTrue(app.buttons["edit"].waitForExistence(timeout: 5))

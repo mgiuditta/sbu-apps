@@ -29,6 +29,22 @@ nonisolated enum RenewalStatus: Hashable, Sendable {
         }
     }
 
+    /// The day it renews or the trial ends; `nil` when it does neither.
+    var day: Date? {
+        switch self {
+        case let .renews(_, day), let .trialEnds(_, day): day
+        case .paused, .cancelled, .finished: nil
+        }
+    }
+
+    /// Whether it renews, or the trial ends, in the next seven days: the row mark is filled.
+    var isWithinWeek: Bool {
+        switch self {
+        case let .renews(days, _), let .trialEnds(days, _): days < 7
+        case .paused, .cancelled, .finished: false
+        }
+    }
+
     /// Whole days between the two days, never below zero.
     private static func days(from today: Date, to day: Date, calendar: Calendar) -> Int {
         max(0, calendar.dateComponents([.day], from: calendar.startOfDay(for: today), to: calendar.startOfDay(for: day)).day ?? 0)

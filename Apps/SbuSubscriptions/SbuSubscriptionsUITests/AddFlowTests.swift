@@ -8,7 +8,7 @@ final class AddFlowTests: XCTestCase {
         app.launchArguments += ["-SBU_EMPTY_STORE", "YES", "-AppleLanguages", "(it)", "-AppleLocale", "it_IT"]
         app.launch()
 
-        XCTAssertTrue(app.staticTexts["Nessun abbonamento"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Aggiungi il tuo primo abbonamento: qui vedi quanto spendi."].waitForExistence(timeout: 5))
         try audit(app)
 
         app.buttons["addFirst"].tap()

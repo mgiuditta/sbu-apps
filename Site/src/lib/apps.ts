@@ -43,9 +43,6 @@ export function plateCaption(slug: string, order: number | undefined, locale: Lo
 const RESEARCH = resolve(process.cwd(), '..', 'research');
 
 /** The Originale's price in the content file must match the public listing saved by Tools/discover.py. */
-/** App Store Connect provider token for campaign links: public, the same for every app. */
-const PROVIDER_TOKEN = 128487151;
-
 function checkPrice(slug: string, originale: { appStoreId: number; price?: number }) {
   const meta = resolve(RESEARCH, String(originale.appStoreId), 'meta.json');
   if (originale.price === undefined || !existsSync(meta)) return;
@@ -83,8 +80,6 @@ export async function getApps() {
         /** The same engraving small, for lists. */
         mark: await engraving(app.id, 192),
         storeUrl: app.data.status === 'live' && app.data.appStoreId ? `https://apps.apple.com/app/id${app.data.appStoreId}` : undefined,
-        /** The badge's link: App Analytics counts installs per page (ct), no tracking of the person (#573). */
-        campaignUrl: app.data.status === 'live' && app.data.appStoreId ? `https://apps.apple.com/app/apple-store/id${app.data.appStoreId}?pt=${PROVIDER_TOKEN}&ct=site-${app.id}&mt=8` : undefined,
       };
     }),
   );

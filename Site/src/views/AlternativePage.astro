@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import PageTitle from '../components/PageTitle.astro';
+import StoreBadge from '../components/StoreBadge.astro';
 import Base from '../layouts/Base.astro';
 import { formatDate, localePath, ui } from '../i18n';
 import { text, type Alternative } from '../lib/apps';
@@ -9,7 +10,7 @@ import type { Route } from '../lib/routes';
 
 type Props = Route & { alternative: Alternative };
 const { locale, path, alternates, alternative, apps } = Astro.props;
-const { entry, app } = alternative;
+const { entry, app, slug } = alternative;
 const t = ui[locale];
 const listing = text(app, locale);
 const { Content } = await render(entry);
@@ -35,6 +36,8 @@ const jsonLd = [
         ))}
       </tbody>
     </table>
+
+    {app.storeUrl && <StoreBadge appStoreId={app.appStoreId!} campaign={`alt-${slug}`} locale={locale} />}
 
     <p><a href={localePath(locale, `apps/${app.slug}`)}>{t.backToApp(listing.name)}</a> · <a href={localePath(locale, 'alternatives')}>{t.nav.alternatives}</a></p>
 

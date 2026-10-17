@@ -1,0 +1,24 @@
+---
+// Apple's official badge, unchanged (App Store marketing guidelines): black on paper, white in dark.
+// The link is a campaign link: App Analytics counts installs per page (ct), no tracking of the person.
+import { ui, type Locale } from '../i18n';
+
+interface Props {
+  appStoreId: number;
+  /** The page the install comes from, as App Analytics shows it: site-<app>, alt-<competitor>, tool-<tool>. */
+  campaign: string;
+  locale: Locale;
+}
+
+/** App Store Connect provider token: public, the same for every app. */
+const PROVIDER_TOKEN = 128487151;
+
+const { appStoreId, campaign, locale } = Astro.props;
+const badgeLocale = locale === 'it' ? 'it-it' : 'en-us';
+---
+<a href={`https://apps.apple.com/app/apple-store/id${appStoreId}?pt=${PROVIDER_TOKEN}&ct=${campaign}&mt=8`} class="inline-block leading-[0]">
+  <picture>
+    <source srcset={`/badges/app-store-white-${badgeLocale}.svg`} media="(prefers-color-scheme: dark)" />
+    <img src={`/badges/app-store-black-${badgeLocale}.svg`} alt={ui[locale].appStore} width="144" height="48" />
+  </picture>
+</a>

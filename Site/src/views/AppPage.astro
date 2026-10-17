@@ -1,5 +1,6 @@
 ---
 import PageTitle from '../components/PageTitle.astro';
+import StoreBadge from '../components/StoreBadge.astro';
 import ToolFieldShot from '../components/ToolFieldShot.astro';
 import Base from '../layouts/Base.astro';
 import { capitalize, formatDate, formatPrice, localePath, statusLabel, ui } from '../i18n';
@@ -11,7 +12,6 @@ import type { Route } from '../lib/routes';
 type Props = Route & { app: App };
 const { locale, path, alternates, app, alternatives } = Astro.props;
 const t = ui[locale];
-const badgeLocale = locale === 'it' ? 'it-it' : 'en-us';
 const listing = text(app, locale);
 const faq = app.faq[locale];
 const originale = app.originale;
@@ -71,13 +71,7 @@ const jsonLd = [
       {listing.intro.map((paragraph) => <p>{paragraph}</p>)}
       <p class="flex flex-wrap items-center gap-x-6 gap-y-0">
         {app.storeUrl ? (
-          <a href={app.campaignUrl} class="badge">
-            {/* Apple's official badge, unchanged (App Store marketing guidelines): black on paper, white in dark. */}
-            <picture>
-              <source srcset={`/badges/app-store-white-${badgeLocale}.svg`} media="(prefers-color-scheme: dark)" />
-              <img src={`/badges/app-store-black-${badgeLocale}.svg`} alt={t.appStore} width="144" height="48" />
-            </picture>
-          </a>
+          <StoreBadge appStoreId={app.appStoreId!} campaign={`site-${app.slug}`} locale={locale} />
         ) : (
           <span class="cartiglio text-ink">{statusLabel(app, locale)}</span>
         )}
@@ -151,12 +145,6 @@ const jsonLd = [
     font-size: var(--text-title-2);
     line-height: calc(var(--sbu-grid-cell) * 2);
     font-weight: var(--text-title--font-weight);
-  }
-
-  /* Filled in ink. The app's accent stays on the full stop alone. */
-  .badge {
-    display: inline-block;
-    line-height: 0;
   }
 
   /* Fa / non fa: side by side from a tablet up, one row of the grid per line, the mark on the first line. */

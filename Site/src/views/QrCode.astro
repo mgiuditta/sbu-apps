@@ -2,6 +2,7 @@
 // A free tool: make a QR code for a link, some text or a Wi-Fi network. The code is drawn in the
 // browser; nothing is stored or sent. Without JavaScript it is a page that explains what it would do.
 import PageTitle from '../components/PageTitle.astro';
+import StoreBadge from '../components/StoreBadge.astro';
 import Base from '../layouts/Base.astro';
 import { localePath, ui } from '../i18n';
 import { breadcrumbs, faqPage } from '../lib/jsonld';
@@ -148,6 +149,7 @@ const jsonLd = [
       <section aria-labelledby="close-title" class="flex flex-col items-start gap-4 border-y border-line py-8">
         <h2 id="close-title" class="text-title-2">{copy.closeTitle}</h2>
         <p>{copy.closeBody}</p>
+        {scanner.storeUrl && <StoreBadge appStoreId={scanner.appStoreId!} campaign="tool-qr" locale={locale} />}
         <a href={localePath(locale, 'apps/scanner')} class="btn">{copy.closeLink}</a>
       </section>
     )}

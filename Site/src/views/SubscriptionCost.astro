@@ -2,13 +2,15 @@
 // A free tool: add up what your subscriptions cost in a year. The sum happens in the browser;
 // nothing is stored or sent. Without JavaScript it is a page that explains what it would do.
 import PageTitle from '../components/PageTitle.astro';
+import StoreBadge from '../components/StoreBadge.astro';
 import Base from '../layouts/Base.astro';
 import { localePath, ui } from '../i18n';
 import { breadcrumbs, faqPage } from '../lib/jsonld';
 import type { Route } from '../lib/routes';
 
 type Props = Route & { view: 'subscriptionCost' };
-const { locale, path, alternates } = Astro.props;
+const { locale, path, alternates, apps } = Astro.props;
+const subscriptions = apps.find((app) => app.slug === 'subscriptions');
 const t = ui[locale];
 const copy = {
   it: {
@@ -124,6 +126,7 @@ const jsonLd = [
     <section aria-labelledby="close-title" class="flex flex-col items-start gap-4 border-y border-line py-8">
       <h2 id="close-title" class="text-title-2">{copy.closeTitle}</h2>
       <p>{copy.closeBody}</p>
+      {subscriptions?.storeUrl && <StoreBadge appStoreId={subscriptions.appStoreId!} campaign="tool-abbonamenti" locale={locale} />}
       <a href={localePath(locale, '')} class="btn">{copy.closeLink}</a>
     </section>
 

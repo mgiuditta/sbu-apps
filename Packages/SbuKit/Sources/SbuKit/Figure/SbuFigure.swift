@@ -1,3 +1,4 @@
+import CoreText
 import SwiftUI
 
 /// The one figure of a screen, in `ink`, closed by the full stop.
@@ -23,6 +24,7 @@ public struct SbuFigure: View {
     private let scale: Scale
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.sbuIsOnPaper) private var isOnPaper
     @State private var gridOffset: CGFloat = 0
 
     /// Creates the figure.
@@ -69,12 +71,17 @@ public struct SbuFigure: View {
         case .hero:
             let size = Self.heroSize(for: text)
             line(size: size, fullStop: .hero)
-                // The baseline sits on the bottom of a block whose top is on a grid line.
+                // The baseline sits on the bottom of a block whose top is on a grid line; the
+                // descenders (the comma of "6,0") get whole cells under it.
                 .frame(height: size, alignment: .bottom)
-                .padding(.top, gridOffset)
+                .padding(.bottom, Self.descentInCells(size: size))
+                .padding(.top, isOnPaper ? gridOffset : 0)
                 .onGeometryChange(for: CGFloat.self) { proxy in
                     proxy.frame(in: .named(SbuPaper.space)).minY
                 } action: { minY in
+                    // Off paper (a List row, a sheet) there is no grid to meet: snapping there
+                    // would only feed layout back into itself.
+                    guard isOnPaper else { return }
                     gridOffset = Self.offsetToGrid(minY)
                 }
         case .fixed(let size, let stop):
@@ -122,6 +129,12 @@ public struct SbuFigure: View {
     static func heroSize(for text: String) -> CGFloat {
         let cells = SbuTheme.figureHeroMax / SbuTheme.gridCell - CGFloat(max(text.count - 2, 0))
         return max(cells * SbuTheme.gridCell, SbuTheme.figureHeroMin)
+    }
+
+    /// The room under the baseline for descenders, rounded up to whole grid cells.
+    static func descentInCells(size: CGFloat) -> CGFloat {
+        let descent = CTFontGetDescent(SbuFont.figure(size: size, width: SbuTheme.figureWidthMax))
+        return (descent / SbuTheme.gridCell).rounded(.up) * SbuTheme.gridCell
     }
 
     /// The padding that moves a block starting at `minY` down to the next grid line.

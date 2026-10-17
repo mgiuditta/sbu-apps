@@ -56,9 +56,13 @@ public struct SbuPaper: View {
 
 public extension View {
     /// Puts the view on Sbu paper: `paper`, with the notebook grid when `grid` is `true`.
+    ///
+    /// Inside a `ScrollView`, apply it to the scrolling content, not to the scroll view, so the grid
+    /// and the figure's baseline move together.
     func sbuPaper(grid: Bool = true) -> some View {
         background { SbuPaper(grid: grid) }
             .coordinateSpace(.named(SbuPaper.space))
+            .environment(\.sbuIsOnPaper, true)
     }
 }
 

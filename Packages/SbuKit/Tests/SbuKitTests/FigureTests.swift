@@ -29,7 +29,15 @@ struct FigureTests {
         renderer.proposedSize = ProposedViewSize(width: 358, height: nil)
         let image = try #require(renderer.uiImage)
 
-        #expect(image.size.height < SbuFigure.heroSize(for: text) + SbuTheme.gridCell)
+        let block = SbuFigure.heroSize(for: text) + SbuFigure.descentInCells(size: SbuFigure.heroSize(for: text))
+        #expect(image.size.height <= block)
+    }
+
+    @Test(arguments: [144.0, 216])
+    func descentIsWholeCells(size: Double) {
+        let descent = SbuFigure.descentInCells(size: size)
+        #expect(descent > 0)
+        #expect(descent.truncatingRemainder(dividingBy: SbuTheme.gridCell) == 0)
     }
 
     @Test(arguments: [75.0, 87, 100])

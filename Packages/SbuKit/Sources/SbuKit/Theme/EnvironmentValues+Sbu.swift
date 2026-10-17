@@ -13,4 +13,7 @@ public extension EnvironmentValues {
 extension EnvironmentValues {
     /// Counts the times a control changed the figure, so the full stop can beat. Set by the shells.
     @Entry var sbuFigurePulse: SbuFigurePulse?
+
+    /// Whether the view sits on `.sbuPaper`, whose coordinate space the hero figure snaps to.
+    @Entry var sbuIsOnPaper = false
 }

@@ -32,6 +32,7 @@ const copy = {
     principles: 'Leggi i principi',
     tools: 'Nel browser, senza app',
     subscriptions: { title: 'Quanto spendi in abbonamenti', line: 'Scrivi gli abbonamenti che paghi e guarda il totale dell’anno.' },
+    qrCode: { title: 'Crea un codice QR', line: 'Per un link, un testo o il Wi-Fi. Gratis, e non scade.' },
   },
   en: {
     title: 'sbu.dev · Free iPhone apps that each do one thing',
@@ -52,6 +53,7 @@ const copy = {
     principles: 'Read the principles',
     tools: 'In your browser, no app',
     subscriptions: { title: 'What your subscriptions cost', line: 'Write down the subscriptions you pay and see the yearly total.' },
+    qrCode: { title: 'Make a QR code', line: 'For a link, some text or your Wi-Fi. Free, and it never expires.' },
   },
 }[locale];
 
@@ -85,7 +87,10 @@ const figure = formatPrice(total, locale);
 const zero = formatPrice(0, locale);
 const words = copy.hero.split(' ');
 const markOf = (slug: string) => apps.find((app) => app.slug === slug)?.mark ?? upcoming.find((app) => app.slug === slug)?.mark;
-const tools = [{ href: localePath(locale, 'abbonamenti'), mark: markOf('subscriptions'), ...copy.subscriptions }];
+const tools = [
+  { href: localePath(locale, 'abbonamenti'), mark: markOf('subscriptions'), ...copy.subscriptions },
+  { href: localePath(locale, 'qr-code'), mark: markOf('scanner'), ...copy.qrCode },
+];
 
 const site = Astro.site!.href;
 const jsonLd = [

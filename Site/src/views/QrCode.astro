@@ -1,0 +1,313 @@
+---
+// A free tool: make a QR code for a link, some text or a Wi-Fi network. The code is drawn in the
+// browser; nothing is stored or sent. Without JavaScript it is a page that explains what it would do.
+import PageTitle from '../components/PageTitle.astro';
+import Base from '../layouts/Base.astro';
+import { localePath, ui } from '../i18n';
+import { breadcrumbs, faqPage } from '../lib/jsonld';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { view: 'qrCode' };
+const { locale, path, alternates, apps } = Astro.props;
+const t = ui[locale];
+const scanner = apps.find((app) => app.slug === 'scanner');
+const copy = {
+  it: {
+    title: 'Crea un codice QR',
+    metaTitle: 'Generatore di codici QR gratis, senza registrazione · sbu.dev',
+    description: 'Crea un codice QR per un link, un testo o il Wi-Fi e scaricalo in SVG o PNG. Gratis, senza registrazione, senza scadenza: il codice nasce nel browser.',
+    lede: 'Scrivi un link, un testo o i dati del tuo Wi-Fi. Il codice si disegna mentre scrivi, nel browser, e non scade mai.',
+    kinds: { link: 'Link', text: 'Testo', wifi: 'Wi-Fi' },
+    kind: 'Cosa contiene',
+    link: 'Indirizzo',
+    text: 'Testo',
+    ssid: 'Nome della rete',
+    password: 'Password',
+    security: 'Protezione',
+    open: 'Nessuna',
+    empty: 'Il codice compare qui.',
+    tooLong: 'Il testo è troppo lungo per un codice QR.',
+    svg: 'Scarica SVG',
+    png: 'Scarica PNG',
+    alt: 'Il codice QR',
+    noScript: 'Il codice ha bisogno di JavaScript, che qui è spento.',
+    closeTitle: 'Per leggerli, Sbu Scanner',
+    closeBody: 'Legge qualsiasi codice e ti fa vedere dove porta un link prima di aprirlo. Gratis, senza pubblicità.',
+    closeLink: 'Vedi Sbu Scanner',
+    faq: [
+      { q: 'Il codice scade?', a: 'No. È un codice statico: dentro c’è direttamente il tuo link o il tuo testo, senza passare da un server. Funziona finché funziona il link.' },
+      { q: 'Quello che scrivo viene salvato?', a: 'No. Il codice si disegna nel tuo browser e sparisce quando chiudi la pagina. Il sito non usa cookie né statistiche.' },
+      { q: 'Come funziona il QR del Wi-Fi?', a: 'Chi lo inquadra con la fotocamera dell’iPhone o di un Android si connette alla rete senza scrivere la password.' },
+      { q: 'Meglio SVG o PNG?', a: 'SVG per la stampa, perché resta nitido a qualsiasi misura. PNG per un messaggio o una presentazione.' },
+    ],
+  },
+  en: {
+    title: 'Make a QR code',
+    metaTitle: 'Free QR code generator, no sign-up · sbu.dev',
+    description: 'Make a QR code for a link, some text or your Wi-Fi and download it as SVG or PNG. Free, no sign-up, never expires: the code is made in your browser.',
+    lede: 'Type a link, some text or your Wi-Fi details. The code is drawn as you type, in your browser, and never expires.',
+    kinds: { link: 'Link', text: 'Text', wifi: 'Wi-Fi' },
+    kind: 'What it holds',
+    link: 'Address',
+    text: 'Text',
+    ssid: 'Network name',
+    password: 'Password',
+    security: 'Security',
+    open: 'None',
+    empty: 'The code shows up here.',
+    tooLong: 'The text is too long for a QR code.',
+    svg: 'Download SVG',
+    png: 'Download PNG',
+    alt: 'The QR code',
+    noScript: 'The code needs JavaScript, which is off here.',
+    closeTitle: 'To read them, Sbu Scanner',
+    closeBody: 'It reads any code and shows you where a link goes before you open it. Free, no ads.',
+    closeLink: 'See Sbu Scanner',
+    faq: [
+      { q: 'Does the code expire?', a: 'No. It is a static code: your link or text is inside it, with no server in between. It works as long as the link does.' },
+      { q: 'Is what I type saved?', a: 'No. The code is drawn in your browser and is gone when you close the page. The site uses no cookies or analytics.' },
+      { q: 'How does the Wi-Fi QR code work?', a: 'Anyone who points an iPhone or Android camera at it joins the network without typing the password.' },
+      { q: 'SVG or PNG?', a: 'SVG for print, because it stays sharp at any size. PNG for a message or a slide.' },
+    ],
+  },
+}[locale];
+
+const strings = { empty: copy.empty, tooLong: copy.tooLong, alt: copy.alt };
+const site = Astro.site!;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: copy.title,
+    url: new URL(localePath(locale, path), site).href,
+    description: copy.description,
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Any',
+    inLanguage: locale,
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+  },
+  breadcrumbs(site, locale, [['sbu.dev', ''], [copy.title, path]]),
+  faqPage(copy.faq),
+];
+---
+<Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} jsonLd={jsonLd} appStoreId={scanner?.storeUrl ? scanner.appStoreId ?? undefined : undefined}>
+  <article class="flex flex-col gap-12 py-8">
+    <header class="flex flex-col gap-4">
+      <PageTitle text={copy.title} />
+      <p class="text-ink-muted">{copy.lede}</p>
+    </header>
+
+    <section class="flex flex-col gap-6" data-qr data-strings={JSON.stringify(strings)} aria-label={copy.title}>
+      <form class="flex flex-col gap-4" data-form hidden>
+        <fieldset class="kinds">
+          <legend class="text-caption uppercase text-ink-muted">{copy.kind}</legend>
+          {Object.entries(copy.kinds).map(([value, label], index) => (
+            <label class="kind"><input type="radio" name="kind" value={value} checked={index === 0} /> {label}</label>
+          ))}
+        </fieldset>
+
+        <label class="field" data-for="link">
+          <span class="text-caption uppercase text-ink-muted">{copy.link}</span>
+          <input type="url" name="link" inputmode="url" autocomplete="off" placeholder="https://" />
+        </label>
+        <label class="field" data-for="text" hidden>
+          <span class="text-caption uppercase text-ink-muted">{copy.text}</span>
+          <textarea name="text" rows="3"></textarea>
+        </label>
+        <div class="flex flex-col gap-4" data-for="wifi" hidden>
+          <label class="field">
+            <span class="text-caption uppercase text-ink-muted">{copy.ssid}</span>
+            <input type="text" name="ssid" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="text-caption uppercase text-ink-muted">{copy.password}</span>
+            <input type="text" name="password" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="text-caption uppercase text-ink-muted">{copy.security}</span>
+            <select name="security">
+              <option value="WPA" selected>WPA/WPA2/WPA3</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">{copy.open}</option>
+            </select>
+          </label>
+        </div>
+      </form>
+
+      <div class="preview" data-preview aria-live="polite">
+        <p class="text-ink-muted">{copy.empty}</p>
+      </div>
+      <p class="flex flex-wrap gap-3" data-downloads hidden>
+        <a class="btn" data-svg download="qr-code.svg">{copy.svg}</a>
+        <a class="btn is-ghost" data-png download="qr-code.png">{copy.png}</a>
+      </p>
+      <noscript><p class="text-ink-muted">{copy.noScript}</p></noscript>
+    </section>
+
+    {scanner && (
+      <section aria-labelledby="close-title" class="flex flex-col items-start gap-4 border-y border-line py-8">
+        <h2 id="close-title" class="text-title-2">{copy.closeTitle}</h2>
+        <p>{copy.closeBody}</p>
+        <a href={localePath(locale, 'apps/scanner')} class="btn">{copy.closeLink}</a>
+      </section>
+    )}
+
+    <section aria-labelledby="faq" class="flex flex-col gap-4">
+      <h2 id="faq" class="text-title-2">{t.faq}</h2>
+      {copy.faq.map((item) => (
+        <div class="flex flex-col gap-1">
+          <h3 class="text-headline">{item.q}</h3>
+          <p class="text-ink-muted">{item.a}</p>
+        </div>
+      ))}
+    </section>
+  </article>
+</Base>
+
+<style>
+  .kinds { display: flex; flex-wrap: wrap; gap: var(--spacing-4); border: 0; padding: 0; margin: 0; }
+  .kinds legend { margin-bottom: var(--spacing-2); }
+  .kind { display: inline-flex; align-items: center; gap: var(--spacing-2); }
+  .kind input { accent-color: var(--sbu-ink); }
+  .field { display: grid; gap: var(--spacing-1); }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    padding: var(--spacing-2) var(--spacing-3);
+    border: var(--sbu-hairline) solid var(--sbu-line);
+    border-radius: var(--radius-card);
+    background: var(--sbu-surface-raised);
+    color: var(--sbu-ink);
+    font: inherit;
+  }
+
+  /* The code on white whatever the theme: scanners need dark on light. On whole grid cells. */
+  .preview {
+    display: grid;
+    place-items: center;
+    min-height: calc(var(--sbu-grid-cell) * 10);
+    padding: var(--sbu-grid-cell);
+    border: var(--sbu-hairline) solid var(--sbu-line);
+    border-radius: var(--radius-card);
+    background: var(--sbu-surface-raised);
+  }
+  .preview :global(svg) { width: min(100%, calc(var(--sbu-grid-cell) * 12)); height: auto; }
+
+  .btn {
+    display: inline-block;
+    padding: var(--spacing-3) var(--spacing-6);
+    border: var(--sbu-hairline) solid transparent;
+    border-radius: var(--radius-card);
+    background: var(--sbu-ink);
+    color: var(--sbu-paper);
+    font: inherit;
+    font-size: var(--text-headline);
+    font-weight: var(--text-headline--font-weight);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn.is-ghost { background: transparent; border-color: var(--sbu-line); color: var(--sbu-ink); }
+</style>
+
+<script>
+  import qrcode from 'qrcode-generator';
+  import { wifiPayload } from '../lib/qr';
+
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+
+  // ponytail: pure black on white in the downloaded file, whatever the theme: printed codes need the most contrast.
+  const DARK = '#000000';
+  const LIGHT = '#ffffff';
+  const MARGIN = 4; // modules of quiet zone, as the QR standard asks
+  const PNG_MODULE = 16; // px per module in the PNG: sharp in print up to a few centimetres
+
+  const root = document.querySelector<HTMLElement>('[data-qr]');
+  if (root) start(root);
+
+  function svgFor(count: number, isDark: (row: number, col: number) => boolean): string {
+    const size = count + MARGIN * 2;
+    let path = '';
+    for (let row = 0; row < count; row++) {
+      for (let col = 0; col < count; col++) {
+        if (isDark(row, col)) path += `M${col + MARGIN} ${row + MARGIN}h1v1h-1z`;
+      }
+    }
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges"><rect width="${size}" height="${size}" fill="${LIGHT}"/><path d="${path}" fill="${DARK}"/></svg>`;
+  }
+
+  /** Drawn module by module, not from the SVG: the site's CSP loads no image from data: or blob:. */
+  function pngFor(count: number, isDark: (row: number, col: number) => boolean): string {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = (count + MARGIN * 2) * PNG_MODULE;
+    const context = canvas.getContext('2d')!;
+    context.fillStyle = LIGHT;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = DARK;
+    for (let row = 0; row < count; row++) {
+      for (let col = 0; col < count; col++) {
+        if (isDark(row, col)) context.fillRect((col + MARGIN) * PNG_MODULE, (row + MARGIN) * PNG_MODULE, PNG_MODULE, PNG_MODULE);
+      }
+    }
+    return canvas.toDataURL('image/png');
+  }
+
+  function start(root: HTMLElement) {
+    const strings = JSON.parse(root.dataset.strings ?? '{}') as { empty: string; tooLong: string; alt: string };
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const preview = root.querySelector<HTMLElement>('[data-preview]')!;
+    const downloads = root.querySelector<HTMLElement>('[data-downloads]')!;
+    const svgLink = root.querySelector<HTMLAnchorElement>('[data-svg]')!;
+    const pngLink = root.querySelector<HTMLAnchorElement>('[data-png]')!;
+    let objectURL: string | undefined;
+
+    function payload(): string {
+      const data = new FormData(form);
+      const value = (name: string) => String(data.get(name) ?? '');
+      switch (value('kind')) {
+        case 'text': return value('text');
+        case 'wifi': return value('ssid').trim() ? wifiPayload(value('ssid'), value('password'), value('security')) : '';
+        default: return value('link').trim();
+      }
+    }
+
+    function message(text: string) {
+      preview.replaceChildren(Object.assign(document.createElement('p'), { className: 'text-ink-muted', textContent: text }));
+      downloads.hidden = true;
+    }
+
+    function update() {
+      const kind = new FormData(form).get('kind');
+      for (const group of form.querySelectorAll<HTMLElement>('[data-for]')) group.hidden = group.dataset.for !== kind;
+
+      const content = payload();
+      if (!content) return message(strings.empty);
+
+      const code = qrcode(0, 'M');
+      try {
+        code.addData(content);
+        code.make();
+      } catch {
+        return message(strings.tooLong);
+      }
+      const count = code.getModuleCount();
+      const isDark = (row: number, col: number) => code.isDark(row, col);
+      const svg = svgFor(count, isDark);
+
+      // Inline, not an <img>: the CSP allows images from this site only.
+      const shown = new DOMParser().parseFromString(svg, 'image/svg+xml').documentElement;
+      shown.setAttribute('role', 'img');
+      shown.setAttribute('aria-label', strings.alt);
+      preview.replaceChildren(shown);
+
+      if (objectURL) URL.revokeObjectURL(objectURL);
+      objectURL = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+      svgLink.href = objectURL;
+      pngLink.href = pngFor(count, isDark);
+      downloads.hidden = false;
+    }
+
+    form.addEventListener('input', update);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.hidden = false;
+    update();
+  }
+</script>

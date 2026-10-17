@@ -49,9 +49,10 @@ const footer = [
   { href: localePath(locale, 'blog'), label: t.nav.blog },
   { href: localePath(locale, 'stampa'), label: t.nav.press },
   { href: localePath(locale, 'abbonamenti'), label: t.nav.subscriptionCost },
+  { href: localePath(locale, 'qr-code'), label: t.nav.qrCode },
 ];
 // The footer keeps the free tools apart from the pages about Sbu.
-const tools = new Set([localePath(locale, 'abbonamenti')]);
+const tools = new Set([localePath(locale, 'abbonamenti'), localePath(locale, 'qr-code')]);
 const here = localePath(locale, path);
 // The sheet lists the header's links first, then the footer's others.
 const more = footer.filter((item) => !nav.some((top) => top.href === item.href));

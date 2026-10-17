@@ -5,7 +5,7 @@ import { getAlternatives, getApps, getUpcoming, type Alternative, type App, type
 type View =
   | { view: 'home'; upcoming: UpcomingApp[] }
   | { view: 'principles' | 'support' | 'privacy' }
-  | { view: 'subscriptionCost' }
+  | { view: 'subscriptionCost' | 'qrCode' }
   | { view: 'press'; upcoming: UpcomingApp[] }
   | { view: 'app' | 'appPrivacy'; app: App }
   | { view: 'alternative'; alternative: Alternative }
@@ -40,6 +40,7 @@ export async function routes(): Promise<Route[]> {
       ...apps.map((app) => ({ view: 'app' as const, app, path: `apps/${app.slug}`, locale })),
       ...apps.map((app) => ({ view: 'appPrivacy' as const, app, path: `privacy/${app.slug}`, locale })),
       { view: 'subscriptionCost', path: 'abbonamenti', locale },
+      { view: 'qrCode', path: 'qr-code', locale },
       { view: 'press', upcoming, path: 'stampa', locale },
       { view: 'blog', posts: posts.filter(own), path: 'blog', locale },
       ...posts.filter(own).map((post) => ({ view: 'post' as const, post, path: `blog/${post.id.split('/')[1]}`, locale })),

@@ -120,7 +120,7 @@ Matteo è π-shaped su **prodotto + design system** e T-shaped sulla distribuzio
 - **Stampa**: pagina Stampa con testi liberi e ritratto.
 - **Profili**: Instagram @sbudevapp, Bluesky @sbu.dev, bio IT/EN; link campagna App Store (`pt=128487151`, `ct=` per sorgente).
 - **Repo pubblico** con README, 9 topic, MIT.
-- **Liste**: AlternativeTo inviato (in moderazione), PR a open-source-ios-apps aperto (#2442, Subscriptions e Scanner).
+- **Liste**: AlternativeTo inviato (in moderazione), open-source-ios-apps: Subscriptions in lista (#2443), Scanner in PR #2446.
 - **2 app live**: Subscriptions 2.0 (id6780154928), Scanner 2.0 (id6772572337).
 - **Lancio di Find pronto**: checklist, Show HN (deciso: uno per app, Find per prima, #590), Reddit, LinkedIn/X, stampa, video.
 - **Richiesta di recensione in SbuKit**: fatta, arriva con la prossima versione di ogni app.
@@ -564,7 +564,7 @@ Tempo di Matteo: **5–10 h/settimana** di marketing, oltre allo sviluppo. Il co
 | 10 | Primo video: quello di Find (`marketing/find/video.md`), poi "Orbit costa X € l'anno. L'ho rifatta gratis.". Test del format | M | Acq |
 | 11 | Primo articolo blog: "Apple mi ha rifiutato 6 app in un giorno" (bozza IT già scritta, `draft: true`; EN da fare; uscita dopo la risposta di Apple) + post LinkedIn + X thread | C → M | Acq |
 | 12 | Pagine alternativa già scritte (Find Air, Cleanup, My Moon Phase Pro, Streaks) online **appena l'app è approvata**; da scrivere per Noise | C | Acq |
-| 13 | PR a `dkhamsing/open-source-ios-apps`: **aperto** (#2442, Subscriptions e Scanner); Find e le successive in un PR di follow-up | C → M | Acq |
+| 13 | PR a `dkhamsing/open-source-ios-apps`: Subscriptions **in lista** (#2443), Scanner **aperto** (#2446); Find e le successive una PR per app (il maintainer non accetta PR multiple) | C → M | Acq |
 | 14 | Subscriptions 2.1 (review request, screenshot nuovi) inviato dal 24/10 dopo il test insieme; è un aggiornamento, non occupa lo slot | M | Act |
 | 15 | App Store: primo screenshot "Gratis. Niente abbonamento, niente account." sulle app live | C | Act |
 

@@ -21,17 +21,14 @@ struct MainView: View {
     /// The figure's size on the grid, grown into the room the layout leaves (ADR-0015: 72 to 144).
     @State private var figureSize: CGFloat = SbuTheme.gridCell * 3
     @State private var contentWidth: CGFloat = 0
+    /// The points and combo of the last move that completed lines, shown over the board.
+    @State private var feedback: (points: Int, combo: Int)?
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Environment(\.scenePhase) private var scenePhase
 
     private var game: Game { store.game }
     private var boardCell: CGFloat { max(boardFrame.width / CGFloat(Board.size), 1) }
     private var trayCell: CGFloat { (boardCell * 0.5).rounded(.down) }
-
-    private var cartiglio: String {
-        String(localized: "Sbu · Squares · \(Date.now.formatted(.dateTime.weekday(.abbreviated).day().month(.abbreviated)))")
-    }
 
     /// The drop or tap target of the piece in play, for the shadow on the board.
     private var preview: Placement? {
@@ -41,14 +38,16 @@ struct MainView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space3) {
-                SbuScreenTitle("Squares", cartiglio: cartiglio)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .overlay(alignment: .topTrailing) {
-                        ModeSwitch(mode: $store.mode)
-                    }
-                ScoreFigure(score: game.score, record: store.record, lines: game.lines, beatsRecord: game.beatsRecord, size: figureSize)
+                RecordBadge(record: max(store.record, game.score))
+                ScoreFigure(score: game.score, beatsRecord: game.beatsRecord, size: figureSize)
                     .sbuClosure($store.isShowingClosure, word: "Battuto")
                 BoardView(board: game.board, preview: preview, previewTone: drag?.tone ?? 0, clearDelays: clearDelays, canPlaceByTap: selectedSlot != nil, tap: placeSelected)
+                    .overlay {
+                        if let feedback {
+                            ClearFeedback(points: feedback.points, combo: feedback.combo)
+                                .transition(.opacity)
+                        }
+                    }
                     .onGeometryChange(for: CGRect.self) { $0.frame(in: .named(Self.space)) } action: { boardFrame = $0 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     // The height the board's square leaves unused is room for the figure.
@@ -56,7 +55,7 @@ struct MainView: View {
                     .sbuAffectsFigure(game.score)
                     .sbuHaptic(.dot, trigger: linesCleared)
                 if game.isOver {
-                    GameOverView(game: game, shareText: ShareText.make(for: game, day: .now), playAgain: store.startFreeGame)
+                    GameOverView(game: game, shareText: ShareText.make(for: game), playAgain: store.startNewGame)
                         .transition(SbuMotion.transition(from: .bottom, reduceMotion: reduceMotion))
                 } else {
                     TrayView(game: game, cell: trayCell, drag: drag, selectedSlot: selectedSlot, dragChanged: dragChanged, dragEnded: dragEnded, select: select)
@@ -75,19 +74,15 @@ struct MainView: View {
         .coordinateSpace(.named(Self.space))
         .sbuPaper()
         .toolbar {
-            if store.mode == .free {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Nuova partita", systemImage: "arrow.counterclockwise", action: askForNewGame)
-                }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Nuova partita", systemImage: "arrow.counterclockwise", action: askForNewGame)
             }
         }
         .confirmationDialog("Iniziare una nuova partita?", isPresented: $isConfirmingNewGame, titleVisibility: .visible) {
-            Button("Nuova partita", role: .destructive, action: store.startFreeGame)
+            Button("Nuova partita", role: .destructive, action: store.startNewGame)
         } message: {
             Text("Questa partita finisce qui.")
         }
-        .onChange(of: store.mode) { endInteraction() }
-        .onChange(of: scenePhase) { if scenePhase == .active { store.refreshDaily() } }
     }
 }
 
@@ -109,6 +104,7 @@ private extension MainView {
         guard let piece = game.piece(in: slot), drag?.slot ?? slot == slot else { return }
         if drag == nil {
             selectedSlot = nil
+            hideFeedback()
             drag = PieceDrag(slot: slot, piece: piece, tone: game.tone(in: slot) ?? 0, location: value.location, start: value.startLocation)
             withAnimation(SbuMotion.animation(SbuMotion.spring, reduceMotion: reduceMotion)) {
                 drag?.isLifted = true
@@ -140,6 +136,13 @@ private extension MainView {
 
     func select(slot: Int) {
         selectedSlot = selectedSlot == slot ? nil : slot
+        hideFeedback()
+    }
+
+    func hideFeedback() {
+        withAnimation(SbuMotion.animation(SbuMotion.short, reduceMotion: reduceMotion)) {
+            feedback = nil
+        }
     }
 
     func placeSelected(at cell: Cell) {
@@ -151,12 +154,21 @@ private extension MainView {
         guard let placement = store.place(slot: slot, at: origin) else { return }
         selectedSlot = nil
         clearDelays = Self.wave(of: placement)
-        if placement.lineCount > 0 { linesCleared += 1 }
+        guard placement.lineCount > 0 else { return }
+        linesCleared += 1
+        let combo = game.combo.count
+        withAnimation(SbuMotion.animation(SbuMotion.spring, reduceMotion: reduceMotion)) {
+            feedback = (game.lastGain, combo)
+        }
+        let announcement = combo > 1
+            ? String(localized: "Più \(game.lastGain) punti, combo \(combo)")
+            : String(localized: "Più \(game.lastGain) punti")
+        AccessibilityNotification.Announcement(announcement).post()
     }
 
     func askForNewGame() {
         if game.isOver || game.score == 0 {
-            store.startFreeGame()
+            store.startNewGame()
         } else {
             isConfirmingNewGame = true
         }

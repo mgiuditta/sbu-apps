@@ -16,7 +16,6 @@ nonisolated struct Game: Codable, Hashable, Sendable {
     /// Lost games that turn a puzzle into fill and clear.
     static let maxAssists = 3
 
-    let mode: GameMode
     let seed: UInt64
     /// The Record when the game started: beating it turns the full stop `.set`.
     let recordToBeat: Int
@@ -34,13 +33,14 @@ nonisolated struct Game: Codable, Hashable, Sendable {
     private(set) var assists: Int
     /// Seconds of play, as counted by the caller between moves.
     private(set) var playTime: TimeInterval = 0
+    /// What the last move scored.
+    private(set) var lastGain = 0
     private let avoiding: [Int]
     private var nextPuzzle: TimeInterval
     private var recent: [[Int]] = []
     private var generator: SeededGenerator
 
-    init(mode: GameMode, seed: UInt64, recordToBeat: Int, avoiding: [Int] = [], assists: Int = 0) {
-        self.mode = mode
+    init(seed: UInt64, recordToBeat: Int, avoiding: [Int] = [], assists: Int = 0) {
         self.seed = seed
         self.recordToBeat = recordToBeat
         self.avoiding = avoiding
@@ -79,8 +79,9 @@ nonisolated struct Game: Codable, Hashable, Sendable {
         board.apply(placement, tone: tone(in: slot) ?? 0)
         playTime += elapsed
         combo.record(lines: placement.lineCount)
-        score += placement.covered.count + Combo.linePoints(lines: placement.lineCount, combo: combo.count)
-        if board.filledCount == 0, round > Self.clearBoardFromRound { score += Self.clearBoardPoints }
+        lastGain = placement.covered.count + Combo.linePoints(lines: placement.lineCount, combo: combo.count)
+        if board.filledCount == 0, round > Self.clearBoardFromRound { lastGain += Self.clearBoardPoints }
+        score += lastGain
         lines += placement.lineCount
         tray[slot] = nil
         if tray.allSatisfy({ $0 == nil }) { refill() }

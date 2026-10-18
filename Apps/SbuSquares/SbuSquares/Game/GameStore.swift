@@ -1,15 +1,11 @@
 import Foundation
 import Observation
 
-/// The games in play and the Record, saved on the device after every move.
+/// The game in play and the Record, saved on the device after every move.
 @Observable
 final class GameStore {
-    private(set) var daily: Game
-    private(set) var free: Game
+    private(set) var game: Game
     private(set) var record: Int
-    var mode: GameMode {
-        didSet { defaults.set(mode.rawValue, forKey: Key.mode) }
-    }
 
     /// Set when a game ends above a Record that already existed: the Closure shows it.
     var isShowingClosure = false
@@ -18,26 +14,15 @@ final class GameStore {
     /// When the last piece went down, to count play time; not saved, so time away does not count.
     private var lastMove: Date?
 
-    init(defaults: UserDefaults = .standard, now: Date = .now) {
+    init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         let record = defaults.integer(forKey: Key.record)
         self.record = record
-        mode = defaults.string(forKey: Key.mode).flatMap(GameMode.init) ?? .daily
-        let seed = GameMode.dailySeed(for: now)
-        if let saved = Self.load(Key.daily, from: defaults), saved.seed == seed {
-            daily = saved
-        } else {
-            daily = Self.newGame(mode: .daily, seed: seed, recordToBeat: record, defaults: defaults)
-        }
-        free = Self.load(Key.free, from: defaults) ?? Self.newFreeGame(recordToBeat: record, defaults: defaults)
+        game = defaults.data(forKey: Key.game).flatMap { try? JSONDecoder().decode(Game.self, from: $0) }
+            ?? Self.newGame(recordToBeat: record, defaults: defaults)
     }
 
-    /// The game of the current mode.
-    var game: Game {
-        mode == .daily ? daily : free
-    }
-
-    /// Puts a piece down in the current game; `nil` if it does not fit.
+    /// Puts a piece down; `nil` if it does not fit.
     @discardableResult
     func place(slot: Int, at origin: Cell, now: Date = .now) -> Placement? {
         var game = game
@@ -50,18 +35,10 @@ final class GameStore {
         return placement
     }
 
-    /// Starts a new free game and shows it.
-    func startFreeGame() {
-        mode = .free
+    /// Starts a new game.
+    func startNewGame() {
         lastMove = nil
-        store(Self.newFreeGame(recordToBeat: record, defaults: defaults))
-    }
-
-    /// Moves to today's Partita del giorno if the day changed while the app was open.
-    func refreshDaily(now: Date = .now) {
-        let seed = GameMode.dailySeed(for: now)
-        guard daily.seed != seed else { return }
-        store(Self.newGame(mode: .daily, seed: seed, recordToBeat: record, defaults: defaults))
+        store(Self.newGame(recordToBeat: record, defaults: defaults))
     }
 
     /// Forgets the Record.
@@ -80,32 +57,19 @@ final class GameStore {
     }
 
     private func store(_ game: Game) {
-        switch game.mode {
-        case .daily: daily = game
-        case .free: free = game
-        }
-        defaults.set(try? JSONEncoder().encode(game), forKey: game.mode == .daily ? Key.daily : Key.free)
-    }
-
-    private static func load(_ key: String, from defaults: UserDefaults) -> Game? {
-        defaults.data(forKey: key).flatMap { try? JSONDecoder().decode(Game.self, from: $0) }
-    }
-
-    private static func newFreeGame(recordToBeat: Int, defaults: UserDefaults) -> Game {
-        newGame(mode: .free, seed: .random(in: .min ... .max), recordToBeat: recordToBeat, defaults: defaults)
+        self.game = game
+        defaults.set(try? JSONEncoder().encode(game), forKey: Key.game)
     }
 
     /// A game that leaves out the shapes the last one ended with, and carries the assists.
-    private static func newGame(mode: GameMode, seed: UInt64, recordToBeat: Int, defaults: UserDefaults) -> Game {
+    private static func newGame(recordToBeat: Int, defaults: UserDefaults) -> Game {
         let avoiding = defaults.array(forKey: Key.leftInHand) as? [Int] ?? []
-        return Game(mode: mode, seed: seed, recordToBeat: recordToBeat, avoiding: avoiding, assists: defaults.integer(forKey: Key.assists))
+        return Game(seed: .random(in: .min ... .max), recordToBeat: recordToBeat, avoiding: avoiding, assists: defaults.integer(forKey: Key.assists))
     }
 
     private enum Key {
-        static let daily = "game.daily"
-        static let free = "game.free"
+        static let game = "game"
         static let record = "record"
-        static let mode = "mode"
         static let leftInHand = "lastGame.leftInHand"
         static let assists = "assists"
     }

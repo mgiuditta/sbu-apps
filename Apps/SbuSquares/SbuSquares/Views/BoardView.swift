@@ -65,7 +65,7 @@ struct BoardView: View {
 
 private struct BoardPreview: View {
     var body: some View {
-        var game = Game(mode: .free, seed: 7, recordToBeat: 0)
+        var game = Game(seed: 7, recordToBeat: 0)
         for _ in 0..<6 {
             for slot in 0..<3 {
                 guard let piece = game.piece(in: slot), let cell = Board.allCells.first(where: { game.board.canPlace(piece, at: $0) }) else { continue }

@@ -25,16 +25,15 @@ struct GameStoreTests {
 
     @Test func theFirstRecordHasNoClosure() {
         let store = GameStore(defaults: defaults)
-        store.mode = .free
         playOut(store)
-        #expect(store.record == store.free.score)
+        #expect(store.record == store.game.score)
         #expect(!store.isShowingClosure)
     }
 
     @Test func beatingAnExistingRecordShowsTheClosure() {
         defaults.set(1, forKey: "record")
         let store = GameStore(defaults: defaults)
-        store.startFreeGame()
+        store.startNewGame()
         playOut(store)
         #expect(store.isShowingClosure)
     }
@@ -44,13 +43,15 @@ struct GameStoreTests {
         let piece = try #require(store.game.piece(in: 0))
         let cell = try #require(Board.allCells.first { store.game.board.canPlace(piece, at: $0) })
         store.place(slot: 0, at: cell)
-        #expect(GameStore(defaults: defaults).daily == store.daily)
+        #expect(GameStore(defaults: defaults).game == store.game)
     }
 
-    @Test func aNewDayBringsANewDailyGame() throws {
-        let day = try Date("2026-10-18T12:00:00Z", strategy: .iso8601)
-        let store = GameStore(defaults: defaults, now: day)
-        store.refreshDaily(now: day.addingTimeInterval(86_400))
-        #expect(store.daily.seed != GameMode.dailySeed(for: day))
+    @Test func aLostGameLeavesItsPiecesOutOfTheNextOne() {
+        let store = GameStore(defaults: defaults)
+        playOut(store)
+        let leftInHand = Set(store.game.leftInHand)
+        store.startNewGame()
+        #expect(store.game.assists == 1)
+        #expect(Set(store.game.leftInHand).isDisjoint(with: leftInHand))
     }
 }

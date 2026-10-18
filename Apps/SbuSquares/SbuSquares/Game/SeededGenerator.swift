@@ -1,7 +1,7 @@
 /// Park–Miller MINSTD, rounded to six decimals: the same seed deals the same pieces on every
 /// device and every version.
 ///
-/// The system generator cannot be seeded, and the Partita del giorno starts the same for everyone.
+/// The system generator cannot be seeded, and a seed must replay the same game in tests.
 nonisolated struct SeededGenerator: Codable, Hashable, Sendable {
     private static let modulus = 2_147_483_647
 

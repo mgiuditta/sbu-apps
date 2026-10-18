@@ -8,12 +8,7 @@ struct GameOverView: View {
     let playAgain: () -> Void
 
     private var sentence: LocalizedStringKey {
-        switch (game.mode, game.beatsRecord) {
-        case (.daily, true): "Partita del giorno finita, con il record. Domani ne hai un'altra, uguale per tutti."
-        case (.daily, false): "Partita del giorno finita. Domani ne hai un'altra, uguale per tutti."
-        case (.free, true): "Nessun pezzo entra più, e hai battuto il record."
-        case (.free, false): "Nessun pezzo entra più."
-        }
+        game.beatsRecord ? "Nessun pezzo entra più, e hai battuto il record." : "Nessun pezzo entra più."
     }
 
     var body: some View {
@@ -27,7 +22,7 @@ struct GameOverView: View {
                     Text("Condividi")
                 }
                 .buttonStyle(SbuButtonStyle(.primary))
-                Button(game.mode == .daily ? "Gioca libera" : "Gioca ancora", action: playAgain)
+                Button("Gioca ancora", action: playAgain)
                     .buttonStyle(SbuButtonStyle(.secondary))
             }
         }
@@ -35,13 +30,13 @@ struct GameOverView: View {
 }
 
 #Preview("Light") {
-    GameOverView(game: Game(mode: .daily, seed: 20_261_018, recordToBeat: 0), shareText: "Sbu Squares", playAgain: {})
+    GameOverView(game: Game(seed: 20_261_018, recordToBeat: 0), shareText: "Sbu Squares", playAgain: {})
         .padding(SbuTheme.space4)
         .sbuPaper()
 }
 
 #Preview("Dark") {
-    GameOverView(game: Game(mode: .free, seed: 1, recordToBeat: 0), shareText: "Sbu Squares", playAgain: {})
+    GameOverView(game: Game(seed: 1, recordToBeat: 0), shareText: "Sbu Squares", playAgain: {})
         .padding(SbuTheme.space4)
         .sbuPaper()
         .preferredColorScheme(.dark)

@@ -38,12 +38,12 @@ struct TrayView: View {
 }
 
 #Preview("Light") {
-    TrayView(game: Game(mode: .free, seed: 3, recordToBeat: 0), cell: 22, drag: nil, selectedSlot: nil, dragChanged: { _, _ in }, dragEnded: { _, _ in }, select: { _ in })
+    TrayView(game: Game(seed: 3, recordToBeat: 0), cell: 22, drag: nil, selectedSlot: nil, dragChanged: { _, _ in }, dragEnded: { _, _ in }, select: { _ in })
         .sbuPaper()
 }
 
 #Preview("Dark") {
-    TrayView(game: Game(mode: .free, seed: 4, recordToBeat: 0), cell: 22, drag: nil, selectedSlot: 1, dragChanged: { _, _ in }, dragEnded: { _, _ in }, select: { _ in })
+    TrayView(game: Game(seed: 4, recordToBeat: 0), cell: 22, drag: nil, selectedSlot: 1, dragChanged: { _, _ in }, dragEnded: { _, _ in }, select: { _ in })
         .sbuPaper()
         .preferredColorScheme(.dark)
 }

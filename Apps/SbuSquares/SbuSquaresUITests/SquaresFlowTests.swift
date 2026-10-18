@@ -1,6 +1,6 @@
 import XCTest
 
-/// Plays a move by tapping, switches to a free game and opens settings, running the accessibility
+/// Plays a move by tapping, starts a new game and opens settings, running the accessibility
 /// audit on each screen. Runs in Italian, from an empty game.
 final class SquaresFlowTests: XCTestCase {
     override func setUp() {
@@ -43,19 +43,18 @@ final class SquaresFlowTests: XCTestCase {
         let app = launch()
         let score = app.otherElements.matching(NSPredicate(format: "label BEGINSWITH 'Punteggio'")).firstMatch
         XCTAssertTrue(score.waitForExistence(timeout: 5))
-        XCTAssertTrue(score.label.hasPrefix("Punteggio 0,"))
+        XCTAssertEqual(score.label, "Punteggio 0")
         try audit(app)
 
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Pezzo da'")).firstMatch.tap()
         // An empty board: the top-left cell fits any piece.
         app.buttons["Riga 1, colonna 1"].tap()
-        XCTAssertFalse(score.label.hasPrefix("Punteggio 0,"))
+        XCTAssertNotEqual(score.label, "Punteggio 0")
     }
 
     @MainActor
     func testFreeGameAndSettings() throws {
         let app = launch()
-        app.buttons["Libera"].tap()
         XCTAssertTrue(app.buttons["Nuova partita"].waitForExistence(timeout: 2))
         try audit(app)
 

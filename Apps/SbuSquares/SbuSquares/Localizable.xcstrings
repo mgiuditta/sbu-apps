@@ -101,46 +101,6 @@
         }
       }
     },
-    "%lld righe": {
-      "localizations": {
-        "it": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld riga"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld righe"
-                }
-              }
-            }
-          }
-        },
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld line"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld lines"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "Azzera il record": {
       "localizations": {
         "en": {
@@ -171,6 +131,16 @@
         }
       }
     },
+    "Combo %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Combo %lld"
+          }
+        }
+      }
+    },
     "Condividi": {
       "localizations": {
         "en": {
@@ -181,32 +151,12 @@
         }
       }
     },
-    "Del giorno": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daily"
-          }
-        }
-      }
-    },
     "Gioca ancora": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Play again"
-          }
-        }
-      }
-    },
-    "Gioca libera": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play free"
           }
         }
       }
@@ -237,16 +187,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Start a new game?"
-          }
-        }
-      }
-    },
-    "Libera": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Free"
           }
         }
       }
@@ -291,36 +231,6 @@
         }
       }
     },
-    "Partita": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Game"
-          }
-        }
-      }
-    },
-    "Partita del giorno finita, con il record. Domani ne hai un'altra, uguale per tutti.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daily game over, with a new best. Tomorrow there's another, the same for everyone."
-          }
-        }
-      }
-    },
-    "Partita del giorno finita. Domani ne hai un'altra, uguale per tutti.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daily game over. Tomorrow there's another, the same for everyone."
-          }
-        }
-      }
-    },
     "Pezzo da %lld quadretti, %lld per %lld": {
       "localizations": {
         "en": {
@@ -341,6 +251,26 @@
         }
       }
     },
+    "Più %lld punti": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus %lld points"
+          }
+        }
+      }
+    },
+    "Più %lld punti, combo %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus %1$lld points, combo %2$lld"
+          }
+        }
+      }
+    },
     "Posto vuoto": {
       "localizations": {
         "en": {
@@ -351,62 +281,12 @@
         }
       }
     },
-    "Punteggio %lld, record %lld, %lld righe": {
+    "Punteggio %lld": {
       "localizations": {
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Punteggio %1$lld, record %2$lld, %#@lines@"
-          },
-          "substitutions": {
-            "lines": {
-              "argNum": 3,
-              "formatSpecifier": "lld",
-              "variations": {
-                "plural": {
-                  "one": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg riga"
-                    }
-                  },
-                  "other": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg righe"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Score %1$lld, best %2$lld, %#@lines@"
-          },
-          "substitutions": {
-            "lines": {
-              "argNum": 3,
-              "formatSpecifier": "lld",
-              "variations": {
-                "plural": {
-                  "one": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg line"
-                    }
-                  },
-                  "other": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg lines"
-                    }
-                  }
-                }
-              }
-            }
+            "value": "Score %lld"
           }
         }
       }
@@ -431,12 +311,12 @@
         }
       }
     },
-    "Record %@": {
+    "Record %lld": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Best %@"
+            "value": "Best %lld"
           }
         }
       }
@@ -461,16 +341,6 @@
         }
       }
     },
-    "Sbu · Squares · %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sbu · Squares · %@"
-          }
-        }
-      }
-    },
     "Sceglilo, poi tocca una casella della griglia.": {
       "localizations": {
         "en": {
@@ -487,16 +357,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chosen"
-          }
-        }
-      }
-    },
-    "Squares": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Squares"
           }
         }
       }

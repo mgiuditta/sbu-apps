@@ -2,7 +2,7 @@
 # Name, subtitle, description and features come from Apps/SbuInventory/fastlane/metadata. Do not repeat them here.
 app: SbuInventory
 accent: accent-inventory
-order: 13
+order: 14
 status: testflight
 appStoreId: null
 category: UtilitiesApplication

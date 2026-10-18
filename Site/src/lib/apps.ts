@@ -58,6 +58,13 @@ function icon(slug: string): string | undefined {
 
 export type App = Awaited<ReturnType<typeof getApps>>[number];
 
+const statusRank = { live: 0, review: 1, testflight: 2, development: 3, planned: 4 } as const;
+
+/** Display order: what you can download first, the newest release on top; then by status, then by catalog number. The number never changes. */
+function byStatus(a: { status: keyof typeof statusRank; published?: Date; order: number }, b: typeof a): number {
+  return statusRank[a.status] - statusRank[b.status] || (b.published?.getTime() ?? 0) - (a.published?.getTime() ?? 0) || a.order - b.order;
+}
+
 /** App content joined with its App Store listing, in display order. Apps without a filled listing are left out. */
 export async function getApps() {
   const apps = await getCollection('apps');
@@ -83,7 +90,7 @@ export async function getApps() {
       };
     }),
   );
-  return joined.filter((app) => app !== undefined).sort((a, b) => a.order - b.order);
+  return joined.filter((app) => app !== undefined).sort(byStatus);
 }
 
 /** Apps with a content file but no listing yet: name and one line, for the home. No page of their own. */
@@ -109,7 +116,7 @@ export async function getUpcoming() {
         mark: await engraving(app.id, 192),
       };
     }));
-  return upcoming.sort((a, b) => a.order - b.order);
+  return upcoming.sort(byStatus);
 }
 
 export type UpcomingApp = Awaited<ReturnType<typeof getUpcoming>>[number];

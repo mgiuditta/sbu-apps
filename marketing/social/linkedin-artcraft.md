@@ -1,29 +1,30 @@
 # LinkedIn: ArtCraft e sbu.dev (18/10/2026)
 
-Post in inglese, per farsi notare da Brandon Thomas (ArtCraft) e dalla community internazionale. Il tag `@Brandon Thomas` va riscritto a mano su LinkedIn e scelto dal menu.
+Post in italiano per la rete di Matteo, primo commento in inglese per Brandon Thomas (ArtCraft) e la community internazionale. Il tag `@Brandon Thomas` va riscritto a mano su LinkedIn e scelto dal menu.
 
 ## Post
 
-This week I read about ArtCraft. @Brandon Thomas rebuilt seven Adobe apps, one by one, free and open source.
+Questa settimana ho letto di ArtCraft. @Brandon Thomas ha rifatto sette app di Adobe, una per una, gratis e open source.
 
-It made me think about something that's been in my head for five months.
+Mi ha fatto ripensare a una cosa che mi gira in testa da cinque mesi.
 
-Sometimes you need a dumb little app on your phone. A level, a document scanner, a place to keep track of your subscriptions. You search the App Store, you find one, and it asks you for a subscription.
+Ogni tanto ti serve un'app stupida. Una livella, uno scanner per un documento, un posto dove segnare gli abbonamenti. La cerchi sull'App Store, la trovi, e ti chiede un abbonamento.
 
-For a level.
+Per una livella.
 
-I got tired of it, so I started rebuilding them myself. Free, with the code public on GitHub. The project is called sbu.dev.
+Mi sono rotto, e ho iniziato a rifarle io. Gratis, con il codice pubblico su GitHub. Il progetto si chiama sbu.dev.
 
-Two are already on the App Store: Sbu Subscriptions and Sbu Scanner. Sbu Find, the one for finding lost earbuds, is in review. Seventeen more are written and waiting their turn, because Apple only takes a few at a time and has already turned some down.
+Due sono già sull'App Store: Sbu Subscriptions e Sbu Scanner. Sbu Find, quella per ritrovare le cuffie perse, è in revisione. Altre diciassette sono scritte e aspettano il loro turno, perché Apple ne accetta poche alla volta e qualcuna me l'ha già respinta.
 
-There's no account to create and no ads. What you write stays on your phone.
+Nelle app non c'è un account da creare e non c'è pubblicità. Quello che scrivi resta sul tuo telefono.
 
-I'm going slowly. The plan is to redo all of them, one at a time.
+Vado piano. L'idea è rifarle tutte, una per una.
 
-If you pay every month for an app that does one thing, tell me which one in the comments. I'm curious what the list looks like.
+Se c'è un'app che paghi ogni mese e fa una cosa sola, scrivimela nei commenti. Sono curioso di vedere la lista.
 
 ## Primo commento
 
+In English: ArtCraft made me finally talk about sbu.dev. I rebuild paid iPhone apps that do one thing and give them away, open source. Two are live, seventeen are waiting for Apple. Thanks for the push, Brandon.
+
 ArtCraft: https://propakistani.pk/2026/10/09/free-open-source-copies-of-photoshop-premiere-and-lightroom-are-here/
 sbu.dev: https://sbu.dev
-(In italiano: rifaccio gratis le app per iPhone che ti chiedono un abbonamento per fare una cosa sola.)

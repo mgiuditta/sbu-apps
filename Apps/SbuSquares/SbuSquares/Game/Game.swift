@@ -29,6 +29,11 @@ nonisolated struct Game: Codable, Hashable, Sendable {
         tray[slot].map { Piece.catalog[$0] }
     }
 
+    /// The tone of the piece in `slot`, or `nil` once used.
+    func tone(in slot: Int) -> Int? {
+        tray[slot].map(Piece.tone(ofShape:))
+    }
+
     /// Whether this game has gone past the Record it started with. The first game sets the
     /// Record without beating one: the full stop waits.
     var beatsRecord: Bool {
@@ -39,7 +44,7 @@ nonisolated struct Game: Codable, Hashable, Sendable {
     @discardableResult
     mutating func place(slot: Int, at origin: Cell) -> Placement? {
         guard !isOver, let dropped = piece(in: slot), let placement = board.preview(dropped, at: origin) else { return nil }
-        board.apply(placement)
+        board.apply(placement, tone: tone(in: slot) ?? 0)
         score += placement.points
         lines += placement.lineCount
         tray[slot] = nil

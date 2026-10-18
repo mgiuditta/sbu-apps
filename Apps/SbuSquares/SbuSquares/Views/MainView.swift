@@ -42,9 +42,13 @@ struct MainView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space3) {
                 SbuScreenTitle("Squares", cartiglio: cartiglio)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .overlay(alignment: .topTrailing) {
+                        ModeSwitch(mode: $store.mode)
+                    }
                 ScoreFigure(score: game.score, record: store.record, lines: game.lines, beatsRecord: game.beatsRecord, size: figureSize)
                     .sbuClosure($store.isShowingClosure, word: "Battuto")
-                BoardView(board: game.board, preview: preview, clearDelays: clearDelays, canPlaceByTap: selectedSlot != nil, tap: placeSelected)
+                BoardView(board: game.board, preview: preview, previewTone: drag?.tone ?? 0, clearDelays: clearDelays, canPlaceByTap: selectedSlot != nil, tap: placeSelected)
                     .onGeometryChange(for: CGRect.self) { $0.frame(in: .named(Self.space)) } action: { boardFrame = $0 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     // The height the board's square leaves unused is room for the figure.
@@ -71,9 +75,6 @@ struct MainView: View {
         .coordinateSpace(.named(Self.space))
         .sbuPaper()
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                ModePicker(mode: $store.mode)
-            }
             if store.mode == .free {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Nuova partita", systemImage: "arrow.counterclockwise", action: askForNewGame)
@@ -108,7 +109,7 @@ private extension MainView {
         guard let piece = game.piece(in: slot), drag?.slot ?? slot == slot else { return }
         if drag == nil {
             selectedSlot = nil
-            drag = PieceDrag(slot: slot, piece: piece, location: value.location, start: value.startLocation)
+            drag = PieceDrag(slot: slot, piece: piece, tone: game.tone(in: slot) ?? 0, location: value.location, start: value.startLocation)
             withAnimation(SbuMotion.animation(SbuMotion.spring, reduceMotion: reduceMotion)) {
                 drag?.isLifted = true
             }

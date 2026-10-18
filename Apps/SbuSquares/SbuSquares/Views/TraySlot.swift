@@ -5,6 +5,7 @@ import SwiftUI
 struct TraySlot: View {
     let slot: Int
     let piece: Piece?
+    let tone: Int
     let cell: CGFloat
     /// Hidden while it is dragged: the floating copy takes its place.
     let isDragged: Bool
@@ -16,7 +17,7 @@ struct TraySlot: View {
     var body: some View {
         ZStack {
             if let piece {
-                PieceShape(piece: piece, cell: cell)
+                PieceShape(piece: piece, cell: cell, color: PieceTone.color(tone))
                     .opacity(isDragged ? 0 : fits ? 1 : 0.3)
                     .padding(SbuTheme.space2)
                     .overlay {
@@ -39,9 +40,9 @@ struct TraySlot: View {
 
 #Preview("Light") {
     HStack {
-        TraySlot(slot: 0, piece: Piece.catalog[10], cell: 22, isDragged: false, fits: true, isSelected: true) {}
-        TraySlot(slot: 1, piece: Piece.catalog[15], cell: 22, isDragged: false, fits: false, isSelected: false) {}
-        TraySlot(slot: 2, piece: nil, cell: 22, isDragged: false, fits: true, isSelected: false) {}
+        TraySlot(slot: 0, piece: Piece.catalog[10], tone: 0, cell: 22, isDragged: false, fits: true, isSelected: true) {}
+        TraySlot(slot: 1, piece: Piece.catalog[15], tone: 1, cell: 22, isDragged: false, fits: false, isSelected: false) {}
+        TraySlot(slot: 2, piece: nil, tone: 2, cell: 22, isDragged: false, fits: true, isSelected: false) {}
     }
     .frame(height: 120)
     .sbuPaper()
@@ -49,8 +50,8 @@ struct TraySlot: View {
 
 #Preview("Dark") {
     HStack {
-        TraySlot(slot: 0, piece: Piece.catalog[10], cell: 22, isDragged: false, fits: true, isSelected: false) {}
-        TraySlot(slot: 1, piece: Piece.catalog[15], cell: 22, isDragged: false, fits: true, isSelected: false) {}
+        TraySlot(slot: 0, piece: Piece.catalog[10], tone: 0, cell: 22, isDragged: false, fits: true, isSelected: false) {}
+        TraySlot(slot: 1, piece: Piece.catalog[15], tone: 1, cell: 22, isDragged: false, fits: true, isSelected: false) {}
     }
     .frame(height: 120)
     .sbuPaper()

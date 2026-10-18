@@ -4,8 +4,10 @@ import SwiftUI
 /// The 8 × 8 board on a white card, with the shadow of the dragged piece and the lines it would complete.
 struct BoardView: View {
     let board: Board
-    /// Where the dragged or selected piece would land.
+    /// Where the dragged piece would land.
     let preview: Placement?
+    /// The dragged piece's tone, for its shadow and the lines it completes.
+    let previewTone: Int
     let clearDelays: [Cell: Double]
     /// Whether tapping a cell puts the selected piece there.
     let canPlaceByTap: Bool
@@ -46,9 +48,9 @@ struct BoardView: View {
     }
 
     private func look(of cell: Cell, covered: Set<Cell>, completing: Set<Cell>) -> CellLook {
-        if completing.contains(cell) { return .completing }
-        if covered.contains(cell) { return .shadow }
-        return board[cell] ? .filled : .empty
+        if completing.contains(cell) { return .completing(PieceTone.color(previewTone)) }
+        if covered.contains(cell) { return .shadow(PieceTone.color(previewTone)) }
+        return board.tone(at: cell).map { .filled(PieceTone.color($0)) } ?? .empty
     }
 }
 
@@ -73,7 +75,7 @@ private struct BoardPreview: View {
         let preview = game.piece(in: 0).flatMap { piece in
             Board.allCells.lazy.compactMap { game.board.preview(piece, at: $0) }.first
         }
-        return BoardView(board: game.board, preview: preview, clearDelays: [:], canPlaceByTap: false) { _ in }
+        return BoardView(board: game.board, preview: preview, previewTone: game.tone(in: 0) ?? 0, clearDelays: [:], canPlaceByTap: false) { _ in }
             .padding(SbuTheme.space4)
             .sbuPaper()
     }

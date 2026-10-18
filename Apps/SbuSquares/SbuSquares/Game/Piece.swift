@@ -9,6 +9,14 @@ nonisolated struct Piece: Hashable, Sendable {
     /// Columns the shape spans.
     var width: Int { (cells.map(\.column).max() ?? 0) + 1 }
 
+    /// How many tones the pieces come in: the accents of eight sbu.dev apps.
+    static let toneCount = 8
+
+    /// The tone of the catalog shape at `index`: neighbouring shapes, often alike, differ.
+    static func tone(ofShape index: Int) -> Int {
+        index % toneCount
+    }
+
     /// Builds a shape from rows drawn with `#` for a filled cell.
     init(_ rows: String...) {
         cells = rows.enumerated().flatMap { row, line in

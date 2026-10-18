@@ -4,6 +4,7 @@ import CoreGraphics
 struct PieceDrag: Equatable {
     let slot: Int
     let piece: Piece
+    let tone: Int
     /// The finger, in the game's coordinate space.
     var location: CGPoint
     /// Where the finger started, to fly the piece back if it does not fit.

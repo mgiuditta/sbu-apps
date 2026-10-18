@@ -18,6 +18,7 @@ struct TrayView: View {
                 TraySlot(
                     slot: slot,
                     piece: piece,
+                    tone: game.tone(in: slot) ?? 0,
                     cell: cell,
                     isDragged: drag?.slot == slot,
                     fits: piece.map(game.board.hasRoom(for:)) ?? false,

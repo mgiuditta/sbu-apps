@@ -1,21 +1,26 @@
-/// The 8 × 8 grid: which cells are filled.
+/// The 8 × 8 grid: which cells are filled, and with which piece's tone.
 nonisolated struct Board: Codable, Hashable, Sendable {
     static let size = 8
 
-    private var filled: [Bool]
+    private var tones: [Int?]
 
     /// An empty board.
     init() {
-        filled = Array(repeating: false, count: Self.size * Self.size)
+        tones = Array(repeating: nil, count: Self.size * Self.size)
     }
 
     /// Whether `cell` is filled.
     subscript(cell: Cell) -> Bool {
-        filled[Self.index(of: cell)]
+        tone(at: cell) != nil
+    }
+
+    /// The tone of the piece that filled `cell`, `nil` if empty.
+    func tone(at cell: Cell) -> Int? {
+        tones[Self.index(of: cell)]
     }
 
     /// The number of filled cells.
-    var filledCount: Int { filled.count(where: \.self) }
+    var filledCount: Int { tones.count { $0 != nil } }
 
     /// Whether `piece` fits with its top-left corner on `origin`: inside the board, on empty cells.
     func canPlace(_ piece: Piece, at origin: Cell) -> Bool {
@@ -35,16 +40,16 @@ nonisolated struct Board: Codable, Hashable, Sendable {
         guard canPlace(piece, at: origin) else { return nil }
         var board = self
         let covered = piece.cells.map { origin.moved(by: $0) }
-        for cell in covered { board.filled[Self.index(of: cell)] = true }
+        for cell in covered { board.tones[Self.index(of: cell)] = 0 }
         let rows = (0..<Self.size).filter { row in (0..<Self.size).allSatisfy { board[Cell(row: row, column: $0)] } }
         let columns = (0..<Self.size).filter { column in (0..<Self.size).allSatisfy { board[Cell(row: $0, column: column)] } }
         return Placement(covered: covered, rows: rows, columns: columns)
     }
 
-    /// Fills the cells of `placement`, then empties the lines it completed.
-    mutating func apply(_ placement: Placement) {
-        for cell in placement.covered { filled[Self.index(of: cell)] = true }
-        for cell in placement.cleared { filled[Self.index(of: cell)] = false }
+    /// Fills the cells of `placement` in `tone`, then empties the lines it completed.
+    mutating func apply(_ placement: Placement, tone: Int = 0) {
+        for cell in placement.covered { tones[Self.index(of: cell)] = tone }
+        for cell in placement.cleared { tones[Self.index(of: cell)] = nil }
     }
 
     /// Every cell, row by row.

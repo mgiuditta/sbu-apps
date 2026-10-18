@@ -1,6 +1,8 @@
 # sbu-apps
 
-Monorepo of free iOS apps for sbu.dev: Swift 6, SwiftUI, iOS 17+, shared `Packages/SbuKit`, one XcodeGen project per app in `Apps/`. Commands and layout are in README.md.
+Monorepo of free iOS apps and games for sbu.dev: Swift 6, SwiftUI, iOS 17+, shared `Packages/SbuKit`, one XcodeGen project per app in `Apps/`. Commands and layout are in README.md.
+
+sbu.dev has three branches: **App** (paid iPhone apps remade free), **Giochi** (the most played games remade without ads, ADR-0015, also in `Apps/`) and **Commerce** (Sbu Commerce, open source self-hosted backend for SAP Commerce storefronts, ADR-0016, in its own repo `sbu-commerce`). The product rules below are for apps and games; Commerce follows ADR-0016.
 
 ## Swift skills: mandatory
 

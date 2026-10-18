@@ -30,7 +30,7 @@ public struct SbuButton: View {
 
     public var body: some View {
         Button(title, role: kind == .destructive ? .destructive : nil, action: tap)
-            .buttonStyle(SbuButtonStyle(kind: kind))
+            .buttonStyle(SbuButtonStyle(kind))
             // On iPhone the dialog is a bubble over the button, which at the accessibility sizes
             // breaks every word in half; there the screen-wide alert asks instead.
             .confirmationDialog(confirmationTitle ?? title, isPresented: isConfirmingIn(bubble: true), titleVisibility: .visible) {

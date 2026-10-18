@@ -1,0 +1,10 @@
+No account. Sbu Squares has no server and makes no network calls: no analytics, ads, in-app purchases or tracking. The game and the best score stay on the device.
+
+How it differs from other block puzzles: no ads, no purchases, no lives, energy, coins, timers or notifications. Pieces come only from a seeded generator, with no difficulty tuned to the player; the daily game ("Del giorno") uses the date as the seed, so everyone gets the same pieces. The design is the sbu.dev notebook: ink squares on squared paper, one colored square only when the best score is beaten.
+
+To review:
+1. Drag a piece from the tray onto the grid. It floats above the finger, with its shadow where it lands; lines it completes turn grey and clear when you let go.
+2. Or tap a piece, then tap a cell: the piece goes there with its top-left corner on that cell (this is also how VoiceOver plays).
+3. "Libera" (Free) at the top starts free games; the arrow button starts a new one.
+4. When no piece fits, the game ends: "Condividi" (Share) shares the result as text.
+5. Settings (gear) show the best score and reset it.

@@ -1,0 +1,16 @@
+Sbu Squares is a block puzzle on an 8 by 8 grid: drag the pieces, complete rows and columns, and full lines clear. No ads, no purchases, no waiting.
+
+- The daily game: the same pieces for everyone, one try a day, to compare with anyone you like
+- Free games, as many as you want, with no lives or energy to refill
+- The piece follows your finger, above it: you see where it lands and which lines it completes before you let go
+- Rows and columns together are worth more: two lines in one move score four times the points
+- Your best stays on your iPhone, and the full stop turns to color when you beat it
+- Share your result as text: the score and the grid in squares
+- The game saves after every move: close the app whenever you like and pick up from there
+- Pieces come from a seeded generator: nobody picks them to make you lose or come back
+- You can play without dragging too: tap a piece, then a cell. It works with VoiceOver
+- Light and dark, Dynamic Type, offline
+
+Sbu does one thing: a block puzzle you play without interruptions.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

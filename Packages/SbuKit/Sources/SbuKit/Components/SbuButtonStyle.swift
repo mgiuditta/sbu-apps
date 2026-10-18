@@ -1,16 +1,22 @@
 import SwiftUI
 
 /// Draws `SbuButton`: 50pt tall, full width, `radiusCard`, `headline`. Primary is `ink` with `paper`
-/// text: buttons carry no color.
-struct SbuButtonStyle: ButtonStyle {
+/// text: buttons carry no color. Public for controls `SbuButton` cannot wrap, such as `ShareLink`;
+/// it never asks for confirmation, so destructive actions stay on `SbuButton`.
+public struct SbuButtonStyle: ButtonStyle {
     /// Minimum height from the Button component spec.
     private static let height: CGFloat = 50
 
     let kind: SbuButton.Kind
 
+    /// Creates the style for a button in the `kind` role.
+    public init(_ kind: SbuButton.Kind) {
+        self.kind = kind
+    }
+
     @Environment(\.isEnabled) private var isEnabled
 
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(SbuTheme.headline)
             .foregroundStyle(foreground)

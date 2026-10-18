@@ -1,6 +1,6 @@
 # sbu-apps
 
-Free iOS apps from [sbu.dev](https://sbu.dev). Each one remakes a single paid utility from the top of the App Store: no subscription, no in-app purchases, no account, no ads, no tracking, data only on the device.
+Free iOS apps and games from [sbu.dev](https://sbu.dev). Each app remakes a single paid utility from the top of the App Store, each game one of the most played free games without its ads: no subscription, no in-app purchases, no account, no ads, no tracking, data only on the device. sbu.dev's third branch, [Sbu Commerce](https://sbu.dev/commerce), lives in its own repo.
 
 **On the App Store:** [Sbu Subscriptions](https://apps.apple.com/app/id6780154928), a free alternative to Orbit, and [Sbu Scanner](https://apps.apple.com/app/id6772572337), QR codes and barcodes without ads. One new app a week; the rest are below.
 
@@ -78,6 +78,7 @@ Specs come only from public App Store data. Nothing here decompiles or extracts 
 | [Sbu Grid](Apps/SbuGrid) | `accent-grid` | DrawinGrid | In development |
 | [Sbu Tidy](Apps/SbuTidy) | `accent-tidy` | Tody | In development |
 | [Sbu Libretto](Apps/SbuLibretto) | `accent-libretto` | — | In development |
+| [Sbu Squares](Apps/SbuSquares) | `accent-squares` | Block Blast! (game, without its ads) | In development |
 | [Sbu Meds](Apps/SbuMeds) | `accent-meds` | Medisafe | In development |
 | [Sbu Remote](Apps/SbuRemote) | `accent-remote` | TV Remote - Universal Control | In development |
 | [Sbu Level](Apps/SbuLevel) | `accent-level` | Clinometer + bubble level | In development |

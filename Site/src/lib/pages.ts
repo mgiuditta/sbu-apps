@@ -15,6 +15,8 @@ interface TextPage {
 
 /** The public code of the site and every app. */
 export const REPO_URL = 'https://github.com/mgiuditta/sbu-apps';
+/** The developer on GitHub: where Sbu Commerce will be built in public. */
+export const GITHUB_URL = 'https://github.com/mgiuditta';
 
 /** Every app on the App Store, under Matteo's developer page. */
 export const DEVELOPER_URL = 'https://apps.apple.com/us/developer/matteo-giuditta/id1872140737';

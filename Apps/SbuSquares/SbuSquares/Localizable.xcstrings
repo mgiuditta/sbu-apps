@@ -11,106 +11,6 @@
         }
       }
     },
-    "%lld punti · %lld righe": {
-      "localizations": {
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%#@points@ · %#@lines@"
-          },
-          "substitutions": {
-            "points": {
-              "argNum": 1,
-              "formatSpecifier": "lld",
-              "variations": {
-                "plural": {
-                  "one": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg punto"
-                    }
-                  },
-                  "other": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg punti"
-                    }
-                  }
-                }
-              }
-            },
-            "lines": {
-              "argNum": 2,
-              "formatSpecifier": "lld",
-              "variations": {
-                "plural": {
-                  "one": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg riga"
-                    }
-                  },
-                  "other": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg righe"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%#@points@ · %#@lines@"
-          },
-          "substitutions": {
-            "points": {
-              "argNum": 1,
-              "formatSpecifier": "lld",
-              "variations": {
-                "plural": {
-                  "one": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg point"
-                    }
-                  },
-                  "other": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg points"
-                    }
-                  }
-                }
-              }
-            },
-            "lines": {
-              "argNum": 2,
-              "formatSpecifier": "lld",
-              "variations": {
-                "plural": {
-                  "one": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg line"
-                    }
-                  },
-                  "other": {
-                    "stringUnit": {
-                      "state": "translated",
-                      "value": "%arg lines"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "Azzera il record": {
       "localizations": {
         "en": {
@@ -137,16 +37,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Beaten"
-          }
-        }
-      }
-    },
-    "Condividi": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Share"
           }
         }
       }

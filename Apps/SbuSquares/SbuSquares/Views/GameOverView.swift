@@ -1,10 +1,9 @@
 import SbuKit
 import SwiftUI
 
-/// The end of a game, where the tray was: one sentence, the result to share, the next game.
+/// The end of a game, where the tray was: one sentence and the next game.
 struct GameOverView: View {
     let game: Game
-    let shareText: String
     let playAgain: () -> Void
 
     private var sentence: LocalizedStringKey {
@@ -17,26 +16,20 @@ struct GameOverView: View {
                 .font(SbuTheme.body)
                 .foregroundStyle(SbuTheme.ink)
                 .fixedSize(horizontal: false, vertical: true)
-            HStack(spacing: SbuTheme.space2) {
-                ShareLink(item: shareText) {
-                    Text("Condividi")
-                }
+            Button("Gioca ancora", action: playAgain)
                 .buttonStyle(SbuButtonStyle(.primary))
-                Button("Gioca ancora", action: playAgain)
-                    .buttonStyle(SbuButtonStyle(.secondary))
-            }
         }
     }
 }
 
 #Preview("Light") {
-    GameOverView(game: Game(seed: 20_261_018, recordToBeat: 0), shareText: "Sbu Squares", playAgain: {})
+    GameOverView(game: Game(seed: 20_261_018, recordToBeat: 0), playAgain: {})
         .padding(SbuTheme.space4)
         .sbuPaper()
 }
 
 #Preview("Dark") {
-    GameOverView(game: Game(seed: 1, recordToBeat: 0), shareText: "Sbu Squares", playAgain: {})
+    GameOverView(game: Game(seed: 1, recordToBeat: 0), playAgain: {})
         .padding(SbuTheme.space4)
         .sbuPaper()
         .preferredColorScheme(.dark)

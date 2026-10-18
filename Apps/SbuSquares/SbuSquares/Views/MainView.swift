@@ -54,7 +54,7 @@ struct MainView: View {
                     .sbuAffectsFigure(game.score)
                     .sbuHaptic(.dot, trigger: linesCleared)
                 if game.isOver {
-                    GameOverView(game: game, shareText: ShareText.make(for: game), playAgain: store.startNewGame)
+                    GameOverView(game: game, playAgain: store.startNewGame)
                         .transition(SbuMotion.transition(from: .bottom, reduceMotion: reduceMotion))
                 } else {
                     TrayView(game: game, cell: trayCell, drag: drag, selectedSlot: selectedSlot, dragChanged: dragChanged, dragEnded: dragEnded, select: select)

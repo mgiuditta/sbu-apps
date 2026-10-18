@@ -5,7 +5,6 @@ Sbu Squares è un block puzzle su una griglia 8 per 8: trascini i pezzi, complet
 - Il pezzo segue il dito, sopra il dito: vedi dove cade e quali righe completa prima di lasciarlo
 - Righe e colonne insieme valgono di più: due righe in una mossa fanno quattro volte i punti
 - Il record resta sull'iPhone, e il punto fermo si colora quando lo superi
-- Condividi il risultato come testo: il punteggio e la griglia in quadretti
 - La partita si salva a ogni mossa: chiudi l'app quando vuoi e riprendi da lì
 - I pezzi vengono da un generatore con seme: nessuno li sceglie per farti perdere o tornare
 - Si gioca anche senza trascinare: tocca un pezzo, poi una casella. Funziona con VoiceOver

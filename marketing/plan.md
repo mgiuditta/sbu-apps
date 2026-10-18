@@ -1,4 +1,4 @@
-<!-- Piano marketing di sbu.dev, copia pubblica. La fonte di lavoro resta fuori dal repo; questa copia si aggiorna a ogni versione. -->
+<!-- Piano marketing di sbu.dev, copia pubblica. La fonte di lavoro resta fuori dal repo; i dettagli di Sbu Commerce restano privati finché il progetto non è annunciato. -->
 
 # sbu.dev — Piano marketing 12 mesi
 
@@ -6,25 +6,25 @@ v3.1 · 18 ottobre 2026 (tre rami: App, Giochi, Software; Sbu Commerce è il pri
 
 ## 1. Executive summary
 
-**sbu.dev rifà gratis il software che oggi si paga, in tre rami.** **App**: le app iPhone più vendute, rifatte gratis, una a settimana. **Giochi**: i giochi più giocati, rifatti senza pubblicità, uno al mese. **Software**: il software che le aziende pagano centinaia di migliaia di euro l'anno, rifatto open source; il primo progetto è **Sbu Commerce**, alternativa gratuita e self-hosted a SAP Commerce Cloud. Stesse regole per tutti: niente abbonamenti, niente pubblicità, niente tracking, i dati restano a chi li possiede.
+**sbu.dev rifà gratis il software che oggi si paga, in tre rami.** **App**: le app iPhone più vendute, rifatte gratis, una a settimana. **Giochi**: i giochi più giocati, rifatti senza pubblicità, uno al mese. **Software**: il software che le aziende pagano centinaia di migliaia di euro l'anno, rifatto open source; il primo progetto è **Sbu Commerce**, un backend e-commerce B2B open source e self-hosted. Stesse regole per tutti: niente abbonamenti, niente pubblicità, niente tracking, i dati restano a chi li possiede.
 
 Oggi: 2 app live, 5 in review, 26 in pipeline; Sbu Squares (primo gioco) pronto su main; Software è un ramo con un primo progetto, Sbu Commerce, e un varco preciso. E nessuno conosce ancora sbu.dev: zero lanci, 1 recensione, zero backlink. Punteggio di partenza 51/85.
 
 ### Tre scommesse (una per ramo, più un tetto comune)
 1. **App: rispondere a ricerche che esistono già.** Una pagina "alternativa gratis a <app a pagamento>" per ogni app, IT e EN; Matteo in video ("Questa app costa 40 € l'anno. L'ho rifatta gratis."); SbuKit che chiede recensioni e fa condividere. Lancio della collezione (Show HN + Product Hunt) a metà dicembre.
 2. **Giochi: "senza pubblicità" come unica promessa.** Sbu Squares a dicembre, poi un gioco al mese; ASO su "no ads", video di gameplay, partita del giorno da condividere. È la porta d'ingresso a sbu.dev per il pubblico più grande.
-3. **Software (Sbu Commerce): far girare gli storefront SAP su un backend open source.** Sbu Commerce parla la stessa API (OCC) che usano gli storefront Spartacus / Composable Storefront: chi lascia SAP Commerce Cloud cambia backend senza rifare il sito. Pubblico piccolo ma che spende 150–700 k$ l'anno, e Matteo è uno di loro: credibilità che le app non danno.
+3. **Software (Sbu Commerce): il commerce enterprise, open source.** Un backend B2B che le aziende installano sui propri server, al posto di licenze da centinaia di migliaia di euro l'anno. Pubblico piccolo ma che spende molto, ed è il mestiere di Matteo: credibilità che le app non danno.
 - **Il tetto comune**: un solo brand (sbu.dev), un solo volto (Matteo), un solo manifesto ("il software che si paga, rifatto gratis") e un sito con tre rami: `/apps`, `/games`, `/software`.
 
 ### 90 giorni (19 ott – 10 gen)
 - **App**, sett. 1–12: Search Console, Smart Banner, review request in SbuKit, pagine alternativa, video, Show HN e Product Hunt a dicembre (§9).
 - **Giochi**: prova completa di Squares, screenshot, TestFlight, invio a inizio dicembre; `/games` online all'approvazione.
-- **Software / Sbu Commerce**: ADR e repo `sbu-commerce`, spike di compatibilità OCC (catalogo, prodotto, carrello sullo storefront Spartacus di esempio), pagina `/software/commerce` con lista d'attesa via GitHub, primo articolo tecnico per la community SAP. Niente lancio pubblico prima di una demo che gira.
+- **Software / Sbu Commerce**: ADR e repo `sbu-commerce`, primo spike (catalogo, prodotto, carrello), pagina `/software/commerce`, primo articolo tecnico. Niente lancio pubblico prima di una demo che gira.
 
 ### Obiettivo a 12 mesi
 - **App**: 30 pagine alternativa indicizzate, 500+ recensioni, download raddoppiati ogni trimestre.
 - **Giochi**: 10 giochi, Squares nei primi 3 per "block puzzle no ads", 1.000+ recensioni.
-- **Software / Sbu Commerce**: una versione 1.0 che fa girare lo storefront Spartacus di riferimento (catalogo, ricerca, carrello, checkout, account B2B), 1.000+ stelle GitHub, 3 aziende che la provano in staging, 1 migrazione pubblica raccontata.
+- **Software / Sbu Commerce**: una versione 1.0 (catalogo, ricerca, carrello, checkout, account B2B), 1.000+ stelle GitHub, 3 aziende che la provano in staging, 1 migrazione pubblica raccontata.
 - **sbu.dev**: primo su Google per il proprio nome, 10 articoli di stampa, 1 talk.
 Costo: **0 €** fino a un primo segnale; poi al massimo 100–300 €/mese su Apple Search Ads, solo se ripaga. Il ramo Software non spende in ads: il suo canale è la community.
 
@@ -39,7 +39,7 @@ Un brand, tre rami. Il manifesto è uno: **"Il software che si paga, rifatto gra
 |---|---|---|---|---|---|
 | **App** | `sbu.dev/apps` | Sbu Subscriptions, Scanner, Find… | "Le app più vendute dell'App Store, rifatte gratis. Una a settimana." | A, B (consumatori), C (dev) | App iOS native, dati sul dispositivo |
 | **Giochi** | `sbu.dev/games` | Sbu Squares, poi Tiles, Sudoku… | "I giochi più giocati, rifatti senza pubblicità. Uno al mese." | D (giocatori) | App iOS native, offline |
-| **Software** | `sbu.dev/software` | Sbu Commerce (primo progetto, `sbu.dev/software/commerce`) | "Il commerce enterprise, open source. Il tuo storefront SAP, senza la licenza SAP." | E (aziende su SAP Commerce, integratori, sviluppatori Spartacus) | Open source MIT, self-hosted (Docker), nessun server di sbu.dev |
+| **Software** | `sbu.dev/software` | Sbu Commerce (primo progetto, `sbu.dev/software/commerce`) | "Il commerce enterprise, open source." | E (aziende con piattaforme e-commerce enterprise a licenza, integratori) | Open source MIT, self-hosted (Docker), nessun server di sbu.dev |
 
 Le regole che valgono ovunque: niente abbonamenti, niente pubblicità, niente tracking, i dati restano a chi li possiede (sul dispositivo per app e giochi, sui server del cliente per Software). Le regole che cambiano per ramo: le app non usano la rete; i progetti Software sono software server per definizione, ma sbu.dev non lo ospita e non riceve nulla (ADR-0016).
 
@@ -61,7 +61,7 @@ Non "app gratis" (categoria affollata, piena di freemium che mentono) ma il **re
 
 | **D. Stanchi della pubblicità nei giochi** (IT + US, v2) | "block puzzle senza pubblicità", "sudoku no ads", "giochi offline senza pubblicità" | App Store search, TikTok, Facebook, YouTube Shorts, r/iosgaming, genitori | Gioco nativo senza interruzioni, offline |
 
-| **E. Chi è su SAP Commerce Cloud** (v3) | "SAP Commerce Cloud alternative", "migrate from SAP Commerce", "Spartacus backend", "open source B2B commerce" | LinkedIn, SAP Community, Spartacus su GitHub e Slack, integratori SAP (Accenture, Deloitte, boutique), meetup e conferenze e-commerce | Sbu Commerce: stesso storefront, backend open source, guida di migrazione |
+| **E. Aziende con e-commerce enterprise a licenza** (v3) | alternative open source al proprio e-commerce enterprise | LinkedIn, community tecniche, integratori | Sbu Commerce |
 
 A e B scaricano le app. C rende famoso Matteo e il repo, e porta link (autorità SEO) che fanno salire le pagine per A. D è il pubblico più grande di tutti: i giochi puzzle gratis hanno valutazioni a milioni, contro le migliaia delle utility. È anche il più lontano dal mondo dev, quindi i giochi sono la porta d'ingresso a sbu.dev per chi non leggerà mai HN: da un gioco si arriva alle app, non il contrario.
 
@@ -69,7 +69,7 @@ A e B scaricano le app. C rende famoso Matteo e il repo, e porta link (autorità
 Nessun ricavo, per scelta. La "moneta" è attenzione: download, link, menzioni, stelle. Quindi niente CAC/LTV; si misurano **ricerche del brand, backlink, download, stelle GitHub** (§13).
 Conseguenza: ogni euro speso deve comprare qualcosa che resta (contenuto, link, video), non traffico che finisce quando finisce il budget.
 
-E è il pubblico più piccolo e il più ricco: poche migliaia di aziende nel mondo, che spendono 150–700 k$ l'anno. Non scarica: **prova, valuta, migra**, in mesi. Decide un CTO o un responsabile e-commerce, su consiglio di un integratore. Matteo lavora su SAP Commerce e Spartacus: è l'unico ramo dove il founder è un pari del cliente.
+E è il pubblico più piccolo e il più ricco: poche migliaia di aziende nel mondo. Non scarica: **prova, valuta, migra**, in mesi.
 
 ### Vincoli non negoziabili
 1. **Marchi dei concorrenti mai nei metadati App Store** (guideline 2.3.7, e dopo il 4.3 del 14/10 sarebbe benzina). Sul sito sì, in forma fattuale e comparativa ("Sbu Subscriptions fa quello che fa Orbit, gratis"), mai loghi, screenshot o UI loro.
@@ -81,8 +81,8 @@ E è il pubblico più piccolo e il più ricco: poche migliaia di aziende nel mon
 6. **Giochi (v2)**: mai il nome di un altro gioco (né "Blast", né "doku" preso da Meowdoku) nel nome, nell'icona o nei metadati App Store. La meccanica si riprende, il look no: niente blocchi colorati e gemme, solo il Quaderno (`ink` su `paper`, griglia da 24 pt, il punto fermo come l'unica cella colorata). Sul sito, pagina alternativa fattuale come per le app.
 7. **Niente dark pattern (v2)**: niente vite, energia, timer per tornare, notifiche "ti manca", streak punitive, monete. Un gioco sbu.dev si chiude quando vuoi tu. È la promessa "senza pubblicità" portata fino in fondo, ed è anche la differenza che regge davanti al 4.3: lo stesso genere, senza il motore dei soldi.
 
-8. **Sbu Commerce (v3)**: mai codice, binari, dati o materiali SAP; compatibilità solo dall'API OCC pubblica e documentata e dal codice open source di Spartacus (Apache 2.0). Mai "SAP" nel nome del prodotto o del repo; sul sito, confronto fattuale ("compatibile con gli storefront Spartacus / Composable Storefront"). Il marchio SAP resta di SAP.
-9. **Sbu Commerce, onestà sul perimetro**: SAP Commerce Cloud fa moltissimo (B2B, prezzi, promozioni, multi-sito, integrazioni ERP). Sbu Commerce dichiara sempre cosa copre e cosa no, con una tabella pubblica e aggiornata. Promettere troppo a un CTO brucia il ramo.
+8. **Sbu Commerce (v3)**: interoperabilità solo da documentazione pubblica e codice open source; mai materiale o marchi di altri nel nome (ADR-0016).
+9. **Sbu Commerce, onestà sul perimetro**: una tabella pubblica e sempre vera di cosa copre e cosa no.
 
 ### Decisione aperta (§13)
 Raccontare o no l'angolo "una persona + Claude fa un'app a settimana". È l'hook più forte per HN/X/stampa tech; è anche il più rischioso con Apple (4.3) e con il pubblico A. Raccomandazione: sì, ma su canali dev (pubblico C), non nelle pagine app.
@@ -169,14 +169,8 @@ Cosa c'è già e si riusa:
 Mancano: un motore di gioco (non serve: SwiftUI `Canvas` + `TimelineView` bastano per una griglia 8×8), una persona che faccia playtest (Matteo + 3 amici), la verifica `originality-check` per un genere saturo.
 Punteggio: invariato (51/85). I giochi aprono la voce 14 (Lanci) e 4 (ASO) su un pubblico nuovo, ma per ora non c'è niente da misurare.
 
-### Software / Sbu Commerce (v3, 18/10)
-Esiste solo l'idea, con un varco preciso (§2). Cosa c'è già e si riusa:
-- **Il mestiere di Matteo**: lavora su SAP Commerce e Spartacus. Conosce l'API OCC, i modelli dati, i dolori delle migrazioni e le persone (colleghi, integratori). Nessun altro ramo parte con questo vantaggio.
-- **Il metodo sbu.dev**: specifiche da materiale pubblico (ADR-0003, qui la documentazione OCC e il codice Spartacus), codice aperto, test, Claude come squadra.
-- **Il brand e il sito**: `/software/commerce` eredita autorità e voce.
-Mancano: il repo, un'architettura (§13 C2), una demo, la tabella di copertura, un canale B2B attivo (il LinkedIn di Matteo è l'unico ponte), una licenza scelta (MIT, come le app).
-Punteggio: invariato. Sbu Commerce apre le voci "Lanci", "SEO" (query B2B ad alto valore) e "Materiale stampa" su un pubblico nuovo.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -307,23 +301,8 @@ Skill: `asc-apple-ads`, `ads`.
 
 **Cosa non facciamo sui giochi:** pubblicità a pagamento su Meta/TikTok (il genere vive di UA a pagamento, noi no), influencer pagati, ASA sul marchio di un altro gioco, classifiche online che richiedono un account.
 
-### Software / Sbu Commerce (v3)
-**Tesi:** Sbu Commerce si vende come un developer tool B2B. Chi decide non cerca su App Store: legge GitHub, documentazione, LinkedIn, e chiede all'integratore. Il canale principale è **Matteo come esperto SAP che costruisce l'alternativa in pubblico**.
-
-**Mossa C1 — Il repo come vetrina.** `github.com/mgiuditta/sbu-commerce`: README con la promessa ("Run your Spartacus storefront on an open source backend"), una GIF dello storefront di riferimento che gira su Sbu Commerce, la tabella di copertura OCC (endpoint per endpoint: fatto / in corso / non previsto), `docker compose up` in 5 minuti. Topic: sap-commerce, spartacus, composable-storefront, ecommerce, b2b, headless-commerce.
-
-**Mossa C2 — Contenuto tecnico per la community SAP (#1, #11).** Un articolo ogni due settimane, IT e EN, su sbu.dev/software/commerce/blog e cross-post su LinkedIn e SAP Community: "Cosa fa davvero l'API OCC", "Spartacus senza SAP Commerce: il primo carrello", "Quanto costa SAP Commerce Cloud nel 2027 (con fonti)", "Guida di migrazione: catalogo, prezzi, utenti". Pagina di confronto onesta "Sbu Commerce vs SAP Commerce Cloud vs Medusa vs Shopware".
-
-**Mossa C3 — LinkedIn di Matteo (#39).** È dove stanno i decisori e gli integratori. Un post a settimana sul cantiere ("Settimana 3: il catalogo di Spartacus gira su un backend da 4.000 righe"), con screenshot e numeri. Niente hype: il pubblico è tecnico e scettico.
-
-**Mossa C4 — Integratori come canale (#54).** Le boutique SAP (5–50 persone) perdono clienti che non reggono il costo della licenza: Sbu Commerce dà loro un'offerta per quei clienti. 10 messaggi personali di Matteo dopo la prima demo, programma "partner" senza soldi (logo nel README, menzione nella guida).
-
-**Mossa C5 — Community open source.** Show HN di Sbu Commerce separato da quello delle app, quando la demo fa il checkout; post su r/sap, r/ecommerce, r/opensource; awesome-list (awesome-ecommerce, awesome-selfhosted); issue "good first issue" per chi vuole contribuire.
-
-**Mossa C6 — Eventi.** Talk "Spartacus senza SAP Commerce" a Codemotion, Angular Day, meetup SAP; candidatura ai CFP di Q2–Q3.
-
-**Cosa non facciamo su Sbu Commerce:** ads (il ciclo di vendita è lungo, il pubblico piccolo), cold email di massa, promesse di parità con SAP, logo o screenshot SAP.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -387,12 +366,8 @@ Analytics sul **sito**: oggi niente. Opzioni: solo GSC (zero cookie, zero script
 - **Dal sito all'app**: Smart App Banner su `sbu.dev/games/squares` con `ct=games-squares`.
 - **Da un gioco alle app**: in Impostazioni, "Altre app di sbu.dev" (§5 M4) mostra prima gli altri giochi, poi le app. Mai durante la partita.
 
-### Software / Sbu Commerce (v3)
-- **Attivazione = vedere lo storefront girare.** `docker compose up` con dati di esempio e lo storefront Spartacus di riferimento già configurato: entro 10 minuti dal clone, una pagina prodotto e un carrello funzionanti nel browser. Se serve più di un comando, è un bug di attivazione.
-- **Guida "Porta il tuo storefront"**: come puntare uno storefront Spartacus esistente su Sbu Commerce (configurazione OCC, CORS, autenticazione).
-- **Tabella di copertura** in cima alla documentazione: il CTO capisce in un minuto se il suo caso è coperto.
-- **Importatore** (Q2): catalogo e prezzi da un export ImpEx/CSV di SAP Commerce (#16), perché provare con i propri dati è ciò che trasforma la curiosità in valutazione.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -450,12 +425,8 @@ Un gioco sbu.dev si chiude quando vuoi tu (vincolo 7). La retention deve venire 
 - **Recensioni**: richiesta dopo il terzo record battuto, in giorni diversi (stessa regola di `SbuReviewRequest`).
 **Cosa non facciamo:** notifiche push, streak che si perdono, Game Center al lancio (§13 decisione G3), monete o sblocchi.
 
-### Software / Sbu Commerce (v3)
-- **Release regolari con changelog leggibile** (ogni due settimane): la retention di un progetto open source è la fiducia che resti vivo.
-- **GitHub Discussions** per domande e roadmap; risposte di Matteo entro 48 h.
-- **Una newsletter tecnica mensile** solo se la decisione 4 di §13 è sì per tutto sbu.dev.
-- **Stabilità dell'API**: versioni semantiche, nessuna rottura senza guida di aggiornamento.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -505,12 +476,8 @@ Per il pubblico C il passaparola è **partecipare**.
 - **Mossa G2 — "Battimi su questa partita".** Il link porta il seed della partita (`sbu.dev/games/squares?p=…`): con l'app installata la apre sulla stessa partita (universal link, nessuna chiamata di rete), altrimenti mostra la pagina con il link App Store. Sfida tra amici senza classifica online.
 - **Mossa G3 — I giochi portano alle app.** Il pubblico D è il più grande; "Altre app di sbu.dev" in Impostazioni è il ponte (§5).
 
-### Software / Sbu Commerce (v3)
-- **Casi raccontati**: ogni azienda che prova Sbu Commerce in staging è un articolo (con il suo permesso); una migrazione pubblica vale più di 100 post.
-- **Integratori partner** (§4 C4) che lo propongono ai loro clienti.
-- **"Powered by Sbu Commerce"** facoltativo nel footer degli storefront, mai obbligatorio (#87).
-- **Contributori**: chi apre una PR entra nel README; chi porta un modulo (promozioni, B2B approvals) lo firma.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -550,9 +517,8 @@ GitHub Sponsors: accenderlo subito (segnale, costo zero) o dopo Show HN (quando 
 ### Giochi (v2)
 Invariata: **zero ricavi**, anche sui giochi. Niente pubblicità, niente acquisti, niente "rimuovi le pubblicità" a 0,99 $ come fanno i concorrenti ad-free. GitHub Sponsors resta l'unico canale ed è uno solo per tutto sbu.dev. Il costo in più è solo il tempo di Matteo (§10).
 
-### Software / Sbu Commerce (v3)
-Il software resta gratuito e MIT. Sbu Commerce è però l'unico ramo dove un ricavo onesto è naturale, ed è una decisione aperta (§13 C1): consulenza di migrazione di Matteo, supporto a pagamento per aziende, o sponsor GitHub di aziende. Raccomandazione: nessun ricavo nei primi 12 mesi, perché il primo obiettivo è la fiducia; si rivede quando 3 aziende lo usano in staging. Mai "open core" con funzioni chiuse: romperebbe il manifesto.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -640,20 +606,8 @@ Settimane 10–11 cadono a Natale: niente lanci, solo ritmo fisso e articolo di 
 
 Natale (sett. 10–11) è il periodo più giocato dell'anno: se l'approvazione arriva prima del 20 dic, il video di gameplay esce comunque.
 
-### Software / Sbu Commerce (v3) — in parallelo, da subito
-| # | Cosa | Settimane | Owner | Tag | Fatto quando |
-|---|---|---|---|---|---|
-| C1 | **ADR-0016** Sbu Commerce: open source MIT, self-hosted, interoperabilità solo da API OCC pubblica e Spartacus, repo separato `sbu-commerce`, stack (§13 C2) | 1–2 | C → M | — | ADR approvata |
-| C2 | Repo pubblico con README, licenza, tabella di copertura vuota, `docker compose` | 2 | C → M | Acq | Repo online |
-| C3 | **Spike OCC**: catalogo, pagina prodotto, ricerca base, carrello anonimo con lo storefront Spartacus di riferimento | 3–6 | C (codice) → M (review) | Act | GIF dello storefront che gira |
-| C4 | Pagina `sbu.dev/software/commerce` con la promessa, lo stato e "Segui su GitHub" | 2 | C → M | Acq | Online |
-| C5 | Primo articolo tecnico + post LinkedIn di Matteo ("Perché rifaccio SAP Commerce open source") | 4 | C bozza → M | Acq | Pubblicato |
-| C6 | Login cliente, checkout con pagamento finto, ordini (OCC users/orders) | 7–10 | C → M | Act | Checkout completo nella demo |
-| C7 | 10 messaggi personali a integratori e colleghi SAP con la demo | 10–11 | M | Acq | 3 risposte |
-| C8 | Show HN di Sbu Commerce (separato dalle app), solo se C6 è fatto | 12 o gennaio | M | Acq | Pubblicato |
-
-**Effetto sul ritmo delle app:** Sbu Commerce in parallelo costa a Matteo 3–5 h a settimana di review e LinkedIn. Il submit settimanale delle app resta, ma i lavori nuovi delle app (§4 M7, generatore QR) scivolano a Q2 se la settimana non regge.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -711,16 +665,8 @@ Un gioco al mese da dicembre: **10 giochi a ottobre 2027**. Ordine proposto, dai
 
 **Cancelli:** se Squares fa più download delle app entro 60 giorni, i giochi passano a 2 al mese e le app restano a 1 a settimana solo finché c'è tempo; se un gioco riceve un 4.3, ci si ferma, si fa appello e si rivede l'ADR prima del gioco successivo. Q1 1 gioco, Q2 4, Q3 7, Q4 10.
 
-### Software / Sbu Commerce (v3)
-| Trimestre | Traguardi | Cancello |
-|---|---|---|
-| **Q1** · ott–gen | ADR, repo, spike OCC (catalogo, carrello), checkout demo, pagina `/software/commerce`, 2 articoli, Show HN se pronto | La demo fa un checkout completo con lo storefront di riferimento |
-| **Q2** · gen–apr | Account B2B (unità, approvazioni base), prezzi per cliente, importatore ImpEx/CSV, 1.0-beta, 3 aziende in staging | 3 aziende o integratori che lo provano con i propri dati |
-| **Q3** · apr–lug | 1.0, promozioni base, multi-sito, talk a una conferenza, prima migrazione pubblica | Una migrazione reale in produzione |
-| **Q4** · lug–ott | Moduli dei contributori, guida per integratori, decisione sul ricavo (§13 C1) | Piano v4 |
-
-Il tempo è il vincolo vero: se Sbu Commerce e app insieme superano le ore di Matteo, il primo a rallentare è il ritmo dei giochi (un gioco ogni sei settimane), poi le app nuove; Sbu Commerce non si ferma una volta annunciato, perché un progetto open source abbandonato costa credibilità.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -780,16 +726,8 @@ Una persona + Claude + skill + qualche integrazione fanno il lavoro di un piccol
 | Act/Ret | Partita del giorno, widget | `swiftui-pro`, `widgets`, `swift-testing-pro` | SbuKit |
 | Ref | Testo da condividere | `writing-for-interfaces` | `ShareLink` |
 
-### Software / Sbu Commerce (v3)
-| Fase | Mossa | Skill | Strumenti |
-|---|---|---|---|
-| Prodotto | Storefront di riferimento, performance | `sbu-angular`, `spartacus-grill`, `spartacus-performance-audit` | Spartacus (Apache 2.0), Docker |
-| Acq | Articoli tecnici, confronto | `content-strategy`, `competitors`, `copywriting` | Blog sbu.dev |
-| Acq | Show HN, Product Hunt dev | `launch` | GitHub |
-| Acq | SEO B2B | `seo-audit`, `ai-seo` | GSC |
-| Ref | Integratori | `co-marketing`, `cold-email` (messaggi personali, mai massa) | LinkedIn |
-| Rev | Decisione sul ricavo | `pricing` | — |
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -962,20 +900,8 @@ Il gran numero di Skip è voluto: niente ads tranne ASA, niente email in app, ni
 
 Riepilogo con i giochi: Ora 33 · Q2 21 · Q3+ 10 · Q4+ 3 · Skip 72 (#117 passa da Skip a Q2).
 
-### Software / Sbu Commerce (v3): idee per il ramo B2B
-| # | Idea | Fase | Stato Sbu Commerce | Per Sbu Commerce |
-|---|---|---|---|---|
-| 1 | Easy Keyword Ranking | Acq | Ora | "SAP Commerce Cloud alternative", "Spartacus backend open source" |
-| 11 | Competitor Comparison Pages | Acq | Ora | Sbu Commerce vs SAP Commerce Cloud vs Medusa vs Shopware, fattuale |
-| 16 | Importers as Marketing | Act | Q2 | Import da ImpEx/CSV di SAP Commerce |
-| 39 | LinkedIn Audience | Acq | Ora | Il canale principale di Sbu Commerce (§4 C3) |
-| 54 | Affiliate / partner | Ref | Q2 | Integratori partner senza soldi (§4 C4) |
-| 70 | Conference Speaking | Acq | Q3+ | "Spartacus senza SAP Commerce" |
-| 78 | Product Hunt Launch | Acq | Q2 | Solo dopo la 1.0-beta |
-| 88 | Free Migrations | Act | Q2 | Guida di migrazione e importatore |
-| 123 | Open Source as Marketing | Acq | Ora | È il prodotto stesso |
-| 133 | Developer Relations | Ref | Q2 | Contributori, good first issue |
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 
@@ -1074,29 +1000,8 @@ R = fa · A = decide · C = consultato · I = informato
 - **Trade dress**: mai blocchi colorati con gemme, mai i nomi altrui.
 - **Tempo di Matteo**: un gioco al mese in aggiunta a un'app a settimana. Se non regge, i giochi scendono a uno ogni sei settimane prima che le app rallentino.
 
-### Software / Sbu Commerce (v3)
-**Indicatori**
-| Indicatore | Fonte | Base (18/10) | Obiettivo 10 gen | Obiettivo ott 2027 |
-|---|---|---|---|---|
-| Endpoint OCC coperti dallo storefront di riferimento | tabella di copertura | 0 | catalogo + carrello + checkout | 1.0 completa |
-| Stelle `sbu-commerce` | GitHub | 0 | 200 | 1.000+ |
-| Aziende o integratori che lo provano in staging | contatti diretti | 0 | 1 | 3+ |
-| Migrazioni in produzione | contatti diretti | 0 | 0 | 1 |
-| Follower LinkedIn di Matteo / impression dei post Sbu Commerce | LinkedIn | da leggere | +30% | ×3 |
-
-**Decisioni aperte (Sbu Commerce)**
-| # | Decisione | Raccomandazione | Entro |
-|---|---|---|---|
-| C1 | Ricavo da Sbu Commerce (consulenza, supporto, sponsor) | Nessuno per 12 mesi; si rivede con 3 aziende in staging | Q4 |
-| C2 | Stack del backend | Da decidere nell'ADR-0016 dopo lo spike: Java/Spring (familiare ai team SAP) o TypeScript/NestJS (più contributori); la compatibilità OCC conta più del linguaggio | Sett. 2 |
-| C4 | Nome definitivo | "Sbu Commerce": libero, coerente con "Sbu <Nome>" | Sett. 1 |
-| C5 | Dove vive il codice | Repo separato `mgiuditta/sbu-commerce`, non nel monorepo iOS | Sett. 1 |
-
-**Rischi Sbu Commerce**
-- **Marchi e IP SAP**: solo API pubbliche e codice Apache 2.0; nessun materiale SAP; "SAP" mai nel nome.
-- **Promettere troppo**: tabella di copertura sempre vera.
-- **Tempo**: tre rami con una persona sola; l'ordine di sacrificio è in §10.
-
+### Software / Sbu Commerce
+I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
 
 ---
 

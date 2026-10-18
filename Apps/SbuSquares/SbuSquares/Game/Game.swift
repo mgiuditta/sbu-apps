@@ -35,6 +35,8 @@ nonisolated struct Game: Codable, Hashable, Sendable {
     private(set) var playTime: TimeInterval = 0
     /// What the last move scored.
     private(set) var lastGain = 0
+    /// Whether the last move has already been taken back once: one second chance a game.
+    private(set) var hasUsedSecondChance = false
     private let avoiding: [Int]
     private var nextPuzzle: TimeInterval
     private var recent: [[Int]] = []
@@ -87,6 +89,11 @@ nonisolated struct Game: Codable, Hashable, Sendable {
         if tray.allSatisfy({ $0 == nil }) { refill() }
         isOver = !tray.indices.contains { piece(in: $0).map(board.hasRoom(for:)) ?? false }
         return placement
+    }
+
+    /// Marks the second chance as spent, on the game it brings back.
+    mutating func spendSecondChance() {
+        hasUsedSecondChance = true
     }
 
     private mutating func refill() {

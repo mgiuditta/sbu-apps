@@ -21,6 +21,16 @@
         }
       }
     },
+    "Annulla l'ultima mossa": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo last move"
+          }
+        }
+      }
+    },
     "Azzera il record": {
       "localizations": {
         "en": {
@@ -117,6 +127,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "No piece fits any more."
+          }
+        }
+      }
+    },
+    "Nessun pezzo entra più. Puoi annullare l'ultima mossa, una volta a partita.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No piece fits anymore. You can undo your last move, once a game."
           }
         }
       }
@@ -267,6 +287,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Squares"
+          }
+        }
+      }
+    },
+    "Termina la partita": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End the game"
           }
         }
       }

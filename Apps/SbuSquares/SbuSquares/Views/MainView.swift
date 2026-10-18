@@ -54,7 +54,7 @@ struct MainView: View {
                     .sbuAffectsFigure(game.score)
                     .sbuHaptic(.dot, trigger: linesCleared)
                 if game.isOver {
-                    GameOverView(game: game, playAgain: store.startNewGame)
+                    GameOverView(game: game, canTakeBack: store.canTakeBack, takeBack: takeBack, endGame: store.endGame, playAgain: store.startNewGame)
                         .transition(SbuMotion.transition(from: .bottom, reduceMotion: reduceMotion))
                 } else {
                     TrayView(game: game, cell: trayCell, drag: drag, selectedSlot: selectedSlot, dragChanged: dragChanged, dragEnded: dragEnded, select: select)
@@ -161,6 +161,12 @@ private extension MainView {
             ? String(localized: "Più \(game.lastGain) punti, combo \(combo)")
             : String(localized: "Più \(game.lastGain) punti")
         AccessibilityNotification.Announcement(announcement).post()
+    }
+
+    func takeBack() {
+        store.takeBack()
+        clearDelays = [:]
+        hideFeedback()
     }
 
     func askForNewGame() {

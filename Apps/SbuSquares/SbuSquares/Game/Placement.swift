@@ -13,9 +13,4 @@ nonisolated struct Placement: Hashable, Sendable {
         return Set(rows.flatMap { row in range.map { Cell(row: row, column: $0) } })
             .union(columns.flatMap { column in range.map { Cell(row: $0, column: column) } })
     }
-
-    /// One point per cell put down, plus 10 × lines² for the lines completed together.
-    var points: Int {
-        covered.count + 10 * lineCount * lineCount
-    }
 }

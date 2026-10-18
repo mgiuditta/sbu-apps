@@ -26,19 +26,23 @@ nonisolated struct Piece: Hashable, Sendable {
         }
     }
 
-    /// Every shape the generator draws from, each equally likely.
+    /// Every shape the dealer draws from, in the order of the original's numbering (1–36, then 42).
     static let catalog: [Piece] = [
-        Piece("#"),
-        Piece("##"), Piece("#", "#"),
-        Piece("###"), Piece("#", "#", "#"),
-        Piece("####"), Piece("#", "#", "#", "#"),
-        Piece("#####"), Piece("#", "#", "#", "#", "#"),
-        Piece("##", "##"),
-        Piece("###", "###", "###"),
-        Piece("#.", "##"), Piece(".#", "##"), Piece("##", "#."), Piece("##", ".#"),
-        Piece("#.", "#.", "##"), Piece(".#", ".#", "##"), Piece("##", "#.", "#."), Piece("##", ".#", ".#"),
-        Piece("###", ".#."), Piece(".#.", "###"),
-        Piece("##.", ".##"), Piece(".##", "##."),
-        Piece("###", "#..", "#.."), Piece("###", "..#", "..#"),
+        Piece("#"), Piece("#", "#"), Piece("##"), Piece("#", "#", "#"), Piece("###"),
+        Piece("##", "#."), Piece("#", "#", "#", "#"), Piece("#..", "###"), Piece("##", "##"), Piece(".#.", "###"),
+        Piece("#####"), Piece("###", "..#", "..#"), Piece("###", "###", "###"), Piece(".##", "##."), Piece("##", ".#"),
+        Piece("#.", "##", ".#"), Piece("####"), Piece("##.", ".##"), Piece(".#", "##", "#."), Piece("#.", "##", "#."),
+        Piece("###", "#..", "#.."), Piece("#", "#", "#", "#", "#"), Piece("#..", "#..", "###"), Piece("..#", "..#", "###"), Piece(".#", "##", ".#"),
+        Piece("###", ".#."), Piece("#.", "##"), Piece(".#", "##"), Piece(".#", ".#", "##"), Piece("###", "..#"),
+        Piece("##", "#.", "#."), Piece("##", ".#", ".#"), Piece("..#", "###"), Piece("###", "#.."), Piece("###", "###"),
+        Piece("##", "##", "##"), Piece("#.", "#.", "##"),
     ]
+
+    /// The catalog index of the shape the original numbers `id`.
+    static func index(ofID id: Int) -> Int {
+        id == 42 ? 36 : id - 1
+    }
+
+    /// The single cell.
+    static let single = 0
 }

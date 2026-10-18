@@ -32,12 +32,6 @@ struct BoardTests {
         #expect(board.filledCount == 0)
     }
 
-    @Test(arguments: [(0, 1), (1, 11), (2, 41), (3, 91)])
-    func linesCompletedTogetherScoreSquared(lines: Int, points: Int) {
-        let placement = Placement(covered: [Cell(row: 0, column: 0)], rows: Array(0..<lines), columns: [])
-        #expect(placement.points == points)
-    }
-
     @Test func everyCatalogShapeStartsAtTheTopLeft() {
         for piece in Piece.catalog {
             #expect(piece.cells.map(\.row).min() == 0)

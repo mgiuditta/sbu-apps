@@ -1,8 +1,21 @@
+import Foundation
+
 /// One game: the board, the three pieces on offer, the score.
 ///
-/// Pieces come only from the seeded generator, three at a time, each shape equally likely.
-/// Nothing tunes them to the board or to the player (ADR-0015).
+/// Pieces come from the `Dealer`, three at a time, with the original's strategies: random but
+/// never a dead tray, a puzzle after two or three minutes and then every 30 to 60 seconds, fill
+/// and clear instead of the puzzle after a lost game (up to three), no small shapes past 2000
+/// points, no lines when the trays loop.
 nonisolated struct Game: Codable, Hashable, Sendable {
+    /// Points for emptying the board, from the sixth tray on.
+    static let clearBoardPoints = 300
+    /// Trays after which emptying the board scores.
+    static let clearBoardFromRound = 5
+    /// Trays at the start that leave out the shapes left in hand when the last game ended.
+    static let avoidRounds = 3
+    /// Lost games that turn a puzzle into fill and clear.
+    static let maxAssists = 3
+
     let mode: GameMode
     let seed: UInt64
     /// The Record when the game started: beating it turns the full stop `.set`.
@@ -14,13 +27,26 @@ nonisolated struct Game: Codable, Hashable, Sendable {
     private(set) var score = 0
     private(set) var lines = 0
     private(set) var isOver = false
+    private(set) var combo = Combo()
+    /// Trays dealt so far.
+    private(set) var round = 0
+    /// Puzzles still to turn into fill and clear.
+    private(set) var assists: Int
+    /// Seconds of play, as counted by the caller between moves.
+    private(set) var playTime: TimeInterval = 0
+    private let avoiding: [Int]
+    private var nextPuzzle: TimeInterval
+    private var recent: [[Int]] = []
     private var generator: SeededGenerator
 
-    init(mode: GameMode, seed: UInt64, recordToBeat: Int) {
+    init(mode: GameMode, seed: UInt64, recordToBeat: Int, avoiding: [Int] = [], assists: Int = 0) {
         self.mode = mode
         self.seed = seed
         self.recordToBeat = recordToBeat
+        self.avoiding = avoiding
+        self.assists = min(assists, Self.maxAssists)
         generator = SeededGenerator(seed: seed)
+        nextPuzzle = TimeInterval(generator.int(in: 120...180))
         refill()
     }
 
@@ -34,18 +60,27 @@ nonisolated struct Game: Codable, Hashable, Sendable {
         tray[slot].map(Piece.tone(ofShape:))
     }
 
+    /// The pieces still in hand.
+    var leftInHand: [Int] {
+        tray.compactMap(\.self)
+    }
+
     /// Whether this game has gone past the Record it started with. The first game sets the
     /// Record without beating one: the full stop waits.
     var beatsRecord: Bool {
         recordToBeat > 0 && score > recordToBeat
     }
 
-    /// Puts the piece in `slot` down at `origin`; `nil`, and nothing changes, if it does not fit.
+    /// Puts the piece in `slot` down at `origin`, `elapsed` seconds after the last move; `nil`,
+    /// and nothing changes, if it does not fit.
     @discardableResult
-    mutating func place(slot: Int, at origin: Cell) -> Placement? {
+    mutating func place(slot: Int, at origin: Cell, elapsed: TimeInterval = 0) -> Placement? {
         guard !isOver, let dropped = piece(in: slot), let placement = board.preview(dropped, at: origin) else { return nil }
         board.apply(placement, tone: tone(in: slot) ?? 0)
-        score += placement.points
+        playTime += elapsed
+        combo.record(lines: placement.lineCount)
+        score += placement.covered.count + Combo.linePoints(lines: placement.lineCount, combo: combo.count)
+        if board.filledCount == 0, round > Self.clearBoardFromRound { score += Self.clearBoardPoints }
         lines += placement.lineCount
         tray[slot] = nil
         if tray.allSatisfy({ $0 == nil }) { refill() }
@@ -54,8 +89,29 @@ nonisolated struct Game: Codable, Hashable, Sendable {
     }
 
     private mutating func refill() {
-        // Not Int.random(in:using:): its algorithm may change between Swift versions, and the
-        // Partita del giorno must stay the same on every build. The modulo bias is below 1e-17.
-        tray = (0..<3).map { _ in Int(generator.next() % UInt64(Piece.catalog.count)) }
+        round += 1
+        let bits = BitBoard(board)
+        var pool = Array(Piece.catalog.indices)
+        if score > Dealer.smallLimit { pool.removeAll(where: Dealer.small.contains) }
+        if round <= Self.avoidRounds { pool.removeAll(where: avoiding.contains) }
+        if pool.isEmpty { pool = Array(Piece.catalog.indices) }
+
+        var chosen: [Int]?
+        if playTime >= nextPuzzle {
+            nextPuzzle = playTime + TimeInterval(generator.int(in: 30...60))
+            if assists > 0 {
+                assists -= 1
+                chosen = Dealer.fill(pool: pool, on: bits, using: &generator)
+            } else {
+                chosen = Dealer.hard(pool: pool, on: bits, using: &generator)
+            }
+        } else if Dealer.isLoop(recent) {
+            chosen = Dealer.noLines(pool: pool, on: bits, using: &generator)
+        }
+        var dealt = chosen ?? Dealer.randomNoDeath(pool: pool, on: bits, using: &generator)
+        dealt = Dealer.secured(dealt, pool: pool, on: bits, using: &generator)
+        dealt = Dealer.varied(dealt, after: recent.last, pool: pool, on: bits, using: &generator)
+        recent = Array((recent + [dealt]).suffix(Dealer.memory))
+        tray = dealt
     }
 }

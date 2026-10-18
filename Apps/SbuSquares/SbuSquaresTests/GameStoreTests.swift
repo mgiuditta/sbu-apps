@@ -12,7 +12,7 @@ struct GameStoreTests {
     }
 
     private func playOut(_ store: GameStore) {
-        while !store.game.isOver {
+        for _ in 0..<500 where !store.game.isOver {
             let move = (0..<3).lazy.compactMap { slot in
                 store.game.piece(in: slot).flatMap { piece in
                     Board.allCells.first { store.game.board.canPlace(piece, at: $0) }.map { (slot, $0) }

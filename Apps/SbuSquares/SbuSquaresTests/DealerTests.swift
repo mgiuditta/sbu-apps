@@ -25,11 +25,22 @@ struct DealerTests {
         #expect(generator.random() == 0.131538)
     }
 
-    @Test func theCatalogHasTheOriginalsThirtySevenShapes() {
-        #expect(Piece.catalog.count == 37)
-        #expect(Set(Piece.catalog).count == 37)
+    @Test func theCatalogHasTheOriginalsFortyTwoShapes() {
+        #expect(Piece.catalog.count == 42)
+        #expect(Set(Piece.catalog).count == 41)
+        #expect(Piece.catalog[Piece.index(ofID: 40)] == Piece.catalog[Piece.index(ofID: 41)])
+        #expect(!Dealer.pool.contains(Piece.single))
         #expect(Dealer.small.allSatisfy { Piece.catalog[$0].cells.count <= 3 })
         #expect(Piece.catalog[Piece.index(ofID: 13)].cells.count == 9)
+    }
+
+    @Test(arguments: [1 as UInt64, 7, 42, 20_261_018])
+    func entropyDealsBigPiecesThatCanAllGoDownAndRoughenTheBoard(seed: UInt64) throws {
+        var generator = SeededGenerator(seed: seed)
+        let half = board(filled(rowsFrom: 4, except: [Cell(row: 4, column: 0)]))
+        let triple = try #require(Dealer.entropy(pool: Dealer.pool, on: half, using: &generator))
+        #expect(triple.reduce(0) { $0 + Piece.catalog[$1].cells.count } >= Dealer.entropyCells)
+        #expect(half.survives(triple))
     }
 
     @Test(arguments: [1 as UInt64, 7, 42, 20_261_018])

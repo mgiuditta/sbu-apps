@@ -2,7 +2,11 @@
 /// indices, all drawing from the game's seeded generator.
 nonisolated enum Dealer {
     /// Shapes of three cells or fewer, out of the pool past 2000 points.
-    static let small = Set([1, 6, 27, 28, 15, 3, 2, 5, 4].map(Piece.index(ofID:)))
+    static let small = Set([1, 6, 27, 28, 15, 3, 2, 5, 4, 37, 38, 39, 40, 41].map(Piece.index(ofID:)))
+    /// The random pool: every shape but the single cell, which comes only as a last resort.
+    static let pool = Array(Piece.catalog.indices.dropFirst())
+    /// Cells a tray needs, at least, to raise the entropy.
+    static let entropyCells = 15
     /// The triple of last resort.
     static let fallback = [5, 4, 5].map(Piece.index(ofID:))
     /// Score above which the small shapes leave the pool.
@@ -24,6 +28,24 @@ nonisolated enum Dealer {
             if board.survives(triple) { return triple }
         }
         return [Piece.single, tidiest(pool: pool, on: board), Piece.single]
+    }
+
+    /// Entropy: three pieces of 15 cells or more that can all go down and leave the board rougher,
+    /// more filled ↔ empty changes, even each put where it fits tidiest; `nil` if none turns up.
+    static func entropy(pool: [Int], on board: BitBoard, using generator: inout SeededGenerator) -> [Int]? {
+        let fitting = pool.filter { board.fits(piece: $0) }
+        guard !fitting.isEmpty else { return nil }
+        draw: for _ in 0..<attempts {
+            let triple = (0..<3).map { _ in generator.element(of: fitting) }
+            guard triple.reduce(0, { $0 + Piece.catalog[$1].cells.count }) >= entropyCells, board.survives(triple) else { continue }
+            var after = board
+            for piece in triple {
+                guard let mask = tidiestMask(of: piece, on: after) else { continue draw }
+                after.put(mask)
+            }
+            if after.edge > board.edge { return triple }
+        }
+        return nil
     }
 
     /// The puzzle: two pieces that fit and a third that fits only once the first two complete a
@@ -118,15 +140,16 @@ nonisolated enum Dealer {
         }
     }
 
-    /// The safety check: `triple` if it can all go down, else with its last piece, then its last
+    /// The safety check: `triple` if it can all go down, else with its middle piece, then its last
     /// two, redrawn, else a random triple that can.
     static func secured(_ triple: [Int], pool: [Int], on board: BitBoard, using generator: inout SeededGenerator) -> [Int] {
         if triple.count == 3, board.survives(triple) { return triple }
         let fitting = pool.filter { board.fits(piece: $0) }
         if triple.count == 3, !fitting.isEmpty {
-            for kept in [2, 1] {
+            for redrawn in [[1], [1, 2]] {
                 for _ in 0..<attempts {
-                    let candidate = Array(triple.prefix(kept)) + (kept..<3).map { _ in generator.element(of: fitting) }
+                    var candidate = triple
+                    for slot in redrawn { candidate[slot] = generator.element(of: fitting) }
                     if board.survives(candidate) { return candidate }
                 }
             }
@@ -146,6 +169,16 @@ nonisolated enum Dealer {
             if board.survives(candidate) { return candidate }
         }
         return triple
+    }
+
+    /// The position of `piece` that leaves the fewest filled ↔ empty changes, `nil` if it does not fit.
+    private static func tidiestMask(of piece: Int, on board: BitBoard) -> UInt64? {
+        BitBoard.placements[piece].filter(board.fits).min { first, second in
+            var afterFirst = board, afterSecond = board
+            afterFirst.put(first)
+            afterSecond.put(second)
+            return afterFirst.edge < afterSecond.edge
+        }
     }
 
     /// The piece and position that leave the fewest filled ↔ empty changes.

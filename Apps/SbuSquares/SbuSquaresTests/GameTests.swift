@@ -4,7 +4,7 @@ import Testing
 
 struct GameTests {
     /// The catalog indices of the first tray of seed 20261018, as dealt when this test was written.
-    private static let pinnedTray = [18, 1, 21]
+    private static let pinnedTray = [2, 24, 25]
 
     /// Plays the first piece that fits, at the first cell it fits, until the game ends.
     private func playOut(_ game: inout Game, maxMoves: Int = 500) -> Int {
@@ -33,8 +33,7 @@ struct GameTests {
     @Test func aSeedDealsTheSameFirstTrayAcrossVersions() {
         // Pinned: changing the generator or the catalog changes this; update it on purpose.
         let game = Game(seed: 20_261_018, recordToBeat: 0)
-        let pieces = (0..<3).compactMap { game.piece(in: $0) }.compactMap { Piece.catalog.firstIndex(of: $0) }
-        #expect(pieces == Self.pinnedTray)
+        #expect(game.leftInHand == Self.pinnedTray)
     }
 
     @Test func aPlacementThatDoesNotFitChangesNothing() throws {

@@ -26,7 +26,8 @@ nonisolated struct Piece: Hashable, Sendable {
         }
     }
 
-    /// Every shape the dealer draws from, in the order of the original's numbering (1–36, then 42).
+    /// Every shape the dealer draws from, in the order of the original's numbering (1–42). 40 and
+    /// 41 are the same diagonal, as in the original's data.
     static let catalog: [Piece] = [
         Piece("#"), Piece("#", "#"), Piece("##"), Piece("#", "#", "#"), Piece("###"),
         Piece("##", "#."), Piece("#", "#", "#", "#"), Piece("#..", "###"), Piece("##", "##"), Piece(".#.", "###"),
@@ -35,12 +36,13 @@ nonisolated struct Piece: Hashable, Sendable {
         Piece("###", "#..", "#.."), Piece("#", "#", "#", "#", "#"), Piece("#..", "#..", "###"), Piece("..#", "..#", "###"), Piece(".#", "##", ".#"),
         Piece("###", ".#."), Piece("#.", "##"), Piece(".#", "##"), Piece(".#", ".#", "##"), Piece("###", "..#"),
         Piece("##", "#.", "#."), Piece("##", ".#", ".#"), Piece("..#", "###"), Piece("###", "#.."), Piece("###", "###"),
-        Piece("##", "##", "##"), Piece("#.", "#.", "##"),
+        Piece("##", "##", "##"), Piece("#.", ".#"), Piece(".#", "#."), Piece("#..", ".#.", "..#"), Piece("..#", ".#.", "#.."),
+        Piece("..#", ".#.", "#.."), Piece("#.", "#.", "##"),
     ]
 
     /// The catalog index of the shape the original numbers `id`.
     static func index(ofID id: Int) -> Int {
-        id == 42 ? 36 : id - 1
+        id - 1
     }
 
     /// The single cell.

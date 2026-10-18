@@ -2,8 +2,8 @@ import Foundation
 
 /// One game: the board, the three pieces on offer, the score.
 ///
-/// Pieces come from the `Dealer`, three at a time, with the original's strategies: random but
-/// never a dead tray, a puzzle after two or three minutes and then every 30 to 60 seconds, fill
+/// Pieces come from the `Dealer`, three at a time, with the original's strategies: half the trays
+/// random but never dead and half raising the entropy, a puzzle after two or three minutes and then every 30 to 60 seconds, fill
 /// and clear instead of the puzzle after a lost game (up to three), no small shapes past 2000
 /// points, no lines when the trays loop.
 nonisolated struct Game: Codable, Hashable, Sendable {
@@ -92,10 +92,10 @@ nonisolated struct Game: Codable, Hashable, Sendable {
     private mutating func refill() {
         round += 1
         let bits = BitBoard(board)
-        var pool = Array(Piece.catalog.indices)
+        var pool = Dealer.pool
         if score > Dealer.smallLimit { pool.removeAll(where: Dealer.small.contains) }
         if round <= Self.avoidRounds { pool.removeAll(where: avoiding.contains) }
-        if pool.isEmpty { pool = Array(Piece.catalog.indices) }
+        if pool.isEmpty { pool = Dealer.pool }
 
         var chosen: [Int]?
         if playTime >= nextPuzzle {
@@ -108,6 +108,9 @@ nonisolated struct Game: Codable, Hashable, Sendable {
             }
         } else if Dealer.isLoop(recent) {
             chosen = Dealer.noLines(pool: pool, on: bits, using: &generator)
+        }
+        if chosen == nil, generator.int(in: 0...9) >= 5 {
+            chosen = Dealer.entropy(pool: pool, on: bits, using: &generator)
         }
         var dealt = chosen ?? Dealer.randomNoDeath(pool: pool, on: bits, using: &generator)
         dealt = Dealer.secured(dealt, pool: pool, on: bits, using: &generator)

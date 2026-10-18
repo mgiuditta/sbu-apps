@@ -50,6 +50,12 @@ final class SquaresFlowTests: XCTestCase {
         // An empty board: the top-left cell fits any piece.
         app.buttons["Riga 1, colonna 1"].tap()
         XCTAssertNotEqual(score.label, "Punteggio 0")
+
+        app.navigationBars.buttons["Nuova partita"].tap()
+        let alert = app.alerts["Iniziare una nuova partita?"]
+        XCTAssertTrue(alert.waitForExistence(timeout: 2))
+        alert.buttons["Nuova partita"].tap()
+        XCTAssertEqual(score.label, "Punteggio 0")
     }
 
     @MainActor

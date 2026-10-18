@@ -77,7 +77,9 @@ struct MainView: View {
                 Button("Nuova partita", systemImage: "arrow.counterclockwise", action: askForNewGame)
             }
         }
-        .confirmationDialog("Iniziare una nuova partita?", isPresented: $isConfirmingNewGame, titleVisibility: .visible) {
+        // An alert, centered: a confirmation dialog anchors to the toolbar button and floats off it.
+        .alert("Iniziare una nuova partita?", isPresented: $isConfirmingNewGame) {
+            Button("Annulla", role: .cancel) {}
             Button("Nuova partita", role: .destructive, action: store.startNewGame)
         } message: {
             Text("Questa partita finisce qui.")

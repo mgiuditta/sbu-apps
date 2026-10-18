@@ -11,6 +11,16 @@
         }
       }
     },
+    "Annulla": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
     "Azzera il record": {
       "localizations": {
         "en": {

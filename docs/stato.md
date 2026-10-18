@@ -78,11 +78,11 @@ Cycle, Cast, Image, Gif, Tags, Knit, Chores, Reader, Exposure.
 
 ## 6. Marketing
 
-Fatto: sito live con i tre rami, pagine alternativa, badge con link campagna, RSS, Instagram @sbudevapp, foto stampa, listing AlternativeTo (in moderazione), PR a open-source-ios-apps (#2442, Subscriptions e Scanner). Piano 12 mesi v3.1 in `~/marketing-plans/sbu/final_plan.md`, punteggio 51/85.
+Fatto: sito live con i tre rami, Search Console e Bing, Smart App Banner, `sameAs` e `llms.txt`, pagine alternativa, generatore QR e calcolatore abbonamenti, badge con link campagna, RSS, Instagram @sbudevapp, foto stampa, listing AlternativeTo (in moderazione), PR a open-source-ios-apps (#2442, Subscriptions e Scanner). In SbuKit (su main, arrivano con la prossima versione di ogni app): richiesta di recensione dopo la Chiusura, Condividi l'app, `SbuFigureCard`. Piano 12 mesi v3.2 in `marketing/plan.md` (copia pubblica), punteggio 51/85.
 
 Deciso e chiuso: niente newsletter (solo RSS), niente GitHub Sponsors, un Show HN per app.
 
-Aperto: Search Console, Smart Banner, richiesta recensioni in SbuKit, video "costa 40 € l'anno, l'ho rifatta gratis".
+Aperto: indicizzazione delle pagine nuove (#575), handle su X/TikTok/YouTube/LinkedIn, video di Find e "costa 40 € l'anno, l'ho rifatta gratis", articolo "sei app rifiutate" (bozza IT), lancio di Find all'approvazione.
 
 ## 7. Cosa serve da te (Matteo)
 

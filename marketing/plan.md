@@ -2,13 +2,15 @@
 
 # sbu.dev — Piano marketing 12 mesi
 
-v3.1 · 18 ottobre 2026 (tre rami: App, Giochi, Software; Sbu Commerce è il primo progetto Software) · Matteo Giuditta + Claude
+v3.2 · 18 ottobre 2026, sera (allineata a `docs/stato.md`: coda dello Store, voci fatte, decisioni chiuse; tre rami: App, Giochi, Software) · Matteo Giuditta + Claude
 
 ## 1. Executive summary
 
 **sbu.dev rifà gratis il software che oggi si paga, in tre rami.** **App**: le app iPhone più vendute, rifatte gratis, una a settimana. **Giochi**: i giochi più giocati, rifatti senza pubblicità, uno al mese. **Software**: il software che le aziende pagano centinaia di migliaia di euro l'anno, rifatto open source; il primo progetto è **Sbu Commerce**, un backend e-commerce B2B open source e self-hosted. Stesse regole per tutti: niente abbonamenti, niente pubblicità, niente tracking, i dati restano a chi li possiede.
 
-Oggi: 2 app live, 5 in review, 26 in pipeline; Sbu Squares (primo gioco) pronto su main; Software è un ramo con un primo progetto, Sbu Commerce, e un varco preciso. E nessuno conosce ancora sbu.dev: zero lanci, 1 recensione, zero backlink. Punteggio di partenza 51/85.
+Oggi (18/10, verificato su App Store Connect): 2 app live (Subscriptions 2.0, Scanner 2.0), Find 1.0 in revisione, 4 app respinte il 14/10 (4.3) in attesa della risposta di Apple, 3 pronte su ASC e mai inviate (Chats, Fuel, Inventory), 7 scritte e mai su ASC, Squares (primo gioco) su main. Software: ADR-0016 e pagine `/software` online, il repo `sbu-commerce` non esiste ancora. E nessuno conosce ancora sbu.dev: zero lanci usciti, 1 recensione, 1 stella GitHub, zero backlink. Punteggio di partenza 51/85.
+
+**Il collo di bottiglia non è il marketing, è lo Store**: la risposta di Apple al 4.3 (finché tace, un invio a settimana), il test insieme sul tuo iPhone e TestFlight che non installa. La base marketing è pronta: ogni lancio parte il giorno in cui Apple approva.
 
 ### Tre scommesse (una per ramo, più un tetto comune)
 1. **App: rispondere a ricerche che esistono già.** Una pagina "alternativa gratis a <app a pagamento>" per ogni app, IT e EN; Matteo in video ("Questa app costa 40 € l'anno. L'ho rifatta gratis."); SbuKit che chiede recensioni e fa condividere. Lancio della collezione (Show HN + Product Hunt) a metà dicembre.
@@ -17,9 +19,9 @@ Oggi: 2 app live, 5 in review, 26 in pipeline; Sbu Squares (primo gioco) pronto 
 - **Il tetto comune**: un solo brand (sbu.dev), un solo volto (Matteo), un solo manifesto ("il software che si paga, rifatto gratis") e un sito con tre rami: `/apps`, `/games`, `/software`.
 
 ### 90 giorni (19 ott – 10 gen)
-- **App**, sett. 1–12: Search Console, Smart Banner, review request in SbuKit, pagine alternativa, video, Show HN e Product Hunt a dicembre (§9).
+- **App**, sett. 1–12: la base è fatta (Search Console, Smart Banner, review request in SbuKit, 6 pagine alternativa, strumenti, RSS). Ora: lancio di Find il giorno dell'approvazione, un Show HN per app, il primo video, poi Show HN e Product Hunt della collezione a metà dicembre (§9).
 - **Giochi**: prova completa di Squares, screenshot, TestFlight, invio a inizio dicembre; `/games` online all'approvazione.
-- **Software / Sbu Commerce**: ADR e repo `sbu-commerce`, primo spike (catalogo, prodotto, carrello), pagina `/software/commerce`, primo articolo tecnico. Niente lancio pubblico prima di una demo che gira.
+- **Software / Sbu Commerce**: ADR-0016 e `/software/commerce` già fatti; restano repo `sbu-commerce`, primo spike (catalogo, prodotto, carrello), primo articolo tecnico. Niente lancio pubblico prima di una demo che gira.
 
 ### Obiettivo a 12 mesi
 - **App**: 30 pagine alternativa indicizzate, 500+ recensioni, download raddoppiati ogni trimestre.
@@ -93,7 +95,7 @@ Raccontare o no l'angolo "una persona + Claude fa un'app a settimana". È l'hook
 
 ## 3. Current state
 
-*v1.1, punteggi rifatti il 18/10/2026 dai materiali: repo, sito live, lookup App Store IT/US, GitHub. Search Console e Bing attivi dal 17/10, ancora senza dati utili. La v1 del 17/10 (41/85) è in `materials/03-v1.md`.*
+*v1.2 (piano v3.2): fatti allineati a `docs/stato.md` il 18/10 sera. v1.1, punteggi rifatti il 18/10/2026 dai materiali: repo, sito live, lookup App Store IT/US, GitHub. Search Console e Bing attivi dal 17/10, ancora senza dati utili. La v1 del 17/10 (41/85) è in `materials/03-v1.md`.*
 
 ### Team
 | Persona | Ruolo | Superficie marketing |
@@ -124,9 +126,12 @@ Matteo è π-shaped su **prodotto + design system** e T-shaped sulla distribuzio
 - **Richiesta di recensione in SbuKit**: fatta, arriva con la prossima versione di ogni app.
 
 ### In corso
-- Find 1.0 in revisione, rilascio automatico all'approvazione (= giorno 0).
-- Subscriptions 2.1.0 su App Store Connect, build 7 su TestFlight, submit dal 24/10: porta screenshot nuovi e richiesta di recensione.
-- Clean, Habits, Moon, Noise in review; Chats, Fuel, Inventory, Speed su TestFlight; Level e Speed 1.1 da ripresentare (non ripresentate dopo il 14/10). Ritmo: 1 invio a settimana.
+- Find 1.0 in revisione dal 17/10, rilascio automatico all'approvazione (= giorno 0).
+- Subscriptions 2.1.0 su App Store Connect, nessuna build agganciata (la 7 va selezionata), submit dal 24/10 dopo il test insieme: porta screenshot nuovi e richiesta di recensione.
+- Habits, Clean, Noise, Moon 1.0 **respinte il 14/10** (4.3 / 4.2.6), in attesa della risposta di Apple; follow-up su Habits il 21/10 se Apple tace.
+- Chats, Fuel, Inventory 1.0 pronte su ASC, mai inviate: mancano App Privacy, test insieme, uno slot.
+- Level e Speed 1.1 da ripresentare dopo test sul device e screenshot, mai nella stessa settimana.
+- Ritmo: 1 invio a settimana finché Apple non risponde al 4.3.
 
 ### Bloccato o mancante
 1. **Zero lanci usciti**: tutto è pronto, aspetta Apple.
@@ -134,6 +139,7 @@ Matteo è π-shaped su **prodotto + design system** e T-shaped sulla distribuzio
 3. **Autorità zero**: 1 stella GitHub, nessun backlink, nessuna menzione.
 4. **Nessun dato di traffico** ancora: GSC appena attivo, registro `marketing/log.md` vuoto.
 5. **Video** del lancio da girare su iPhone vero (se manca al giorno 0, esce al giorno 7).
+6. **Il percorso verso lo Store**: TestFlight non installa sul tuo iPhone dal 16/10 (caso aperto con Developer Support; ripiego: build Release via cavo) e il test insieme manca a quasi tutte le app pronte. Ogni lancio del piano dipende da qui.
 
 ### Punteggi (17 voci, 0–5)
 | # | Voce | 17/10 | 18/10 | Perché |
@@ -159,15 +165,15 @@ Matteo è π-shaped su **prodotto + design system** e T-shaped sulla distribuzio
 
 **Forma: "base finita, distribuzione ancora a zero".** Sito, SEO tecnico, pagine alternativa, profili e stampa sono pronti. Restano a zero lanci, recensioni e autorità, e nessuna delle tre migliora con altro lavoro sul sito: si sbloccano con l'approvazione di Find (Show HN, Reddit) e con la prossima versione delle app (richiesta di recensione). Il collo di bottiglia oggi è Apple, non il marketing: il lavoro utile nell'attesa è il video di Find e le richieste personali di recensione.
 
-### Giochi (v2, 18/10)
-Oggi non esiste niente: nessun gioco, nessuna ADR, nessuna pagina `/games`, nessuna esperienza di ASO sui giochi.
-Cosa c'è già e si riusa:
+### Giochi (v2, aggiornato in v3.2)
+Fatto il 18/10: **ADR-0015** (Giochi Sbu), glossario dei giochi, accento `accent-squares`, **Sbu Squares** su main (un'unica partita senza fine come l'originale, algoritmi di distribuzione e punteggio dell'originale, record nel cartiglio), installato sul tuo iPhone; vetrina `sbu.dev/games` online. Mancano: prova completa, screenshot Store, record ASC, TestFlight; invio previsto a inizio dicembre. Nessuna esperienza di ASO sui giochi.
+Cosa si riusa:
 - **Il Quaderno è già un tabellone.** La griglia da 24 pt, `ink` su `paper`, il punto fermo come cella piena: un gioco su griglia non ha bisogno di un nuovo design system, solo di un'ADR.
 - **SbuKit**: shell, `SbuFigure` (il punteggio), `SbuMotion`/`SbuHaptic` (`tick` su ogni pezzo, `closure` su una riga), `.sbuClosure` (fine partita), widget, review request, "Condividi".
 - **Il sito Astro** ospita la vetrina `/games` (niente versione web dei giochi, decisione 18/10).
 - **I profili social** presi in §9 #2 servono anche per i video di gameplay.
 Mancano: un motore di gioco (non serve: SwiftUI `Canvas` + `TimelineView` bastano per una griglia 8×8), una persona che faccia playtest (Matteo + 3 amici), la verifica `originality-check` per un genere saturo.
-Punteggio: invariato (51/85). I giochi aprono la voce 14 (Lanci) e 4 (ASO) su un pubblico nuovo, ma per ora non c'è niente da misurare.
+Punteggio: invariato (51/85) finché Squares non esce. I giochi aprono la voce 14 (Lanci) e 4 (ASO) su un pubblico nuovo, ma per ora non c'è niente da misurare.
 
 ### Software / Sbu Commerce
 I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
@@ -223,7 +229,7 @@ Poi Fuel (Fuelly), Inventory (Sortly), Speed, Meds (Medisafe), Tidy (Tody), Remo
 - `Organization` JSON-LD con `sameAs`: GitHub, pagina sviluppatore App Store, X, LinkedIn, Mastodon, YouTube. `founder` → `Person` Matteo con i suoi profili.
 - `MobileApplication` con `author`, `aggregateRating` solo quando ci sono recensioni vere.
 - **`llms.txt`** e una pagina "Cos'è sbu.dev" chiara, perché ChatGPT/Perplexity/AI Overviews la citino (skill `ai-seo`). Chi chiede "app gratis senza abbonamento per iPhone" a un'AI deve trovare sbu.dev.
-- Stesso nome ovunque: `sbu.dev` come handle (X `@sbudev`, GitHub org, YouTube).
+- Stesso nome ovunque: `sbudevapp` come handle (Instagram @sbudevapp preso, Bluesky @sbu.dev; X, TikTok, YouTube, LinkedIn da prendere con lo stesso nome).
 
 ### Mossa 3 — ASO
 - Sottotitoli già buoni. Nei metadati provare **"gratis" / "senza abbonamento" / "free, no subscription"** (consentito, sono fatti) nel sottotitolo o nelle keyword, dove ci stanno.
@@ -381,7 +387,8 @@ Niente account e niente email nelle app: la retention si fa con il prodotto e co
 
 ### Oggi
 - **Bene**: widget in 9 app (Clean, Find, Habits + watch, Libretto, Meds, Noise, Remote, Subscriptions, Tidy). App Shortcuts in Noise, Remote, Scanner, Subscriptions. Notifiche solo funzionali. iCloud opzionale. Design familiare tra le app.
-- **Manca**: nessun modo di "seguire sbu.dev" dal sito (niente RSS, newsletter, link social). Nessuna risposta alle recensioni. Note di versione non usate come racconto. Nessuna misura della retention.
+- **Fatto dal 17/10**: RSS del blog per lingua, Instagram e Bluesky nel footer e in `sameAs`.
+- **Manca**: nessuna risposta alle recensioni. Note di versione non usate come racconto. Nessuna misura della retention.
 
 ### Mossa 1 — Il widget è la retention
 Un widget sulla Home equivale a un'app che non viene cancellata. Ogni app che ha una cifra da mostrare deve avere il suo `SbuWidgetFigure`, e la pagina App Store deve **farlo vedere**: uno screenshot dedicato "Mettilo sulla Home".
@@ -402,10 +409,9 @@ App Store Connect permette di rispondere. Ogni recensione riceve una risposta di
 Strumento: `asc` CLI o fastlane per leggere le recensioni ogni lunedì; Claude scrive le bozze.
 
 ### Mossa 5 — Seguire sbu.dev (sito)
-- **RSS** del blog e di "nuove app" (Astro lo fa in poche righe).
-- **Newsletter mensile opzionale**: "Una mail al mese: le app uscite, niente altro." Unico punto dove esiste un'email, ed è sul sito, non nell'app. Fornitore: Buttondown (semplice, senza tracking dei click se lo disattivi). Decisione aperta (§13): rompe lo spirito "nessun account"? Raccomandazione: sì alla newsletter, con tracking disattivato e scritto in chiaro.
-- Footer e pagina Stampa: link a X, YouTube/TikTok, GitHub, Mastodon, RSS.
-- Skill: `emails` (solo per la newsletter mensile).
+- **RSS** del blog, `/rss.xml` e `/en/rss.xml`: fatto. Prossimo: un feed "nuove app".
+- **Newsletter: no** (decisione del 18/10, #588). L'RSS ne prende il posto; nessuna email raccolta, da nessuna parte.
+- Footer e pagina Stampa: Instagram, Bluesky, GitHub, RSS già presenti; gli altri profili quando esistono.
 
 ### Mossa 6 — Misurare senza tracciare
 App Analytics di App Store Connect (dati di chi ha accettato di condividerli con gli sviluppatori): **sessioni per utente attivo, retention a 1/7/28 giorni, disinstallazioni**. Revisione mensile, una riga per app in §13. Se un'app perde più del 90% degli utenti entro il giorno 7, il problema è il prodotto, non il marketing: si torna alla spec.
@@ -493,17 +499,16 @@ Le app sono gratis per scelta e le sei promesse non si toccano: **nessun acquist
 | Claude / API (sviluppo, spec, testi) | abbonamento esistente di Matteo |
 | Gemini (incisioni delle icone) | a consumo, basso |
 | Opzionale piano: Apple Search Ads test | 100–150 € una tantum (§4 Mossa 8) |
-| Opzionale piano: newsletter (Buttondown) | 0 € fino a 100 iscritti |
 
 Il progetto costa meno di 20 €/mese. **Non ha bisogno di ricavi per esistere**, e questo è parte della storia: va detto (pagina Principi, "Dov'è la fregatura?").
 
 ### Cosa è possibile senza rompere promesse
-1. **GitHub Sponsors + un link "Sostieni sbu.dev" sul sito** (non nelle app). Chi vuole, dona. Mai un pulsante nell'app: per Apple (3.1.1) le donazioni dentro l'app passano da acquisto in-app, e sarebbe una promessa rotta. Il sito resta libero di farlo. Atteso: piccolo; vale soprattutto come segnale pubblico ("X persone sostengono il progetto").
+1. **GitHub Sponsors: non per ora** (decisione del 18/10, #589). Nessun link "Sostieni" sul sito né nelle app. Non si ripropone finché Matteo non lo chiede.
 2. **La notorietà di Matteo** è il ricavo vero, indiretto:
    - lavoro e consulenze iOS/SwiftUI (il repo è un portfolio pubblico eccezionale);
    - talk a conferenze (Pragma Conf, Swift Heroes in Italia; iOSDevUK, NSSpain) e podcast;
    - più avanti: un corso o una guida "Come faccio un'app a settimana" (pubblico C), venduta sul sito, mai collegata alle app.
-3. **Sponsor del contenuto, non delle app**: una newsletter o un canale YouTube con pubblico sufficiente può avere uno sponsor dichiarato. Solo strumenti per sviluppatori coerenti con i principi. Non prima di 12 mesi.
+3. **Sponsor del contenuto, non delle app**: un canale YouTube con pubblico sufficiente può avere uno sponsor dichiarato. Solo strumenti per sviluppatori coerenti con i principi. Non prima di 12 mesi.
 
 ### Cosa non facciamo
 - Mancia via acquisto in-app, "versione Pro", sblocchi: escluso dalle promesse.
@@ -511,11 +516,11 @@ Il progetto costa meno di 20 €/mese. **Non ha bisogno di ricavi per esistere**
 - Vendere o "aggregare" dati: non esistono.
 - Affiliazioni con le app originali o con servizi negli abbonamenti tracciati.
 
-### Decisione aperta (§13)
-GitHub Sponsors: accenderlo subito (segnale, costo zero) o dopo Show HN (quando c'è un pubblico che lo vede)? Raccomandazione: **attivarlo prima di Show HN**, così il picco di traffico lo trova pronto.
+### Decisione chiusa
+GitHub Sponsors: no, per ora (#589, 18/10).
 
 ### Giochi (v2)
-Invariata: **zero ricavi**, anche sui giochi. Niente pubblicità, niente acquisti, niente "rimuovi le pubblicità" a 0,99 $ come fanno i concorrenti ad-free. GitHub Sponsors resta l'unico canale ed è uno solo per tutto sbu.dev. Il costo in più è solo il tempo di Matteo (§10).
+Invariata: **zero ricavi**, anche sui giochi. Niente pubblicità, niente acquisti, niente "rimuovi le pubblicità" a 0,99 $ come fanno i concorrenti ad-free. Nessun canale di donazione (#589). Il costo in più è solo il tempo di Matteo (§10).
 
 ### Software / Sbu Commerce
 I dettagli del progetto restano nella copia privata del piano finché il progetto non è annunciato.
@@ -541,46 +546,46 @@ Tempo di Matteo: **5–10 h/settimana** di marketing, oltre allo sviluppo. Il co
 ### Settimane 1–2 · Sbloccare (19 ott – 1 nov)
 | # | Cosa | Owner | Tag | Fatto quando |
 |---|---|---|---|---|
-| 1 | Google Search Console + Bing Webmaster via DNS, sitemap inviata, indicizzazione richiesta per home + 2 app live | M | Acq | GSC mostra le pagine |
-| 2 | Handle `sbu.dev` / `sbudev` su X, TikTok, Instagram, YouTube, Mastodon, LinkedIn page | M | Acq | Tutti presi, stessa bio, stesso logo |
-| 3 | `Organization` + `Person` JSON-LD con `sameAs`, `llms.txt`, link social nel footer | C | Acq | Rich Results Test ok |
-| 4 | Smart App Banner + `ct=` su ogni link App Store | C | Act | Banner visibile su iPhone |
-| 5 | `SbuReviewRequest` (3 Chiusure, giorni diversi) + "Scrivi una recensione" + "Condividi" in Impostazioni (SbuKit, locale, test) | C → M review | Act/Ref | Test verdi, Matteo approva |
-| 6 | Pagina alternativa **Orbit** (Subscriptions) e **QR Reader** (Scanner), IT/EN | C → M | Acq | Online, in sitemap |
-| 7 | AlternativeTo per Subscriptions e Scanner | M | Acq | Schede approvate |
-| 8 | README del repo con screenshot e link; topic GitHub | C → M | Ref | — |
-| 9 | Pagina Stampa: foto, storia in 3 paragrafi, screenshot HD, contatto | C + M (foto) | Acq | — |
+| 1 | Google Search Console + Bing Webmaster via DNS, sitemap inviata, indicizzazione richiesta per home + 2 app live | M | Acq | **Fatto 17/10** (#558); indicizzazione delle pagine nuove aperta (#575) |
+| 2 | Handle `sbudevapp` su X, TikTok, Instagram, YouTube, LinkedIn page (bio in `marketing/social/bio.md`) | M | Acq | **In parte**: Instagram @sbudevapp, Bluesky @sbu.dev; gli altri da prendere |
+| 3 | `Organization` + `Person` JSON-LD con `sameAs`, `llms.txt`, link social nel footer | C | Acq | **Fatto 17/10** |
+| 4 | Smart App Banner + `ct=` su ogni link App Store | C | Act | **Fatto 17/10** (`pt=128487151`) |
+| 5 | `SbuReviewRequest` (3 Chiusure, giorni diversi) + "Scrivi una recensione" + "Condividi" in Impostazioni (SbuKit, locale, test) | C → M review | Act/Ref | **Fatto, su main**; arriva agli utenti con la prossima versione di ogni app |
+| 6 | Pagina alternativa **Orbit** (Subscriptions) e **QR Reader** (Scanner), IT/EN | C → M | Acq | **Fatto**; scritte anche Find Air, Cleanup, My Moon Phase Pro, Streaks |
+| 7 | AlternativeTo per Subscriptions e Scanner | M | Acq | **Inviato**, in moderazione |
+| 8 | README del repo con screenshot e link; topic GitHub | C → M | Ref | **Fatto** (9 topic) |
+| 9 | Pagina Stampa: foto, storia in 3 paragrafi, screenshot HD, contatto | C + M (foto) | Acq | **Fatto** (ritratto, #574) |
+| 9b | **Lancio di Find** il giorno dell'approvazione: checklist `marketing/find/lancio.md`; Show HN il giorno 1 (uno per app, #590), Reddit, LinkedIn/X, stampa, PR di follow-up a open-source-ios-apps | M (C prepara) | Acq | Giorno 0–7 chiusi |
+| 9c | Il 21/10, se Apple tace: follow-up 4.3 su Habits nello stesso thread | M | — | Inviato o deciso di no |
 
 ### Settimane 3–4 · Fondamenta (2 – 15 nov)
 | # | Cosa | Owner | Tag |
 |---|---|---|---|
-| 10 | Primo video: "Orbit costa X € l'anno. L'ho rifatta gratis." Poi Scanner. Test del format | M | Acq |
-| 11 | Primo articolo blog: "Apple mi ha rifiutato 6 app in un giorno" (IT/EN) + post LinkedIn + X thread | C → M | Acq |
-| 12 | Pagine alternativa per ogni app di Clean, Find, Habits, Moon, Noise **appena approvate** (Streaks esiste: aggiornare e mettere in sitemap) | C | Acq |
-| 13 | PR a `dkhamsing/open-source-ios-apps` per le app live | C → M | Acq |
-| 14 | Primo aggiornamento con review request in un'app live (Subscriptions 2.1 o Scanner 2.1) inviato | M | Act |
+| 10 | Primo video: quello di Find (`marketing/find/video.md`), poi "Orbit costa X € l'anno. L'ho rifatta gratis.". Test del format | M | Acq |
+| 11 | Primo articolo blog: "Apple mi ha rifiutato 6 app in un giorno" (bozza IT già scritta, `draft: true`; EN da fare; uscita dopo la risposta di Apple) + post LinkedIn + X thread | C → M | Acq |
+| 12 | Pagine alternativa già scritte (Find Air, Cleanup, My Moon Phase Pro, Streaks) online **appena l'app è approvata**; da scrivere per Noise | C | Acq |
+| 13 | PR a `dkhamsing/open-source-ios-apps`: **aperto** (#2442, Subscriptions e Scanner); Find e le successive in un PR di follow-up | C → M | Acq |
+| 14 | Subscriptions 2.1 (review request, screenshot nuovi) inviato dal 24/10 dopo il test insieme; è un aggiornamento, non occupa lo slot | M | Act |
 | 15 | App Store: primo screenshot "Gratis. Niente abbonamento, niente account." sulle app live | C | Act |
 
 ### Settimane 5–8 · Velocità (16 nov – 13 dic)
 | # | Cosa | Owner | Tag |
 |---|---|---|---|
 | 16 | Ritmo fisso pieno: ogni app approvata = 5 pezzi | M + C | Acq |
-| 17 | **Generatore QR** gratuito su sbu.dev (client-side) → Scanner | C → M | Acq |
-| 18 | `SbuFigureCard` (immagine della cifra da condividere) in Subscriptions e Habits | C → M review | Ref |
+| 17 | **Generatore QR** gratuito su sbu.dev (client-side) → Scanner: **fatto** (`/qr-code`, `ct=tool-qr`) | C → M | Acq |
+| 18 | `SbuFigureCard` (immagine della cifra da condividere) in Subscriptions e Habits: **fatto, su main** (#579) | C → M review | Ref |
 | 19 | Secondo articolo: "Una app a settimana: il sistema" (pubblico dev) | C → M | Acq |
-| 20 | Pagina categoria "Quanto spendi in abbonamenti" rinforzata + hub "App iPhone gratis senza abbonamento" | C | Acq |
+| 20 | Calcolatore abbonamenti e hub `/alternatives` **fatti**; resta l'hub "App iPhone gratis senza abbonamento" | C | Acq |
 | 21 | Prima mail stampa IT (iSpazio, iPhoneItalia, Macitynet, HDblog, Wired): 5 mail personali | C bozze → M invia | Acq |
 | 22 | GitHub Discussions aperte: "Quale app rifaccio dopo?" | M | Ref |
-| 23 | GitHub Sponsors + "Sostieni sbu.dev" sul sito | M | Rev |
 | 24 | Preparazione Show HN e Product Hunt: titolo, primo commento, galleria, hunter | C → M | Acq |
 
 ### Settimane 9–12 · Accumulo (14 dic – 10 gen)
 | # | Cosa | Owner | Tag |
 |---|---|---|---|
-| 25 | **Show HN** martedì 15 dic, ore 15–16 italiane. Solo se ≥ 8 app live; altrimenti martedì 12 gen | M | Acq |
+| 25 | **Show HN della collezione** martedì 15 dic, ore 15–16 italiane. Solo se ≥ 8 app live; altrimenti martedì 12 gen. Si somma agli Show HN per app (#590), mai nella stessa settimana di un altro | M | Acq |
 | 26 | **Product Hunt** della collezione il giorno dopo HN (o la settimana dopo) | M | Acq |
 | 27 | Mail stampa EN (9to5Mac, MacStories, Lifehacker, iOS Dev Weekly) con i numeri di HN | C → M | Acq |
-| 28 | Newsletter mensile su sbu.dev: decisione presa (§13) e, se sì, prima uscita | M | Ret |
 | 29 | Articolo di fine anno: "2026: X app gratis, Y download, Z € risparmiati" (idea year-wrap) | C → M | Acq/Ref |
 | 30 | Revisione 90 giorni: metriche §13, cosa tenere, cosa chiudere; decidere il test Apple Search Ads | M + C | — |
 
@@ -596,9 +601,9 @@ Settimane 10–11 cadono a Natale: niente lanci, solo ritmo fisso e articolo di 
 ### Giochi (v2) — un gioco al mese, in aggiunta alle app
 | # | Cosa | Settimane | Owner | Tag | Fatto quando |
 |---|---|---|---|---|---|
-| G1 | **ADR giochi**: "una meccanica per gioco", punteggio come `SbuFigure`, partita del giorno, niente dark pattern, cella `.set` (§2 vincoli 6–7) | 3 (2–8 nov) | C → M | — | ADR approvata |
-| G2 | **Prototipo iOS Squares** (SwiftUI, griglia Quaderno, partita del giorno) su TestFlight interno, playtest con Matteo + 3 persone | 3–5 | C → M | Act | "Ancora una partita" detto da 2 persone su 4 |
-| G3 | App iOS Sbu Squares completa (widget, condividi, record, accessibilità, test) | 5–7 (16 nov – 6 dic) | C → M review | — | Test verdi, prova sul dispositivo con Matteo |
+| G1 | **ADR giochi**: "una meccanica per gioco", punteggio come `SbuFigure`, niente dark pattern, cella `.set` (§2 vincoli 6–7) | 3 (2–8 nov) | C → M | — | **Fatto 18/10** (ADR-0015) |
+| G2 | **Squares su main** (una partita senza fine come l'originale, record nel cartiglio), installato sul tuo iPhone; playtest con 3 persone | 3–5 | C → M | Act | **Gioco fatto**; playtest con altre persone da fare |
+| G3 | Prova completa, screenshot Store, record ASC, TestFlight | 1–7 | C → M review | — | Test verdi, prova sul dispositivo con Matteo |
 | G4 | `originality-check` + `release-review` + `appstore-review`, metadati e screenshot (§4 G1) | 7 | C → M | Acq | Punteggio di originalità ok |
 | G5 | **Invio ad Apple** (in aggiunta al submit settimanale delle app) | 8 (circa 10 dic) | M | — | In review |
 | G6 | All'approvazione: `sbu.dev/games` (vetrina) + pagina alternativa, video gameplay, r/iosgaming + r/AppHookup, mail TouchArcade/Pocket Gamer | 9–10 | C → M | Acq | Online |
@@ -628,8 +633,8 @@ Le curve a S da mettere una sopra l'altra, iniziando la seconda prima che la pri
 ### Trimestri
 | Trimestre | Tema | Traguardi | Cancello per il trimestre dopo |
 |---|---|---|---|
-| **Q1** · ott–gen | Esistere | §9: GSC, brand indicizzato, 8+ pagine alternativa, review request in tutte le app, Show HN + PH, 2 articoli stampa | GSC mostra impressioni in crescita settimana su settimana |
-| **Q2** · gen–apr | Accumulare | 15+ app live, 15+ pagine alternativa, 3 strumenti web gratuiti, 1 talk accettato (Pragma Conf / Swift Heroes CFP), newsletter attiva, test Apple Search Ads (100–150 €) se il cancello §4 è aperto | Almeno una pagina alternativa porta installazioni misurabili (`ct=`) |
+| **Q1** · ott–gen | Esistere | §9: brand indicizzato (GSC attivo dal 17/10), Find e le app in coda sullo Store, 8+ pagine alternativa, review request in tutte le app, Show HN + PH, 2 articoli stampa | GSC mostra impressioni in crescita settimana su settimana |
+| **Q2** · gen–apr | Accumulare | 15+ app live, 15+ pagine alternativa, 3 strumenti web gratuiti, 1 talk accettato (Pragma Conf / Swift Heroes CFP), test Apple Search Ads (100–150 €) se il cancello §4 è aperto | Almeno una pagina alternativa porta installazioni misurabili (`ct=`) |
 | **Q3** · apr–lug | WWDC | Adottare in 2 settimane le API nuove di iOS 27 nelle app con più utenti → articolo + video "pronte il giorno uno"; candidatura Apple Design Award / "App of the Day" tramite il modulo Apple per gli sviluppatori; prime 2 lingue nuove dai contributori | Un video o un articolo oltre 50.000 visualizzazioni, o 1.000 stelle GitHub |
 | **Q4** · lug–ott | Un anno | "Un anno, 40 app" (articolo, video, stampa IT+EN); talk in conferenza; seconda ondata stampa internazionale; decisione su YouTube lungo (racconto mensile) | Piano v2 |
 
@@ -645,7 +650,7 @@ Le curve a S da mettere una sopra l'altra, iniziando la seconda prima che la pri
 Mai: agenzie, retainer, ads su Meta/Google/TikTok (§4).
 
 ### Numeri: ipotesi, da correggere con i dati
-Non c'è una base (GSC è spento). Ipotesi di lavoro, da sostituire a fine Q1:
+Non c'è ancora una base (GSC attivo dal 17/10, senza dati utili). Ipotesi di lavoro, da sostituire a fine Q1:
 - clic organici sul sito: da ~0 a 2.000–5.000/mese a fine anno, quasi tutti dalle pagine alternativa;
 - stelle GitHub: 500–2.000 dopo Show HN se va in prima pagina, altrimenti 100–300;
 - download: dipendono più da ASO e recensioni che da tutto il resto. Il primo obiettivo misurabile è **raddoppiare trimestre su trimestre** i download totali da App Store Connect.
@@ -691,11 +696,10 @@ Una persona + Claude + skill + qualche integrazione fanno il lavoro di un piccol
 | **Ret** | Risposte alle recensioni | `writing-for-interfaces` (tono), `humanizer` | `asc` CLI (lettura recensioni), App Store Connect |
 | **Ret** | Note di versione | `app-store-changelog`, `asc-whats-new-writer` | fastlane `release` |
 | **Ret** | Widget, App Intents | `widgets`, `app-intents` | Xcode |
-| **Ret** | Newsletter mensile, RSS | `emails` | Buttondown (tracking off), `@astrojs/rss` |
+| **Ret** | RSS (fatto; niente newsletter, #588) | — | `@astrojs/rss` |
 | **Ret** | Retention 1/7/28, disinstallazioni | `asc-analytics-reports` | App Store Connect Analytics |
 | **Ref** | `SbuFigureCard`, liste condivise | `referrals`, `swiftui-pro` | `ImageRenderer`, CloudKit sharing (ADR-0009) |
 | **Ref** | README, Discussions, CONTRIBUTING | `documentation` | `gh` |
-| **Rev** | GitHub Sponsors, link sul sito | — | GitHub Sponsors |
 | **Trasversale** | Calendario del ritmo fisso | `schedule` / `loop` (promemoria) | Google Calendar MCP (eventi ricorrenti: lunedì recensioni, venerdì GSC) |
 | **Trasversale** | Controllo marchi altrui e 4.3 prima di ogni invio | `originality-check`, `release-review`, `appstore-review` | — |
 | **Trasversale** | Voce sbu.dev in ogni testo pubblico | `humanizer`, `antislop-copywriting` | CLAUDE.md (regole di voce) |
@@ -788,10 +792,10 @@ Il gran numero di Skip è voluto: niente ads tranne ASA, niente email in app, ni
 | 44 | Comment Marketing | Acq | Ora | Risposte utili nei thread "app gratis senza abbonamento" |
 | 45 | Mistake Email Marketing | Ret | Skip | Nessuna lista email in app |
 | 46 | Reactivation Emails | Ret | Skip | Nessuna email |
-| 47 | Founder Welcome Email | Ret | Q2 | Solo per la newsletter, se attivata |
+| 47 | Founder Welcome Email | Ret | Skip | Niente newsletter (#588) |
 | 48 | Dynamic Email Capture | Acq | Skip | Popup: fuori voce |
-| 49 | Monthly Newsletters | Ret | Q2 | §6 M5, decisione aperta |
-| 50 | Inbox Placement | Ret | Q2 | Con la newsletter (SPF/DKIM su sbu.dev) |
+| 49 | Monthly Newsletters | Ret | Skip | Niente newsletter, solo RSS (#588) |
+| 50 | Inbox Placement | Ret | Skip | Nessuna email inviata (#588) |
 | 51 | Onboarding Emails | Act | Skip | Nessun account |
 | 52 | Win-back Emails | Ret | Skip | Nessun account |
 | 53 | Trial Reactivation | Rev | Skip | Nessun trial |
@@ -799,7 +803,7 @@ Il gran numero di Skip è voluto: niente ads tranne ASA, niente email in app, ni
 | 55 | Influencer Whitelisting | Acq | Skip | — |
 | 56 | Reseller Programs | Rev | Skip | — |
 | 57 | Expert Networks | Ref | Skip | — |
-| 58 | Newsletter Swaps | Acq | Q3+ | Quando la newsletter ha un pubblico |
+| 58 | Newsletter Swaps | Acq | Skip | Niente newsletter (#588) |
 | 59 | Article Quotes | Acq | Q2 | Rispondere a giornalisti su abbonamenti/privacy app |
 | 60 | Pixel Sharing | Acq | Skip | Tracking |
 | 61 | Shared Slack Channels | Ref | Skip | — |
@@ -919,7 +923,7 @@ Unisce i quattro obiettivi di "famoso": i download sono il prodotto, e ogni altr
 | Acq · SEO | Pagine alternativa indicizzate / in prima pagina | GSC | 0 / 0 | 8 / 3 | 30 / 15 |
 | Acq · autorità | Domini che rimandano a sbu.dev | GSC "Link" | ~0 | 20 | 100+ |
 | Acq · AI | sbu.dev citato da ChatGPT/Perplexity per "app iPhone gratis senza abbonamento" | prova manuale mensile | no | sì per 1 query | sì per 5 query |
-| Acq · founder | Follower totali (X, TikTok, IG, YT, LinkedIn) | piattaforme | 0 (account progetto) | 500 | 5.000 |
+| Acq · founder | Follower totali (X, TikTok, IG, YT, LinkedIn, Bluesky) | piattaforme | ~0 (Instagram e Bluesky appena aperti) | 500 | 5.000 |
 | Acq · founder | Video sopra 10.000 visualizzazioni | piattaforme | 0 | 1 | 10 |
 | Acq · open source | Stelle GitHub | GitHub | 1 | 300+ | 1.000–2.000 |
 | Acq · stampa | Articoli che parlano di sbu.dev | Google Alert "sbu.dev" | 0 | 2 | 10 (IT + EN) |
@@ -929,7 +933,6 @@ Unisce i quattro obiettivi di "famoso": i download sono il prodotto, e ogni altr
 | Ret | Recensioni (somma app live) | App Store | 1 | 40+ | 500+ |
 | Ret | Recensioni con risposta entro 48 h | ASC | — | 100% | 100% |
 | Ref | Condivisioni `SbuFigureCard` | non misurabile in app (scelta) | — | proxy: installazioni `ct=` da link sbu.dev | — |
-| Rev | Sponsor GitHub | GitHub | 0 | attivo | segnale pubblico |
 
 ### RACI
 R = fa · A = decide · C = consultato · I = informato
@@ -952,17 +955,24 @@ R = fa · A = decide · C = consultato · I = informato
 |---|---|---|---|
 | 1 | **Raccontare "una persona + Claude, un'app a settimana"?** | Sì, sui canali dev (X, HN, LinkedIn, blog), non nelle pagine app né nei metadati | Prima del primo post (sett. 3) |
 | 2 | **Altre app di sbu.dev in Impostazioni**: rischio di essere letta come pubblicità da Apple? | Sì, in Impostazioni, lista inclusa nell'app, verifica `appstore-review` prima dell'invio | Sett. 2 |
-| 3 | Data dello Show HN | 15 dic se ≥ 8 app live, altrimenti 12 gen | Sett. 8 |
-| 4 | Newsletter mensile sul sito | Sì, Buttondown con tracking spento e dichiarato | Sett. 9 |
+| 3 | Data dello Show HN della collezione | 15 dic se ≥ 8 app live, altrimenti 12 gen | Sett. 8 |
 | 5 | Analytics sul sito | Solo GSC + `ct=` per 90 giorni | Revisione 10 gen |
-| 6 | GitHub Sponsors | Attivo prima di Show HN | Sett. 8 |
 | 7 | Budget "dipende" | 0 € fino al cancello ASA (§10); poi 100–150 € una tantum | Q2 |
 | 8 | Dati di base mancanti (download, conversione, retention dalle app live) | Export ASC alla settimana 1, per riempire la colonna "Base" | Sett. 1 |
 | 9 | Accesso di Claude a GSC | Export CSV settimanale nella cartella `materials/` del piano, o MCP | Sett. 3 |
 
+### Decisioni chiuse (18/10)
+| # | Decisione | Esito |
+|---|---|---|
+| #588 | Newsletter | No, solo RSS |
+| #589 | GitHub Sponsors e "Sostieni" | No, per ora; non si ripropone |
+| #590 | Show HN | Uno per app, Find per primo il giorno 1; più quello della collezione a dicembre |
+| — | Nuove app | Ferme finché la coda "pronte su ASC" non si svuota (`docs/stato.md`) |
+
 ### Rischi
 - **4.3 / spam di Apple**: il marketing aggressivo ("cloni gratis") può arrivare ai revisori. Mitigazione: §2 vincoli 1–2, `originality-check` prima di ogni invio.
 - **Marchi**: pagine alternativa solo fattuali, mai loghi o UI altrui; se arriva una diffida, si toglie il nome e si tiene la pagina di categoria.
+- **Coda dello Store**: con un invio a settimana e il test insieme che manca, al 15/12 le app live possono essere meno di 8; in quel caso lo Show HN della collezione va al 12/01 e gli Show HN per app tengono il ritmo.
 - **Tempo di Matteo**: se il marketing supera 10 h/settimana, si taglia prima X (il più costoso in tempo), poi LinkedIn; video e SEO restano.
 - **Backlash AI**: raccontato per primi e con numeri (§2 vincolo 5).
 
@@ -970,7 +980,8 @@ R = fa · A = decide · C = consultato · I = informato
 - Ricerca INIT: `research.md` di questo piano.
 - Regole di prodotto e voce: `CLAUDE.md` del repo sbu-apps.
 - Design system: `Design/README.md`, `Design/tokens.json`.
-- ADR rilevanti: 0001 (shell), 0008 (iCloud), 0009 (condivisione), 0013 (Quaderno).
+- ADR rilevanti: 0001 (shell), 0008 (iCloud), 0009 (condivisione), 0013 (Quaderno), 0015 (Giochi), 0016 (Software).
+- Stato verificato su App Store Connect: `docs/stato.md` del repo sbu-apps.
 - Rifiuto 4.3 del 14/10/2026: memoria di progetto e risposta inviata ad Apple.
 
 ### Giochi (v2)
@@ -989,11 +1000,11 @@ R = fa · A = decide · C = consultato · I = informato
 **Decisioni aperte (giochi)**
 | # | Decisione | Raccomandazione | Entro |
 |---|---|---|---|
-| G1 | **ADR giochi**: "Sbu fa una cosa sola" e "una figura per schermata" applicati ai giochi | Una meccanica per gioco; figura = punteggio; una sola cella `.set` (il punto fermo nella griglia) | Sett. 3 |
-| G2 | Nome del primo gioco | **Sbu Squares** ("quadretti"), nome inglese in tutte le lingue come per le app; nessun altro gioco lo usa come marchio | Sett. 3 |
+| G1 | **ADR giochi** | **Chiusa**: ADR-0015 (18/10) | — |
+| G2 | Nome del primo gioco | **Chiusa**: Sbu Squares | — |
 | G3 | Game Center (classifiche) | No al lancio: è una chiamata di rete verso Apple e un account; da riconsiderare solo se le recensioni lo chiedono | Revisione 10 gen |
 | G4 | Video Instagram DecfvksvHiW mandato da Matteo | Farsi descrivere la meccanica: può cambiare il primo gioco | Prima di G2 |
-| G5 | `/games` anche nella versione IT del sito | Sì (risposta di Matteo 18/10: slug in inglese) | Sett. 9 |
+| G5 | `/games` anche nella versione IT del sito | **Chiusa**: online con slug inglese | — |
 
 **Rischi giochi**
 - **4.3 in un genere saturo** (forum Apple 2025: rifiuti anche con codice e grafica rifatti). Mitigazione: look Quaderno, partita del giorno, niente dark pattern come differenza dichiarata nelle note per la review, appello se serve; un gioco al mese, mai due invii di giochi nella stessa settimana.

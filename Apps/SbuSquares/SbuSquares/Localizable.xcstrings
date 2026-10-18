@@ -1,6 +1,16 @@
 {
   "sourceLanguage": "it",
   "strings": {
+    "%@ · combo %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · combo %2$lld"
+          }
+        }
+      }
+    },
     "%lld punti · %lld righe": {
       "localizations": {
         "it": {
@@ -127,16 +137,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Beaten"
-          }
-        }
-      }
-    },
-    "Combo %lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Combo %lld"
           }
         }
       }
@@ -311,16 +311,6 @@
         }
       }
     },
-    "Record %lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Best %lld"
-          }
-        }
-      }
-    },
     "Riga %lld, colonna %lld": {
       "localizations": {
         "en": {
@@ -341,6 +331,16 @@
         }
       }
     },
+    "Sbu · Squares · Record %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu · Squares · Best %@"
+          }
+        }
+      }
+    },
     "Sceglilo, poi tocca una casella della griglia.": {
       "localizations": {
         "en": {
@@ -357,6 +357,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chosen"
+          }
+        }
+      }
+    },
+    "Squares": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Squares"
           }
         }
       }

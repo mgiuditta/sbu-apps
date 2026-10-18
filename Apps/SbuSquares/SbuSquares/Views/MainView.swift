@@ -21,14 +21,19 @@ struct MainView: View {
     /// The figure's size on the grid, grown into the room the layout leaves (ADR-0015: 72 to 144).
     @State private var figureSize: CGFloat = SbuTheme.gridCell * 3
     @State private var contentWidth: CGFloat = 0
-    /// The points and combo of the last move that completed lines, shown over the board.
-    @State private var feedback: (points: Int, combo: Int)?
+    /// The points of the last move that completed lines, under the figure until the next piece.
+    @State private var gain: Int?
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var game: Game { store.game }
     private var boardCell: CGFloat { max(boardFrame.width / CGFloat(Board.size), 1) }
     private var trayCell: CGFloat { (boardCell * 0.5).rounded(.down) }
+
+    /// The Record lives in the cartiglio, as metadata.
+    private var cartiglio: String {
+        String(localized: "Sbu · Squares · Record \(max(store.record, game.score).formatted())")
+    }
 
     /// The drop or tap target of the piece in play, for the shadow on the board.
     private var preview: Placement? {
@@ -38,16 +43,10 @@ struct MainView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: SbuTheme.space3) {
-                RecordBadge(record: max(store.record, game.score))
-                ScoreFigure(score: game.score, beatsRecord: game.beatsRecord, size: figureSize)
+                SbuScreenTitle("Squares", cartiglio: cartiglio)
+                ScoreFigure(score: game.score, beatsRecord: game.beatsRecord, gain: gain, combo: game.combo.count, size: figureSize)
                     .sbuClosure($store.isShowingClosure, word: "Battuto")
                 BoardView(board: game.board, preview: preview, previewTone: drag?.tone ?? 0, clearDelays: clearDelays, canPlaceByTap: selectedSlot != nil, tap: placeSelected)
-                    .overlay {
-                        if let feedback {
-                            ClearFeedback(points: feedback.points, combo: feedback.combo)
-                                .transition(.opacity)
-                        }
-                    }
                     .onGeometryChange(for: CGRect.self) { $0.frame(in: .named(Self.space)) } action: { boardFrame = $0 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     // The height the board's square leaves unused is room for the figure.
@@ -140,9 +139,7 @@ private extension MainView {
     }
 
     func hideFeedback() {
-        withAnimation(SbuMotion.animation(SbuMotion.short, reduceMotion: reduceMotion)) {
-            feedback = nil
-        }
+        gain = nil
     }
 
     func placeSelected(at cell: Cell) {
@@ -157,9 +154,7 @@ private extension MainView {
         guard placement.lineCount > 0 else { return }
         linesCleared += 1
         let combo = game.combo.count
-        withAnimation(SbuMotion.animation(SbuMotion.spring, reduceMotion: reduceMotion)) {
-            feedback = (game.lastGain, combo)
-        }
+        gain = game.lastGain
         let announcement = combo > 1
             ? String(localized: "Più \(game.lastGain) punti, combo \(combo)")
             : String(localized: "Più \(game.lastGain) punti")

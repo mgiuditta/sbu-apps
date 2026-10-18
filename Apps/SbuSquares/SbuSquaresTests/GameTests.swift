@@ -4,7 +4,7 @@ import Testing
 
 struct GameTests {
     /// The catalog indices of the first tray of seed 20261018, as dealt when this test was written.
-    private static let pinnedTray = [2, 24, 25]
+    private static let pinnedTray = [2, 21, 22]
 
     /// Plays the first piece that fits, at the first cell it fits, until the game ends.
     private func playOut(_ game: inout Game, maxMoves: Int = 500) -> Int {

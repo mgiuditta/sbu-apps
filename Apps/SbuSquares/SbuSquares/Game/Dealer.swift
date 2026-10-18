@@ -3,8 +3,11 @@
 nonisolated enum Dealer {
     /// Shapes of three cells or fewer, out of the pool past 2000 points.
     static let small = Set([1, 6, 27, 28, 15, 3, 2, 5, 4, 37, 38, 39, 40, 41].map(Piece.index(ofID:)))
-    /// The random pool: every shape but the single cell, which comes only as a last resort.
-    static let pool = Array(Piece.catalog.indices.dropFirst())
+    /// The diagonals (37–41), which the original's configurations leave out of the pool.
+    static let diagonals = Set((37...41).map(Piece.index(ofID:)))
+    /// The random pool: every shape but the diagonals and the single cell, which comes only as a
+    /// last resort.
+    static let pool = Piece.catalog.indices.dropFirst().filter { !diagonals.contains($0) }
     /// Cells a tray needs, at least, to raise the entropy.
     static let entropyCells = 15
     /// The triple of last resort.
@@ -49,7 +52,8 @@ nonisolated enum Dealer {
     }
 
     /// The puzzle: two pieces that fit and a third that fits only once the first two complete a
-    /// line, the triple where that happens most often; `nil` if every piece fits.
+    /// line, the triple where that happens most often, the blocked piece in the middle slot as
+    /// the original shows it; `nil` if every piece fits.
     static func hard(pool: [Int], on board: BitBoard, using generator: inout SeededGenerator) -> [Int]? {
         let fitting = generator.shuffled(pool.filter { board.fits(piece: $0) })
         let blocked = generator.shuffled(pool.filter { !board.fits(piece: $0) })
@@ -62,7 +66,7 @@ nonisolated enum Dealer {
                     budget -= 1
                     let triple = [first, second, third]
                     let ratio = unlockRatio(triple, on: board)
-                    if ratio > (best?.ratio ?? 0) { best = (triple, ratio) }
+                    if ratio > (best?.ratio ?? 0) { best = ([first, third, second], ratio) }
                 }
             }
         }

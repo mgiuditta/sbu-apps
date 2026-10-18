@@ -3,13 +3,14 @@ import Observation
 
 /// The game in play and the Record, saved on the device after every move.
 ///
-/// When no piece fits, the game waits for the second chance: take the last move back, once a
-/// game, or end it. The Record and the Closure come only when it ends, so the Closure plays once.
+/// When no piece fits, the game waits for the second chance: take back the moves of the last
+/// tray, up to three, once a game, or end it. The Record and the Closure come only when it ends, so the Closure plays once.
 @Observable
 final class GameStore {
     private(set) var game: Game
     private(set) var record: Int
-    /// The game before the last move, while the second chance is still there to spend.
+    /// The game when the last tray played was dealt, its three pieces still in hand, while the
+    /// second chance is still there to spend.
     private(set) var previous: Game?
 
     /// Set when a game ends above a Record that already existed: the Closure shows it.
@@ -42,12 +43,14 @@ final class GameStore {
         guard let placement = game.place(slot: slot, at: origin, elapsed: elapsed) else { return nil }
         lastMove = now
         let before = self.game
-        store(game, previous: game.hasUsedSecondChance ? nil : before)
+        let setStart = before.leftInHand.count == before.tray.count ? before : previous
+        store(game, previous: game.hasUsedSecondChance ? nil : setStart)
         if game.isOver, previous == nil { finish(game) }
         return placement
     }
 
-    /// Spends the second chance: the board, the pieces and the score as they were before the last move.
+    /// Spends the second chance: the board, the pieces and the score as they were when the last
+    /// tray played was dealt.
     func takeBack() {
         guard canTakeBack, var restored = previous else { return }
         restored.spendSecondChance()

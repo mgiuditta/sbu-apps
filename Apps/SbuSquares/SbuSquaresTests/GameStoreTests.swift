@@ -56,12 +56,26 @@ struct GameStoreTests {
         #expect(store.canTakeBack)
         #expect(store.record == 0)
 
+        #expect(before.leftInHand.count == 3)
+
         store.takeBack()
         #expect(!store.game.isOver)
+        #expect(store.game.leftInHand.count == 3)
         #expect(store.game.board == before.board)
         #expect(store.game.score == before.score)
         #expect(store.game.hasUsedSecondChance)
         #expect(!store.canTakeBack)
+    }
+
+    @Test func theSecondChanceGoesBackToTheStartOfTheTray() throws {
+        let store = GameStore(defaults: defaults)
+        let dealt = store.game
+        for slot in 0..<2 {
+            let piece = try #require(store.game.piece(in: slot))
+            let cell = try #require(Board.allCells.first { store.game.board.canPlace(piece, at: $0) })
+            store.place(slot: slot, at: cell)
+        }
+        #expect(store.previous == dealt)
     }
 
     @Test func theSecondChanceComesOnceAGame() {

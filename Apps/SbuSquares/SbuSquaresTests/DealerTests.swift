@@ -30,6 +30,7 @@ struct DealerTests {
         #expect(Set(Piece.catalog).count == 41)
         #expect(Piece.catalog[Piece.index(ofID: 40)] == Piece.catalog[Piece.index(ofID: 41)])
         #expect(!Dealer.pool.contains(Piece.single))
+        #expect(Dealer.pool.allSatisfy { !Dealer.diagonals.contains($0) })
         #expect(Dealer.small.allSatisfy { Piece.catalog[$0].cells.count <= 3 })
         #expect(Piece.catalog[Piece.index(ofID: 13)].cells.count == 9)
     }
@@ -61,8 +62,8 @@ struct DealerTests {
         var generator = SeededGenerator(seed: 3)
         let triple = try #require(Dealer.hard(pool: pool, on: crowded, using: &generator))
         #expect(crowded.fits(piece: triple[0]))
-        #expect(crowded.fits(piece: triple[1]))
-        #expect(!crowded.fits(piece: triple[2]))
+        #expect(!crowded.fits(piece: triple[1]))
+        #expect(crowded.fits(piece: triple[2]))
         #expect(crowded.survives(triple))
     }
 

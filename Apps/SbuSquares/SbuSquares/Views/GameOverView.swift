@@ -11,7 +11,7 @@ struct GameOverView: View {
     let playAgain: () -> Void
 
     private var sentence: LocalizedStringKey {
-        if canTakeBack { return "Nessun pezzo entra più. Puoi annullare l'ultima mossa, una volta a partita." }
+        if canTakeBack { return "Nessun pezzo entra più. Puoi rifare le ultime mosse, fino a tre, una volta a partita." }
         return game.beatsRecord ? "Nessun pezzo entra più, e hai battuto il record." : "Nessun pezzo entra più."
     }
 
@@ -22,7 +22,7 @@ struct GameOverView: View {
                 .foregroundStyle(SbuTheme.ink)
                 .fixedSize(horizontal: false, vertical: true)
             if canTakeBack {
-                Button("Annulla l'ultima mossa", action: takeBack)
+                Button("Rifai le ultime mosse", action: takeBack)
                     .buttonStyle(SbuButtonStyle(.primary))
                 Button("Termina la partita", action: endGame)
                     .buttonStyle(SbuButtonStyle(.secondary))

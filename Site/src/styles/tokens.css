@@ -43,6 +43,7 @@
   --sbu-accent-chores: #646f40;
   --sbu-accent-reader: #5862a7;
   --sbu-accent-exposure: #796640;
+  --sbu-accent-squares: #027d68;
   --sbu-accent-on-ink-subscriptions: #4ea3f6;
   --sbu-accent-on-ink-scanner: #e3814a;
   --sbu-accent-on-ink-level: #c6944b;
@@ -75,6 +76,7 @@
   --sbu-accent-on-ink-chores: #99a574;
   --sbu-accent-on-ink-reader: #8c98e2;
   --sbu-accent-on-ink-exposure: #b09c74;
+  --sbu-accent-on-ink-squares: #2bb69d;
   --sbu-on-accent: #ffffff;
   --sbu-success: #1b7a35;
   --sbu-warning: #8f5800;
@@ -159,6 +161,7 @@
     --sbu-accent-chores: #a9ba78;
     --sbu-accent-reader: #9caafd;
     --sbu-accent-exposure: #c8ae75;
+    --sbu-accent-squares: #47cab0;
     --sbu-accent-on-ink-subscriptions: #036bb9;
     --sbu-accent-on-ink-scanner: #a74a04;
     --sbu-accent-on-ink-level: #8d5e05;
@@ -191,6 +194,7 @@
     --sbu-accent-on-ink-chores: #646f40;
     --sbu-accent-on-ink-reader: #5862a7;
     --sbu-accent-on-ink-exposure: #796640;
+    --sbu-accent-on-ink-squares: #027d68;
     --sbu-on-accent: #0a0a00;
     --sbu-success: #6cc77a;
     --sbu-warning: #f0b04a;
@@ -244,6 +248,7 @@
   --color-accent-chores: var(--sbu-accent-chores);
   --color-accent-reader: var(--sbu-accent-reader);
   --color-accent-exposure: var(--sbu-accent-exposure);
+  --color-accent-squares: var(--sbu-accent-squares);
   --color-accent-on-ink-subscriptions: var(--sbu-accent-on-ink-subscriptions);
   --color-accent-on-ink-scanner: var(--sbu-accent-on-ink-scanner);
   --color-accent-on-ink-level: var(--sbu-accent-on-ink-level);
@@ -276,6 +281,7 @@
   --color-accent-on-ink-chores: var(--sbu-accent-on-ink-chores);
   --color-accent-on-ink-reader: var(--sbu-accent-on-ink-reader);
   --color-accent-on-ink-exposure: var(--sbu-accent-on-ink-exposure);
+  --color-accent-on-ink-squares: var(--sbu-accent-on-ink-squares);
   --color-on-accent: var(--sbu-on-accent);
   --color-success: var(--sbu-success);
   --color-warning: var(--sbu-warning);

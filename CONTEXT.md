@@ -91,6 +91,20 @@ _Avoid_: badge gratuito, banner
 Un'altra app a pagamento della stessa nicchia di un **Originale**, studiata ma non rifatta.
 _Avoid_: secondo Originale, alternativa
 
+### Giochi
+
+**Gioco Sbu** (_Sbu game_):
+Un gioco iOS gratuito di sbu.dev che rifà un gioco gratuito molto giocato senza pubblicità, acquisti e dark pattern. È un'**App Sbu** la cui **Cosa sola** è una meccanica (ADR-0015).
+_Avoid_: clone, gioco ad-free
+
+**Partita del giorno** (_Daily game_):
+La partita uguale per tutti, generata dalla data, un tentativo al giorno.
+_Avoid_: daily challenge, sfida
+
+**Record** (_Best_):
+Il punteggio più alto mai fatto su questo dispositivo. Solo quando una partita lo batte il **Punto fermo** diventa `set`.
+_Avoid_: high score, best score
+
 ### Sbu Habits
 
 **Serie** (_Streak_):

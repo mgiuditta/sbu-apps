@@ -22,6 +22,8 @@ Alternativa: `Show HN: A hot-and-cold Bluetooth finder for iPhone that doesn't l
 >
 > Privacy: no account, no analytics, no ads, no server. Bluetooth and location stay on the phone; location is only used for the "last heard here" pin, and only if you allow it.
 >
+> It's one of a set of free iPhone apps I'm building at sbu.dev, each doing one thing with no subscription.
+>
 > Repo: github.com/mgiuditta/sbu-apps. Page: https://sbu.dev/apps/find
 
 ## Risposte pronte

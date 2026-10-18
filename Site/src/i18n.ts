@@ -10,7 +10,7 @@ export function localePath(locale: Locale, path: string): string {
 export const ui = {
   it: {
     siteDescription: 'App gratuite per iPhone che fanno una cosa sola. Nessun abbonamento, nessun account, nessuna pubblicità.',
-    nav: { apps: 'App', games: 'Giochi', commerce: 'Commerce', principles: 'Principi', support: 'Supporto', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Quanto spendi in abbonamenti', qrCode: 'Crea un codice QR', alternatives: 'Alternative gratis', press: 'Stampa' },
+    nav: { apps: 'App', games: 'Giochi', software: 'Software', principles: 'Principi', support: 'Supporto', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Quanto spendi in abbonamenti', qrCode: 'Crea un codice QR', alternatives: 'Alternative gratis', press: 'Stampa' },
     otherLocale: { label: 'English', lang: 'en' },
     skip: 'Vai al contenuto',
     navLabel: 'Principale',
@@ -51,7 +51,7 @@ export const ui = {
   },
   en: {
     siteDescription: 'Free iPhone apps that each do one thing. No subscription, no account, no ads.',
-    nav: { apps: 'Apps', games: 'Games', commerce: 'Commerce', principles: 'Principles', support: 'Support', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Subscription cost', qrCode: 'QR code maker', alternatives: 'Free alternatives', press: 'Press' },
+    nav: { apps: 'Apps', games: 'Games', software: 'Software', principles: 'Principles', support: 'Support', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Subscription cost', qrCode: 'QR code maker', alternatives: 'Free alternatives', press: 'Press' },
     otherLocale: { label: 'Italiano', lang: 'it' },
     skip: 'Skip to content',
     navLabel: 'Main',

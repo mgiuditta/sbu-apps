@@ -1,5 +1,5 @@
 ---
-// The commerce branch: Sbu Commerce, an open source, self-hosted backend for SAP Commerce storefronts
+// Sbu Commerce, the first project of the Software branch: an open source, self-hosted backend for SAP Commerce storefronts
 // (ADR-0016). Under construction: the page says what it will cover and where to follow it, nothing more.
 import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
@@ -39,7 +39,7 @@ const copy = {
 }[locale];
 
 const site = Astro.site!;
-const jsonLd = [breadcrumbs(site, locale, [['sbu.dev', ''], [copy.title, path]])];
+const jsonLd = [breadcrumbs(site, locale, [['sbu.dev', ''], ['Software', 'software'], [copy.title, path]])];
 ---
 <Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} jsonLd={jsonLd}>
   <article class="flex flex-col gap-12 py-8">

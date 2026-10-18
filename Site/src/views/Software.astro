@@ -1,0 +1,54 @@
+---
+// The Software branch (ADR-0016): software companies pay for, remade open source and self-hosted.
+// One project so far, Sbu Commerce; each project has its own page under /software.
+import PageTitle from '../components/PageTitle.astro';
+import Base from '../layouts/Base.astro';
+import { localePath } from '../i18n';
+import { breadcrumbs } from '../lib/jsonld';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { view: 'software' };
+const { locale, path, alternates } = Astro.props;
+const copy = {
+  it: {
+    title: 'Software',
+    metaTitle: 'Software open source al posto delle licenze enterprise · sbu.dev',
+    description: 'Il software che le aziende pagano centinaia di migliaia di euro l’anno, rifatto open source: lo installi sui tuoi server, sbu.dev non vede i tuoi dati.',
+    lede: 'Il software che le aziende pagano centinaia di migliaia di euro l’anno, rifatto open source. Lo installi sui tuoi server: sbu.dev non ospita niente e non vede i tuoi dati. Un progetto alla volta, costruito in pubblico.',
+    projects: [{ slug: 'commerce', name: 'Sbu Commerce', line: 'Un backend e-commerce open source compatibile con gli storefront Spartacus, al posto della licenza di SAP Commerce Cloud.', meta: 'In costruzione' }],
+  },
+  en: {
+    title: 'Software',
+    metaTitle: 'Open source software instead of enterprise licences · sbu.dev',
+    description: 'Software companies pay hundreds of thousands a year for, remade open source: you run it on your own servers, sbu.dev never sees your data.',
+    lede: 'Software companies pay hundreds of thousands a year for, remade open source. You run it on your own servers: sbu.dev hosts nothing and never sees your data. One project at a time, built in public.',
+    projects: [{ slug: 'commerce', name: 'Sbu Commerce', line: 'An open source e-commerce backend compatible with Spartacus storefronts, instead of a SAP Commerce Cloud licence.', meta: 'Under construction' }],
+  },
+}[locale];
+
+const site = Astro.site!;
+const jsonLd = [breadcrumbs(site, locale, [['sbu.dev', ''], [copy.title, path]])];
+---
+<Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} jsonLd={jsonLd}>
+  <article class="flex flex-col gap-12 py-8">
+    <header class="flex flex-col gap-4">
+      <PageTitle text={copy.title} />
+      <p class="text-ink-muted">{copy.lede}</p>
+    </header>
+
+    <ul class="rows">
+      {copy.projects.map((project) => (
+        <li class="row">
+          <h2 class="text-headline"><a href={localePath(locale, `software/${project.slug}`)}>{project.name}</a></h2>
+          <p class="text-ink-muted">{project.line}</p>
+          <p class="cartiglio">{project.meta}</p>
+        </li>
+      ))}
+    </ul>
+  </article>
+</Base>
+
+<style>
+  .rows { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
+  .row { display: grid; gap: var(--spacing-1); padding-block: var(--spacing-4); border-bottom: var(--sbu-hairline) solid var(--sbu-line); }
+</style>

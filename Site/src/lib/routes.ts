@@ -4,7 +4,7 @@ import { getAlternatives, getApps, getPosts, getUpcoming, type Alternative, type
 type View =
   | { view: 'home'; upcoming: UpcomingApp[] }
   | { view: 'principles' | 'support' | 'privacy' }
-  | { view: 'subscriptionCost' | 'qrCode' | 'alternatives' }
+  | { view: 'subscriptionCost' | 'qrCode' | 'alternatives' | 'games' | 'commerce' }
   | { view: 'press'; upcoming: UpcomingApp[] }
   | { view: 'app' | 'appPrivacy'; app: App }
   | { view: 'alternative'; alternative: Alternative }
@@ -38,6 +38,8 @@ export async function routes(): Promise<Route[]> {
       { view: 'privacy', path: 'privacy', locale },
       ...apps.map((app) => ({ view: 'app' as const, app, path: `apps/${app.slug}`, locale })),
       ...apps.map((app) => ({ view: 'appPrivacy' as const, app, path: `privacy/${app.slug}`, locale })),
+      { view: 'games', path: 'games', locale },
+      { view: 'commerce', path: 'commerce', locale },
       { view: 'subscriptionCost', path: 'abbonamenti', locale },
       { view: 'qrCode', path: 'qr-code', locale },
       ...(alternatives.some((alternative) => alternative.locale === locale) ? [{ view: 'alternatives' as const, path: 'alternatives', locale }] : []),

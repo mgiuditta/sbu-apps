@@ -69,7 +69,8 @@ const copy = {
   },
 }[locale];
 
-const tiles = apps.map((app) => {
+// Games have their own branch, /games.
+const tiles = apps.filter((app) => app.category !== 'GameApplication').map((app) => {
   const listing = text(app, locale);
   return {
     slug: app.slug,

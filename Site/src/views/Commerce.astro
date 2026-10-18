@@ -1,0 +1,70 @@
+---
+// The commerce branch: Sbu Commerce, an open source, self-hosted backend for SAP Commerce storefronts
+// (ADR-0016). Under construction: the page says what it will cover and where to follow it, nothing more.
+import PageTitle from '../components/PageTitle.astro';
+import Base from '../layouts/Base.astro';
+import { GITHUB_URL } from '../lib/pages';
+import { breadcrumbs } from '../lib/jsonld';
+import type { Route } from '../lib/routes';
+
+type Props = Route & { view: 'commerce' };
+const { locale, path, alternates } = Astro.props;
+const copy = {
+  it: {
+    title: 'Sbu Commerce',
+    metaTitle: 'Sbu Commerce: un backend open source per gli storefront di SAP Commerce · sbu.dev',
+    description: 'Sbu Commerce è un backend e-commerce open source e self-hosted, compatibile con l’API OCC: per far girare uno storefront Spartacus senza la licenza di SAP Commerce Cloud. In costruzione.',
+    lede: 'Il commerce enterprise costa centinaia di migliaia di euro l’anno di licenza. Sbu Commerce è un backend open source che parla la stessa API (OCC) degli storefront Spartacus e Composable Storefront: chi lascia SAP Commerce Cloud cambia backend, non rifà il sito.',
+    status: 'In costruzione. Nessuna data di uscita finché non c’è una demo che fa un ordine completo.',
+    coverageTitle: 'Cosa coprirà, in quest’ordine',
+    coverage: ['Catalogo, categorie e pagina prodotto', 'Ricerca', 'Carrello', 'Checkout e ordini', 'Account cliente e account B2B (unità, approvazioni)', 'Prezzi per cliente e promozioni di base', 'Import di catalogo e prezzi da file di esportazione'],
+    promisesTitle: 'Le regole',
+    promises: ['Open source, licenza MIT', 'Lo installi sui tuoi server: sbu.dev non ospita niente e non vede i tuoi dati', 'Nessuna versione a pagamento con funzioni chiuse', 'Una tabella pubblica e sempre vera di cosa copre e cosa no'],
+    note: 'Sbu Commerce non è un prodotto SAP e non usa codice SAP: la compatibilità viene dalla documentazione pubblica dell’API OCC e dal codice open source di Spartacus. SAP, SAP Commerce Cloud e Spartacus sono marchi dei rispettivi proprietari.',
+    follow: 'Segui il cantiere su GitHub',
+  },
+  en: {
+    title: 'Sbu Commerce',
+    metaTitle: 'Sbu Commerce: an open source backend for SAP Commerce storefronts · sbu.dev',
+    description: 'Sbu Commerce is an open source, self-hosted e-commerce backend compatible with the OCC API: to run a Spartacus storefront without a SAP Commerce Cloud licence. Under construction.',
+    lede: 'Enterprise commerce costs hundreds of thousands a year in licences. Sbu Commerce is an open source backend that speaks the same API (OCC) as Spartacus and Composable Storefront: leaving SAP Commerce Cloud means changing the backend, not rebuilding the site.',
+    status: 'Under construction. No release date until a demo places a complete order.',
+    coverageTitle: 'What it will cover, in this order',
+    coverage: ['Catalog, categories and product page', 'Search', 'Cart', 'Checkout and orders', 'Customer accounts and B2B accounts (units, approvals)', 'Customer prices and basic promotions', 'Catalog and price import from export files'],
+    promisesTitle: 'The rules',
+    promises: ['Open source, MIT licence', 'You run it on your own servers: sbu.dev hosts nothing and never sees your data', 'No paid edition with closed features', 'A public table, always true, of what it covers and what it doesn’t'],
+    note: 'Sbu Commerce is not a SAP product and uses no SAP code: compatibility comes from the public OCC API documentation and the open source Spartacus code. SAP, SAP Commerce Cloud and Spartacus are trademarks of their respective owners.',
+    follow: 'Follow the build on GitHub',
+  },
+}[locale];
+
+const site = Astro.site!;
+const jsonLd = [breadcrumbs(site, locale, [['sbu.dev', ''], [copy.title, path]])];
+---
+<Base locale={locale} path={path} alternates={alternates} title={copy.metaTitle} description={copy.description} jsonLd={jsonLd}>
+  <article class="flex flex-col gap-12 py-8">
+    <header class="flex flex-col gap-4">
+      <PageTitle text={copy.title} />
+      <p class="text-ink-muted">{copy.lede}</p>
+      <p class="cartiglio">{copy.status}</p>
+    </header>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-headline">{copy.coverageTitle}</h2>
+      <ol class="list">{copy.coverage.map((item) => <li>{item}</li>)}</ol>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-headline">{copy.promisesTitle}</h2>
+      <ul class="list">{copy.promises.map((item) => <li>{item}</li>)}</ul>
+    </section>
+
+    <p><a href={GITHUB_URL}>{copy.follow}</a></p>
+    <p class="text-caption text-ink-muted">{copy.note}</p>
+  </article>
+</Base>
+
+<style>
+  .list { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
+  .list > li { padding-block: var(--spacing-3); border-bottom: var(--sbu-hairline) solid var(--sbu-line); }
+</style>

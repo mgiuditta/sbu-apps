@@ -20,6 +20,14 @@ Direzione **Quaderno** (design system v5, ADR-0013): Sbu è un quaderno a quadre
 - **Widget e Live Activity.** `SbuWidgetFigure` (64) e `SbuLiveFigure` (40): figura, punto, etichetta su carta con reticolo. Punto `waiting` durante, `set` alla fine; una Live Activity `set` si chiude dopo 4 s. Lock Screen: punto `.widgetAccentable()`, inline `■`.
 - **Vietato.** Gradienti, ombre (solo marketing), bordi colorati, stelle, "PRO", aspetto da paywall, icone personalizzate nell'interfaccia, schermate scure o colorate (eccetto Chiusura e Parabrezza), emoji e punti esclamativi.
 
+## Perché non sembra piatta
+
+Tre principi tengono insieme le regole; servono a decidere i casi che le regole non coprono.
+
+- **Piani.** Dietro la carta col reticolo, al centro la figura grande, sopra i controlli. La profondità viene dalla scala e dal reticolo, non dalle ombre.
+- **Un colore segnale.** Il punto fermo `set` è l'unico colore; tutto il resto è carta, inchiostro e quello che disegna il sistema. Se serve un secondo colore per farsi notare, l'elemento è nel piano sbagliato.
+- **Due taglie.** Una enorme (la figura) e il resto piccolo (stili Dynamic Type da `body` in giù, più il titolo della schermata). Niente nel mezzo: un numero in `title2` dentro una riga fa concorrenza alla figura; va in `body` con cifre monospaziate.
+
 ## Cartelle
 
 - `logos/`: `sbu-logo.svg` (il logo, non si ridisegna), `sbu-mark.svg` (il logo in carta su nero caldo).

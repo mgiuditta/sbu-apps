@@ -12,7 +12,7 @@ struct TimerRow: View {
             Button(action: edit) {
                 VStack(alignment: .leading, spacing: SbuTheme.space1) {
                     Text(timer.title())
-                        .font(.title2.monospacedDigit())
+                        .font(.body.monospacedDigit())
                         .foregroundStyle(isOn ? SbuTheme.ink : SbuTheme.inkMuted)
                     Text("Ferma il suono · \(timer.repeatSummary())")
                         .font(.subheadline)

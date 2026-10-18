@@ -13,7 +13,7 @@ struct AlarmRow: View {
             Button(action: edit) {
                 VStack(alignment: .leading, spacing: SbuTheme.space1) {
                     Text(alarm.title())
-                        .font(.title2.monospacedDigit())
+                        .font(.body.monospacedDigit())
                         .foregroundStyle(isOn ? SbuTheme.ink : SbuTheme.inkMuted)
                     Text("Sveglia · \(alarm.repeatSummary()) · \(Text(soundName))")
                         .font(.subheadline)

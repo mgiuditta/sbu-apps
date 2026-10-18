@@ -77,7 +77,7 @@ if [[ ! -e $site_app ]]; then
 app: Sbu$name
 accent: $accent
 order: $order
-status: building
+status: development
 appStoreId: null
 category: UtilitiesApplication
 # originale: { name: <Originale>, appStoreId: <id> }

@@ -1,0 +1,16 @@
+Sbu Squares è un block puzzle su una griglia 8 per 8: trascini i pezzi, completi righe e colonne, e le righe complete si cancellano. Senza pubblicità, senza acquisti, senza attese.
+
+- La Partita del giorno: gli stessi pezzi per tutti, un tentativo al giorno, da confrontare con chi vuoi
+- Partite libere, quante vuoi, senza vite né energia da ricaricare
+- Il pezzo segue il dito, sopra il dito: vedi dove cade e quali righe completa prima di lasciarlo
+- Righe e colonne insieme valgono di più: due righe in una mossa fanno quattro volte i punti
+- Il record resta sull'iPhone, e il punto fermo si colora quando lo superi
+- Condividi il risultato come testo: il punteggio e la griglia in quadretti
+- La partita si salva a ogni mossa: chiudi l'app quando vuoi e riprendi da lì
+- I pezzi vengono da un generatore con seme: nessuno li sceglie per farti perdere o tornare
+- Si gioca anche senza trascinare: tocca un pezzo, poi una casella. Funziona con VoiceOver
+- Tema chiaro e scuro, testo dinamico, offline
+
+Sbu fa una cosa sola: un block puzzle da giocare senza interruzioni.
+
+Nessun abbonamento. Nessun acquisto in-app. Nessun account. Nessuna pubblicità. Nessun tracking. Dati solo sul dispositivo.

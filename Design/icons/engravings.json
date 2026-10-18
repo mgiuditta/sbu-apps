@@ -214,5 +214,9 @@
       "it": "Fotocamera a soffietto",
       "en": "Bellows camera"
     }
+  },
+  "squares": {
+    "accent": "accent-squares",
+    "subject": "a sharpened wooden school pencil lying across a sheet of squared notebook paper with a few squares filled in"
   }
 }

@@ -1,13 +1,16 @@
 import SbuKit
 import SwiftUI
 
-/// The app inside the standard Sbu shell.
+/// The game inside the standard Sbu shell.
 struct RootView: View {
+    @State private var store = GameStore()
+
     var body: some View {
-        SbuAppShell("Sbu Sudoku", slug: "sudoku", accent: SbuTheme.accentSudoku, appIcon: Image(.appIconArtwork)) {
-            MainView()
+        SbuAppShell("Sbu Sudoku", slug: "sudoku", accent: .sudoku, appIcon: Image(.appIconArtwork)) {
+            MainView(store: store)
         } settings: {
-            EmptyView()
+            GameSettingsSection(store: store)
+            RecordsSection(store: store)
         }
     }
 }

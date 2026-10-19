@@ -12,6 +12,16 @@ struct RootView: View {
             GameSettingsSection(store: store)
             RecordsSection(store: store)
         }
+        #if DEBUG
+        // UI tests and screenshots start inside a game: -newGame <difficulty>.
+        .task {
+            let arguments = ProcessInfo.processInfo.arguments
+            if let index = arguments.firstIndex(of: "-newGame"), arguments.indices.contains(index + 1),
+               let difficulty = Difficulty(rawValue: arguments[index + 1]), store.game == nil {
+                await store.startGame(difficulty)
+            }
+        }
+        #endif
     }
 }
 

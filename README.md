@@ -79,6 +79,7 @@ Specs come only from public App Store data. Nothing here decompiles or extracts 
 | [Sbu Tidy](Apps/SbuTidy) | `accent-tidy` | Tody | In development |
 | [Sbu Libretto](Apps/SbuLibretto) | `accent-libretto` | — | In development |
 | [Sbu Squares](Apps/SbuSquares) | `accent-squares` | Block Blast! (game, without its ads) | In development |
+| [Sbu Sudoku](Apps/SbuSudoku) | `accent-sudoku` | Sudoku (game, without its ads) | In development |
 | [Sbu Meds](Apps/SbuMeds) | `accent-meds` | Medisafe | In development |
 | [Sbu Remote](Apps/SbuRemote) | `accent-remote` | TV Remote - Universal Control | In development |
 | [Sbu Level](Apps/SbuLevel) | `accent-level` | Clinometer + bubble level | In development |

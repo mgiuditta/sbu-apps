@@ -19,8 +19,8 @@ struct ActionButton: View {
                 Text(title)
                     .font(.caption)
                     .foregroundStyle(SbuTheme.ink)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, minHeight: SbuTheme.controlRoundSm)
             .contentShape(Rectangle())

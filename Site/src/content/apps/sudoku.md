@@ -5,7 +5,7 @@ accent: accent-sudoku
 order: 31
 status: development
 appStoreId: null
-category: UtilitiesApplication
+category: GameApplication
 # originale: { name: <Originale>, appStoreId: <id> }
 # figure:
 #   it: { value: "<Cifra>", label: <etichetta> }

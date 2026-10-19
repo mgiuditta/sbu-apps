@@ -1,10 +1,16 @@
-No subscription.
-No in-app purchases.
-No account.
-No ads.
-No tracking.
-Data stays on your device.
+Sbu Sudoku is classic 9 by 9 sudoku, with six difficulties from Easy to Extreme. No ads, no purchases, no waiting.
 
-__FEATURES_EN__
+- Six difficulties: Easy, Medium, Hard, Expert, Evil, Extreme. Every puzzle has exactly one solution
+- The Daily Sudoku: the same puzzle for everyone, one attempt a day
+- Pencil notes that clear themselves from the row, column and box when you write a digit
+- Mistakes shown at once, three mistakes end the game; the second chance is free and takes one away
+- Unlimited hints: they reveal the cell you pick
+- Undo up to 25 moves
+- Points for every right cell: the faster you are, the more they're worth, and completed rows, columns and boxes multiply them
+- A best score for each difficulty, and the full stop turns to color when you beat it
+- The game saves after every move: close the app whenever you like and pick up where you left off
+- Every aid can be turned off in settings. Works with VoiceOver. Light and dark, offline
 
-Sbu does one thing: __ONE_THING_EN__
+Sbu does one thing: sudoku you can play without interruptions.
+
+No subscription. No in-app purchases. No account. No ads. No tracking. Data stays on your device.

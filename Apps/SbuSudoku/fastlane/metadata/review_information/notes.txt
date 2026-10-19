@@ -1,0 +1,9 @@
+No account. Sbu Sudoku has no server and makes no network calls: no analytics, ads, in-app purchases or tracking. The game and the best scores stay on the device.
+
+How it differs from other sudoku apps: no ads, no purchases, no lives to refill, no coins, timers or notifications. Hints are unlimited and the second chance after three mistakes is free. Puzzles are generated on the device from a seed, each with exactly one solution; the daily puzzle uses the date as the seed, so everyone gets the same one. The design is the sbu.dev notebook: ink on squared paper, one colored square only when a best score is beaten.
+
+To review:
+1. Tap "Nuova partita" (New game) and pick a difficulty.
+2. Tap a cell, then a digit at the bottom. A wrong digit turns red and counts as a mistake; three end the game, and "Seconda possibilità" (Second chance) takes one away.
+3. "Note" (Notes) writes small pencil notes instead; "Suggerimento" (Hint) reveals the selected cell; "Annulla" (Undo) takes back the last move.
+4. Settings (gear) turn each aid off and show the best score of each difficulty.

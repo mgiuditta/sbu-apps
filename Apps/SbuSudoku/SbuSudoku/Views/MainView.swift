@@ -31,6 +31,8 @@ struct MainView: View {
                     }
                     .buttonStyle(SbuButtonStyle(.primary))
                 }
+                .padding(.horizontal, SbuTheme.space4)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
         }
         .sbuPaper()
@@ -125,7 +127,9 @@ private extension MainView {
 
     func cartiglio(_ game: Game) -> String {
         let kind = game.day == nil ? String(localized: game.difficulty.name) : String(localized: "Del giorno")
-        return String(localized: "Sbu · Sudoku · \(kind) · Record \(store.record(for: game.difficulty).formatted())")
+        let record = store.record(for: game.difficulty)
+        guard record > 0 else { return String(localized: "Sbu · Sudoku · \(kind)") }
+        return String(localized: "Sbu · Sudoku · \(kind) · Record \(record.formatted())")
     }
 
     /// With every check off, nothing says a filled grid is wrong but this.

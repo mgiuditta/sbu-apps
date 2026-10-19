@@ -1,1 +1,1 @@
-
+sudoku,numeri,rompicapo,logica,griglia,offline,classico,giornaliero,matita,note,mente,sfida

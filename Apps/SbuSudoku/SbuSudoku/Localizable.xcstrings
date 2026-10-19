@@ -1,16 +1,576 @@
 {
-  "sourceLanguage" : "it",
-  "strings" : {
-    "Sbu Sudoku" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sbu Sudoku" } }
+  "sourceLanguage": "it",
+  "strings": {
+    "%lld, fissa": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld, fixed"
+          }
+        }
       }
     },
-    "Valore" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Value" } }
+    "%lld, sbagliata": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld, wrong"
+          }
+        }
+      }
+    },
+    "Annulla": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo"
+          }
+        }
+      }
+    },
+    "Attive": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On"
+          }
+        }
+      }
+    },
+    "Azzera i record": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset bests"
+          }
+        }
+      }
+    },
+    "Azzerare i record?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset bests?"
+          }
+        }
+      }
+    },
+    "Battuto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beaten"
+          }
+        }
+      }
+    },
+    "Cancella": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erase"
+          }
+        }
+      }
+    },
+    "Del giorno": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily"
+          }
+        }
+      }
+    },
+    "Del giorno: già giocato": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily: already played"
+          }
+        }
+      }
+    },
+    "Diabolico": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evil"
+          }
+        }
+      }
+    },
+    "Difficile": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hard"
+          }
+        }
+      }
+    },
+    "Difficoltà": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Difficulty"
+          }
+        }
+      }
+    },
+    "Errori %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mistakes %lld"
+          }
+        }
+      }
+    },
+    "Errori %lld di %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mistakes %1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "Esperto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expert"
+          }
+        }
+      }
+    },
+    "Estremo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extreme"
+          }
+        }
+      }
+    },
+    "Evidenzia i doppioni": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Highlight duplicates"
+          }
+        }
+      }
+    },
+    "Evidenzia le cifre uguali": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Highlight identical digits"
+          }
+        }
+      }
+    },
+    "Evidenzia riga, colonna e riquadro": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Highlight row, column and box"
+          }
+        }
+      }
+    },
+    "Facile": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy"
+          }
+        }
+      }
+    },
+    "Hai fatto tre errori. Con la seconda possibilità ne togli uno e continui.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You made three mistakes. A second chance takes one away and you go on."
+          }
+        }
+      }
+    },
+    "Il limite di errori vale dall'inizio della partita: a partita iniziata puoi solo toglierlo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The mistake limit is set when a game starts: once it has started, you can only turn it off."
+          }
+        }
+      }
+    },
+    "Il record di una difficoltà è il punteggio più alto di una partita risolta. Resta solo su questo iPhone.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A difficulty's best is the highest score of a solved game. It stays on this iPhone only."
+          }
+        }
+      }
+    },
+    "Iniziare una nuova partita?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start a new game?"
+          }
+        }
+      }
+    },
+    "La griglia è piena, ma qualcosa non torna.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The grid is full, but something doesn't add up."
+          }
+        }
+      }
+    },
+    "Medio": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Medium"
+          }
+        }
+      }
+    },
+    "Mostra il tempo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show the time"
+          }
+        }
+      }
+    },
+    "Nascondi le cifre finite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide finished digits"
+          }
+        }
+      }
+    },
+    "Ne mancano %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld left"
+          }
+        }
+      }
+    },
+    "Nota, ne mancano %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Note, %lld left"
+          }
+        }
+      }
+    },
+    "Note": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notes"
+          }
+        }
+      }
+    },
+    "Note %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notes %@"
+          }
+        }
+      }
+    },
+    "Nuova partita": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New game"
+          }
+        }
+      }
+    },
+    "Partita": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Game"
+          }
+        }
+      }
+    },
+    "Punteggio %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Score %lld"
+          }
+        }
+      }
+    },
+    "Questa cifra non si cambia.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This digit can't change."
+          }
+        }
+      }
+    },
+    "Questa cifra è giusta.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This digit is right."
+          }
+        }
+      }
+    },
+    "Questa cifra è già giusta.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This digit is already right."
+          }
+        }
+      }
+    },
+    "Questa partita finisce qui.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This game ends here."
+          }
+        }
+      }
+    },
+    "Record": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Best"
+          }
+        }
+      }
+    },
+    "Riga %lld, colonna %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Row %1$lld, column %2$lld"
+          }
+        }
+      }
+    },
+    "Risolto in %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solved in %@."
+          }
+        }
+      }
+    },
+    "Sbu Sudoku": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu Sudoku"
+          }
+        }
+      }
+    },
+    "Sbu · Sudoku · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu · Sudoku · %@"
+          }
+        }
+      }
+    },
+    "Sbu · Sudoku · %@ · Record %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sbu · Sudoku · %1$@ · Best %2$@"
+          }
+        }
+      }
+    },
+    "Scegli una difficoltà e riempi la griglia.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick a difficulty and fill the grid."
+          }
+        }
+      }
+    },
+    "Seconda possibilità": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Second chance"
+          }
+        }
+      }
+    },
+    "Segna gli errori": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark mistakes"
+          }
+        }
+      }
+    },
+    "Spente": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        }
+      }
+    },
+    "Sudoku": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sudoku"
+          }
+        }
+      }
+    },
+    "Sudoku del giorno": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily Sudoku"
+          }
+        }
+      }
+    },
+    "Suggerimento": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hint"
+          }
+        }
+      }
+    },
+    "Ti propongo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggested for you"
+          }
+        }
+      }
+    },
+    "Togli le note quando scrivi una cifra": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove notes when you write a digit"
+          }
+        }
+      }
+    },
+    "Tre errori e la partita finisce": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Three mistakes end the game"
+          }
+        }
+      }
+    },
+    "Vuota": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empty"
+          }
+        }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

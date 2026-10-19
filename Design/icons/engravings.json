@@ -222,5 +222,9 @@
       "it": "Matita sui quadretti",
       "en": "Pencil on squared paper"
     }
+  },
+  "sudoku": {
+    "accent": "accent-sudoku",
+    "subject": "a wooden graphite pencil with a metal ferrule and eraser, lying diagonally"
   }
 }

@@ -22,7 +22,11 @@ export const GITHUB_URL = 'https://github.com/mgiuditta';
 export const DEVELOPER_URL = 'https://apps.apple.com/us/developer/matteo-giuditta/id1872140737';
 
 /** sbu.dev on the social networks, in the footer: only accounts that exist (#569). */
-export const SOCIAL = [{ label: 'Instagram', href: 'https://www.instagram.com/sbudevapp/' }];
+export const SOCIAL = [
+  { label: 'Instagram', href: 'https://www.instagram.com/sbudevapp/' },
+  { label: 'X', href: 'https://x.com/sbudevapp' },
+  { label: 'GitHub', href: GITHUB_URL },
+];
 
 /** sbu.dev elsewhere, for the Organization's sameAs: only profiles that exist. */
 export const PROFILES = [REPO_URL, DEVELOPER_URL, ...SOCIAL.map((profile) => profile.href)];

@@ -22,8 +22,10 @@ nonisolated enum GuardScript {
         return """
         (() => {
           const R = \(config);
+          const matches = (path, pattern) =>
+            pattern.endsWith('*') ? path.startsWith(pattern.slice(0, -1)) : path === pattern;
           const blocks = (path, current) =>
-            R.blocked.some(b => path.startsWith(b)) ||
+            R.blocked.some(b => matches(path, b)) ||
             R.single.some(s => current.startsWith(s) && path.startsWith(s) && path !== current);
           const redirect = (url) => {
             for (const [prefix, target] of Object.entries(R.rewrites)) {

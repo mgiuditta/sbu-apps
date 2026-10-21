@@ -7,7 +7,8 @@ nonisolated struct PlatformRules: Codable, Hashable {
     /// The sites whose pages the browser opens, with their subdomains. Images, videos and scripts
     /// from CDNs load inside those pages; as a page of their own, anything else opens in Safari.
     var hosts: [String] = []
-    /// Paths never opened, such as `/reels/` and `/explore/`.
+    /// Paths never opened: exactly this path, or every path under it when it ends in `*`,
+    /// such as `/reels/` (the tab, while `/reels/ID` sent to you still opens) and `/explore*`.
     var blockedPaths: [String] = []
     /// Paths opened one at a time: from one of them you can't move to another, so a video sent
     /// to you plays alone and the swipe to the next one goes nowhere.
@@ -43,8 +44,12 @@ nonisolated struct PlatformRules: Codable, Hashable {
 
     /// Whether moving from `current` to `path` is refused.
     func blocks(path: String, from current: String) -> Bool {
-        if blockedPaths.contains(where: path.hasPrefix) { return true }
+        if blockedPaths.contains(where: { Self.matches(path, $0) }) { return true }
         return singlePaths.contains { current.hasPrefix($0) && path.hasPrefix($0) && path != current }
+    }
+
+    private static func matches(_ path: String, _ pattern: String) -> Bool {
+        pattern.hasSuffix("*") ? path.hasPrefix(pattern.dropLast()) : path == pattern
     }
 
     /// Where a URL goes instead: a rewritten prefix, or the redirect of its bare path.

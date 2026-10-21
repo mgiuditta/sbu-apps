@@ -21,7 +21,10 @@ struct PlatformRulesTests {
 
     @Test(arguments: [
         ("/reels/", "/", true),
+        ("/reels/abc/", "/direct/t/123/", false),
+        ("/reels/def/", "/reels/abc/", true),
         ("/explore/", "/direct/inbox/", true),
+        ("/explore/tags/x/", "/", true),
         ("/reel/abc/", "/direct/t/123/", false),
         ("/reel/def/", "/reel/abc/", true),
         ("/reel/abc/", "/reel/abc/", false),

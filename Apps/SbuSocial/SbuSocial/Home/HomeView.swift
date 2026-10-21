@@ -1,17 +1,33 @@
+import SbuKit
 import SwiftUI
 
-/// The tool screen: the minutes spent in Sbu Social today and the Platforms.
+/// The tool screen: the Platforms, one square each; a tap opens it in the filtered browser.
 struct HomeView: View {
     var body: some View {
-        TabScreen(title: "Home", sentence: "Apri un social: qui conti i minuti di oggi.")
+        ScrollView {
+            VStack(alignment: .leading, spacing: SbuTheme.space6) {
+                SbuScreenTitle("Home", cartiglio: Cartiglio.today)
+                PlatformGrid()
+            }
+            .padding(SbuTheme.space4)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+        }
+        .sbuPaper(grid: true)
+        .navigationDestination(for: Platform.self) { platform in
+            PlatformScreen(platform: platform)
+        }
     }
 }
 
 #Preview("Light") {
-    HomeView()
+    NavigationStack {
+        HomeView()
+    }
 }
 
 #Preview("Dark") {
-    HomeView()
-        .preferredColorScheme(.dark)
+    NavigationStack {
+        HomeView()
+    }
+    .preferredColorScheme(.dark)
 }

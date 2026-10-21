@@ -6,17 +6,11 @@ struct TabScreen: View {
     let title: LocalizedStringKey
     let sentence: LocalizedStringKey
 
-    // ponytail: the date is read once per appearance; a screen left open past midnight keeps yesterday's.
-    private var cartiglio: String {
-        let day = Date.now.formatted(.dateTime.weekday(.abbreviated).day().month(.abbreviated))
-        return String(localized: "Sbu · Social · \(day)")
-    }
-
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
                 VStack(alignment: .leading, spacing: SbuTheme.space6) {
-                    SbuScreenTitle(title, cartiglio: cartiglio)
+                    SbuScreenTitle(title, cartiglio: Cartiglio.today)
                     SbuEmpty(sentence: sentence) {
                         EmptyView()
                     }

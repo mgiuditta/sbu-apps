@@ -1,0 +1,20 @@
+{
+  "instagram": {
+    "hosts": ["instagram.com", "cdninstagram.com", "fbcdn.net", "facebook.com", "fbsbx.com"],
+    "blockedPaths": ["/reels/", "/explore/"],
+    "singlePaths": ["/reel/"],
+    "redirects": { "/": "/?variant=following" },
+    "css": "a[href='/reels/'], a[href^='/explore'], a[href*='/live/'] { display: none !important; }",
+    "hiddenLabels": ["Sponsorizzato", "Sponsored", "Suggeriti per te", "Suggested for you", "Post suggeriti", "Suggested posts"],
+    "labelContainer": "article"
+  },
+  "youtube": {
+    "hosts": ["youtube.com", "ytimg.com", "googlevideo.com", "ggpht.com", "googleusercontent.com", "accounts.google.com"],
+    "blockedPaths": [],
+    "singlePaths": [],
+    "redirects": {},
+    "css": "",
+    "hiddenLabels": [],
+    "labelContainer": "article"
+  }
+}

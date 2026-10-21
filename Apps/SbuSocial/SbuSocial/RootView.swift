@@ -28,9 +28,13 @@ struct RootView: View {
 
 #Preview("Light") {
     RootView()
+        .environment(AccountStore(defaults: UserDefaults(suiteName: "preview")!))
+        .environment(WebViewPool())
 }
 
 #Preview("Dark") {
     RootView()
+        .environment(AccountStore(defaults: UserDefaults(suiteName: "preview")!))
+        .environment(WebViewPool())
         .preferredColorScheme(.dark)
 }

@@ -1,6 +1,36 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "Account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        }
+      }
+    },
+    "Account %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account %lld"
+          }
+        }
+      }
+    },
+    "Aggiungi account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add account"
+          }
+        }
+      }
+    },
     "Apri un social: qui conti i minuti di oggi." : {
       "localizations" : {
         "en" : {
@@ -21,6 +51,16 @@
         }
       }
     },
+    "Esci da questo account e i suoi dati spariscono da questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You sign out of this account and its data leaves this iPhone."
+          }
+        }
+      }
+    },
     "Home" : {
       "localizations" : {
         "en" : {
@@ -37,6 +77,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Here you see your minutes over the last 7 days."
+          }
+        }
+      }
+    },
+    "Ricarica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reload"
           }
         }
       }
@@ -97,6 +147,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stats"
+          }
+        }
+      }
+    },
+    "Togli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "Togli questo account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove this account"
+          }
+        }
+      }
+    },
+    "Togliere l'account %lld?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove account %lld?"
           }
         }
       }

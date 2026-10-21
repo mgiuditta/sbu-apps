@@ -5,3 +5,5 @@ Ogni **App Sbu** fa una **Cosa sola**, quindi `SbuAppShell` è una `NavigationSt
 Un'app con una seconda area di gestione allo stesso livello (per esempio elenco e storico in Sbu Subscriptions) può avere una tab bar, ma solo con un ADR che sostituisce questo per quell'app.
 
 Per Sbu Subscriptions lo sostituisce ADR-0012 (tre schede).
+
+Per Sbu Social lo sostituisce ADR-0017 (cinque tab).

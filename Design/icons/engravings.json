@@ -222,5 +222,13 @@
       "it": "Matita sui quadretti",
       "en": "Pencil on squared paper"
     }
+  },
+  "social": {
+    "accent": "accent-social",
+    "subject": "a vintage 35mm film reel with a strip of film unspooling, cut by an old pair of tailor's scissors, three-quarter view",
+    "name": {
+      "it": "Pellicola e forbici",
+      "en": "Film and scissors"
+    }
   }
 }

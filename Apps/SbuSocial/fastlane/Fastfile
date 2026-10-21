@@ -1,0 +1,99 @@
+# Lanes for Sbu Social. Run from Apps/SbuSocial.
+# beta/release need an App Store Connect API key in the environment:
+#   ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH (path to the .p8), SBU_TEAM_ID
+default_platform(:ios)
+import(File.expand_path("../../../Tools/fastlane/Fastfile", __dir__))
+
+platform :ios do
+  before_all do
+    Dir.chdir("..") { sh("xcodegen", "generate") }
+  end
+
+  desc "Unit tests on the simulator"
+  lane :test do
+    run_tests(scheme: "SbuSocial", devices: ["iPhone 17"])
+  end
+
+  desc "App Store screenshots (Snapfile), Italian and English"
+  lane :snapshot do
+    capture_screenshots
+  end
+
+  desc "Panorama on paper with the icon engraving and a closing card with the logo (Tools/make_screenshots.py)"
+  lane :frames do
+    sh("python3", File.expand_path("../../../Tools/make_screenshots.py", __dir__), "social")
+  end
+
+  # The App Store Connect API can't create apps, so this lane logs in with the Apple ID in
+  # FASTLANE_USER: 2FA the first time, then the session cached in ~/.fastlane/spaceship.
+  desc "Register the bundle ID and create the App Store Connect record, Italian primary language"
+  lane :create_app do
+    produce(
+      username: ENV.fetch("FASTLANE_USER"),
+      app_name: "Sbu Social",
+      language: "Italian",
+      sku: "dev.sbu.social",
+      platform: "ios"
+    )
+  end
+
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    api_key
+    increment_build_number(build_number: latest_testflight_build_number + 1, xcodeproj: "SbuSocial.xcodeproj")
+    build_app(scheme: "SbuSocial", export_method: "app-store", xcargs: signing_args)
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+    internal_testers
+  end
+
+  desc "Build and upload to the App Store with metadata and framed screenshots, without submitting"
+  lane :release do
+    api_key
+    build_app(scheme: "SbuSocial", export_method: "app-store", xcargs: signing_args)
+    upload_to_app_store(
+      submit_for_review: false,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  desc "Upload only metadata and framed screenshots to the App Store listing, without a build or submitting"
+  lane :metadata do
+    api_key
+    ensure_review_detail
+    upload_to_app_store(
+      skip_binary_upload: true,
+      submit_for_review: false,
+      force: true,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  # Automatic signing creates the App Store profiles (app and widget, with the App Group) itself.
+  def signing_args
+    "-allowProvisioningUpdates -authenticationKeyPath #{ENV.fetch("ASC_KEY_PATH")} " \
+      "-authenticationKeyID #{ENV.fetch("ASC_KEY_ID")} -authenticationKeyIssuerID #{ENV.fetch("ASC_ISSUER_ID")}"
+  end
+
+  # A first version has no App Review details yet, and deliver fails reading them ("No data",
+  # fastlane#20538): create the empty record first.
+  private_lane :ensure_review_detail do
+    app = Spaceship::ConnectAPI::App.find(CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier))
+    version = app.get_edit_app_store_version
+    begin
+      version.fetch_app_store_review_detail
+    rescue StandardError
+      version.create_app_store_review_detail(attributes: { notes: "No account needed. All data stays on the device." })
+    end
+  end
+
+  private_lane :api_key do
+    app_store_connect_api_key(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      key_filepath: ENV.fetch("ASC_KEY_PATH")
+    )
+  end
+end

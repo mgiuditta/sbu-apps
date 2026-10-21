@@ -207,6 +207,36 @@ _Avoid_: allarme, timer (il timer ferma o avvia un suono, non sveglia)
 Quello che suona se la **Sveglia** non può: notifiche locali su iOS 17–25, un allarme di sistema su iOS 26+. Si annulla quando fermi la Sveglia.
 _Avoid_: fallback, sveglia di backup
 
+### Sbu Social
+
+**Piattaforma** (_Platform_):
+Un social che Sbu Social apre nel suo browser filtrato, con le sue **Regole**: Instagram, YouTube.
+_Avoid_: social, sito, servizio
+
+**Account**:
+Un login su una **Piattaforma**, con i suoi cookie separati da quelli degli altri account. Una piattaforma può averne più di uno.
+_Avoid_: profilo, utente
+
+**Regole** (_Rules_):
+Cosa Sbu Social nasconde o blocca su una **Piattaforma** (Reels, Shorts, Esplora, suggeriti, annunci). Cambiano solo con un aggiornamento dell'app.
+_Avoid_: filtri, blocklist
+
+**Schermo** (_Shield_):
+La schermata Sbu che copre un'app nativa bloccata, con il bottone per aprire la piattaforma in Sbu Social.
+_Avoid_: blocco, muro, overlay
+
+**Modalità post** (_Post mode_):
+Lo sblocco di 10 minuti di un'app nativa schermata, per pubblicare qualcosa; finito il tempo lo **Schermo** torna.
+_Avoid_: pausa, sblocco temporaneo, eccezione
+
+**Limite di tempo** (_Time limit_):
+Quanti minuti al giorno puoi passare sulle **Piattaforme** in Sbu Social; raggiunto, le app native restano schermate fino a domani. Non è il **Limite** di Sbu Habits.
+_Avoid_: limite, tetto, budget
+
+**Routine**:
+Fasce orarie in cui Sbu Social scherma le app native da sola (notte, focus), con avviso 30 minuti prima della notte.
+_Avoid_: programma, pianificazione
+
 ## Relationships
 
 - Un **Candidato** ha al più uno **Spec**, scritto prima di decidere

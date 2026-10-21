@@ -1,0 +1,245 @@
+{
+  "instagram": {
+    "hosts": [
+      "instagram.com",
+      "facebook.com"
+    ],
+    "blockedPaths": [
+      "/reels/",
+      "/explore/",
+      "/explore/tags*",
+      "/explore/locations*"
+    ],
+    "singlePaths": [
+      "/reel/",
+      "/reels/"
+    ],
+    "redirects": {
+      "/": "/?variant=following"
+    },
+    "css": "a[href='/reels/'], a[href^='/explore'], a[href*='/live/'] { display: none !important; }",
+    "hiddenLabels": [],
+    "labelContainer": "article",
+    "rewrites": {},
+    "options": [
+      {
+        "id": "sponsored",
+        "title": "Nascondi i post sponsorizzati",
+        "hiddenLabels": [
+          "Sponsorizzato",
+          "Sponsored"
+        ]
+      },
+      {
+        "id": "suggested",
+        "title": "Nascondi i post suggeriti",
+        "hiddenLabels": [
+          "Suggeriti per te",
+          "Suggested for you",
+          "Post suggeriti",
+          "Suggested posts"
+        ]
+      },
+      {
+        "id": "search",
+        "title": "Blocca la ricerca dei post",
+        "blockedPaths": [
+          "/explore/search*"
+        ],
+        "defaultOn": false
+      }
+    ]
+  },
+  "youtube": {
+    "hosts": [
+      "youtube.com",
+      "accounts.google.com"
+    ],
+    "blockedPaths": [
+      "/feed/explore*",
+      "/feed/trending*"
+    ],
+    "singlePaths": [],
+    "redirects": {},
+    "rewrites": {
+      "/shorts/": "/watch?v="
+    },
+    "css": "ytm-reel-shelf-renderer, ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2, ytm-pivot-bar-item-renderer:has(.pivot-shorts), ytm-pivot-bar-item-renderer:has([class*='shorts']), ytm-rich-section-renderer { display: none !important; } html.sbu-home ytm-rich-grid-renderer, html.sbu-home ytm-rich-item-renderer, html.sbu-home ytm-feed-filter-chip-bar-renderer { display: none !important; }",
+    "hiddenLabels": [],
+    "labelContainer": "article",
+    "script": "youtube",
+    "options": [
+      {
+        "id": "ads",
+        "title": "Togli gli annunci",
+        "flag": "ads",
+        "css": "ytm-promoted-sparkles-web-renderer, ytm-companion-ad-renderer, ytm-promoted-video-renderer, ytm-ad-slot-renderer, ad-slot-renderer, .video-ads, .ytp-ad-module { display: none !important; }"
+      },
+      {
+        "id": "recommended",
+        "title": "Nascondi i video consigliati",
+        "css": "ytm-item-section-renderer[section-identifier='related-items'], ytm-watch-next-secondary-results-renderer, ytm-single-column-watch-next-results-renderer ytm-item-section-renderer:not(:first-child) { display: none !important; }"
+      },
+      {
+        "id": "background",
+        "title": "Audio in background",
+        "flag": "background"
+      }
+    ]
+  },
+  "snapchat": {
+    "hosts": [
+      "snapchat.com"
+    ],
+    "blockedPaths": [
+      "/spotlight*",
+      "/discover*",
+      "/stories*"
+    ],
+    "css": "a[href*='/spotlight'], a[href*='/discover'] { display: none !important; }"
+  },
+  "x": {
+    "hosts": [
+      "x.com",
+      "twitter.com"
+    ],
+    "blockedPaths": [
+      "/explore*",
+      "/i/trending*",
+      "/i/grok*"
+    ],
+    "css": "a[href='/explore'], a[href^='/i/grok'] { display: none !important; }",
+    "labelContainer": "article",
+    "options": [
+      {
+        "id": "sponsored",
+        "title": "Nascondi i post sponsorizzati",
+        "hiddenLabels": [
+          "Promoted",
+          "Sponsorizzato",
+          "Promosso"
+        ]
+      },
+      {
+        "id": "suggested",
+        "title": "Nascondi i post suggeriti",
+        "css": "aside[aria-label='Who to follow'], aside[aria-label='Chi seguire'], [data-testid='UserCell'] { display: none !important; }"
+      }
+    ]
+  },
+  "tiktok": {
+    "hosts": [
+      "tiktok.com"
+    ],
+    "blockedPaths": [
+      "/foryou*",
+      "/explore*",
+      "/following*",
+      "/live*",
+      "/friends*"
+    ],
+    "redirects": {
+      "/": "/messages"
+    },
+    "css": "a[href='/'], a[href^='/foryou'], a[href^='/explore'], a[href^='/following'], a[href^='/live'], a[href^='/friends'] { display: none !important; }"
+  },
+  "facebook": {
+    "hosts": [
+      "facebook.com"
+    ],
+    "blockedPaths": [
+      "/reels/",
+      "/watch*",
+      "/gaming*",
+      "/marketplace*"
+    ],
+    "singlePaths": [
+      "/reel/"
+    ],
+    "css": "a[href^='/reel'], a[href^='/watch'], a[href*='/reels/'] { display: none !important; }",
+    "labelContainer": "div[role='article'], article",
+    "options": [
+      {
+        "id": "sponsored",
+        "title": "Nascondi i post sponsorizzati",
+        "hiddenLabels": [
+          "Sponsorizzato",
+          "Sponsored"
+        ]
+      },
+      {
+        "id": "suggested",
+        "title": "Nascondi i post suggeriti",
+        "hiddenLabels": [
+          "Suggeriti per te",
+          "Suggested for you",
+          "Reel e video brevi",
+          "Reels and short videos",
+          "Persone che potresti conoscere",
+          "People you may know"
+        ]
+      }
+    ]
+  },
+  "linkedin": {
+    "hosts": [
+      "linkedin.com"
+    ],
+    "blockedPaths": [
+      "/feed/videos*",
+      "/learning*"
+    ],
+    "labelContainer": "div.feed-shared-update-v2, article",
+    "options": [
+      {
+        "id": "sponsored",
+        "title": "Nascondi i post sponsorizzati",
+        "hiddenLabels": [
+          "Promosso",
+          "Promoted"
+        ]
+      },
+      {
+        "id": "suggested",
+        "title": "Nascondi i post suggeriti",
+        "hiddenLabels": [
+          "Suggeriti",
+          "Suggested"
+        ]
+      }
+    ]
+  },
+  "reddit": {
+    "hosts": [
+      "reddit.com",
+      "redd.it"
+    ],
+    "blockedPaths": [
+      "/r/popular*",
+      "/r/all*",
+      "/explore*"
+    ],
+    "labelContainer": "shreddit-post, shreddit-ad-post, article",
+    "options": [
+      {
+        "id": "sponsored",
+        "title": "Nascondi i post sponsorizzati",
+        "css": "shreddit-ad-post, shreddit-comments-page-ad, [data-promoted='true'] { display: none !important; }",
+        "hiddenLabels": [
+          "Promoted",
+          "Promosso"
+        ]
+      },
+      {
+        "id": "suggested",
+        "title": "Nascondi i post suggeriti",
+        "css": "shreddit-gallery-carousel, community-recommendation { display: none !important; }",
+        "hiddenLabels": [
+          "Suggested for you",
+          "Suggeriti per te",
+          "Because you visited"
+        ]
+      }
+    ]
+  }
+}

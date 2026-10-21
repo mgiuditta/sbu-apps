@@ -1,0 +1,756 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "%@ oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ today"
+          }
+        }
+      }
+    },
+    "%@ è schermata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is shielded"
+          }
+        }
+      }
+    },
+    "%lld minuti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld minutes"
+          }
+        }
+      }
+    },
+    "A letto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedtime"
+          }
+        }
+      }
+    },
+    "Account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        }
+      }
+    },
+    "Account %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account %lld"
+          }
+        }
+      }
+    },
+    "Aggiungi account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add account"
+          }
+        }
+      }
+    },
+    "App escluse: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps left out: %lld"
+          }
+        }
+      }
+    },
+    "App schermata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App shielded"
+          }
+        }
+      }
+    },
+    "Apri Sbu Social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sbu Social"
+          }
+        }
+      }
+    },
+    "Apri all'avvio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open at launch"
+          }
+        }
+      }
+    },
+    "Apri in Sbu Social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in Sbu Social"
+          }
+        }
+      }
+    },
+    "Apri un social: qui conti i minuti di oggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a social app: today's minutes add up here."
+          }
+        }
+      }
+    },
+    "Aprila in Sbu Social, senza video brevi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open it in Sbu Social, without short videos."
+          }
+        }
+      }
+    },
+    "Audio in background" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background audio"
+          }
+        }
+      }
+    },
+    "Basta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enough"
+          }
+        }
+      }
+    },
+    "Basta per oggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enough for today."
+          }
+        }
+      }
+    },
+    "Blocca la ricerca dei post" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block post search"
+          }
+        }
+      }
+    },
+    "Blocco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block"
+          }
+        }
+      }
+    },
+    "Cambia le app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change apps"
+          }
+        }
+      }
+    },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Esci da questo account e i suoi dati spariscono da questo iPhone." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You sign out of this account and its data leaves this iPhone."
+          }
+        }
+      }
+    },
+    "Focus fino alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus until %@"
+          }
+        }
+      }
+    },
+    "Giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day"
+          }
+        }
+      }
+    },
+    "Hai raggiunto il tuo limite di tempo. I social si riaprono domani." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You reached your time limit. Social apps open again tomorrow."
+          }
+        }
+      }
+    },
+    "Home" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "Inizia un focus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a focus"
+          }
+        }
+      }
+    },
+    "Le app scelte in Blocco si chiudono per il tempo che scegli." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The apps chosen in Block close for the time you pick."
+          }
+        }
+      }
+    },
+    "Limite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit"
+          }
+        }
+      }
+    },
+    "Limite di tempo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time limit"
+          }
+        }
+      }
+    },
+    "Limite raggiunto. I social si riaprono domani." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached. Social apps open again tomorrow."
+          }
+        }
+      }
+    },
+    "Margine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Margin"
+          }
+        }
+      }
+    },
+    "Minuti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minutes"
+          }
+        }
+      }
+    },
+    "Modalità post" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post mode"
+          }
+        }
+      }
+    },
+    "Modalità post fino alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post mode until %@"
+          }
+        }
+      }
+    },
+    "Nascondi i post sponsorizzati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide sponsored posts"
+          }
+        }
+      }
+    },
+    "Nascondi i post suggeriti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide suggested posts"
+          }
+        }
+      }
+    },
+    "Nascondi i video consigliati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide recommended videos"
+          }
+        }
+      }
+    },
+    "Nascosti: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hidden: %lld"
+          }
+        }
+      }
+    },
+    "Nessuno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
+    },
+    "Notti: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nights: %lld"
+          }
+        }
+      }
+    },
+    "Oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
+    },
+    "Poi i social si chiudono fino al mattino." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Then social apps close until morning."
+          }
+        }
+      }
+    },
+    "Qui vedi i tuoi minuti degli ultimi 7 giorni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here you see your minutes over the last 7 days."
+          }
+        }
+      }
+    },
+    "Reels, Shorts e video brevi restano sempre bloccati." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reels, Shorts and short videos always stay blocked."
+          }
+        }
+      }
+    },
+    "Restano aperte di notte, per esempio i messaggi di famiglia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "They stay open at night, such as family messages."
+          }
+        }
+      }
+    },
+    "Riattiva lo Schermo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn the Shield back on"
+          }
+        }
+      }
+    },
+    "Ricarica" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reload"
+          }
+        }
+      }
+    },
+    "Sblocca le app per 10 minuti, per pubblicare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlocks the apps for 10 minutes, to post."
+          }
+        }
+      }
+    },
+    "Sbu Social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Social"
+          }
+        }
+      }
+    },
+    "Sbu Social si apre direttamente su questo social." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Social opens straight on this social app."
+          }
+        }
+      }
+    },
+    "Sbu · Social · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu · Social · %@"
+          }
+        }
+      }
+    },
+    "Scegli le app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose apps"
+          }
+        }
+      }
+    },
+    "Scegli le app da schermare: le apri qui, senza video brevi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the apps to shield: you open them here, without short videos."
+          }
+        }
+      }
+    },
+    "Scegli prima le app in Blocco: di notte si chiudono da sole." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First choose the apps in Block: at night they close by themselves."
+          }
+        }
+      }
+    },
+    "Scegli quando dormi: i social si chiudono da soli." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose when you sleep: social apps close by themselves."
+          }
+        }
+      }
+    },
+    "Schermo attivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shield on"
+          }
+        }
+      }
+    },
+    "Schermo tornato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shield back"
+          }
+        }
+      }
+    },
+    "Sonno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep"
+          }
+        }
+      }
+    },
+    "Sonno attivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep on"
+          }
+        }
+      }
+    },
+    "Statistiche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stats"
+          }
+        }
+      }
+    },
+    "Sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wake up"
+          }
+        }
+      }
+    },
+    "Termina il focus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End focus"
+          }
+        }
+      }
+    },
+    "Tocca per aprire i social senza video brevi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to open your social apps without short videos."
+          }
+        }
+      }
+    },
+    "Togli" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        }
+      }
+    },
+    "Togli gli annunci" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove ads"
+          }
+        }
+      }
+    },
+    "Togli questo account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove this account"
+          }
+        }
+      }
+    },
+    "Togliere l'account %lld?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove account %lld?"
+          }
+        }
+      }
+    },
+    "Tra 30 minuti è ora di dormire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedtime in 30 minutes"
+          }
+        }
+      }
+    },
+    "app schermate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "apps shielded"
+          }
+        }
+      }
+    },
+    "di notte senza social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of night without social apps"
+          }
+        }
+      }
+    },
+    "di notte, se attivi il Sonno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of night, if you turn on Sleep"
+          }
+        }
+      }
+    },
+    "minuti al giorno, ultimi 7 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "minutes a day, last 7 days"
+          }
+        }
+      }
+    },
+    "minuti oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "minutes today"
+          }
+        }
+      }
+    },
+    "minuti oggi, su %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "minutes today, of %lld"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

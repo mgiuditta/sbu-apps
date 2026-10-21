@@ -4,7 +4,8 @@ import Foundation
 /// change only with an app update (ADR-0018). The route guard script applies the same rules to
 /// the site's own navigation.
 nonisolated struct PlatformRules: Codable, Hashable {
-    /// The site and its CDNs: the browser loads nothing else in the main frame.
+    /// The sites whose pages the browser opens, with their subdomains. Images, videos and scripts
+    /// from CDNs load inside those pages; as a page of their own, anything else opens in Safari.
     var hosts: [String] = []
     /// Paths never opened, such as `/reels/` and `/explore/`.
     var blockedPaths: [String] = []
@@ -13,12 +14,16 @@ nonisolated struct PlatformRules: Codable, Hashable {
     var singlePaths: [String] = []
     /// A bare path sent elsewhere, such as Instagram's home to the feed of the people you follow.
     var redirects: [String: String] = [:]
+    /// A path prefix replaced by another, keeping the rest: `/shorts/ID` becomes `/watch?v=ID`.
+    var rewrites: [String: String] = [:]
     /// Hidden as soon as the page starts, before it is drawn.
     var css = ""
     /// Posts whose text carries one of these labels are hidden, such as "Sponsorizzato".
     var hiddenLabels: [String] = []
     /// The elements checked for `hiddenLabels`.
     var labelContainer = "article"
+    /// A bundled `.js` file with the Platform's own behaviour, such as YouTube's ad removal; `nil` for none.
+    var script: String?
 
     /// Every Platform's rules, read once from the app bundle.
     static let all: [Platform: PlatformRules] = {
@@ -42,9 +47,19 @@ nonisolated struct PlatformRules: Codable, Hashable {
         return singlePaths.contains { current.hasPrefix($0) && path.hasPrefix($0) && path != current }
     }
 
-    /// Where a URL goes instead, when its bare path has a redirect.
+    /// Where a URL goes instead: a rewritten prefix, or the redirect of its bare path.
     func redirect(_ url: URL) -> URL? {
-        guard url.query == nil, let target = redirects[url.path.isEmpty ? "/" : url.path] else { return nil }
+        let path = url.path.isEmpty ? "/" : url.path
+        if let (prefix, target) = rewrites.first(where: { path.hasPrefix($0.key) }) {
+            return URL(string: target + path.dropFirst(prefix.count), relativeTo: url)?.absoluteURL
+        }
+        guard url.query == nil, let target = redirects[path] else { return nil }
         return URL(string: target, relativeTo: url)?.absoluteURL
+    }
+
+    /// The source of `script`, read from the app bundle.
+    var scriptSource: String? {
+        script.flatMap { Bundle.main.url(forResource: $0, withExtension: "js") }
+            .flatMap { try? String(contentsOf: $0, encoding: .utf8) }
     }
 }

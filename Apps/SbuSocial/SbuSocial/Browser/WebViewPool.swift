@@ -60,6 +60,9 @@ final class WebViewPool: NSObject {
         let content = configuration.userContentController
         content.addUserScript(WKUserScript(source: GuardScript.css(rules), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         content.addUserScript(WKUserScript(source: GuardScript.guardSource(rules), injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        if let source = rules.scriptSource {
+            content.addUserScript(WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
         if let trackers { content.add(trackers) }
         return configuration
     }
@@ -98,7 +101,7 @@ extension WebViewPool: WKUIDelegate {
     /// Links meant for a new window open in the same web view, or in Safari when they leave the Platform.
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
                  for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        if let url = action.request.url {
+        if let url = action.request.url, url.scheme == "https" || url.scheme == "http" {
             if let platform = platforms[ObjectIdentifier(webView)], platform.rules.allows(host: url.host()) {
                 webView.load(action.request)
             } else {

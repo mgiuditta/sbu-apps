@@ -12,7 +12,7 @@ struct PlatformRulesTests {
     }
 
     @Test(arguments: [
-        ("www.instagram.com", true), ("instagram.com", true), ("scontent.cdninstagram.com", true),
+        ("www.instagram.com", true), ("instagram.com", true), ("scontent.cdninstagram.com", false),
         ("notinstagram.com", false), ("example.com", false),
     ])
     func instagramLoadsOnlyItsHosts(host: String, allowed: Bool) {
@@ -37,5 +37,33 @@ struct PlatformRulesTests {
         #expect(instagram.redirect(home)?.absoluteString == "https://www.instagram.com/?variant=following")
         let following = try #require(URL(string: "https://www.instagram.com/?variant=following"))
         #expect(instagram.redirect(following) == nil)
+    }
+}
+
+struct YouTubeRulesTests {
+    private let youtube = Platform.youtube.rules
+
+    @Test(arguments: [
+        ("https://m.youtube.com/shorts/abc123", "https://m.youtube.com/watch?v=abc123"),
+        ("https://m.youtube.com/shorts/xyz?feature=share", "https://m.youtube.com/watch?v=xyz"),
+    ])
+    func shortsOpenAsVideos(from: String, to: String) throws {
+        let url = try #require(URL(string: from))
+        #expect(youtube.redirect(url)?.absoluteString == to)
+    }
+
+    @Test func aVideoStaysWhereItIs() throws {
+        let url = try #require(URL(string: "https://m.youtube.com/watch?v=abc123"))
+        #expect(youtube.redirect(url) == nil)
+    }
+
+    @Test(arguments: [("/feed/trending", true), ("/feed/subscriptions", false), ("/results", false)])
+    func trendingIsClosed(path: String, blocked: Bool) {
+        #expect(youtube.blocks(path: path, from: "/") == blocked)
+    }
+
+    @Test(arguments: [("m.youtube.com", true), ("accounts.google.com", true), ("www.google.com", false), ("i.ytimg.com", false)])
+    func pagesOpenOnlyOnYouTubeAndGoogleSignIn(host: String, allowed: Bool) {
+        #expect(youtube.allows(host: host) == allowed)
     }
 }

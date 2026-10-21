@@ -1,20 +1,48 @@
 {
   "instagram": {
-    "hosts": ["instagram.com", "cdninstagram.com", "fbcdn.net", "facebook.com", "fbsbx.com"],
-    "blockedPaths": ["/reels/", "/explore/"],
-    "singlePaths": ["/reel/"],
-    "redirects": { "/": "/?variant=following" },
+    "hosts": [
+      "instagram.com",
+      "facebook.com"
+    ],
+    "blockedPaths": [
+      "/reels/",
+      "/explore/"
+    ],
+    "singlePaths": [
+      "/reel/"
+    ],
+    "redirects": {
+      "/": "/?variant=following"
+    },
     "css": "a[href='/reels/'], a[href^='/explore'], a[href*='/live/'] { display: none !important; }",
-    "hiddenLabels": ["Sponsorizzato", "Sponsored", "Suggeriti per te", "Suggested for you", "Post suggeriti", "Suggested posts"],
-    "labelContainer": "article"
+    "hiddenLabels": [
+      "Sponsorizzato",
+      "Sponsored",
+      "Suggeriti per te",
+      "Suggested for you",
+      "Post suggeriti",
+      "Suggested posts"
+    ],
+    "labelContainer": "article",
+    "rewrites": {}
   },
   "youtube": {
-    "hosts": ["youtube.com", "ytimg.com", "googlevideo.com", "ggpht.com", "googleusercontent.com", "accounts.google.com"],
-    "blockedPaths": [],
+    "hosts": [
+      "youtube.com",
+      "accounts.google.com"
+    ],
+    "blockedPaths": [
+      "/feed/explore",
+      "/feed/trending"
+    ],
     "singlePaths": [],
     "redirects": {},
-    "css": "",
+    "rewrites": {
+      "/shorts/": "/watch?v="
+    },
+    "css": "ytm-reel-shelf-renderer, ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2, ytm-pivot-bar-item-renderer:has(.pivot-shorts), ytm-pivot-bar-item-renderer:has([class*='shorts']), ytm-rich-section-renderer, ytm-item-section-renderer[section-identifier='related-items'], ytm-watch-next-secondary-results-renderer, ytm-single-column-watch-next-results-renderer ytm-item-section-renderer:not(:first-child), ytm-promoted-sparkles-web-renderer, ytm-companion-ad-renderer, ytm-promoted-video-renderer, ytm-ad-slot-renderer, ad-slot-renderer, .video-ads, .ytp-ad-module { display: none !important; } html.sbu-home ytm-rich-grid-renderer, html.sbu-home ytm-rich-item-renderer, html.sbu-home ytm-feed-filter-chip-bar-renderer { display: none !important; }",
     "hiddenLabels": [],
-    "labelContainer": "article"
+    "labelContainer": "article",
+    "script": "youtube"
   }
 }

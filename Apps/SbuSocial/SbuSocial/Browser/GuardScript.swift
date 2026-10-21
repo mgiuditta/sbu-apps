@@ -25,7 +25,12 @@ nonisolated enum GuardScript {
           const blocks = (path, current) =>
             R.blocked.some(b => path.startsWith(b)) ||
             R.single.some(s => current.startsWith(s) && path.startsWith(s) && path !== current);
-          const redirect = (url) => (url.search === '' && R.redirects[url.pathname]) || null;
+          const redirect = (url) => {
+            for (const [prefix, target] of Object.entries(R.rewrites)) {
+              if (url.pathname.startsWith(prefix)) return target + url.pathname.slice(prefix.length);
+            }
+            return (url.search === '' && R.redirects[url.pathname]) || null;
+          };
 
           for (const name of ['pushState', 'replaceState']) {
             const original = history[name];
@@ -85,6 +90,7 @@ nonisolated enum GuardScript {
         let blocked: [String]
         let single: [String]
         let redirects: [String: String]
+        let rewrites: [String: String]
         let labels: [String]
         let container: String
 
@@ -92,6 +98,7 @@ nonisolated enum GuardScript {
             blocked = rules.blockedPaths
             single = rules.singlePaths
             redirects = rules.redirects
+            rewrites = rules.rewrites
             labels = rules.hiddenLabels
             container = rules.labelContainer
         }

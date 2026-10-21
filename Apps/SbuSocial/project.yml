@@ -26,6 +26,13 @@ targets:
       - target: SbuSocialShieldConfiguration
       - target: SbuSocialShieldAction
       - target: SbuSocialMonitor
+    info:
+      path: SbuSocial/Info.plist
+      properties:
+        # YouTube keeps playing when you leave the app, as in SocialLite.
+        UIBackgroundModes: [audio]
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
     entitlements:
       path: SbuSocial/SbuSocial.entitlements
       properties:

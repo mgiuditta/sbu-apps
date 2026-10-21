@@ -1,0 +1,106 @@
+{
+  "sourceLanguage" : "it",
+  "strings" : {
+    "Apri un social: qui conti i minuti di oggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a social app: today's minutes add up here."
+          }
+        }
+      }
+    },
+    "Blocco" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block"
+          }
+        }
+      }
+    },
+    "Home" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "Qui vedi i tuoi minuti degli ultimi 7 giorni." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here you see your minutes over the last 7 days."
+          }
+        }
+      }
+    },
+    "Sbu Social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Social"
+          }
+        }
+      }
+    },
+    "Sbu · Social · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu · Social · %@"
+          }
+        }
+      }
+    },
+    "Scegli le app da schermare: le apri qui, senza video brevi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the apps to shield: you open them here, without short videos."
+          }
+        }
+      }
+    },
+    "Scegli quando dormi: i social si chiudono da soli." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose when you sleep: social apps close by themselves."
+          }
+        }
+      }
+    },
+    "Sonno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep"
+          }
+        }
+      }
+    },
+    "Statistiche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stats"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

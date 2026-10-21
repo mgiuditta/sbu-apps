@@ -192,7 +192,7 @@ def main() -> None:
     ]
     for token in colors:
         lines.append(f"    /// {token['usage']}")
-        lines.append(f"    static let {camel(token['name'])} = Color(\"{token['name']}\", bundle: .module)")
+        lines.append(f"    nonisolated static let {camel(token['name'])} = Color(\"{token['name']}\", bundle: .module)")
     lines += [
         "",
         "    /// `surface` is `paper` since v5.",
@@ -203,7 +203,7 @@ def main() -> None:
         lines += ["", f"    // MARK: - {title}", ""]
         for token in group:
             lines.append(f"    /// {token['usage']}")
-            lines.append(f"    static let {camel(token['name'])}: CGFloat = {number(token['value'])}")
+            lines.append(f"    nonisolated static let {camel(token['name'])}: CGFloat = {number(token['value'])}")
     lines += ["}", "", "public extension SbuAccent {"]
     names = {t["name"] for t in colors}
     for token in colors:

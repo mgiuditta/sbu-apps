@@ -6,169 +6,169 @@ public extension SbuTheme {
     // MARK: - Color
 
     /// Carta: fondo di ogni schermata, schermata strumento compresa. Sulle aree carta porta il reticolo (`grid`). Neutro caldo, stessa tinta del nero del logo.
-    static let paper = Color("paper", bundle: .module)
+    nonisolated static let paper = Color("paper", bundle: .module)
     /// Card di lista (`SbuListCard`, bordo 1px `line`), righe, sheet. Sempre su `paper`, mai card dentro card.
-    static let surfaceRaised = Color("surface-raised", bundle: .module)
+    nonisolated static let surfaceRaised = Color("surface-raised", bundle: .module)
     /// Campi di input e zone disabilitate. In dark è più scuro di `paper`.
-    static let surfaceSunken = Color("surface-sunken", bundle: .module)
+    nonisolated static let surfaceSunken = Color("surface-sunken", bundle: .module)
     /// Testo primario, cifre, icone, controlli (tint) e il blocco d'inchiostro della Chiusura. In light è il nero caldo del logo (#0A0A00).
-    static let ink = Color("ink", bundle: .module)
+    nonisolated static let ink = Color("ink", bundle: .module)
     /// Testo secondario, unità, caption, cartiglio e il punto fermo `waiting`. Mai per la cifra.
-    static let inkMuted = Color("ink-muted", bundle: .module)
+    nonisolated static let inkMuted = Color("ink-muted", bundle: .module)
     /// Separatori di lista, bordo 1px delle card, pista spenta del toggle.
-    static let line = Color("line", bundle: .module)
+    nonisolated static let line = Color("line", bundle: .module)
     /// Linee del reticolo da una cella (24 pt) sulle aree carta. Texture, non testo: nessun contrasto promesso.
-    static let grid = Color("grid", bundle: .module)
+    nonisolated static let grid = Color("grid", bundle: .module)
     /// Il colore di Sbu è il nero caldo del logo. Logo, footer 'parte di sbu.dev', splash, link e tint di sbu.dev. Nelle app il tint è l'`accent` dell'app.
-    static let brand = Color("brand", bundle: .module)
+    nonisolated static let brand = Color("brand", bundle: .module)
     /// Testo e glifi sopra `brand`.
-    static let onBrand = Color("on-brand", bundle: .module)
+    nonisolated static let onBrand = Color("on-brand", bundle: .module)
     /// Accento di Sbu Subscriptions: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentSubscriptions = Color("accent-subscriptions", bundle: .module)
+    nonisolated static let accentSubscriptions = Color("accent-subscriptions", bundle: .module)
     /// Accento di Sbu Scanner: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentScanner = Color("accent-scanner", bundle: .module)
+    nonisolated static let accentScanner = Color("accent-scanner", bundle: .module)
     /// Accento di Sbu Level: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentLevel = Color("accent-level", bundle: .module)
+    nonisolated static let accentLevel = Color("accent-level", bundle: .module)
     /// Accento di Sbu Noise: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentNoise = Color("accent-noise", bundle: .module)
+    nonisolated static let accentNoise = Color("accent-noise", bundle: .module)
     /// Accento di Sbu Docs: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentDocs = Color("accent-docs", bundle: .module)
+    nonisolated static let accentDocs = Color("accent-docs", bundle: .module)
     /// Accento di Sbu Habits: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentHabits = Color("accent-habits", bundle: .module)
+    nonisolated static let accentHabits = Color("accent-habits", bundle: .module)
     /// Accento di Sbu Cards: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentCards = Color("accent-cards", bundle: .module)
+    nonisolated static let accentCards = Color("accent-cards", bundle: .module)
     /// Accento di Sbu Libretto: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentLibretto = Color("accent-libretto", bundle: .module)
+    nonisolated static let accentLibretto = Color("accent-libretto", bundle: .module)
     /// Accento di Sbu Dark: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentDark = Color("accent-dark", bundle: .module)
+    nonisolated static let accentDark = Color("accent-dark", bundle: .module)
     /// Accento di Sbu Speed: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentSpeed = Color("accent-speed", bundle: .module)
+    nonisolated static let accentSpeed = Color("accent-speed", bundle: .module)
     /// Accento di Sbu Moon: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentMoon = Color("accent-moon", bundle: .module)
+    nonisolated static let accentMoon = Color("accent-moon", bundle: .module)
     /// Accento di Sbu Clean: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentClean = Color("accent-clean", bundle: .module)
+    nonisolated static let accentClean = Color("accent-clean", bundle: .module)
     /// Accento di Sbu Authenticator: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentAuthenticator = Color("accent-authenticator", bundle: .module)
+    nonisolated static let accentAuthenticator = Color("accent-authenticator", bundle: .module)
     /// Accento di Sbu Meds: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentMeds = Color("accent-meds", bundle: .module)
+    nonisolated static let accentMeds = Color("accent-meds", bundle: .module)
     /// Accento di Sbu Shrink: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentShrink = Color("accent-shrink", bundle: .module)
+    nonisolated static let accentShrink = Color("accent-shrink", bundle: .module)
     /// Accento di Sbu Find: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentFind = Color("accent-find", bundle: .module)
+    nonisolated static let accentFind = Color("accent-find", bundle: .module)
     /// Accento di Sbu Remote: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentRemote = Color("accent-remote", bundle: .module)
+    nonisolated static let accentRemote = Color("accent-remote", bundle: .module)
     /// Accento di Sbu Grid: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentGrid = Color("accent-grid", bundle: .module)
+    nonisolated static let accentGrid = Color("accent-grid", bundle: .module)
     /// Accento di Sbu Cycle: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentCycle = Color("accent-cycle", bundle: .module)
+    nonisolated static let accentCycle = Color("accent-cycle", bundle: .module)
     /// Accento di Sbu Steps: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentSteps = Color("accent-steps", bundle: .module)
+    nonisolated static let accentSteps = Color("accent-steps", bundle: .module)
     /// Accento di Sbu Chats: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentChats = Color("accent-chats", bundle: .module)
+    nonisolated static let accentChats = Color("accent-chats", bundle: .module)
     /// Accento di Sbu Inventory: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentInventory = Color("accent-inventory", bundle: .module)
+    nonisolated static let accentInventory = Color("accent-inventory", bundle: .module)
     /// Accento di Sbu Fuel: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentFuel = Color("accent-fuel", bundle: .module)
+    nonisolated static let accentFuel = Color("accent-fuel", bundle: .module)
     /// Accento di Sbu Tidy: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentTidy = Color("accent-tidy", bundle: .module)
+    nonisolated static let accentTidy = Color("accent-tidy", bundle: .module)
     /// Accento di Sbu Cast: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentCast = Color("accent-cast", bundle: .module)
+    nonisolated static let accentCast = Color("accent-cast", bundle: .module)
     /// Accento di Sbu Image: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentImage = Color("accent-image", bundle: .module)
+    nonisolated static let accentImage = Color("accent-image", bundle: .module)
     /// Accento di Sbu Gif: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentGif = Color("accent-gif", bundle: .module)
+    nonisolated static let accentGif = Color("accent-gif", bundle: .module)
     /// Accento di Sbu Tags: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentTags = Color("accent-tags", bundle: .module)
+    nonisolated static let accentTags = Color("accent-tags", bundle: .module)
     /// Accento di Sbu Knit: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentKnit = Color("accent-knit", bundle: .module)
+    nonisolated static let accentKnit = Color("accent-knit", bundle: .module)
     /// Accento di Sbu Chores: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentChores = Color("accent-chores", bundle: .module)
+    nonisolated static let accentChores = Color("accent-chores", bundle: .module)
     /// Accento di Sbu Reader: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentReader = Color("accent-reader", bundle: .module)
+    nonisolated static let accentReader = Color("accent-reader", bundle: .module)
     /// Accento di Sbu Exposure: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentExposure = Color("accent-exposure", bundle: .module)
+    nonisolated static let accentExposure = Color("accent-exposure", bundle: .module)
     /// Accento di Sbu Squares: solo il punto fermo `set` (il record battuto) e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentSquares = Color("accent-squares", bundle: .module)
+    nonisolated static let accentSquares = Color("accent-squares", bundle: .module)
     /// Accento di Sbu Social: solo il punto fermo `set` e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
-    static let accentSocial = Color("accent-social", bundle: .module)
+    nonisolated static let accentSocial = Color("accent-social", bundle: .module)
     /// Punto fermo di Sbu Subscriptions dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkSubscriptions = Color("accent-on-ink-subscriptions", bundle: .module)
+    nonisolated static let accentOnInkSubscriptions = Color("accent-on-ink-subscriptions", bundle: .module)
     /// Punto fermo di Sbu Scanner dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkScanner = Color("accent-on-ink-scanner", bundle: .module)
+    nonisolated static let accentOnInkScanner = Color("accent-on-ink-scanner", bundle: .module)
     /// Punto fermo di Sbu Level dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkLevel = Color("accent-on-ink-level", bundle: .module)
+    nonisolated static let accentOnInkLevel = Color("accent-on-ink-level", bundle: .module)
     /// Punto fermo di Sbu Noise dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkNoise = Color("accent-on-ink-noise", bundle: .module)
+    nonisolated static let accentOnInkNoise = Color("accent-on-ink-noise", bundle: .module)
     /// Punto fermo di Sbu Docs dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkDocs = Color("accent-on-ink-docs", bundle: .module)
+    nonisolated static let accentOnInkDocs = Color("accent-on-ink-docs", bundle: .module)
     /// Punto fermo di Sbu Habits dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkHabits = Color("accent-on-ink-habits", bundle: .module)
+    nonisolated static let accentOnInkHabits = Color("accent-on-ink-habits", bundle: .module)
     /// Punto fermo di Sbu Cards dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkCards = Color("accent-on-ink-cards", bundle: .module)
+    nonisolated static let accentOnInkCards = Color("accent-on-ink-cards", bundle: .module)
     /// Punto fermo di Sbu Libretto dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkLibretto = Color("accent-on-ink-libretto", bundle: .module)
+    nonisolated static let accentOnInkLibretto = Color("accent-on-ink-libretto", bundle: .module)
     /// Punto fermo di Sbu Dark dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkDark = Color("accent-on-ink-dark", bundle: .module)
+    nonisolated static let accentOnInkDark = Color("accent-on-ink-dark", bundle: .module)
     /// Punto fermo di Sbu Speed dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkSpeed = Color("accent-on-ink-speed", bundle: .module)
+    nonisolated static let accentOnInkSpeed = Color("accent-on-ink-speed", bundle: .module)
     /// Punto fermo di Sbu Moon dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkMoon = Color("accent-on-ink-moon", bundle: .module)
+    nonisolated static let accentOnInkMoon = Color("accent-on-ink-moon", bundle: .module)
     /// Punto fermo di Sbu Clean dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkClean = Color("accent-on-ink-clean", bundle: .module)
+    nonisolated static let accentOnInkClean = Color("accent-on-ink-clean", bundle: .module)
     /// Punto fermo di Sbu Authenticator dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkAuthenticator = Color("accent-on-ink-authenticator", bundle: .module)
+    nonisolated static let accentOnInkAuthenticator = Color("accent-on-ink-authenticator", bundle: .module)
     /// Punto fermo di Sbu Meds dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkMeds = Color("accent-on-ink-meds", bundle: .module)
+    nonisolated static let accentOnInkMeds = Color("accent-on-ink-meds", bundle: .module)
     /// Punto fermo di Sbu Shrink dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkShrink = Color("accent-on-ink-shrink", bundle: .module)
+    nonisolated static let accentOnInkShrink = Color("accent-on-ink-shrink", bundle: .module)
     /// Punto fermo di Sbu Find dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkFind = Color("accent-on-ink-find", bundle: .module)
+    nonisolated static let accentOnInkFind = Color("accent-on-ink-find", bundle: .module)
     /// Punto fermo di Sbu Remote dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkRemote = Color("accent-on-ink-remote", bundle: .module)
+    nonisolated static let accentOnInkRemote = Color("accent-on-ink-remote", bundle: .module)
     /// Punto fermo di Sbu Grid dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkGrid = Color("accent-on-ink-grid", bundle: .module)
+    nonisolated static let accentOnInkGrid = Color("accent-on-ink-grid", bundle: .module)
     /// Punto fermo di Sbu Cycle dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkCycle = Color("accent-on-ink-cycle", bundle: .module)
+    nonisolated static let accentOnInkCycle = Color("accent-on-ink-cycle", bundle: .module)
     /// Punto fermo di Sbu Steps dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkSteps = Color("accent-on-ink-steps", bundle: .module)
+    nonisolated static let accentOnInkSteps = Color("accent-on-ink-steps", bundle: .module)
     /// Punto fermo di Sbu Chats dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkChats = Color("accent-on-ink-chats", bundle: .module)
+    nonisolated static let accentOnInkChats = Color("accent-on-ink-chats", bundle: .module)
     /// Punto fermo di Sbu Inventory dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkInventory = Color("accent-on-ink-inventory", bundle: .module)
+    nonisolated static let accentOnInkInventory = Color("accent-on-ink-inventory", bundle: .module)
     /// Punto fermo di Sbu Fuel dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkFuel = Color("accent-on-ink-fuel", bundle: .module)
+    nonisolated static let accentOnInkFuel = Color("accent-on-ink-fuel", bundle: .module)
     /// Punto fermo di Sbu Tidy dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkTidy = Color("accent-on-ink-tidy", bundle: .module)
+    nonisolated static let accentOnInkTidy = Color("accent-on-ink-tidy", bundle: .module)
     /// Punto fermo di Sbu Cast dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkCast = Color("accent-on-ink-cast", bundle: .module)
+    nonisolated static let accentOnInkCast = Color("accent-on-ink-cast", bundle: .module)
     /// Punto fermo di Sbu Image dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkImage = Color("accent-on-ink-image", bundle: .module)
+    nonisolated static let accentOnInkImage = Color("accent-on-ink-image", bundle: .module)
     /// Punto fermo di Sbu Gif dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkGif = Color("accent-on-ink-gif", bundle: .module)
+    nonisolated static let accentOnInkGif = Color("accent-on-ink-gif", bundle: .module)
     /// Punto fermo di Sbu Tags dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkTags = Color("accent-on-ink-tags", bundle: .module)
+    nonisolated static let accentOnInkTags = Color("accent-on-ink-tags", bundle: .module)
     /// Punto fermo di Sbu Knit dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkKnit = Color("accent-on-ink-knit", bundle: .module)
+    nonisolated static let accentOnInkKnit = Color("accent-on-ink-knit", bundle: .module)
     /// Punto fermo di Sbu Chores dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkChores = Color("accent-on-ink-chores", bundle: .module)
+    nonisolated static let accentOnInkChores = Color("accent-on-ink-chores", bundle: .module)
     /// Punto fermo di Sbu Reader dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkReader = Color("accent-on-ink-reader", bundle: .module)
+    nonisolated static let accentOnInkReader = Color("accent-on-ink-reader", bundle: .module)
     /// Punto fermo di Sbu Exposure dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkExposure = Color("accent-on-ink-exposure", bundle: .module)
+    nonisolated static let accentOnInkExposure = Color("accent-on-ink-exposure", bundle: .module)
     /// Punto fermo di Sbu Squares dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkSquares = Color("accent-on-ink-squares", bundle: .module)
+    nonisolated static let accentOnInkSquares = Color("accent-on-ink-squares", bundle: .module)
     /// Punto fermo di Sbu Social dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
-    static let accentOnInkSocial = Color("accent-on-ink-social", bundle: .module)
+    nonisolated static let accentOnInkSocial = Color("accent-on-ink-social", bundle: .module)
     /// Testo sopra un accento: solo marketing e icone. Nelle app nessun testo sta su un accento (tint in `ink`).
-    static let onAccent = Color("on-accent", bundle: .module)
+    nonisolated static let onAccent = Color("on-accent", bundle: .module)
     /// Stato positivo: abitudine completata, calibrazione riuscita. Sempre con una parola o un SF Symbol.
-    static let success = Color("success", bundle: .module)
+    nonisolated static let success = Color("success", bundle: .module)
     /// Attenzione: sensore non calibrato, promemoria scaduto. Sempre con una parola o un SF Symbol.
-    static let warning = Color("warning", bundle: .module)
+    nonisolated static let warning = Color("warning", bundle: .module)
     /// Azione distruttiva (elimina, azzera) ed errore. Sempre con una parola o un SF Symbol, e conferma.
-    static let danger = Color("danger", bundle: .module)
+    nonisolated static let danger = Color("danger", bundle: .module)
     /// Anello di focus 2px per tastiera / Full Keyboard Access.
-    static let focus = Color("focus", bundle: .module)
+    nonisolated static let focus = Color("focus", bundle: .module)
 
     /// `surface` is `paper` since v5.
     @available(*, deprecated, renamed: "paper")
@@ -177,146 +177,146 @@ public extension SbuTheme {
     // MARK: - Spacing
 
     /// Tra icona e testo in un badge; tra label e cifra.
-    static let space1: CGFloat = 4
+    nonisolated static let space1: CGFloat = 4
     /// Tra righe di testo in una cella; gap interno dei chip.
-    static let space2: CGFloat = 8
+    nonisolated static let space2: CGFloat = 8
     /// Padding verticale di una riga di lista.
-    static let space3: CGFloat = 12
+    nonisolated static let space3: CGFloat = 12
     /// Margine laterale di schermata, padding delle card. Il valore di default.
-    static let space4: CGFloat = 16
+    nonisolated static let space4: CGFloat = 16
     /// Tra una card e la successiva.
-    static let space5: CGFloat = 20
+    nonisolated static let space5: CGFloat = 20
     /// Tra sezioni; sotto un `large-title`.
-    static let space6: CGFloat = 24
+    nonisolated static let space6: CGFloat = 24
     /// Sopra e sotto una `stat`; padding dell'hero di onboarding.
-    static let space8: CGFloat = 32
+    nonisolated static let space8: CGFloat = 32
     /// Respiro degli screenshot marketing e della landing.
-    static let space12: CGFloat = 48
+    nonisolated static let space12: CGFloat = 48
 
     // MARK: - Radius
 
     /// Chip, badge, thumbnail piccole.
-    static let radiusSm: CGFloat = 6
+    nonisolated static let radiusSm: CGFloat = 6
     /// Input, segmented control, bottone compatto.
-    static let radiusMd: CGFloat = 10
+    nonisolated static let radiusMd: CGFloat = 10
     /// Quello che disegna il sistema (`.insetGrouped`). Nelle viste Sbu usa `radius-card`.
-    static let radiusLg: CGFloat = 14
+    nonisolated static let radiusLg: CGFloat = 14
     /// Sheet, hero di onboarding, immagine screenshot.
-    static let radiusXl: CGFloat = 20
+    nonisolated static let radiusXl: CGFloat = 20
     /// Solo marketing (FreeBadge del sito). Nelle app i controlli sono quadrati.
-    static let radiusPill: CGFloat = 999
+    nonisolated static let radiusPill: CGFloat = 999
     /// Raggio dell'icona app rispetto al lato (superellisse iOS ≈ 230/1024). Usato solo per rappresentare l'icona in marketing e nel componente AppIcon.
-    static let radiusIcon: CGFloat = 0.225
+    nonisolated static let radiusIcon: CGFloat = 0.225
     /// Default: card di lista e bottoni.
-    static let radiusCard: CGFloat = 6
+    nonisolated static let radiusCard: CGFloat = 6
     /// Pista del toggle.
-    static let radiusControl: CGFloat = 4
+    nonisolated static let radiusControl: CGFloat = 4
     /// Pomello del toggle.
-    static let radiusKnob: CGFloat = 2
+    nonisolated static let radiusKnob: CGFloat = 2
     /// Checkbox (`SbuCheckboxStyle`).
-    static let radiusCheckbox: CGFloat = 3
+    nonisolated static let radiusCheckbox: CGFloat = 3
     /// Blocco d'inchiostro della Chiusura.
-    static let radiusClosure: CGFloat = 14
+    nonisolated static let radiusClosure: CGFloat = 14
     /// Fogli; il resto di 10/14/20 solo per quello che disegna il sistema.
-    static let radiusSheet: CGFloat = 20
+    nonisolated static let radiusSheet: CGFloat = 20
 
     // MARK: - Stroke
 
     /// Separatori di lista in `line`.
-    static let hairline: CGFloat = 1
+    nonisolated static let hairline: CGFloat = 1
     /// Bordo della checkbox in `ink`.
-    static let checkboxStroke: CGFloat = 1.8
+    nonisolated static let checkboxStroke: CGFloat = 1.8
     /// Bordo del marcatore di riga vuoto.
-    static let rowMarkStroke: CGFloat = 1.6
+    nonisolated static let rowMarkStroke: CGFloat = 1.6
 
     // MARK: - Size
 
     /// Il lato più piccolo a cui si disegna il play sull'anello di Sbu Habits, sugli anelli piccoli (iPhone SE). Solo il disegno: l'area di tocco resta control-round-sm.
-    static let controlRoundXs: CGFloat = 24
+    nonisolated static let controlRoundXs: CGFloat = 24
     /// Bottone tondo più piccolo, il minimo che si tocca: il play sull'anello della home di Sbu Habits.
-    static let controlRoundSm: CGFloat = 44
+    nonisolated static let controlRoundSm: CGFloat = 44
     /// Bottone tondo secondario di una schermata a tutto schermo: Annulla, Segna fatta.
-    static let controlRound: CGFloat = 56
+    nonisolated static let controlRound: CGFloat = 56
     /// Il bottone tondo principale, pieno nell'accento: Pausa / Riprendi del Timer.
-    static let controlRoundLg: CGFloat = 84
+    nonisolated static let controlRoundLg: CGFloat = 84
 
     // MARK: - Mark
 
     /// Deprecato in v5 (resta per `SbuFullStop(fontSize:)` una release): usa `full-stop-*`. Il punto fermo: lato del quadrato rispetto alla dimensione del font della cifra o del titolo che chiude, alto come la x di Bricolage (0,525 em): si riconosce come il quadrato del logo. Sta sulla linea di base.
-    static let markSize: CGFloat = 0.52
+    nonisolated static let markSize: CGFloat = 0.52
     /// Deprecato in v5 (resta per `SbuFullStop(fontSize:)` una release): usa `full-stop-*`. Spazio tra l'ultimo carattere e il punto fermo, rispetto alla dimensione del font. Con il margine laterale della lettera, l'inchiostro dista un quarto del lato, come nel logo.
-    static let markGap: CGFloat = 0.09
+    nonisolated static let markGap: CGFloat = 0.09
 
     // MARK: - Grid
 
     /// Lato di una cella. Layout delle aree carta a multipli della cella.
-    static let gridCell: CGFloat = 24
+    nonisolated static let gridCell: CGFloat = 24
     /// Spessore delle linee del reticolo in `grid`.
-    static let gridLineWidth: CGFloat = 1
+    nonisolated static let gridLineWidth: CGFloat = 1
     /// Scarto orizzontale del reticolo: uguale al margine (`space-4`).
-    static let gridOffset: CGFloat = 16
+    nonisolated static let gridOffset: CGFloat = 16
 
     // MARK: - Full Stop
 
     /// Chiude la cifra hero: esattamente una cella.
-    static let fullStopHero: CGFloat = 24
+    nonisolated static let fullStopHero: CGFloat = 24
     /// Chiude la cifra dei widget e una parola della Chiusura inline.
-    static let fullStopInline: CGFloat = 16
+    nonisolated static let fullStopInline: CGFloat = 16
     /// Live Activity, Lock Screen, marcatori minimi.
-    static let fullStopMark: CGFloat = 10
+    nonisolated static let fullStopMark: CGFloat = 10
 
     // MARK: - Control
 
     /// Pista di `SbuToggleStyle`.
-    static let toggleWidth: CGFloat = 50
+    nonisolated static let toggleWidth: CGFloat = 50
     /// Pista di `SbuToggleStyle`.
-    static let toggleHeight: CGFloat = 28
+    nonisolated static let toggleHeight: CGFloat = 28
     /// Pomello quadrato.
-    static let toggleKnob: CGFloat = 22
+    nonisolated static let toggleKnob: CGFloat = 22
     /// Lato di `SbuCheckboxStyle`.
-    static let checkbox: CGFloat = 22
+    nonisolated static let checkbox: CGFloat = 22
     /// Marcatore di riga (`SbuRowMark`), pieno o vuoto.
-    static let rowMark: CGFloat = 10
+    nonisolated static let rowMark: CGFloat = 10
 
     // MARK: - Figure
 
     /// Cifra hero più piccola (6 celle).
-    static let figureHeroMin: CGFloat = 144
+    nonisolated static let figureHeroMin: CGFloat = 144
     /// Cifra hero più grande (9 celle).
-    static let figureHeroMax: CGFloat = 216
+    nonisolated static let figureHeroMax: CGFloat = 216
     /// Cifra dei widget.
-    static let figureWidget: CGFloat = 64
+    nonisolated static let figureWidget: CGFloat = 64
     /// Cifra delle Live Activity.
-    static let figureLive: CGFloat = 40
+    nonisolated static let figureLive: CGFloat = 40
     /// Asse wdth largo.
-    static let figureWidthMax: CGFloat = 100
+    nonisolated static let figureWidthMax: CGFloat = 100
     /// Asse wdth medio, anche per i titoli.
-    static let figureWidthMid: CGFloat = 87
+    nonisolated static let figureWidthMid: CGFloat = 87
     /// Asse wdth stretto: ultima istanza prima di ridurre.
-    static let figureWidthMin: CGFloat = 75
+    nonisolated static let figureWidthMin: CGFloat = 75
     /// Titolo di schermata.
-    static let titleSize: CGFloat = 34
+    nonisolated static let titleSize: CGFloat = 34
     /// Cartiglio.
-    static let cartiglioSize: CGFloat = 11
+    nonisolated static let cartiglioSize: CGFloat = 11
     /// Tracking del cartiglio rispetto alla dimensione (0,1 em).
-    static let cartiglioTracking: CGFloat = 0.1
+    nonisolated static let cartiglioTracking: CGFloat = 0.1
 
     // MARK: - Motion
 
     /// easeOut: battito del punto, cella che si chiude sul sito.
-    static let motionShort: CGFloat = 0.18
+    nonisolated static let motionShort: CGFloat = 0.18
     /// easeInOut: cambio di cifra (`.numericText()`).
-    static let motionBase: CGFloat = 0.32
+    nonisolated static let motionBase: CGFloat = 0.32
     /// Molla del punto fermo che arriva dal basso.
-    static let motionSpringResponse: CGFloat = 0.42
+    nonisolated static let motionSpringResponse: CGFloat = 0.42
     /// Smorzamento della molla.
-    static let motionSpringDamping: CGFloat = 0.82
+    nonisolated static let motionSpringDamping: CGFloat = 0.82
     /// Opacità minima del battito del punto (1 → 0,45 → 1).
-    static let motionBeatOpacity: CGFloat = 0.45
+    nonisolated static let motionBeatOpacity: CGFloat = 0.45
     /// Durata della Chiusura.
-    static let closureDuration: CGFloat = 2
+    nonisolated static let closureDuration: CGFloat = 2
     /// Una Live Activity con il punto `set` si chiude dopo questo tempo.
-    static let liveEndDelay: CGFloat = 4
+    nonisolated static let liveEndDelay: CGFloat = 4
 }
 
 public extension SbuAccent {

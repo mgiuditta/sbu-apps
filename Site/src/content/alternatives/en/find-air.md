@@ -3,10 +3,10 @@ app: find
 draft: false
 title: Free Find Air alternative to find your earbuds
 description: Sbu Find guides you to the earbuds or Bluetooth device you lost, with a percentage that rises as you get closer. Free, no weekly subscription, no account.
-checked: 2026-10-17
+checked: 2026-10-21
 facts:
   - { label: Download, originale: Free, sbu: Free }
-  - { label: Subscription, originale: "Air Apps One from 5,99 € a week, 79,99 € a year (Italian App Store)", sbu: None }
+  - { label: Subscription, originale: "Air Apps One from $3.99 to $9.99 a week, $69.99 a year (US App Store)", sbu: None }
   - { label: Hot and cold search over Bluetooth, originale: Yes, sbu: Yes }
   - { label: Plays a sound on connected earbuds, originale: Yes, sbu: Yes }
   - { label: Alert when one of your devices is left behind, originale: Yes, sbu: Yes }

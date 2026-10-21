@@ -12,7 +12,7 @@ Alternativa: `Show HN: A hot-and-cold Bluetooth finder for iPhone that doesn't l
 
 > Hi HN, I'm Matteo, a computer security student in Milan.
 >
-> The top "find my earbuds" apps on the App Store are free to download, then the search sits behind a subscription, in one case listed at up to $12.99 a week. The job itself is small: scan Bluetooth Low Energy, read the signal strength, tell you if you're getting warmer.
+> The top "find my earbuds" apps on the App Store are free to download, then the search sits behind a subscription, in one case listed at up to $9.99 a week. The job itself is small: scan Bluetooth Low Energy, read the signal strength, tell you if you're getting warmer.
 >
 > Sbu Find does that for free. It lists nearby devices with a signal ring; pick one and you get a filtered percentage that doesn't jump around, a word (Cold, Warm, Hot, Very close), and a tick that speeds up with a haptic, so you can search under the couch without looking. It can play a sound in headphones still connected to the phone, notify you when one of your devices goes quiet, show on a map where your phone last heard it, and keep the search on the Lock Screen and in the Dynamic Island.
 >

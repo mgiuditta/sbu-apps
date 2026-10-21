@@ -3,10 +3,10 @@ app: find
 draft: false
 title: Alternativa gratis a Find Air per ritrovare le cuffie
 description: Sbu Find ti guida verso le cuffie o il dispositivo Bluetooth che hai perso, con una percentuale che sale quando ti avvicini. Gratis, senza abbonamento settimanale e senza account.
-checked: 2026-10-17
+checked: 2026-10-21
 facts:
   - { label: Download, originale: Gratis, sbu: Gratis }
-  - { label: Abbonamento, originale: "Air Apps One da 5,99 € a settimana, 79,99 € l'anno", sbu: Nessuno }
+  - { label: Abbonamento, originale: "Air Apps One da 3,99 € a 8,99 € a settimana, 79,99 € l'anno", sbu: Nessuno }
   - { label: Ricerca caldo e freddo via Bluetooth, originale: Sì, sbu: Sì }
   - { label: Fa suonare le cuffie collegate, originale: Sì, sbu: Sì }
   - { label: Avviso quando un tuo dispositivo si allontana, originale: Sì, sbu: Sì }

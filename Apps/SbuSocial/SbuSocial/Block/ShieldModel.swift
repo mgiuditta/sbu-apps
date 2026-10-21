@@ -1,6 +1,9 @@
+import ActivityKit
+import DeviceActivity
 import FamilyControls
 import ManagedSettings
 import Observation
+import SbuKit
 import UserNotifications
 
 /// The Blocco tab's state: Screen Time permission, the chosen apps, and whether the Shield is on.
@@ -8,6 +11,8 @@ import UserNotifications
 final class ShieldModel {
     private(set) var settings: ShieldSettings
     private(set) var isAuthorized: Bool
+    /// When the running Modalità post ends; `nil` when the Shield is down only by your switch, or up.
+    private(set) var postModeEnd: Date?
 
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let store = ManagedSettingsStore(named: ShieldSettings.storeName)
@@ -16,6 +21,7 @@ final class ShieldModel {
         self.defaults = defaults
         settings = ShieldSettings.load(from: defaults)
         isAuthorized = AuthorizationCenter.shared.authorizationStatus == .approved
+        postModeEnd = PostMode.end(in: defaults)
     }
 
     /// Asks for Screen Time the first time you choose apps, never earlier.
@@ -39,6 +45,42 @@ final class ShieldModel {
         set {
             settings.isOn = newValue
             commit()
+        }
+    }
+
+    /// Lifts the Shield for 10 minutes, with the countdown on the Lock Screen and in the Dynamic Island.
+    func startPostMode(now: Date = .now) {
+        guard settings.isOn, postModeEnd == nil else { return }
+        let end = now.addingTimeInterval(PostMode.duration)
+        try? DeviceActivityCenter().startMonitoring(PostMode.activity, during: PostMode.schedule(from: now))
+        ShieldSettings().apply(to: store)
+        postModeEnd = end
+        PostMode.setEnd(end, in: defaults)
+        _ = try? Activity.request(attributes: PostModeAttributes(start: now, end: end),
+                                  content: .init(state: .init(), staleDate: end))
+    }
+
+    /// Brings the Shield back: when the 10 minutes are up, or early from the Blocco tab.
+    func endPostMode() {
+        DeviceActivityCenter().stopMonitoring([PostMode.activity])
+        postModeEnd = nil
+        PostMode.setEnd(nil, in: defaults)
+        settings.apply(to: store)
+        Task {
+            for activity in Activity<PostModeAttributes>.activities {
+                await activity.end(.init(state: .init(isOver: true), staleDate: nil), dismissalPolicy: .after(.now.addingTimeInterval(SbuTheme.liveEndDelay)))
+            }
+        }
+    }
+
+    /// When the app comes back: the monitor extension may have brought the Shield back already,
+    /// or iOS was late; either way the 10 minutes are over.
+    func refresh(now: Date = .now) {
+        postModeEnd = PostMode.end(in: defaults)
+        if let end = postModeEnd, end <= now {
+            endPostMode()
+        } else if postModeEnd == nil, !Activity<PostModeAttributes>.activities.isEmpty {
+            endPostMode()
         }
     }
 

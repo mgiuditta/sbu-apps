@@ -11,6 +11,8 @@ struct ShieldControls: View {
             Toggle("Schermo attivo", isOn: $shield.isOn)
                 .sbuAffectsFigure(shield.isOn)
             Divider()
+            PostModeRow(shield: shield)
+            Divider()
             Button("Cambia le app", action: pick)
         }
         .font(SbuTheme.body)

@@ -201,6 +201,26 @@
         }
       }
     },
+    "Modalità post" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post mode"
+          }
+        }
+      }
+    },
+    "Modalità post fino alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post mode until %@"
+          }
+        }
+      }
+    },
     "Nascosti: %lld" : {
       "localizations" : {
         "en" : {
@@ -231,12 +251,32 @@
         }
       }
     },
+    "Riattiva lo Schermo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn the Shield back on"
+          }
+        }
+      }
+    },
     "Ricarica" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reload"
+          }
+        }
+      }
+    },
+    "Sblocca le app per 10 minuti, per pubblicare." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlocks the apps for 10 minutes, to post."
           }
         }
       }
@@ -297,6 +337,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shield on"
+          }
+        }
+      }
+    },
+    "Schermo tornato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shield back"
           }
         }
       }

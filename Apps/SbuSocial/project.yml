@@ -26,6 +26,7 @@ targets:
       - target: SbuSocialShieldConfiguration
       - target: SbuSocialShieldAction
       - target: SbuSocialMonitor
+      - target: SbuSocialWidget
     info:
       path: SbuSocial/Info.plist
       properties:
@@ -45,6 +46,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.social
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Sbu Social
+        # Modalità post's countdown on the Lock Screen and in the Dynamic Island.
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
@@ -118,7 +121,7 @@ targets:
     # Runs when a Screen Time schedule starts or ends.
     type: app-extension
     platform: iOS
-    sources: [SbuSocialMonitor]
+    sources: [SbuSocialMonitor, Shared]
     entitlements:
       path: SbuSocialMonitor/SbuSocialMonitor.entitlements
       properties:
@@ -138,6 +141,31 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.social.deviceactivitymonitor
         TARGETED_DEVICE_FAMILY: "1"
+  SbuSocialWidget:
+    # Modalità post's Live Activity; the widget comes later.
+    type: app-extension
+    platform: iOS
+    sources:
+      - SbuSocialWidget
+      - Shared/PostModeAttributes.swift
+      - SbuSocial/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
+    info:
+      path: SbuSocialWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Sbu Social
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sbu.social.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
   SbuSocialTests:
     type: bundle.unit-test
     platform: iOS

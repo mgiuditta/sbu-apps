@@ -20,6 +20,11 @@ nonisolated enum GuardScript {
         """
     }
 
+    /// The options' switches for the Platform's own script, before it runs.
+    static func flags(_ rules: PlatformRules) -> String {
+        "window.sbuOptions = \(json(rules.flags));"
+    }
+
     static func guardSource(_ rules: PlatformRules) -> String {
         let config = json(GuardConfig(rules: rules))
         return """

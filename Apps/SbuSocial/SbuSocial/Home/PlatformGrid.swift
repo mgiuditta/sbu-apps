@@ -3,11 +3,15 @@ import SwiftUI
 
 /// One square per Platform, as many per row as fit.
 struct PlatformGrid: View {
+    let open: (Platform) -> Void
+
     var body: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: SbuTheme.gridCell * 5), spacing: SbuTheme.space3)],
                   spacing: SbuTheme.space3) {
             ForEach(Platform.allCases) { platform in
-                NavigationLink(value: platform) {
+                Button {
+                    open(platform)
+                } label: {
                     Text(verbatim: platform.name)
                         .font(SbuTheme.headline)
                         .foregroundStyle(SbuTheme.ink)
@@ -27,14 +31,14 @@ struct PlatformGrid: View {
 
 #Preview("Light") {
     NavigationStack {
-        PlatformGrid()
+        PlatformGrid { _ in }
             .padding()
     }
 }
 
 #Preview("Dark") {
     NavigationStack {
-        PlatformGrid()
+        PlatformGrid { _ in }
             .padding()
     }
     .preferredColorScheme(.dark)

@@ -4,12 +4,16 @@ import SwiftUI
 @main
 struct SbuSocialApp: App {
     @State private var accounts = AccountStore()
-    @State private var pool = WebViewPool()
+    @State private var options: OptionStore
+    @State private var pool: WebViewPool
     @State private var usage = UsageLog()
     @State private var shield = ShieldModel()
     @Environment(\.scenePhase) private var scenePhase
 
     init() {
+        let options = OptionStore()
+        _options = State(initialValue: options)
+        _pool = State(initialValue: WebViewPool(options: options))
         // Videos play with the silent switch on and keep playing in the background, as in SocialLite.
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
     }
@@ -19,6 +23,7 @@ struct SbuSocialApp: App {
             RootView()
                 .environment(accounts)
                 .environment(pool)
+                .environment(options)
                 .environment(usage)
                 .environment(shield)
                 .task { await pool.prepare() }

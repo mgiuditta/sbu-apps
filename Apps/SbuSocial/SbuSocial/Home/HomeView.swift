@@ -5,21 +5,30 @@ import SwiftUI
 /// the filtered browser), and the Limite di tempo.
 struct HomeView: View {
     @Environment(UsageLog.self) private var usage
+    @Environment(OptionStore.self) private var options
+    @State private var opened: Platform?
+    /// The launch Platform opens once per launch, not every time Home comes back.
+    @State private var hasLaunched = false
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: SbuTheme.space6) {
                 SbuScreenTitle("Home", cartiglio: Cartiglio.today)
                 SbuFigure(value: usage.minutesToday.formatted(), fullStop: fullStop, context: context)
-                PlatformGrid()
+                PlatformGrid(open: { opened = $0 })
                 LimitPicker(usage: usage)
             }
             .padding(SbuTheme.space4)
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .sbuPaper(grid: true)
-        .navigationDestination(for: Platform.self) { platform in
+        .navigationDestination(item: $opened) { platform in
             PlatformScreen(platform: platform)
+        }
+        .onAppear {
+            guard !hasLaunched else { return }
+            hasLaunched = true
+            opened = options.launchPlatform
         }
     }
 
@@ -40,6 +49,7 @@ struct HomeView: View {
         HomeView()
     }
     .environment(UsageLog(defaults: UserDefaults(suiteName: "preview")!))
+    .environment(OptionStore(defaults: UserDefaults(suiteName: "preview")!))
 }
 
 #Preview("Dark") {
@@ -47,5 +57,6 @@ struct HomeView: View {
         HomeView()
     }
     .environment(UsageLog(defaults: UserDefaults(suiteName: "preview")!))
+    .environment(OptionStore(defaults: UserDefaults(suiteName: "preview")!))
     .preferredColorScheme(.dark)
 }

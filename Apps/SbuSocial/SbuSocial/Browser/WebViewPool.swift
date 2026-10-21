@@ -8,21 +8,29 @@ import WebKit
 final class WebViewPool: NSObject {
     @ObservationIgnored private var views: [UUID: WKWebView] = [:]
     @ObservationIgnored private var platforms: [ObjectIdentifier: Platform] = [:]
+    @ObservationIgnored private var rulesByView: [ObjectIdentifier: PlatformRules] = [:]
+    @ObservationIgnored private let options: OptionStore
     @ObservationIgnored private var trackers: WKContentRuleList?
     @ObservationIgnored private var accountsByView: [ObjectIdentifier: UUID] = [:]
     /// How many ads and suggested posts each Account's page has hidden since the app opened.
     private(set) var hidden: [UUID: Int] = [:]
 
+    init(options: OptionStore) {
+        self.options = options
+    }
+
     /// The web view of an Account, made and loaded the first time.
     func webView(for account: Account) -> WKWebView {
         if let view = views[account.id] { return view }
-        let view = WKWebView(frame: .zero, configuration: configuration(for: account))
+        let rules = options.rules(for: account.platform)
+        let view = WKWebView(frame: .zero, configuration: configuration(for: account, rules: rules))
         view.navigationDelegate = self
         view.uiDelegate = self
         view.allowsBackForwardNavigationGestures = true
         view.isInspectable = isDebug
         views[account.id] = view
         platforms[ObjectIdentifier(view)] = account.platform
+        rulesByView[ObjectIdentifier(view)] = rules
         accountsByView[ObjectIdentifier(view)] = account.id
         view.load(URLRequest(url: account.platform.homeURL))
         return view
@@ -50,10 +58,7 @@ final class WebViewPool: NSObject {
     /// Drops the Account's web view, then deletes its cookies and data once WebKit lets go of the store.
     func remove(_ account: Account) {
         if let view = views.removeValue(forKey: account.id) {
-            platforms[ObjectIdentifier(view)] = nil
-            accountsByView[ObjectIdentifier(view)] = nil
-            view.configuration.userContentController.removeScriptMessageHandler(forName: GuardScript.messageName, contentWorld: Self.world)
-            view.removeFromSuperview()
+            forget(view)
         }
         Task {
             // WebKit refuses to delete a store still in use; the web view needs a moment to go.
@@ -62,8 +67,23 @@ final class WebViewPool: NSObject {
         }
     }
 
-    private func configuration(for account: Account) -> WKWebViewConfiguration {
-        let rules = account.platform.rules
+    /// Drops a Platform's web views, keeping their logins: they come back with the filters as now set.
+    func reset(_ platform: Platform) {
+        for (id, view) in views where platforms[ObjectIdentifier(view)] == platform {
+            forget(view)
+            views[id] = nil
+        }
+    }
+
+    private func forget(_ view: WKWebView) {
+        platforms[ObjectIdentifier(view)] = nil
+        rulesByView[ObjectIdentifier(view)] = nil
+        accountsByView[ObjectIdentifier(view)] = nil
+        view.configuration.userContentController.removeScriptMessageHandler(forName: GuardScript.messageName, contentWorld: Self.world)
+        view.removeFromSuperview()
+    }
+
+    private func configuration(for account: Account, rules: PlatformRules) -> WKWebViewConfiguration {
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = WKWebsiteDataStore(forIdentifier: account.id)
         // The sites see Mobile Safari, not an in-app browser with fewer features.
@@ -74,6 +94,7 @@ final class WebViewPool: NSObject {
         let content = configuration.userContentController
         content.addUserScript(WKUserScript(source: GuardScript.css(rules), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         content.addUserScript(WKUserScript(source: GuardScript.guardSource(rules), injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        content.addUserScript(WKUserScript(source: GuardScript.flags(rules), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         if let source = rules.scriptSource {
             content.addUserScript(WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         }
@@ -119,9 +140,8 @@ extension WebViewPool: WKNavigationDelegate {
     /// Frames inside the page (the login's) load freely.
     func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction) async -> WKNavigationActionPolicy {
         guard action.targetFrame?.isMainFrame ?? true, let url = action.request.url,
-              let platform = platforms[ObjectIdentifier(webView)] else { return .allow }
+              let rules = rulesByView[ObjectIdentifier(webView)] else { return .allow }
         guard url.scheme == "https" || url.scheme == "http" else { return .allow }
-        let rules = platform.rules
         guard rules.allows(host: url.host()) else {
             await UIApplication.shared.open(url)
             return .cancel
@@ -140,7 +160,7 @@ extension WebViewPool: WKUIDelegate {
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
                  for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if let url = action.request.url, url.scheme == "https" || url.scheme == "http" {
-            if let platform = platforms[ObjectIdentifier(webView)], platform.rules.allows(host: url.host()) {
+            if let rules = rulesByView[ObjectIdentifier(webView)], rules.allows(host: url.host()) {
                 webView.load(action.request)
             } else {
                 UIApplication.shared.open(url)

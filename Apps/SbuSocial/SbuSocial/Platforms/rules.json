@@ -6,7 +6,9 @@
     ],
     "blockedPaths": [
       "/reels/",
-      "/explore*"
+      "/explore/",
+      "/explore/tags*",
+      "/explore/locations*"
     ],
     "singlePaths": [
       "/reel/",
@@ -16,16 +18,37 @@
       "/": "/?variant=following"
     },
     "css": "a[href='/reels/'], a[href^='/explore'], a[href*='/live/'] { display: none !important; }",
-    "hiddenLabels": [
-      "Sponsorizzato",
-      "Sponsored",
-      "Suggeriti per te",
-      "Suggested for you",
-      "Post suggeriti",
-      "Suggested posts"
-    ],
+    "hiddenLabels": [],
     "labelContainer": "article",
-    "rewrites": {}
+    "rewrites": {},
+    "options": [
+      {
+        "id": "sponsored",
+        "title": "Nascondi i post sponsorizzati",
+        "hiddenLabels": [
+          "Sponsorizzato",
+          "Sponsored"
+        ]
+      },
+      {
+        "id": "suggested",
+        "title": "Nascondi i post suggeriti",
+        "hiddenLabels": [
+          "Suggeriti per te",
+          "Suggested for you",
+          "Post suggeriti",
+          "Suggested posts"
+        ]
+      },
+      {
+        "id": "search",
+        "title": "Blocca la ricerca dei post",
+        "blockedPaths": [
+          "/explore/search*"
+        ],
+        "defaultOn": false
+      }
+    ]
   },
   "youtube": {
     "hosts": [
@@ -41,9 +64,27 @@
     "rewrites": {
       "/shorts/": "/watch?v="
     },
-    "css": "ytm-reel-shelf-renderer, ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2, ytm-pivot-bar-item-renderer:has(.pivot-shorts), ytm-pivot-bar-item-renderer:has([class*='shorts']), ytm-rich-section-renderer, ytm-item-section-renderer[section-identifier='related-items'], ytm-watch-next-secondary-results-renderer, ytm-single-column-watch-next-results-renderer ytm-item-section-renderer:not(:first-child), ytm-promoted-sparkles-web-renderer, ytm-companion-ad-renderer, ytm-promoted-video-renderer, ytm-ad-slot-renderer, ad-slot-renderer, .video-ads, .ytp-ad-module { display: none !important; } html.sbu-home ytm-rich-grid-renderer, html.sbu-home ytm-rich-item-renderer, html.sbu-home ytm-feed-filter-chip-bar-renderer { display: none !important; }",
+    "css": "ytm-reel-shelf-renderer, ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2, ytm-pivot-bar-item-renderer:has(.pivot-shorts), ytm-pivot-bar-item-renderer:has([class*='shorts']), ytm-rich-section-renderer { display: none !important; } html.sbu-home ytm-rich-grid-renderer, html.sbu-home ytm-rich-item-renderer, html.sbu-home ytm-feed-filter-chip-bar-renderer { display: none !important; }",
     "hiddenLabels": [],
     "labelContainer": "article",
-    "script": "youtube"
+    "script": "youtube",
+    "options": [
+      {
+        "id": "ads",
+        "title": "Togli gli annunci",
+        "flag": "ads",
+        "css": "ytm-promoted-sparkles-web-renderer, ytm-companion-ad-renderer, ytm-promoted-video-renderer, ytm-ad-slot-renderer, ad-slot-renderer, .video-ads, .ytp-ad-module { display: none !important; }"
+      },
+      {
+        "id": "recommended",
+        "title": "Nascondi i video consigliati",
+        "css": "ytm-item-section-renderer[section-identifier='related-items'], ytm-watch-next-secondary-results-renderer, ytm-single-column-watch-next-results-renderer ytm-item-section-renderer:not(:first-child) { display: none !important; }"
+      },
+      {
+        "id": "background",
+        "title": "Audio in background",
+        "flag": "background"
+      }
+    ]
   }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 
 /// The app inside `SbuTabShell`: Sonno, Statistiche, Home, Blocco, then Impostazioni (ADR-0017).
 struct RootView: View {
+    @Environment(OptionStore.self) private var options
     @State private var tab = AppTab.home
 
     var body: some View {
@@ -21,7 +22,10 @@ struct RootView: View {
                 BlockView()
             }
         } settings: {
-            EmptyView()
+            LaunchSection(options: options)
+            ForEach(Platform.allCases) { platform in
+                FilterSection(platform: platform, options: options)
+            }
         }
     }
 }
@@ -29,7 +33,8 @@ struct RootView: View {
 #Preview("Light") {
     RootView()
         .environment(AccountStore(defaults: UserDefaults(suiteName: "preview")!))
-        .environment(WebViewPool())
+        .environment(WebViewPool(options: OptionStore(defaults: UserDefaults(suiteName: "preview")!)))
+        .environment(OptionStore(defaults: UserDefaults(suiteName: "preview")!))
         .environment(UsageLog(defaults: UserDefaults(suiteName: "preview")!))
         .environment(ShieldModel(defaults: UserDefaults(suiteName: "preview")!))
 }
@@ -37,7 +42,8 @@ struct RootView: View {
 #Preview("Dark") {
     RootView()
         .environment(AccountStore(defaults: UserDefaults(suiteName: "preview")!))
-        .environment(WebViewPool())
+        .environment(WebViewPool(options: OptionStore(defaults: UserDefaults(suiteName: "preview")!)))
+        .environment(OptionStore(defaults: UserDefaults(suiteName: "preview")!))
         .environment(UsageLog(defaults: UserDefaults(suiteName: "preview")!))
         .environment(ShieldModel(defaults: UserDefaults(suiteName: "preview")!))
         .preferredColorScheme(.dark)

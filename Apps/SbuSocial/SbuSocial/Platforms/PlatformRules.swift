@@ -25,6 +25,28 @@ nonisolated struct PlatformRules: Codable, Hashable {
     var labelContainer = "article"
     /// A bundled `.js` file with the Platform's own behaviour, such as YouTube's ad removal; `nil` for none.
     var script: String?
+    /// The filters you can switch off in Impostazioni.
+    var options: [PlatformOption] = []
+    /// The switches of the options that are on, for the Platform's script: `window.sbuOptions`.
+    var flags: [String: Bool] = [:]
+
+    init() {}
+
+    /// Missing keys keep their defaults, so `rules.json` lists only what a Platform uses.
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        hosts = try container.decodeIfPresent([String].self, forKey: .hosts) ?? []
+        blockedPaths = try container.decodeIfPresent([String].self, forKey: .blockedPaths) ?? []
+        singlePaths = try container.decodeIfPresent([String].self, forKey: .singlePaths) ?? []
+        redirects = try container.decodeIfPresent([String: String].self, forKey: .redirects) ?? [:]
+        rewrites = try container.decodeIfPresent([String: String].self, forKey: .rewrites) ?? [:]
+        css = try container.decodeIfPresent(String.self, forKey: .css) ?? ""
+        hiddenLabels = try container.decodeIfPresent([String].self, forKey: .hiddenLabels) ?? []
+        labelContainer = try container.decodeIfPresent(String.self, forKey: .labelContainer) ?? "article"
+        script = try container.decodeIfPresent(String.self, forKey: .script)
+        options = try container.decodeIfPresent([PlatformOption].self, forKey: .options) ?? []
+        flags = try container.decodeIfPresent([String: Bool].self, forKey: .flags) ?? [:]
+    }
 
     /// Every Platform's rules, read once from the app bundle.
     static let all: [Platform: PlatformRules] = {
@@ -35,6 +57,20 @@ nonisolated struct PlatformRules: Codable, Hashable {
             Platform(rawValue: key).map { ($0, value) }
         })
     }()
+
+    /// These rules with the options that are on, the rest left out.
+    func applying(enabled: Set<String>) -> PlatformRules {
+        var rules = self
+        for option in options {
+            let isOn = enabled.contains(option.id)
+            if let flag = option.flag { rules.flags[flag] = isOn }
+            guard isOn else { continue }
+            rules.blockedPaths += option.blockedPaths
+            rules.hiddenLabels += option.hiddenLabels
+            if !option.css.isEmpty { rules.css += " " + option.css }
+        }
+        return rules
+    }
 
     /// Whether the browser may load this host: the host itself or any of its subdomains.
     func allows(host: String?) -> Bool {

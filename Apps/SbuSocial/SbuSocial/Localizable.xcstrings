@@ -91,6 +91,16 @@
         }
       }
     },
+    "Apri all'avvio" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open at launch"
+          }
+        }
+      }
+    },
     "Apri in Sbu Social" : {
       "localizations" : {
         "en" : {
@@ -121,6 +131,16 @@
         }
       }
     },
+    "Audio in background" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background audio"
+          }
+        }
+      }
+    },
     "Basta" : {
       "localizations" : {
         "en" : {
@@ -137,6 +157,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enough for today."
+          }
+        }
+      }
+    },
+    "Blocca la ricerca dei post" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Block post search"
           }
         }
       }
@@ -187,6 +217,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Focus until %@"
+          }
+        }
+      }
+    },
+    "Gli Shorts restano sempre bloccati." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shorts always stay blocked."
           }
         }
       }
@@ -281,6 +321,36 @@
         }
       }
     },
+    "Nascondi i post sponsorizzati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide sponsored posts"
+          }
+        }
+      }
+    },
+    "Nascondi i post suggeriti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide suggested posts"
+          }
+        }
+      }
+    },
+    "Nascondi i video consigliati" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide recommended videos"
+          }
+        }
+      }
+    },
     "Nascosti: %lld" : {
       "localizations" : {
         "en" : {
@@ -331,6 +401,16 @@
         }
       }
     },
+    "Reels ed Esplora restano sempre bloccati." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reels and Explore always stay blocked."
+          }
+        }
+      }
+    },
     "Restano aperte di notte, per esempio i messaggi di famiglia." : {
       "localizations" : {
         "en" : {
@@ -377,6 +457,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sbu Social"
+          }
+        }
+      }
+    },
+    "Sbu Social si apre direttamente su questo social." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbu Social opens straight on this social app."
           }
         }
       }
@@ -517,6 +607,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove"
+          }
+        }
+      }
+    },
+    "Togli gli annunci" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove ads"
           }
         }
       }

@@ -7,6 +7,9 @@ import Foundation
 /// `history.pushState`/`replaceState`, and checks the address every 400 ms as a safety net, so
 /// it depends on paths, not on the page's layout. Posts with a hidden label are found by text.
 nonisolated enum GuardScript {
+    /// The message handler a page posts to with how many elements it just hid.
+    static let messageName = "sbuHidden"
+
     static func css(_ rules: PlatformRules) -> String {
         """
         (() => {
@@ -77,7 +80,10 @@ nonisolated enum GuardScript {
               for (const element of document.querySelectorAll(R.container)) {
                 if (element.style.display === 'none') continue;
                 const text = element.innerText || '';
-                if (R.labels.some(label => text.includes(label))) element.style.display = 'none';
+                if (R.labels.some(label => text.includes(label))) {
+                  element.style.display = 'none';
+                  window.webkit?.messageHandlers?.sbuHidden?.postMessage(1);
+                }
               }
             };
             new MutationObserver(() => {

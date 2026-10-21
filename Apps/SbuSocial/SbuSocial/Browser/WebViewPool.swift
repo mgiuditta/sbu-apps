@@ -9,6 +9,9 @@ final class WebViewPool: NSObject {
     @ObservationIgnored private var views: [UUID: WKWebView] = [:]
     @ObservationIgnored private var platforms: [ObjectIdentifier: Platform] = [:]
     @ObservationIgnored private var trackers: WKContentRuleList?
+    @ObservationIgnored private var accountsByView: [ObjectIdentifier: UUID] = [:]
+    /// How many ads and suggested posts each Account's page has hidden since the app opened.
+    private(set) var hidden: [UUID: Int] = [:]
 
     /// The web view of an Account, made and loaded the first time.
     func webView(for account: Account) -> WKWebView {
@@ -20,8 +23,14 @@ final class WebViewPool: NSObject {
         view.isInspectable = isDebug
         views[account.id] = view
         platforms[ObjectIdentifier(view)] = account.platform
+        accountsByView[ObjectIdentifier(view)] = account.id
         view.load(URLRequest(url: account.platform.homeURL))
         return view
+    }
+
+    /// Stops every video and sound on the Account's page, as when the Limite di tempo closes it.
+    func pauseMedia(of account: Account) {
+        views[account.id]?.pauseAllMediaPlayback()
     }
 
     /// Compiles the tracker list once and adds it to every web view.
@@ -39,6 +48,8 @@ final class WebViewPool: NSObject {
     func remove(_ account: Account) {
         if let view = views.removeValue(forKey: account.id) {
             platforms[ObjectIdentifier(view)] = nil
+            accountsByView[ObjectIdentifier(view)] = nil
+            view.configuration.userContentController.removeScriptMessageHandler(forName: GuardScript.messageName)
             view.removeFromSuperview()
         }
         Task {
@@ -64,6 +75,7 @@ final class WebViewPool: NSObject {
             content.addUserScript(WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         }
         if let trackers { content.add(trackers) }
+        content.add(MessageRelay(pool: self), name: GuardScript.messageName)
         return configuration
     }
 
@@ -73,6 +85,27 @@ final class WebViewPool: NSObject {
         #else
         false
         #endif
+    }
+}
+
+/// Counts what the page hides. WebKit keeps its message handlers strongly, hence the weak hop to the pool.
+private final class MessageRelay: NSObject, WKScriptMessageHandler {
+    weak var pool: WebViewPool?
+
+    init(pool: WebViewPool) {
+        self.pool = pool
+    }
+
+    func userContentController(_ controller: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let webView = message.webView, let count = message.body as? Int else { return }
+        pool?.recordHidden(count, in: webView)
+    }
+}
+
+extension WebViewPool {
+    fileprivate func recordHidden(_ count: Int, in webView: WKWebView) {
+        guard let id = accountsByView[ObjectIdentifier(webView)] else { return }
+        hidden[id, default: 0] += count
     }
 }
 

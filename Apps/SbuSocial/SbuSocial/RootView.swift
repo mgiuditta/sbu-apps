@@ -30,11 +30,13 @@ struct RootView: View {
     RootView()
         .environment(AccountStore(defaults: UserDefaults(suiteName: "preview")!))
         .environment(WebViewPool())
+        .environment(UsageLog(defaults: UserDefaults(suiteName: "preview")!))
 }
 
 #Preview("Dark") {
     RootView()
         .environment(AccountStore(defaults: UserDefaults(suiteName: "preview")!))
         .environment(WebViewPool())
+        .environment(UsageLog(defaults: UserDefaults(suiteName: "preview")!))
         .preferredColorScheme(.dark)
 }

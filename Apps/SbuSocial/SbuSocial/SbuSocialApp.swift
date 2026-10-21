@@ -5,6 +5,7 @@ import SwiftUI
 struct SbuSocialApp: App {
     @State private var accounts = AccountStore()
     @State private var pool = WebViewPool()
+    @State private var usage = UsageLog()
 
     init() {
         // Videos play with the silent switch on and keep playing in the background, as in SocialLite.
@@ -16,6 +17,7 @@ struct SbuSocialApp: App {
             RootView()
                 .environment(accounts)
                 .environment(pool)
+                .environment(usage)
                 .task { await pool.prepare() }
         }
     }

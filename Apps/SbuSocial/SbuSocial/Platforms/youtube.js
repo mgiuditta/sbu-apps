@@ -4,6 +4,7 @@
   const AD_KEYS = ['adPlacements', 'adSlots', 'playerAds', 'adBreakHeartbeatParams'];
   const strip = (value) => {
     if (value && typeof value === 'object') {
+      if (AD_KEYS.some(key => key in value)) window.webkit?.messageHandlers?.sbuHidden?.postMessage(1);
       for (const key of AD_KEYS) delete value[key];
       if (value.playerResponse) strip(value.playerResponse);
     }

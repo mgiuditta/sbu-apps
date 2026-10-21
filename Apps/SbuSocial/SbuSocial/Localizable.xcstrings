@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "it",
   "strings" : {
+    "%@ oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ today"
+          }
+        }
+      }
+    },
     "Account" : {
       "localizations" : {
         "en" : {
@@ -41,6 +51,26 @@
         }
       }
     },
+    "Basta" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enough"
+          }
+        }
+      }
+    },
+    "Basta per oggi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enough for today."
+          }
+        }
+      }
+    },
     "Blocco" : {
       "localizations" : {
         "en" : {
@@ -61,12 +91,62 @@
         }
       }
     },
+    "Hai raggiunto il tuo limite di tempo. I social si riaprono domani." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You reached your time limit. Social apps open again tomorrow."
+          }
+        }
+      }
+    },
     "Home" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Home"
+          }
+        }
+      }
+    },
+    "Limite di tempo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time limit"
+          }
+        }
+      }
+    },
+    "Limite raggiunto. I social si riaprono domani." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached. Social apps open again tomorrow."
+          }
+        }
+      }
+    },
+    "Nascosti: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hidden: %lld"
+          }
+        }
+      }
+    },
+    "Nessuno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
           }
         }
       }
@@ -177,6 +257,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove account %lld?"
+          }
+        }
+      }
+    },
+    "minuti oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "minutes today"
+          }
+        }
+      }
+    },
+    "minuti oggi, su %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "minutes today, of %lld"
           }
         }
       }

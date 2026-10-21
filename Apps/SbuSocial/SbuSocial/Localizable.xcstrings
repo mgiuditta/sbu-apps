@@ -21,6 +21,16 @@
         }
       }
     },
+    "A letto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedtime"
+          }
+        }
+      }
+    },
     "Account" : {
       "localizations" : {
         "en" : {
@@ -47,6 +57,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add account"
+          }
+        }
+      }
+    },
+    "App escluse: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps left out: %lld"
           }
         }
       }
@@ -161,6 +181,16 @@
         }
       }
     },
+    "Focus fino alle %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus until %@"
+          }
+        }
+      }
+    },
     "Hai raggiunto il tuo limite di tempo. I social si riaprono domani." : {
       "localizations" : {
         "en" : {
@@ -181,6 +211,26 @@
         }
       }
     },
+    "Inizia un focus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a focus"
+          }
+        }
+      }
+    },
+    "Le app scelte in Blocco si chiudono per il tempo che scegli." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The apps chosen in Block close for the time you pick."
+          }
+        }
+      }
+    },
     "Limite di tempo" : {
       "localizations" : {
         "en" : {
@@ -197,6 +247,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limit reached. Social apps open again tomorrow."
+          }
+        }
+      }
+    },
+    "Margine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Margin"
           }
         }
       }
@@ -241,12 +301,42 @@
         }
       }
     },
+    "Notti: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nights: %lld"
+          }
+        }
+      }
+    },
+    "Poi i social si chiudono fino al mattino." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Then social apps close until morning."
+          }
+        }
+      }
+    },
     "Qui vedi i tuoi minuti degli ultimi 7 giorni." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Here you see your minutes over the last 7 days."
+          }
+        }
+      }
+    },
+    "Restano aperte di notte, per esempio i messaggi di famiglia." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "They stay open at night, such as family messages."
           }
         }
       }
@@ -321,6 +411,16 @@
         }
       }
     },
+    "Scegli prima le app in Blocco: di notte si chiudono da sole." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First choose the apps in Block: at night they close by themselves."
+          }
+        }
+      }
+    },
     "Scegli quando dormi: i social si chiudono da soli." : {
       "localizations" : {
         "en" : {
@@ -361,12 +461,42 @@
         }
       }
     },
+    "Sonno attivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep on"
+          }
+        }
+      }
+    },
     "Statistiche" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stats"
+          }
+        }
+      }
+    },
+    "Sveglia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wake up"
+          }
+        }
+      }
+    },
+    "Termina il focus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End focus"
           }
         }
       }
@@ -411,12 +541,42 @@
         }
       }
     },
+    "Tra 30 minuti è ora di dormire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedtime in 30 minutes"
+          }
+        }
+      }
+    },
     "app schermate" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "apps shielded"
+          }
+        }
+      }
+    },
+    "di notte senza social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of night without social apps"
+          }
+        }
+      }
+    },
+    "di notte, se attivi il Sonno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of night, if you turn on Sleep"
           }
         }
       }

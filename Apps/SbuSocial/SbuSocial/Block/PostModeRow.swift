@@ -14,7 +14,7 @@ struct PostModeRow: View {
         } else {
             VStack(alignment: .leading, spacing: SbuTheme.space2) {
                 Button("Modalità post") { shield.startPostMode() }
-                    .disabled(!shield.isOn)
+                    .disabled(!shield.settings.isShielding(now: .now))
                 Text("Sblocca le app per 10 minuti, per pubblicare.")
                     .font(SbuTheme.footnote)
                     .foregroundStyle(SbuTheme.inkMuted)

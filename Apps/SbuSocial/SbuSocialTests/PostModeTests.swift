@@ -14,13 +14,4 @@ struct PostModeTests {
         #expect(end.timeIntervalSince(start) == 900)
         #expect(!schedule.repeats)
     }
-
-    @Test func theEndIsKeptInTheAppGroup() {
-        let defaults = UserDefaults(suiteName: "PostModeTests-\(UUID())")!
-        let end = Date(timeIntervalSince1970: 1_792_000_600)
-        PostMode.setEnd(end, in: defaults)
-        #expect(PostMode.end(in: defaults) == end)
-        PostMode.setEnd(nil, in: defaults)
-        #expect(PostMode.end(in: defaults) == nil)
-    }
 }

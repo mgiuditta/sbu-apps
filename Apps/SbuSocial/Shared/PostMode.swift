@@ -13,19 +13,14 @@ nonisolated enum PostMode {
     /// The one-off schedule whose start brings the Shield back.
     static func schedule(from now: Date, calendar: Calendar = .current) -> DeviceActivitySchedule {
         let start = now.addingTimeInterval(duration)
-        let end = start.addingTimeInterval(15 * 60)
+        return oneOff(from: start, to: start.addingTimeInterval(15 * 60), calendar: calendar)
+    }
+
+    /// A schedule that runs once, between two moments.
+    static func oneOff(from start: Date, to end: Date, calendar: Calendar = .current) -> DeviceActivitySchedule {
         let parts: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
         return DeviceActivitySchedule(intervalStart: calendar.dateComponents(parts, from: start),
                                       intervalEnd: calendar.dateComponents(parts, from: end),
                                       repeats: false)
-    }
-
-    /// When the running Modalità post ends, kept in the app group; `nil` when none is running.
-    static func end(in defaults: UserDefaults) -> Date? {
-        defaults.object(forKey: "postModeEnd") as? Date
-    }
-
-    static func setEnd(_ end: Date?, in defaults: UserDefaults) {
-        defaults.set(end, forKey: "postModeEnd")
     }
 }

@@ -10,6 +10,7 @@ struct PlatformScreen: View {
     @Environment(AccountStore.self) private var accounts
     @Environment(WebViewPool.self) private var pool
     @Environment(UsageLog.self) private var usage
+    @Environment(ShieldModel.self) private var shield
     @Environment(\.scenePhase) private var scenePhase
     @State private var removing: Account?
     @State private var isClosing = false
@@ -64,6 +65,7 @@ struct PlatformScreen: View {
             usage.add(1, on: platform)
         }
         if let account = accounts.current(on: platform) { pool.pauseMedia(of: account) }
+        shield.limitReached()
         isClosing = true
     }
 

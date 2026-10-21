@@ -121,7 +121,10 @@ targets:
     # Runs when a Screen Time schedule starts or ends.
     type: app-extension
     platform: iOS
-    sources: [SbuSocialMonitor, Shared]
+    sources:
+      - SbuSocialMonitor
+      - Shared
+      - SbuSocial/Localizable.xcstrings
     entitlements:
       path: SbuSocialMonitor/SbuSocialMonitor.entitlements
       properties:

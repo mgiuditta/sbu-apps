@@ -26,8 +26,8 @@ struct SbuSocialApp: App {
                     if scenePhase == .active { shield.refresh() }
                 }
                 // With the app open, the Shield comes back on time even if iOS is late.
-                .task(id: shield.postModeEnd) {
-                    guard let end = shield.postModeEnd else { return }
+                .task(id: [shield.postModeEnd, shield.focusEnd]) {
+                    guard let end = [shield.postModeEnd, shield.focusEnd].compactMap(\.self).min() else { return }
                     try? await Task.sleep(for: .seconds(max(end.timeIntervalSinceNow, 0)))
                     shield.refresh()
                 }

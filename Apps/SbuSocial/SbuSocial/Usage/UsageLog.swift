@@ -54,6 +54,11 @@ final class UsageLog {
         return (0..<7).reversed().compactMap { calendar.date(byAdding: .day, value: -$0, to: today) }
     }
 
+    /// Minutes a day over the last seven days, today included.
+    var averageMinutes: Int {
+        lastSevenDays.map { minutes(on: $0) }.reduce(0, +) / 7
+    }
+
     func save() {
         lastSave = now()
         defaults.set(try? JSONEncoder().encode(seconds), forKey: "usage")

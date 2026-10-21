@@ -58,3 +58,17 @@ struct UsageLogTests {
         #expect(days.last == calendar.startOfDay(for: day))
     }
 }
+
+struct UsageAverageTests {
+    @Test func theAverageSpreadsTheWeekOverSevenDays() throws {
+        let calendar = Calendar(identifier: .gregorian)
+        let today = Date(timeIntervalSince1970: 1_792_000_000)
+        let defaults = UserDefaults(suiteName: "UsageAverageTests-\(UUID())")!
+        let yesterday = try #require(calendar.date(byAdding: .day, value: -1, to: today))
+        UsageLog(defaults: defaults, calendar: calendar, now: { yesterday }).add(40 * 60, on: .instagram)
+        let usage = UsageLog(defaults: defaults, calendar: calendar, now: { today })
+        // Yesterday's minutes were saved only if a save came: add() saves the first time.
+        usage.add(30 * 60, on: .youtube)
+        #expect(usage.averageMinutes == 10)
+    }
+}

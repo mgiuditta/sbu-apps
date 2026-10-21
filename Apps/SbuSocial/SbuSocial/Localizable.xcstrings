@@ -21,6 +21,16 @@
         }
       }
     },
+    "%lld minuti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld minutes"
+          }
+        }
+      }
+    },
     "A letto" : {
       "localizations" : {
         "en" : {
@@ -221,6 +231,16 @@
         }
       }
     },
+    "Giorno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day"
+          }
+        }
+      }
+    },
     "Hai raggiunto il tuo limite di tempo. I social si riaprono domani." : {
       "localizations" : {
         "en" : {
@@ -261,6 +281,16 @@
         }
       }
     },
+    "Limite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit"
+          }
+        }
+      }
+    },
     "Limite di tempo" : {
       "localizations" : {
         "en" : {
@@ -287,6 +317,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Margin"
+          }
+        }
+      }
+    },
+    "Minuti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minutes"
           }
         }
       }
@@ -367,6 +407,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nights: %lld"
+          }
+        }
+      }
+    },
+    "Oggi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
           }
         }
       }
@@ -667,6 +717,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "of night, if you turn on Sleep"
+          }
+        }
+      }
+    },
+    "minuti al giorno, ultimi 7 giorni" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "minutes a day, last 7 days"
           }
         }
       }

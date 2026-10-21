@@ -22,7 +22,7 @@ struct LimitPicker: View {
         .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusCard))
         .overlay {
             RoundedRectangle(cornerRadius: SbuTheme.radiusCard)
-                .strokeBorder(SbuTheme.line, lineWidth: 1)
+                .strokeBorder(SbuTheme.line, lineWidth: SbuTheme.hairline)
         }
         .sbuAffectsFigure(usage.limitMinutes)
     }

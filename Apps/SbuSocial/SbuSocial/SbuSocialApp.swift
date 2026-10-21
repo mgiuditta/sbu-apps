@@ -6,7 +6,7 @@ struct SbuSocialApp: App {
     @State private var accounts = AccountStore()
     @State private var options: OptionStore
     @State private var pool: WebViewPool
-    @State private var usage = UsageLog()
+    @State private var usage = UsageLog.isDemo ? UsageLog.demo() : UsageLog()
     @State private var shield = ShieldModel()
     @Environment(\.scenePhase) private var scenePhase
 

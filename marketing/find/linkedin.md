@@ -12,7 +12,7 @@ Headline profilo: quella in `marketing/subscriptions/linkedin.md`. Immagine dei 
 > Dopo Sbu Subscriptions e Sbu Scanner, è la terza app che rifaccio e regalo.
 > sbu.dev/apps/find
 
-X: `Earbud finder apps put the search behind a subscription, up to $12.99 a week. I made a free one: Bluetooth hot and cold, no account, no server, honest about meters. sbu.dev/apps/find`
+X: `Earbud finder apps put the search behind a subscription, up to $9.99 a week. I made a free one: Bluetooth hot and cold, no account, no server, honest about meters. sbu.dev/apps/find`
 
 ## Giorno 7: come l'ho fatta
 

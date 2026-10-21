@@ -18,7 +18,7 @@ Fonte: elenco "Acquisti in-app" della pagina pubblica dell'App Store (apps.apple
 |---|---|---|---|---|---|---|
 | Orbit (6692620188) | Subscriptions | pubblicata | Orbit Plus annuale **22,99 €**; a vita 24,99-29,99 € | annuale $19.99; a vita $24.99-$39.99 | **22,99 €** | 99 / 127 |
 | QR Reader for iPhone, oggi "QR Code ϟ" (368494609) | Scanner | pubblicata | TapMedia PRO **5,99 € al mese**; PRO una tantum 2,99 € | $4.99 al mese | **71,88 €** | 46,8 mila / 1,44 milioni |
-| Find Air (1507917112) | Find | in revisione | Air Apps One fino a **8,99 € a settimana**; annuale 79,99 € | fino a $12.99 a settimana; annuale $69.99 | **467,48 €** | 262 / 27,3 mila |
+| Find Air (1507917112) | Find | pubblicata il 21/10 | Air Apps One fino a **8,99 € a settimana**; annuale 79,99 € | fino a $9.99 a settimana (21/10); annuale $69.99 | **467,48 €** | 262 / 27,3 mila |
 | Cleanup (1510944943) | Clean | respinta, risposta in attesa | Cleanup Pro fino a **12,99 € a settimana**; annuale 24,99 € | fino a $11.99 a settimana | **675,48 €** | (737 mila US il 15/10) |
 | **Totale** | | | | | **1.237,83 €/anno** (US $1,378.83) | |
 

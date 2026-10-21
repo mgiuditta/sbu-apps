@@ -12,7 +12,7 @@ Il codice è molto più avanti dello Store: 20 app scritte, 2 pubblicate, 1 in r
 |---|---|---|
 | Sbu Subscriptions | **2.0.0 pubblicata**; 2.1.0 preparata, non inviata | 2.0 live dal 16/10 |
 | Sbu Scanner | **2.0.0 pubblicata** | confermata il 17/10 |
-| Sbu Find | **1.0 in attesa di revisione**, rilascio automatico all'approvazione | inviata il 17/10 |
+| Sbu Find | **1.0 pubblicata** (approvata dopo l'appello al Board) | live dal 21/10 |
 
 Tutto il resto non è sullo Store.
 

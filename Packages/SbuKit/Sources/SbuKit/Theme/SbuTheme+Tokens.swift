@@ -89,6 +89,8 @@ public extension SbuTheme {
     static let accentExposure = Color("accent-exposure", bundle: .module)
     /// Accento di Sbu Squares: solo il punto fermo `set` (il record battuto) e il campo dell'icona (valore light). Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
     static let accentSquares = Color("accent-squares", bundle: .module)
+    /// Accento di Sbu Commerce (Console, Studio, Admin, login): solo il punto fermo `set`. Indaco, OKLCH H 290: il più lontano da `success`, `warning` e `danger` tra le tinte libere, perché gli strumenti sono pieni di stati. Famiglia OKLCH L 0.52/0.76, C ≤ 0.15: stesso peso per ogni app, cambia solo la tinta.
+    static let accentCommerce = Color("accent-commerce", bundle: .module)
     /// Punto fermo di Sbu Subscriptions dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
     static let accentOnInkSubscriptions = Color("accent-on-ink-subscriptions", bundle: .module)
     /// Punto fermo di Sbu Scanner dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
@@ -155,6 +157,8 @@ public extension SbuTheme {
     static let accentOnInkExposure = Color("accent-on-ink-exposure", bundle: .module)
     /// Punto fermo di Sbu Squares dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
     static let accentOnInkSquares = Color("accent-on-ink-squares", bundle: .module)
+    /// Punto fermo di Sbu Commerce dentro il blocco d'inchiostro della Chiusura: OKLCH L 0.70 su `ink` in light, l'accento light sul blocco chiaro in dark.
+    static let accentOnInkCommerce = Color("accent-on-ink-commerce", bundle: .module)
     /// Testo sopra un accento: solo marketing e icone. Nelle app nessun testo sta su un accento (tint in `ink`).
     static let onAccent = Color("on-accent", bundle: .module)
     /// Stato positivo: abitudine completata, calibrazione riuscita. Sempre con una parola o un SF Symbol.
@@ -349,11 +353,12 @@ public extension SbuAccent {
     static let reader = SbuAccent(base: SbuTheme.accentReader, onInk: SbuTheme.accentOnInkReader)
     static let exposure = SbuAccent(base: SbuTheme.accentExposure, onInk: SbuTheme.accentOnInkExposure)
     static let squares = SbuAccent(base: SbuTheme.accentSquares, onInk: SbuTheme.accentOnInkSquares)
+    static let commerce = SbuAccent(base: SbuTheme.accentCommerce, onInk: SbuTheme.accentOnInkCommerce)
 }
 
 extension SbuTheme {
     /// Color asset names, in token order.
-    static let colorTokenNames = ["paper", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "grid", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-libretto", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-meds", "accent-shrink", "accent-find", "accent-remote", "accent-grid", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "accent-tidy", "accent-cast", "accent-image", "accent-gif", "accent-tags", "accent-knit", "accent-chores", "accent-reader", "accent-exposure", "accent-squares", "accent-on-ink-subscriptions", "accent-on-ink-scanner", "accent-on-ink-level", "accent-on-ink-noise", "accent-on-ink-docs", "accent-on-ink-habits", "accent-on-ink-cards", "accent-on-ink-libretto", "accent-on-ink-dark", "accent-on-ink-speed", "accent-on-ink-moon", "accent-on-ink-clean", "accent-on-ink-authenticator", "accent-on-ink-meds", "accent-on-ink-shrink", "accent-on-ink-find", "accent-on-ink-remote", "accent-on-ink-grid", "accent-on-ink-cycle", "accent-on-ink-steps", "accent-on-ink-chats", "accent-on-ink-inventory", "accent-on-ink-fuel", "accent-on-ink-tidy", "accent-on-ink-cast", "accent-on-ink-image", "accent-on-ink-gif", "accent-on-ink-tags", "accent-on-ink-knit", "accent-on-ink-chores", "accent-on-ink-reader", "accent-on-ink-exposure", "accent-on-ink-squares", "on-accent", "success", "warning", "danger", "focus"]
+    static let colorTokenNames = ["paper", "surface-raised", "surface-sunken", "ink", "ink-muted", "line", "grid", "brand", "on-brand", "accent-subscriptions", "accent-scanner", "accent-level", "accent-noise", "accent-docs", "accent-habits", "accent-cards", "accent-libretto", "accent-dark", "accent-speed", "accent-moon", "accent-clean", "accent-authenticator", "accent-meds", "accent-shrink", "accent-find", "accent-remote", "accent-grid", "accent-cycle", "accent-steps", "accent-chats", "accent-inventory", "accent-fuel", "accent-tidy", "accent-cast", "accent-image", "accent-gif", "accent-tags", "accent-knit", "accent-chores", "accent-reader", "accent-exposure", "accent-squares", "accent-commerce", "accent-on-ink-subscriptions", "accent-on-ink-scanner", "accent-on-ink-level", "accent-on-ink-noise", "accent-on-ink-docs", "accent-on-ink-habits", "accent-on-ink-cards", "accent-on-ink-libretto", "accent-on-ink-dark", "accent-on-ink-speed", "accent-on-ink-moon", "accent-on-ink-clean", "accent-on-ink-authenticator", "accent-on-ink-meds", "accent-on-ink-shrink", "accent-on-ink-find", "accent-on-ink-remote", "accent-on-ink-grid", "accent-on-ink-cycle", "accent-on-ink-steps", "accent-on-ink-chats", "accent-on-ink-inventory", "accent-on-ink-fuel", "accent-on-ink-tidy", "accent-on-ink-cast", "accent-on-ink-image", "accent-on-ink-gif", "accent-on-ink-tags", "accent-on-ink-knit", "accent-on-ink-chores", "accent-on-ink-reader", "accent-on-ink-exposure", "accent-on-ink-squares", "accent-on-ink-commerce", "on-accent", "success", "warning", "danger", "focus"]
 
     /// Numeric tokens by original name, for checking against tokens.json.
     static let metricTokens: [String: CGFloat] = [

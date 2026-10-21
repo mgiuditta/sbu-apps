@@ -6,7 +6,7 @@ Solo se il thread HN o Reddit ha preso: allega il link al thread. Allegati: 3 sc
 
 Subject: A free Bluetooth earbud finder that's honest about what it can't do
 > Hi, I'm Matteo Giuditta, a computer security student in Milan.
-> The popular earbud finder apps are free to download, then put the search behind a subscription, listed at up to $12.99 a week.
+> The popular earbud finder apps are free to download, then put the search behind a subscription, listed at up to $9.99 a week.
 > Sbu Find does the job for free: hot and cold by Bluetooth signal, a tick and haptics, sound on connected headphones, an alert when one of your devices goes quiet, Live Activity.
 > It doesn't claim meters, and it sends you to Find My when the device is off or in its case.
 > No account, no server, no IAP. Specs from public App Store data only; the code is public.

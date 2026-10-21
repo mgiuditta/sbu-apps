@@ -28,6 +28,9 @@ final class WebViewPool: NSObject {
         return view
     }
 
+    /// Sbu's own scripts that talk back to the app run here, where the page's scripts can't reach them.
+    private static let world = WKContentWorld.world(name: "sbu")
+
     /// Stops every video and sound on the Account's page, as when the Limite di tempo closes it.
     func pauseMedia(of account: Account) {
         views[account.id]?.pauseAllMediaPlayback()
@@ -49,7 +52,7 @@ final class WebViewPool: NSObject {
         if let view = views.removeValue(forKey: account.id) {
             platforms[ObjectIdentifier(view)] = nil
             accountsByView[ObjectIdentifier(view)] = nil
-            view.configuration.userContentController.removeScriptMessageHandler(forName: GuardScript.messageName)
+            view.configuration.userContentController.removeScriptMessageHandler(forName: GuardScript.messageName, contentWorld: Self.world)
             view.removeFromSuperview()
         }
         Task {
@@ -75,7 +78,8 @@ final class WebViewPool: NSObject {
             content.addUserScript(WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         }
         if let trackers { content.add(trackers) }
-        content.add(MessageRelay(pool: self), name: GuardScript.messageName)
+        content.addUserScript(WKUserScript(source: GuardScript.counter(rules), injectionTime: .atDocumentEnd, forMainFrameOnly: true, in: Self.world))
+        content.add(MessageRelay(pool: self), contentWorld: Self.world, name: GuardScript.messageName)
         return configuration
     }
 
@@ -97,15 +101,16 @@ private final class MessageRelay: NSObject, WKScriptMessageHandler {
     }
 
     func userContentController(_ controller: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let webView = message.webView, let count = message.body as? Int else { return }
-        pool?.recordHidden(count, in: webView)
+        // One item per message, from the page itself: anything else is ignored.
+        guard message.frameInfo.isMainFrame, (message.body as? Int) == 1, let webView = message.webView else { return }
+        pool?.recordHidden(in: webView)
     }
 }
 
 extension WebViewPool {
-    fileprivate func recordHidden(_ count: Int, in webView: WKWebView) {
+    fileprivate func recordHidden(in webView: WKWebView) {
         guard let id = accountsByView[ObjectIdentifier(webView)] else { return }
-        hidden[id, default: 0] += count
+        hidden[id, default: 0] += 1
     }
 }
 

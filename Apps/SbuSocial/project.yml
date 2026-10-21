@@ -20,7 +20,7 @@ targets:
   SbuSocial:
     type: application
     platform: iOS
-    sources: [SbuSocial]
+    sources: [SbuSocial, Shared]
     dependencies:
       - package: SbuKit
       - target: SbuSocialShieldConfiguration
@@ -62,7 +62,12 @@ targets:
     # Draws the Shield over a native app.
     type: app-extension
     platform: iOS
-    sources: [SbuSocialShieldConfiguration]
+    sources:
+      - SbuSocialShieldConfiguration
+      # The Shield's words come from the app's catalog.
+      - SbuSocial/Localizable.xcstrings
+    dependencies:
+      - package: SbuKit
     entitlements:
       path: SbuSocialShieldConfiguration/SbuSocialShieldConfiguration.entitlements
       properties:
@@ -86,7 +91,10 @@ targets:
     # Handles the Shield's buttons.
     type: app-extension
     platform: iOS
-    sources: [SbuSocialShieldAction]
+    sources:
+      - SbuSocialShieldAction
+      # The Shield's words come from the app's catalog.
+      - SbuSocial/Localizable.xcstrings
     entitlements:
       path: SbuSocialShieldAction/SbuSocialShieldAction.entitlements
       properties:

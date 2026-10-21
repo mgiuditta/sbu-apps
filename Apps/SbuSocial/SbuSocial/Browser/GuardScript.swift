@@ -5,7 +5,7 @@ import Foundation
 /// Instagram and YouTube are single-page apps: moving inside them never reaches the navigation
 /// delegate. The guard catches taps before the site does, refuses blocked paths in
 /// `history.pushState`/`replaceState`, and checks the address every 400 ms as a safety net, so
-/// it depends on paths, not on the page's layout. Posts with a hidden label are found by text.
+/// it depends on paths, not on the page's layout.
 nonisolated enum GuardScript {
     /// The message handler a page posts to with how many elements it just hid.
     static let messageName = "sbuHidden"
@@ -73,25 +73,44 @@ nonisolated enum GuardScript {
             if (target) location.replace(target);
           }, 400);
 
-          if (R.labels.length) {
-            let queued = false;
-            const scan = () => {
-              queued = false;
-              for (const element of document.querySelectorAll(R.container)) {
-                if (element.style.display === 'none') continue;
-                const text = element.innerText || '';
-                if (R.labels.some(label => text.includes(label))) {
-                  element.style.display = 'none';
-                  window.webkit?.messageHandlers?.sbuHidden?.postMessage(1);
-                }
-              }
-            };
-            new MutationObserver(() => {
-              if (!queued) { queued = true; requestAnimationFrame(scan); }
-            }).observe(document.documentElement, { childList: true, subtree: true });
-          }
         })();
         """
+    }
+
+    /// Runs in Sbu's own content world, out of the page's reach: hides posts with a hidden label and
+    /// counts them, with the ads YouTube's script marks on the page, one message per item.
+    static func counter(_ rules: PlatformRules) -> String {
+        let config = json(CounterConfig(labels: rules.hiddenLabels, container: rules.labelContainer))
+        return """
+        (() => {
+          const R = \(config);
+          const post = () => window.webkit.messageHandlers.\(messageName).postMessage(1);
+          let ads = 0;
+          let queued = false;
+          const scan = () => {
+            queued = false;
+            const marked = Number(document.documentElement.dataset.sbuAds || 0);
+            for (; ads < marked; ads++) post();
+            if (!R.labels.length) return;
+            for (const element of document.querySelectorAll(R.container)) {
+              if (element.style.display === 'none') continue;
+              const text = element.innerText || '';
+              if (R.labels.some(label => text.includes(label))) {
+                element.style.display = 'none';
+                post();
+              }
+            }
+          };
+          new MutationObserver(() => {
+            if (!queued) { queued = true; requestAnimationFrame(scan); }
+          }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-sbu-ads'] });
+        })();
+        """
+    }
+
+    private struct CounterConfig: Encodable {
+        let labels: [String]
+        let container: String
     }
 
     private struct GuardConfig: Encodable {
@@ -99,16 +118,12 @@ nonisolated enum GuardScript {
         let single: [String]
         let redirects: [String: String]
         let rewrites: [String: String]
-        let labels: [String]
-        let container: String
 
         init(rules: PlatformRules) {
             blocked = rules.blockedPaths
             single = rules.singlePaths
             redirects = rules.redirects
             rewrites = rules.rewrites
-            labels = rules.hiddenLabels
-            container = rules.labelContainer
         }
     }
 

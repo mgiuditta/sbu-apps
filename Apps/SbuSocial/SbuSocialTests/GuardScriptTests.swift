@@ -7,7 +7,7 @@ struct GuardScriptTests {
     @Test(arguments: Platform.allCases)
     func scriptsParse(platform: Platform) {
         let rules = platform.rules
-        for source in [GuardScript.css(rules), GuardScript.guardSource(rules), rules.scriptSource].compactMap(\.self) {
+        for source in [GuardScript.css(rules), GuardScript.guardSource(rules), GuardScript.counter(rules), rules.scriptSource].compactMap(\.self) {
             #expect(syntaxError(in: source) == nil)
         }
     }

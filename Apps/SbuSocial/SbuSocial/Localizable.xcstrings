@@ -11,6 +11,16 @@
         }
       }
     },
+    "%@ è schermata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is shielded"
+          }
+        }
+      }
+    },
     "Account" : {
       "localizations" : {
         "en" : {
@@ -41,12 +51,52 @@
         }
       }
     },
+    "App schermata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App shielded"
+          }
+        }
+      }
+    },
+    "Apri Sbu Social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sbu Social"
+          }
+        }
+      }
+    },
+    "Apri in Sbu Social" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in Sbu Social"
+          }
+        }
+      }
+    },
     "Apri un social: qui conti i minuti di oggi." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open a social app: today's minutes add up here."
+          }
+        }
+      }
+    },
+    "Aprila in Sbu Social, senza video brevi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open it in Sbu Social, without short videos."
           }
         }
       }
@@ -77,6 +127,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Block"
+          }
+        }
+      }
+    },
+    "Cambia le app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change apps"
+          }
+        }
+      }
+    },
+    "Chiudi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
           }
         }
       }
@@ -191,6 +261,16 @@
         }
       }
     },
+    "Scegli le app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose apps"
+          }
+        }
+      }
+    },
     "Scegli le app da schermare: le apri qui, senza video brevi." : {
       "localizations" : {
         "en" : {
@@ -211,6 +291,16 @@
         }
       }
     },
+    "Schermo attivo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shield on"
+          }
+        }
+      }
+    },
     "Sonno" : {
       "localizations" : {
         "en" : {
@@ -227,6 +317,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stats"
+          }
+        }
+      }
+    },
+    "Tocca per aprire i social senza video brevi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to open your social apps without short videos."
           }
         }
       }
@@ -257,6 +357,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove account %lld?"
+          }
+        }
+      }
+    },
+    "app schermate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "apps shielded"
           }
         }
       }

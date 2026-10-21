@@ -4,7 +4,11 @@
   const AD_KEYS = ['adPlacements', 'adSlots', 'playerAds', 'adBreakHeartbeatParams'];
   const strip = (value) => {
     if (value && typeof value === 'object') {
-      if (AD_KEYS.some(key => key in value)) window.webkit?.messageHandlers?.sbuHidden?.postMessage(1);
+      if (AD_KEYS.some(key => key in value)) {
+        // Counted by Sbu's own script, which the page can't reach.
+        const root = document.documentElement;
+        if (root) root.dataset.sbuAds = String(Number(root.dataset.sbuAds || 0) + 1);
+      }
       for (const key of AD_KEYS) delete value[key];
       if (value.playerResponse) strip(value.playerResponse);
     }

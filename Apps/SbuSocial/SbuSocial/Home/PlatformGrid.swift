@@ -6,7 +6,7 @@ struct PlatformGrid: View {
     let open: (Platform) -> Void
 
     var body: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: SbuTheme.gridCell * 5), spacing: SbuTheme.space3)],
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: SbuTheme.gridCell * 4), spacing: SbuTheme.space3)],
                   spacing: SbuTheme.space3) {
             ForEach(Platform.allCases) { platform in
                 Button {
@@ -15,7 +15,8 @@ struct PlatformGrid: View {
                     Text(verbatim: platform.name)
                         .font(SbuTheme.headline)
                         .foregroundStyle(SbuTheme.ink)
-                        .frame(maxWidth: .infinity, minHeight: SbuTheme.gridCell * 3)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, minHeight: SbuTheme.gridCell * 2)
                         .padding(SbuTheme.space3)
                         .background(SbuTheme.surfaceRaised, in: .rect(cornerRadius: SbuTheme.radiusCard))
                         .overlay {

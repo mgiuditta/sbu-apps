@@ -70,3 +70,29 @@ struct YouTubeRulesTests {
         #expect(youtube.allows(host: host) == allowed)
     }
 }
+
+struct EveryPlatformTests {
+    @Test(arguments: Platform.allCases)
+    func theHomeOpensInTheBrowser(platform: Platform) {
+        let rules = platform.rules
+        let home = platform.homeURL
+        #expect(rules.allows(host: home.host()))
+        #expect(!rules.blocks(path: home.path, from: ""))
+    }
+
+    @Test(arguments: [
+        (Platform.x, "/explore/tabs/for-you", true), (.x, "/someone/status/1", false),
+        (.tiktok, "/foryou", true), (.tiktok, "/@someone", false), (.tiktok, "/messages", false),
+        (.facebook, "/reels/", true), (.facebook, "/watch/?v=1", true), (.facebook, "/someone", false),
+        (.reddit, "/r/popular/", true), (.reddit, "/r/swift/", false),
+        (.snapchat, "/spotlight/abc", true), (.linkedin, "/feed/videos/", true), (.linkedin, "/in/someone/", false),
+    ] as [(Platform, String, Bool)])
+    func shortVideosAndAlgorithmFeedsAreClosed(platform: Platform, path: String, blocked: Bool) {
+        #expect(platform.rules.blocks(path: path, from: "/") == blocked)
+    }
+
+    @Test func tiktokOpensOnTheMessages() throws {
+        let url = try #require(URL(string: "https://www.tiktok.com/"))
+        #expect(Platform.tiktok.rules.redirect(url)?.path == "/messages")
+    }
+}

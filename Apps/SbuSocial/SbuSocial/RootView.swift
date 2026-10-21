@@ -23,7 +23,7 @@ struct RootView: View {
             }
         } settings: {
             LaunchSection(options: options)
-            ForEach(Platform.allCases) { platform in
+            ForEach(Platform.allCases.filter { !$0.rules.options.isEmpty }) { platform in
                 FilterSection(platform: platform, options: options)
             }
         }

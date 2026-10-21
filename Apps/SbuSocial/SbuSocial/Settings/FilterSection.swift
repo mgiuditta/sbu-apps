@@ -20,7 +20,7 @@ struct FilterSection: View {
         } header: {
             Text(verbatim: platform.name)
         } footer: {
-            Text(platform == .instagram ? "Reels ed Esplora restano sempre bloccati." : "Gli Shorts restano sempre bloccati.")
+            Text("Reels, Shorts e video brevi restano sempre bloccati.")
         }
     }
 }

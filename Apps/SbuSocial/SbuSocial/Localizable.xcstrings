@@ -221,16 +221,6 @@
         }
       }
     },
-    "Gli Shorts restano sempre bloccati." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shorts always stay blocked."
-          }
-        }
-      }
-    },
     "Hai raggiunto il tuo limite di tempo. I social si riaprono domani." : {
       "localizations" : {
         "en" : {
@@ -401,12 +391,12 @@
         }
       }
     },
-    "Reels ed Esplora restano sempre bloccati." : {
+    "Reels, Shorts e video brevi restano sempre bloccati." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reels and Explore always stay blocked."
+            "value" : "Reels, Shorts and short videos always stay blocked."
           }
         }
       }

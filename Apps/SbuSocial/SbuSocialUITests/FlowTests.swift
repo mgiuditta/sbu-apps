@@ -6,6 +6,8 @@ final class FlowTests: XCTestCase {
     private static let exclusions: XCUIAccessibilityAuditType = [.contrast]
     /// SbuKit's settings also leave out Dynamic Type and clipped text, as the settings sheet does in
     /// the other apps: the system caps the Licenze row and the switch rows below the largest sizes.
+    /// How far above the tab bar the audit's larger text sizes reach under it.
+    private static let tabBarReach: CGFloat = 120
     private static let settingsExclusions: XCUIAccessibilityAuditType = [.contrast, .dynamicType, .textClipped]
 
     @MainActor
@@ -26,8 +28,15 @@ final class FlowTests: XCTestCase {
 
     @MainActor
     private func audit(_ app: XCUIApplication, excluding excluded: XCUIAccessibilityAuditType = exclusions) throws {
+        let tabBarTop = app.tabBars.firstMatch.frame.minY
         try app.performAccessibilityAudit(for: XCUIAccessibilityAuditType.all.subtracting(excluded)) { issue in
             let label = issue.element?.label ?? ""
+            // A row just above the floating tab bar: at larger text sizes the audit grows it under the
+            // bar and calls it cut, but the page scrolls and the row stays whole above it.
+            if [.dynamicType, .textClipped].contains(issue.auditType), let frame = issue.element?.frame,
+               frame.maxY > tabBarTop - Self.tabBarReach {
+                return true
+            }
             // SbuKit's cartiglio: Plex Mono relative to caption2, capped by the system at the
             // largest sizes, and tracked uppercase, which the audit measures as clipped (as in Sbu Find).
             if [.dynamicType, .textClipped].contains(issue.auditType), label.hasPrefix("SBU · ") {

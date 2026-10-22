@@ -1,2 +1,5 @@
-"01-main" = "Today's moon, as a percentage.";
-"02-privacy" = "No account. Data on your iPhone.";
+"01-main" = "Today's moon phase. How much of it is lit.";
+"02-privacy" = "No subscription, no account. Data only on your iPhone.";
+"03-phases" = "Moonrise and moonset where you are. And the next four phases.";
+"04-calendar" = "Lunar calendar. The moon on any day.";
+"05-alerts" = "Full moon alerts. New moon and quarters too.";

@@ -1,0 +1,75 @@
+{
+  "01-main": {
+    "layout": "hero",
+    "engraving": "icon",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        20,
+        820,
+        1250,
+        1320
+      ]
+    }
+  },
+  "02-privacy": {
+    "layout": "flat",
+    "subject": "an antique brass oil lantern, unlit, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        130,
+        2280,
+        1030,
+        2530
+      ]
+    }
+  },
+  "03-phases": {
+    "layout": "detail",
+    "subject": "an antique brass astrolabe with engraved rings, three-quarter view",
+    "zoom": [
+      0,
+      1290,
+      1320,
+      2700
+    ]
+  },
+  "04-calendar": {
+    "layout": "left",
+    "subject": "an old almanac lying open on a page of hand-drawn moon phases, three-quarter view",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        1020,
+        1110,
+        1230,
+        1300
+      ]
+    },
+    "en-US": {
+      "mark": {
+        "shape": "circle",
+        "box": [
+          120,
+          1270,
+          280,
+          1440
+        ]
+      }
+    }
+  },
+  "05-alerts": {
+    "layout": "right",
+    "subject": "an antique brass ship's bell hanging from a bracket, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        110,
+        1380,
+        1200,
+        1480
+      ]
+    }
+  }
+}

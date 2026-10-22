@@ -1,0 +1,64 @@
+{
+  "01-main": {
+    "layout": "hero",
+    "engraving": "icon",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        30,
+        1100,
+        1120,
+        1200
+      ]
+    }
+  },
+  "02-privacy": {
+    "layout": "flat",
+    "subject": "an antique steamer trunk with leather straps, closed, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        130,
+        2280,
+        1030,
+        2530
+      ]
+    }
+  },
+  "03-swipe": {
+    "layout": "right",
+    "subject": "a loose stack of old photographic prints tied with string, three-quarter view",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        80,
+        2470,
+        300,
+        2760
+      ]
+    }
+  },
+  "04-duplicates": {
+    "layout": "left",
+    "subject": "an antique twin-lens reflex camera, three-quarter view",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        30,
+        1550,
+        290,
+        1680
+      ]
+    }
+  },
+  "05-bin": {
+    "layout": "detail",
+    "subject": "an old galvanized metal dustbin with its lid, three-quarter view",
+    "zoom": [
+      0,
+      540,
+      1320,
+      1660
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The lit part of the moon, from `MoonDisc`, in the largest circle that fits the rect.
-struct MoonLitShape: Shape {
+nonisolated struct MoonLitShape: Shape {
     let disc: MoonDisc
 
     func path(in rect: CGRect) -> Path {

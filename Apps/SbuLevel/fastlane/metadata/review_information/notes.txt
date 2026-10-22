@@ -12,3 +12,5 @@ New in 1.1:
 - Settings opens with "How to use".
 
 How it differs from the other Sbu apps: Sbu Level is the only one that reads the motion sensors and the camera to measure angles; the others do unrelated things (speed from GPS, sound level, habits, moon phases, photo cleanup). Each Sbu app has its own code for its own instrument; they share only the design system.
+
+Since 1.0 (rejected 14 Oct 2026): five units, Zero here, the camera Sight, steady lock, spoken readings, the volume button, a rotatable dial and a How to use page; a new icon and alternate icon, new screenshots, description rewritten to open with what the app does.

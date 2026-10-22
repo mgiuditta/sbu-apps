@@ -1,5 +1,6 @@
 ---
-// The home is a squared sheet. Each App Sbu is one filled cell in its accent at the bottom right of its
+// The home opens by saying what sbu.dev is in one line (paid iPhone apps, remade free), then its three branches.
+// Then a squared sheet. Each App Sbu is one filled cell in its accent at the bottom right of its
 // engraving, as on its icon; an announced app with no page yet is an empty cell. Then "Il numero": what the
 // paid apps Sbu remakes cost, closed by the full stop. Then the six promises and the free tools.
 import Base from '../layouts/Base.astro';
@@ -16,12 +17,19 @@ const copy = {
   it: {
     title: 'App gratis per iPhone, senza abbonamento né pubblicità · sbu.dev',
     description: 'App gratuite per iPhone che rifanno da zero app a pagamento. Ognuna fa una cosa sola, senza abbonamento, acquisti in-app, account o pubblicità.',
-    hero: 'Sbu fa una cosa sola',
+    hero: 'App per iPhone a pagamento, rifatte gratis',
     cartiglio: (count: number) => `sbu.dev · ${count} app · 0 €`,
-    lede: 'Ogni app Sbu rifà da zero un’app per iPhone a pagamento e te la dà gratis. Senza account, senza pubblicità, e i tuoi dati restano sul telefono.',
+    lede: 'Prendi un’app che ti chiede un abbonamento o un prezzo: Sbu la rifà da zero e te la dà gratis, per sempre. Senza account, senza pubblicità, e i tuoi dati restano sul telefono.',
+    cta: 'Guarda le app',
+    branches: [
+      { path: '', anchor: '#apps', title: 'App', line: 'Per iPhone, ognuna al posto di un’app a pagamento.' },
+      { path: 'games', title: 'Giochi', line: 'I giochi più giocati, senza pubblicità né acquisti.' },
+      { path: 'software', title: 'Software', line: 'Software per aziende, rifatto open source.' },
+    ],
+    branchesLabel: 'Cosa trovi su sbu.dev',
     sheet: 'Le app',
-    sheetLede: 'Un quadretto per app, nel suo colore. Quelle ancora senza scheda hanno il quadretto vuoto.',
-    number: 'Il numero',
+    sheetLede: 'Ognuna fa la stessa cosa di un’app a pagamento, gratis. Tocca un’app per vedere cosa fa e scaricarla. Quelle con il quadretto vuoto sono in arrivo.',
+    number: 'Quanto risparmi',
     notPaid: 'Non paghi',
     numberLabel: (names: string, count: number) =>
       count === 1 ? `Quanto costa ${names}, l’app a pagamento che Sbu rifà.` : `Quanto costano ${names}, le ${count} app a pagamento che Sbu rifà.`,
@@ -44,12 +52,19 @@ const copy = {
   en: {
     title: 'Free iPhone apps with no subscription and no ads · sbu.dev',
     description: 'Free iPhone apps that remake paid ones from scratch. Each does one thing, with no subscription, in-app purchases, account or ads.',
-    hero: 'Sbu does one thing',
+    hero: 'Paid iPhone apps, remade free',
     cartiglio: (count: number) => `sbu.dev · ${count} apps · €0`,
-    lede: 'Each Sbu app remakes a paid iPhone app from scratch and gives it to you free. No account, no ads, and your data stays on your phone.',
+    lede: 'Take an app that asks you for a subscription or a price: Sbu remakes it from scratch and gives it to you free, for good. No account, no ads, and your data stays on your phone.',
+    cta: 'See the apps',
+    branches: [
+      { path: '', anchor: '#apps', title: 'Apps', line: 'For iPhone, each one instead of a paid app.' },
+      { path: 'games', title: 'Games', line: 'The most played games, with no ads or purchases.' },
+      { path: 'software', title: 'Software', line: 'Software companies pay for, remade open source.' },
+    ],
+    branchesLabel: 'What you find on sbu.dev',
     sheet: 'The apps',
-    sheetLede: 'One square per app, in its colour. The ones with no page yet have an empty square.',
-    number: 'The number',
+    sheetLede: 'Each does what a paid app does, for free. Tap an app to see what it does and download it. The ones with an empty square are on their way.',
+    number: 'What you save',
     notPaid: 'You don’t pay',
     numberLabel: (names: string, count: number) =>
       count === 1 ? `What ${names} costs, the paid app Sbu remakes.` : `What ${names} cost, the ${count} paid apps Sbu remakes.`,
@@ -82,6 +97,8 @@ const tiles = apps.filter((app) => app.category !== 'GameApplication').map((app)
     href: localePath(locale, `apps/${app.slug}`),
     meta: `${t.number(app.order)} · ${statusLabel(app, locale)}`,
     mark: app.mark,
+    // What it replaces, said plainly: the paid app and what it costs there.
+    instead: app.originale && [app.originale.name, app.originale.cost?.[locale] ?? (app.originale.price !== undefined ? formatPrice(app.originale.price, locale) : undefined)].filter(Boolean).join(' · '),
   };
 });
 const waiting = upcoming.map((app) => ({
@@ -140,9 +157,18 @@ const jsonLd = [
     </h1>
     <p class="cartiglio">{copy.cartiglio(apps.length + upcoming.length)}</p>
     <p class="hero-lede">{copy.lede}</p>
+    <p class="hero-cta"><a href="#apps" class="btn">{copy.cta}</a></p>
+    <ul class="branches" aria-label={copy.branchesLabel}>
+      {copy.branches.map((branch) => (
+        <li class="branch">
+          <h2 class="tile-name font-display"><a href={branch.anchor ?? localePath(locale, branch.path)} class="tile-link">{branch.title}</a></h2>
+          <p class="text-ink-muted">{branch.line}</p>
+        </li>
+      ))}
+    </ul>
   </section>
 
-  <section aria-labelledby="sheet" class="section">
+  <section aria-labelledby="sheet" class="section" id="apps">
     <h2 id="sheet" class="section-title font-display">{copy.sheet}</h2>
     <p class="section-lede">{copy.sheetLede}</p>
     <ol class="tiles">
@@ -155,6 +181,7 @@ const jsonLd = [
           {/* The name is the tile's link; its ::after stretches over the tile, so the whole tile is the target. */}
           <h3 class="tile-name font-display"><a href={tile.href} class="tile-link" data-tile-link>{tile.name}</a></h3>
           <p class="tile-line">{tile.line}</p>
+          {tile.instead && <p class="tile-instead">{t.insteadOf} {tile.instead}</p>}
           <p class="cartiglio">{tile.meta}</p>
         </li>
       ))}
@@ -260,6 +287,25 @@ const jsonLd = [
     text-wrap: balance;
   }
   .hero-word { display: inline-block; }
+  .btn {
+    display: inline-block;
+    padding: var(--spacing-3) var(--spacing-6);
+    border-radius: var(--radius-card);
+    background: var(--sbu-ink);
+    color: var(--sbu-paper);
+    font-size: var(--text-headline);
+    font-weight: var(--text-headline--font-weight);
+    line-height: var(--sbu-grid-cell);
+    text-decoration: none;
+  }
+  .btn:focus-visible { outline: calc(var(--sbu-hairline) * 2) solid var(--sbu-focus); outline-offset: calc(var(--sbu-hairline) * 2); }
+  /* The three branches of sbu.dev, under the hero: one line each, so the first screen says everything. */
+  .branches { display: grid; gap: var(--sbu-grid-cell); margin-top: var(--sbu-grid-cell); max-width: calc(var(--sbu-grid-cell) * 42); }
+  @media (min-width: 48rem) {
+    .branches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .branch { position: relative; display: grid; align-content: start; line-height: var(--sbu-grid-cell); }
+  .branch .text-ink-muted { font-size: var(--text-subheadline); }
   .hero-lede {
     max-width: 36ch;
     font-size: var(--text-title-2);
@@ -283,6 +329,7 @@ const jsonLd = [
     height: var(--sbu-hairline);
     background: var(--sbu-line);
   }
+  #apps { scroll-margin-top: calc(var(--sbu-grid-cell) * 3); }
   .section-title {
     font-size: var(--text-title);
     line-height: calc(var(--sbu-grid-cell) * 2);
@@ -321,15 +368,17 @@ const jsonLd = [
     font-weight: var(--text-title--font-weight);
   }
   .tile-line { font-size: var(--text-subheadline); color: var(--sbu-ink-muted); }
+  .tile-instead { font-size: var(--text-footnote); color: var(--sbu-ink-muted); }
   .tile-link { color: inherit; text-decoration: underline transparent calc(var(--sbu-hairline) * 2); text-underline-offset: var(--spacing-1); }
   .tile-link::after { content: ""; position: absolute; inset: 0; }
   .tile-link:focus-visible { outline: none; }
-  .tile:has(.tile-link:focus-visible), .tool:has(.tile-link:focus-visible) {
+  .tile:has(.tile-link:focus-visible), .tool:has(.tile-link:focus-visible), .branch:has(.tile-link:focus-visible) {
     outline: calc(var(--sbu-hairline) * 2) solid var(--sbu-focus);
     outline-offset: calc(var(--sbu-hairline) * 2);
   }
   .tile:hover .tile-link, .tile:focus-within .tile-link,
-  .tool:hover .tile-link, .tool:focus-within .tile-link { text-decoration-color: currentColor; }
+  .tool:hover .tile-link, .tool:focus-within .tile-link,
+  .branch:hover .tile-link, .branch:focus-within .tile-link { text-decoration-color: currentColor; }
 
   /* Il numero: as wide as the frame. At width 87 a price's widest glyph, a digit, is 0.506 em (measured on
      Design/fonts/BricolageGrotesque-Variable.ttf), so 0.5 em a character plus two cells for the full stop
@@ -376,7 +425,7 @@ const jsonLd = [
   @media (prefers-reduced-motion: no-preference) {
     /* The title is set word by word, then the full stop rises onto the baseline. One tempo (ADR-0014). */
     .hero-word { animation: set var(--sbu-motion-base) ease-out calc(var(--i) * var(--sbu-motion-short) / 2) both; }
-    .hero-lede { animation: set var(--sbu-motion-base) ease-out var(--sbu-motion-base) both; }
+    .hero-lede, .hero-cta, .branches { animation: set var(--sbu-motion-base) ease-out var(--sbu-motion-base) both; }
     @keyframes set { from { opacity: 0; translate: 0 var(--spacing-4); } }
 
     /* The tapped cell closes: it shrinks into itself and fills again, on motion-short. */

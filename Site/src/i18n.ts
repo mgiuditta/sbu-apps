@@ -9,7 +9,7 @@ export function localePath(locale: Locale, path: string): string {
 
 export const ui = {
   it: {
-    siteDescription: 'App gratuite per iPhone che fanno una cosa sola. Nessun abbonamento, nessun account, nessuna pubblicità.',
+    siteDescription: 'App per iPhone a pagamento, rifatte da zero e gratis. Nessun abbonamento, nessun account, nessuna pubblicità.',
     nav: { apps: 'App', games: 'Giochi', software: 'Software', principles: 'Principi', support: 'Supporto', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Quanto spendi in abbonamenti', qrCode: 'Crea un codice QR', alternatives: 'Alternative gratis', press: 'Stampa' },
     otherLocale: { label: 'English', lang: 'en' },
     skip: 'Vai al contenuto',
@@ -52,7 +52,7 @@ export const ui = {
     priceSource: (date: string) => `Prezzo una tantum sull’App Store italiano, verificato il ${date}.`,
   },
   en: {
-    siteDescription: 'Free iPhone apps that each do one thing. No subscription, no account, no ads.',
+    siteDescription: 'Paid iPhone apps, remade from scratch and free. No subscription, no account, no ads.',
     nav: { apps: 'Apps', games: 'Games', software: 'Software', principles: 'Principles', support: 'Support', blog: 'Blog', privacy: 'Privacy', subscriptionCost: 'Subscription cost', qrCode: 'QR code maker', alternatives: 'Free alternatives', press: 'Press' },
     otherLocale: { label: 'Italiano', lang: 'it' },
     skip: 'Skip to content',

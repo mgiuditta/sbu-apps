@@ -5,7 +5,7 @@ Paper with the notebook grid, drawn at 2x (a preview is shown at about half its 
 2 x grid-cell). One per app with an engraving in Design/icons/source: a Plex Mono cartiglio
 (SBU / NN / SLUG), the app name in Bricolage Grotesque variable at 800 and width 87, closed by the
 full stop in its accent (exactly one cell), the engraving in `ink` beside it. One per locale for the
-home: "Sbu fa una cosa sola" closed by the full stop in `brand`. Light only: previews are shown on
+home: "App a pagamento, rifatte gratis" closed by the full stop in `brand`. Light only: previews are shown on
 someone else's page, which we don't theme.
 
 Usage: python3 Tools/make_og.py      -> Site/public/og/<name>.png, home-it.png, home-en.png
@@ -27,8 +27,8 @@ OUT = ROOT / "Site" / "public" / "og"
 W, H = 1200, 630
 SCALE = 2  # preview pixels per CSS pixel
 HOME = {
-    "it": (["Sbu fa una", "cosa sola"], "sbu.dev · app gratuite per iPhone"),
-    "en": (["Sbu does", "one thing"], "sbu.dev · free iPhone apps"),
+    "it": (["App a pagamento,", "rifatte gratis"], "sbu.dev · app per iPhone, senza abbonamento"),
+    "en": (["Paid apps,", "remade free"], "sbu.dev · iPhone apps, no subscription"),
 }
 
 

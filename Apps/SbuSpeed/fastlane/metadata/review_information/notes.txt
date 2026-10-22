@@ -10,3 +10,5 @@ New in 1.1:
 The app needs no interaction while driving: the screen stays on and only shows the speed. Without movement the speed reads 0 and the course shows a dash; testing needs a walk or a drive. With location denied, the screen says so and offers to open Settings.
 
 How it differs from the other Sbu apps: Sbu Speed is the only one that uses GPS, to measure speed, course and trips; the others do unrelated things (angles with the motion sensors, sound level, habits, moon phases, photo cleanup). Each Sbu app has its own code for its own instrument; they share only the design system.
+
+Since 1.0 (rejected 14 Oct 2026): one-tap speed limits, altitude and course, a trip log with CSV export, the mirrored HUD; a new icon and alternate icon, new screenshots, description rewritten to open with what the app does.

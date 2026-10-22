@@ -56,6 +56,12 @@ const footer = [
 // The footer keeps the free tools apart from the pages about Sbu.
 const tools = new Set([localePath(locale, 'abbonamenti'), localePath(locale, 'qr-code')]);
 const here = localePath(locale, path);
+// The header marks the section you are in: the page itself, or a page under it (app pages sit under App).
+const section = (href: string) => {
+  if (href === here) return 'page';
+  const top = href === localePath(locale, '') ? localePath(locale, 'apps') : href;
+  return here.startsWith(`${top}/`) ? 'true' : undefined;
+};
 // The sheet lists the header's links first, then the footer's others.
 const more = footer.filter((item) => !nav.some((top) => top.href === item.href));
 // The apps you can download, then the whole catalogue on the home.
@@ -116,23 +122,23 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
               {nav.map((item) => (
                 <li>
                   {/* The label rolls up letter by letter on hover; screen readers get it whole. */}
-                  <a href={item.href} class="roll text-ink" aria-current={item.href === here ? 'page' : undefined}>
+                  <a href={item.href} class="roll py-3 text-ink" aria-current={section(item.href)}>
                     <span class="sr-only">{item.label}</span>
                     <span aria-hidden="true">{[...item.label].map((c, i) => <span style={`--i: ${i}`} data-c={c}>{c}</span>)}</span>
                   </a>
                 </li>
               ))}
-              {alternates.includes(other) && (
-                <li><a href={localePath(other, path)} hreflang={other} lang={other} class="text-ink-muted no-underline hover:underline">{t.otherLocale.label}</a></li>
-              )}
             </ul>
           </nav>
-          <ul class="flex items-center gap-4"><slot name="nav-end" /></ul>
+          {/* The language is not a section: it stands apart, muted, before the code. */}
+          {alternates.includes(other) && (
+            <a href={localePath(other, path)} hreflang={other} lang={other} class="wide py-3 text-ink-muted no-underline hover:underline">{t.otherLocale.label}</a>
+          )}
           <a href={REPO_URL} class="-m-2 p-2 text-ink hover:text-ink-muted" title={t.code}>
             <GitHubMark />
             <span class="sr-only">{t.code}</span>
           </a>
-          <button type="button" class="narrow text-ink" data-menu-open aria-haspopup="dialog">{t.menu}</button>
+          <button type="button" class="narrow py-3 text-ink" data-menu-open aria-haspopup="dialog">{t.menu}</button>
         </div>
       </div>
     </header>

@@ -167,7 +167,8 @@
   .roll [data-c] { display: inline-block; position: relative; white-space: pre; }
   .roll [data-c]::after { content: attr(data-c); position: absolute; top: 100%; left: 0; }
   .roll:hover [data-c], .roll:focus-visible [data-c] { translate: 0 -100%; }
-  .roll[aria-current="page"] > [aria-hidden] { text-decoration: underline; }
+  /* The window clips a text underline, so the section you are in gets a hairline drawn under it. */
+  .roll[aria-current] > [aria-hidden] { box-shadow: 0 var(--sbu-hairline) 0 currentColor; }
   @media (prefers-reduced-motion: no-preference) {
     /* One tempo (ADR-0014): each letter on motion-short, the next one a tenth of it later. */
     .roll [data-c] { transition: translate var(--sbu-motion-short) ease-out calc(var(--i) * var(--sbu-motion-short) / 10); }

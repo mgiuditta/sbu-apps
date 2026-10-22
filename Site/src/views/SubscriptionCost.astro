@@ -30,7 +30,7 @@ const copy = {
     noScript: 'Il calcolo ha bisogno di JavaScript, che qui è spento.',
     closeTitle: 'Le app Sbu costano 0 €',
     closeBody: 'Ogni app Sbu fa una cosa sola, gratis: nessun abbonamento, nessun acquisto in-app, nessun account.',
-    closeLink: 'Vedi le app',
+    closeLink: 'Guarda le app',
     faq: [
       { q: 'I miei dati vengono salvati?', a: 'No. Quello che scrivi resta nella pagina e sparisce quando la chiudi. Il sito non usa cookie né statistiche.' },
       { q: 'Come calcola il totale annuo?', a: 'Un abbonamento settimanale conta 52 volte, uno mensile 12 volte, uno annuale una volta.' },
@@ -171,6 +171,8 @@ const jsonLd = [
     color: var(--sbu-ink);
     font: inherit;
   }
+  /* The only row has nothing to remove: emptying it is enough. Hidden, it keeps its place and leaves the tab order. */
+  .rows > li:only-child .remove { visibility: hidden; }
   .remove {
     padding: var(--spacing-2) 0;
     border: 0;

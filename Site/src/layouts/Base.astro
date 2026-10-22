@@ -3,7 +3,7 @@ import '../styles/global.css';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import logoSvg from '../../../Design/logos/sbu-logo.svg?raw';
 import { localePath, ui, type Locale } from '../i18n';
-import { allEngravings, getApps, text } from '../lib/apps';
+import { allEngravings, getApps, plateCaption, text } from '../lib/apps';
 import { REPO_URL, SOCIAL } from '../lib/pages';
 import GitHubMark from '../components/GitHubMark.astro';
 
@@ -69,10 +69,13 @@ const footerApps = [
   ...(await getApps()).filter((app) => app.status === 'live').map((app) => ({ href: localePath(locale, `apps/${app.slug}`), label: text(app, locale).name })),
   { href: localePath(locale, ''), label: t.footerAllApps },
 ];
-// One instrument per page, the same on every visit: picked by the path, not at random.
+// One instrument per page, the same on every visit. A free tool or a branch shows the app it belongs to, captioned;
+// any other page one picked by the path, without a caption, so it never reads as the page's own app.
 const engravings = await allEngravings(800, locale);
+const owner = ({ abbonamenti: 'subscriptions', 'qr-code': 'scanner', games: 'squares' } as Record<string, string>)[path];
+const own = engravings.find((engraving) => engraving.slug === owner);
 const picked = engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
-const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.caption });
+const plate = !wide && (Astro.props.plate ?? (own ? { src: own.src, caption: plateCaption(own.slug, undefined, locale) } : { src: picked.src }));
 ---
 <!doctype html>
 <html lang={locale}>

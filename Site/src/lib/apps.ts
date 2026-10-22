@@ -24,13 +24,13 @@ export async function iconThumb(slug: string): Promise<string> {
 }
 
 /** Every engraving of an app on the site, in one size with its caption, for pages that pick one (the plate). */
-export async function allEngravings(width: number, locale: Locale): Promise<{ src: string; caption?: string }[]> {
+export async function allEngravings(width: number, locale: Locale): Promise<{ slug: string; src: string; caption?: string }[]> {
   const order = new Map((await getCollection('apps')).map((app) => [app.id, app.data.order]));
   // Only apps on the site: an engraving whose app has no content file stays off the plates.
   const entries = Object.entries(engravings).filter(([path]) => order.has(path.match(/sbu-(.+)\.png$/)![1]));
   return Promise.all(entries.map(async ([path, src]) => {
     const slug = path.match(/sbu-(.+)\.png$/)![1];
-    return { src: (await getImage({ src, width, format: 'webp' })).src, caption: plateCaption(slug, order.get(slug), locale) };
+    return { slug, src: (await getImage({ src, width, format: 'webp' })).src, caption: plateCaption(slug, order.get(slug), locale) };
   }));
 }
 

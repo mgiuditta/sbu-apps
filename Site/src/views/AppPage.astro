@@ -20,12 +20,13 @@ const site = Astro.site!;
 const url = new URL(localePath(locale, path), site).href;
 // The scheda's cartiglio: catalogue number and slug, the paid app it replaces and that app's public price
 // (one-time on the Italian App Store, the only price the repo keeps), then what it costs with Sbu.
-const replaced = originale && [
-  t.replaces(originale.name),
-  originale.price !== undefined && t.oneTime(formatPrice(originale.price, locale)),
-  originale.cost?.[locale],
-].filter(Boolean).join(' · ');
-const cartiglio = `SBU / ${String(app.order).padStart(2, '0')} / ${app.slug}${replaced ? ` · ${replaced}` : ''}`;
+// Kept as parts, each unbreakable, so on a phone the line wraps only at a separator.
+const cartiglio = [
+  `SBU / ${String(app.order).padStart(2, '0')} / ${app.slug}`,
+  originale && t.replaces(originale.name),
+  originale?.price !== undefined && t.oneTime(formatPrice(originale.price, locale)),
+  originale?.cost?.[locale],
+].filter((part): part is string => Boolean(part));
 
 const jsonLd = [
   {
@@ -58,7 +59,7 @@ const title = [`${job}${forIphone} · ${listing.name}`, `${job} · ${listing.nam
   image={`/og/${app.slug}.png`}
   jsonLd={jsonLd}
   appStoreId={app.storeUrl ? app.appStoreId : undefined}
-  plate={app.engraving ? { src: app.engraving, caption: plateCaption(app.slug, app.order, locale), lead: true } : false}
+  plate={app.engraving ? { src: app.engraving, caption: plateCaption(app.slug, undefined, locale), lead: true } : false}
 >
   {/* The scheda: the title closed by the full stop in the app's accent (the page's one colored square)
       over its cartiglio, the figure on the grid, then what it does and what it does not. Everything else is ink. */}
@@ -67,8 +68,7 @@ const title = [`${job}${forIphone} · ${listing.name}`, `${job} · ${listing.nam
       <div class="grid">
         <PageTitle text={listing.name} accent={app.accent} size="hero" />
         <p class="cartiglio">
-          {cartiglio}
-          {originale && <> <span aria-hidden="true">→</span><span class="sr-only">, {t.withSbu}:</span> {formatPrice(0, locale)}</>}
+          {cartiglio.map((part, index) => <>{index > 0 && ' · '}<span class="whitespace-nowrap">{part}{index === cartiglio.length - 1 && originale && <> <span aria-hidden="true">→</span><span class="sr-only">, {t.withSbu}:</span> {formatPrice(0, locale)}</>}</span></>)}
         </p>
       </div>
       <p class="lede">{listing.subtitle}</p>

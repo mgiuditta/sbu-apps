@@ -103,6 +103,11 @@ export function statusLabel(app: { status: keyof (typeof statusWords)['it']; pub
   return app.status === 'live' && app.published ? `${word} ${formatDate(app.published, locale)}` : word;
 }
 
+/** The state in one or two words, for a tile with no room for a date: "Disponibile", "In sviluppo". */
+export function statusShort(status: keyof (typeof statusWords)['it'], locale: Locale): string {
+  return status === 'live' ? { it: 'Disponibile', en: 'Available' }[locale] : statusWords[locale][status];
+}
+
 export function formatDate(date: Date, locale: Locale): string {
   return new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(date);
 }

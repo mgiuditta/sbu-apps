@@ -5,7 +5,7 @@
 // paid apps Sbu remakes cost, closed by the full stop. Then the six promises and the free tools.
 import Base from '../layouts/Base.astro';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
-import { capitalize, formatDate, formatPrice, localePath, statusLabel, ui } from '../i18n';
+import { capitalize, formatDate, formatPrice, localePath, statusLabel, statusShort, ui } from '../i18n';
 import { text } from '../lib/apps';
 import { DEVELOPER_URL, PROFILES, REPO_URL } from '../lib/pages';
 import type { Route } from '../lib/routes';
@@ -95,10 +95,13 @@ const tiles = apps.filter((app) => app.category !== 'GameApplication').map((app)
     name: listing.name,
     line: `${capitalize(listing.oneThing)}.`,
     href: localePath(locale, `apps/${app.slug}`),
-    meta: `${t.number(app.order)} · ${statusLabel(app, locale)}`,
+    meta: `${t.number(app.order)} · ${statusShort(app.status, locale)}`,
     mark: app.mark,
     // What it replaces, said plainly: the paid app and what it costs there.
-    instead: app.originale && [app.originale.name, app.originale.cost?.[locale] ?? (app.originale.price !== undefined ? formatPrice(app.originale.price, locale) : undefined)].filter(Boolean).join(' · '),
+    instead: app.originale && {
+      name: app.originale.name,
+      cost: app.originale.cost?.[locale] ?? (app.originale.price !== undefined ? formatPrice(app.originale.price, locale) : undefined),
+    },
   };
 });
 const waiting = upcoming.map((app) => ({
@@ -110,11 +113,12 @@ const waiting = upcoming.map((app) => ({
 }));
 
 // Il numero: the public one-time prices kept in the app content files (checked against research/ at build),
-// summed. The oldest reading date is the one the whole figure can promise.
-const priced = apps.filter((app) => app.originale?.price !== undefined).map((app) => app.originale!);
+// summed, only for apps you can download today: a saving you cannot have yet is not a saving. The oldest
+// reading date is the one the whole figure can promise.
+const priced = apps.filter((app) => app.status === 'live' && app.originale?.price !== undefined).map((app) => app.originale!);
 const total = priced.reduce((sum, originale) => sum + originale.price!, 0);
 const read = priced.map((originale) => originale.checked!).sort((a, b) => +a - +b)[0];
-const names = new Intl.ListFormat(locale, { type: 'conjunction' }).format(priced.map((originale) => originale.name));
+const names = new Intl.ListFormat(locale, { type: 'conjunction' }).format(priced.map((originale) => originale.name.replace(/\.$/, '')));
 const figure = formatPrice(total, locale);
 const zero = formatPrice(0, locale);
 const words = copy.hero.split(' ');
@@ -181,7 +185,7 @@ const jsonLd = [
           {/* The name is the tile's link; its ::after stretches over the tile, so the whole tile is the target. */}
           <h3 class="tile-name font-display"><a href={tile.href} class="tile-link" data-tile-link>{tile.name}</a></h3>
           <p class="tile-line">{tile.line}</p>
-          {tile.instead && <p class="tile-instead">{t.insteadOf} {tile.instead}</p>}
+          {tile.instead && <p class="tile-instead">{t.insteadOf} {tile.instead.name}{tile.instead.cost && <>{'\u00a0· '}<span class="whitespace-nowrap">{tile.instead.cost}</span></>}</p>}
           <p class="cartiglio">{tile.meta}</p>
         </li>
       ))}
@@ -343,6 +347,10 @@ const jsonLd = [
     grid-template-columns: repeat(auto-fill, calc(var(--sbu-grid-cell) * 10));
     gap: calc(var(--sbu-grid-cell) * 2) var(--sbu-grid-cell);
     margin-top: var(--sbu-grid-cell);
+  }
+  /* A phone fits one ten-cell tile a row, and 28 of them run for metres: two columns there, the art still five cells. */
+  @media (max-width: 47.99rem) {
+    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   .tile { position: relative; display: grid; align-content: start; }
   /* The engraving on four by four cells, the app's cell on the fifth column of the last row: the icon's grammar. */

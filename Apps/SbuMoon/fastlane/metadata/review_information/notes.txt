@@ -5,3 +5,7 @@ The app opens on today's moon: the illuminated percentage, the phase's name, the
 - Swipe left or right for the day after or before, or tap the date to pick any day from 1900 to 2100.
 - "Show moonrise and moonset" asks for location (When In Use) only when you tap "Use my location", or lets you pick a city from a built-in list with no network. The position is read once, to about a kilometre, saved on the device as the place, and never sent anywhere.
 - The gear opens Settings: phase alerts (new moon, first quarter, full moon, last quarter) at a chosen time. iOS asks for notifications only when you turn one on.
+
+How it differs from the other Sbu apps: Sbu Moon is the only one that computes astronomy, the moon's phase, illumination, rise and set offline; the others do unrelated things (habits, photo cleanup, sound, angles, speed). Each Sbu app has its own code for its own task; they share only a small design package.
+
+Since 1.0 (rejected 14 Oct 2026): new icon and alternate icon, new screenshots, description rewritten to open with what the app does.

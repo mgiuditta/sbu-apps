@@ -1,3 +1,1 @@
-Riscritta da zero. La cronologia e le cartelle restano.
-
-Nuovi: controllo del link prima di aprirlo, Wi-Fi in un tocco, contatti ed eventi, codici da una foto, QR, Aztec, PDF417 e otto tipi di codici a barre, esportazione PNG, SVG e CSV, Comandi Rapidi.
+Nuova icona: una lente incisa sul quaderno, con il punto quadrato. In più, Condividi l'app e Scrivi una recensione nelle impostazioni.

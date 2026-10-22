@@ -1,3 +1,1 @@
-Rebuilt from scratch. Your history and folders stay.
-
-New: a link check before you open it, Wi-Fi in one tap, contacts and events, codes from a photo, QR, Aztec, PDF417 and eight kinds of barcodes, PNG, SVG and CSV export, Shortcuts.
+A new icon: a magnifying glass engraved on the notebook, with the square full stop. Plus Share the app and Write a review in settings.

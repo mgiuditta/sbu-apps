@@ -1,2 +1,5 @@
-"01-main" = "Your speed, in large digits.";
-"02-privacy" = "No account. Data on your iPhone.";
+"01-main" = "GPS speedometer. Your speed, big.";
+"02-privacy" = "No subscription, no account. Data only on your iPhone.";
+"03-trips" = "Trip log. Distance, average and top speed.";
+"04-trip" = "Every trip in detail. Export to CSV.";
+"05-hud" = "HUD mode. Your speed reflected on the windshield.";

@@ -1,2 +1,5 @@
-"01-main" = "La tua velocità, in grande.";
-"02-privacy" = "Senza account. Dati sull'iPhone.";
+"01-main" = "Tachimetro GPS. La tua velocità, in grande.";
+"02-privacy" = "Nessun abbonamento, nessun account. Dati solo sull'iPhone.";
+"03-trips" = "Registro dei viaggi. Distanza, media e massima.";
+"04-trip" = "Ogni viaggio nel dettaglio. Esporta in CSV.";
+"05-hud" = "Modalità parabrezza. La velocità riflessa sul vetro.";

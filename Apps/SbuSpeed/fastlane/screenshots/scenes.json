@@ -1,0 +1,64 @@
+{
+  "01-main": {
+    "layout": "hero",
+    "engraving": "icon",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        30,
+        860,
+        940,
+        1420
+      ]
+    }
+  },
+  "02-privacy": {
+    "layout": "flat",
+    "subject": "an old car key with a worn leather fob, lying flat",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        130,
+        2280,
+        1030,
+        2530
+      ]
+    }
+  },
+  "03-trips": {
+    "layout": "right",
+    "subject": "a vintage folded paper road map, partly open, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        110,
+        610,
+        880,
+        710
+      ]
+    }
+  },
+  "04-trip": {
+    "layout": "left",
+    "subject": "a vintage car odometer with rolling number wheels, front view",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        960,
+        1190,
+        1250,
+        1330
+      ]
+    }
+  },
+  "05-hud": {
+    "layout": "detail",
+    "subject": "an antique wooden car steering wheel with brass spokes, three-quarter view",
+    "zoom": [
+      60,
+      1180,
+      1260,
+      1700
+    ]
+  }
+}

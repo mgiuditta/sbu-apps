@@ -1,1 +1,1 @@
-earbuds,headphones,bluetooth,finder,lost,locate,tracker,signal,scanner,smartwatch,speaker,BLE
+headphones,bluetooth,finder,locate,tracker,signal,scanner,smartwatch,speaker,BLE,missing,nearby

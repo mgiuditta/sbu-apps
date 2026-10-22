@@ -1,1 +1,1 @@
-codice,lettore,codici a barre,wifi,contatto,prodotto,link,generatore,crea,ean,scansiona,fotocamera
+codice,lettore,codici a barre,wifi,contatto,prodotto,link,generatore,ean,scansiona,fotocamera,menu

@@ -1,1 +1,1 @@
-abbonamenti,rinnovi,spese,bollette,promemoria,budget,ricorrenti,prova gratuita,calendario,risparmio
+spese,bollette,promemoria,budget,ricorrenti,prova gratuita,calendario,risparmio,scadenze,disdetta

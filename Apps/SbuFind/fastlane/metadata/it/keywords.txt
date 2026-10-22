@@ -1,1 +1,1 @@
-cuffie,auricolari,bluetooth,ritrova,cerca,perso,tracker,segnale,smartwatch,cassa,radar,BLE
+bluetooth,cerca,perso,tracker,segnale,smartwatch,cassa,radar,BLE,smarrito,trova,localizza,vicino

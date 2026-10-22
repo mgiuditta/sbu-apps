@@ -46,6 +46,7 @@ Il rischio che resta per tutte e sei è quello che Apple ha nominato il 22/10: "
 ## Trovati durante il lavoro, da decidere
 
 - **Test di Habits e Moon non compilavano su `main`** con il compilatore attuale: corretti nei branch 1.1 (argomenti del test del timer; `MoonLitShape` `nonisolated`).
+- **Speed, audit del Parabrezza**: falliva anche su `main`, perché legge come tagliata l'unità specchiata. Escluso il controllo del ritaglio solo lì, con il motivo nel test.
 - **Habits, audit del foglio Aggiungi**: un nodo senza nome "Dynamic Type partially unsupported" che l'audit di iOS non attribuisce a nessun elemento. Il foglio non è stato toccato; da guardare a mano ai testi grandi.
 - **Schermate strumento che scorrono** (Moon, e probabilmente le altre su SbuKit): il contenuto passa sotto l'ora senza una fascia di carta, e la cifra si vede tagliata sotto la barra di stato. Correzione nello shell, non in una app sola.
 - **Orologio da comodino di Noise**: è scuro, e CLAUDE.md ammette superfici scure solo per la Closure e il Parabrezza. Serve un'ADR (come l'ADR-0011) o un orologio chiaro.

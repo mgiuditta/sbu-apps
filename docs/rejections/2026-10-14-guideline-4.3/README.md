@@ -4,6 +4,8 @@ Sei app 1.0 rifiutate insieme la sera del 14/10 (Clean, Speed, Moon, Habits, Noi
 
 Sbu Subscriptions 2.0 è in coda (Waiting for Review); Sbu Scanner 2.0 non è stata inviata. Le loro 1.x sono sullo Store da maggio e giugno 2026: due App Sbu già approvate con lo stesso brand, le stesse promesse e lo stesso SbuKit.
 
+**Aggiornamento del 22/10/2026.** Apple ha risposto alle quattro risposte (Habits, Clean, Noise, Moon) con il messaggio generico sul 4.3: risposte non accettate. Siamo al punto 5. Testo e piano in `risposta-apple-2026-10-22.md`, appello in `appeal-habits.md`; `habits-follow-up.md` non va più mandato.
+
 ## Perché è successo
 
 Segnali che un revisore (o il classificatore) legge come "template":

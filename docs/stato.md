@@ -24,10 +24,10 @@ Ogni app è su `main` (tutti i branch `app/*` sono già fusi). "Prossimo passo" 
 
 | App | ASC | Prossimo passo | Chi |
 |---|---|---|---|
-| Habits | 1.0 REJECTED | aspettare Apple; se zitta il 21/10, mandare `docs/rejections/2026-10-14-guideline-4.3/habits-follow-up.md` | Matteo |
-| Clean | 1.0 REJECTED | aspettare Apple | – |
-| Noise | 1.0 REJECTED | aspettare Apple | – |
-| Moon | 1.0 REJECTED | aspettare Apple | – |
+| Habits | 1.0 REJECTED, risposta respinta il 22/10 | appello all'App Review Board con `docs/rejections/2026-10-14-guideline-4.3/appeal-habits.md` | Matteo |
+| Clean | 1.0 REJECTED, risposta respinta il 22/10 | ferma fino all'esito dell'appello di Habits | – |
+| Noise | 1.0 REJECTED, risposta respinta il 22/10 | ferma fino all'esito dell'appello di Habits | – |
+| Moon | 1.0 REJECTED, risposta respinta il 22/10 | ferma fino all'esito dell'appello di Habits | – |
 | Level | 1.1 REJECTED (stato vecchio del 14/10, la 1.1 non è mai stata inviata) | test sul device, screenshot Sight/Trips, reinvio in uno slot | insieme |
 | Speed | 1.1 REJECTED (idem) | prova su strada, screenshot, reinvio in uno slot, mai nella stessa settimana di Level | insieme |
 
@@ -55,7 +55,7 @@ Cycle, Cast, Image, Gif, Tags, Knit, Chores, Reader, Exposure.
 
 ## 3. Bloccanti, in ordine di peso
 
-1. **Apple non ha ancora risposto sul 4.3** (4 giorni). Finché non risponde vale la regola: un invio a settimana. Lo slot di questa settimana l'ha preso Find.
+1. **Apple ha respinto le risposte sul 4.3 il 22/10** (messaggio generico, `docs/rejections/2026-10-14-guideline-4.3/risposta-apple-2026-10-22.md`). Prossimo passo: appello del Board solo per Habits; Clean, Noise, Moon, Level e Speed ferme fino all'esito. Resta la regola: un invio a settimana.
 2. **TestFlight non installa sul tuo iPhone** ("The requested app is not available or doesn't exist", dal 16/10, caso aperto con Developer Support). Ripiego: build Release via cavo per il test insieme.
 3. **Il test insieme è il passaggio che manca a quasi tutto**: Subscriptions 2.1, Chats, Fuel, Inventory, Level, Speed, Squares, e le sei scritte. Nessuna di queste va inviata senza.
 4. **CI rossa su main**: i test UI di Clean e Noise falliscono sui runner GitHub (timeout dell'audit, testo tagliato), Habits cancellato. Il sito invece si pubblica (workflow Site verde).

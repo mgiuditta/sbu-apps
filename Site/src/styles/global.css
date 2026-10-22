@@ -147,11 +147,11 @@
     border-bottom: var(--sbu-hairline) solid var(--sbu-ink);
   }
   .bar > .frame { min-height: calc(var(--sbu-grid-cell) * 3); }
-  /* Where the browser has scroll timelines, the bar is clear over the grid at the top of the page, and turns
-     to paper with a hairline once the page scrolls under it. */
+  /* Always solid paper: half-clear, the content and the grid showed through it while scrolling. Where the
+     browser has scroll timelines, the ink rule appears once the page scrolls under it. */
   @supports (animation-timeline: scroll()) {
-    .bar { background: transparent; border-bottom-color: transparent; animation: rule linear both; animation-timeline: scroll(root); animation-range: 0 var(--spacing-12); }
-    @keyframes rule { to { background-color: var(--sbu-paper); border-bottom-color: var(--sbu-ink); } }
+    .bar { border-bottom-color: transparent; animation: rule linear both; animation-timeline: scroll(root); animation-range: 0 var(--spacing-4); }
+    @keyframes rule { to { border-bottom-color: var(--sbu-ink); } }
   }
 
   /* The header nav from 40rem up; below, a Menu button opens the sheet. */

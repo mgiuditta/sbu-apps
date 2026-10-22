@@ -1,3 +1,5 @@
-"01-main" = "I giorni di fila in cui fai tutto";
-"02-privacy" = "Senza account. Dati sull'iPhone.";
-"03-health" = "Si segna da sola con Salute.";
+"01-main" = "Abitudini e giorni di fila. Una cifra sola: la serie piena.";
+"02-privacy" = "Le tue abitudini restano tue. Nessun account, Salute non lascia l'iPhone.";
+"03-health" = "Si segna da sola con Salute. Passi, acqua, minuti di consapevolezza.";
+"04-statistics" = "Statistiche di ogni abitudine. Completamento e serie migliore.";
+"05-timer" = "Abitudini a tempo. Il conto alla rovescia sulla schermata di blocco.";

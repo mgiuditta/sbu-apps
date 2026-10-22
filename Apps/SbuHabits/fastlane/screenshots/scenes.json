@@ -1,0 +1,75 @@
+{
+  "01-main": {
+    "layout": "hero",
+    "engraving": "icon",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        30,
+        860,
+        620,
+        1440
+      ]
+    }
+  },
+  "02-privacy": {
+    "layout": "flat",
+    "subject": "a folded paper letter sealed with a round wax seal, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        130,
+        2280,
+        1030,
+        2530
+      ]
+    }
+  },
+  "03-health": {
+    "layout": "right",
+    "subject": "an antique brass pocket pedometer with its dial and counting hand, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        110,
+        1160,
+        1160,
+        1310
+      ]
+    },
+    "en-US": {
+      "mark": {
+        "shape": "underline",
+        "box": [
+          110,
+          1150,
+          1160,
+          1240
+        ]
+      }
+    }
+  },
+  "04-statistics": {
+    "layout": "left",
+    "subject": "an old leather-bound ledger lying open on a page of handwritten tally marks, three-quarter view",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        110,
+        1640,
+        620,
+        1860
+      ]
+    }
+  },
+  "05-timer": {
+    "layout": "detail",
+    "subject": "a vintage wind-up mechanical kitchen timer with a numbered dial, three-quarter view",
+    "zoom": [
+      20,
+      520,
+      1320,
+      1100
+    ]
+  }
+}

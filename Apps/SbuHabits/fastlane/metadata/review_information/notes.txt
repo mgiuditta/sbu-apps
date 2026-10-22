@@ -3,7 +3,7 @@ No account. Sbu Habits has no server of its own and sends nothing to sbu.dev: no
 The app opens on one screen with an empty grid.
 
 1. Add a habit: tap "Add" (the ring with a plus). A sheet opens with five tabs of templates (General, Health, Food, Timed, To avoid), a "Custom" row in each, and a search button. Pick one: the form opens filled in (Type, Goal, Days, Notifications, Health). Tap "Add habit" at the bottom.
-2. Mark a habit done: touch and hold its ring for half a second. The ring fills and the "Full streak" figure at the top updates. Hold again to take the last mark back. VoiceOver: the "Mark as done" action.
+2. Mark a habit done: touch and hold its ring for half a second. The ring fills and the "Full streak" figure at the top updates. VoiceOver: the "Mark as done" action.
 3. Tap a habit once to open its menu: Undo last mark, Skip today (keeps the streak when you are ill), Write note, Edit. Edit has "Delete" at the bottom, with a confirmation that names the habit.
 4. The star button opens "Statistics": completion, best streak and history, with a share button that exports the page as an image.
 
@@ -15,12 +15,16 @@ Timed habits: pick "Read" in the "Timed" tab. On the grid, tap the play button o
 
 Habits to avoid: pick a template in the "To avoid" tab and set a "Daily limit" (0 for "no smoking", 2 for "at most two coffees"). Each time you give in, hold the habit (VoiceOver: the "Mark that you gave in" action). The day is done if you stay within the limit when it ends; going over breaks the streak at once.
 
-Apple Health (read only): pick a template in the "Health" tab, or in a habit's form open "Health", turn on "Link to Health", choose a measure and a daily goal, then save. iOS asks for read access only then. To try it: link a habit to Steps with a goal of 500, add a Steps value above it in the Health app (Browse > Activity > Steps > Add Data), reopen Sbu Habits: the habit is done for today, also in the background. Health only adds a mark; denied access means marking by hand. Sbu Habits never writes to Health and keeps no Health values: iCloud sync and shared habits carry only done marks.
+Apple Health (read only): pick a template in the "Health" tab, or in a habit's form open "Health", turn on "Link to Health", choose a measure and a daily goal, then save. iOS asks for read access only then. To try it: link a habit to Steps with a goal of 500, add Steps above it in the Health app, reopen Sbu Habits: the habit is done for today. Health only adds a mark; denied access means marking by hand. Sbu Habits never writes to Health and keeps no Health values: iCloud sync and shared habits carry only done marks.
 
 Settings: the gear at the bottom. "Start of the day" sets when the day begins, for night shifts. Data > "Export" writes a JSON file to share; "Import" shows what a file contains and asks to confirm "Replace current data". It also links the privacy policy.
 
-Sync with iCloud (off by default): Settings > Data. Habits and history go to one file in the app's container in the user's own iCloud (iCloud Drive must be on; the file does not show in Files) and merge with the user's other devices. Without iCloud the footer says why.
+Sync with iCloud (off by default): Settings > Data. Habits and history go to one file in the user's own iCloud and merge with their other devices.
 
-Shared habits: in an existing habit's form, "Share" opens the system iCloud sharing screen to invite people, read only. The habit goes to a zone of the owner's iCloud (CloudKit private database); reminders, notes and Health details are not shared. Invited people need Sbu Habits and iCloud: the habit shows on their grid with a person badge, and "Remove" leaves the share. Remote notifications are registered only for iCloud's silent change notifications. Without iCloud, "Share" is disabled with the reason.
+Shared habits: in an existing habit's form, "Share" opens the system iCloud sharing screen to invite people, read only. The habit goes to a zone of the owner's iCloud (CloudKit private database); reminders, notes and Health details are not shared. Invited people need Sbu Habits and iCloud: the habit shows on their grid with a person badge, and "Remove" leaves the share. Remote notifications are registered only for iCloud's silent change notifications.
 
 Apple Watch: today's habits from the paired iPhone (WatchConnectivity only); tap a ring to mark it. A complication shows the full streak.
+
+How it differs from the other Sbu apps: the only one that tracks habits, and the only one with Health, a Watch app and a Live Activity. They share only a small design package, no habit or data logic.
+
+Since 1.0 (rejected 14 Oct): new icon, new screenshots, description rewritten.

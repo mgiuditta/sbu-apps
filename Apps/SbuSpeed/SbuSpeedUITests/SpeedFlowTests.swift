@@ -203,8 +203,9 @@ final class SpeedFlowTests: XCTestCase {
         XCTAssertFalse(app.buttons["Salva e azzera"].exists)
 
         // Dynamic Type is left out on Parabrezza: the figure and its unit are sized to fill the
-        // screen for the windshield, not to a text style.
-        try audit(app, excluding: [.contrast, .dynamicType])
+        // screen for the windshield, not to a text style. Clipping too: the audit reads the
+        // mirrored unit as cut, though every letter shows on screen.
+        try audit(app, excluding: [.contrast, .dynamicType, .textClipped])
 
         app.buttons["Esci dal parabrezza"].tap()
         XCTAssertTrue(app.buttons["Salva e azzera"].waitForExistence(timeout: 5))

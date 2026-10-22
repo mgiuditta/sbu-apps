@@ -2,7 +2,7 @@ import XCTest
 
 /// Drives the App Store screenshots for `fastlane snapshot`, in Italian and English.
 /// First the tool screen with the demo habits, then the privacy promise in settings,
-/// then the walking habit's link to Salute.
+/// reading's Statistiche, its timer running, and last the walking habit's link to Salute.
 final class SnapshotTests: XCTestCase {
     @MainActor
     func testScreenshots() {
@@ -23,6 +23,17 @@ final class SnapshotTests: XCTestCase {
         snapshot("02-privacy")
         button("Fine", "Done", in: app).tap()
 
+        button("Statistiche", "Statistics", in: app).tap()
+        button("statistics-Leggere", "statistics-Read", in: app).tap()
+        snapshot("04-statistics")
+        button("Chiudi", "Close", in: app).tap()
+
+        button("Avvia Leggere", "Start Read", in: app).tap()
+        allowNotificationsIfAsked()
+        XCTAssertTrue(element("Tempo rimanente", "Time left", in: app).exists)
+        snapshot("05-timer")
+        button("Annulla", "Cancel", in: app).tap()
+
         // The settings sheet is still sliding away: wait until the habit's menu can take the tap.
         let walking = button("Opzioni di Camminare", "Options for Walk", in: app)
         let hittable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: walking)
@@ -31,6 +42,14 @@ final class SnapshotTests: XCTestCase {
         button("Modifica", "Edit", in: app).tap()
         XCTAssertTrue(element("Usa i dati di Salute. Consenti l'accesso se iOS lo chiede.", "Uses data from Health. Allow access if iOS asks.", in: app).exists)
         snapshot("03-health")
+    }
+
+    @MainActor
+    private func allowNotificationsIfAsked() {
+        let alert = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.firstMatch
+        if alert.waitForExistence(timeout: 2) {
+            alert.buttons.element(boundBy: 1).tap()
+        }
     }
 
     /// The Italian element, or the English one when the run is in English, once either shows up.

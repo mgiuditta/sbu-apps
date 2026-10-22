@@ -128,11 +128,14 @@
   }
 
   /* Footer: the logo, the free tools, the pages about Sbu, then the note. One column on a phone. */
-  .site-footer { display: grid; gap: var(--spacing-6); }
-  @media (min-width: 40rem) {
-    .site-footer { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
-    .site-footer-note { grid-column: 1 / -1; }
+  .site-footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-8) var(--spacing-6); }
+  .site-footer-about, .site-footer-note { grid-column: 1 / -1; }
+  @media (min-width: 48rem) {
+    .site-footer { grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); }
+    .site-footer-about { grid-column: auto; }
   }
+  .site-footer-link { color: var(--sbu-ink); text-decoration: underline transparent var(--sbu-hairline); text-underline-offset: var(--spacing-1); transition: text-decoration-color .25s; }
+  .site-footer-link:hover, .site-footer-link[aria-current="page"] { text-decoration-color: currentColor; }
 
   /* Every page: the header stays on top. Three cells tall, so the grid under the page starts on a line. */
   .bar {

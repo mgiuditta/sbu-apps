@@ -3,7 +3,7 @@ import '../styles/global.css';
 import mark from '../../../Design/logos/sbu-mark.svg?url';
 import logoSvg from '../../../Design/logos/sbu-logo.svg?raw';
 import { localePath, ui, type Locale } from '../i18n';
-import { allEngravings } from '../lib/apps';
+import { allEngravings, getApps, text } from '../lib/apps';
 import { REPO_URL, SOCIAL } from '../lib/pages';
 import GitHubMark from '../components/GitHubMark.astro';
 
@@ -58,6 +58,11 @@ const tools = new Set([localePath(locale, 'abbonamenti'), localePath(locale, 'qr
 const here = localePath(locale, path);
 // The sheet lists the header's links first, then the footer's others.
 const more = footer.filter((item) => !nav.some((top) => top.href === item.href));
+// The apps you can download, then the whole catalogue on the home.
+const footerApps = [
+  ...(await getApps()).filter((app) => app.status === 'live').map((app) => ({ href: localePath(locale, `apps/${app.slug}`), label: text(app, locale).name })),
+  { href: localePath(locale, ''), label: t.footerAllApps },
+];
 // One instrument per page, the same on every visit: picked by the path, not at random.
 const engravings = await allEngravings(800, locale);
 const picked = engravings[[...path].reduce((sum, c) => sum + c.charCodeAt(0), 0) % engravings.length];
@@ -176,21 +181,40 @@ const plate = !wide && (Astro.props.plate ?? { src: picked.src, caption: picked.
         </div>
       )}
     </main>
+    {/* The footer: what Sbu is, then three short lists under visible headings (the apps you can download,
+        the pages about Sbu, the free tools), then the colophon with the profiles and the language. */}
     <footer class="border-t border-line">
-      <div class="frame site-footer py-6 text-ink-muted">
-        <a href={localePath(locale, '')} class="self-start py-2 text-brand">
-          <Fragment set:html={logo} />
-          <span class="sr-only">sbu.dev</span>
-        </a>
-        <ul class="flex flex-col gap-2 text-footnote" aria-label={t.footerTools}>
-          {footer.filter((item) => tools.has(item.href)).map((item) => <li><a href={item.href} aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>)}
-        </ul>
-        <ul class="flex flex-col gap-2 text-footnote" aria-label={t.footerSite}>
-          {footer.filter((item) => !tools.has(item.href)).map((item) => <li><a href={item.href} aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>)}
-          <li><a href={REPO_URL} class="inline-flex items-center gap-2"><GitHubMark class="h-4 w-4" />{t.code}</a></li>
-          {SOCIAL.map((profile) => <li><a href={profile.href} rel="me">{profile.label}</a></li>)}
-        </ul>
-        <p class="site-footer-note text-footnote">{t.footerNote}</p>
+      <div class="frame site-footer py-12">
+        <div class="site-footer-about flex flex-col gap-4">
+          <a href={localePath(locale, '')} class="self-start py-2 text-brand">
+            <Fragment set:html={logo} />
+            <span class="sr-only">sbu.dev</span>
+          </a>
+          <p class="max-w-[32ch] text-subheadline text-ink-muted">{t.siteDescription}</p>
+        </div>
+        {[
+          { id: 'footer-apps', label: t.footerApps, items: footerApps },
+          { id: 'footer-site', label: t.footerSite, items: footer.filter((item) => !tools.has(item.href)) },
+          { id: 'footer-tools', label: t.footerTools, items: footer.filter((item) => tools.has(item.href)) },
+        ].map((group) => (
+          <nav aria-labelledby={group.id} class="flex flex-col gap-3">
+            <p id={group.id} class="text-caption uppercase text-ink-muted">{group.label}</p>
+            <ul class="flex flex-col gap-2 text-subheadline">
+              {group.items.map((item) => <li><a href={item.href} class="site-footer-link" aria-current={item.href === here ? 'page' : undefined}>{item.label}</a></li>)}
+            </ul>
+          </nav>
+        ))}
+        <div class="site-footer-note flex flex-col gap-3 border-t border-line pt-6 text-footnote text-ink-muted">
+          <ul class="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <li><a href={REPO_URL} class="site-footer-link inline-flex items-center gap-2"><GitHubMark class="h-4 w-4" />{t.code}</a></li>
+            {SOCIAL.map((profile) => <li><a href={profile.href} rel="me" class="site-footer-link">{profile.label}</a></li>)}
+          </ul>
+          <p>{t.footerNote}</p>
+          <p>
+            © {new Date().getFullYear()} Matteo Giuditta
+            {alternates.includes(other) && <> · <a href={localePath(other, path)} hreflang={other} lang={other} class="site-footer-link">{t.otherLocale.label}</a></>}
+          </p>
+        </div>
       </div>
     </footer>
   </body>

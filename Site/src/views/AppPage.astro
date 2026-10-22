@@ -44,12 +44,16 @@ const jsonLd = [
   breadcrumbs(site, locale, [[t.nav.apps, ''], [listing.name, path]]),
   ...(faq.length ? [faqPage(faq)] : []),
 ];
+// Search title: the job first, as people type it, then the name. "per iPhone" goes when it would pass 60 characters.
+const job = `${listing.subtitle}, ${locale === 'it' ? 'gratis' : 'free'}`;
+const forIphone = locale === 'it' ? ' per iPhone' : ' for iPhone';
+const title = [`${job}${forIphone} · ${listing.name}`, `${job} · ${listing.name}`].find((candidate) => candidate.length <= 60) ?? `${job} · ${listing.name}`;
 ---
 <Base
   locale={locale}
   path={path}
   alternates={alternates}
-  title={`${listing.name}: ${listing.subtitle} · sbu.dev`}
+  title={title}
   description={`${listing.name} ${listing.oneThing}. ${t.metaSuffix}`}
   image={`/og/${app.slug}.png`}
   jsonLd={jsonLd}

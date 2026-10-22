@@ -37,7 +37,7 @@ export const SUPPORT_EMAIL: string | undefined = 'matteogiuditta@gmail.com';
 const principles: Record<Locale, TextPage> = {
   it: {
     title: 'Principi',
-    description: 'Le sei promesse di ogni app Sbu, e perché ogni app fa una cosa sola.',
+    description: 'Le sei promesse di ogni app Sbu: niente abbonamento, acquisti in-app, account, pubblicità o tracking. Come verificarle sull’App Store.',
     sections: [
       {
         paragraphs: ['Ogni app Sbu rispetta sei promesse. Se un’app ne viola una, non esce.'],
@@ -71,7 +71,7 @@ const principles: Record<Locale, TextPage> = {
   },
   en: {
     title: 'Principles',
-    description: 'The six promises every Sbu app keeps, and why each app does one thing.',
+    description: 'The six promises every Sbu app keeps: no subscription, in-app purchases, account, ads or tracking. How to check them on the App Store.',
     sections: [
       {
         paragraphs: ['Every Sbu app keeps six promises. If an app breaks one, it does not ship.'],
@@ -108,7 +108,7 @@ const principles: Record<Locale, TextPage> = {
 const support: Record<Locale, TextPage> = {
   it: {
     title: 'Supporto',
-    description: 'Risposte alle domande comuni sulle app Sbu.',
+    description: 'Le app Sbu sono gratis? Serve un account? Dove finiscono i tuoi dati? Le risposte, e a chi scrivere per un problema o un’idea.',
     sections: SUPPORT_EMAIL ? [{ paragraphs: [`Per un problema o un’idea, scrivi a ${SUPPORT_EMAIL}.`] }] : [],
     faq: [
       { q: 'Le app sono davvero gratis?', a: 'Sì. Niente abbonamento, niente acquisti in-app, niente pubblicità.' },
@@ -119,7 +119,7 @@ const support: Record<Locale, TextPage> = {
   },
   en: {
     title: 'Support',
-    description: 'Answers to common questions about Sbu apps.',
+    description: 'Are Sbu apps free? Do you need an account? Where does your data go? The answers, and where to write about a problem or an idea.',
     sections: SUPPORT_EMAIL ? [{ paragraphs: [`For a problem or an idea, write to ${SUPPORT_EMAIL}.`] }] : [],
     faq: [
       { q: 'Are the apps really free?', a: 'Yes. No subscription, no in-app purchases, no ads.' },

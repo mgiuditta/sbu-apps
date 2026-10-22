@@ -14,10 +14,11 @@ const { locale, path, alternates, apps, upcoming } = Astro.props;
 const t = ui[locale];
 const copy = {
   it: {
-    title: 'sbu.dev · App gratuite per iPhone che fanno una cosa sola',
+    title: 'App gratis per iPhone, senza abbonamento né pubblicità · sbu.dev',
+    description: 'App gratuite per iPhone che rifanno da zero app a pagamento. Ognuna fa una cosa sola, senza abbonamento, acquisti in-app, account o pubblicità.',
     hero: 'Sbu fa una cosa sola',
     cartiglio: (count: number) => `sbu.dev · ${count} app · 0 €`,
-    lede: 'App per iPhone che rifanno da zero un’app a pagamento, una per volta. Gratis, senza account, senza pubblicità.',
+    lede: 'Ogni app Sbu rifà da zero un’app per iPhone a pagamento e te la dà gratis. Senza account, senza pubblicità, e i tuoi dati restano sul telefono.',
     sheet: 'Le app',
     sheetLede: 'Un quadretto per app, nel suo colore. Quelle ancora senza scheda hanno il quadretto vuoto.',
     number: 'Il numero',
@@ -41,10 +42,11 @@ const copy = {
     qrCode: { title: 'Crea un codice QR', line: 'Per un link, un testo o il Wi-Fi. Gratis, e non scade.' },
   },
   en: {
-    title: 'sbu.dev · Free iPhone apps that each do one thing',
+    title: 'Free iPhone apps with no subscription and no ads · sbu.dev',
+    description: 'Free iPhone apps that remake paid ones from scratch. Each does one thing, with no subscription, in-app purchases, account or ads.',
     hero: 'Sbu does one thing',
     cartiglio: (count: number) => `sbu.dev · ${count} apps · €0`,
-    lede: 'iPhone apps that each remake one paid app from scratch. Free, no account, no ads.',
+    lede: 'Each Sbu app remakes a paid iPhone app from scratch and gives it to you free. No account, no ads, and your data stays on your phone.',
     sheet: 'The apps',
     sheetLede: 'One square per app, in its colour. The ones with no page yet have an empty square.',
     number: 'The number',
@@ -124,7 +126,7 @@ const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription },
 ];
 ---
-<Base locale={locale} path={path} alternates={alternates} title={copy.title} description={t.siteDescription} jsonLd={jsonLd} layout="wide">
+<Base locale={locale} path={path} alternates={alternates} title={copy.title} description={copy.description} jsonLd={jsonLd} layout="wide">
   <section class="hero">
     {/* The page title, closed by the full stop in ink: the site's own square. */}
     <h1 class="hero-title font-display">

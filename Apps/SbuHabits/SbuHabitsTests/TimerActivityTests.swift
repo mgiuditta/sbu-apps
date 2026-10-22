@@ -85,7 +85,8 @@ struct TimerActivityTests {
         #expect(face.isDone == false)
     }
 
-    @Test(arguments: [(60, 30 * 60, "30:00"), (90, 30 * 60, "30:00"), (90, 61 * 60, "1:01:00"), (20, 9 * 60 + 5, "9:05")])
+    // Seconds left written out: the arithmetic in the literal timed out the type checker.
+    @Test(arguments: [(60, 1800, "30:00"), (90, 1800, "30:00"), (90, 3660, "1:01:00"), (20, 545, "9:05")] as [(Int, Int, String)])
     func pausedTheFigureKeepsTheShapeOfTheSystemsCountdown(minutes: Int, left: Int, reads: String) {
         var timer = timer(minutes: minutes)
         timer.pause(at: at(Double(minutes * 60 - left)))

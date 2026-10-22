@@ -27,6 +27,10 @@ final class AddHabitFlowTests: XCTestCase {
             if issue.auditType == .textClipped, issue.element?.elementType == .searchField {
                 return true
             }
+            // The search field's own clear button is the system's, at the system's size.
+            if issue.auditType == .hitRegion, ["Cancella testo", "Clear text"].contains(issue.element?.label) {
+                return true
+            }
             if issue.isRowCutByTheScreenEdge {
                 return true
             }

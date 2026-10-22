@@ -1,0 +1,55 @@
+{
+  "01-main": {
+    "layout": "hero",
+    "engraving": "icon",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        40,
+        1000,
+        1150,
+        1110
+      ]
+    }
+  },
+  "02-privacy": {
+    "layout": "flat",
+    "subject": "a pair of closed wooden window shutters with iron hinges, front view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        130,
+        2280,
+        1030,
+        2530
+      ]
+    }
+  },
+  "03-sounds": {
+    "layout": "right",
+    "subject": "a large conch seashell, three-quarter view"
+  },
+  "04-alarm": {
+    "layout": "left",
+    "subject": "a vintage brass mechanical alarm clock with twin bells, three-quarter view",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        90,
+        545,
+        300,
+        650
+      ]
+    }
+  },
+  "05-clock": {
+    "layout": "detail",
+    "subject": "an antique brass candlestick with a half-burnt candle, three-quarter view",
+    "zoom": [
+      20,
+      1080,
+      1320,
+      1560
+    ]
+  }
+}

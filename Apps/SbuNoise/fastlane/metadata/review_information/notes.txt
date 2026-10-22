@@ -7,3 +7,7 @@ The app opens on the player. Tap play: the sound loops, and keeps playing in the
 - The clock button opens Timers: a sleep timer fades the sound out; an alarm fades a sound in at the chosen time, with Snooze. Only when you add the first alarm, iOS asks for permission for the backup: a system alarm (AlarmKit) on iOS 26 and later, Time Sensitive notifications on earlier versions. The backup rings only if the app is not running at the alarm time.
 - The moon button opens the bedside clock.
 - Widget and Control Center control start and stop the sound; Shortcuts and Siri can play a sound or a mix.
+
+How it differs from the other Sbu apps: Sbu Noise is the only one that plays sound, generating noise and looping recorded sounds with timers, alarms and a bedside clock; the others do unrelated things (habits, photo cleanup, moon phases, angles, speed). Each Sbu app has its own code for its own task; they share only a small design package.
+
+Since 1.0 (rejected 14 Oct 2026): new icon and alternate icon, new screenshots, description rewritten to open with what the app does.

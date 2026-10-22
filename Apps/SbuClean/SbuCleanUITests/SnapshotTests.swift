@@ -2,7 +2,8 @@ import XCTest
 
 /// Drives the App Store screenshots for `fastlane snapshot`, on the demo library that
 /// `-FASTLANE_SNAPSHOT` opens: the space you can free, a card to swipe, the duplicates with the
-/// best shot, the bin's final review, then the privacy promise in settings.
+/// best shot, the bin's final review, then the privacy promise in settings,
+/// which the store shows second.
 final class SnapshotTests: XCTestCase {
     @MainActor
     private func back(_ app: XCUIApplication) {
@@ -22,10 +23,12 @@ final class SnapshotTests: XCTestCase {
         snapshot("01-main")
 
         // The home is cards on paper, not a list: its rows are found by identifier.
-        app.descendants(matching: .any)["home.swipe.recent"].firstMatch.tap()
-        _ = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH 'Foto,' OR label BEGINSWITH 'Photo,'")).firstMatch.waitForExistence(timeout: 5)
+        // Scorri le foto, then Recenti, as the screen tour goes.
+        app.descendants(matching: .any)["pill.months"].firstMatch.tap()
+        app.descendants(matching: .any)["months.recent"].firstMatch.tap()
+        _ = app.descendants(matching: .any).matching(identifier: "swipe.card").firstMatch.waitForExistence(timeout: 5)
         sleep(1)
-        snapshot("02-swipe")
+        snapshot("03-swipe")
         // Back from the deck lands on a home still settling: start it again instead.
         app.terminate()
         app.launch()
@@ -34,11 +37,11 @@ final class SnapshotTests: XCTestCase {
         app.descendants(matching: .any)["home.duplicates"].firstMatch.tap()
         app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'card.'")).firstMatch.tap()
         sleep(1)
-        snapshot("03-duplicates")
+        snapshot("04-duplicates")
 
         app.descendants(matching: .any)["bottomAction"].firstMatch.tap()
         sleep(1)
-        snapshot("04-bin")
+        snapshot("05-bin")
         back(app)
         back(app)
         back(app)
@@ -49,6 +52,6 @@ final class SnapshotTests: XCTestCase {
         for _ in 0..<6 where !sbuDev.isHittable {
             app.swipeUp()
         }
-        snapshot("05-privacy")
+        snapshot("02-privacy")
     }
 }

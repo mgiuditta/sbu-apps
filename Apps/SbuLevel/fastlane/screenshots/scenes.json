@@ -1,0 +1,55 @@
+{
+  "01-main": {
+    "layout": "hero",
+    "engraving": "icon",
+    "mark": {
+      "shape": "circle",
+      "box": [
+        20,
+        780,
+        1180,
+        1230
+      ]
+    }
+  },
+  "02-privacy": {
+    "layout": "flat",
+    "subject": "a small antique wooden box with a sliding lid, closed, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        130,
+        2400,
+        1030,
+        2660
+      ]
+    }
+  },
+  "03-slope": {
+    "layout": "right",
+    "subject": "an antique brass surveyor's theodolite on a wooden tripod, three-quarter view",
+    "mark": {
+      "shape": "underline",
+      "box": [
+        40,
+        1100,
+        1200,
+        1210
+      ]
+    }
+  },
+  "04-flat": {
+    "layout": "left",
+    "subject": "an antique round brass bullseye level with a circular bubble vial, three-quarter view"
+  },
+  "05-lock": {
+    "layout": "detail",
+    "subject": "an antique cast iron bench vise with its jaws closed, three-quarter view",
+    "zoom": [
+      0,
+      760,
+      1320,
+      1420
+    ]
+  }
+}

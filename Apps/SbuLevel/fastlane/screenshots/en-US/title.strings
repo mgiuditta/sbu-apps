@@ -1,2 +1,5 @@
-"01-main" = "Tilt to a tenth of a degree.";
-"02-privacy" = "No account. Data on your iPhone.";
+"01-main" = "Level and clinometer. Tilt to a tenth of a degree.";
+"02-privacy" = "No subscription, no account. Data only on your iPhone.";
+"03-slope" = "Slope in percent. Or degrees, pitch x:12 and ratio.";
+"04-flat" = "Flat on a surface too. Lay it on a shelf or a table.";
+"05-lock" = "Lock the reading. Read it where you cannot see the screen.";

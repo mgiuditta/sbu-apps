@@ -33,7 +33,7 @@ faq:
     - q: Le mie foto escono dall'iPhone?
       a: No. Sbu Clean le analizza sull'iPhone con Vision e non le manda a nessun server.
     - q: Come trova le foto sfocate?
-      a: Misura la nitidezza di ogni foto sull'iPhone, la stessa misura che sceglie la migliore tra i duplicati. Le preferite e gli screenshot restano fuori, e la lista è da rivedere: non si elimina niente da sola.
+      a: "Misura la nitidezza di ogni foto sull'iPhone, la stessa misura che sceglie la migliore tra i duplicati. Le preferite e gli screenshot restano fuori, e la lista è da rivedere: non si elimina niente da sola."
   en:
     - q: Is Sbu Clean really free?
       a: Yes. No subscription, no in-app purchases, no ads and no daily limits. Delete as many photos as you like.
@@ -44,5 +44,5 @@ faq:
     - q: Do my photos leave my iPhone?
       a: No. Sbu Clean analyses them on your iPhone with Vision and sends them to no server.
     - q: How does it find blurry photos?
-      a: It measures each photo's sharpness on your iPhone, the same measure that picks the best of the duplicates. Favourites and screenshots stay out, and the list is for you to review: nothing is deleted on its own.
+      a: "It measures each photo's sharpness on your iPhone, the same measure that picks the best of the duplicates. Favourites and screenshots stay out, and the list is for you to review: nothing is deleted on its own."
 ---

@@ -18,8 +18,10 @@ teaser:
 permissions:
   it:
     - Foto, per vedere la libreria e trovare doppioni, screenshot e video pesanti. Sbu Clean analizza le foto sull'iPhone e non manda niente a nessuno. Scarica da iCloud l'originale di una foto o di un video solo quando lo chiedi tu, per guardarlo o comprimerlo. Elimina solo quello che confermi, e iOS lo chiede una seconda volta.
+    - Contatti, solo se apri Contatti doppi e tocchi il pulsante, per trovare le persone salvate due volte. Unisce solo quelle che confermi, e prima salva una copia dei contatti uniti in File, nella cartella di Sbu Clean. I contatti restano sull'iPhone.
   en:
     - Photos, to see your library and find duplicates, screenshots and heavy videos. Sbu Clean analyses photos on your iPhone and sends nothing to anyone. It downloads an original from iCloud only when you ask, to watch or compress it. It deletes only what you confirm, and iOS asks a second time.
+    - Contacts, only if you open Duplicate contacts and tap the button, to find people saved twice. It merges only those you confirm, and first saves a copy of the merged contacts in Files, in the Sbu Clean folder. Your contacts stay on your iPhone.
 faq:
   it:
     - q: Sbu Clean è davvero gratis?
@@ -30,6 +32,8 @@ faq:
       a: Preferisce le foto che hai segnato come preferite o modificato, poi quella con il volto venuto meglio, poi la più nitida. È un suggerimento, già selezionato ma da confermare. Puoi cambiarlo con un tocco, e niente si elimina senza la revisione del cestino.
     - q: Le mie foto escono dall'iPhone?
       a: No. Sbu Clean le analizza sull'iPhone con Vision e non le manda a nessun server.
+    - q: Come trova le foto sfocate?
+      a: Misura la nitidezza di ogni foto sull'iPhone, la stessa misura che sceglie la migliore tra i duplicati. Le preferite e gli screenshot restano fuori, e la lista è da rivedere: non si elimina niente da sola.
   en:
     - q: Is Sbu Clean really free?
       a: Yes. No subscription, no in-app purchases, no ads and no daily limits. Delete as many photos as you like.
@@ -39,4 +43,6 @@ faq:
       a: It prefers photos you marked as favourite or edited, then the one where the face came out best, then the sharpest. It's a suggestion, preselected for you to confirm. You can change it with a tap, and nothing is deleted without the bin's review.
     - q: Do my photos leave my iPhone?
       a: No. Sbu Clean analyses them on your iPhone with Vision and sends them to no server.
+    - q: How does it find blurry photos?
+      a: It measures each photo's sharpness on your iPhone, the same measure that picks the best of the duplicates. Favourites and screenshots stay out, and the list is for you to review: nothing is deleted on its own.
 ---

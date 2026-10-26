@@ -1,13 +1,21 @@
 // https://llmstxt.org: what sbu.dev is, for AI search. Built from the same content as the pages.
 import type { APIRoute } from 'astro';
-import { localePath } from '../i18n';
-import { getAlternatives, getApps, text } from '../lib/apps';
+import { localePath, statusLabel } from '../i18n';
+import { getAlternatives, getApps, getPosts, text } from '../lib/apps';
 import { DEVELOPER_URL, REPO_URL } from '../lib/pages';
 
 export const GET: APIRoute = async ({ site }) => {
   const url = (path: string) => new URL(localePath('en', path), site).href;
   const apps = await getApps();
   const live = apps.filter((app) => app.status === 'live');
+  const coming = apps.filter((app) => app.status !== 'live');
+  const posts = (await getPosts()).filter((post) => post.id.startsWith('en/'));
+  const line = (app: (typeof apps)[number]) => {
+    const listing = text(app, 'en');
+    const kind = app.category === 'GameApplication' ? ' Game.' : '';
+    const originale = app.originale ? ` Free alternative to ${app.originale.name.replace(/\.$/, '')}.` : '';
+    return `- [${listing.name}](${url(`apps/${app.slug}`)}): ${listing.subtitle}.${kind}${originale}`;
+  };
   const alternatives = (await getAlternatives(apps)).filter((alternative) => alternative.locale === 'en');
   const lines = [
     '# sbu.dev',
@@ -16,15 +24,23 @@ export const GET: APIRoute = async ({ site }) => {
     '',
     '## Apps on the App Store',
     '',
-    ...live.map((app) => {
-      const listing = text(app, 'en');
-      const originale = app.originale ? ` Free alternative to ${app.originale.name}.` : '';
-      return `- [${listing.name}](${url(`apps/${app.slug}`)}): ${listing.subtitle}.${originale} App Store: ${app.storeUrl}`;
-    }),
+    ...live.map((app) => `${line(app)} App Store: ${app.storeUrl}`),
+    '',
+    ...(coming.length ? ['## Coming soon', '', ...coming.map((app) => `${line(app)} ${statusLabel(app, 'en')}.`), ''] : []),
+    '## Games and software',
+    '',
+    `- [Games](${url('games')}): the most played iPhone games, remade with no ads and no in-app purchases`,
+    `- [Software](${url('software')}): software companies pay for, remade open source and self-hosted`,
+    '',
+    '## Free tools in the browser',
+    '',
+    `- [Subscription cost](${url('abbonamenti')}): add up what your subscriptions cost in a year`,
+    `- [QR code maker](${url('qr-code')}): a QR code for a link, text or Wi-Fi, free and never expiring`,
     '',
     ...(alternatives.length
       ? ['## Comparisons', '', ...alternatives.map(({ entry, slug }) => `- [${entry.data.title}](${url(`alternatives/${slug}`)}): ${entry.data.description}`), '']
       : []),
+    ...(posts.length ? ['## Blog', '', ...posts.map((post) => `- [${post.data.title}](${url(`blog/${post.id.split('/')[1]}`)}): ${post.data.description}`), ''] : []),
     '## About',
     '',
     `- [Principles](${url('principi')}): the six promises every app keeps`,

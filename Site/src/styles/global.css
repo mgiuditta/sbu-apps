@@ -134,7 +134,8 @@
     .site-footer { grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); }
     .site-footer-about { grid-column: auto; }
   }
-  .site-footer-link { color: var(--sbu-ink); text-decoration: underline transparent var(--sbu-hairline); text-underline-offset: var(--spacing-1); transition: text-decoration-color .25s; }
+  /* Padding pulled back by an equal margin: a 24 px+ tap target (WCAG 2.5.8) with the list's rhythm unchanged. */
+  .site-footer-link { display: inline-block; padding-block: var(--spacing-1); margin-block: calc(var(--spacing-1) * -1); color: var(--sbu-ink); text-decoration: underline transparent var(--sbu-hairline); text-underline-offset: var(--spacing-1); transition: text-decoration-color .25s; }
   .site-footer-link:hover, .site-footer-link[aria-current="page"] { text-decoration-color: currentColor; }
 
   /* Every page: the header stays on top. Three cells tall, so the grid under the page starts on a line. */

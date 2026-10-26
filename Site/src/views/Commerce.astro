@@ -1,6 +1,6 @@
 ---
 // Sbu Commerce, the first project of the Software branch: an open source, self-hosted e-commerce backend
-// (ADR-0016). Under construction: the page says what it will cover and where to follow it, nothing more.
+// (ADR-0016), compatible with the OCC API. v0.1.0: what is there, what is missing, how to try it.
 import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
 import { GITHUB_URL } from '../lib/pages';
@@ -12,29 +12,61 @@ const { locale, path, alternates } = Astro.props;
 const copy = {
   it: {
     title: 'Sbu Commerce',
-    metaTitle: 'Sbu Commerce: e-commerce enterprise open source · sbu.dev',
-    description: 'Sbu Commerce è un backend e-commerce open source e self-hosted per il B2B, al posto delle piattaforme enterprise a licenza. In costruzione.',
-    lede: 'Il commerce enterprise costa centinaia di migliaia di euro l’anno di licenza. Sbu Commerce è un backend e-commerce open source per il B2B: catalogo, prezzi, carrello, ordini e account aziendali, sui tuoi server, senza licenza.',
-    status: 'In costruzione. Nessuna data di uscita finché non c’è una demo che fa un ordine completo.',
-    coverageTitle: 'Cosa coprirà, in quest’ordine',
-    coverage: ['Catalogo, categorie e pagina prodotto', 'Ricerca', 'Carrello', 'Checkout e ordini', 'Account cliente e account B2B (unità, approvazioni)', 'Prezzi per cliente e promozioni di base', 'Import di catalogo e prezzi da file di esportazione'],
+    metaTitle: 'Sbu Commerce: backend commerce open source compatibile OCC · sbu.dev',
+    description: 'Sbu Commerce è un backend commerce open source compatibile con l’API OCC: uno storefront Spartacus gira sopra senza modifiche. B2C e B2B, Apache-2.0, sui tuoi server.',
+    lede: 'Il tuo storefront Spartacus gira già qui. Sbu Commerce è un backend commerce open source, in TypeScript, che parla l’API OCC: stessi percorsi, stessi campi, stessi errori, stesso login. Cambi il server, non rifai il sito.',
+    status: 'v0.1.0, primo rilascio pubblico. Verificato con uno storefront Spartacus stock; le differenze note sono tutte nella roadmap.',
+    haveTitle: 'Cosa c’è già',
+    have: [
+      'Le 33 operazioni OCC di uno storefront Spartacus B2C, con fields, errori OCC, CORS e OAuth2 (PKCE)',
+      'Account, carrello avanzato, carrelli salvati, liste dei desideri, punti vendita, resi, assistenza clienti, assisted service',
+      'B2B: unità, budget, centri di costo, approvazioni, preventivi, riordini, PunchOut',
+      'Promozioni, voucher e coupon; bundle, carte regalo, configuratori, abbonamenti',
+      'OMS e magazzini: sourcing, consegne, processo d’ordine e di reso',
+      'Console di amministrazione, Studio per le pagine, Admin della piattaforma',
+      'Modello dati estendibile senza fork, dati master in YAML, job e schedule',
+    ],
+    missingTitle: 'Cosa manca',
+    missing: 'Prezzi a righe con tasse e sconti, integrazione OData e webhook, alta disponibilità, SSO del personale, circa 120 differenze di compatibilità piccole e tracciate. Tutto nella roadmap pubblica del repository.',
+    tryTitle: 'Provalo',
+    tryText: 'Serve Docker. Parte con un catalogo di prova, un sito B2C e uno B2B.',
     promisesTitle: 'Le regole',
-    promises: ['Open source, licenza MIT', 'Lo installi sui tuoi server: sbu.dev non ospita niente e non vede i tuoi dati', 'Nessuna versione a pagamento con funzioni chiuse', 'Una tabella pubblica e sempre vera di cosa copre e cosa no'],
-    follow: 'Segui il cantiere su GitHub',
+    promises: ['Open source, licenza Apache-2.0', 'Lo installi sui tuoi server: sbu.dev non ospita niente e non vede i tuoi dati', 'Nessuna versione a pagamento con funzioni chiuse', 'Una roadmap pubblica e sempre vera di cosa copre e cosa no'],
+    follow: 'Il codice su GitHub',
+    trademarks: 'Progetto indipendente, senza legami con i produttori delle piattaforme con cui è compatibile. I nomi di terzi servono solo a descrivere la compatibilità.',
   },
   en: {
     title: 'Sbu Commerce',
-    metaTitle: 'Sbu Commerce: open source enterprise commerce · sbu.dev',
-    description: 'Sbu Commerce is an open source, self-hosted B2B e-commerce backend, instead of licensed enterprise platforms. Under construction.',
-    lede: 'Enterprise commerce costs hundreds of thousands a year in licences. Sbu Commerce is an open source B2B e-commerce backend: catalog, prices, cart, orders and business accounts, on your own servers, with no licence.',
-    status: 'Under construction. No release date until a demo places a complete order.',
-    coverageTitle: 'What it will cover, in this order',
-    coverage: ['Catalog, categories and product page', 'Search', 'Cart', 'Checkout and orders', 'Customer accounts and B2B accounts (units, approvals)', 'Customer prices and basic promotions', 'Catalog and price import from export files'],
+    metaTitle: 'Sbu Commerce: open-source, OCC-compatible commerce backend · sbu.dev',
+    description: 'Sbu Commerce is an open-source commerce backend compatible with the OCC API: an unmodified Spartacus storefront runs on it. B2C and B2B, Apache-2.0, on your own servers.',
+    lede: 'Your Spartacus storefront already runs here. Sbu Commerce is an open-source commerce backend in TypeScript that speaks the OCC API: same paths, same fields, same errors, same login. You change the server, not the site.',
+    status: 'v0.1.0, the first public release. Verified with a stock Spartacus storefront; every known difference is on the roadmap.',
+    haveTitle: 'What is already there',
+    have: [
+      'The 33 OCC operations of a Spartacus B2C storefront, with fields, OCC errors, CORS and OAuth2 (PKCE)',
+      'Accounts, advanced cart, saved carts, wishlists, stores, returns, customer support, assisted service',
+      'B2B: units, budgets, cost centers, approvals, quotes, replenishment, PunchOut',
+      'Promotions, vouchers and coupons; bundles, gift cards, configurators, subscriptions',
+      'OMS and warehousing: sourcing, consignments, order and return processes',
+      'An admin Console, a Studio for pages, a platform Admin',
+      'A data model you extend without forking, master data in YAML, jobs and schedules',
+    ],
+    missingTitle: 'What is missing',
+    missing: 'Price rows with taxes and discounts, OData and webhook integration, high availability, staff SSO, about 120 small, tracked compatibility differences. All of it on the public roadmap in the repository.',
+    tryTitle: 'Try it',
+    tryText: 'Requires Docker. It starts with a demo catalog, a B2C site and a B2B site.',
     promisesTitle: 'The rules',
-    promises: ['Open source, MIT licence', 'You run it on your own servers: sbu.dev hosts nothing and never sees your data', 'No paid edition with closed features', 'A public table, always true, of what it covers and what it doesn’t'],
-    follow: 'Follow the build on GitHub',
+    promises: ['Open source, Apache-2.0 licence', 'You run it on your own servers: sbu.dev hosts nothing and never sees your data', 'No paid edition with closed features', 'A public roadmap, always true, of what it covers and what it doesn’t'],
+    follow: 'The code on GitHub',
+    trademarks: 'An independent project, not affiliated with the makers of the platforms it is compatible with. Third-party names are used only to describe compatibility.',
   },
 }[locale];
+
+// ponytail: the public repo's name is decision D2 of the marketing plan; this assumes it takes `sbu-commerce`.
+const repoUrl = `${GITHUB_URL}/sbu-commerce`;
+const quickstart = `git clone ${repoUrl}.git && cd sbu-commerce
+docker compose -f infra/compose/compose.yaml up -d --build --wait
+curl 'localhost:3000/occ/v2/electronics/products/search?query=camera'`;
 
 const site = Astro.site!;
 const jsonLd = [breadcrumbs(site, locale, [['sbu.dev', ''], ['Software', 'software'], [copy.title, path]])];
@@ -48,8 +80,19 @@ const jsonLd = [breadcrumbs(site, locale, [['sbu.dev', ''], ['Software', 'softwa
     </header>
 
     <section class="flex flex-col gap-4">
-      <h2 class="text-headline">{copy.coverageTitle}</h2>
-      <ol class="list">{copy.coverage.map((item) => <li>{item}</li>)}</ol>
+      <h2 class="text-headline">{copy.haveTitle}</h2>
+      <ul class="list">{copy.have.map((item) => <li>{item}</li>)}</ul>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-headline">{copy.missingTitle}</h2>
+      <p>{copy.missing}</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-headline">{copy.tryTitle}</h2>
+      <p>{copy.tryText}</p>
+      <pre class="quickstart"><code>{quickstart}</code></pre>
     </section>
 
     <section class="flex flex-col gap-4">
@@ -57,11 +100,13 @@ const jsonLd = [breadcrumbs(site, locale, [['sbu.dev', ''], ['Software', 'softwa
       <ul class="list">{copy.promises.map((item) => <li>{item}</li>)}</ul>
     </section>
 
-    <p><a href={GITHUB_URL}>{copy.follow}</a></p>
+    <p><a href={repoUrl}>{copy.follow}</a></p>
+    <p class="text-ink-muted">{copy.trademarks}</p>
   </article>
 </Base>
 
 <style>
   .list { display: grid; border-top: var(--sbu-hairline) solid var(--sbu-line); }
   .list > li { padding-block: var(--spacing-3); border-bottom: var(--sbu-hairline) solid var(--sbu-line); }
+  .quickstart { overflow-x: auto; padding: var(--spacing-3); border: var(--sbu-hairline) solid var(--sbu-line); }
 </style>

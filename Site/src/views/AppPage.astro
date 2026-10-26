@@ -5,7 +5,7 @@ import ToolFieldShot from '../components/ToolFieldShot.astro';
 import Base from '../layouts/Base.astro';
 import { capitalize, formatDate, formatPrice, localePath, statusLabel, ui } from '../i18n';
 import { plateCaption, text, type App } from '../lib/apps';
-import { breadcrumbs, faqPage } from '../lib/jsonld';
+import { breadcrumbs, faqPage, FOUNDER, ORG } from '../lib/jsonld';
 import { REPO_URL } from '../lib/pages';
 import type { Route } from '../lib/routes';
 
@@ -39,7 +39,10 @@ const jsonLd = [
     operatingSystem: 'iOS 17',
     applicationCategory: app.category,
     inLanguage: ['it', 'en'],
-    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR', ...(app.storeUrl && { availability: 'https://schema.org/InStock' }) },
+    isAccessibleForFree: true,
+    publisher: ORG,
+    author: FOUNDER,
     ...(app.storeUrl && { downloadUrl: app.storeUrl, installUrl: app.storeUrl }),
   },
   breadcrumbs(site, locale, [[t.nav.apps, ''], [listing.name, path]]),
@@ -48,6 +51,8 @@ const jsonLd = [
 // Search title: the job first, as people type it, then the name. "per iPhone" goes when it would pass 60 characters.
 const job = `${listing.subtitle}, ${locale === 'it' ? 'gratis' : 'free'}`;
 const forIphone = locale === 'it' ? ' per iPhone' : ' for iPhone';
+// Search snippet: the listing's own first paragraph, different for every app; a shared suffix made them templated.
+const description = listing.intro[0] ?? `${listing.name} ${listing.oneThing}.`;
 const title = [`${job}${forIphone} · ${listing.name}`, `${job} · ${listing.name}`].find((candidate) => candidate.length <= 60) ?? `${job} · ${listing.name}`;
 ---
 <Base
@@ -55,7 +60,7 @@ const title = [`${job}${forIphone} · ${listing.name}`, `${job} · ${listing.nam
   path={path}
   alternates={alternates}
   title={title}
-  description={`${listing.name} ${listing.oneThing}. ${t.metaSuffix}`}
+  description={description}
   image={`/og/${app.slug}.png`}
   jsonLd={jsonLd}
   appStoreId={app.storeUrl ? app.appStoreId : undefined}

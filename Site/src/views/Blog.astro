@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import PageTitle from '../components/PageTitle.astro';
 import Base from '../layouts/Base.astro';
 import { formatDate, localePath, ui } from '../i18n';
+import { breadcrumbs, FOUNDER, ORG } from '../lib/jsonld';
 import type { Post } from '../lib/apps';
 import type { Route } from '../lib/routes';
 
@@ -11,28 +12,56 @@ const { locale, path, alternates, posts = [], post } = Astro.props;
 const t = ui[locale];
 const rendered = post ? await render(post) : undefined;
 const Content = rendered?.Content;
+const site = Astro.site!;
+const url = new URL(localePath(locale, path), site).href;
+// The author is a person, linked to the press page where the portrait and bio are.
+const author = { ...FOUNDER, url: new URL(localePath(locale, 'stampa'), site).href };
 const jsonLd = post
-  ? [{
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
-      headline: post.data.title,
-      description: post.data.description,
-      datePublished: post.data.date.toISOString(),
-      inLanguage: locale,
-      author: { '@type': 'Organization', name: 'sbu.dev' },
-    }]
-  : [];
+  ? [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.data.title,
+        description: post.data.description,
+        url,
+        mainEntityOfPage: url,
+        datePublished: post.data.date.toISOString(),
+        inLanguage: locale,
+        author,
+        publisher: ORG,
+      },
+      breadcrumbs(site, locale, [['sbu.dev', ''], [t.nav.blog, 'blog'], [post.data.title, path]]),
+    ]
+  : [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        name: t.feedTitle,
+        description: t.blogDescription,
+        url,
+        inLanguage: locale,
+        publisher: ORG,
+        blogPost: posts.map((entry) => ({
+          '@type': 'BlogPosting',
+          headline: entry.data.title,
+          url: new URL(localePath(locale, `blog/${entry.id.split('/')[1]}`), site).href,
+          datePublished: entry.data.date.toISOString(),
+        })),
+      },
+    ];
+// "Perché sbu.dev" already names the site.
+const postTitle = post && (post.data.title.includes('sbu.dev') ? post.data.title : `${post.data.title} · sbu.dev`);
 ---
 {post && Content ? (
-  <Base locale={locale} path={path} alternates={alternates} title={`${post.data.title} · sbu.dev`} description={post.data.description} jsonLd={jsonLd}>
+  <Base locale={locale} path={path} alternates={alternates} title={postTitle} description={post.data.description} jsonLd={jsonLd}>
     <article class="prose py-8">
       <PageTitle text={post.data.title} />
-      <p class="cartiglio">sbu.dev / {t.nav.blog} · <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time></p>
+      <p class="cartiglio">sbu.dev / {t.nav.blog} · <a href={localePath(locale, 'stampa')}>Matteo Giuditta</a> · <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, locale)}</time></p>
       <Content />
     </article>
   </Base>
 ) : (
-  <Base locale={locale} path={path} alternates={alternates} title={`${t.nav.blog} · sbu.dev`} description={t.blogDescription}>
+  <Base locale={locale} path={path} alternates={alternates} title={`${t.blogTitle} · sbu.dev`} description={t.blogDescription} jsonLd={jsonLd}>
     <section class="flex flex-col gap-6 py-8">
       <PageTitle text={t.nav.blog} />
       <ul class="flex flex-col gap-4">

@@ -4,9 +4,9 @@
 // engraving, as on its icon; an announced app with no page yet is an empty cell. Then "Il numero": what the
 // paid apps Sbu remakes cost, closed by the full stop. Then the six promises and the free tools.
 import Base from '../layouts/Base.astro';
-import mark from '../../../Design/logos/sbu-mark.svg?url';
 import { capitalize, formatDate, formatPrice, localePath, statusLabel, statusShort, ui } from '../i18n';
 import { text } from '../lib/apps';
+import { FOUNDER, ORG } from '../lib/jsonld';
 import { DEVELOPER_URL, PROFILES, REPO_URL } from '../lib/pages';
 import type { Route } from '../lib/routes';
 
@@ -132,19 +132,19 @@ const site = Astro.site!.href;
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'sbu.dev',
+    ...ORG,
     url: site,
-    logo: new URL(mark, site).href,
+    // A stable raster logo: the hashed SVG changes name on every build.
+    logo: new URL('/apple-touch-icon.png', site).href,
     sameAs: PROFILES,
-    founder: { '@type': 'Person', name: 'Matteo Giuditta', sameAs: ['https://github.com/mgiuditta', DEVELOPER_URL] },
+    founder: { ...FOUNDER, url: new URL(localePath(locale, 'stampa'), site).href, sameAs: ['https://github.com/mgiuditta', DEVELOPER_URL] },
   },
   {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [{ '@type': 'Question', name: copy.catch, acceptedAnswer: { '@type': 'Answer', text: [...copy.catchAnswer, copy.catchCode].join(' ') } }],
   },
-  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription },
+  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': 'https://sbu.dev/#website', name: 'sbu.dev', url: site, inLanguage: locale, description: t.siteDescription, publisher: ORG },
 ];
 ---
 <Base locale={locale} path={path} alternates={alternates} title={copy.title} description={copy.description} jsonLd={jsonLd} layout="wide">

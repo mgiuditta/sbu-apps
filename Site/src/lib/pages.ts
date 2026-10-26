@@ -8,6 +8,8 @@ interface Section {
 
 interface TextPage {
   title: string;
+  /** The search title, when the heading alone says too little: "Principi" names no topic. */
+  metaTitle?: string;
   description: string;
   sections: Section[];
   faq?: { q: string; a: string }[];
@@ -37,6 +39,7 @@ export const SUPPORT_EMAIL: string | undefined = 'matteogiuditta@gmail.com';
 const principles: Record<Locale, TextPage> = {
   it: {
     title: 'Principi',
+    metaTitle: 'Sei promesse: niente abbonamenti né tracking',
     description: 'Le sei promesse di ogni app Sbu: niente abbonamento, acquisti in-app, account, pubblicità o tracking. Come verificarle sull’App Store.',
     sections: [
       {
@@ -71,6 +74,7 @@ const principles: Record<Locale, TextPage> = {
   },
   en: {
     title: 'Principles',
+    metaTitle: 'Six promises: no subscriptions, no tracking',
     description: 'The six promises every Sbu app keeps: no subscription, in-app purchases, account, ads or tracking. How to check them on the App Store.',
     sections: [
       {

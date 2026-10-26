@@ -17,7 +17,7 @@ const jsonLd = [
   ...(page.faq?.length ? [faqPage(page.faq)] : []),
 ];
 ---
-<Base locale={locale} path={path} alternates={alternates} title={`${page.title} · sbu.dev`} description={page.description} jsonLd={jsonLd}>
+<Base locale={locale} path={path} alternates={alternates} title={`${page.metaTitle ?? page.title} · sbu.dev`} description={page.description} jsonLd={jsonLd}>
   <article class="prose py-8">
     <PageTitle text={page.title} accent={app?.accent} />
     {page.sections.map((section) => (
